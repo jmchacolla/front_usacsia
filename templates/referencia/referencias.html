@@ -1,0 +1,122 @@
+
+<div ng-include="'./templates/menu_inicio.html'"></div>
+<!-- CONTEXT-MENU  -->
+<div ng-include="'./templates/menu_lateral.html'">
+</div>
+<!-- CONTENIDO MODULO inicio -->
+<div class="col-md-8 col-sm-8">
+	<div class="row">
+		<div class="col-md-12">
+			<h2 class="text-primary">
+				<span class="glyphicon glyphicon-th-list" aria-hidden="true"></span>
+				{{ajustes.pagina.titulo}}
+			</h2>
+			 <hr class="bg-green">
+		</div>
+	</div>
+	<div class="row">
+		<div class="col-md-12">
+			<div class="well well-sm">
+				<strong class="pull-left lead">Herramientas: &nbsp;</strong>
+				<form class="form-inline pull-left">
+					<input type="text" class="form-control" placeholder="Filtrar por ..." ng-model="per_nombres">
+				</form>
+				&nbsp;&nbsp;
+				<!--<button class="btn btn-primary"><span class="glyphicon glyphicon-tasks"></span> Exportar lista en XLS</button>
+				<button class="btn btn-default"><span class="glyphicon glyphicon-save-file"></span> Exportar lista en PDF</button>-->
+				<div class="clearfix"></div>
+			</div>
+		</div>
+	</div>
+	<div class="row">
+		<div class="col-md-12 ">
+		<!-- AQUI VAN LAS TABLAS O FORMULARIOS incrustados -->
+		<!-- INICIO -->
+	        <div class="text-center" ng-show="loading"><br><img ng-src="./images/image.gif" class="loader-img"></div>
+	        <div ng-show="!loading && !msg">No se encontraron resultados</div>
+	        <div class="table-responsive">
+				<table class="table table-bordered table-hover" ng-show="!loading && msg">
+					<thead >
+						<th >Nº</th>
+	                    <th >Paciente</th>
+	                    <th class="col-md-6 col-lg-6">CI</th>
+	                    <th >
+							<a href="" ng-click="sortType = 'created_at'; sortReverse = !sortReverse">
+		                	Fecha
+		                	<span ng-show="sortType == 'created_at' && !sortReverse" class="glyphicon glyphicon-chevron-up"></span>
+		                    <span ng-show="sortType == 'created_at' && sortReverse" class="glyphicon glyphicon-chevron-down"></span>
+		                    </a>
+						</th>
+	                    <th >Seguro</th>
+	                    <th >Establecimiento Destino</th>
+	                    <th >Codigo</th>
+	                    <th >Motivo</th>
+	                    <th >Detalle</th>
+	                    <th ng-if="user.rol_id == '4' || user.rol_id == '9'" >Editar</th>
+	                    <th ng-if="user.rol_id == '2' || user.rol_id == '9'">Borrar</th>
+					</thead>
+					<tbody ng-repeat="referencia in referencias | orderBy:sortType:sortReverse | filter:per_nombres">
+					  <tr>
+						<td >{{$index + 1}}</td>
+						<td><!-- 3385649 -->
+							<!-- <a href="#/referencias/ver/{{referencia.br_id}}"> -->
+							<!-- <a> -->
+							{{referencia.per_apellido_primero + " " + referencia.per_apellido_segundo + " " + referencia.per_nombres}}<!-- </a> -->
+						</td>
+						<td>{{referencia.per_ci}}</td>
+						<td>{{referencia.created_at}}</td>
+						<td>{{referencia.br_seguro}}</td>
+						<td>{{referencia.es_nombre}}</td>
+						<td>{{referencia.br_cod}}</td>
+						<td>{{referencia.br_motivo}}</td>
+						<td >
+							<script>
+								$(document).ready(function(){
+								    $('[data-toggle="tooltip"]').tooltip();   
+								});
+							</script>
+							<a href="#referencias/ver/{{referencia.br_id}}" title="Ver" data-toggle="tooltip" class="btn btn-success"><span class="glyphicon glyphicon-file "></span></a>
+		  				</td>
+		  				<td  ng-if="user.rol_id == '4' || user.rol_id == '9'">
+							<a href="#/referencias/edit/{{referencia.br_id}}"><button class="btn btn-xl glyphicon glyphicon-pencil btn-primary" ng-disabled=" fun_idor != referencia.fe_id_origen"></button></a>
+						</td>
+		  				<td ng-if="user.rol_id == '2' || user.rol_id == '9'">
+
+							<!-- BOTON PARA CUADROS MODALES -->
+			  				<button class="btn btn-danger" title="Eliminar" ng-click="remove1(referencia.br_id,referencia.per_apellido_primero,referencia.per_apellido_segundo,referencia.per_nombres)" data-toggle="modal" data-target="#miCuadroModal1"><span class="glyphicon glyphicon-trash"></span></button>
+			  				<!--CUADRO MODAL-->
+						  	<div id="miCuadroModal1" class="modal fade" role="dialog" tabindex="-1">
+							  	<div class="modal-dialog">
+								    <div class="modal-content">
+								      <div class="modal-header bg-green">
+								        <button type="button" class="close" data-dismiss="modal">x</button>
+								        <h4 class="modal-title fg-white"> ELIMINAR REFERENCIA</h4>
+								      </div>
+								      <div class="modal-body lead text-center">
+								         <b>Esta seguro que desea eliminar la Referencia del paciente: 
+		   						        <div class="well well-sm">
+											<strong>{{nom+' '+ap1+' '+ap2}}</strong>
+										</div>
+								      </div>
+								      <div class="modal-footer">
+								        <button type="button" class="btn btn-primary" data-dismiss="modal" ng-click="remove()">
+								        <span class="glyphicon glyphicon-ok"></span>SI</button>
+								        <button type="button" class="btn btn-danger" data-dismiss="modal"><span class="glyphicon glyphicon-remove"></span>
+								        NO</button>
+								      </div>
+								    </div>
+								</div>
+							</div>
+							<!--FIN CUADRO MODAL-->
+
+		  				</td>	
+					  </tr>
+					</tbody>
+				</table>
+			</div>
+		</div>
+	</div>
+<!-- FIN -->
+<!-- AQUI VAN LOAS TABLAS O FORMULARIOS incrustados -->
+</div>
+<!-- CONTENIDO MODULO fin

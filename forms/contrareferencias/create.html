@@ -1,0 +1,400 @@
+<!--TOP-MENU inicio -->
+<div ng-include="'./templates/menu_inicio.html'"></div>
+<!-- CONTEXT-MENU  -->
+	<div ng-include="'./templates/menu_lateral.html'">
+	</div>
+<!-- CONTENIDO MODULO inicio -->
+<div class="col-md-8 col-sm-8">
+    <div class="row">
+      <div class="col-md-12">
+        <h2 class="text-primary">
+          <span class="glyphicon glyphicon-th-list" aria-hidden="true"></span>
+          {{ajustes.pagina.titulo}}
+        </h2>
+        <hr class="bg-green">
+      </div>
+    </div>
+    
+    <label class="control-label">Los campos marcados con asterisco<strong class="fg_red"> *</strong> son obligatorios</label>
+    <!--FIN herramientas para la vista-->
+    <div class="row">
+      	<div class="col-md-12">
+  		<!-- AQUI VAN LAS TABLAS O FORMULARIOS incrustados -->
+  		<!-- INICIO -->
+		<form name="userForm" novalidate>
+			<div class="well well-sm" style="background-color:#fff;" ng-controller="EstablecimientoPrestaCtrl" >
+	            <div class="panel">
+	              	<div class="text-center text-primary">I. ESTABLECIMIENTO AL QUE RETORNA EL USUARIO</div>
+	              	<hr class="bg-green">
+	              	<div class="panel-body">
+	              		<div class="row">
+			                <div class="col-md-6">
+			                  	<label class="control-label ">Establecimiento de salud:</label>
+			                    <input disabled type="" class="form-control" id="" ng-model="referencia.establecimiento_origen.es_nombre">
+			                </div>
+			                <div class="col-md-3">
+				               	<label class="control-label ">Fecha:</label>
+				               	<div class="input-group">
+			                        <label class="form-control">{{CurrentDate | date:'dd/MM/yyyy'}} </label>
+			                        <span class="input-group-addon">
+			                            <span class="glyphicon glyphicon-calendar"></span>
+			                        </span>
+			                    </div>
+			               	</div>
+			               	<div class="col-md-3">
+			               		<label class="control-label ">Hora:</label>
+			               		<div class="input-group">
+			                        <label class="form-control">{{CurrentDate | date:'HH:mm:ss'}}</label>
+			                        <span class="input-group-addon">
+			                            <span class="glyphicon glyphicon-time"></span>
+			                        </span>
+			                    </div>
+			                </div>
+		                </div>
+		                <div class="row">
+			               	<div class="form-group col-md-6">
+			                  	<label for="sevref" class="control-label ">Servicio Referente:<strong class="fg_red"> *</strong></label>
+			                    <input disabled type="" class="form-control" id="" ng-model="referencia.referencia.br_servicio_referente">
+			                </div>   
+			               	<div class="form-group col-md-6">
+			                  	<label class="control-label ">Red de Servicios:</label>
+			                    <input disabled type="" class="form-control" id="" ng-model="referencia.red.red_nombre">     
+			                </div>
+			                <div class="formulario">
+	                            <div class="checkbox">
+	                              <div class="col-md-6">
+	                                <input type="checkbox" ng-model="checked" ng-init="checked=false" id="contacto_ch" ng-click="reset_cont(checked)">
+	                                <label for="contacto_ch">Se Contacto al Establecimento</label>
+	                              </div>
+	                            </div>
+	                        </div>
+			                <div ng-if="checked" class=" col-md-6">
+				                <label class="control-label ">Nombre de la Persona Contactada:</label>
+				                <select class="form-control" ng-model="contrareferencia.fe_id_contacto" ng-options="funcionario.fe_id as funcionario.per_nombres+' '+funcionario.per_apellido_primero+' '+funcionario.per_apellido_segundo+'             '+'-'+'            '+funcionario.fe_cargo for funcionario in funcionarios">
+			                 	</select>
+							</div>
+							{{contrareferencia.fe_id_contacto}}
+	 					</div>
+	             	</div>
+	            </div>
+	            <div class="panel">
+	              	<div class="text-center text-primary">II. IDENTIFICACIÓN DEL USUARIO</div>
+	              	<hr class="bg-green">
+	              	<div class="panel-body">
+	              		<div class="row">
+			                <div class="form-group col-md-3">
+			                  	<label for="nomc" class="control-label">Nombres:</label>
+			                    <input name="nomc" disabled type="" class="form-control" id="" ng-model="referencia.persona_paciente.per_nombres">
+			                </div>
+			                <div class="form-group col-md-3">
+			                  	<label class="control-label ">Apellido Paterno:</label>
+			                    <input disabled type="" class="form-control" id="" ng-model="referencia.persona_paciente.per_apellido_primero">
+			                </div>
+			                <div class="form-group col-md-3 ">
+			                  	<label class="control-label ">Apellido Materno:</label>
+			                    <input disabled type="" class="form-control" id="" ng-model="referencia.persona_paciente.per_apellido_segundo">
+			                </div>
+			                <div ng-show="pac_edad.edad<=5">
+				                <div class="form-group col-md-1">
+				                  	<label class="control-label ">Edad:</label>
+				                    <input disabled type="" class="form-control" id="" ng-model="pac_edad.edad">
+				                </div>
+				                <div class="form-group col-md-1">
+				                  	<label class="control-label ">Meses:</label>
+				                    <input disabled type="" class="form-control" id="" ng-model="pac_edad.mes_n">
+				                </div>
+				                <div class="form-group col-md-1">
+				                  	<label class="control-label ">Dias:</label>
+				                    <input disabled type="" class="form-control" id="" ng-model="pac_edad.dia_a">
+				                </div>
+				            </div>
+				            <div ng-show="pac_edad.edad>6">
+				                <div class="form-group col-md-2">
+				                  	<label class="control-label ">Edad:</label>
+				                    <input disabled type="" class="form-control" id="" ng-model="pac_edad.edad">
+				                </div>
+				            </div>
+			            </div>
+			            <div class="row" >
+			            	<div ng-repeat="direccion in referencia.direccion">
+			            		<div class="form-group col-md-12" class="form-control">
+			                  	<label class="control-label ">Domiciio:</label>
+				                </div>
+				           <!-- <div class="form-group col-md-3 col-sm-3 col-xs-12 " class="form-control">
+				                  	Municipio:<input disabled type="" class="form-control" id="" ng-model="direccion.mun_id" >
+				                </div> -->
+				                <div class="form-group col-md-3 col-sm-3 col-xs-12 " class="form-control">
+				                  	Zona/Comunidad:<input disabled="" type="" class="form-control" id="" ng-model="direccion.dir_zona_comunidad">
+				                </div>
+				                <div class="form-group col-md-3 col-sm-3 col-xs-12 " class="form-control">
+				                  	Avenida/Calle:<input disabled type="" class="form-control" id="" ng-model="direccion.dir_avenida_calle">
+				                </div>
+				                <div class=" form-group col-md-3 col-sm-3 col-xs-12 " class="form-control">
+				                  	Nro.:<input disabled type="" class="form-control" id="" ng-model="direccion.dir_numero">
+				                </div>
+			            	</div>
+			            	<div class=" form-group col-md-3 col-sm-3 col-xs-12 " class="form-control">
+		                  		Seguro:<input disabled type="" class="form-control" id="" ng-model="referencia.referencia.br_seguro">
+		                	</div>
+			            </div>
+
+	             	</div>
+	            </div>
+	        	<div class="panel">
+	                <div class="text-center text-primary">III. DATOS CLÍNICOS</div>
+	                <hr class="bg-green">
+	                <div class="panel-body">
+	                    <div class="row">
+	                    	<div class="form-group col-md-3">
+	                    		<label class="control-label">Dias de Internación: <strong class="fg_red">*</strong></label>
+	                        	<input name="di" type="number" min="0" class="form-control" id="di" ng-model="contrareferencia.bc_dias_internacion" required ng-pattern="patternCadenaNumero" autofocus>
+	                        	 <span class="messages" ng-show="userForm.$submitted || userForm.di.$touched">
+					               <span ng-show="userForm.di.$error.required">El campo es obligatorio.</span>
+					               <span ng-show="userForm.di.$error.min">Los dias de internación no pueden ser negativos</span>
+					               <span ng-show="userForm.di.$error.pattern">Los dias de internación solo pueden ser enteros</span>
+					            </span>
+	                    	</div>
+
+	                   		<div class="form-group col-md-3">
+	                    		<label class="control-label">Sexo:</label>
+	                        	<input disabled type="" class="form-control" id="" ng-model="referencia.persona_paciente.per_genero">
+	                    	</div>
+	                    	<div class="form-group col-md-2">
+	                    		<label class="control-label">Peso(Kg):  <strong class="fg_red">*</strong></label>
+	                        	  <input name="peso" type="number" class="form-control" id="peso" placeholder="peso" ng-change="imc_fun(contrareferencia.bc_peso,contrareferencia.bc_talla)" ng-model="contrareferencia.bc_peso" min="0.5" max="200" required>
+					               <span class="messages" ng-show="userForm.$submitted || userForm.peso.$touched">
+					               		<span ng-show="userForm.peso.$error.required">El campo es obligatorio</span>
+					                	<span ng-show="userForm.peso.$error.max">El peso no puede exceder los 200 kilogramos</span>
+					               		<span ng-show="userForm.peso.$error.min">El peso no puede ser menor a 0.5 kilogramos</span>
+					               </span>
+	                    	</div>
+	                    	<div class="form-group col-md-2">
+	                    		<label class="control-label">Talla(m):  <strong class="fg_red">*</strong></label>
+	                        	  <input name="talla" type="number" class="form-control" id="talla" placeholder="talla" ng-change="imc_fun(contrareferencia.bc_peso,contrareferencia.bc_talla)" ng-model="contrareferencia.bc_talla" min="0.20" max="2.50" required>
+					               <span class="messages" ng-show="userForm.$submitted || userForm.talla.$touched">
+					               <span ng-show="userForm.talla.$error.required">El campo es obligatorio</span>
+					                <span ng-show="userForm.talla.$error.max">La Talla no puede exceder los 2.5 metros</span>
+					               <span ng-show="userForm.talla.$error.min">El peso no puede ser menor a 0.20 metros</span>
+					               </span>
+	                    	</div>
+	                    	<div class="form-group col-md-2">
+	                    		<label class="control-label">I.M.C.: </label>
+	                        	  <input disabled type=text class="form-control" id="talla" placeholder="talla" ng-model="imc">
+	                    	</div>
+
+	                    </div>
+	                    <div class="row">
+	                    	<div class="form-group col-md-2">
+	                    		<label class="control-label ">Temp(°C):  <strong class="fg_red">*</strong></label>
+	                        	
+	                        	<input name="temp" type="number" class="form-control" id="temp" placeholder="temp °C" ng-model="contrareferencia.bc_temp" min="20" max="50" required>
+					              <span class="messages" ng-show="userForm.$submitted || userForm.temp.$touched ">
+					               <span ng-show="userForm.temp.$error.required">El campo es obligatorio</span>
+					               <span ng-show="userForm.temp.$error.max">La temperatura no puede exceder de 50</span>
+					               <span ng-show="userForm.temp.$error.min">La temperatura no puede ser menor a 20</span>
+					               </span> 
+	                    	</div>
+	                    	
+	                   		<div class="col-md-6">
+	                   			<div class="form-group col-md-6">
+	                    			<label class="control-label ">P.A.S(mmHg): <strong class="fg_red">*</strong></label>
+	                        		<input name="pas" type="number" class="form-control" id="pas" placeholder="pa mmHg" ng-model="contrareferencia.bc_pa_sistolica" min="0" max="300" required>
+
+						            <span class="messages" ng-show="userForm.$submitted || userForm.pas.$touched">
+						               <span ng-show="userForm.pas.$error.required">El campo es obligatorio</span>
+						               <span ng-show="userForm.pas.$error.max">La presión sistólica no puede exceder de 300</span>
+						               <span ng-show="userForm.pas.$error.min">La presión sistólica no puede ser menor a 0</span>
+						            </span>
+						        </div>
+
+								<div class="form-group col-md-6">
+									<label class="control-label ">P.A.D(mmHg): <strong class="fg_red">*</strong></label>
+									<input name="pad" type="number" class="form-control" id="pad" placeholder="pa mmHg" ng-model="contrareferencia.bc_pa_diastolica" min="0" max="300" required>
+						              <span class="messages" ng-show="userForm.$submitted || userForm.pad.$touched">
+						               <span ng-show="userForm.pad.$error.required">El campo es obligatorio</span>
+						               <span ng-show="userForm.pad.$error.max">La presión diastólica no puede exceder de 300</span>
+						               <span ng-show="userForm.pad.$error.min">La presión diastólica no puede ser menor a 0</span>
+						              </span>
+					            </div>
+	                    	</div>
+
+	                    	<div class="form-group col-md-2">
+	                    		<label class="control-label ">F.C.(lpm): <strong class="fg_red">*</strong></label>
+	                        	
+	                        	<input name="fc" type="number" class="form-control" id="fc" placeholder="fc lpm" ng-model="contrareferencia.bc_fc" min="0" max="400"  required>
+					              <span class="messages" ng-show="userForm.$submitted || userForm.fc.$touched ">
+					               <span ng-show="userForm.fc.$error.required">El campo es obligatorio</span>
+					                <span ng-show="userForm.fc.$error.max">La frecuencia no puede exceder de 400</span>
+					               <span ng-show="userForm.fc.$error.min">La frecuencia no puede ser menor a 0</span>
+					              </span> 
+	                    	</div>
+	                    	<div class="form-group col-md-2 col-sm-6 col-xs-12">
+	                        	<label class="control-label ">F.R.(rpm): <strong class="fg_red">*</strong></label>
+	                        	
+	                        	<input name="fr" type="number" class="form-control" id="fr" placeholder="fr rpm" ng-model="contrareferencia.bc_fr" min="0" max="150"  required>
+					               <span class="messages" ng-show="userForm.$submitted || userForm.fr.$touched">
+					               <span ng-show="userForm.fr.$error.required">El campo es obligatorio</span>
+					               <span ng-show="userForm.fr.$error.max">La frecuencia no puede exceder de 150</span>
+					               <span ng-show="userForm.fr.$error.min">La frecuencia no puede ser menor a 0</span>
+					               </span> 
+	                    	</div>
+	                    </div>
+	                    <hr>
+	                    <div class="row">
+	                    	<div class="form-group col-md-4 col-sm-6">
+		                     	<label>Diagnóstico Ingreso:</label>
+		                        <textarea disabled class="form-control" style="resize: vertical;min-height:70px;max-height: 150px;" ng-model="referencia.referencia.br_diagnostico"></textarea>
+		                    </div>
+		                    <div class="form-group col-md-4 col-sm-6">
+		                     	<label for="diag">Diagnóstico Egreso: <strong class="fg_red">*</strong></label>
+		                        <textarea name="diag" class="form-control" style="resize: vertical;min-height:70px;max-height: 150px;" ng-model="contrareferencia.bc_diagnostico_egreso" required></textarea>
+		                         <span class="messages" ng-show="userForm.$submitted || userForm.diag.$touched">
+					              <span ng-show="userForm.diag.$error.required">El campo es obligatorio</span>
+					              </span>
+		                    </div>
+		                    <div class="form-group col-md-4 col-sm-6">
+		                     	<label for="evol">Evolución, Complicaciones: <strong class="fg_red">*</strong></label>
+		                        <textarea name="evol" class="form-control" style="resize: vertical;min-height:70px;max-height: 150px;" ng-model="contrareferencia.bc_complicaciones" required></textarea>
+		                        <span class="messages" ng-show="userForm.$submitted || userForm.evol.$touched">
+					              <span ng-show="userForm.evol.$error.required">El campo es obligatorio</span>
+					              </span>
+		                    </div>
+		                    
+	                    </div>
+	                    <div class="row">
+	                    	<div class="form-group col-md-4 col-sm-6">
+		                     	<label for="exam">Examenes Complementarios: <strong class="fg_red">*</strong></label>
+		                        <textarea name="exam" class="form-control" style="resize: vertical;min-height:70px;max-height: 150px;" ng-model="contrareferencia.bc_examenes_dx" required></textarea>
+		                        <span class="messages" ng-show="userForm.$submitted || userForm.exam.$touched">
+					              <span ng-show="userForm.exam.$error.required">El campo es obligatorio</span>
+					              </span>
+		                    </div>
+	                    	<div class="form-group col-md-4 col-sm-6">
+		                     	<label for="oexam">Otros Examenes: <strong class="fg_red">*</strong></label>
+		                        <textarea name="oexam" class="form-control" style="resize: vertical;min-height:70px;max-height: 150px;" ng-model="contrareferencia.bc_exa_interconsultas" required></textarea>
+		                        <span class="messages" ng-show="userForm.$submitted || userForm.oexam.$touched">
+					              <span ng-show="userForm.oexam.$error.required">El campo es obligatorio</span>
+					              </span>
+		                    </div>
+		                    <div class="form-group col-md-4 col-sm-6">
+		                     	<label for="tratRe">Tratamientos Realizados: <strong class="fg_red">*</strong></label>
+		                        <textarea name="tratRe" class="form-control" style="resize: vertical;min-height:70px;max-height: 150px;" ng-model="contrareferencia.bc_tratamientos" required></textarea>
+		                        <span class="messages" ng-show="userForm.$submitted || userForm.tratRe.$touched">
+					              <span ng-show="userForm.tratRe.$error.required">El campo es obligatorio</span>
+					              </span>
+		                    </div>
+		                   
+	                    </div>
+	                    <div class="row">
+		                    <div class="form-group col-md-6 col-sm-6">
+		                     	<label for="segt">Seguimiento a tratamiento: <strong class="fg_red">*</strong></label>
+		                        <textarea name="segt" class="form-control" style="resize: vertical;min-height:70px;max-height: 150px;" ng-model="contrareferencia.bc_seguimento_trat" required ></textarea>
+		                        <span class="messages" ng-show="userForm.$submitted || userForm.segt.$touched">
+					              <span ng-show="userForm.segt.$error.required">El campo es obligatorio</span>
+					              </span>
+		                    </div>
+		                    <div class="form-group col-md-6 col-sm-6">
+		                     	<label for="rec">Recomendaciones para el usuario: <strong class="fg_red">*</strong></label>
+		                        <textarea name="rec" class="form-control" style="resize: vertical;min-height:70px;max-height: 150px;" ng-model="contrareferencia.bc_recomendaciones" required></textarea>
+		                        <span class="messages" ng-show="userForm.$submitted || userForm.rec.$touched">
+					              <span ng-show="userForm.rec.$error.required">El campo es obligatorio</span>
+					             </span>
+		                    </div>
+	                    </div>
+	                    <div class="row">
+		                	<label class="control-label">La referencia fue: <strong class="fg_red">*</strong></label>&nbsp;<span>{{final}}</span>
+	                        <div class="row">
+	                          <div class="formulario">
+	                            <div class="checkbox">
+	                              <div class="col-md-3 col-sm-6">
+	                                <input type="checkbox" name="fue_1" id="r1" ng-checked="existe('JUSTIFICADA')" ng-click="busca('JUSTIFICADA')">
+	                                <label for="r1">JUSTIFICADA</label>
+	                              </div>
+	                              <div class="col-md-3 col-sm-6">
+	                                <input type="checkbox" name="fue_2" id="r2" ng-checked="existe('ADECUADA')" ng-click="busca('ADECUADA')">
+	                                <label for="r2">ADECUADA</label>
+	                              </div>
+	                              <div class="col-md-3 col-sm-6">
+	                                <input type="checkbox" name="fue_3" id="r3" ng-checked="existe('OPORTUNA')" ng-click="busca('OPORTUNA')">
+	                                <label for="r3">OPORTUNA</label>
+	                              </div>
+	                            </div>
+	                          </div>
+	                       </div>
+	                    </div>
+	            	</div>
+	            </div>
+	            <div class="panel">
+	                <div class="text-center text-primary">IV. ESTABLECIMIENTO DE SALUD QUE REALIZA LA CONTRAREFERENCIA</div>
+	                <hr class="bg-green">
+	                <div class="panel-body">
+	                	<div class="row">
+		                    <div class="col-md-4 col-sm-6 col-xs-12">
+		                        <label class="control-label ">Establecimiento de Salud:</label>
+		                        <input disabled type="" class="form-control" id="" ng-model="referencia.establecimiento_destino.es_nombre">
+		                    </div>
+			                <div class="col-md-4 col-sm-6 col-xs-12">
+			                    <label class="control-label ">Municipio:</label>
+			                    <input disabled type="" class="form-control" id="" ng-model="establecimiento.municipios.mun_nombre">
+			                </div>
+			                <div class="col-md-4 col-sm-6 col-xs-12">
+			                    <label class="control-label ">Servicio:</label>
+			                    <input disabled type="" class="form-control" id="" ng-model="referencia.referencia.br_servicio_destino">
+			                </div>
+			            </div>
+			            <div class="row">
+		                	<div class="formulario">
+	                            <div class="checkbox">
+	                              <div class="col-md-6 col-sm-6 col-xs-12">
+	                                <input type="checkbox" ng-model="checked_a" ng-init="checked_a=false" id="acomp_ch" ng-click="reset_acomp(checked_a)">
+	                                <label for="acomp_ch">Tiene acompañante</label>
+	                              </div>
+	                            </div>
+	                        </div>
+			                <div ng-if="checked_a" class="col-md-6 col-sm-6 col-xs-12">
+			                    <label class="control-label ">Nombre del acompañante:<strong class="fg_red">*</strong></label>
+			                    <input name="acompa" type="" class="form-control" id="" ng-model="contrareferencia.bc_acomp"  required ng-pattern="patternCadena" autofocus>
+			                    <span class="messages" ng-show="userForm.acompa.$touched">
+						            <span ng-show="userForm.acompa.$error.required">El campo es obligatorio.</span>
+						            <span ng-show="userForm.acompa.$error.pattern">No se admiten símbolos especiales o números.</span>
+						        </span>
+			                </div>
+			            </div>
+			            
+			            <div class="row">
+				            <div class="form-group">
+				            	<div class="col-md-8 col-sm-12 col-xs-12">
+				                    <label class="control-label ">Contacto del establecimiento que realiza la contrareferencia:</label>
+				                </div>
+				            </div>
+			            </div>
+			            <div class="row">
+				            <div class="form-group">
+				                <div class="col-md-8 col-sm-8 col-xs-12">
+				                	<label class="control-label ">Nombre:</label>
+	               					<input disabled type="" class="form-control" id="" ng-model="fun_origen">
+				                </div>
+				                <div class="col-md-4 col-sm-4 col-xs-12">
+				                	<label class="control-label ">Cargo:</label>
+	               					<input disabled type="" class="form-control" id="" ng-model="funcionario_contra.funcionario_establecimiento.fe_cargo">
+				                </div>
+				            </div>
+			            </div>
+	                </div>
+	            </div>
+	            <center>
+	            	<button type="submit" class="btn btn-primary" ng-disabled="userForm.$invalid" ng-click="save($parent.atiende,referencia.referencia.br_id,referencia.referencia.br_cod,referencia.referencia.br_servicio_referente,final);reset(userForm)"><span class="glyphicon glyphicon-save"></span>GUARDAR</button>
+	            	<a href="#/referenciasRec">
+	                  <button type="submit" data-toggle="modal"  class="btn btn-danger"  ><span class="glyphicon glyphicon-remove"></span> CANCELAR</button>
+	                </a>
+</a>
+	            </center>
+	       	</div>
+   		</form>
+   		<p ng-show="ajustes.pagina.success" class="alert alert-success">{{ajustes.pagina.success}}</p>
+		<!-- FIN -->
+		<!-- AQUI VAN LOAS TABLAS O FORMULARIOS incrustados -->
+		</div>
+	</div>
+</div>
+<!-- CONTENIDO MODULO fin

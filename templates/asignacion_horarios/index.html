@@ -1,0 +1,128 @@
+ <!--TOP-MENU inicio -->
+<div ng-include="'./templates/menu_inicio.html'"></div>
+<div ng-include="'./templates/menu_lateral.html'"></div>
+<!-- CONTENIDO MODULO inicio -->
+	<div class="col-md-8 col-sm-8">
+		<div class="row">
+			<div class="col-md-12">
+				<h2 class="text-primary">
+					<span class="glyphicon glyphicon-th-list" aria-hidden="true"></span>
+					{{ajustes.pagina.titulo}}
+				</h2>
+				<hr class="bg-green">
+			</div>
+		</div>
+		<div class="row">
+			<div class="col-md-12">
+				<div class="well well-sm">
+					<strong class="pull-left lead">Herramientas: &nbsp;</strong>
+					<form class="form-inline pull-left">
+						<input type="text" class="form-control" placeholder="Filtrar por ..." ng-model="ser_nombre">
+					</form>
+					&nbsp;&nbsp;
+					<!--<button class="btn btn-default" ><span class="glyphicon glyphicon-save-file"></span> Exportar lista en PDF</button>-->
+					<div class="clearfix"></div>
+				</div>
+			</div>
+		</div>
+		<div class="panel">
+			<div class="panel-body">
+				<div ng-show="loading" class="text-center"><br><img ng-src="./images/image.gif" class="loader-img"></div>
+				<div ng-show="!loading && !msg">No se encontraron resultados</div>
+				<div class="table-responsive">
+					<table class="table table-bordered table-hover" ng-show="!loading && msg">
+		            	<thead>
+		                	<th>Nº</th>
+		                	<th align="center">
+		                		<a href="" ng-click="sortType = 'ser_nombre'; sortReverse = !sortReverse">
+			                	Servicio
+			                	<span ng-show="sortType == 'ser_nombre' && !sortReverse" class="glyphicon glyphicon-chevron-up"></span>
+			                    <span ng-show="sortType == 'ser_nombre' && sortReverse" class="glyphicon glyphicon-chevron-down"></span>
+			                    </a>
+							</th>
+		                	<th>Funcionario</th>
+		                	<th>
+		                		<a href="" ng-click="sortType = 'con_nombre'; sortReverse = !sortReverse">
+			                	Consultorio
+			                	<span ng-show="sortType == 'con_nombre' && !sortReverse" class="glyphicon glyphicon-chevron-up"></span>
+			                    <span ng-show="sortType == 'con_nombre' && sortReverse" class="glyphicon glyphicon-chevron-down"></span>
+			                    </a>
+		                	</th>
+		                	<th>Vigencia</th>
+		                	<th>Detalle</th>
+		                	<th>Borrar</th>
+		              	</thead>
+		              	<tbody ng-repeat="horario in horarios | orderBy:sortType:sortReverse | filter:ser_nombre" >
+		                    <tr>
+								<td>{{$index + 1}}</td>
+								<td>{{horario.ser_nombre}}</td>
+								<td>{{horario.per_apellido_primero+"&nbsp;"+horario.per_apellido_segundo+"&nbsp;"+horario.per_nombres}}</td>
+								<td>{{horario.con_nombre}}</td>
+								<td>{{horario.ch_fecha_inicio + " - " + horario.ch_fecha_final}}</td>
+								<td>
+							  		<a href="#/horarios/ver/{{horario.ch_id}}" class="btn btn-success" title="Detalle"><span class="glyphicon glyphicon-file"></span>
+									</a>
+								</td>
+								<td>
+									<!-- BOTON PARA CUADROS MODALES -->
+				  					<button class="btn btn-danger" data-toggle="modal" ng-click="obt_asignacion(horario.ch_id,horario.fe_id,horario.ser_nombre,horario.con_nombre,horario.per_apellido_primero,horario.per_apellido_segundo,horario.per_nombres,horario.ch_fecha_inicio,horario.ch_fecha_final)" data-target="#miCuadroModal2" title="Eliminar Configuración de Horario"><span class="glyphicon glyphicon-trash"></span></button>
+				  					<!--CUADRO MODAL-->
+								  	<div id="miCuadroModal2" class="modal fade" role="dialog" tabindex="-1">
+									  	<div class="modal-dialog">
+										    <div class="modal-content">
+										      <div class="modal-header bg-green">
+										        <button type="button" class="close" data-dismiss="modal">x</button>
+										        <h4 class="modal-title fg-white"> ELIMINAR CONFIGURACIÓN DE HORARIO</h4>
+										      </div>
+										      <div class="modal-body lead">
+										      	¿Esta seguro que quiere eliminar la siguiente configuración de horario?<br>
+										      	<span class="text-primary">Servicio: </span>{{servicio}}<br>
+										      	<span class="text-primary">Consultorio: </span>{{consultorio}}<br>
+										      	<span class="text-primary">Funcionario: </span>{{nombre_funcionario}}<br>
+										      	<span class="text-primary">Vigencia: </span>{{finicio + " a " + ffin}}<br><br>
+										      </div>
+										      <div class="modal-footer">
+										      	<br>
+										        <button type="button" class="btn btn-primary" data-dismiss="modal" ng-click="eliminar(ch_id)">
+										        <span class="glyphicon glyphicon-ok"></span> SI</button>
+										        <button type="button" class="btn btn-danger" data-dismiss="modal"><span class="glyphicon glyphicon-remove"></span>
+										        NO</button>
+										      </div>
+										    </div>
+										</div>
+									</div>
+								</td>
+						  	</tr>
+		                </tbody>
+		            </table>
+		        </div>
+	        </div>
+		</div>
+	</div>
+</div>
+<!-- CONTENIDO MODULO fin!-->
+<!-- script para la fecha  -->
+<script type="text/javascript">
+	 $.datepicker.regional['es'] = {
+ closeText: 'Cerrar',
+ prevText: '< Ant',
+ nextText: 'Sig >',
+ currentText: 'Hoy',
+ monthNames: ['Enero', 'Febrero', 'Marzo', 'Abril', 'Mayo', 'Junio', 'Julio', 'Agosto', 'Septiembre', 'Octubre', 'Noviembre', 'Diciembre'],
+ monthNamesShort: ['Ene','Feb','Mar','Abr', 'May','Jun','Jul','Ago','Sep', 'Oct','Nov','Dic'],
+ dayNames: ['Domingo', 'Lunes', 'Martes', 'Miércoles', 'Jueves', 'Viernes', 'Sábado'],
+ dayNamesShort: ['Dom','Lun','Mar','Mié','Juv','Vie','Sáb'],
+ dayNamesMin: ['Do','Lu','Ma','Mi','Ju','Vi','Sá'],
+ weekHeader: 'Sm',
+ dateFormat: 'yy-mm-dd',
+ firstDay: 1,
+ isRTL: false,
+ showMonthAfterYear: false,
+ yearSuffix: ''
+ };
+
+ $.datepicker.setDefaults($.datepicker.regional['es']);
+    $( function() {
+      $( "#fecha_asignacion" ).datepicker();
+    } );
+</script>

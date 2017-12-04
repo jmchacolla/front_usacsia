@@ -1,0 +1,646 @@
+<!-- CONTEXT-MENU  -->
+<div ng-include="'./templates/menu_inicio.html'"></div>
+<div ng-include="'./templates/menu_lateral.html'"></div>
+<!-- CONTENIDO MODULO inicio -->	
+<div class="col-md-8 col-sm-8">
+	<div class="row">
+		<div class="col-md-12">
+			<h2 class="text-primary">
+				<span class="glyphicon glyphicon-calendar" aria-hidden="true"></span>
+				{{ajustes.pagina.titulo}}
+			</h2>
+			<hr class="bg-green">
+		</div>
+	</div>
+	<div class="row">
+		<div class="col-md-12">
+			<!-- INICIO -->
+			<div class="well well-sm" style="background-color:#fff;">
+				<form name="userForm" novalidate>
+					<div class="row">
+						<div class="col-md-4">
+						  <div class="form-group">
+							<label class="control-label">1) Seleccione un consultorio:</label>
+							<select name="consu" class="form-control" ng-change="asi.buscaCons1()" ng-model="asi.con_id" ng-options="consultorio.con_id as consultorio.con_nombre for consultorio in consultorios  track by consultorio.con_id" required>
+								<option value="">--Elige opcion--</option>
+	                        </select>
+	                        <span class="messages" ng-show="userForm.$submitted || userForm.consu.$touched ">
+				                <span ng-show="userForm.consu.$error.required">El campo es obligatorio</span>
+				            </span>
+						  </div>
+						</div>	
+				       	<div class="col-md-4">
+						  <div class="form-group">
+							<label class="control-label">2) Seleccione un servicio:</label>
+							<select name="serv" class="form-control" ng-model="servicio.sc_id" ng-options="servicio.sc_id as servicio.ser_nombre for servicio in asi.cons" required>
+								<option value="">--Elige opcion--</option>
+	                        </select>
+	                        <span class="messages" ng-show="userForm.$submitted || userForm.serv.$touched ">
+				                <span ng-show="userForm.serv.$error.required">El campo es obligatorio</span>
+				            </span>
+						  </div>
+						</div>
+						<div class="col-md-4">
+						  <div class="form-group">
+							<label class="control-label">3) Seleccione un funcionario:</label>
+							<select name="funci" class="form-control" ng-model="funcionario.fe_id" ng-options="funcionario.fe_id as  funcionario.per_nombres+' '+funcionario.per_apellido_primero+' '+funcionario.per_apellido_segundo for funcionario in funcionarios" required>
+								<option value="">--Elige opcion--</option>
+							</select>
+							<span class="messages" ng-show="userForm.$submitted || userForm.funci.$touched ">
+				                <span ng-show="userForm.funci.$error.required">El campo es obligatorio</span>
+				            </span>
+	                      </select>
+						  </div>
+						</div>	
+				  	</div> 
+					<br>
+
+			        <div class="row">
+						<div class="col-md-5">
+							<div class="well well-sm text-right">
+								<strong> La presente asignación estara vigente del:</strong>
+							</div>
+						</div>	  
+						<div class="col-md-3">
+				            <!-- <label class="control-label">Fecha recepción:</label> -->
+				            <div class='input-group date'>
+				                <input  name="myDateInput" type="text" class="form-control" id="datepicker" placeholder="dd-mm-aaaa" ng-model="ch_fecha_inicio"   required my-valid-date  ng-change="compara(ch_fecha_inicio,ch_fecha_final)">
+				                <span class="input-group-addon" >
+				                    <span class="glyphicon glyphicon-calendar"></span>
+				                </span>
+				            </div>
+				            <!-- <div>{{userForm.myDateInput.$invalid}}</div> -->
+				            <span class="messages" ng-show="userForm.myDateInput.$touched">
+				               	<span ng-show="userForm.myDateInput.$error.required">El campo es obligatorio</span>
+				            	  	<span ng-show="res">La fecha inicio es menor a la fecha final</span>
+	                                <span ng-show="userForm.myDateInput.$invalid">No es una fecha valida</span>
+				            </span>
+				            <!-- <span ng-show="userForm.myDateInput.$error.pattern">La Fecha no es valida  :(.</span> -->
+			                <!--  my-valid-date required <span class="messages" ng-show="userForm.$submitted ||  userForm.myDateInput.$touched">
+				               	<span ng-show="userForm.myDateInput.$error.required">El campo es obligatorio</span>
+			                        <span ng-show="userForm.myDateInput.$error.pattern">La Fecha no es valida  :(.
+			                        </span>
+	                            </span> -->
+	                    </div>
+						<div class="col-md-1">
+							<div class="well well-sm text-center">
+								<strong>al:</strong>
+							</div>
+						</div>	  
+						<div class="col-md-3">
+						    <div class='input-group date'>
+			                   <input name="myDateInput2" type="text" class="form-control" id="datepicker1" placeholder="dd-mm-aaaa" ng-model="ch_fecha_final"   required my-valid-date ng-change="compara(ch_fecha_inicio,ch_fecha_final)">
+			                   <span class="input-group-addon">
+			                        <span class="glyphicon glyphicon-calendar"></span>
+			                    </span>
+			                </div>
+			                <!-- <div> here is {{userForm.myDateInput2.$invalid}}</div> -->
+			                <span class="messages" ng-show="userForm.myDateInput2.$touched">
+				              	<span ng-show="userForm.myDateInput2.$error.required">El campo es obligatorio</span>
+				               	<span ng-show="res">La fecha inicio es menor a la fecha final</span>
+				               	<span ng-show="userForm.myDateInput2.$invalid">No es una fecha valida</span>
+				            </span>
+				            <!-- my-valid-date required  <span class="messages" ng-show="userForm.$submitted ||  userForm.myDateInput2.$touched">
+				              	<span ng-show="userForm.myDateInput2.$error.required">El campo es obligatorio</span>
+			                        <span ng-show="userForm.myDateInput2.$error.pattern">La Fecha no es valida  :(.
+			                        </span>
+	                            </span> -->
+			            </div>
+			      	</div>
+			      	<br>
+					<!-- <div ng-form="myForm">  
+						<input my-valid-date ng-model="myDate" name="myDateInput" type="text" placeholder="D-M-YYYY" />
+	        			<div class="output">
+	          				<code>myDate</code> value: {{ myDate }}
+	        			</div>
+	        			<div class="output">
+	          				<code>myForm.myDateInput</code> valid: <strong>{{ myForm.myDateInput.$valid }}</strong>
+	        			</div>
+					</div> -->
+			      	<div class="row">
+						<div class="col-md-4 col-md-offset-4 text-center">
+							<button  type="submit" class="btn btn-primary" ng-disabled="userForm.$invalid || btn_continuar==true"  ng-click="submit(ch_fecha_inicio, ch_fecha_final,servicio.sc_id,funcionario.fe_id); ver_horarios()"><span class="glyphicon glyphicon-chevron-right"></span> Continuar</button>
+						</div>	  
+					</div>
+
+				</form>
+				<form name="userForm1" novalidate>
+					<hr>
+					<div ng-if="btn_continuar">
+						<div class="row" >
+							<div class="col-md-12">
+								<div class="well well-sm text-center lead">
+									<strong>Especifique el horario en el que el funcionario va a trabajar:</strong>
+								</div>
+							</div>	  
+						</div>	  
+						<div class="row">
+							<div class="col-md-12">
+								<div class="table-responsive">
+									<table class="table table-bordered table-condensed table-stripped">
+										<tr>
+											<th class="text-center">Turno</th>
+											<th class="text-center">Hora atención</th>
+											<th class="text-center"># Fichas </th>
+											<th class="text-center">Lunes</th>
+											<th class="text-center">Martes</th>
+											<th class="text-center">Miercoles</th>
+											<th class="text-center">Jueves</th>
+											<th class="text-center">Viernes</th>
+											<th class="text-center">Sabado</th>
+											<th class="text-center">Domingo</th>
+										</tr>
+										<!-- TURNO MAÑANA -->
+										<tr>
+											<td class="lead text-center text-primary">
+												<div style="height:55px;"></div>
+												Mañana
+											</td>
+											<td>
+												<div class="well well-sm">
+													<strong>De:</strong><br>
+													<!-- <input name="hora_ini_m" type="time" class="form-control" title="titulooooo" placeholder="Ej: 8:30" ng-model="ct_ini_turno_m"> horas_m(ct_ini_turno_m,ct_fin_turno_m);-->
+													<div class="input-group clockpicker" data-align="top" data-autoclose="true">
+						                            	<input min="07:00:00"  type="text" class="form-control" name="hora_ini_m" placeholder="Ej: 08:30" ng-model="ct_ini_turno_m" required ng-pattern="patternHora" ng-change="calculaat(ct_ini_turno_m,ct_fin_turno_m,ct_ficha_total_m)" >
+						                            	<span class="input-group-addon">
+						                                	<span class="glyphicon glyphicon-time"></span>
+						                            	</span>
+					                            	</div>
+					                            	<span class="messages" ng-show="userForm1.hora_ini_m.$touched">
+					                            	    <span ng-show="userForm1.hora_ini_m.$error.required">El campo es obligatorio.</span>
+								        				<span ng-show="userForm1.hora_ini_m.$error.pattern">No se permiten símbolos especiales o letras.</span>
+								        				<span ng-show="res_h_m">No puede ser menor de 7</span>
+								        				<span ng-show="userForm1.hora_ini_m.$error.max">No puede ser mayor de 12</span>
+					      						    </span>
+					      						    <strong>a:</strong><br>
+													<!-- <input name="hora_fin_m" type="time" class="form-control" placeholder="Ej: 12:30" ng-model="ct_fin_turno_m"> -->
+													<div class="input-group clockpicker" data-align="top" data-autoclose="true">
+						                            	<input  type="text" class="form-control" name="hora_fin_m" placeholder="Ej: 12:30" ng-model="ct_fin_turno_m" required ng-pattern="patternHora"  ng-change="horas_m(ct_ini_turno_m,ct_fin_turno_m);calculaat(ct_ini_turno_m,ct_fin_turno_m,ct_ficha_total_m)">
+						                            	<span class="input-group-addon">
+						                                	<span class="glyphicon glyphicon-time"></span>
+						                            	</span>
+					                            	</div>
+					                            	<span class="messages" ng-show="userForm1.hora_fin_m.$touched">
+								        				<span ng-show="userForm1.hora_fin_m.$error.required">El campo es obligatorio.</span>
+								        				<span ng-show="userForm1.hora_fin_m.$error.pattern">No se permiten símbolos especiales o letras.</span>
+								        				<span ng-show="res_hf_m">No puede ser mayor de 12:30</span>
+								        				<span ng-show="userForm.hora_fin_m.$error.max">No puede ser mayor de 12</span>
+					      						    </span>
+					                        	</div>
+											</td>
+											<td >
+												<!-- <div style="height:55px;"></div> -->
+												<div class="well well-sm">
+													<strong>TOTAL:</strong><br>
+													<input name="ft_m" type="number" class="form-control" ng-model="ct_ficha_total_m" min="0" required ng-change="calculaat(ct_ini_turno_m,ct_fin_turno_m,ct_ficha_total_m)">
+													<span class="messages" ng-show="userForm1.ft_m.$touched">
+								                    	<span ng-show="userForm1.ft_m.$error.required">El campo es obligatorio</span>
+								                    	<span ng-show="userForm1.ft_m.$error.min">No puede ser menor a 0</span>
+								                    	<span ng-show="error_total_fichas_m">El número de fichas excede la capacidad de atención.</span>
+							                        </span>
+													<!--</td>
+													<td class="text-center"> -->
+													<!-- <div style="height:55px;"></div> -->
+													<strong>RESERVA:</strong><br>
+													<input name="fs_m" type="number" class="form-control" ng-model="ct_ficha_sesar_m" min="0"  required>
+													<span class="messages" ng-show="userForm1.fs_m.$touched">
+								                    	<span ng-show="userForm1.fs_m.$error.required">El campo es obligatorio</span>
+								                    	<span ng-show="userForm.fs_m.$error.min">No puede ser menor a 0</span>
+							                        </span>
+						                        </div>
+											</td>
+											<!-- class="text-center" success : !check1,   ng-class='{success : check2, danger: !check2}'-->
+											<td ng-class='{danger: check1}' >
+												<div style="height:45px;"></div>
+												<div class="checkbox" ng-if="!check1">
+													<label style="font-size: 1.5em">
+														<!--  ng-disabled="check1==true" ng-disabled="hora_ini_m==null || hora_fin_m==null || ct_ficha_total_m==null || ct_ficha_sesar_m==null"-->
+														<input ng-disabled="ct_ini_turno_m==null || ct_fin_turno_m==null || ct_ficha_total_m==null || ct_ficha_sesar_m==null"  name="uno" type="checkbox"  value="" ng-model="check1"  ng-click="submit2(ct_ini_turno_m,ct_fin_turno_m, 1,'MAÑANA',ct_ficha_total_m,ct_ficha_sesar_m,check1);elim(checkl1)">
+														<span class="cr"><i class="cr-icon glyphicon glyphicon-ok"></i></span>
+													</label>
+												</div>
+												<div ng-if="check1">
+													<small>{{apellido1}}</small>
+												</div>
+											</td>
+											<td ng-class='{danger: check2}'>
+												<div style="height:45px;"></div>
+												<div class="checkbox" ng-if="!check2">
+													<label style="font-size: 1.5em">
+														<!--   ng-disabled="check2==true"-->
+														<input ng-disabled="ct_ini_turno_m==null || ct_fin_turno_m==null || ct_ficha_total_m==null || ct_ficha_sesar_m==null" name="dos" type="checkbox"  title="titulooooo" value="" ng-model="check2" ng-click="submit2(ct_ini_turno_m,ct_fin_turno_m,2,'MAÑANA',ct_ficha_total_m,ct_ficha_sesar_m,check2);elim(checkm1)" >
+														<span class="cr"><i class="cr-icon glyphicon glyphicon-ok"></i></span>
+													</label>
+												</div>
+												<div ng-if="check2">
+													<small>{{apellido2}}</small>
+												</div>
+											</td>
+											<td ng-class='{ danger: check3}'>
+												<div style="height:45px;"></div>
+												<div class="checkbox" ng-if="!check3">
+													<label style="font-size: 1.5em">
+														<!-- ng-disabled="check3=true" -->
+														<input ng-disabled="ct_ini_turno_m==null || ct_fin_turno_m==null || ct_ficha_total_m==null || ct_ficha_sesar_m==null" name="tres" type="checkbox"  value="" ng-model="check3" ng-click="submit2(ct_ini_turno_m,ct_fin_turno_m,3,'MAÑANA',ct_ficha_total_m,ct_ficha_sesar_m,check3);elim(checkmi1)" >
+														<span class="cr"><i class="cr-icon glyphicon glyphicon-ok"></i></span>
+													</label>
+												</div>
+												<div ng-if="check3">
+													<small>{{apellido3}}</small>
+												</div>
+											</td>
+											<td ng-class='{danger: check4}'>
+												<div style="height:45px;"></div>
+												<div class="checkbox" ng-if="!check4">
+													<label style="font-size: 1.5em">
+														<!-- ng-disabled="check4=true" -->
+														<input ng-disabled="ct_ini_turno_m==null || ct_fin_turno_m==null || ct_ficha_total_m==null || ct_ficha_sesar_m==null" name="cuatr" type="checkbox"  value="" ng-model="check4" ng-click="submit2(ct_ini_turno_m,ct_fin_turno_m,4,'MAÑANA',ct_ficha_total_m,ct_ficha_sesar_m,check4);elim(checkj1)" >
+														<span class="cr"><i class="cr-icon glyphicon glyphicon-ok"></i></span>
+													</label>
+												</div>
+												<div ng-if="check4">
+													<small>{{apellido4}}</small>
+												</div>
+											</td>
+											<td ng-class='{danger: check5}'>
+												<div style="height:45px;"></div>
+												<div class="checkbox" ng-if="!check5"><label style="font-size: 1.5em">
+												<!-- ng-disabled="check5=true" -->
+													<input ng-disabled="ct_ini_turno_m==null || ct_fin_turno_m==null || ct_ficha_total_m==null || ct_ficha_sesar_m==null" name="cinc" type="checkbox"  value="" ng-model="check5" ng-click="submit2(ct_ini_turno_m,ct_fin_turno_m,5,'MAÑANA',ct_ficha_total_m,ct_ficha_sesar_m,check5);elim(checkv1)" >
+													<span class="cr"><i class="cr-icon glyphicon glyphicon-ok"></i></span>
+												</label></div>
+												<div ng-if="check5">
+													<small>{{apellido5}}</small>
+												</div>
+											</td>
+											<td ng-class='{danger: check6}'>
+												<div style="height:45px;"></div>
+												<div class="checkbox" ng-if="!check6">
+													<label style="font-size: 1.5em">
+														<!-- ng-disabled="check6=true"  -->
+														<input ng-disabled="ct_ini_turno_m==null || ct_fin_turno_m==null || ct_ficha_total_m==null || ct_ficha_sesar_m==null" name="seis" type="checkbox" value="" ng-model="check6" ng-click="submit2(ct_ini_turno_m,ct_fin_turno_m,6,'MAÑANA',ct_ficha_total_m,ct_ficha_sesar_m,check6);elim(checks1)" >
+														<span class="cr"><i class="cr-icon glyphicon glyphicon-ok"></i></span>
+													</label>
+												</div>
+												<div ng-if="check6">
+													<small>{{apellido6}}</small>
+												</div>
+											</td>
+											<td ng-class='{danger: check7}'>
+												<div style="height:45px;"></div>
+												<div class="checkbox" ng-if="!check7">
+													<label style="font-size: 1.5em">
+														<!-- ng-disabled="check7=true"  -->
+														<input ng-disabled="ct_ini_turno_m==null || ct_fin_turno_m==null || ct_ficha_total_m==null || ct_ficha_sesar_m==null" name="siet" type="checkbox" value="" ng-model="check7" ng-click="submit2(ct_ini_turno_m,ct_fin_turno_m,7,'MAÑANA',ct_ficha_total_m,ct_ficha_sesar_m,check7);elim(checkd1)" >
+														<span class="cr"><i class="cr-icon glyphicon glyphicon-ok"></i></span>
+													</label>
+												</div>
+												<div ng-if="check7">
+													<small>{{apellido7}}</small>
+												</div>
+											</td>
+										</tr>
+										<!-- TURNO TARDE -->
+										<tr>
+											<td class="lead text-center">
+												<span class="text-primary">
+													<div style="height:55px;"></div>
+													Tarde
+												</span>
+											</td>
+											<td>
+												<div class="well well-sm">
+													<strong>De:</strong><br>
+													<!-- 	<input name="hora_ini_t" type="text" class="form-control" placeholder="Ej: 13:00" ng-model="ct_ini_turno_t"> -->
+													<div class="input-group clockpicker" data-align="top" data-autoclose="true">
+					                            		<input  type="text" class="form-control" name="hora_ini_t" placeholder="Ej: 13:00" ng-model="ct_ini_turno_t" required ng-pattern="patternHora" >
+						                            	<span class="input-group-addon">
+						                                	<span class="glyphicon glyphicon-time"></span>
+						                            	</span>
+					                            		<span class="messages" ng-show="userForm1.hora_ini_t.$touched">
+								        					<span ng-show="userForm1.hora_ini.$error.required">El campo es obligatorio.</span>
+								        					<span ng-show="userForm1.hora_ini_t.$error.pattern">No se permiten símbolos especiales o letras.</span>
+						      						    </span>
+					                        	    </div>
+													<strong>a:</strong><br>
+													<!-- <input name="hora_fin_t" type="text" class="form-control" placeholder="Ej: 17:30" ng-model="ct_fin_turno_t"> -->
+													<div class="input-group clockpicker" data-align="top" data-autoclose="true">
+						                            	<input max="" min=""  type="text" class="form-control" name="hora_fin_t" placeholder="Ej: 17:30" ng-model="ct_fin_turno_t" required ng-pattern="patternHora" >
+						                            	<span class="input-group-addon">
+						                                	<span class="glyphicon glyphicon-time"></span>
+						                            	</span>
+						                            	<span class="messages" ng-show="userForm1.hora_fin_t.$touched">
+									        				<span ng-show="userForm1.hora_fin_t.$error.required">El campo es obligatorio.</span>
+									        				<span ng-show="userForm1.hora_fin_t.$error.pattern">No se permiten símbolos especiales o letras.</span>
+						      						    </span>
+						                        	</div>
+												</div>
+											</td>
+											<td >
+												<!-- <div style="height:55px;"></div> -->
+												<div class="well well-sm">
+													<strong>TOTAL:</strong><br>
+													<input name="ft_t" type="number" class="form-control" ng-model="ct_ficha_total_t" required>
+													<span class="messages" ng-show="userForm1.ft_t.$touched">
+								                    	<span ng-show="userForm1.ft_t.$error.required">El campo es obligatorio</span>
+								                    	<span ng-show="userForm1.ft_t.$error.min">No puede ser menor a 0</span>
+								                    	<span ng-show="error_total_fichas_t">El número de fichas excede la capacidad de atención.</span>
+							                        </span>
+													<!-- </td>
+													<td class="text-center"> -->
+													<!-- <div style="height:55px;"></div> -->
+													<strong>RESERVA:</strong><br>
+													<input name="fs_t" type="number" class="form-control" ng-model="ct_ficha_sesar_t" required>
+													<span class="messages" ng-show="userForm1.fs_t.$touched">
+								                    	<span ng-show="userForm1.fs_t.$error.required">El campo es obligatorio</span>
+								                    	<span ng-show="userForm1.fs_t.$error.min">No puede ser menor a 0</span>
+							                        </span>
+												</div>
+											</td>
+											<td ng-class='{ danger: check8}'>
+												<div style="height:45px;"></div>
+												<div class="checkbox" ng-if="!check8">
+													<label style="font-size: 1.5em">
+														<!-- ng-disabled="check8=true"  -->
+														<input ng-disabled="ct_ini_turno_t==null || ct_fin_turno_t==null || ct_ficha_total_t==null || ct_ficha_sesar_t==null" name="ocho" type="checkbox" value="" ng-model="check8" ng-click="submit2(ct_ini_turno_t,ct_fin_turno_t,1,'TARDE',ct_ficha_total_t,ct_ficha_sesar_t,check8);elim(checkl2)" >
+														<span class="cr"><i class="cr-icon glyphicon glyphicon-ok"></i></span>
+													</label>
+												</div>
+												<div ng-if="check8">
+													<small>{{apellido8}}</small>
+												</div>
+											</td>
+											<td ng-class='{danger: check9}'>
+												<div style="height:45px;"></div>
+												<div class="checkbox" ng-if="!check9">
+													<label style="font-size: 1.5em">
+														<!-- ng-disabled="check9=true"  -->
+														<input ng-disabled="ct_ini_turno_t==null || ct_fin_turno_t==null || ct_ficha_total_t==null || ct_ficha_sesar_t==null" name="nueve" type="checkbox" value="" ng-model="check9" ng-click="submit2(ct_ini_turno_t,ct_fin_turno_t,2,'TARDE',ct_ficha_total_t,ct_ficha_sesar_t,check9);elim(checkm2)">
+														<span class="cr"><i class="cr-icon glyphicon glyphicon-ok"></i></span>
+													</label>
+												</div>
+												<div ng-if="check9">
+													<small>{{apellido9}}</small>
+												</div>
+											</td>
+											<td ng-class='{danger: check10}'>
+												<div style="height:45px;"></div>
+												<div class="checkbox" ng-if="!check10">
+													<label style="font-size: 1.5em">
+														<!-- ng-disabled="check10=true"  -->
+														<input ng-disabled="ct_ini_turno_t==null || ct_fin_turno_t==null || ct_ficha_total_t==null || ct_ficha_sesar_t==null" name="diez" type="checkbox" value="" ng-model="check10" ng-click="submit2(ct_ini_turno_t,ct_fin_turno_t,3,'TARDE',ct_ficha_total_t,ct_ficha_sesar_t,check10);elim(checkmi2)">
+														<span class="cr"><i class="cr-icon glyphicon glyphicon-ok"></i></span>
+													</label>
+												</div>
+												<div ng-if="check10">
+													<small>{{apellido10}}</small>
+												</div>
+											</td>
+											<td ng-class='{danger: check11}'>
+												<div style="height:45px;"></div>
+												<div class="checkbox" ng-if="!check11">
+													<label style="font-size: 1.5em">
+														<!-- ng-disabled="check11=true" -->
+														<input ng-disabled="ct_ini_turno_t==null || ct_fin_turno_t==null || ct_ficha_total_t==null || ct_ficha_sesar_t==null" name="once" type="checkbox"  value="" ng-model="check11" ng-click="submit2(ct_ini_turno_t,ct_fin_turno_t,4,'TARDE',ct_ficha_total_t,ct_ficha_sesar_t,check11);elim(checkj2)">
+														<span class="cr"><i class="cr-icon glyphicon glyphicon-ok"></i></span>
+													</label>
+												</div>
+												<div ng-if="check11">
+													<small>{{apellido11}}</small>
+												</div>
+											</td>
+											<td ng-class='{danger: check12}'>
+												<div style="height:45px;"></div>
+												<div class="checkbox" ng-if="!check12">
+													<label style="font-size: 1.5em">
+														<!-- ng-disabled="check12=true"  -->
+														<input ng-disabled="ct_ini_turno_t==null || ct_fin_turno_t==null || ct_ficha_total_t==null || ct_ficha_sesar_t==null" name="doce" type="checkbox" value="" ng-model="check12" ng-click="submit2(ct_ini_turno_t,ct_fin_turno_t,5,'TARDE',ct_ficha_total_t,ct_ficha_sesar_t,check12);elim(checkv2)">
+														<span class="cr"><i class="cr-icon glyphicon glyphicon-ok"></i></span>
+													</label>
+												</div>
+												<div ng-if="check12">
+													<small>{{apellido12}}</small>
+												</div>
+											</td>
+											<td ng-class='{ danger: check13}'>
+												<div style="height:45px;"></div>
+												<div class="checkbox" ng-if="!check13">
+													<label style="font-size: 1.5em">
+														<!-- ng-disabled="check13=true" -->
+														<input ng-disabled="ct_ini_turno_t==null || ct_fin_turno_t==null || ct_ficha_total_t==null || ct_ficha_sesar_t==null" name="trec" type="checkbox"   value="" ng-model="check13" ng-click="submit2(ct_ini_turno_t,ct_fin_turno_t,6,'TARDE',ct_ficha_total_t,ct_ficha_sesar_t,check13);elim(checks2)">
+														<span class="cr"><i class="cr-icon glyphicon glyphicon-ok"></i></span>
+													</label>
+												</div>
+												<div ng-if="check13">
+													<small>{{apellido13}}</small>
+												</div>
+											</td>
+											<td ng-class='{danger: check14}'>
+												<div style="height:45px;"></div>
+													<div class="checkbox" ng-if="!check14"><label style="font-size: 1.5em">
+														<!-- ng-disabled="check14=true"  -->
+														<input ng-disabled="ct_ini_turno_t==null || ct_fin_turno_t==null || ct_ficha_total_t==null || ct_ficha_sesar_t==null" name="catorc" type="checkbox"   value="" ng-model="check14" ng-click="submit2(ct_ini_turno_t,ct_fin_turno_t,7,'TARDE',ct_ficha_total_t,ct_ficha_sesar_t,check14);elim(checkd2)">
+														<span class="cr"><i class="cr-icon glyphicon glyphicon-ok"></i></span>
+													</label>
+												</div>
+												<div ng-if="check14">
+													<small>{{apellido14}}</small>
+												</div>
+											</td>	
+										</tr>
+										<!-- TURNO NOCHE -->
+										<tr>
+											<td class="lead text-center">
+												<span class="text-primary">
+													<div style="height:55px;"></div>
+													Noche
+												</span>
+											</td>
+											<td>
+												<div class="well well-sm">
+													<strong>De:</strong><br>
+													<!-- <input name="hora_ini_n" type="text" class="form-control" placeholder="Ej: 18:30" ng-model="ct_ini_turno_n"> -->
+													<div class="input-group clockpicker" data-align="top" data-autoclose="true">
+						                            	<input  type="text" class="form-control" name="hora_ini_n" placeholder="Ej: 18:00" ng-model="ct_ini_turno_n" required ng-pattern="patternHora" >
+						                            	<span class="input-group-addon">
+						                                	<span class="glyphicon glyphicon-time"></span>
+						                            	</span>
+					                            	</div>
+					                            	<span class="messages" ng-show="userForm1.hora_ini_n.$touched">
+								        				<span ng-show="userForm1.hora_ini_n.$error.required">El campo es obligatorio.</span>
+								        				<span ng-show="userForm1.hora_ini_n.$error.pattern">No se permiten símbolos especiales o letras.</span>
+					      						    </span>
+													<strong>a:</strong><br>
+													<!-- <input name="hora_fin_n" type="text" class="form-control" placeholder="Ej: 23:30" ng-model="ct_fin_turno_n" > -->
+													<div class="input-group clockpicker" data-align="top" data-autoclose="true">
+						                            	<input  type="text" class="form-control" name="hora_fin_n" placeholder="Ej: 23:30" ng-model="ct_fin_turno_n" required ng-pattern="patternHora" >
+						                            	<span class="input-group-addon">
+						                                	<span class="glyphicon glyphicon-time"></span>
+						                            	</span>
+					                        	    </div>
+					                        	    <span class="messages" ng-show="userForm1.hora_fin_n.$touched">
+								        				<span ng-show="userForm1.hora_fin_n.$error.required">El campo es obligatorio.</span>
+								        				<span ng-show="userForm1.hora_fin_n.$error.pattern">No se permiten símbolos especiales o letras.</span>
+					      						    </span>
+												</div>
+											</td>
+											<td >
+												<!-- <div style="height:55px;"></div> -->
+												<div class="well well-sm">
+													<strong>TOTAL:</strong><br>
+													<input name="ft_n" type="number" class="form-control" ng-model="ct_ficha_total_n" required>
+													<span class="messages" ng-show="userForm1.ft_n.$touched">
+								                    	<span ng-show="userForm1.ft_n.$error.required">El campo es obligatorio</span>
+								                    	<span ng-show="userForm1.ft_n.$error.min">No puede ser menor a 0</span>
+								                    	<span ng-show="error_total_fichas_n">El número de fichas excede la capacidad de atención.</span>
+							                        </span>
+													<!-- </td>
+													<td class="text-center"> -->
+													<!-- <div style="height:55px;"></div> -->
+													<strong>RESERVA:</strong><br>
+													<input name="fs_n" type="number" class="form-control" ng-model="ct_ficha_sesar_n" required>
+													<span class="messages" ng-show="userForm1.fs_n.$touched">
+								                    	<span ng-show="userForm1.fs_n.$error.required">El campo es obligatorio</span>
+								                    	<span ng-show="userForm1.fs_n.$error.min">No puede ser menor a 0</span>
+							                        </span>
+												</div>
+											</td>
+											<td ng-class='{danger: check15}'>
+												<div style="height:45px;"></div>
+												<div class="checkbox" ng-if="!check15"><label style="font-size: 1.5em">
+												<!-- ng-disabled="check15=true"  -->
+													<input ng-disabled="ct_ini_turno_n==null || ct_fin_turno_n==null || ct_ficha_total_n==null || ct_ficha_sesar_n==null" name="quinc" type="checkbox" value="" ng-model="check15" ng-click="submit2(ct_ini_turno_n,ct_fin_turno_n,1,'NOCHE',ct_ficha_total_n,ct_ficha_sesar_n,check15);elim(checkl3)">
+													<span class="cr"><i class="cr-icon glyphicon glyphicon-ok"></i></span>
+												</label></div>
+												<div ng-if="check15">
+													<small>{{apellido15}}</small>
+												</div>
+											</td>
+											<td ng-class='{ danger: check16}'>
+												<div style="height:45px;"></div>
+												<div class="checkbox" ng-if="!check16">
+													<label style="font-size: 1.5em">
+														<!-- ng-disabled="check16=true" -->
+														<input ng-disabled="ct_ini_turno_n==null || ct_fin_turno_n==null || ct_ficha_total_n==null || ct_ficha_sesar_n==null" name="diecis" type="checkbox"  value="" ng-model="check16" ng-click="submit2(ct_ini_turno_n,ct_fin_turno_n,2,'NOCHE',ct_ficha_total_n,ct_ficha_sesar_n,check16);elim(checkm3)">
+														<span class="cr"><i class="cr-icon glyphicon glyphicon-ok"></i></span>
+													</label>
+												</div>
+												<div ng-if="check16">
+													<small>{{apellido16}}</small>
+												</div>
+											</td>
+											<td ng-class='{danger: check17}'>
+												<div style="height:45px;"></div>
+												<div class="checkbox" ng-if="!check17">
+													<label style="font-size: 1.5em">
+														<!-- ng-disabled="check17=true" -->
+														<input ng-disabled="ct_ini_turno_n==null || ct_fin_turno_n==null || ct_ficha_total_n==null || ct_ficha_sesar_n==null" name="diecisiet" type="checkbox"  value="" ng-model="check17" ng-click="submit2(ct_ini_turno_n,ct_fin_turno_n,3,'NOCHE',ct_ficha_total_n,ct_ficha_sesar_n,check17);elim(checkmi3)">
+														<span class="cr"><i class="cr-icon glyphicon glyphicon-ok"></i></span>
+													</label>
+												</div>
+												<div ng-if="check17">
+													<small>{{apellido17}}</small>
+												</div>
+											</td>
+											<td ng-class='{danger: check18}'>
+												<div style="height:45px;"></div>
+												<div class="checkbox" ng-if="!check18">
+													<label style="font-size: 1.5em">
+													<!-- ng-disabled="check18=true" -->
+														<input ng-disabled="ct_ini_turno_n==null || ct_fin_turno_n==null || ct_ficha_total_n==null || ct_ficha_sesar_n==null" name="diecoc" type="checkbox"  value="" ng-model="check18" ng-click="submit2(ct_ini_turno_n,ct_fin_turno_n,4,'NOCHE',ct_ficha_total_n,ct_ficha_sesar_n,check18);elim(checkj3)">
+														<span class="cr"><i class="cr-icon glyphicon glyphicon-ok"></i></span>
+													</label>
+												</div>
+												<div ng-if="check18">
+													<small>{{apellido18}}</small>
+												</div>
+											</td>
+											<td ng-class='{danger: check19}'>
+												<div style="height:45px;"></div>
+												<div class="checkbox" ng-if="!check19">
+													<label style="font-size: 1.5em">
+													<!-- ng-disabled="check19=true"  -->
+														<input ng-disabled="ct_ini_turno_n==null || ct_fin_turno_n==null || ct_ficha_total_n==null || ct_ficha_sesar_n==null" name="diesin" type="checkbox" value="" ng-model="check19" ng-click="submit2(ct_ini_turno_n,ct_fin_turno_n,5,'NOCHE',ct_ficha_total_n,ct_ficha_sesar_n,check19);elim(checkv3)">
+														<span class="cr"><i class="cr-icon glyphicon glyphicon-ok"></i></span>
+													</label>
+												</div>
+												<div ng-if="check19">
+													<small>{{apellido19}}</small>
+												</div>
+											</td>
+											<td ng-class='{ danger: check20}'>
+												<div style="height:45px;"></div>
+												<div class="checkbox" ng-if="!check20">
+													<label style="font-size: 1.5em">
+														<!-- ng-disabled="check20=true" -->
+														<input ng-disabled="ct_ini_turno_n==null || ct_fin_turno_n==null || ct_ficha_total_n==null || ct_ficha_sesar_n==null" name="veint" type="checkbox"  value="" ng-model="check20" ng-click="submit2(ct_ini_turno_n,ct_fin_turno_n,6,'NOCHE',ct_ficha_total_n,ct_ficha_sesar_n,check20);elim(checks3)">
+														<span class="cr"><i class="cr-icon glyphicon glyphicon-ok"></i></span>
+													</label>
+												</div>
+												<div ng-if="check20">
+													<small>{{apellido20}}</small>
+												</div>
+											</td>
+											<td ng-class='{danger: check21}'>
+												<div style="height:45px;"></div>
+												<div class="checkbox" ng-if="!check21">
+													<label style="font-size: 1.5em">
+														<!--  ng-disabled="check21=true" -->
+														<input ng-disabled="ct_ini_turno_n==null || ct_fin_turno_n==null || ct_ficha_total_n==null || ct_ficha_sesar_n==null" name="veintiu" type="checkbox" value="" ng-model="check21" ng-click="submit2(ct_ini_turno_n,ct_fin_turno_n,7,'NOCHE',ct_ficha_total_n,ct_ficha_sesar_n,check21);elim(checkd3)">
+														<span class="cr"><i class="cr-icon glyphicon glyphicon-ok"></i></span>
+													</label>
+												</div>
+												<div ng-if="check21">
+													<small>{{apellido21}}</small>
+												</div>
+											</td>
+										</tr>
+
+										<script type="text/javascript" >
+										$('.clockpicker').clockpicker();
+										</script>
+									</table>
+								</div>
+							</div>
+						</div>
+						<div class="row">
+							<div class="col-md-4 col-md-offset-4 text-center">
+								<a href="#/horarios/ver/{{ch_id}}"><button class="btn btn-primary" ng-click="genera()"><span class="glyphicon glyphicon-save"></span> Guardar asignación de horario</button></a>
+							</div>	  
+						</div>
+					</div>	  
+				</form>	
+			</div>
+			<!-- FIN -->
+		</div>
+	</div>
+</div>
+
+<script type="text/javascript" >
+	 $.datepicker.regional['es'] = {
+	 closeText: 'Cerrar',
+	 prevText: '< Ant',
+	 nextText: 'Sig >',
+	 currentText: 'Hoy',
+	 monthNames: ['Enero', 'Febrero', 'Marzo', 'Abril', 'Mayo', 'Junio', 'Julio', 'Agosto', 'Septiembre', 'Octubre', 'Noviembre', 'Diciembre'],
+	 monthNamesShort: ['Ene','Feb','Mar','Abr', 'May','Jun','Jul','Ago','Sep', 'Oct','Nov','Dic'],
+	 dayNames: ['Domingo', 'Lunes', 'Martes', 'Miércoles', 'Jueves', 'Viernes', 'Sábado'],
+	 dayNamesShort: ['Dom','Lun','Mar','Mié','Juv','Vie','Sáb'],
+	 dayNamesMin: ['Do','Lu','Ma','Mi','Ju','Vi','Sá'],
+	 weekHeader: 'Sm',
+	 dateFormat: 'dd-mm-yy',
+	 firstDay: 1,
+	 isRTL: false,
+	 showMonthAfterYear: false,
+	 yearSuffix: ''
+	 };
+
+ $.datepicker.setDefaults($.datepicker.regional['es']);
+    $( function() {
+      $( "#datepicker" ).datepicker();
+    } );
+
+    $( function() {
+      $( "#datepicker1" ).datepicker();
+    } );
+</script>

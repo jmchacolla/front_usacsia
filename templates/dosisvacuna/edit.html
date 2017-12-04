@@ -1,0 +1,111 @@
+<!-- TOP-MENU inicio -->
+<div ng-include="'./templates/menu_inicio.html'"></div>
+<!-- CONTEXT-MENU  -->
+<div ng-include="'./templates/menu_lateral.html'"> </div>
+<!-- CONTENIDO MODULO inicio -->
+<div class="col-md-8 col-sm-8">
+    <div class="row">
+      <div class="col-md-12">
+        <h2 class="text-primary">
+          <span class="glyphicon glyphicon-th-list" aria-hidden="true"></span>
+           {{ajustes.pagina.titulo}}: {{vacuna.vac_nombre}}
+        </h2>
+        <hr>
+      </div>
+    </div>
+    <div class="row">
+      	<div class="col-md-12">
+  		<!-- AQUI VAN LAS TABLAS O FORMULARIOS incrustados -->
+  		<!-- INICIO -->
+  		
+			           <!-- CONTENIDO MODULO inicio -->
+      <div class="well well-sm">
+              Los campos marcados con asterisco (*) son obligatorios.
+      </div>
+      <form role="form" name="editDosisVacuna">
+        <div class="row">
+          <div class="col-md-12">
+          <!-- AQUI VAN LAS TABLAS O FORMULARIOS incrustados -->
+          <!-- INICIO -->
+          <div class="well well-sm" style="background-color:#fff;">
+            <div class="row">
+              <div class="col-md-6">
+                <label class="control-label ">Tipo: <strong class="fg_red">*</strong></label>
+                <select class="form-control" name="tipo" ng-model="dosis_vacuna.dov_tipo" ng-model-options="{ updateOn: 'blur' }" required >
+                  <option value="NORMAL">NORMAL</option>
+                  <option value="REFUERZO">REFUERZO</option>
+                </select>
+                <span class="messages" ng-show="editDosisVacuna.$submitted || editDosisVacuna.tipo.$touched">
+                  <span ng-show="editDosisVacuna.tipo.$error.required">El campo es obligatorio.</span>
+                </span>
+              </div>
+              <div class="col-md-6">
+                <div class="required-field-block">
+                  <label for="nombre" class="control-label">Suministro de dosis: <strong class="fg_red">*</strong></label>
+                    <select class="form-control" name="suministro" ng-model="dosis_vacuna.dov_suministro" ng-model-options="{ updateOn: 'blur' }" required >
+                      <option value="INTRA DERMICA">INTRA DERMICA</option>
+                      <option value="INTRA MUSCULAR (MUSLO)">INTRA MUSCULAR (MUSLO)</option>
+                      <option value="INTRA MUSCULAR (BRAZO)">INTRA MUSCULAR (BRAZO)</option>
+                      <option value="ORAL (GOTAS)">ORAL (GOTAS)</option>
+                    </select>
+                    <span class="messages" ng-show="editDosisVacuna.$submitted || editDosisVacuna.suministro.$touched">
+                      <span ng-show="editDosisVacuna.suministro.$error.required">El campo es obligatorio.</span>
+                    </span>
+                  </div>
+              </div>
+            </div>
+            <div class="row">
+              <div class="col-md-6">
+                <div class="required-field-block">
+                  <label for="nombre" class="control-label">Edad inicio de suministro: [meses] <strong class="fg_red">*</strong></label>
+                  <input type="number" name="edad_inicio" placeholder="Edad de inicio de dosis vacuna" ng-model="dosis_vacuna.dov_edad_inicio" class="form-control" ng-model-options="{ updateOn: 'blur' }" required min="0"></input>
+                  <span class="messages" ng-show="editDosisVacuna.$submitted || editDosisVacuna.edad_inicio.$touched">
+                    <span ng-show="editDosisVacuna.edad_inicio.$error.required">El campo es obligatorio.</span>
+                    <span ng-show="editDosisVacuna.edad_inicio.$error.min">La edad no debe ser menor a 0.</span>
+                  </span>
+                  <div class="required-icon">
+                    <div class="text"></div>
+                  </div>
+                </div>
+              </div>
+              <div class="col-md-6">
+                <div class="required-field-block">
+                  <label for="nombre" class="control-label">Edad final de suministro: [meses] <strong class="fg_red">*</strong></label>
+                  <input type="number" name="edad_final" placeholder="Edad fin de dosis de vacuna" ng-model="dosis_vacuna.dov_edad_fin" class="form-control" ng-model-options="{ updateOn: 'blur' }" required min="0"></input>
+                  <span class="messages" ng-show="editDosisVacuna.$submitted || editDosisVacuna.edad_final.$touched">
+                      <span ng-show="editDosisVacuna.edad_final.$error.required">El campo es obligatorio.</span>
+                      <span ng-show="editDosisVacuna.edad_final.$error.min">La edad no debe ser menor a 0.</span>
+                    </span>
+                    <div class="required-icon">
+                      <div class="text"></div>
+                    </div>
+                </div>
+              </div>
+            </div>
+
+        <hr>
+
+        <div class="row" align=" text-center">
+          <div class="col-md-4 col-md-offset-4 text-center">
+            <a class="btn btn-primary" href="#/vervacuna/{{vacuna.vac_id}}"><span class="glyphicon glyphicon-arrow-left"></span> VOLVER</a>
+            <button class="btn btn-primary" ng-click="submit(dosis_vacuna)" ng-disabled="editDosisVacuna.$invalid"><span class="glyphicon glyphicon-save"></span> {{ajustes.pagina.action}}</button>
+                   
+          </div>
+        </div>  
+        
+          
+          </div>
+          </div>
+        </div>
+      </form>
+      <!-- CONTENIDO MODULO fin -->
+			
+		<p ng-show="ajustes.pagina.success" class="alert alert-success">{{ajustes.pagina.success}}</p>
+		</div> <!-- fin controlador de imagen -->
+
+		<!-- FIN -->
+		<!-- AQUI VAN LOAS TABLAS O FORMULARIOS incrustados -->
+	</div>
+</div>
+
+<!-- CONTENIDO MODULO fin -->

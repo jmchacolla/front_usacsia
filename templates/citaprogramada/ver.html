@@ -1,0 +1,60 @@
+<!-- TOP-MENU inicio -->
+<div ng-include="'./templates/menu_inicio.html'"></div>
+
+<!-- CONTEXT-MENU  -->
+  <div ng-include="'./templates/menu_lateral.html'">
+  </div>
+  <div class="col-md-8 col-sm-8">
+       <div class="row">
+          <div class="col-md-12">
+            <h2 class="text-primary">
+              <span class="glyphicon glyphicon-list-alt" aria-hidden="true"></span>
+              {{ajustes.pagina.titulo}}
+            </h2>
+            <hr class="bg-green">
+          </div>
+       </div>
+        <!--HERRAMIENTAS PARA LA VISTA-->
+        <div class="row">
+            <div class="col-md-12">
+            </div>
+        </div>
+        <form name="cita">
+            <div class="well well-sm" style="background-color:#fff;">
+                <h3 class="text-center text-primary">DATOS DE LA CITA M&Eacute;DICA PROGRAMADA</h3>
+                 <hr class="bg-green">
+                    <div class="row">
+                        <div class="col-md-12 col-sm-12">
+                            <label class="text-center text-primary lead">Nombres y apellidos: &nbsp;</label><label class="text-center lead">{{" "+paciente.per_nombres + " " + paciente.per_apellido_primero + " " + paciente.per_apellido_segundo}}</label>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-md-12 col-sm-12">
+                            <label class="text-center text-primary lead">M&eacute;dico: </label> <label class="text-center lead">{{" "+funcionario.persona.per_nombres+" "+funcionario.persona.per_apellido_primero+" "+funcionario.persona.per_apellido_segundo}}</label>
+                        </div>                      
+                    </div>
+                    <div class="row">
+                        <div class="col-md-12 col-sm-12">
+                            <label class="text-center text-primary lead">Servicio: </label> <label class="text-center lead">{{" "+nomser}}</label>
+                        </div>                      
+                    </div>
+                    <div class="row">
+                        <div class="col-md-12 col-sm-12">
+                            <label class="text-center text-primary lead">Fecha de consulta: &nbsp;</label><label class="text-center lead">{{" "+citas.cit_fecha_consulta+"  "}}</label><label class="text-center text-primary lead">&nbsp;&nbsp; Hora: &nbsp;</label><label class="text-center lead">{{" "+citas.cit_hora_consulta}}</label>
+                        </div>                      
+                    </div>
+                    <div class="row">
+                        <div class="col-md-12 col-sm-12">
+                            <label class="text-center text-primary lead">N&uacute;mero de ficha SESAR: </label>
+                            <label class="text-center lead">{{" "+citas.cit_nro_ficha}}</label>
+                        </div>                      
+                    </div>
+                    <hr class="bg-green">
+                    <div class="row">
+                        <div class="col-md-4 col-md-offset-4 text-center" >
+                             <a href="#/cita/list" class="btn btn-primary" title="Listar Citas Programadas"><span class="glyphicon glyphicon-th-list"></span> <strong>LISTAR CITAS PROGRAMADAS</strong></a>
+                        </div>
+                    </div>                 
+            </div>
+        </form>
+  </div>

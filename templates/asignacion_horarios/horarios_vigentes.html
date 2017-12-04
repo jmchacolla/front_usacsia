@@ -1,0 +1,244 @@
+ <!--TOP-MENU inicio -->
+<div ng-include="'./templates/menu_inicio.html'"></div>
+<div ng-include="'./templates/menu_lateral.html'"></div>
+<!-- CONTENIDO MODULO inicio -->
+<div class="col-md-8 col-sm-8">
+	<div class="row">
+		<div class="col-md-12">
+			<h2 class="text-primary">
+				<span class="glyphicon glyphicon-th-list" aria-hidden="true"></span>
+				{{ajustes.pagina.titulo}}
+			</h2>
+			<hr class="bg-green">
+		</div>
+	</div>
+	<div class="row">
+		<div class="col-md-12">
+			<div class="well well-sm">
+				<strong class="pull-left lead">Herramientas: &nbsp;</strong>
+				<form class="form-inline pull-left">
+					<input type="text" class="form-control" placeholder="Buscar por ..." ng-model="ser_nombre">
+				</form>
+				&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+				<!--<button class="btn btn-default" ><span class="glyphicon glyphicon-save-file"></span> Exportar lista en PDF</button>-->
+				<label class="text-primary"> | </label>
+				&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+				<button class="btn btn-default" title="Cancelar todas las fichas de un día" data-toggle="modal" data-target="#miCuadroModal3"><span class="glyphicon glyphicon-remove"></span> Cancelar por día</button>
+				<!--CUADRO MODAL-->
+			  	<div class="modal fade" id="miCuadroModal3"  tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+				  	<div class="modal-dialog">
+					    <div class="modal-content">
+					      <div class="modal-header bg-green">
+					        <button type="button" class="close" data-dismiss="modal">x</button>
+					        <h4 class="modal-title fg-white"> CANCELAR HORARIO DE ATENCIÓN DE UNA FECHA</h4>
+					      </div>
+					      <div class="modal-body lead">
+					      	Para quitar todas las fichas de atención de un día específico como por ejemplo un día feriado.
+					      	<br>
+					      	<small>Puede cancelar el horario de una fecha 24 horas antes, caso contrario no se le permitirá cancelar el horario y de esta manera las fichas asignadas a tal horario. Por ejemplo no es posible cancelar las fichas de mañana pero si del día siguiente.</small>
+					      	<br>
+				        	<form role="form" name="asignacion" novalidate>
+				        		<label for="fecha_asignacion" class="control-label">Seleccione una fecha:</label>
+				        		<div class="form-group">
+									<div class="input-group form-inline pull-left">
+										<input my-valid-date type="text" name="fecha_asignacion" id="fecha_asignacion" class="form-control clsDatePicker" placeholder="dd-mm-aaaa" ng-model="fecha_asignacion_todo" ng-change="get(fecha)" required>
+										<span class="input-group-addon">
+					                    	<span class="glyphicon glyphicon-calendar"></span>
+					                	</span>
+									</div>
+					        	    <span class="messages" ng-show="asignacion.fecha_asignacion.$touched">
+									 	<span ng-show="!asignacion.fecha_asignacion.$valid">La fecha es incorrecta....!!</span>
+					            	</span>
+				        		</div>
+							</form>
+					      </div>
+					      <div class="modal-footer">
+					      	¿Esta seguro que quiere cancelar las citas para la fecha seleccionada?<br>
+					        <button type="button" class="btn btn-primary" data-dismiss="modal" ng-click="cancelar_citas_todas(fecha_asignacion_todo)">
+					        <span class="glyphicon glyphicon-ok"></span> SI</button>
+					        <button type="button" class="btn btn-danger" data-dismiss="modal"><span class="glyphicon glyphicon-remove"></span> NO</button>
+					      </div>
+					    </div>
+					</div>
+				</div>
+				<div class="clearfix"></div>
+			</div>
+		</div>
+	</div>
+	
+	<div ng-show="loading" class="text-center"><br><img ng-src="./images/image.gif" class="loader-img"></div>
+	<div ng-show="!loading && !msg">No se encontraron resultados</div>
+	<div class="table-responsive">
+		<table class="table table-bordered table-hover" ng-show="!loading && msg">
+        	<thead>
+            	<th>Nº</th>
+            	<th align="center">
+            		<a href="" ng-click="sortType = 'ser_nombre'; sortReverse = !sortReverse">
+                	Servicio
+                	<span ng-show="sortType == 'ser_nombre' && !sortReverse" class="glyphicon glyphicon-chevron-up"></span>
+                    <span ng-show="sortType == 'ser_nombre' && sortReverse" class="glyphicon glyphicon-chevron-down"></span>
+                    </a>
+				</th>
+            	<th>
+            		<a href="" ng-click="sortType = 'per_apellido_primero'; sortReverse = !sortReverse">
+            		Funcionario
+            		<span ng-show="sortType == 'per_apellido_primero' && !sortReverse" class="glyphicon glyphicon-chevron-up"></span>
+                    <span ng-show="sortType == 'per_apellido_primero' && sortReverse" class="glyphicon glyphicon-chevron-down"></span>
+                    </a>
+            	</th>
+            	<th>
+            		<a href="" ng-click="sortType = 'con_nombre'; sortReverse = !sortReverse">
+                	Consultorio
+                	<span ng-show="sortType == 'con_nombre' && !sortReverse" class="glyphicon glyphicon-chevron-up"></span>
+                    <span ng-show="sortType == 'con_nombre' && sortReverse" class="glyphicon glyphicon-chevron-down"></span>
+                    </a>
+            	</th>
+            	<th>Detalle</th>
+            	<th>Cancelar</th>
+            	<th>Duplicar</th>
+        		<th>Borrar</th>
+          	</thead>
+          	<tbody ng-repeat="horario in horarios | orderBy:sortType:sortReverse | filter:ser_nombre" >
+                <tr>
+					<td>{{$index + 1}}</td>
+					<td>{{horario.ser_nombre}}</td>
+					<td>{{horario.per_apellido_primero+"&nbsp;"+horario.per_apellido_segundo+"&nbsp;"+horario.per_nombres}}</td>
+					<td>{{horario.con_nombre}}</td>
+					<td>
+				  		<a href="#/horarios/ver/{{horario.ch_id}}" class="btn btn-success" title="Detalle"><span class="glyphicon glyphicon-file"></span>
+						</a>
+					</td>
+					<td >
+						<!-- BOTON PARA CUADROS MODALES -->
+				  		<button class="btn btn-warning" title="Cancelar horarios de una fecha" data-toggle="modal" data-target="#miCuadroModal1" ng-click="obt_asignacion(horario.ch_id,horario.fe_id,horario.ser_nombre,horario.con_nombre,horario.per_apellido_primero,horario.per_apellido_segundo,horario.per_nombres,horario.ch_fecha_inicio,horario.ch_fecha_final)"><span class="glyphicon glyphicon glyphicon-remove"></span> 
+						</button>
+						<!--CUADRO MODAL-->
+						<div class="modal fade" id="miCuadroModal1" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+							<div class="modal-dialog">
+							    <div class="modal-content">
+							      <div class="modal-header bg-green">
+							        <button type="button" class="close" data-dismiss="modal">x</button>
+							        <h4 class="modal-title fg-white"> CANCELAR HORARIO DE ATENCIÓN DE UNA FECHA</h4>
+							      </div>
+							      <div class="modal-body lead">
+							      	<span class="text-primary">Servicio: </span>{{servicio}}<br>
+							      	<span class="text-primary">Consultorio: </span>{{consultorio}}<br>
+							      	<span class="text-primary">Funcionario: </span>{{nombre_funcionario}}<br><br>
+							        <small> Este horario tiene una vigencia de {{finicio + " a " + ffin}}: <br>
+							        	Puede cancelar el horario de una fecha 24 horas antes, caso contrario no se le permitirá cancelar el horario y de esta manera las fichas asignadas a tal horario. Por ejemplo no es posible cancelar las fichas de mañana pero si del día siguiente.</small> <br><br>
+						        	<form role="form"  name="cancelaAsignacion" novalidate>
+						        		<label for="fecha_cancelar" class="control-label">Seleccione una fecha:</label>
+										<div class="form-group">
+											<div class="input-group">
+												<input my-valid-date type="text" name="fecha_cancelar" id="fecha_cancelar" class="form-control clsDatePicker" placeholder="dd-mm-aaaa" ng-model="fecha_asignacion" ng-change="get(fecha)" required>
+												<span class="input-group-addon">
+							                    	<span class="glyphicon glyphicon-calendar"></span>
+							                	</span>
+											</div>
+											<span class="messages" ng-show="cancelaAsignacion.fecha_cancelar.$touched">
+											 	<span ng-show="!cancelaAsignacion.fecha_cancelar.$valid">La fecha es incorrecta....!!</span>
+							            	</span>
+										</div>
+									</form>
+									<script type="text/javascript">
+										$.datepicker.regional['es'] = {
+											closeText: 'Cerrar',
+											prevText: '< Ant',
+											nextText: 'Sig >',
+											currentText: 'Hoy',
+											monthNames: ['Enero', 'Febrero', 'Marzo', 'Abril', 'Mayo', 'Junio', 'Julio', 'Agosto', 'Septiembre', 'Octubre', 'Noviembre', 'Diciembre'],
+											monthNamesShort: ['Ene','Feb','Mar','Abr', 'May','Jun','Jul','Ago','Sep', 'Oct','Nov','Dic'],
+											dayNames: ['Domingo', 'Lunes', 'Martes', 'Miércoles', 'Jueves', 'Viernes', 'Sábado'],
+											dayNamesShort: ['Dom','Lun','Mar','Mié','Juv','Vie','Sáb'],
+											dayNamesMin: ['Do','Lu','Ma','Mi','Ju','Vi','Sá'],
+											weekHeader: 'Sm',
+											dateFormat: 'dd-mm-yy',
+											firstDay: 1,
+											isRTL: false,
+											showMonthAfterYear: false,
+											yearSuffix: ''
+										};
+										$.datepicker.setDefaults($.datepicker.regional['es']);
+										    $( function() {
+										      $( "#fecha_cancelar" ).datepicker();
+										} );
+									</script>
+							      </div>
+							      <div class="modal-footer">
+							      	¿Esta seguro que quiere cancelar las citas para la fecha seleccionada?<br>
+							        <button type="button" class="btn btn-primary" data-dismiss="modal" ng-click="cancelar_citas(fe_id_seleccionado,fecha_asignacion)">
+							        <span class="glyphicon glyphicon-ok"></span> SI</button>
+							        <button type="button" class="btn btn-danger" data-dismiss="modal"><span class="glyphicon glyphicon-remove"></span> NO</button>
+							      </div>
+							    </div>
+							</div>
+						</div>
+					</td>
+					<td>
+	  					<a href="#/horarios_replicar/{{horario.ch_id}}" class="btn btn-info" title="Duplicar asignación de horario"><span class="glyphicon glyphicon-duplicate"></span>
+						</a>
+					</td>
+					<td>
+						<!-- BOTON PARA CUADROS MODALES -->
+	  					<button class="btn btn-danger" data-toggle="modal" ng-click="obt_asignacion(horario.ch_id,horario.fe_id,horario.ser_nombre,horario.con_nombre,horario.per_apellido_primero,horario.per_apellido_segundo,horario.per_nombres,horario.ch_fecha_inicio,horario.ch_fecha_final)" data-target="#miCuadroModal2" title="Eliminar Configuración de Horario"><span class="glyphicon glyphicon-trash"></span></button>
+	  					<!--CUADRO MODAL-->
+					  	<div id="miCuadroModal2" class="modal fade" role="dialog" tabindex="-1">
+						  	<div class="modal-dialog">
+							    <div class="modal-content">
+							      <div class="modal-header bg-green">
+							        <button type="button" class="close" data-dismiss="modal">x</button>
+							        <h4 class="modal-title fg-white"> ELIMINAR CONFIGURACIÓN DE HORARIO</h4>
+							      </div>
+							      <div class="modal-body lead">
+							      	¿Esta seguro que quiere eliminar la siguiente configuración de horario?<br>
+							      	<span class="text-primary">Servicio: </span>{{servicio}}<br>
+							      	<span class="text-primary">Consultorio: </span>{{consultorio}}<br>
+							      	<span class="text-primary">Funcionario: </span>{{nombre_funcionario}}<br>
+							      	<span class="text-primary">Vigencia: </span>{{finicio + " a " + ffin}}<br><br>
+							      </div>
+							      <div class="modal-footer">
+							      	<br>
+							        <button type="button" class="btn btn-primary" data-dismiss="modal" ng-click="eliminar(ch_id)">
+							        <span class="glyphicon glyphicon-ok"></span> SI</button>
+							        <button type="button" class="btn btn-danger" data-dismiss="modal"><span class="glyphicon glyphicon-remove"></span>
+							        NO</button>
+							      </div>
+							    </div>
+							</div>
+						</div>
+					</td>
+			  	</tr>
+            </tbody>
+        </table>
+    </div>
+</div>
+
+<style type="text/css">
+	.clsDatePicker {
+		    z-index: 100000 !important;
+	}
+</style>
+<!-- CONTENIDO MODULO fin!-->
+<script type="text/javascript">
+	$.datepicker.regional['es'] = {
+		closeText: 'Cerrar',
+		prevText: '< Ant',
+		nextText: 'Sig >',
+		currentText: 'Hoy',
+		monthNames: ['Enero', 'Febrero', 'Marzo', 'Abril', 'Mayo', 'Junio', 'Julio', 'Agosto', 'Septiembre', 'Octubre', 'Noviembre', 'Diciembre'],
+		monthNamesShort: ['Ene','Feb','Mar','Abr', 'May','Jun','Jul','Ago','Sep', 'Oct','Nov','Dic'],
+		dayNames: ['Domingo', 'Lunes', 'Martes', 'Miércoles', 'Jueves', 'Viernes', 'Sábado'],
+		dayNamesShort: ['Dom','Lun','Mar','Mié','Juv','Vie','Sáb'],
+		dayNamesMin: ['Do','Lu','Ma','Mi','Ju','Vi','Sá'],
+		weekHeader: 'Sm',
+		dateFormat: 'dd-mm-yy',
+		firstDay: 1,
+		isRTL: false,
+		showMonthAfterYear: false,
+		yearSuffix: ''
+	};
+ $.datepicker.setDefaults($.datepicker.regional['es']);
+    $( function() {
+      $( "#fecha_asignacion" ).datepicker();
+    } );
+</script>

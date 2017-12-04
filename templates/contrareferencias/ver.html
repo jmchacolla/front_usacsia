@@ -1,0 +1,285 @@
+<!-- TOP-MENU inicio -->
+<div ng-include="'./templates/menu_inicio.html'"></div>
+	<div ng-include="'./templates/menu_lateral.html'">
+	</div>
+<!-- CONTENIDO MODULO inicio -->
+	<div class="col-md-8 col-sm-8">
+		<div ng-controller="pdf_cont_Ctrl">
+			<div class="row">
+				<div class="col-md-12">
+					<h2 class="text-primary">
+						<span class="glyphicon glyphicon-th-large" aria-hidden="true"></span>
+						{{ajustes.pagina.titulo}}
+					</h2> 
+					<hr class="bg-green">
+				</div>
+			</div>
+			<div class="col-md-12">
+			<!-- AQUI VAN LAS TABLAS O FORMULARIOS incrustados -->
+			<!-- INICIO -->
+			
+				<h3 class="text-primary" align="center">
+					Boleta de Contrareferencia Nro. {{contrareferencia.contrareferencia.bc_cod}} 
+					<a href="#contrareferencia/editar/{{contraid}}" ng-hide="contraMedico == 0"><button class="btn btn-primary btn-xl">Editar contrareferencia</button></a>
+					<br>
+				</h3>
+				<div class="well well-sm" style="background-color:#fff;">
+
+<!-- 					<div class="row">
+			      		<div ng-show="contrareferencia.contrareferencia.fun_id_destino == null" class="col-md-12">
+			        		<div class="cabecerapanel panel-heading">CONTRAREFERENCIA SIN ACEPTAR</div>
+			      		</div>
+			      		<div ng-show="contrareferencia.contrareferencia.fun_id_destino != null" class="col-md-12">
+			        		<div class="cabecerapanel panel-heading">CONTRAREFERENCIA ACEPTADA POR {{fun_cont_cargo_dest+" "+fun_cont_nombre_dest}}</div>
+			      		</div>    
+		    		</div> -->
+
+		      		
+		        	<h4 class="text-primary text-center">I. ESTABLECIMIENTO AL QUE RETORNA EL USUARIO</h4>
+		        	<hr class="bg-green">
+					<div class="panel-body">
+						<div class="row">
+					        <div class="col-lg-6 col-md-6 col-sm-6 col-xs-12">
+						        <label class="control-label">Establecimiento de Salud:</label>
+					            <p>{{es_ori.es_nombre}}</p>
+					        </div>
+					        <div class="col-lg-3 col-md-3 col-sm-6 col-xs-12">
+						        <label class="control-label">Fecha:</label>
+					        	<div class="">
+					            <p>{{fecha_hora | date:'dd/MM/yyyy'}}</p>
+					        	</div>
+					        </div>
+					        <div class="col-lg-3 col-md-3 col-sm-6 col-xs-12">
+						        <label class="control-label">Hora:</label>
+					        	<div class="">
+					            	<p>{{fecha_hora | date:'HH:mm:ss'}}</p>
+					        	</div>
+					        </div>
+					    </div>
+					    <div class="row">
+					        <div class="form-group col-md-6 col-sm-6 col-xs-12">
+						        <label class="control-label">Servicio Referente:</label>
+					            	<p>{{contrareferencia.contrareferencia.bc_servicio_referente}}</p>
+					        </div>
+					        <div class="form-group col-lg-6 col-md-4 col-sm-6 col-xs-12">
+						        <label class="control-label">Redes:</label>
+					            	<p>{{es_ori.red_nombre}}</p>
+					        </div>
+					    </div>
+					    <div class="row">
+					        <div class="col-md-4 col-sm-6 col-xs-12">
+						        <label class="control-label">Se contacto al establecimiento:			
+					            	<p ng-show="contrareferencia.contrareferencia.fe_id_contacto == null">No</p>
+					            	<p ng-show="contrareferencia.contrareferencia.fe_id_contacto != null">Si</p>
+					            </label>
+					        </div>
+					        <div ng-show="contrareferencia.contrareferencia.fe_id_contacto != null" class="col-md-4 col-sm-6 col-xs-12">
+						        <label class="control-label">Persona contactada:</label>
+					            	<p>{{fun_cont_nombre+" "+fun_cont_apellido_primero+" "+fun_cont_apellido_segundo}}</p>
+					            	 <input type="hidden" ng-model="fun_cont_nombre" value="{{fun_cont_nombre}}">
+					        </div>
+					        <div ng-show="contrareferencia.contrareferencia.fe_id_contacto != null" class="col-md-4 col-sm-6 col-xs-12">
+						        <label class="control-label">Cargo:</label>
+					            <p>{{fun_cont_cargo}}</p>
+					        </div>
+					    </div>
+					</div>
+		        	<h4 class="text-primary text-center">II. IDENTIFICACIÓN DEL USUARIO</h4>
+		        	<hr class="bg-green">
+				    <div class="panel">
+			          	<div class="panel-body">
+			                <div class="col-md-3 col-sm-4 col-xs-12">
+			                  	<label class="control-label">Nombres:</label>
+			                    <p>{{contrareferencia.persona_paciente.per_nombres}}</p>
+			                </div>
+			                <div class="col-md-3 col-sm-4 col-xs-12">
+			                  	<label class="control-label ">Apellido paterno:</label>
+			                  	<p>{{contrareferencia.persona_paciente.per_apellido_primero}}</p>
+			                </div>
+			                <div class="col-md-3 col-sm-4 col-xs-12">
+			                  	<label class="control-label ">Apellido materno:</label>
+			                  	<p>{{contrareferencia.persona_paciente.per_apellido_segundo}}</p>
+			                </div>
+			                <div ng-show="pac_edad.edad<=5" class="col-md-3 col-sm-6 col-xs-12">
+				                <div class="col-md-4 col-sm-6 col-xs-12 ">
+				                  	<label class="control-label ">Edad:</label>
+				                    <p>{{pac_edad.edad}}&nbsp;años</p>
+				                </div>
+				                <div class="col-md-4 col-sm-6 col-xs-12 ">
+				                  	<label class="control-label ">Meses:</label>
+				                  	<p>{{pac_edad.mes_n}}&nbsp;meses</p>
+				                </div>
+				                <div class="col-md-4 col-sm-6 col-xs-12 ">
+				                  	<label class="control-label ">Dias:</label>
+				                  	<p>{{pac_edad.dia_a}}&nbsp;dias</p>
+				                </div>
+				            </div>
+				            <div ng-show="pac_edad.edad>6">
+				                <div class="form-group col-md-1 col-sm-6 col-xs-12">
+				                  	<label class="control-label ">Edad:</label>
+				                  	<p>{{pac_edad.edad}}&nbsp;años</p>
+				                </div>
+				            </div>
+				            <div class="col-md-12 col-sm-12 col-xs-12 "  class="form-control">
+				              	<label class="control-label ">Domicilio:</label>
+				            </div> 
+				            <div ng-repeat="direccion in contrareferencia.direccion">
+				                <!-- <div class="col-md-3 col-sm-3 col-xs-12 " class="form-control">
+				                  	Municipio:<p>{{direccion.mun_id}}</p>
+				                </div> -->
+				                <div class="col-md-3 col-sm-3 col-xs-12 " class="form-control">
+				                  	Comunidad:<p >{{direccion.dir_zona_comunidad}}</p>
+				                </div>
+				                <div class="col-md-3 col-sm-3 col-xs-12 " class="form-control">
+				                  	Avenida:<p>{{direccion.dir_avenida_calle}}</p>
+				                </div>
+				                <div class="col-md-3 col-sm-3 col-xs-12 " class="form-control">
+				                  	Nro.:<p >{{direccion.dir_numero}}</p>
+				                </div>
+				            </div>
+			            	<div class="col-md-3 col-sm-3 col-xs-12 " class="form-control">
+			                  	<label class="control-label">Seguro:</label><p>{{contrareferencia.referencia.br_seguro}}</p>
+			                </div>
+			         	</div>
+			        </div>
+			        <h4 class="text-primary text-center">III. DATOS CLÍNICOS</h4>
+			        <hr class="bg-green">
+					<div class="panel-body">
+	                    <div class="row">
+	                    	<div class="col-md-3 col-sm-6 col-xs-12">
+	                    		<label class="control-label">Dias de internación:</label>
+	                    		<p>{{contrareferencia.contrareferencia.bc_dias_internacion}}</p> 
+	                    	</div>
+	                   		<div class="col-md-3 col-sm-6 col-xs-12">
+	                    		<label class="control-label">Sexo:</label>
+	                    		<p>{{contrareferencia.persona_paciente.per_genero}}</p>
+	                    	</div>
+
+	                    	<div class="col-md-2 col-sm-6 col-xs-12">
+	                    		<label class="control-label">Peso:</label>
+	                    		<p>{{contrareferencia.contrareferencia.bc_peso}}&nbsp;kg</p>
+	                    	</div> 
+	                    	<div class="col-md-2 col-sm-6 col-xs-12">
+	                    		<label class="control-label">Talla:</label>
+	                    		<p>{{contrareferencia.contrareferencia.bc_talla}}&nbsp;m</p>
+	                    	</div>
+	                    	<div class="col-md-2 col-sm-6 col-xs-12">
+	                			<label class="control-label">I.M.C.: </label>
+	                    	  	<p>{{imc}}&nbsp;kg/m<sub>2</sub></p>
+	                    	</div>
+	                    </div>
+	                    <div class="row">
+	                    	<div class="col-md-3 col-sm-6 col-xs-12">
+	                    		<label class="control-label">TEMP.:</label>
+	                    		<p>{{contrareferencia.contrareferencia.bc_temp}}&nbsp;°C</p>
+	                    	</div>
+	               			<div class="col-md-3 col-sm-6 col-xs-12">
+	                			<label class="control-label ">P.A.S:</label>
+	                    		<p>{{contrareferencia.contrareferencia.bc_pa_sistolica}}&nbsp;mmHg</p>
+					        </div>
+	               			<div class="col-md-2 col-sm-6 col-xs-12">
+	                			<label class="control-label ">P.A.D:</label>
+	                    		<p>{{contrareferencia.contrareferencia.bc_pa_diastolica}}&nbsp;mmHg</p>
+					        </div>
+	                    	<div class="col-md-2 col-sm-6 col-xs-12">
+	                    		<label>F.C.:</label>
+	                    		<p>{{contrareferencia.contrareferencia.bc_fc}}&nbsp;lpm</p>
+	                    	</div>
+	                    	<div class="col-md-2 col-sm-6 col-xs-12">
+	                        	<label>F.R.:</label>
+	                        	<p>{{contrareferencia.contrareferencia.bc_fr}}&nbsp;rpm</p>
+	                    	</div>
+	                    </div>
+	                    <hr>
+	                    <div class="row">
+	                    	<div class="form-group col-md-3 col-sm-6">
+		                     	<label >Diagnóstico de Ingreso:</label>
+		                     	<p>{{contrareferencia.referencia.br_diagnostico}}</p>
+		                    </div>
+		                    <div class="form-group col-md-3 col-sm-6">
+		                     	<label >Diagnóstico de egreso:</label>
+		                     	<p>{{contrareferencia.contrareferencia.bc_diagnostico_egreso}}</p>
+		                    </div>
+		                    <div class="form-group col-md-3 col-sm-6">
+		                     	<label>Evolución, Complicaciones:</label>
+		                     	<p>{{contrareferencia.contrareferencia.bc_complicaciones}}</p>
+		                    </div>
+		                    <div class="form-group col-md-3 col-sm-6">
+		                     	<label>Exámenes complementarios:</label>
+		                     	<p>{{contrareferencia.contrareferencia.bc_examenes_dx}}</p>
+		                    </div>
+	                    </div>
+	                    <div class="row">
+	                    	<div class="form-group col-md-3 col-sm-6">
+		                     	<label>Otros Exámenes:</label>
+		                     	<p>{{contrareferencia.contrareferencia.bc_exa_interconsultas}}</p>
+		                    </div>
+		                    <div class="form-group col-md-3 col-sm-6">
+		                     	<label>Tratamientos realizados:</label>
+		                     	<p>{{contrareferencia.contrareferencia.bc_tratamientos}}</p>
+		                    </div>
+		                    <div class="form-group col-md-3 col-sm-6">
+		                     	<label>Seguimiento a tratamiento:</label>
+		                        <p>{{contrareferencia.contrareferencia.bc_seguimento_trat}}</p>
+		                    </div>
+		                    <div class="form-group col-md-3 col-sm-6">
+		                     	<label>Recomendaciones para el usuario:</label>
+		                     	<p>{{contrareferencia.contrareferencia.bc_recomendaciones}}</p>
+		                    </div>
+	                    </div>
+	                    <div class="row">
+	                    	<div class="form-group col-md-12 col-sm-12">
+		                     	<label>La referencia fue:</label>
+		                        <p>{{contrareferencia.contrareferencia.bc_referencia_fue}}</p>
+		                    </div>
+	                    </div>             
+		            </div>
+			        <h4 class="text-primary text-center">IV. ESTABLECIMIENTO DE SALUD QUE REALIZA LA CONTRAREFERENCIA</h4>
+			        <hr class="bg-green"> 
+					<div class="panel-body">
+			        	<div class="row">
+			                <div class="col-md-3 col-sm-6 col-xs-12">
+			                    <label class="control-label ">Establecimiento de salud:</label>
+			                    <p>{{es_des.es_nombre}}</p>
+			                </div>
+			                <div class="col-md-3 col-sm-6 col-xs-12">
+			                    <label class="control-label ">Municipio:</label>
+			                    <p>{{es_des.mun_nombre}}</p>
+			                </div>
+			                <div class="col-md-3 col-sm-6 col-xs-12">
+			                    <label class="control-label ">Servicio:</label>
+			                    <p>{{contrareferencia.referencia.br_servicio_destino}}</p>
+			                </div>
+			                <div class="col-md-3 col-sm-6 col-xs-12">
+			                    <label class="control-label ">Nombre del acompañante:</label>
+			                    	<p ng-show="contrareferencia.contrareferencia.bc_acomp !=''">{{contrareferencia.contrareferencia.bc_acomp}}</p>
+					            	<p ng-show="contrareferencia.contrareferencia.bc_acomp == ''">Sin acompañante</p>
+			                </div>
+			            </div>
+			            <label class="control-label ">Contacto del establecimiento que realiza la contrareferencia:</label>
+			             <div class="row">
+				            <div class="form-group">
+				                <div class="col-md-8 col-sm-8 col-xs-12">
+				                	<label class="control-label ">Nombre:</label>
+				                	<p>{{func_per}}</p>
+				                </div>
+				                <div class="col-md-4 col-sm-4 col-xs-12">
+				                	<label class="control-label ">Cargo:</label>
+			       					<p>{{contrareferencia.funcionario_origen[0].fe_cargo}}</p>
+				                </div>
+				            </div>
+			            </div>
+			        </div>
+			        <div ng-controller="pdf_cont_Ctrl" align="center">
+			        	<button type="button" class="btn btn-default" ng-click="openPdf()" >Imprimir PDF CONTRAREFERENCIA  <span class="glyphicon glyphicon-open-file"></span></button>
+			          	<button type="button"  class="btn btn-default" ng-click="downloadPdf()">Descargar PDF CONTRAREFERENCIA  <span class="glyphicon glyphicon-download-alt"></span></button>
+			  		</div>
+				</div>
+			<!-- FIN -->
+			<!-- AQUI VAN LOAS TABLAS O FORMULARIOS incrustados -->
+			</div>
+		</div>
+		<!-- FIN DE CONTROLADOR DE PDF -->
+	</div>
+</div>
+<!-- CONTENIDO MODULO fin

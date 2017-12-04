@@ -1,0 +1,224 @@
+<!--TOP-MENU inicio -->
+<div class="header" ng-controller="MenuCtrl as menu" >
+	<div class="col-md-12" ng-hide="menu.isLoggedIn()">
+		<nav class="navbar navbar-default navbar-fixed-top">
+		  <div class="container-fluid">
+			<div class="navbar-header">
+			  <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#bs-example-navbar-collapse-1" aria-expanded="false">
+				<span class="sr-only">Toggle navigation</span>
+				<span class="icon-bar"></span>
+				<span class="icon-bar"></span>
+				<span class="icon-bar"></span>
+			  </button>
+			  <a class="navbar-brand" href="" style="padding:0 10px;">
+				<img src="./images/usacsia-logo-invert.png" style="height:47px; width:150px">
+			  </a>
+			</div>
+			<div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
+			  <ul class="nav navbar-nav">
+				<li><a href="#/">
+					<span class="glyphicon glyphicon-home" aria-hidden="true"></span>
+					Inicio</a></li>
+				<li class="dropdown">
+				  <a href="" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">
+					<span class="glyphicon glyphicon-th" aria-hidden="true"></span>
+					Gestionar recursos<span class="caret"></span></a>
+				  <ul class="dropdown-menu">
+					<li>
+					<!--a1
+					ng-show="menu.CONFIG.ROL_CURRENT_USER == 1" 
+					a2
+					ng-show="menu.CONFIG.ROL_CURRENT_USER == 2 || menu.CONFIG.ROL_CURRENT_USER == 9" -->
+						<a href="#/establecimientos" >
+						<span class="glyphicon glyphicon-asterisk" aria-hidden="true"></span>
+						Establecimientos de salud</a>
+						<a href="#/establecimientos/ver" >
+						<span class="glyphicon glyphicon-asterisk" aria-hidden="true"></span>
+						Establecimiento</a>
+					</li>
+					<!-- li
+					ng-show="menu.CONFIG.ROL_CURRENT_USER == 1" -->
+					<li ><a href="#/personas">
+						<span class="glyphicon glyphicon-asterisk" aria-hidden="true"></span>
+						Personas</a></li>
+					<li>
+					<!--li
+						ng-show="menu.CONFIG.ROL_CURRENT_USER == 2 || menu.CONFIG.ROL_CURRENT_USER == 9"  -->
+					<li >
+						<a href="#/funcionarios">
+						<span class="glyphicon glyphicon-asterisk" aria-hidden="true"></span>
+						Funcionarios de Salud</a>
+					</li>
+					<!-- ng-show="menu.CONFIG.ROL_CURRENT_USER == 1" -->
+						<a href="#/servicios"  >
+						<span class="glyphicon glyphicon-asterisk" aria-hidden="true"></span>
+						Servicios de salud</a>
+						<!-- ng-show="menu.CONFIG.ROL_CURRENT_USER == 2 || menu.CONFIG.ROL_CURRENT_USER == 9" -->
+						<a href="#/presta"  >
+						<span class="glyphicon glyphicon-asterisk" aria-hidden="true"></span>
+						Servicios de salud</a>
+					</li>
+					<!--li
+					ng-show="menu.CONFIG.ROL_CURRENT_USER == 2 || menu.CONFIG.ROL_CURRENT_USER == 9"  -->
+					<li ><a href="#/consultorios">
+						<span class="glyphicon glyphicon-asterisk" aria-hidden="true"></span>
+						Consultorios</a></li>
+						
+					<!-- li
+					ng-show="menu.CONFIG.ROL_CURRENT_USER == 2 || menu.CONFIG.ROL_CURRENT_USER == 9"  -->
+					<li ><a href="#/horarios_vigentes">
+			            <span class="glyphicon glyphicon-asterisk" aria-hidden="true"></span>
+			            Asignación de horarios</a></li>
+			            <!-- li
+			            ng-show="menu.CONFIG.ROL_CURRENT_USER == 2 || menu.CONFIG.ROL_CURRENT_USER == 9" -->
+			        <li >
+						<a href="#/establecimiento/usuarios">
+						<span class="glyphicon glyphicon-asterisk" aria-hidden="true"></span>
+						Usuarios</a>
+					</li>
+					<!-- li
+					ng-show="menu.CONFIG.ROL_CURRENT_USER == 2 || menu.CONFIG.ROL_CURRENT_USER == 3 || menu.CONFIG.ROL_CURRENT_USER == 4 || menu.CONFIG.ROL_CURRENT_USER == 5 || menu.CONFIG.ROL_CURRENT_USER == 6 || menu.CONFIG.ROL_CURRENT_USER == 9 || menu.CONFIG.ROL_CURRENT_USER == 10" -->
+					<li >
+						<a href="#/establecimientos/pacientes">
+						<span class="glyphicon glyphicon-asterisk" aria-hidden="true"></span>
+						Pacientes</a></li>
+					<li>
+					<!-- a
+					 ng-show="menu.CONFIG.ROL_CURRENT_USER == 2 || menu.CONFIG.ROL_CURRENT_USER == 3 || menu.CONFIG.ROL_CURRENT_USER == 4 || menu.CONFIG.ROL_CURRENT_USER == 6 || menu.CONFIG.ROL_CURRENT_USER == 9 || menu.CONFIG.ROL_CURRENT_USER == 10"-->
+						<a href="#/referencias" >
+						<span class="glyphicon glyphicon-asterisk" aria-hidden="true"></span>
+						Referencias y contrareferencias</a>
+					</li>
+					<li >
+						<a href="#/servicios_ciudadanos/realizar_reserva" ng-show="menu.CONFIG.ROL_CURRENT_USER == 7"><span class="glyphicon glyphicon-asterisk" aria-hidden="true"></span> Reservas de consultas medicas</a>
+						<!--a
+						ng-show="menu.CONFIG.ROL_CURRENT_USER == 2 || menu.CONFIG.ROL_CURRENT_USER == 3 || menu.CONFIG.ROL_CURRENT_USER == 6 ||  menu.CONFIG.ROL_CURRENT_USER == 10 "  -->
+						<a href="#/reservas/listar_reservas" >
+							<span class="glyphicon glyphicon-asterisk" aria-hidden="true"></span>
+							Citas médicas (reservas y citas programadas)</a></li>
+						<li  >
+						<!-- a
+						 ng-show="menu.CONFIG.ROL_CURRENT_USER == 4 || menu.CONFIG.ROL_CURRENT_USER == 9"-->
+						<a href="#/reservas/listar_reservas_med" >
+							<span class="glyphicon glyphicon-asterisk" aria-hidden="true"></span>
+							Citas médicas (reservas y citas programadas)</a></li>
+					</li>
+					<!-- li
+					ng-show="menu.CONFIG.ROL_CURRENT_USER == 1" -->
+					<li ><a href="#/alertas">
+						<span class="glyphicon glyphicon-asterisk" aria-hidden="true"></span>
+						Alertas preventivas</a></li>
+						<!-- li
+						ng-show="menu.CONFIG.ROL_CURRENT_USER == 1" -->
+					<li ><a href="#/homevacuna">
+						<span class="glyphicon glyphicon-asterisk" aria-hidden="true"></span>
+						PAI</a></li>
+						<!-- li
+						ng-show="menu.CONFIG.ROL_CURRENT_USER == 1" -->
+					<li ><a href="#/homeenfermedad">
+						<span class="glyphicon glyphicon-asterisk" aria-hidden="true"></span>
+						Enfermedades</a></li>
+					<li>
+					<!-- a
+					 ng-show="menu.CONFIG.ROL_CURRENT_USER == 1"-->
+						<a href="#/homepais" >
+						<span class="glyphicon glyphicon-asterisk" aria-hidden="true"></span>
+						Tablas Administrativas</a>
+					</li>
+					<li>
+					<!-- a
+					 ng-show="menu.CONFIG.ROL_CURRENT_USER == 3 || menu.CONFIG.ROL_CURRENT_USER == 4 || menu.CONFIG.ROL_CURRENT_USER == 5 || menu.CONFIG.ROL_CURRENT_USER == 6 || menu.CONFIG.ROL_CURRENT_USER == 10"-->
+						<a href="#/establecimientos/ver" >
+						<span class="glyphicon glyphicon-asterisk" aria-hidden="true"></span>
+						Establecimiento</a>
+					</li>
+					<!-- li
+					 ng-show="menu.CONFIG.ROL_CURRENT_USER == 6"-->
+					<li ><a href="#/horarios/consultorio">
+			            <span class="glyphicon glyphicon-asterisk" aria-hidden="true"></span>
+			            Horarios de consultorios</a></li>
+			            <!-- li
+			            ng-show="menu.CONFIG.ROL_CURRENT_USER == 4" -->
+			        <li ><a href="#/horarios/medico">
+			            <span class="glyphicon glyphicon-asterisk" aria-hidden="true"></span>
+			            Horarios de atención</a></li>
+				  </ul>
+				</li>
+				<li class="dropdown">
+				  <a href="" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">
+					<span class="glyphicon glyphicon-th" aria-hidden="true"></span>
+					Manuales disponibles<span class="caret"></span></a>
+				  <ul class="dropdown-menu">
+				  <!-- li
+				   ng-show="menu.CONFIG.ROL_CURRENT_USER == 1"-->
+					<li ><a href="">
+						<span class="glyphicon glyphicon-asterisk" aria-hidden="true"></span>
+						Manual de administrador de SESAR</a></li>
+						<!-- li
+						ng-show="menu.CONFIG.ROL_CURRENT_USER == 1 || menu.CONFIG.ROL_CURRENT_USER == 2 || menu.CONFIG.ROL_CURRENT_USER == 9" -->
+					<li ><a href="">
+						<span class="glyphicon glyphicon-asterisk" aria-hidden="true"></span>
+						Manual de administrador de Establecimiento </a></li>
+						<!-- li
+						 ng-show="menu.CONFIG.ROL_CURRENT_USER == 1 || menu.CONFIG.ROL_CURRENT_USER == 2 || menu.CONFIG.ROL_CURRENT_USER == 9 || menu.CONFIG.ROL_CURRENT_USER == 4"-->
+					<li ><a href="">
+						<span class="glyphicon glyphicon-asterisk" aria-hidden="true"></span>
+						Manual de Medico</a></li>
+						<!-- li
+						ng-show="menu.CONFIG.ROL_CURRENT_USER == 1 || menu.CONFIG.ROL_CURRENT_USER == 2 || menu.CONFIG.ROL_CURRENT_USER == 9 || menu.CONFIG.ROL_CURRENT_USER == 6" -->
+					<li ><a href="">
+						<span class="glyphicon glyphicon-asterisk" aria-hidden="true"></span>
+						Manual de Admisionista</a></li>
+				  </ul>
+				</li>
+			  </ul>
+			  <ul class="nav navbar-nav navbar-right">
+			  	<!--
+			  	<li ng-if="(menu.CONFIG.ROL_CURRENT_USER == '4' || menu.CONFIG.ROL_CURRENT_USER == '9' || menu.CONFIG.ROL_CURRENT_USER == '6') && muestranotireferencia != '0'">
+				   <a class="icono-btn " href="#/referenciasRec">
+					  <i class="glyphicon glyphicon-registration-mark" title="Referencias recibidas"></i>
+				      <span class="label  label-danger emergencia" ng-if="valor1>0">{{valor1}}</span>
+					</a>
+				</li>
+				<li ng-if="menu.CONFIG.ROL_CURRENT_USER == '6' || menu.CONFIG.ROL_CURRENT_USER == '10'">
+				   <a class="icono-btn " href="#/contrareferenciasrec">
+					  <i class="glyphicon glyphicon-copyright-mark btn-xl"  title="Contrareferencias recibidas"></i>
+				      <span class="label label-danger emergencia" ng-if="valor2>0">{{valor2}}</span>
+					</a>
+				</li>-->
+				<!-- <li>
+				  <a class="icono-btn" href="#/reservas/listar_reservas_med" title="Reservas por atender" ng-show="menu.CONFIG.ROL_CURRENT_USER == 4 || menu.CONFIG.ROL_CURRENT_USER == 9">
+					  <i class=" glyphicon glyphicon-time"></i> <br>
+					  <span></span>
+					  <span class="label label-danger emergencia" ng-if="nro>0">{{nro}}</span>
+				  </a>
+				  <a class="icono-btn" href="#/reservas/listar_reservas" title="Reservas pendientes" ng-show="menu.CONFIG.ROL_CURRENT_USER == 6 || menu.CONFIG.ROL_CURRENT_USER == 10" >
+					  <i class=" glyphicon glyphicon-time"></i> <br>
+					  <span></span>
+					  <span class="label label-danger emergencia" ng-if="nro>0">{{nro}}</span>
+				  </a>
+				</li> -->
+			  	<li class="dropdown">
+				  <a href="" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">
+					<span class="glyphicon glyphicon-user" aria-hidden="true"></span>
+					{{menu.user.usu_nick}} 
+				  <span class="caret"></span></a>
+				  <ul class="dropdown-menu">
+				  	<li><a href="#/perfil">
+						<span class="glyphicon glyphicon-user" aria-hidden="true" ></span>
+						Ver Perfil</a></li>
+					<li ng-show="menu.cambia_rol"><a href="#/rol/usuario" >
+						<span class="glyphicon glyphicon glyphicon-wrench" aria-hidden="true" ></span>
+						Cambiar rol</a></li>
+					<li><a href="" ng-click="menu.logout()">
+						<span class="glyphicon glyphicon-off" aria-hidden="true" ></span>
+						Cerrar sesion</a></li>
+				  </ul>
+				</li>
+			  </ul>
+			</div>
+		  </div>
+		</nav>
+	</div>
+</div>
+<!-- TOP-MENU fin

@@ -1,0 +1,310 @@
+
+<!-- CONTEXT-MENU  -->
+<div ng-include="'./templates/menu_inicio.html'">
+  </div>
+  <div ng-include="'./templates/menu_lateral.html'">
+  </div>
+  <!-- <h1>{{$parent.settings.pageTitle}}</h1> -->
+    
+<!-- CONTENIDO MODULO inicio  190.181.59.40ng-controller="DatosFuncioarioController as v"-->
+  <div class="col-md-8 col-sm-8"  >
+ <!-- <div > -->
+    <div class="row">
+      <div class="col-md-12">
+        <h2 class="text-primary">
+          <span class="glyphicon glyphicon-th-list" aria-hidden="true"></span>
+          {{ajustes.pagina.titulo}}
+        </h2>
+        <hr>
+      </div>
+    </div>
+  
+  <div class="row" >
+      <div class="col-md-12" >
+      <!-- AQUI VAN LAS TABLAS O FORMULARIOS incrustados ng-controller="apiApppCtrl as vm" -->
+      <!-- INICIO -->
+      <div class="well well-sm" style="background-color:#fff;" >
+          <div class="row">
+            <div class="col-md-12">
+              <div class="text-center  cabecerapanel panel-heading">I. ESTABLECIMIENTO ORIGEN</div>
+            </div>  
+          </div>  
+      <div class="row">
+          <div class="col-md-6">
+              <label for="nombre" class="control-label">Establecimiento que Refiere:</label>
+              
+              <div>{{referencias.establecimiento_origen.es_nombre}}</div>
+          </div>  
+          <div class="col-md-4">
+              <label for="nit" class="control-label">Código de Referencia:</label>
+               
+                <div>{{referencias.referencia.br_cod}}</div>
+          </div> 
+           <div class="col-md-6">
+              <label for="resolucion" class="control-label">Seguro Paciente:</label>
+              
+              <div class="texto">{{referencias.referencia.br_seguro}}</div>
+          </div> 
+      </div> 
+      <br>
+      <div class="row">
+          <div class="col-md-12">
+            <div class="text-center cabecerapanel panel-heading">II. FICHA DE IDENTIFICACIÓN</div>
+          </div>  
+      </div>  
+      <br> 
+      <div class="row" ng-repeat="direccion in referencias.direccion" >
+          <div class="col-md-4" >
+              <label for="nomp" class="control-label">Nombres del paciente: </label>
+             
+              <div>{{referencias.persona_paciente.per_nombres+' '+referencias.persona_paciente.per_apellido_primero}}</div>
+          </div>  
+          <div class="col-md-6" >
+              <label for="nomp" class="control-label">Dirección: </label>
+              <div>{{direccion.dir_zona_comunidad+' '+direccion.dir_avenida_calle+' # '+direccion.dir_numero}}</div>
+          </div>  
+      </div> 
+      <br>
+      <div class="row">
+          <div class="col-md-12">
+           <label for="resolucion" class="control-label">Datos Clinicos:</label>
+          </div>  
+      </div> 
+      <div class="row">
+           <div class="col-md-2">
+              <label for="nit" class="control-label">F.C.(lpm):</label>
+              <div>{{referencias.referencia.br_frec_cardiaca}}</div>
+           </div>   
+           <div class="col-md-2">
+              <label for="nit" class="control-label">F.R.(rpm):</label>
+              <div>{{referencias.referencia.br_frec_resp}}</div>
+          </div>    
+           <div class="col-md-2">
+              <label for="nit" class="control-label">P.A.S.(mmHg):</label>
+              <div>{{referencias.referencia.br_pa_sistolica}}</div>
+          </div> 
+          <div class="col-md-2">
+              <label for="nit" class="control-label">P.A.D.(mmHg):</label>
+              <div>{{referencias.referencia.br_pa_diastolica}}</div>
+          </div> 
+           <div class="col-md-2">
+              <label for="nit" class="control-label">TEMP(°C):</label>
+              <div>{{referencias.referencia.br_temperatura}}</div>
+          </div>  
+           <div class="col-md-2">
+               <label for="nit" class="control-label">PESO(kg):</label>
+               <div>{{referencias.referencia.br_peso}}</div>
+          </div>  
+          <div class="col-md-2">
+               <label for="nit" class="control-label">TALLA(m):</label>
+               <div>{{referencias.referencia.br_talla}}</div>
+          </div>       
+      </div>
+      <br>
+      <div class="row">
+          <div class="col-md-6">
+              <label for="nit" class="control-label">Resumen de ananmesisi y Examen clinico:</label>
+              <div class="texto">{{referencias.referencia.br_resumen}}</div>
+          </div>
+          <div class="col-md-6">
+              <label for="nit" class="control-label">Resultados, examenes complementarios de diagnostico:</label>
+              <div class="texto">{{referencias.referencia.br_resultado_examen}}</div>
+          </div>   
+      </div> 
+      <div class="row">
+          <div class="col-md-6">
+              <label for="nit" class="control-label">Diagnósticos presuntivos:</label>
+              <div class="texto">{{referencias.referencia.br_diagnostico}}</div>
+          </div>
+          <div class="col-md-6">
+              <label for="nit" class="control-label">Recomendaciones:</label>
+              <div class="texto">{{referencias.referencia.br_tratamiento_inicial}}</div>
+          </div>   
+      </div>    
+      <br>
+      <div class="row">
+          <div class="col-md-12">
+            <div class="text-center cabecerapanel panel-heading">III. CONSENTIMIENTO INFORMADO</div>
+          </div>  
+      </div>  
+      <div class="row">
+          <div class="col-md-6">
+             <label for="acomp" class="control-label">Acompañante:</label>
+             <div class="texto">{{referencias.referencia.br_acomp}}</div>
+          </div>  
+      </div> 
+      <br> 
+      <div class="row">
+          <div class="col-md-12">
+            <div class="text-center cabecerapanel panel-heading">V. MOTIVO</div>
+          </div>  
+      </div>  
+      <div class="row">
+          <div class="col-md-6">
+              <label for="resolucion" class="control-label">Motivo referencia:</label>
+              <div class="texto">{{referencias.referencia.br_motivo}}</div>
+          </div> 
+         
+      </div>
+      <br>
+      <div class="row">
+          <div class="col-md-12">
+            <div class="text-center cabecerapanel panel-heading">VI. ESTABLECIMIENTO DE SALUD DESTINO</div>
+          </div>  
+      </div> 
+      <div class="row">
+          <div class="col-md-6">
+              <label class="control-label">Establecimiento:</label>
+              <div class="texto">{{referencias.establecimiento_destino.es_nombre}}</div>
+          </div>       
+          <div class="col-md-4">
+              <label for="resolucion" class="control-label">Subsector:</label>
+              <div class="texto">{{referencias.referencia.br_subsector}}</div>
+           </div>   
+      </div>
+      <br>
+           
+        <!-- <div class="row"">
+        <div class="col-md-6">
+            <label class="control-label ">Se Contacto al Establecimento:</label>
+            <input type="checkbox" ng-model="checked" ng-init="checked=false" /><br/>
+        </div>
+        </div>
+        <br>
+        <div class="row"">
+        <div ng-if="checked" class=" col-md-6">
+            <label class="control-label ">Nombre de la Persona Contactada:</label>
+            <select class="form-control" ng-model="contrareferencia.fun_id_contacto" ng-options="funcionario.fun_id as funcionario.per_nombres+' '+funcionario.per_apellido_primero+' '+funcionario.per_apellido_segundo for funcionario in funcs">
+            </select>
+        </div> 
+        <br>-->
+
+        <!-- <div class="col-md-6">
+                   <label class="control-label">Nombre de la persona contactada:</label>
+                       <select class="form-control"  ng-model="referencias.referencia.fun_id_destino" ng-options="funcionario.fun_id as funcionario.per_nombres+' '+funcionario.per_apellido_primero for funcionario in funcs">
+                         </select>
+                    </div>   -->
+          <!-- <div class="row" >
+              <div class="col-md-6">
+              <label class="control-label">Nombre de quien recibe al paciente:</label>
+              <select class="form-control"  ng-model="referencias.referencia.fun_id_destino" ng-options="funcio.fun_id as funcio.per_nombres+' '+funcio.per_apellido_primero for funcio in funcsc">
+               </select>
+              </div>
+          </div> -->
+        <div class="row">
+            <div class="col-md-12">
+                <label class="control-label ">Recepcionado:</label>
+                <input id="seleccion" name="cont" type="checkbox"  ng-model="referencias.referencia.br_estado_referencia" ng-init="checked=false" /><br/>
+            </div>
+        </div>
+        <br>
+        <div class="row" >
+            <div ng-if="referencias.referencia.br_estado_referencia" ng-model="referencias.referencia.br_estado_referencia" class=" col-md-12">
+            <!-- <div class="col-md-4">
+                <label class="control-label">Fecha llegada:</label>     <div class='input-group date'>
+                <input type="text" class="form-control" id="datepicker" placeholder="dd/mm/aaaa" ng-model="referencias.referencia.br_fecha_llegada">
+                <span class="input-group-addon">
+                     <span class="glyphicon glyphicon-calendar"></span>
+                </span>
+                 </div>
+            </div>
+            <div class="col-md-4">
+                <label class="control-label">Hora llegada:</label>
+                <div class="input-group clockpicker" data-align="top" data-autoclose="true">
+                      <input type="text" class="form-control" ng-model="referencias.referencia.br_hora_llegada" >
+                      <span class="input-group-addon">
+                      <span class="glyphicon glyphicon-time"></span>
+                </div>
+            </div> -->
+             <div class="row">
+                <div class="col-md-6">
+                    <label class="control-label">Nombre funcionario receptor:</label>
+                     <div class="texto">{{funcionarios.persona.per_nombres}}</div>
+                </div>       
+                <div class="col-md-4">
+                    <label for="resolucion" class="control-label">Cargo:</label>
+                    <div class="texto">{{funcionarios.funcionario_establecimiento.fun_cargo}}</div>
+                 </div>   
+            </div>
+            <br>
+            <div class="row">
+                <div class="col-md-3">
+                          <label class="control-label ">Fecha llegada:</label>
+                          <div class="input-group">
+                                <label class="form-control">{{CurrentDate | date:'dd/MM/yyyy'}} </label>
+                                <span class="input-group-addon">
+                                    <span class="glyphicon glyphicon-calendar"></span>
+                                </span>
+                            </div>
+              </div>
+              <div class="col-md-3">
+                          <label class="control-label ">Hora llegada:</label>
+                          <div class="input-group">
+                                <label class="form-control">{{CurrentDate | date:'hh:mm:ss'}}</label>
+                                <span class="input-group-addon">
+                                    <span class="glyphicon glyphicon-time"></span>
+                                </span>
+                            </div>
+              </div>
+          </div>
+           <!--  <div class="col-md-4">
+                <label class="control-label">Fecha recepción:</label>
+                      <div class='input-group date'>
+                          <input type="text" class="form-control" id="datepicker1" placeholder="dd/mm/aaaa" ng-model="referencias.referencia.br_fecha_recepcion">
+                          <span class="input-group-addon">
+                            <span class="glyphicon glyphicon-calendar"></span>
+                          </span>
+                      </div>
+            </div>
+            <div class="col-md-4">
+                <label class="control-label">Hora recepción:</label>
+                <div class="input-group clockpicker" data-align="top" data-autoclose="true">
+                      <input type="text" class="form-control" ng-model="referencias.referencia.br_hora_recepcion">
+                      <span class="input-group-addon">
+                      <span class="glyphicon glyphicon-time"></span>
+                </div>
+            </div>     -->
+      </div> 
+      </div>
+       <!--  <div class="row" >
+           <div class="col-md-4">
+            <label for="resolucion" class="control-label">Asistencia:</label>
+           <select  class="form-control" ng-model="referencias.referencia.br_estado_referencia">
+             <option value="true">Asistio</option>
+             <option value="false">No Asistio</option>
+           </select>
+           </div>   
+       </div> -->
+     
+         <!--  </div> -->
+         <br>
+<!-- <hr> referencias.referencia.fun_id_destino -->
+        <div class="row">
+            <p ng-show="$parent.ajustes.pagina.success" class="alert alert-success">{{$parent.ajustes.pagina.success}}</p>
+        <div class="col-md-2 col-md-offset-5">
+            <!-- <button type="submit" class="btn btn-primary" ng-click="save(referencias.paciente.pac_id,referencias.referencia.es_id_origen,referencias.referencia.es_id_destino,referencias.referencia.fun_id_origen,referencias.referencia.fun_id_destino,referencias.referencia.fun_id_contacto,referencias.referencia.br_cod,referencias.referencia.br_frec_cardiaca,referencias.referencia.br_frec_resp,referencias.referencia.br_pa_sistolica,referencias.referencia.br_temperatura,referencias.referencia.br_peso,referencias.referencia.br_resumen,referencias.referencia.br_resultado_examen,referencias.referencia.br_diagnostico,referencias.referencia.br_tratamiento_inicial,referencias.referencia.br_acomp,referencias.referencia.br_motivo,referencias.referencia.br_subsector,referencias.referencia.br_fecha_llegada,referencias.referencia.br_hora_llegada,referencias.referencia.br_fecha_recepcion,referencias.referencia.br_hora_recepcion,referencias.referencia.br_seguro,referencias.referencia.br_estado_referencia)"><span class="glyphicon glyphicon-save"></span>EDITAR</button> -->
+            <button type="submit" class="btn btn-primary" ng-click="save(referencias.paciente.pac_id,referencias.referencia.es_id_origen,referencias.referencia.es_id_destino,referencias.referencia.fun_id_origen,referencias.referencia.fun_id_destino,referencias.referencia.fun_id_contacto,referencias.referencia.br_cod,referencias.referencia.br_frec_cardiaca,referencias.referencia.br_frec_resp,referencias.referencia.br_pa_sistolica,referencias.referencia.br_temperatura,referencias.referencia.br_peso,referencias.referencia.br_resumen,referencias.referencia.br_resultado_examen,referencias.referencia.br_diagnostico,referencias.referencia.br_tratamiento_inicial,referencias.referencia.br_acomp,referencias.referencia.br_motivo,referencias.referencia.br_subsector,referencias.referencia.br_fecha_llegada,referencias.referencia.br_hora_llegada,referencias.referencia.br_fecha_recepcion,referencias.referencia.br_hora_recepcion,referencias.referencia.br_seguro,referencias.referencia.br_estado_referencia,referencias.referencia.br_pa_diastolica)"><span class="glyphicon glyphicon-save"></span>EDITAR</button>
+            <!-- <button type="submit" class="btn btn-primary" ng-click="save(referencias.referencia.br_fecha_recepcion,referencias.referencia.br_hora_recepcion,referencias.referencia.br_estado_referencia)"><span class="glyphicon glyphicon-save"></span>RECEPCIONAR</button> -->
+          
+        </div>    
+   <!--      </div> -->
+      </div>  
+      
+      <!-- FIN -->
+      <!-- AQUI VAN LOS TABLAS O FORMULARIOS incrustados -->
+     
+     </div>
+<!-- fin cuerpo -->
+      </div>
+      </div>
+    </div>
+  </div>
+<!-- CONTENIDO MODULO fin -->
+
+<script type="text/javascript" src="./templates/fecha.js"></script>
+<script type="text/javascript">
+$('.clockpicker').clockpicker();
+console.log('llamo 1');
+</script> 
+
+          </div>    

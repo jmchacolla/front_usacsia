@@ -1,0 +1,28 @@
+<!-- TOP-MENU inicio -->
+<div ng-include="'./templates/menu_inicio.html'"></div>
+
+<!-- CONTEXT-MENU  -->
+	<div ng-include="'./templates/menu_lateral.html'">
+	</div>
+<!-- CONTENIDO MODULO inicio -->
+	<div class="col-md-8 col-sm-8">
+		<div class="row">
+			<div class="col-md-12">
+				<h2 class="text-primary">
+					<span class="glyphicon glyphicon-th-list" aria-hidden="true"></span>
+					{{ajustes.pagina.titulo}}
+				</h2>
+				<hr>
+			</div>
+		</div>
+		<div class="row">
+			<div class="col-md-12">
+			<!-- AQUI VAN LAS TABLAS O FORMULARIOS incrustados -->
+			<!-- INICIO -->
+			<form role="form" name="editPaciente" ng-include="'forms/paciente/edit_pac_per.html'"></form>
+			<!-- FIN -->
+			<!-- AQUI VAN LOAS TABLAS O FORMULARIOS incrustados -->
+			</div>
+		</div>
+	</div>
+<!-- CONTENIDO MODULO fin -->

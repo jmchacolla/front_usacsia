@@ -1,0 +1,226 @@
+<!-- CONTEXT-MENU  -->
+<div ng-include="'./templates/menu_inicio.html'"></div>
+<div ng-include="'./templates/menu_lateral.html'"></div>
+<!-- CONTENIDO MODULO inicio -->
+		
+	<div class="col-md-8 col-sm-8">
+		<div class="row" >
+			<div class="col-md-12">
+				<h2 class="text-primary">
+					<span class="glyphicon glyphicon-calendar" aria-hidden="true"></span>
+					{{ajustes.pagina.titulo}}
+				</h2>
+				<hr class="bg-green">
+			</div>
+		</div>
+		<div class="row">
+			<div class="col-md-12">
+			<h3 class="text-primary" align="center">
+				{{horario.servicio_consultorio[0].ser_nombre}}&nbsp;-&nbsp;{{horario.funcionario_establecimiento[0].per_apellido_primero}}&nbsp;{{horario.funcionario_establecimiento[0].per_apellido_segundo}}&nbsp;{{horario.funcionario_establecimiento[0].per_nombres}}<br>
+			</h3>
+			<!-- INICIO -->
+			<form name="userForm" novalidate>
+<!--			<form>-->
+			<div class="well well-sm" style="background-color:#fff;">
+				<div class="row">
+					<div class="col-md-4">
+					  <div class="form-group">
+							<label class="control-label">Consultorio:</label>
+							<p>{{horario.servicio_consultorio[0].con_nombre}}</p>
+					  </div>
+					</div>
+			        <div class="col-md-4">
+			         	<div class="form-group">
+							<label class="control-label">Tiempo aproximado de atención:</label>
+							<p>{{horario.configuracion_turno[0].ct_promedio}}&nbsp;minutos</p>
+						</div>
+					</div>
+					<div class="col-md-4">
+						<div class="form-group">
+							<label class="control-label"> Horario vigente del:</label>
+							<p>{{horario.configuracion_horario.ch_fecha_inicio}}&nbsp;<label class="control-label">al:</label>&nbsp;{{horario.configuracion_horario.ch_fecha_final}}</p>
+						</div>
+					</div>
+				</div>	  
+		      <!-- -->
+				<div class="row" >
+					<div class="col-md-12">
+						<div class="well well-sm text-center lead">
+							<strong>Horario de atención:</strong>
+						</div>
+					</div>	  
+				</div>	  
+				<div class="row">
+					<div class="col-md-12">
+						<div class="table-responsive">
+							<table class="table table-bordered">
+								<tr>
+									<th class="text-center">Turno</th>
+									<th class="text-center">Lunes</th>
+									<th class="text-center">Martes</th>
+									<th class="text-center">Miercoles</th>
+									<th class="text-center">Jueves</th>
+									<th class="text-center">Viernes</th>
+									<th class="text-center">Sabado</th>
+									<th class="text-center">Domingo</th>
+								</tr>
+								<!-- TURNO MAÑANA -->
+                                <tr>
+                                    <td class="lead text-center text-primary">
+                                        <div style="height:35px;"></div>
+                                        Mañana
+                                    </td>
+                                    <td align="center">
+                                        <div class="well well-sm" ng-if="check1!=null">
+                                            <h5><strong>{{check1.ct_ini_turno}}&nbsp;-&nbsp;{{check1.ct_fin_turno}}</strong></h5>
+                                            <h5>Total:&nbsp;<strong>{{check1.ct_ficha_total}}</strong></h5><h5>SESAR:&nbsp;<strong>{{check1.ct_ficha_sesar}}</strong></h5>
+                                        </div>
+                                    </td>
+                                    <td align="center">
+                                        <div class="well well-sm" ng-if="check2!=null">
+                                            <h5><strong>{{check2.ct_ini_turno}}&nbsp;-&nbsp;{{check2.ct_fin_turno}}</strong></h5>
+                                            <h5>Total:&nbsp;<strong>{{check2.ct_ficha_total}}</strong></h5><h5>SESAR:&nbsp;<strong>{{check2.ct_ficha_sesar}}</strong></h5>
+                                        </div>
+                                    </td>
+                                    <td align="center">
+                                        <div class="well well-sm" ng-if="check3!=null">
+                                            <h5><strong>{{check3.ct_ini_turno}}&nbsp;-&nbsp;{{check3.ct_fin_turno}}</strong></h5>
+                                            <h5>Total:&nbsp;<strong>{{check3.ct_ficha_total}}</strong></h5><h5>SESAR:&nbsp;<strong>{{check3.ct_ficha_sesar}}</strong></h5>
+                                        </div>
+                                    </td>
+                                    <td align="center">
+                                        <div class="well well-sm" ng-if="check4!=null">
+                                            <h5><strong>{{check4.ct_ini_turno}}&nbsp;-&nbsp;{{check4.ct_fin_turno}}</strong></h5>
+                                            <h5>Total:&nbsp;<strong>{{check4.ct_ficha_total}}</strong></h5><h5>SESAR:&nbsp;<strong>{{check4.ct_ficha_sesar}}</strong></h5>
+                                        </div>
+                                    </td>
+                                    <td align="center">
+                                        <div class="well well-sm" ng-if="check5!=null">
+                                            <h5><strong>{{check5.ct_ini_turno}}&nbsp;-&nbsp;{{check5.ct_fin_turno}}</strong></h5>
+                                            <h5>Total:&nbsp;<strong>{{check5.ct_ficha_total}}</strong></h5><h5>SESAR:&nbsp;<strong>{{check5.ct_ficha_sesar}}</strong></h5>
+                                        </div>
+                                    </td>
+                                    <td align="center">
+                                        <div class="well well-sm" ng-if="check6!=null">
+                                            <h5><strong>{{check6.ct_ini_turno}}&nbsp;-&nbsp;{{check6.ct_fin_turno}}</strong></h5>
+                                            <h5>Total:&nbsp;<strong>{{check6.ct_ficha_total}}</strong></h5><h5>SESAR:&nbsp;<strong>{{check6.ct_ficha_sesar}}</strong></h5>
+                                        </div>
+                                    </td>
+                                    <td align="center">
+                                        <div class="well well-sm" ng-if="check7!=null">
+                                            <h5><strong>{{check7.ct_ini_turno}}&nbsp;-&nbsp;{{check7.ct_fin_turno}}</strong></h5>
+                                            <h5>Total:&nbsp;<strong>{{check7.ct_ficha_total}}</strong></h5><h5>SESAR:&nbsp;<strong>{{check7.ct_ficha_sesar}}</strong></h5>
+                                        </div>
+                                    </td>
+                                </tr>
+                                <!-- TURNO TARDE -->
+                                                                <tr>
+                                    <td class="lead text-center text-primary">
+                                        <div style="height:35px;"></div>
+                                        Tarde
+                                    </td>
+                                    <td align="center">
+                                        <div class="well well-sm" ng-if="check8!=null">
+                                            <h5><strong>{{check8.ct_ini_turno}}&nbsp;-&nbsp;{{check8.ct_fin_turno}}</strong></h5>
+                                            <h5>Total:&nbsp;<strong>{{check8.ct_ficha_total}}</strong></h5><h5>SESAR:&nbsp;<strong>{{check8.ct_ficha_sesar}}</strong></h5>
+                                        </div>
+                                    </td>
+                                    <td align="center">
+                                        <div class="well well-sm" ng-if="check9!=null">
+                                            <h5><strong>{{check9.ct_ini_turno}}&nbsp;-&nbsp;{{check9.ct_fin_turno}}</strong></h5>
+                                            <h5>Total:&nbsp;<strong>{{check9.ct_ficha_total}}</strong></h5><h5>SESAR:&nbsp;<strong>{{check9.ct_ficha_sesar}}</strong></h5>
+                                        </div>
+                                    </td>
+                                    <td align="center">
+                                        <div class="well well-sm" ng-if="check10!=null">
+                                            <h5><strong>{{check10.ct_ini_turno}}&nbsp;-&nbsp;{{check10.ct_fin_turno}}</strong></h5>
+                                            <h5>Total:&nbsp;<strong>{{check10.ct_ficha_total}}</strong></h5><h5>SESAR:&nbsp;<strong>{{check10.ct_ficha_sesar}}</strong></h5>
+                                        </div>
+                                    </td>
+                                    <td align="center">
+                                        <div class="well well-sm" ng-if="check11!=null">
+                                            <h5><strong>{{check11.ct_ini_turno}}&nbsp;-&nbsp;{{check11.ct_fin_turno}}</strong></h5>
+                                            <h5>Total:&nbsp;<strong>{{check11.ct_ficha_total}}</strong></h5><h5>SESAR:&nbsp;<strong>{{check11.ct_ficha_sesar}}</strong></h5>
+                                        </div>
+                                    </td>
+                                    <td align="center">
+                                        <div class="well well-sm" ng-if="check12!=null">
+                                            <h5><strong>{{check12.ct_ini_turno}}&nbsp;-&nbsp;{{check12.ct_fin_turno}}</strong></h5>
+                                            <h5>Total:&nbsp;<strong>{{check12.ct_ficha_total}}</strong></h5><h5>SESAR:&nbsp;<strong>{{check12.ct_ficha_sesar}}</strong></h5>
+                                        </div>
+                                    </td>
+                                    <td align="center">
+                                        <div class="well well-sm" ng-if="check13!=null">
+                                            <h5><strong>{{check13.ct_ini_turno}}&nbsp;-&nbsp;{{check13.ct_fin_turno}}</strong></h5>
+                                            <h5>Total:&nbsp;<strong>{{check13.ct_ficha_total}}</strong></h5><h5>SESAR:&nbsp;<strong>{{check13.ct_ficha_sesar}}</strong></h5>
+                                        </div>
+                                    </td>
+                                    <td align="center">
+                                        <div class="well well-sm" ng-if="check14!=null">
+                                            <h5><strong>{{check14.ct_ini_turno}}&nbsp;-&nbsp;{{check14.ct_fin_turno}}</strong></h5>
+                                            <h5>Total:&nbsp;<strong>{{check14.ct_ficha_total}}</strong></h5><h5>SESAR:&nbsp;<strong>{{check14.ct_ficha_sesar}}</strong></h5>
+                                        </div>
+                                    </td>
+                                </tr>
+                                <!-- TURNO NOCHE -->
+                                <tr>
+                                    <td class="lead text-center text-primary">
+                                        <div style="height:35px;"></div>
+                                        Noche
+                                    </td>
+                                    <td align="center">
+                                        <div class="well well-sm" ng-if="check15!=null">
+                                            <h5><strong>{{check15.ct_ini_turno}}&nbsp;-&nbsp;{{check15.ct_fin_turno}}</strong></h5>
+                                            <h5>Total:&nbsp;<strong>{{check15.ct_ficha_total}}</strong></h5><h5>SESAR:&nbsp;<strong>{{check15.ct_ficha_sesar}}</strong></h5>
+                                        </div>
+                                    </td>
+                                    <td align="center">
+                                        <div class="well well-sm" ng-if="check16!=null">
+                                            <h5><strong>{{check16.ct_ini_turno}}&nbsp;-&nbsp;{{check16.ct_fin_turno}}</strong></h5>
+                                            <h5>Total:&nbsp;<strong>{{check16.ct_ficha_total}}</strong></h5><h5>SESAR:&nbsp;<strong>{{check16.ct_ficha_sesar}}</strong></h5>
+                                        </div>
+                                    </td>
+                                    <td align="center">
+                                        <div class="well well-sm" ng-if="check17!=null">
+                                            <h5><strong>{{check17.ct_ini_turno}}&nbsp;-&nbsp;{{check17.ct_fin_turno}}</strong></h5>
+                                            <h5>Total:&nbsp;<strong>{{check17.ct_ficha_total}}</strong></h5><h5>SESAR:&nbsp;<strong>{{check17.ct_ficha_sesar}}</strong></h5>
+                                        </div>
+                                    </td>
+                                    <td align="center">
+                                        <div class="well well-sm" ng-if="check18!=null">
+                                            <h5><strong>{{check18.ct_ini_turno}}&nbsp;-&nbsp;{{check18.ct_fin_turno}}</strong></h5>
+                                            <h5>Total:&nbsp;<strong>{{check18.ct_ficha_total}}</strong></h5><h5>SESAR:&nbsp;<strong>{{check18.ct_ficha_sesar}}</strong></h5>
+                                        </div>
+                                    </td>
+                                    <td align="center">
+                                        <div class="well well-sm" ng-if="check19!=null">
+                                            <h5><strong>{{check19.ct_ini_turno}}&nbsp;-&nbsp;{{check19.ct_fin_turno}}</strong></h5>
+                                            <h5>Total:&nbsp;<strong>{{check19.ct_ficha_total}}</strong></h5><h5>SESAR:&nbsp;<strong>{{check19.ct_ficha_sesar}}</strong></h5>
+                                        </div>
+                                    </td>
+                                    <td align="center">
+                                        <div class="well well-sm" ng-if="check20!=null">
+                                            <h5><strong>{{check20.ct_ini_turno}}&nbsp;-&nbsp;{{check20.ct_fin_turno}}</strong></h5>
+                                            <h5>Total:&nbsp;<strong>{{check20.ct_ficha_total}}</strong></h5><h5>SESAR:&nbsp;<strong>{{check20.ct_ficha_sesar}}</strong></h5>
+                                        </div>
+                                    </td>
+                                    <td align="center">
+                                        <div class="well well-sm" ng-if="check21!=null">
+                                            <h5><strong>{{check21.ct_ini_turno}}&nbsp;-&nbsp;{{check21.ct_fin_turno}}</strong></h5>
+                                            <h5>Total:&nbsp;<strong>{{check21.ct_ficha_total}}</strong></h5><h5>SESAR:&nbsp;<strong>{{check21.ct_ficha_sesar}}</strong></h5>
+                                        </div>
+                                    </td>
+                                </tr>
+							</table>
+						</div>
+					</div>		  
+				</div>	  
+			</div>	
+			</form>
+			<!-- FIN -->
+			<!-- AQUI VAN LOAS TABLAS O FORMULARIOS incrustados -->
+			</div>
+		</div>
+	</div>
+<!-- CONTENIDO MODULO fin -->
+

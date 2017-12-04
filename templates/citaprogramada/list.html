@@ -1,0 +1,86 @@
+<!-- TOP-MENU inicio -->
+<div ng-include="'./templates/menu_inicio.html'"></div>
+
+<!-- CONTEXT-MENU  -->
+  <div ng-include="'./templates/menu_lateral.html'">
+  </div>
+  <div class="col-md-8 col-sm-8">
+      <div class="row">
+          <div class="col-md-12">
+            <h2 class="text-primary">
+              <span class="glyphicon glyphicon-list-alt" aria-hidden="true"></span>
+              {{ajustes.pagina.titulo}}
+            </h2>
+            <hr class="bg-green">
+          </div>
+      </div>
+      <div class="row">
+          <div class="col-md-12">
+             <br>
+            <div class="well well-sm">
+              <strong class="pull-left lead">Herramientas: &nbsp;</strong>
+              <form class="form-inline pull-left">
+                <input type="text" class="form-control" placeholder="Filtrar por... " ng-model="searchText">
+              </form>
+              &nbsp;&nbsp;
+              <div class="clearfix"></div>
+            </div>
+          </div>
+      </div>
+ 
+      <div class="row">
+        <div class="col-md-12">
+            Las filas de color <strong class="text-primary">Verde</strong> representan a las citas m&eacute;dicas <strong >PROGRAMADAS</strong>, que fueron <strong>CONFIRMADAS</strong> por el paciente.
+        </div>
+      </div>
+      <br>
+
+      <div class="text-center" ng-show="loading"><br><img ng-src="./images/image.gif" class="loader-img"></div>
+      <div ng-show="!loading && !msg" class="alert alert-danger" role="alert">No existe citas m&eacute;dicas registradas :(</div>
+
+      <ul class="pager" ng-show="!loading && msg">
+          <h3>
+            <li class="previous"><a href="" ng-disabled="citprog1.prev_page_url" ng-click="paginar(citprog1.prev_page_url)">&larr; Anterior</a></li>
+              <form class="form-inline pull-left">
+                  &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                  <select class="form-control" ng-model="citprog1.current_page" name="pagina" ng-options="fila for fila in filas" ng-change="cambia_pagina(citprog1.current_page, citprog1.per_page)"></select>
+                  Pag.
+                  <label class="btn btn-primary">
+                      <span class="badge"> <font size="4"> {{citprog1.current_page}}</font></span> <font size="4">de</font> <span class="badge"><font size="4">{{citprog1.last_page}}</font></span>
+                  </label>
+              </form>
+            <li class="next"><a href="" ng-disabled="citprog1.next_page_url==null" ng-click="paginar(citprog1.next_page_url)">Siguiente &rarr;</span></a></li>
+          </h3>
+      </ul>
+
+      <div class="panel" ng-show="!loading && msg">
+          <div class="panel-body ">
+            <div class="table-responsive">
+              <div  ng-repeat="(key, value) in citprog1.data | groupBy: 'cit_fecha_consulta' | countBy: 'cit_fecha_consulta'">
+                <div  ng-repeat="cita in citprog1.data | groupBy: 'cit_fecha_consulta' | toArray:true | filter:searchText">    
+                    <div ><h4><span class="well well-sm">FECHA: <strong>{{cita[0].cit_fecha_consulta}}</strong></span></h4></div>
+                    <table  class="table table-bordered">
+                          <thead  class="well well-sm">
+                            <th>Nº</th>
+                            <th>Hora</th>
+                            <th>Servicio</th>
+                            <th>Paciente</th>    
+                            <th>Estado</th>            
+                          </thead>
+                          <tbody ng-repeat="citat in cita " >
+                            <tr ng-class="{success:citat.cit_estado_confirmacion == 'CONFIRMADA'}">
+                              <td>{{$index + 1}}</td>
+                              <td>{{citat.cit_hora_consulta | date:'H:mm'}}</td>
+                              <td>{{citat.ser_nombre}}</td>
+                              <td>{{citat.per_nombres+" "+citat.per_apellido_primero+" "+citat.per_apellido_segundo}}</td>
+                              <td>{{citat.cit_estado_confirmacion}}</td>
+                            </tr>
+                          </tbody>
+                    </table>
+                     <br>
+                </div>
+              </div>   
+            </div>
+          </div>
+      </div>  
+  </div>

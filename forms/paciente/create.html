@@ -1,0 +1,149 @@
+<!-- TOP-MENU inicio -->
+<div ng-include="'./templates/menu_inicio.html'"></div>
+<!-- CONTEXT-MENU  -->
+
+  <div ng-include="'./templates/menu_lateral.html'"></div>
+    <div class="col-md-8 col-sm-8">
+    <div class="row">
+      <div class="col-md-12">
+        <h2 class="text-primary">
+          <span class="glyphicon glyphicon-th-list" aria-hidden="true"></span>
+          {{ajustes.pagina.titulo}}
+        </h2>
+        <hr>
+      </div>
+    </div>
+
+
+  <div ng-controller="apiAppCtrl as vm">
+    <div ng-show="busca_pac">
+          <p>
+            <h4 class="text-primary">Instrucciones</h4>
+            Para el registro de los pacientes:
+            <ul>
+              <li>Solicite el n&uacute;mero de Carnet de Identidad del paciente (en caso de que el paciente haya realizado su preregistro debe presentar su Carnet de Identidad para validar su información) y escribalo en el buscador</li>
+              <li>Luego pulse en <b>Buscar</b></li>
+              <li>En el conjunto de resultados, pulse en <b>Registrar</b> o <b>Admitir</b>, seg&uacute;n corresponda, en la fila del paciente buscado.</li>
+            </ul>
+            En caso de NO obtener resultados, haga clic en <b>Registrar Paciente Nuevo</b>
+          </p>
+        <hr>
+        <!-- Inicio Controller apiAppCtrl -->
+        <div class="well well-sm">
+          <div class="row">
+            <div class="col-md-6 col-md-offset-2">
+                <input class="form-control input-lg" ng-model="vm.per_ci"  type="text" placeholder="Escriba el Nro. de C.I.">  
+            </div>
+            <div class="col-md-4">
+              <button class="btn btn-primary btn-lg" ng-click="vm.buscaPersona()"><span class="glyphicon glyphicon-search"></span><strong> BUSCAR</strong></button>
+            </div>
+          </div>  
+        </div>
+        &nbsp;&nbsp;
+        <div><center><h3>RESULTADOS:<span class="text-primary">  {{ tamanio }} </span></h3></center></div>
+        <br>
+        <div ng-show="!msg">
+          <div class="lead text-center">
+            <a class="btn btn-primary btn-lg" href="#/pacientes/createP">
+              <span class="glyphicon glyphicon-plus"></span>
+              REGISTRAR PACIENTE NUEVO 
+            </a>
+          </div>
+        </div>
+       <!--  <div class="row panel-group tabla-cuerpo">  -->
+        <div class="form-group" ng-repeat="persona in vm.personas">
+         <!--  <div><center>  RESULTADOS {{ tamanio }}</center></div> -->
+           <table class="table table-bordered table-striped table-hover">
+             <thead >
+                <th>C.I.</th> 
+                <th>NOMBRES</th>
+                <th>APELLIDO PATERNO</th>
+                <th>APELLIDO MATERNO</th>                          
+                <th>REGISTRAR</th>
+                <th>ADMITIR</th>
+             </thead>
+             <tbody >
+                <tr>
+                  <td>{{persona.per_ci}}</td>
+                  <td>{{persona.per_nombres}}</td>
+                  <td>{{persona.per_apellido_primero}}</td>
+                  <td>{{persona.per_apellido_segundo}}</td>
+                  <td>
+                  <button type="" class="btn btn-primary" ng-disabled="switch1" ng-click="agregar_pac(persona.per_id, vm.variable)"> <span class="glyphicon glyphicon-plus-sign" ></span><strong> REGISTRAR</strong></button> 
+                  </td>
+                  <td>
+                  <button type="" class="btn btn-primary"  ng-disabled="switch"  title="Admitir Paciente" data-toggle="modal" data-target="#miCuadroModal" ng-click="obtiene_datos(persona.pac_id)"> <span class="glyphicon glyphicon-ok"></span><strong> ADMITIR</strong></button>                                 
+                  </td>
+                </tr>
+             </tbody>
+           </table>
+           <!--CUADRO MODAL-->
+           <div id="miCuadroModal" class="modal fade" role="dialog" tabindex="-1">
+              <div class="modal-dialog">
+                <div class="modal-content">
+                  <div class="modal-header bg-green">
+                    <button type="button" class="close" data-dismiss="modal">×</button>
+                    <h3 class="modal-title fg-white">ADMITIR AL PACIENTE</h3>
+                  </div>
+                  <form role="form" name="addCod" novalidate>
+                  <div class="modal-body">
+                      <div ng-if="valor == '0'">                                    
+                        <center><h4 class="text-primary">DATOS GENERALES</h4></center>                              
+                        <span class=""><strong>C.I.:  </strong></span>
+                          {{pac_per.persona.per_ci+" "+pac_per.persona.per_ci_expedido}}<br>
+                        <span class=""><strong>NOMBRE COMPLETO:  </strong></span>
+                          {{pac_per.persona.per_nombres+" "+pac_per.persona.per_apellido_primero+" "+pac_per.persona.per_apellido_segundo}}<br>
+                        <span class=""><strong>FECHA DE NACIMIENTO:  </strong></span>
+                          {{fecha_nac}}<br>
+                        <span class=""><strong>DOMICILIO:  </strong></span>
+                          {{pac_per.direccion[0].dir_zona_comunidad+" "+pac_per.direccion[0].dir_avenida_calle+"  Nro."+pac_per.direccion[0].dir_numero}}
+                        <center><h4 class="text-primary">INFORMACIÓN MÉDICA</h4></center>                                    
+                        <span class=""><strong>GRUPO SANGUINEO:  </strong></span>
+                          {{pac_per.paciente.pac_grupo_sanguineo}}<br>
+                        <span class=""><strong>ALERGIAS:  </strong></span>
+                          {{pac_per.paciente.pac_alergia}}<br>
+                        <div class="row">
+                        <div class="col-md-8">
+                        <div class="form-group">
+                        <span class="text-primary"><h5>ASIGNAR CÓDIGO DE HISTORIAL:</h5></span>
+                           <div class="input-group">
+                             <input class="form-control" type="text" name="hist_clinico" class="form-control" ng-model="paciente_per.pe_hist_clinico" placeholder="Codigo Historial" autofocus required>
+                             <span class="glyphicon glyphicon-tags"></span>
+                           </div>
+                           <span class="messages" ng-show="addCod.$submitted || addCod.hist_clinico.$touched">
+                            <span ng-show="addCod.hist_clinico.$error.required">El campo es obligatorio.</span>
+                           </span>
+                        </div>
+                        </div>
+                        </div>
+                      </div> 
+                      <div ng-if="valor == 1">
+                        <div class="well well-sm">
+                          <strong>EL PACIENTE YA SE ENCUENTRA REGISTRADO, PULSE EL BOTÓN "HABILITAR" PARA VER LA INFORMACIÓN DEL PACIENTE.</strong>    
+                        </div>    
+                      </div>
+                  </div>
+                  <div ng-if="valor == '0'" class="modal-footer">
+                    <button type="button" class="btn btn-primary" data-dismiss="modal" ng-click="admitir(pac_per.paciente.pac_id)" ng-disabled="addCod.$invalid"><span class="glyphicon glyphicon-ok"></span>ADMITIR</button>
+                    <button type="button" class="btn btn-danger" data-dismiss="modal"><span class="glyphicon glyphicon-remove"></span>CANCELAR</button>
+                  </div>
+                  <div ng-if="valor == '1'" class="modal-footer">
+                    <button type="button" class="btn btn-primary" data-dismiss="modal" ng-click="admitir_E(pac_per.paciente.pac_id)"><span class="glyphicon glyphicon-ok"></span>  HABILTAR</button>
+                  </div>
+                  </form>
+                </div>
+              </div>
+           </div>
+           <!--FIN CUADRO MODAL-->
+        </div>  
+    </div><!-- fin ng-show -->
+
+  <!--     <div ng-if="variable == '1'">
+        <div ng-include=url></div>
+      </div> -->
+  </div><!-- Fin Controller apiAppCtrl -->     
+ 
+
+       
+
+

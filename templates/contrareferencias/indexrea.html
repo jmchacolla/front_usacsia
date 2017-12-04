@@ -1,0 +1,104 @@
+<!-- TOP-MENU inicio -->
+<div ng-include="'./templates/menu_inicio.html'"></div>
+	<div ng-include="'./templates/menu_lateral.html'">
+	</div>
+<!-- CONTENIDO MODULO inicio -->
+	<div class="col-md-8 col-sm-8">
+		<div class="row">
+			<div class="col-md-12">
+				<h2 class="text-primary">
+					<span class="glyphicon glyphicon-th-list" aria-hidden="true"></span>
+					{{ajustes.pagina.titulo}}
+				</h2>
+				<hr class="bg-green">
+			</div>
+		</div>
+		<div class="row">
+			<div class="col-md-12">
+				<div class="well well-sm">
+					<strong class="pull-left lead">Herramientas: &nbsp;</strong>
+					<form class="form-inline pull-left">
+						<input type="text" class="form-control" placeholder="Filtrar por ..." ng-model="per_nombres">
+					</form>
+					&nbsp;&nbsp;
+					<!--<button class="btn btn-primary"><span class="glyphicon glyphicon-tasks"></span> Exportar lista en XLS</button>
+					<button class="btn btn-default" ><span class="glyphicon glyphicon-save-file"></span> Exportar lista en PDF</button>-->
+					<div class="clearfix"></div>
+				</div>
+			</div>
+		</div>
+		<div >
+		</div>
+			<div class="panel">
+				<div class="panel-body ">
+					<div ng-show="loading" class="text-center"><br><img ng-src="./images/image.gif" class="loader-img"></div>
+					<div ng-show="!loading && !msg">No se encontraron resultados</div>
+					<div class="table-responsive">
+						<table class="table table-bordered  table-hover" ng-show="!loading && msg">
+			            	<thead>
+			                	<th>Nº</th>
+			                	<th align="center">
+			                		<a href="" ng-click="sortType = 'created_at'; sortReverse = !sortReverse">
+				                	Fecha de Contrareferencia
+				                	<span ng-show="sortType == 'created_at' && !sortReverse" class="glyphicon glyphicon-chevron-up"></span>
+				                    <span ng-show="sortType == 'created_at' && sortReverse" class="glyphicon glyphicon-chevron-down"></span>
+				                    </a>
+								</th>
+			                	<th>Paciente</th>
+			                	<th>Establecimiento destino</th>
+			                	<th>Código</th>
+			                	<th>Detalle</th>
+			                	<th ng-show="user.rol_id == 4 || user.rol_id == 9">Editar</th>
+		                		<th ng-show="user.rol_id == 2 || user.rol_id == 9">Borrar</th>
+			              	</thead>
+			              	<tbody ng-repeat="contrareferencia in contrareferenciasrea | orderBy:sortType:sortReverse | filter:per_nombres" >
+			                    <tr>
+									<td>{{$index + 1}}</td>
+									<td>{{contrareferencia.created_at}}</td>
+									<td>{{contrareferencia.per_nombres+"&nbsp;"+contrareferencia.per_apellido_primero+"&nbsp;"+contrareferencia.per_apellido_segundo}}</td>
+									<td>{{contrareferencia.es_nombre}}</td>
+									<td>{{contrareferencia.bc_cod}}</td>
+									<td>
+								  		<a class="btn btn-success" href="#/contrareferencia/ver/{{contrareferencia.bc_id}}" title="Detalle"><span class="glyphicon glyphicon-file"></span>
+										</a>
+									</td>
+									<td ng-show="user.rol_id==4 || user.rol_id == 9">
+					  					<a href="#/contrareferencia/editar/{{contrareferencia.bc_id}}"><button ng-disabled="user.fun_id_origen != contrareferencia.fe_id_origen" class="btn btn-primary btn-xl glyphicon glyphicon-pencil" ></button></a>
+									</td>
+									<td ng-show="user.rol_id == 2 || user.rol_id == 9">
+										<!-- BOTON PARA CUADROS MODALES -->
+					  					<button class="btn btn-danger" data-toggle="modal" ng-click="get_bc_id1(contrareferencia.bc_id,contrareferencia.per_apellido_primero,contrareferencia.per_apellido_segundo,contrareferencia.per_nombres)" data-target="#miCuadroModal1" title="Eliminar Contrareferencia"><span class="glyphicon glyphicon-trash"></span></button>
+					  					<!--CUADRO MODAL-->
+									  	<div id="miCuadroModal1" class="modal fade" role="dialog" tabindex="-1">
+										  	<div class="modal-dialog">
+											    <div class="modal-content">
+											      <div class="modal-header bg-green">
+											        <button type="button" class="close" data-dismiss="modal">x</button>
+											        <h4 class="modal-title fg-white"> ELIMINAR CONTRAREFERENCIA</h4>
+											      </div>
+											      <div class="modal-body lead text-center">
+											         <b>Esta seguro que desea eliminar la Contrareferencia del paciente: 
+					   						        <div class="well well-sm">
+														<strong>{{nom+' '+ap1+' '+ap2}}</strong>
+													</div>
+											      </div>
+											      <div class="modal-footer">
+											        <button type="button" class="btn btn-primary" data-dismiss="modal" ng-click="remove2()">
+											        <span class="glyphicon glyphicon-ok"></span>SI</button>
+											        <button type="button" class="btn btn-danger" data-dismiss="modal"><span class="glyphicon glyphicon-remove"></span>
+											        NO</button>
+											      </div>
+											    </div>
+											</div>
+										</div>
+									</td>
+							  	</tr>
+			                </tbody>
+			            </table>
+			        </div>
+		        </div>
+			</div>	        		
+			<!-- ..............Contrareferencias Recibidas................. -->
+	</div>
+</div>
+<!-- CONTENIDO MODULO fin!-->

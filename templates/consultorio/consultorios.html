@@ -1,0 +1,94 @@
+<!-- TOP-MENU inicio -->
+<div ng-include="'./templates/menu_inicio.html'"></div>
+
+<!-- CONTEXT-MENU  -->
+	<div ng-include="'./templates/menu_lateral.html'">
+	</div>
+<!-- CONTENIDO MODULO inicio -->
+	<div class="col-md-8 col-sm-8">
+		<div class="row">
+			<div class="col-md-12">
+				<h2 class="text-primary">
+					<span class="glyphicon glyphicon-th-list" aria-hidden="true"></span>
+					{{ajustes.pagina.titulo}}
+				</h2>
+				<hr class="bg-green">
+			</div>
+		</div>
+		<div class="row">
+			<div class="col-md-12 col-sm-12 col-xs-12">
+			<div class="well well-md well-sm well-xs">
+				<strong class="pull-left lead">Herramientas: &nbsp;</strong>
+				<form class="form-inline pull-left">
+					<input type="text" class="form-control" placeholder="Filtrar" ng-model="searchText">
+				</form>
+				&nbsp;&nbsp;
+				<!--<button class="btn btn-primary"><span class="glyphicon glyphicon-tasks"></span> Exportar lista en XLS</button>-->
+				<button class="btn btn-default" onclick="generateCON()"><span class="glyphicon glyphicon-save-file"></span> Exportar lista en PDF</button>
+				<div class="clearfix"></div>
+			</div>
+			</div>
+		</div>
+		<div class="row">
+			<div class="col-md-12 col-sm-12">
+			<!-- AQUI VAN LAS TABLAS O FORMULARIOS incrustados -->
+			<!-- INICIO -->
+			<div ng-show="loading" class="text-center"><br><img ng-src="./images/image.gif" class="loader-img"></div>
+			<div ng-show="!loading && !msg">No se encontraron resultados</div>
+			<div class="table-responsive">
+				<table class="table table-bordered table-striped table-hover" ng-show="!loading && msg" id="tableCON">
+                  <thead >
+                    <th ><a href="" ng-click="sortType = 'con_cod'; sortReverse = !sortReverse">Nombre
+                    	<span ng-show="sortType == 'con_nombre' && !sortReverse" class="glyphicon glyphicon-sort-by-alphabet"></span>
+			            <span ng-show="sortType == 'con_nombre' && sortReverse" class="glyphicon glyphicon-sort-by-alphabet-alt"></span></a>
+                    </th>
+                    <th >Ver</th>
+                    <th >Editar</th>
+                    <th >Borrar</th>
+                  </thead>
+                  <tbody ng-repeat="(key, value) in consultorios | filter:searchText | orderBy:sortType:sortReverse | groupBy: 'con_id'" >
+                    <tr>
+					<td>{{value[0].con_nombre}}</td>
+					<td >
+						<a href="#/consultorios/ver/{{key}}" class="btn btn-success" title="Editar"><span class="glyphicon glyphicon-file"></span></a>
+					</td>
+					<td >
+						<a href="#/consultorios/edit/{{key}}" class="btn btn-primary" title="Editar"><span class="glyphicon glyphicon-pencil"></span></a>
+					</td>
+					<td>
+						<!-- BOTON PARA CUADROS MODALES -->
+						<button type="button" class="btn btn-danger" data-toggle="modal" data-target="#miCuadroModal1" ng-click="get_con_id(key, value[0].con_nombre)" title="Eliminar"><span class="glyphicon glyphicon-trash"></span></button>
+						<!--CUADRO MODAL-->
+					  	<div id="miCuadroModal1" class="modal fade" role="dialog" tabindex="-1">
+						  <div class="modal-dialog">
+						    <div class="modal-content">
+						      <div class="modal-header bg-green">
+						        <button type="button" class="close" data-dismiss="modal">×</button>
+						        <h4 class="modal-title fg-white">ELIMINAR CONSULTORIO</h4>
+						      </div>
+						      <div class="modal-body lead text-center">
+						        ¿Está seguro que desea eliminar este consultorio?
+						        <div class="well well-sm">
+						         <strong>{{nombre}}</strong>
+						        </div>
+						      </div>
+						      <div class="modal-footer">
+						        <button type="button" class="btn btn-primary" data-dismiss="modal" ng-click="remove()"><span class="glyphicon glyphicon-ok"></span> SI</button>
+						        <button type="button" class="btn btn-danger" data-dismiss="modal"><span class="glyphicon glyphicon-remove"></span> NO</button>
+						      </div>
+						    </div>
+						  </div>
+						</div>
+						<!--FIN CUADRO MODAL-->
+					</td>
+				  </tr>
+                   
+                  </tbody>
+                </table>
+            </div>
+			<!-- FIN -->
+			<!-- AQUI VAN LOAS TABLAS O FORMULARIOS incrustados -->
+			</div>
+		</div>
+	</div>
+<!-- CONTENIDO MODULO fin -->

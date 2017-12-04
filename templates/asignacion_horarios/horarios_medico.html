@@ -1,0 +1,68 @@
+ <!--TOP-MENU inicio -->
+<div ng-include="'./templates/menu_inicio.html'"></div>
+<div ng-include="'./templates/menu_lateral.html'"></div>
+<!-- CONTENIDO MODULO inicio -->
+	<div class="col-md-8 col-sm-8">
+		<div class="row">
+			<div class="col-md-12">
+				<h2 class="text-primary">
+					<span class="glyphicon glyphicon-th-list" aria-hidden="true"></span>
+					{{ajustes.pagina.titulo}}
+				</h2>
+				<hr class="bg-green">
+			</div>
+		</div>
+		<div class="row">
+			<div class="col-md-12">
+				<div class="well well-sm">
+					<strong class="pull-left lead">Herramientas: &nbsp;</strong>
+					<form class="form-inline pull-left">
+						<input type="text" class="form-control" placeholder="Filtrar por ..." ng-model="ser_nombre">
+					</form>
+					&nbsp;&nbsp;
+					<div class="clearfix"></div>
+				</div>
+			</div>
+		</div>
+		<div class="panel">
+			<div class="panel-body">
+				<div ng-show="loading" class="text-center"><br><img ng-src="./images/image.gif" class="loader-img"></div>
+				<div ng-show="!loading && !msg">No se encontraron resultados</div>
+				<div class="table-responsive">
+					<table class="table table-bordered table-hover" ng-show="!loading && msg">
+		            	<thead>
+		                	<th>Nº</th>
+		                	<th align="center">
+		                		<a href="" ng-click="sortType = 'ser_nombre'; sortReverse = !sortReverse">
+			                	Servicio
+			                	<span ng-show="sortType == 'ser_nombre' && !sortReverse" class="glyphicon glyphicon-chevron-up"></span>
+			                    <span ng-show="sortType == 'ser_nombre' && sortReverse" class="glyphicon glyphicon-chevron-down"></span>
+			                    </a>
+							</th>
+		                	<th>
+		                		<a href="" ng-click="sortType = 'con_nombre'; sortReverse = !sortReverse">
+			                	Consultorio
+			                	<span ng-show="sortType == 'con_nombre' && !sortReverse" class="glyphicon glyphicon-chevron-up"></span>
+			                    <span ng-show="sortType == 'con_nombre' && sortReverse" class="glyphicon glyphicon-chevron-down"></span>
+			                    </a>
+		                	</th>
+		                	<th>Detalle</th>
+		              	</thead>
+		              	<tbody ng-repeat="horario in horarios | orderBy:sortType:sortReverse | filter:ser_nombre" ng-if="horario.fe_id == fe_id">
+		                    <tr>
+								<td>{{$index + 1}}</td>
+								<td>{{horario.ser_nombre}}</td>
+								<td>{{horario.con_nombre}}</td>
+								<td>
+							  		<a href="#/horarios/ver/{{horario.ch_id}}" class="btn btn-success" title="Detalle"><span class="glyphicon glyphicon-file"></span>
+									</a>
+								</td>
+						  	</tr>
+		                </tbody>
+		            </table>
+		        </div>
+	        </div>
+		</div>
+	</div>
+</div>
+<!-- CONTENIDO MODULO fin!-->

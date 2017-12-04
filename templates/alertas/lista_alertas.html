@@ -1,0 +1,335 @@
+<!-- TOP-MENU inicio -->
+<div ng-include="'./templates/menu_inicio.html'"></div>
+<!-- CONTEXT-MENU  -->
+<div ng-include="'./templates/menu_lateral.html'"></div>
+<!-- CONTENIDO MODULO inicio -->
+  <div class="col-md-8 col-sm-8">
+    <div class="row">
+      <div class="col-md-12">
+        <h2 class="text-primary">
+          <span class="glyphicon glyphicon-th-list" aria-hidden="true"></span>
+					{{ajustes.pagina.titulo}}
+        </h2>
+        <hr>
+      </div>
+    </div>
+    <div class="row">
+      <div class="col-md-12">
+      <div class="well well-sm">
+        <strong class="pull-left lead">Herramientas: &nbsp;</strong>
+        <form class="form-inline pull-left">
+          <input type="text" class="form-control" placeholder="Filtrar por ID" ng-model="searchText">
+        </form>
+        &nbsp;&nbsp;
+        <!--<button class="btn btn-default">Exportar lista en PDF</button>-->
+        <div class="clearfix"></div>
+      </div>
+      </div>
+    </div>
+    
+    <tabs>
+      <pane title="ALERTAS">
+        <div class="panel">
+          <div class="panel-body">
+            <div class="row">
+              <div class="col-md-8 col-sm-8" ng-if="valerta.ca_id != undefined">
+                <!-- AQUI VAN LAS TABLAS O FORMULARIOS incrustados -->
+                <!-- INICIO -->
+                <div class="text-center" ng-show="loading"><br><img ng-src="./images/image.gif" class="loader-img"></div>
+                <div ng-show="!loading && !msg">No se encontraron resultados</div>
+                <div class="table-responsive">
+                  <table class="table table-bordered table-striped table-hover" ng-show="!loading && msg">
+                    <thead>
+                      <th>ID</th>
+                      <th>Tipo de alerta</th>
+                      <th>Rango</th>
+                      <th>Frecuencia</th>
+                      <th>Ver</th>
+                      <th>Editar</th>
+                      <th>Borrar</th>
+                    </thead>
+                    <tbody ng-repeat="alerta in alertas | orderBy:sortType:sortReverse | filter:searchText">
+                      <tr>
+                        <td>{{alerta.ca_id}}</td>
+                        <td>{{alerta.men_tipo | uppercase}}</td>
+                        <td>De {{alerta.ca_intervalo_inicio_envio}} a {{alerta.ca_intervalo_fin_envio}} años</td>
+                        <td ng-if="alerta.ca_frecuencia != 0">
+                          Cada {{alerta.ca_frecuencia}} años
+                        </td> 
+                        <td ng-if="alerta.ca_fecha_campania != null">
+                          {{alerta.ca_fecha_campania}}
+                        </td> 
+                        <td>
+                          <button class="btn btn-success" ng-click="obtiene_alerta(alerta.ca_id)">
+                            <span class="glyphicon glyphicon-eye-open"></span>
+                          </button>
+                        </td>
+                        <td>
+                          <a class="btn btn-primary" href="#/editar_alerta/{{alerta.ca_id}}">
+                            <span class="glyphicon glyphicon-pencil"></span>
+                          </a>
+                        </td>
+                        <td>
+                          <!-- BOTON PARA CUADROS MODALES -->
+                          <button class="btn btn-danger" ng-click="get_ca_id(alerta.ca_id, alerta.men_tipo)" data-toggle="modal" data-target="#miCuadroModal1" title="Borrar">
+                            <span class="glyphicon glyphicon-trash" ></span>
+                          </button>
+                          <!--CUADRO MODAL-->
+                          <div id="miCuadroModal1" class="modal fade" role="dialog" tabindex="-1">
+                            <div class="modal-dialog">
+                              <div class="modal-content">
+                                <div class="modal-header bg-green">
+                                  <button type="button" class="close" data-dismiss="modal">×</button>
+                                  <h4 class="modal-title fg-white">ElIMINAR ALERTA TEMPRANA</h4>
+                                </div>
+                                <div class="modal-body lead text-center">
+                                  ¿Esta seguro que desea eliminar esta alerta temprana?
+                                  <br>
+                                  <div class="well well-sm">
+                                    <strong>{{tipo | uppercase}}</strong>
+                                  </div>
+                                </div>
+                                <div class="modal-footer">
+                                  <button type="button" class="btn btn-primary" data-dismiss="modal" ng-click="remove(alerta.ca_id)"><span class="glyphicon glyphicon-ok"></span> SI</button>
+                                  <button type="button" class="btn btn-danger" data-dismiss="modal"><span class="glyphicon glyphicon-remove"></span> NO</button>
+                                </div>
+                              </div>
+                            </div>
+                          </div>
+                          <!--FIN CUADRO MODAL-->
+                        </td>
+                      </tr>
+                    </tbody>
+                  </table>
+                </div>
+                <!-- FIN -->
+                <!-- AQUI VAN LOAS TABLAS O FORMULARIOS incrustados -->
+              </div>
+              <!-- VISTA PREVIA DE LA ALERTA -->
+              <div class="col-md-4 col-sm-4" ng-if="valerta.ca_id != undefined">
+                <div class="well well-sm">
+                  <button type="button" class="close" aria-label="Close" ng-click="valerta.ca_id = undefined"><span aria-hidden="true">&times;</span></button>
+                  <h4 class="text-primary text-center">Vista previa de alerta</h4>
+                  <strong class="text-primary">Tipo de alerta: </strong><br>{{valerta.men_tipo}}<br>
+                  <strong class="text-primary">Rango de envio: </strong><br>De {{valerta.ca_intervalo_inicio_envio}} a {{valerta.ca_intervalo_fin_envio}} años de edad<br>
+                  <div ng-if="valerta.ca_frecuencia != 0">
+                    <strong class="text-primary">Frecuencia de envio: </strong><br>Cada {{valerta.ca_frecuencia}} años<br>
+                  </div>  
+                  <div ng-if="valerta.ca_fecha_campania != null">
+                    <strong class="text-primary">Fecha de envio: </strong><br>{{valerta.ca_fecha_campania}}<br>
+                  </div>  
+                  <span ng-if="valerta.ca_sexo == 'T'"><strong class="text-primary">Sexo: </strong><br>Todos<br></span>
+                  <span ng-if="valerta.ca_sexo == 'F'"><strong class="text-primary">Sexo: </strong><br>Femenino<br></span>
+                  <span ng-if="valerta.ca_sexo == 'M'"><strong class="text-primary">Sexo: </strong><br>Masculino<br></span>
+                  <strong class="text-primary">Mensaje: </strong><br>Buenos dias <em>[Nombre de la persona]</em><br>{{valerta.men_encabezado}}<br>{{valerta.men_cuerpo}}<br>{{valerta.men_despedida}}<br>
+                </div>
+              </div>
+              <!-- AQUI VAN LAS TABLAS O FORMULARIOS incrustados -->
+              <!-- INICIO -->      
+              <div class="col-md-12 col-sm-12" ng-if="valerta.ca_id == undefined">
+                <div class="table-responsive">
+                  <div class="text-center" ng-show="loading"><br><img ng-src="./images/image.gif" class="loader-img"></div>
+                  <div ng-show="!loading && !msg">No se encontraron resultados</div>
+                  <table class="table table-bordered table-striped table-hover" ng-show="!loading && msg">
+                    <thead>
+                      <th>ID</th>
+                      <th>Tipo de alerta</th>
+                      <th>Rango</th>
+                      <th>Frecuencia</th>
+                      <th>Ver</th>
+                      <th>Editar</th>
+                      <th>Borrar</th>
+                    </thead>
+                    <tbody ng-repeat="alerta in alertas | orderBy:sortType:sortReverse | filter:searchText">
+                      <tr>
+                        <td>{{alerta.ca_id}}</td>
+                        <td>{{alerta.men_tipo | uppercase}}</td>
+                        <td>De {{alerta.ca_intervalo_inicio_envio}} a {{alerta.ca_intervalo_fin_envio}} años</td>
+                        <td ng-if="alerta.ca_frecuencia != 0">
+                          Cada {{alerta.ca_frecuencia}} años
+                        </td> 
+                        <td ng-if="alerta.ca_fecha_campania != null">
+                          {{alerta.ca_fecha_campania}}
+                        </td> 
+                        <td>
+                          <button class="btn btn-success" ng-click="obtiene_alerta(alerta.ca_id)">
+                            <span class="glyphicon glyphicon-eye-open"></span>
+                          </button>
+                        </td>
+                        <td>
+                          <a class="btn btn-primary" href="#/editar_alerta/{{alerta.ca_id}}">
+                            <span class="glyphicon glyphicon-pencil"></span>
+                          </a>
+                        </td>
+                        <td>
+                          <!-- BOTON PARA CUADROS MODALES -->
+                          <a class="btn btn-danger" ng-click="get_ca_id(alerta.ca_id, alerta.men_tipo)" data-toggle="modal" data-target="#miCuadroModal1" title="Borrar">
+                            <span class="glyphicon glyphicon-trash"></span>
+                          </a>
+                          <!--CUADRO MODAL-->
+                          <div id="miCuadroModal1" class="modal fade" role="dialog" tabindex="-1">
+                            <div class="modal-dialog">
+                              <div class="modal-content">
+                                <div class="modal-header bg-green">
+                                  <button type="button" class="close" data-dismiss="modal">×</button>
+                                  <h4 class="modal-title fg-white">ElIMINAR ALERTA TEMPRANA</h4>
+                                </div>
+                                <div class="modal-body lead text-center">
+                                  ¿Esta seguro que desea eliminar esta alerta temprana?
+                                  <br>
+                                  <div class="well well-sm"><strong>{{tipo | uppercase}}</strong></div>
+                                </div>
+                                <div class="modal-footer">
+                                  <button type="button" class="btn btn-primary" data-dismiss="modal" ng-click="remove(alerta.ca_id)"><span class="glyphicon glyphicon-ok"></span> SI</button>
+                                  <button type="button" class="btn btn-danger" data-dismiss="modal"><span class="glyphicon glyphicon-remove"></span> NO</button>
+                                </div>
+                              </div>
+                            </div>
+                          </div>
+                        </td>
+                      </tr>
+                    </tbody>
+                  </table>
+                </div>
+              </div>
+              <!-- FIN -->
+              <!-- AQUI VAN LOAS TABLAS O FORMULARIOS incrustados -->
+            </div>
+          </div>
+        </div>
+      </pane>
+
+      <pane title="ALERTAS DE VACUNAS" >
+        <div class="panel">
+          <div class="panel-body" ng-controller="ListarAlertasVacunasCtrl">
+            <div class="row">
+              <div class="col-md-8 col-sm-8" ng-if="alertav.atv_id != undefined">
+                <div class="table-responsive">
+                  <div class="text-center" ng-show="loading"><br><img ng-src="./images/image.gif" class="loader-img"></div>
+                  <div ng-show="!loading && !msg">No se encontraron resultados</div>
+                  <table class="table table-bordered table-striped table-hover" ng-show="!loading && msg">
+                    <thead>
+                      <th>ID</th>
+                      <th>Nombre vacunal</th>
+                      <th>Tipo alerta</th>
+                      <th>Ver</th>
+                      <!--<th>Editar</th>-->
+                      <th>Borrar</th>
+                    </thead>
+                    <tbody ng-repeat="vacuna in vacunas | orderBy:sortType:sortReverse | filter:searchText">
+                      <td>{{vacuna.atv_id}}</td>
+                      <td>{{vacuna.vac_nombre}}</td>
+                      <td>{{vacuna.men_tipo}}</td>
+                      <td>
+                        <button class="btn btn-success" ng-click="obtiene_alerta_vacuna(vacuna.atv_id)">
+                          <span class="glyphicon glyphicon-eye-open"></span>
+                        </button>
+                      </td>
+                      <!--<td>
+                        <a class="btn btn-primary" href="#/vacuna/edit/{{vacuna.atv_id}}">
+                          <span class="glyphicon glyphicon-pencil"></span>
+                        </a>
+                      </td>-->
+                      <td>
+                        <!-- BOTON PARA CUADROS MODALES -->
+                        <a class="btn btn-danger" ng-click="get_atv_id(vacuna.atv_id, vacuna.men_tipo)" data-toggle="modal" data-target="#miCuadroModal1" title="Borrar">
+                          <span class="glyphicon glyphicon-trash"></span>
+                        </a>
+                        <!--CUADRO MODAL-->
+                        <div id="miCuadroModal1" class="modal fade" role="dialog" tabindex="-1">
+                          <div class="modal-dialog">
+                            <div class="modal-content">
+                              <div class="modal-header bg-green">
+                                <button type="button" class="close" data-dismiss="modal">×</button>
+                                <h4 class="modal-title fg-white">ElIMINAR ALERTA TEMPRANA</h4>
+                              </div>
+                              <div class="modal-body lead text-center">
+                                ¿Esta seguro que desea eliminar esta alerta temprana?
+                                <br>
+                                <div class="well well-sm"><strong>{{tipo | uppercase}}</strong></div>
+                              </div>
+                              <div class="modal-footer">
+                                <button type="button" class="btn btn-primary" data-dismiss="modal" ng-click="remove(vacuna.atv_id)"><span class="glyphicon glyphicon-ok"></span> SI</button>
+                                <button type="button" class="btn btn-danger" data-dismiss="modal"><span class="glyphicon glyphicon-remove"></span> NO</button>
+                              </div>
+                            </div>
+                          </div>
+                        </div>
+                      </td>
+                    </tbody>
+                  </table>
+                </div>
+              </div>
+              <div class="col-md-4 col-sm-4" ng-if="alertav.atv_id != undefined">
+                <div class="well well-sm">
+                  <button type="button" class="close" aria-label="Close" ng-click="alertav.atv_id = undefined"><span aria-hidden="true">&times;</span></button>
+                  <h4 class="text-primary text-center">Vista previa de alerta</h4>
+                  <strong class="text-primary">Tipo de alerta: </strong><br>{{alertav.men_tipo}}<br>
+                  <strong class="text-primary">Mensaje: </strong><br>Buenos dias <em>[Nombre de la persona]</em><br>{{alertav.men_encabezado}}<br>{{alertav.men_cuerpo}}<br>{{alertav.men_despedida}}<br>
+                </div>
+              </div>
+              <div class="col-md-12 col-sm-12" ng-if="alertav.atv_id == undefined">
+                <div class="table-responsive">
+                  <div class="text-center" ng-show="loading"><br><img ng-src="./images/image.gif" class="loader-img"></div>
+                  <div ng-show="!loading && !msg">No se encontraron resultados</div>
+                  <table class="table table-bordered table-striped table-hover" ng-show="!loading && msg">
+                    <thead>
+                      <th>ID</th>
+                      <th>Nombre vacunal</th>
+                      <th>Tipo alerta</th>
+                      <th>Ver</th>
+                      <!--<th>Editar</th>-->
+                      <th>Borrar</th>
+                    </thead>
+                    <tbody ng-repeat="vacuna in vacunas | orderBy:sortType:sortReverse | filter:searchText">
+                      <td>{{vacuna.atv_id}}</td>
+                      <td>{{vacuna.vac_nombre}}</td>
+                      <td>{{vacuna.men_tipo}}</td>
+                      <td>
+                        <button class="btn btn-success" ng-click="obtiene_alerta_vacuna(vacuna.atv_id)">
+                          <span class="glyphicon glyphicon-eye-open"></span>
+                        </button>
+                      </td>
+                      <!--<td>
+                        <a class="btn btn-primary" href="#/vacuna/edit/{{vacuna.atv_id}}">
+                          <span class="glyphicon glyphicon-pencil"></span>
+                        </a>
+                      </td>-->
+                      <td>
+                        <!-- BOTON PARA CUADROS MODALES -->
+                        <a class="btn btn-danger" ng-click="get_atv_id(vacuna.atv_id, vacuna.men_tipo)" data-toggle="modal" data-target="#miCuadroModal1" title="Borrar">
+                          <span class="glyphicon glyphicon-trash"></span>
+                        </a>
+                        <!--CUADRO MODAL-->
+                        <div id="miCuadroModal1" class="modal fade" role="dialog" tabindex="-1">
+                          <div class="modal-dialog">
+                            <div class="modal-content">
+                              <div class="modal-header bg-green">
+                                <button type="button" class="close" data-dismiss="modal">×</button>
+                                <h4 class="modal-title fg-white">ElIMINAR ALERTA TEMPRANA</h4>
+                              </div>
+                              <div class="modal-body lead text-center">
+                                ¿Esta seguro que desea eliminar esta alerta temprana?
+                                <br>
+                                <div class="well well-sm"><strong>{{tipo | uppercase}}</strong></div>
+                              </div>
+                              <div class="modal-footer">
+                                <button type="button" class="btn btn-primary" data-dismiss="modal" ng-click="remove(vacuna.atv_id)"><span class="glyphicon glyphicon-ok"></span> SI</button>
+                                <button type="button" class="btn btn-danger" data-dismiss="modal"><span class="glyphicon glyphicon-remove"></span> NO</button>
+                              </div>
+                            </div>
+                          </div>
+                        </div>
+                      </td>
+                    </tbody>
+                  </table>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+      </pane>
+    </tabs>
+  </div>
+<!-- CONTENIDO MODULO fin -->

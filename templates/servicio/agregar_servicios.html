@@ -1,0 +1,102 @@
+<!-- TOP-MENU inicio -->
+<div ng-include="'./templates/menu_inicio.html'"></div>
+<!--  CONTEXT-MENU  -->
+<div ng-include="'./templates/menu_lateral.html'">
+</div>
+<!-- CONTENIDO MODULO inicio -->
+  <div class="col-md-8 col-sm-8">
+    <div class="row">
+      <div class="col-md-12">
+        <h2 class="text-primary">
+          <span class="glyphicon glyphicon-th-list" aria-hidden="true"></span>
+          {{ajustes.pagina.titulo}}
+        </h2>
+        <hr class="bg-green">
+      </div>
+    </div>
+    <div class="row">
+      <div class="col-md-12">
+      <div class="well well-sm">
+        <strong class="pull-left lead">Herramientas: &nbsp;</strong>
+        <form class="form-inline pull-left">
+          <input type="text" class="form-control" placeholder="Filtrar por Servicio" ng-model="ser_nombre">
+        </form>
+        &nbsp;&nbsp;
+        <!--
+        <button class="btn btn-primary"><span class="glyphicon glyphicon-tasks"></span> Exportar lista en XLS</button>
+        -->
+        <button class="btn btn-default" onclick="generateSER()"><span class="glyphicon glyphicon-save-file"></span> Exportar lista en PDF</button>
+        <div class="clearfix"></div>
+      </div>
+      </div>
+    </div>
+
+    <div class="row">
+      <div class="col-md-12 ">
+      <!-- AQUI VAN LAS TABLAS O FORMULARIOS incrustados -->
+      <!-- INICIO -->
+        <div class="text-center" ng-show="loading"><br><img ng-src="./images/image.gif" class="loader-img"></div>
+        <div ng-show="!loading && !msg">No se encontraron resultados</div>
+        <div class="table-responsive">
+          <table class="table table-hovertable table-bordered table-striped table-hover table-condensed" ng-show="!loading && msg" id="tablaSER">
+            <thead >
+              <th>Nº</th>
+              <th>
+                <a href="" ng-click="sortType = 'ser_nombre'; sortReverse = !sortReverse">Servicio</a>
+                <span ng-show="sortType == 'ser_nombre' && !sortReverse" class="glyphicon glyphicon-sort-by-alphabet"></span>
+                <span ng-show="sortType == 'ser_nombre' && sortReverse" class="glyphicon glyphicon-sort-by-alphabet-alt"></span>
+              </th>
+              <th >
+                <a href="" ng-click="sortType = 'ser_tipo'; sortReverse = !sortReverse">Tipo</a>
+                <span ng-show="sortType == 'ser_tipo' && !sortReverse" class="glyphicon glyphicon-sort-by-alphabet"></span>
+                <span ng-show="sortType == 'ser_tipo' && sortReverse" class="glyphicon glyphicon-sort-by-alphabet-alt"></span>
+              </th>
+              <th >Agregar</th>
+            </thead>
+            <tbody  ng-repeat="ser in noprestas | filter:ser_nombre | orderBy:sortType:sortReverse">
+              <tr>
+                <td>{{$index + 1}}</td>
+                <td>{{ser.ser_nombre | capitalize}}</td>
+                <td>{{ser.ser_tipo}}</td>
+                <!-- <td><input type="number" ng-model="pre.se_nro_fichas" ></td> -->
+                <td>
+                  <button class="btn btn-primary" data-toggle="modal" data-target="#miCuadroModal1" ng-click="ger_ser_id(ser.ser_id, ser.ser_nombre)"><span class="glyphicon glyphicon-plus"></span></button>
+                  <!--CUADRO MODAL-->
+                  <div id="miCuadroModal1" class="modal fade" role="dialog" tabindex="-1">
+                  <div class="modal-dialog">
+                    <div class="modal-content">
+                      <div class="modal-header bg-green fg-white">
+                        <button type="button" class="close" data-dismiss="modal">×</button>
+                        <h4 class="modal-title">AGREGAR SERVICIO</h4>
+                      </div>
+                      <div class="modal-body lead text-center">
+                        ¿Esta seguro que desea agregar este servicio?
+                        <br>
+                        <div class="well well-sm">
+							<strong>{{nombre_servicio | uppercase}}</strong>
+						</div>
+                      </div>
+                      <div class="modal-footer">
+                        <button type="button" class="btn btn-primary" ng-click="agregar(ser.ser_id)" data-dismiss="modal">
+							<span class="glyphicon glyphicon-ok"></span>
+							SI
+						</button>
+                        <button type="button" class="btn btn-danger" data-dismiss="modal">
+							<span class="glyphicon glyphicon-remove"></span>
+							NO
+						</button>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+                <!--FIN CUADRO MODAL-->
+                </td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+        <!-- *************************************** -->
+
+      </div>
+    </div>
+    

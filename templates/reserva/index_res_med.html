@@ -1,0 +1,122 @@
+<!--TOP-MENU inicio -->
+<div ng-include="'./templates/menu_inicio.html'"></div>
+<div ng-include="'./templates/menu_lateral.html'"></div>
+<div ng-controller="VerReservaCtrl">
+
+<!-- CONTENIDO MODULO inicio -->
+<div class="col-md-8 col-sm-8">
+  	<div class="row">
+		<div class="col-md-12">
+			<h2 class="text-primary">
+				<span class="glyphicon glyphicon-th-list" aria-hidden="true"></span>
+				{{ajustes.pagina.titulo}}
+			</h2>
+			<hr class="bg-green">
+		</div>
+  	</div>
+  	<div class="row">
+		<div class="col-md-12">
+			<div class="well well-sm">
+				<strong class="pull-left lead">Herramientas: &nbsp;</strong>
+				<form class="form-inline pull-left">
+					<input type="text" class="form-control" placeholder="Filtrar por" ng-model="searchText">
+				</form>
+				&nbsp;&nbsp;
+				<div class="clearfix">
+				</div>
+			</div>
+		</div>
+  	</div>
+ 
+  	<div class="row">
+		<div class="col-md-12">
+			Las filas de color <strong class="fg_red">Rojo</strong> representan a los pacientes por atender, y las filas de color <strong class="text-primary">Verde</strong> representan los pacientes atendidos.
+		</div>
+  	</div>
+  	<br>
+	<div class="panel">
+		<div class="panel-body ">
+			<div ng-show="loading" class="text-center"><br><img ng-src="./images/image.gif" class="loader-img"></div>
+			<div ng-show="!loading && !msg && !error_inesperado" class="alert alert-error" role="alert">No hay citas médicas para hoy.</div>
+			<div ng-show="!loading && !msg && error_inesperado" class="alert alert-danger" role="alert">Error inesperado, por favor actualice la página o revise su conexión a Internet.</div>
+			<div class="table-responsive">
+			   <table class="table table-bordered  table-hover" ng-show="!loading && msg">
+	                <thead>
+	                	<th>Nº</th>
+	                	<th align="center">
+	                		<a href="" ng-click="sortType = 'created_at'; sortReverse = !sortReverse">
+		                	Fecha de Reserva
+		                	<span ng-show="sortType == 'cit_fecha_consulta' && !sortReverse" class="glyphicon glyphicon-chevron-up"></span>
+		                    <span ng-show="sortType == 'cit_fecha_consulta' && sortReverse" class="glyphicon glyphicon-chevron-down"></span>
+		                    </a>
+						</th>
+						<th>Hora</th>
+	                	<th>Servicio</th>
+	                	<th>Nro. Ficha</th>
+	                	<th>Paciente</th>
+	                	<th>Tipo de cita</th>
+	                	<th>Ver</th>
+	                	<th>Asistencia</th>
+	                	<th>Programar cita</th>
+	              	</thead>
+	              	<!-- <tbody ng-repeat="reserva in reservas | orderBy:sortType:sortReverse | filter:searchText" ng-if="!reserva.cit_estado_pago">-->
+	              	<tbody ng-repeat="reserva in reservas | orderBy:sortType:sortReverse | filter:searchText" ng-if="reserva.cit_estado_pago && reserva.cit_fecha_consulta == fecha_hoy"> 
+	              		<tr ng-class="{success:reserva.cit_estado_asistencia,
+	                    danger:!reserva.cit_estado_asistencia}">
+							<td>{{$index + 1}}</td>
+							<td>{{reserva.cit_fecha_consulta | date:'dd-MM-yyyy'}}</td>
+							<td>{{reserva.cit_hora_consulta | date:'H:mm'}}</td>
+							<td>{{reserva.ser_nombre}}</td>
+							<td>{{reserva.cit_nro_ficha}}</td>
+							<td>{{reserva.per_nombres+" "+reserva.per_apellido_primero+" "+reserva.per_apellido_segundo}}</td>
+							<td>{{reserva.cit_tipo | uppercase}}</td>
+							<td>
+							 	<button type="button" ng-click="obt_cita(reserva.cit_id)" data-toggle="modal" data-target="#miCuadroModal1" class="btn btn-success"><span class="glyphicon glyphicon-file" ></span>VER</button>
+							</td>
+							<td>
+								<button type="button" ng-click="estado_asistencia(reserva.cit_id)" class="btn btn-primary ">
+								<div ng-if="reserva.cit_estado_asistencia">&nbsp;&nbsp;&nbsp;<strong>ATENDIDO</strong>&nbsp;&nbsp;&nbsp;&nbsp;</div>
+								<div ng-if="!reserva.cit_estado_asistencia"><strong>POR ATENDER</strong></div>
+								</button>
+							</td>
+							<td ng-if="rol_id == '4' || rol_id == '9'" class="text-center">
+								<a href="#cita/create/{{reserva.pac_id}}" class="btn btn-primary" title="PROGRAMAR CITA"><span class="glyphicon glyphicon-calendar"> </span></a>	
+							</td>
+					  	</tr>
+	                </tbody>
+	           </table>
+               <!-- MODAL PARA VER CITA -->
+        	   <div id="miCuadroModal1" class="modal fade" role="dialog" tabindex="-1">
+					<div class="modal-dialog">
+					  <div class="modal-content">
+					      <div class="modal-header bg-green">
+					        <button type="button" class="close" data-dismiss="modal">×</button>
+					        <h3 class="modal-title fg-white"><strong>DATOS DE LA CITA MÉDICA</strong></h3>
+					      </div>
+					      <div class="modal-body lead text-center">
+					      		<span class="text-primary"> {{citas.cit_tipo}}</span>
+						      	<div class="well well-sm text-justify" style="background-color:#ddd;">
+						      	<span class="text-primary">HORA:  </span>{{cit_hora_consulta | date:'H:mm'}}<br>	
+								<span class="text-primary">NRO. FICHA:  </span>{{citas.cit_nro_ficha}}<br>
+							  </div>
+							  <div class="well well-sm text-justify" style="background-color:#ddd;">
+								<span class="text-primary">PACIENTE:  </span>{{paciente.persona.per_nombres+" "+paciente.persona.per_apellido_primero+" "+paciente.persona.per_apellido_segundo}}<br>
+							  </div>
+						  </div>
+					  	  <div class="modal-footer ">			  	      
+					      	 <!--   <a href="#/pacientes/ver/{{paciente.paciente.pac_id}}" class="btn btn-primary" data-dismiss="modal" title="VER INFORMACIÓN DEL PACIENTE">MAS INFORMACIÓN DEL PACIENTE <span class="glyphicon glyphicon-forward"></span></a> --><!-- ver -->
+					      	 	<button class="btn btn-primary" title="VER INFORMACIÓN DEL PACIENTE" ng-click="ver_mas(paciente.paciente.pac_id)" data-dismiss="modal" >MAS INFORMACIÓN DEL PACIENTE <span class="glyphicon glyphicon-forward"></span></button>
+					      	   <button type="button" class="btn btn-danger" data-dismiss="modal" title="SALIR"><span class="glyphicon glyphicon-remove"></span>SALIR</button>
+					      </div>
+					  </div>
+					</div>
+			   </div>
+	            <!-- fin modal -->
+	        </div>
+        </div>
+	</div>	        		
+	<!-- fin-->
+</div>
+</div>
+
+

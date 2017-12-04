@@ -1,0 +1,105 @@
+<!-- TOP-MENU inicio -->
+<div ng-include="'./templates/menu_inicio.html'"></div>
+<div ng-include="'./templates/menu_lateral.html'"></div>
+<!-- CONTENIDO MODULO inicio -->
+<div class="col-md-8 col-sm-8">
+	<div class="row">
+		<div class="col-md-12">
+			<h2 class="text-primary">
+				<span class="glyphicon glyphicon-th-list" aria-hidden="true"></span>
+				{{ajustes.pagina.titulo}}
+			</h2>
+			<hr class="bg-green">
+		</div>
+	</div>
+	<div class="row">
+		<div class="col-md-12">
+			<div class="well well-sm">
+				<strong class="pull-left lead">Herramientas: &nbsp;</strong>
+				<form class="form-inline pull-left">
+					<input type="text" class="form-control" placeholder="Filtrar por ..." ng-model="searchText">
+				</form>
+				&nbsp;&nbsp;
+				<!--<button class="btn btn-primary"><span class="glyphicon glyphicon-tasks"></span> Exportar lista en XLS</button>-->
+				<button class="btn btn-default" onclick="generateCON_AE()"><span class="glyphicon glyphicon-save-file"></span> Exportar lista en PDF</button>
+				<div class="clearfix"></div>
+			</div>
+		</div>
+	</div>
+	<label class="control-label">Las filas pintadas de <strong class="text-primary"> Verde</strong> son pacientes Recepcionados y las filas pintadas de <strong class="fg_red"> Rojo</strong> son pacientes no Recepcionados </label>
+	<div class="row" ng-controller="RecepcionContraCtrl">
+		<div class="col-md-12">
+			<!-- AQUI VAN LAS TABLAS O FORMULARIOS incrustados -->
+			<!-- INICIO -->
+			<div ng-controller="IndexContrareferenciaRecCtrl">
+				<div class="text-center" ng-show="loading" ><br><img ng-src="./images/image.gif" class="loader-img"></div>
+				<div ng-show="!loading && !msg">No se encontraron resultados</div>
+				<div class="table-responsive">
+					<table class="table table-bordered  table-hover" ng-show="!loading && msg" id="tableCON">
+		            	<thead>
+		                	<th>Nº</th>
+		                	<th >
+		                		<a href="" ng-click="sortType = 'created_at'; sortReverse = !sortReverse">
+			                	Fecha de Contrareferencia
+			                	<span ng-show="sortType == 'created_at' && !sortReverse" class="glyphicon glyphicon-chevron-up"></span>
+			                    <span ng-show="sortType == 'created_at' && sortReverse" class="glyphicon glyphicon-chevron-down"></span>
+			                    </a>
+		                	</th>
+		                	<th>Paciente</th>
+		                	<th>Establecimiento del que Retorna</th>
+		                	<th>Código</th>
+		                	<th >Detalle</th>
+		                	<th ng-show="user.rol_id == 4 || user.rol_id == 6 || user.rol_id == 10">Recepcionar</th>
+		                	<!-- <th ng-show="user.rol_id == 4 || user.rol_id == 6 || user.rol_id == 10">Editar</th> -->
+		              	</thead>
+		                <tbody ng-repeat="contrareferencia in contrareferenciasrec | orderBy:sortType:sortReverse | filter:searchText" >
+		                    <tr ng-class="{success:contrareferencia.bc_estado_contrareferencia, danger:!contrareferencia.bc_estado_contrareferencia }">
+								<td>{{$index + 1}}</td>
+								<td>{{contrareferencia.created_at}}</td>
+								<td>{{contrareferencia.per_nombres+"&nbsp;"+contrareferencia.per_apellido_primero+"&nbsp;"+contrareferencia.per_apellido_segundo}}</td>
+								<td>{{contrareferencia.es_nombre}}</td>
+								<td>{{contrareferencia.bc_cod}}</td>
+								<td >
+									<a class="btn btn-success" href="#/contrareferencia/ver/{{contrareferencia.bc_id}}" title="Detalle">
+										<span class="glyphicon glyphicon-file"></span>
+									</a>
+								</td>
+
+								<td ng-show="user.rol_id==4 || user.rol_id == 6 || user.rol_id == 10">
+									<!-- BOTON PARA CUADROS MODALES -->
+				  					<button class="btn btn-warning" data-toggle="modal" ng-click="get_bc_id2(contrareferencia.bc_id,contrareferencia.per_nombres,contrareferencia.per_apellido_primero,contrareferencia.per_apellido_segundo)" data-target="#miCuadroModal2" title="Recepcionar Contrareferencia"><span class="glyphicon glyphicon-check"></span> Recepción</button>
+
+				  					<div id="miCuadroModal2" class="modal fade" role="dialog" tabindex="-1">
+									  	<div class="modal-dialog">
+										    <div class="modal-content">
+										      <div class="modal-header bg-green">
+										        <button type="button" class="close" data-dismiss="modal">x</button>
+										        <h4 class="modal-title fg-white">RECEPCIONAR CONTRAREFERENCIA</h4>
+										      </div>
+										      <div class="modal-body lead text-center">
+										       Contrareferencia Aceptada del paciente:<br>
+										       <div class="well well-sm">
+										       		<strong>{{nom+' '+ap1+' '+ap2}}</strong>
+										       </div>
+										      </div>
+										      <div class="modal-footer">
+										        <button type="button" class="btn btn-primary" data-dismiss="modal" ng-click="recepcionar()">
+										        <span class="glyphicon glyphicon-ok"></span>SI</button>
+										        <button type="button" class="btn btn-danger" data-dismiss="modal">
+										        <span class="glyphicon glyphicon-remove"></span>NO</button>
+										      </div>
+										    </div>
+										</div>
+									</div>
+									<!--FIN CUADRO MODAL-->
+								</td>
+						  	</tr>
+		                </tbody>
+		            </table>
+		        </div>
+	        </div>
+	    </div>
+	</div>    	        		
+	<!-- ..............Contrareferencias Recibidas................. -->
+</div>
+<!-- CONTENIDO MODULO fin!-->

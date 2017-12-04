@@ -1,0 +1,353 @@
+<!-- CONTEXT-MENU  -->
+<div ng-include="'./templates/menu_inicio.html'"></div>
+<div ng-include="'./templates/menu_lateral.html'"></div>
+<!-- CONTENIDO MODULO inicio -->
+		
+	<div class="col-md-8 col-sm-8">
+		<div class="row" >
+			<div class="col-md-12">
+				<h2 class="text-primary">
+					<span class="glyphicon glyphicon-calendar" aria-hidden="true"></span>
+					{{ajustes.pagina.titulo}}
+				</h2>
+				<hr class="bg-green">
+			</div>
+		</div>
+
+		<div class="row">
+			<div class="col-md-12" >
+            <div ng-show="showtab">
+                <div class="row">
+                    <div class="col-md-12 col-sm-12 col-xs-12">
+                    <div class="well well-md well-sm well-xs">
+                        <strong class="pull-left lead">Herramientas: &nbsp;</strong>
+                        <form class="form-inline pull-left">
+                            <input type="text" class="form-control" placeholder="Filtrar" ng-model="searchText">
+                        </form>
+                        &nbsp;&nbsp;
+                        <div class="clearfix"></div>
+                    </div>
+                    </div>
+                </div>
+    			<!-- INICIO -->
+                <!-- consultorios  -->
+                <div ng-show="loading" class="text-center"><br><img ng-src="./images/image.gif" class="loader-img"></div>
+                <div ng-show="!loading && !msg">No se encontraron resultados</div>
+                <div class="table-responsive" >
+                    <table class="table table-bordered table-striped table-hover" >
+                      <thead >
+                        <th ><a href="" >Nombre
+                            <span ng-show="sortType == 'con_nombre' && !sortReverse" class="glyphicon glyphicon-sort-by-alphabet"></span>
+                            <span ng-show="sortType == 'con_nombre' && sortReverse" class="glyphicon glyphicon-sort-by-alphabet-alt"></span></a>
+                        </th>
+                        <th >Ver Horarios de atenci&oacute;n</th>
+                      </thead>
+                      <tbody ng-repeat="consultorio in consultorios | filter:searchText " >
+                        <tr>
+                            <td>{{consultorio.con_nombre}}</td>
+                            <td>
+                            <button class="btn btn-primary" ng-click="get(consultorio)" ng-disabled="addConsultorio.$invalid">
+                              <span class="glyphicon glyphicon-calendar"></span>Horarios de atenci&oacute;n 
+                            </button>
+                            </td>
+                        </tr>
+                      </tbody>
+                    </table>
+                </div>
+                <!-- consultorios -->
+            </div>
+
+			<div ng-show="show" class="well well-sm" style="background-color:#fff;">
+ 		      <!-- -->
+				<div class="row" >
+					<div class="col-md-12">
+						<div class="well well-sm text-center lead">
+							<strong><span class="text-primary text-center">Horario de atención : </span>{{con_nombre}}</strong>
+						</div>
+                        <center>
+                            <button class="btn btn-primary" ng-click="update()" >
+                              <span class="glyphicon glyphicon-backward"></span><strong> Ver lista de consultorios</strong> 
+                            </button>
+                        </center>
+					</div>	  
+				</div><br>
+				<div class="row">
+					<div class="col-md-12">
+                        <div ng-show="loading1" class="text-center"><br><img ng-src="./images/image.gif" class="loader-img"></div>
+                        <div ng-show="!loading1 && !msg1">No se encontraron resultados</div>
+						<div class="table-responsive">
+							<table class="table table-bordered">
+								<tr>
+									<th class="text-center">Turno</th>
+									<th class="text-center">Lunes</th>
+									<th class="text-center">Martes</th>
+									<th class="text-center">Miercoles</th>
+									<th class="text-center">Jueves</th>
+									<th class="text-center">Viernes</th>
+									<th class="text-center">Sabado</th>
+									<th class="text-center">Domingo</th>
+								</tr>
+								<!-- TURNO MAÑANA -->
+                                <tr>
+                                    <td class="lead text-center text-primary">
+                                        <div style="height:35px;"></div>
+                                        Mañana
+                                    </td>
+                                    <td align="center" >
+                                        <div ng-if="check1.length!=0">
+                                            <div ng-repeat= "check1 in check1">
+                                                <div class="well well-sm" >
+                                                    <h5><strong>{{check1.ct_ini_turno}}&nbsp;-&nbsp;{{check1.ct_fin_turno}}</strong></h5>
+                                                    <h5>Médico&nbsp;:&nbsp;<strong>{{check1.per_nombres +" "+check1.per_apellido_primero+" "+check1.per_apellido_segundo}}</strong></h5>
+                                                    <!-- <h5>Total:&nbsp;<strong>{{check1.ct_ficha_total}}</strong></h5><h5>SESAR:&nbsp;<strong>{{check1.ct_ficha_sesar}}</strong></h5> -->
+                                                </div>
+                                            </div>
+                                        </div>                                        
+                                    </td>
+                                    <td align="center" >
+                                        <div ng-if="check2.length!=0">
+                                            <div ng-repeat= "check2 in check2">
+                                                <div class="well well-sm" >                                            
+                                                    <h5><strong>{{check2.ct_ini_turno}}&nbsp;-&nbsp;{{check2.ct_fin_turno}}</strong></h5>
+                                                    <h5>Médico&nbsp;:&nbsp;<strong>{{check2.per_nombres +" "+check2.per_apellido_primero+" "+check2.per_apellido_segundo}}</strong></h5>
+                                                   <!--  <h5>Total:&nbsp;<strong>{{check2.ct_ficha_total}}</strong></h5><h5>SESAR:&nbsp;<strong>{{check2.ct_ficha_sesar}}</strong></h5> -->
+                                                </div>
+                                            </div>
+                                        </div>                                        
+                                    </td>
+                                    <td align="center" > 
+                                        <div ng-if="check3.length!=0">
+                                            <div ng-repeat= "check3 in check3">
+                                                <div class="well well-sm" >                                               
+                                                    <h5><strong>{{check3.ct_ini_turno}}&nbsp;-&nbsp;{{check3.ct_fin_turno}}</strong></h5>
+                                                    <h5>Médico&nbsp;:&nbsp;<strong>{{check3.per_nombres +" "+check3.per_apellido_primero+" "+check3.per_apellido_segundo}}</strong></h5>
+                                                    <!-- <h5>Total:&nbsp;<strong>{{check3.ct_ficha_total}}</strong></h5><h5>SESAR:&nbsp;<strong>{{check3.ct_ficha_sesar}}</strong></h5> -->
+                                                </div>
+                                            </div>
+                                        </div>                                        
+                                    </td>
+                                    <td align="center">
+                                        <div ng-if="check4.length!=0">
+                                            <div ng-repeat= "check4 in check4">
+                                                <div class="well well-sm" >                                                
+                                                    <h5><strong>{{check4.ct_ini_turno}}&nbsp;-&nbsp;{{check4.ct_fin_turno}}</strong></h5>
+                                                    <h5>Médico&nbsp;:&nbsp;<strong>{{check4.per_nombres +" "+check4.per_apellido_primero+" "+check4.per_apellido_segundo}}</strong></h5>
+                                                    <!-- <h5>Total:&nbsp;<strong>{{check4.ct_ficha_total}}</strong></h5><h5>SESAR:&nbsp;<strong>{{check4.ct_ficha_sesar}}</strong></h5> -->
+                                                </div>
+                                            </div>
+                                        </div>                                        
+                                    </td>
+                                    <td align="center">
+                                        <div ng-if="check5.length!=0">
+                                            <div ng-repeat= "check5 in check5">
+                                                <div class="well well-sm" >                                                
+                                                    <h5><strong>{{check5.ct_ini_turno}}&nbsp;-&nbsp;{{check5.ct_fin_turno}}</strong></h5>
+                                                    <h5>Médico&nbsp;:&nbsp;<strong>{{check5.per_nombres +" "+check5.per_apellido_primero+" "+check5.per_apellido_segundo}}</strong></h5>
+                                                  <!--   <h5>Total:&nbsp;<strong>{{check5.ct_ficha_total}}</strong></h5><h5>SESAR:&nbsp;<strong>{{check5.ct_ficha_sesar}}</strong></h5> -->
+                                                </div>
+                                            </div>
+                                        </div>                                        
+                                    </td>
+                                    <td align="center">
+                                        <div ng-if="check6.length!=0">
+                                            <div ng-repeat= "check6 in check6">
+                                                <div class="well well-sm" >                                                
+                                                    <h5><strong>{{check6.ct_ini_turno}}&nbsp;-&nbsp;{{check6.ct_fin_turno}}</strong></h5>
+                                                    <h5>Médico&nbsp;:&nbsp;<strong>{{check6.per_nombres +" "+check6.per_apellido_primero+" "+check6.per_apellido_segundo}}</strong></h5>
+                                                  <!--   <h5>Total:&nbsp;<strong>{{check6.ct_ficha_total}}</strong></h5><h5>SESAR:&nbsp;<strong>{{check6.ct_ficha_sesar}}</strong></h5> -->
+                                                </div>
+                                            </div>
+                                        </div>                                        
+                                    </td>
+                                    <td align="center">
+                                        <div ng-if="check7.length!=0">
+                                            <div ng-repeat= "check7 in check7">
+                                                <div class="well well-sm" >                                            
+                                                    <h5><strong>{{check7.ct_ini_turno}}&nbsp;-&nbsp;{{check7.ct_fin_turno}}</strong></h5>
+                                                    <h5>Médico&nbsp;:&nbsp;<strong>{{check7.per_nombres +" "+check7.per_apellido_primero+" "+check7.per_apellido_segundo}}</strong></h5>
+                                                   <!--  <h5>Total:&nbsp;<strong>{{check7.ct_ficha_total}}</strong></h5><h5>SESAR:&nbsp;<strong>{{check7.ct_ficha_sesar}}</strong></h5> -->
+                                                </div>
+                                            </div>
+                                        </div>                                       
+                                    </td>
+                                </tr>
+                                <!-- TURNO TARDE -->
+                                <tr>
+                                    <td class="lead text-center text-primary">
+                                        <div style="height:35px;"></div>
+                                        Tardes
+                                    </td>
+                                    <td align="center">
+                                        <div ng-if="check8.length!=0">
+                                            <div ng-repeat= "check8 in check8">
+                                                <div class="well well-sm" >                                            
+                                                    <h5><strong>{{check8.ct_ini_turno}}&nbsp;-&nbsp;{{check8.ct_fin_turno}}</strong></h5>
+                                                    <h5>Médico&nbsp;:&nbsp;<strong>{{check8.per_nombres +" "+check8.per_apellido_primero+" "+check8.per_apellido_segundo}}</strong></h5>
+                                                    <!-- <h5>Total:&nbsp;<strong>{{check8.ct_ficha_total}}</strong></h5><h5>SESAR:&nbsp;<strong>{{check8.ct_ficha_sesar}}</strong></h5> -->
+                                                </div>
+                                            </div>
+                                        </div>                                        
+                                    </td>
+                                    <td align="center">
+                                        <div ng-if="check9.length!=0">
+                                            <div ng-repeat= "check9 in check9">
+                                                <div class="well well-sm" >                                            
+                                                    <h5><strong>{{check9.ct_ini_turno}}&nbsp;-&nbsp;{{check9.ct_fin_turno}}</strong></h5>
+                                                    <h5>Médico&nbsp;:&nbsp;<strong>{{check9.per_nombres +" "+check9.per_apellido_primero+" "+check9.per_apellido_segundo}}</strong></h5>
+                                                   <!--  <h5>Total:&nbsp;<strong>{{check9.ct_ficha_total}}</strong></h5><h5>SESAR:&nbsp;<strong>{{check9.ct_ficha_sesar}}</strong></h5> -->
+                                                </div>
+                                            </div>
+                                        </div>                                        
+                                    </td>
+                                    <td align="center"> 
+                                        <div ng-if="check10.length!=0">
+                                            <div ng-repeat= "check10 in check10">
+                                                <div class="well well-sm" >                                           
+                                                    <h5><strong>{{check10.ct_ini_turno}}&nbsp;-&nbsp;{{check10.ct_fin_turno}}</strong></h5>
+                                                    <h5>Médico&nbsp;:&nbsp;<strong>{{check10.per_nombres +" "+check10.per_apellido_primero+" "+check10.per_apellido_segundo}}</strong></h5>
+                                                   <!--  <h5>Total:&nbsp;<strong>{{check10.ct_ficha_total}}</strong></h5><h5>SESAR:&nbsp;<strong>{{check10.ct_ficha_sesar}}</strong></h5> -->
+                                                </div>
+                                            </div>
+                                        </div>                                       
+                                    </td>
+                                    <td align="center">
+                                        <div ng-if="check11.length!=0">
+                                             <div ng-repeat= "check11 in check11">
+                                                <div class="well well-sm" >                                            
+                                                    <h5><strong>{{check11.ct_ini_turno}}&nbsp;-&nbsp;{{check11.ct_fin_turno}}</strong></h5>
+                                                    <h5>Médico&nbsp;:&nbsp;<strong>{{check11.per_nombres +" "+check11.per_apellido_primero+" "+check11.per_apellido_segundo}}</strong></h5>
+                                                    <!-- <h5>Total:&nbsp;<strong>{{check11.ct_ficha_total}}</strong></h5><h5>SESAR:&nbsp;<strong>{{check11.ct_ficha_sesar}}</strong></h5> -->
+                                                </div>
+                                            </div>
+                                        </div>                                       
+                                    </td>
+                                    <td align="center">
+                                        <div ng-if="check12.length!=0">
+                                            <div ng-repeat= "check12 in check12">
+                                                <div class="well well-sm" >                                            
+                                                    <h5><strong>{{check12.ct_ini_turno}}&nbsp;-&nbsp;{{check12.ct_fin_turno}}</strong></h5>
+                                                    <h5>Médico&nbsp;:&nbsp;<strong>{{check12.per_nombres +" "+check12.per_apellido_primero+" "+check12.per_apellido_segundo}}</strong></h5>
+                                                    <!-- <h5>Total:&nbsp;<strong>{{check12.ct_ficha_total}}</strong></h5><h5>SESAR:&nbsp;<strong>{{check12.ct_ficha_sesar}}</strong></h5> -->
+                                                </div>
+                                            </div>
+                                        </div>                                        
+                                    </td>
+                                    <td align="center">
+                                        <div ng-if="check13.length!=0">
+                                            <div ng-repeat= "check13 in check13">
+                                                <div class="well well-sm" >                                            
+                                                    <h5><strong>{{check13.ct_ini_turno}}&nbsp;-&nbsp;{{check13.ct_fin_turno}}</strong></h5>
+                                                    <h5>Médico&nbsp;:&nbsp;<strong>{{check13.per_nombres +" "+check13.per_apellido_primero+" "+check13.per_apellido_segundo}}</strong></h5>
+                                                   <!--  <h5>Total:&nbsp;<strong>{{check13.ct_ficha_total}}</strong></h5><h5>SESAR:&nbsp;<strong>{{check13.ct_ficha_sesar}}</strong></h5> -->
+                                                </div>
+                                            </div>
+                                        </div>                                       
+                                    </td>
+                                    <td align="center">
+                                        <div ng-if="check14.length!=0">
+                                            <div ng-repeat= "check14 in check14">
+                                                <div class="well well-sm" >                                            
+                                                    <h5><strong>{{check14.ct_ini_turno}}&nbsp;-&nbsp;{{check14.ct_fin_turno}}</strong></h5>
+                                                    <h5>Médico&nbsp;:&nbsp;<strong>{{check14.per_nombres +" "+check14.per_apellido_primero+" "+check14.per_apellido_segundo}}</strong></h5>
+                                                    <!-- <h5>Total:&nbsp;<strong>{{check14.ct_ficha_total}}</strong></h5><h5>SESAR:&nbsp;<strong>{{check14.ct_ficha_sesar}}</strong></h5> -->
+                                                </div>
+                                            </div>
+                                        </div>                                        
+                                    </td>
+                                </tr>
+                                <!-- TURNO NOCHE -->
+                                <tr>
+                                    <td class="lead text-center text-primary">
+                                        <div style="height:35px;"></div>
+                                        Noche
+                                    </td>
+                                    <td align="center">
+                                        <div ng-if="check15.length!=0">
+                                            <div ng-repeat= "check15 in check15">
+                                                <div class="well well-sm" >                                            
+                                                    <h5><strong>{{check15.ct_ini_turno}}&nbsp;-&nbsp;{{check15.ct_fin_turno}}</strong></h5>
+                                                    <h5>Médico&nbsp;:&nbsp;<strong>{{check15.per_nombres +" "+check15.per_apellido_primero+" "+check15.per_apellido_segundo}}</strong></h5>
+                                                    <!-- <h5>Total:&nbsp;<strong>{{check15.ct_ficha_total}}</strong></h5><h5>SESAR:&nbsp;<strong>{{check15.ct_ficha_sesar}}</strong></h5> -->
+                                                </div>
+                                            </div>
+                                        </div>                                       
+                                    </td>
+                                    <td align="center">
+                                        <div ng-if="check16.length!=0">
+                                            <div ng-repeat= "check16 in check16">
+                                                <div class="well well-sm" >
+                                                    <h5><strong>{{check16.ct_ini_turno}}&nbsp;-&nbsp;{{check16.ct_fin_turno}}</strong></h5>
+                                                    <h5>Médico&nbsp;:&nbsp;<strong>{{check16.per_nombres +" "+check16.per_apellido_primero+" "+check16.per_apellido_segundo}}</strong></h5>
+                                                    <!-- <h5>Total:&nbsp;<strong>{{check16.ct_ficha_total}}</strong></h5><h5>SESAR:&nbsp;<strong>{{check16.ct_ficha_sesar}}</strong></h5> -->
+                                                </div>
+                                            </div>
+                                        </div>                                        
+                                    </td>
+                                    <td align="center">
+                                        <div ng-if="check17.length!=0">
+                                            <div ng-repeat= "check17 in check17">
+                                                <div class="well well-sm" >                                            
+                                                    <h5><strong>{{check17.ct_ini_turno}}&nbsp;-&nbsp;{{check17.ct_fin_turno}}</strong></h5>
+                                                    <h5>Médico&nbsp;:&nbsp;<strong>{{check17.per_nombres +" "+check17.per_apellido_primero+" "+check17.per_apellido_segundo}}</strong></h5>
+                                                    <!-- <h5>Total:&nbsp;<strong>{{check17.ct_ficha_total}}</strong></h5><h5>SESAR:&nbsp;<strong>{{check17.ct_ficha_sesar}}</strong></h5> -->
+                                                </div>
+                                            </div>
+                                        </div>                                        
+                                    </td>
+                                    <td align="center">
+                                        <div ng-if="check18.length!=0">
+                                            <div ng-repeat= "check18 in check18">
+                                                <div class="well well-sm" >                                            
+                                                    <h5><strong>{{check18.ct_ini_turno}}&nbsp;-&nbsp;{{check18.ct_fin_turno}}</strong></h5>
+                                                    <h5>Médico&nbsp;:&nbsp;<strong>{{check18.per_nombres +" "+check18.per_apellido_primero+" "+check18.per_apellido_segundo}}</strong></h5>
+                                                    <!-- <h5>Total:&nbsp;<strong>{{check18.ct_ficha_total}}</strong></h5><h5>SESAR:&nbsp;<strong>{{check18.ct_ficha_sesar}}</strong></h5> -->
+                                                </div>
+                                            </div>
+                                        </div>                                        
+                                    </td>
+                                    <td align="center">
+                                        <div ng-if="check19.length!=0">
+                                            <div ng-repeat= "check19 in check19">
+                                                <div class="well well-sm" >                                            
+                                                    <h5><strong>{{check19.ct_ini_turno}}&nbsp;-&nbsp;{{check19.ct_fin_turno}}</strong></h5>
+                                                    <h5>Médico&nbsp;:&nbsp;<strong>{{check19.per_nombres +" "+check19.per_apellido_primero+" "+check19.per_apellido_segundo}}</strong></h5>
+                                                    <!-- <h5>Total:&nbsp;<strong>{{check19.ct_ficha_total}}</strong></h5><h5>SESAR:&nbsp;<strong>{{check19.ct_ficha_sesar}}</strong></h5> -->
+                                                </div>
+                                            </div>
+                                        </div>                                        
+                                    </td>
+                                    <td align="center">
+                                        <div ng-if="check20.length!=0">
+                                            <div ng-repeat= "check20 in check20">
+                                                <div class="well well-sm" >                                            
+                                                    <h5><strong>{{check20.ct_ini_turno}}&nbsp;-&nbsp;{{check20.ct_fin_turno}}</strong></h5>
+                                                    <h5>Médico&nbsp;:&nbsp;<strong>{{check20.per_nombres +" "+check20.per_apellido_primero+" "+check20.per_apellido_segundo}}</strong></h5>
+                                                <!--     <h5>Total:&nbsp;<strong>{{check20.ct_ficha_total}}</strong></h5><h5>SESAR:&nbsp;<strong>{{check20.ct_ficha_sesar}}</strong></h5> -->
+                                                </div>
+                                            </div>
+                                        </div>                                        
+                                    </td>
+                                    <td align="center">
+                                        <div ng-if="check21.length!=0">
+                                            <div ng-repeat= "check21 in check21">
+                                                <div class="well well-sm" >                                            
+                                                    <h5><strong>{{check21.ct_ini_turno}}&nbsp;-&nbsp;{{check21.ct_fin_turno}}</strong></h5>
+                                                    <h5>Médico&nbsp;:&nbsp;<strong>{{check21.per_nombres +" "+check21.per_apellido_primero+" "+check21.per_apellido_segundo}}</strong></h5>
+                                                    <!-- <h5>Total:&nbsp;<strong>{{check21.ct_ficha_total}}</strong></h5><h5>SESAR:&nbsp;<strong>{{check21.ct_ficha_sesar}}</strong></h5> -->
+                                                </div>
+                                            </div>
+                                        </div>                                        
+                                    </td>
+                                </tr>
+							</table>
+						</div>
+					</div>		  
+				</div>	  
+			</div>	
+			<!-- FIN -->
+			<!-- AQUI VAN LOAS TABLAS O FORMULARIOS incrustados -->
+			</div>
+		</div>
+	</div>
+<!-- CONTENIDO MODULO fin -->
+

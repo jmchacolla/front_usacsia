@@ -1,0 +1,128 @@
+<!-- TOP-MENU inicio -->
+<div ng-include="'./templates/menu_inicio.html'"></div>
+<!-- CONTEXT-MENU  -->
+<div ng-include="'./templates/menu_lateral.html'">
+</div>
+<!-- CONTENIDO MODULO inicio -->
+	<div class="col-md-8 col-sm-8">
+		<div class="row">
+			<div class="col-md-12">
+				<h2 class="text-primary">
+					<span class="glyphicon glyphicon-th-list" aria-hidden="true"></span>
+					{{ajustes.pagina.titulo}}
+				</h2>
+				<hr class="bg-green">
+			</div>
+		</div>
+		<div class="row">
+			<div class="col-md-12">
+			<div class="well well-sm">
+				<strong class="pull-left lead">Herramientas: &nbsp;</strong>
+				<form class="form-inline pull-left">
+					<input type="text" class="form-control" placeholder="Filtrar por servicio" ng-model="se_nombre">
+				</form>
+				&nbsp;&nbsp;
+				<button class="btn btn-default" onclick="generateSER_AE()"><span class="glyphicon glyphicon-save-file"></span> Exportar lista en PDF</button>
+				<div class="clearfix"></div>
+			</div>
+			</div>
+		</div>
+		<div class="row">
+			<div class="col-md-12">
+				
+
+			<!-- AQUI VAN LAS TABLAS O FORMULARIOS incrustados -->
+			<!-- INICIO -->
+			<div class="text-center" ng-show="loading"><br><img ng-src="./images/image.gif" class="loader-img"></div>
+			<div ng-show="!loading && !msg">No se encontraron resultados</div>
+			<div class="table-responsive">
+				<table class="table table-bordered table-striped table-hover" ng-show="!loading && msg" id="tableSER">
+					<thead >
+						<th >
+							<a href="" ng-click="sortType = 'se_nombre'; sortReverse = !sortReverse">Nombre Servicio</a>
+				            <span ng-show="sortType == 'se_nombre' && !sortReverse" class="glyphicon glyphicon-sort-by-alphabet"></span>
+				            <span ng-show="sortType == 'se_nombre' && sortReverse" class="glyphicon glyphicon-sort-by-alphabet-alt"></span>
+						</th>
+						<th >Tipo Servicio</th>
+						<th >Reserva</th>
+						<th >Borrar</th>
+					</thead>
+					<tbody ng-repeat="presta in servicio_especialidad | orderBy:sortType:sortReverse | filter:se_nombre">
+					  <tr>
+						<td>{{presta.ser_nombre}}</td>
+						<td>{{presta.ser_tipo}}</td>
+						<td>
+							<div class="formulario">
+								<div class="checkbox" data-toggle="modal" data-target="#miCuadroModal2" ng-click="get_se_id(presta.se_id, presta.se_necesita_ref, presta.ser_nombre)">
+									<input class="checkbox" type="checkbox" ng-model="presta.se_necesita_ref">
+									<label ng-if="presta.se_necesita_ref">SI</label>
+									<label ng-if="!presta.se_necesita_ref">NO</label>
+								</div>
+							</div>
+							
+							<div id="miCuadroModal2" class="modal fade" role="dialog" tabindex="-1">
+							  <div class="modal-dialog">
+							    <div class="modal-content">
+							      <div class="modal-header bg-green fg-white">
+							        <button type="button" class="close" data-dismiss="modal">×</button>
+							        <h4 class="modal-title">SERVICIO PARA REFERENCIA</h4>
+							      </div>
+							      <div class="modal-body lead text-center">
+							        ¿Este servicio está disponible para realizar reserva?<br>
+							        <div class="well well-sm">
+										<strong>{{nombre_servicio | uppercase}}</strong>
+									</div>
+							      </div>
+							      <div class="modal-footer">
+							        <button type="button" class="btn btn-primary" data-dismiss="modal" ng-click="guardarpre(presta.se_id,'false')">
+										<span class="glyphicon glyphicon-ok"></span>
+										SI
+									</button>
+							        <button type="button" class="btn btn-danger" data-dismiss="modal" ng-click="guardarpre(presta.se_id,'true')">
+										<span class="glyphicon glyphicon-remove"></span>
+										NO
+									</button>
+							      </div>
+							    </div>
+							  </div>
+							</div>
+						</td>
+						<td >
+							<button class="btn btn-danger" data-toggle="modal" data-target="#miCuadroModal1" ng-click="get_se_id(presta.se_id, a, presta.ser_nombre)"><span class="glyphicon glyphicon-trash "></span></button>
+							<div id="miCuadroModal1" class="modal fade" role="dialog" tabindex="-1">
+							  <div class="modal-dialog">
+							    <div class="modal-content">
+							      <div class="modal-header bg-green fg-white">
+							        <button type="button" class="close" data-dismiss="modal">×</button>
+							        <h4 class="modal-title">ELIMINAR SERVICIO</h4>
+							      </div>
+							      <div class="modal-body lead text-center">
+							        ¿Está seguro que desea eliminar este servicio?<br>
+							        <div class="well well-sm">
+										<strong>{{nombre_servicio | uppercase}}</strong>
+									</center>
+							      </div>
+							      <div class="modal-footer">
+							        <button type="button" class="btn btn-primary" data-dismiss="modal" ng-click="remove(presta.se_id)">
+										<span class="glyphicon glyphicon-ok"></span>
+										SI
+									</button>
+							        <button type="button" class="btn btn-danger" data-dismiss="modal">
+										<span class="glyphicon glyphicon-remove"></span>
+										NO
+									</button>
+							      </div>
+							    </div>
+							  </div>
+							</div>
+						</td>
+					  </tr>
+					</tbody>
+				</table>
+			</div>
+			<!-- FIN -->
+			<!-- AQUI VAN LOAS TABLAS O FORMULARIOS incrustados -->
+			</div>
+		</div>
+	</div>
+<!-- CONTENIDO MODULO fin -->

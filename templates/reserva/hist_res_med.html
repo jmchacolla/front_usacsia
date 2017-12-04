@@ -1,0 +1,159 @@
+<!--TOP-MENU inicio -->
+<div ng-include="'./templates/menu_inicio.html'"></div>
+<div ng-include="'./templates/menu_lateral.html'"></div>
+<div ng-controller="VerReservaCtrl">
+	
+<!-- CONTENIDO MODULO inicio -->
+	<div class="col-md-8 col-sm-8">
+		<div class="row">
+			<div class="col-md-12">
+				<h2 class="text-primary">
+					<span class="glyphicon glyphicon-th-list" aria-hidden="true"></span>
+					{{ajustes.pagina.titulo}}
+				</h2>
+				<hr class="bg-green">
+			</div>
+		</div>
+
+		<div class="row">
+			<div class="col-md-12">
+				<div class="well well-sm" style="background-color:#fff;">
+					<div class="row">
+					  	<div class="col-md-8 col-md-offset-2">
+							<div class="form-group">
+								<label class="control-label">Seleccionar la fecha:</label>
+								  	<form role="form"  name="reserva" novalidate>
+										<div class="input-group" class="form-inline pull-left">
+											<input my-valid type="text" name="myDateInput" class="form-control" id="fecha_reserva" placeholder="aaaa-mm-dd" ng-model="fecha" ng-change="get(fecha)"required >
+											<span class="input-group-addon">
+						                    	<span class="glyphicon glyphicon-calendar"></span>
+						                	</span>
+										</div>
+						        	    <span class="messages" ng-show="reserva.myDateInput.$touched">			 
+										 	<span ng-show="!reserva.myDateInput.$valid">LA FECHA ES INCORRECTA....!!</span>    
+						            	</span>
+									</form>
+							 </div>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+		<div>
+			<div class="text-center" ng-show="loading"><br><img ng-src="./images/image.gif" class="loader-img"></div>
+            <div ng-show="!loading && !msg" class="alert alert-info" role="alert">No hay citas m&eacute;dicas para la fecha seleccionada :(</div>
+			<div ng-show="!loading && msg">
+			  <h3 class="text-center text-primary">CITAS M&Eacute;DICAS DE LA FECHA <strong>{{fecha}}</strong></h3>
+				<div class="row">
+					<div class="col-md-12">
+						<div class="well well-sm">
+							
+							<strong class="pull-left lead">Herramientas: &nbsp;</strong>
+							<form class="form-inline pull-left">
+								<input type="text" class="form-control" placeholder="Filtrar por ..." ng-model="searchText" >
+							</form>
+							<div class="clearfix">
+
+							</div>
+						</div>
+					</div>
+				</div>
+				Las filas de color <strong class="fg_red">Rojo</strong> representan las citas médicas por <strong>ATENDER</strong>, y las filas de color <strong class="text-primary">Verde</strong> representan las citas médicas <strong>ATENDIDAS</strong>. <br>
+				<div class="panel">
+					<div class="panel-body ">
+						<div ng-show="loading" class="text-center"><br><img ng-src="./images/image.gif" class="loader-img"></div>
+						<div ng-show="!loading && !msg">No se encontraron resultados</div>
+						<div class="table-responsive">
+							<table class="table table-bordered  table-hover" ng-show="!loading && msg">
+				            	<thead>
+				                	<th>Nº</th>
+				                	<th>Fecha de Reserva</th>
+				                	<th>Hora</th>
+				                	<th>Servicio</th>
+				                	<th>Nro. Ficha</th>		                	
+				                	<th>Paciente</th>
+				                	<th>Tipo de cita</th>
+				                	<th>Ver</th>
+				              	</thead>
+				              	<tbody ng-repeat="reserva in reservas | orderBy:sortType:sortReverse | filter:searchText">
+				                    <tr ng-class="{success:reserva.cit_estado_pago, danger:!reserva.cit_estado_pago}">
+										<td>{{$index+1}}</td>
+										<td>{{reserva.cit_fecha_consulta}}</td>
+										<td>{{reserva.cit_hora_consulta | date:'H:mm'}}</td>
+										<td>{{reserva.ser_nombre}}</td>
+										<td>SSR-{{reserva.cit_nro_ficha}}</td>								
+										<td>{{reserva.per_nombres+" "+reserva.per_apellido_primero+" "+reserva.per_apellido_segundo}}</td>
+										<td>{{reserva.cit_tipo | uppercase}}</td>
+										<td>
+										 	<button type="button" ng-click="obt_cita(reserva.cit_id, reserva.ser_nombre,reserva.cit_nro_ficha,reserva.per_nombres,reserva.per_apellido_primero,reserva.per_apellido_segundo)" data-toggle="modal" data-target="#miCuadroModal1" class="btn btn-success"><span class="glyphicon glyphicon-file" ></span>VER</button>
+										</td>
+								  	</tr>
+				                </tbody>
+				            </table>
+				            <!-- MODAL PARA VER CITA -->
+		            		<div id="miCuadroModal1" class="modal fade" role="dialog" tabindex="-1">
+								<div class="modal-dialog">
+								  <div class="modal-content">
+								      <div class="modal-header bg-green">
+								        <button type="button" class="close" data-dismiss="modal">×</button>
+								        <h3 class="modal-title fg-white"><strong>DATOS DE LA CITA MÉDICA</strong></h3>
+								      </div>
+								      <div class="modal-body lead text-center">
+									      <div class="well well-sm text-justify" style="background-color:#ddd;">	
+									      	<span class="text-primary">NRO. FICHA: </span>SSR-{{citas.cit_nro_ficha}}<br>
+									      	<span class="text-primary">SERVICIO:  </span>{{nombre_ser}}<br>
+									      	<span class="text-primary">CONSULTORIO:  </span>{{nom_consultorio}}<br>
+											<span class="text-primary">MÉDICO:  </span>{{funcionario.persona.per_nombres+" "+funcionario.persona.per_apellido_primero+" "+funcionario.persona.per_apellido_segundo}}<br>
+											<span class="text-primary">HORA:  </span>{{cit_hora_consulta | date:'H:mm'}}<br>
+											<br>
+										  </div>
+										  <div class="well well-sm text-justify" style="background-color:#ddd;">
+											<span class="text-primary">PACIENTE:  </span>{{paciente}}<br>
+										  </div>
+									  </div>
+								  	  <div class="modal-footer lead text-center">
+								      	<button class="btn btn-primary" data-dismiss="modal">
+											<span class="glyphicon glyphicon-ok"></span> ENTENDIDO
+										</button>
+								      </div>
+								  </div>
+								</div>
+							</div>
+					        <!-- fin modal -->
+				        </div>
+			        </div>
+				</div>
+			</div>
+		</div>        		
+		<!-- fin-->
+	</div>
+</div>
+
+
+
+
+<!-- script para la fecha  -->
+<script type="text/javascript">
+	 $.datepicker.regional['es'] = {
+ closeText: 'Cerrar',
+ prevText: '< Ant',
+ nextText: 'Sig >',
+ currentText: 'Hoy',
+ monthNames: ['Enero', 'Febrero', 'Marzo', 'Abril', 'Mayo', 'Junio', 'Julio', 'Agosto', 'Septiembre', 'Octubre', 'Noviembre', 'Diciembre'],
+ monthNamesShort: ['Ene','Feb','Mar','Abr', 'May','Jun','Jul','Ago','Sep', 'Oct','Nov','Dic'],
+ dayNames: ['Domingo', 'Lunes', 'Martes', 'Miércoles', 'Jueves', 'Viernes', 'Sábado'],
+ dayNamesShort: ['Dom','Lun','Mar','Mié','Juv','Vie','Sáb'],
+ dayNamesMin: ['Do','Lu','Ma','Mi','Ju','Vi','Sá'],
+ weekHeader: 'Sm',
+ dateFormat: 'yy-mm-dd',
+ firstDay: 1,
+ isRTL: false,
+ showMonthAfterYear: false,
+ yearSuffix: ''
+ };
+
+ $.datepicker.setDefaults($.datepicker.regional['es']);
+    $( function() {
+      $( "#fecha_reserva" ).datepicker();
+    } );
+</script>
