@@ -513,6 +513,29 @@ angular.module("adminApp")
   })
 }])
 
+
+
+// ===============================FUNCIONARIOS  jhon
+.factory('Funcionario', ['$resource', 'CONFIG', function ($resource, CONFIG){
+  return $resource(CONFIG.DOMINIO_SERVICIOS+"/funcionario/:fun_id", {fun_id:"@_fun_id"}, {
+    update: {method: "PUT", params: {fun_id: "@fun_id"}}
+  })
+}])
+// ===============================/jhon
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 // P A R A   E L   T O K E N
 /*.factory('authInterceptor', function ($rootScope, $q, $window, ) {
   return {
