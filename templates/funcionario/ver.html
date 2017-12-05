@@ -14,56 +14,56 @@
 			</div>
 		</div>
 		<div class="row">
-			<div class="col-md-12">
+			<div class="col-md-12" >
 				<!-- INICIO -->
-				<div class="well well-sm" style="background-color:#fff;" class="animated">
+				<div class="well well-sm" style="background-color:#fff;" class="animated" >
 		            <h4 class="text-center text-primary">I. DATOS GENERALES</h4>
-		            <hr class="bg-red">
+		            <hr class="bg-green">
 			        <br>
-				    <div class="row" >
-			          	<div class="col-md-3 col-sm-4 text-center">
-			            	<img ng-src="{{persona.imagen[0].ima_enlace}}/{{persona.imagen[0].ima_nombre}}" class="img-thumbnail center">
+				    <div class="row">
+			          	<div class="col-md-3 col-sm-4 text-center" ng-repeat="imagen in funcionario.imagen">
+			            	<img ng-src="{{imagen.ima_enlace}}/{{imagen.ima_nombre}}" class="img-thumbnail center">
 			          	</div>    
 			          	<div class="col-md-9 col-sm-8">
 			            	<div class="row">
 			              		<div class="col-md-4 col-sm-6">
 			                		<label class="text-primary">Nombre:</label><br>
-			                		{{persona.persona.per_nombres}}
+			                		{{funcionario.persona.per_nombres}}
 			              		</div>
 			              		<div class="col-md-4 col-sm-6">
 			                		<label class="text-primary">Apellido paterno:</label><br>
-			                		{{persona.persona.per_apellido_primero}}
+			                		{{funcionario.persona.per_apellido_primero}}
 			              		</div>
 			              		<div class="col-md-4 col-sm-6">
 			                		<label class="text-primary">Apellido materno:</label><br>
-			                		{{persona.persona.per_apellido_segundo}}
+			                		{{funcionario.persona.per_apellido_segundo}}
 			                	</div>
 			            	</div>
 			            	<br>
 			            	<div class="row">
 			              		<div class="col-md-4 col-sm-6">
 			                		<label class="text-primary">Fecha de nacimiento:</label><br>
-			                		{{fecha_nac}}
+			                		{{funcionario.persona.per_fecha_nacimiento}}
 			                		
 			              		</div>
 			              		<div class="col-md-4 col-sm-6">
 			                		<label class="text-primary ">CI:</label><br>
-			                		{{persona.persona.per_ci + " "}} {{persona.persona.per_ci_expedido | uppercase}}
+			                		{{funcionario.persona.per_ci + " "}} {{funcionario.persona.per_ci_expedido | uppercase}}
 			              		</div>
 			              		<div class="col-md-4 col-sm-6">
 			                		<label class="text-primary ">Genero:</label><br>
-			                		{{persona.persona.per_genero}}
+			                		{{funcionario.persona.per_genero}}
 			              		</div>
 			            	</div>
 			            	<br>
 			            	<div class="row">
 								<div class="col-md-4 col-sm-6">
 			                		<label class="text-primary">Nro. Celular:</label><br>
-			                		{{persona.persona.per_numero_celular}}
+			                		{{funcionario.persona.per_numero_celular}}
 			              		</div>
 			              		<div class="col-md-4 col-sm-6 texto">
 			                		<label class="text-primary">Email:</label><br>
-			                		{{persona.persona.per_email}}
+			                		{{funcionario.persona.per_email}}
 			              		</div>
 			              	</div>
 			            	<br>
@@ -74,40 +74,57 @@
 			          	</div>    
 			        </div>
 		            <h4 class="text-center text-primary">II. DIRECCIÓN</h4>
-		            <hr class="bg-red">
+		            <hr class="bg-green">
 		        	<br>
-		        	<!--  ng-repeat="direccion in persona.direccion"-->
-		        	
+		        	<!-- <div ng-repeat="direccion in persona.direccion"> -->
+		        	<div >
 				        <div class="row">
 			          		<div class="col-md-3 col-sm-4">
-			            		<label class="text-primary">Zona:</label><br>
-			            		{{funcionarios.zona.zon_nombre}}
+			            		<label class="text-primary">Departamento:</label><br>
+			            		{{funcionario.departamento.dep_nombre | uppercase}}
+			          		</div>    
+			          		<div class="col-md-3 col-sm-4">
+			            		<label class="text-primary">Provincia:</label><br>
+			            		{{funcionario.provincia.pro_nombre | uppercase}}
+			          		</div>    
+			          		<div class="col-md-3 col-sm-4">
+			            		<label class="text-primary">Municipio:</label><br>
+			            		{{funcionario.municipio.mun_nombre | uppercase}}
+			          		</div>    
+			        	</div> 
+				        <div class="row">
+			          		<div class="col-md-3 col-sm-4">
+			            		<label class="text-primary">Zona/Comunidad:</label><br>
+			            		{{funcionario.zona.zon_nombre | uppercase}}
 			          		</div>    
 			          		<div class="col-md-3 col-sm-4">
 			            		<label class="text-primary">Calle/Avenida:</label><br>
-			            		{{funcionarios.persona.per_avenida_calle}}
+			            		{{funcionario.persona.per_avenida_calle | uppercase}}
 			          		</div>    
 			          		<div class="col-md-3 col-sm-4">
 			            		<label class="text-primary">Número:</label><br>
-			            		{{funcionarios.persona.per_numero}}
+			            		{{funcionario.persona.per_numero | uppercase}}
 			          		</div>    
 			        	</div> 
 			        	<br>
-			       
+			        </div>
 			        <br>
 		            <h4 class="text-center text-primary">III. DATOS DEL FUNCIONARIO</h4>
-		            <hr class="bg-red">
+		            <hr class="bg-green">
 		        	<br>
 		        	<div class="row">
 		          		<div class="col-md-3 col-sm-4">
 		            		<label class="text-primary">Profesión:</label><br>
-		            		{{funcionarios.funcionario.fun_profesion}}
+		            		{{funcionario.funcionario.fun_profesion | uppercase}}
 		          		</div>
 		          		<div class="col-md-3 col-sm-4">
 		            		<label class="text-primary">Cargo:</label><br>
-		            		{{funcionarios.funcionario.fun_cargo}}
+		            		{{funcionario.funcionario.fun_cargo | uppercase}}
 		          		</div>
-		          		
+		          		<div class="col-md-3 col-sm-4">
+		            		<label class="text-primary">Estado Laboral:</label><br>
+		            		{{funcionario.funcionario.fun_estado | uppercase}}
+		          		</div>
 		          		<!--PARA CUANDO SE UTILIZEN LAS FECHAS
 		          		<div class="col-md-3 col-sm-4" ng-if="funcionarios.funcionario.fun_estado_laboral == 'permanente' || funcionarios.fun_estado_laboral == 'PERMANENTE'">
 		            		<label class="text-primary">Inicio trabajo:</label><br>
@@ -122,14 +139,14 @@
 		            		{{fecha_fin}}
 		          		</div>
 		          		-->
-		          	<!-- 	<div class="col-md-3 col-sm-4" ng-if="funcionarios.funcionario_establecimiento.fe_estado_laboral == 'permanente' || funcionarios.funcionario_establecimiento.fe_estado_laboral == 'PERMANENTE'">
+		          		<div class="col-md-3 col-sm-4" ng-if="funcionarios.funcionario_establecimiento.fe_estado_laboral == 'permanente' || funcionarios.funcionario_establecimiento.fe_estado_laboral == 'PERMANENTE'">
 		            		<label class="text-primary">Nro. Item/Contrato: </label><br>
 		            		{{funcionarios.funcionario_establecimiento.fe_memorandum}}
 		          		</div>    
 		          		<div class="col-md-3 col-sm-4" ng-if="funcionarios.funcionario_establecimiento.fe_estado_laboral == 'contrato' || funcionarios.funcionario_establecimiento.fe_estado_laboral == 'CONTRATO'">
 		            		<label class="text-primary">Nro. Item/Contrato: </label><br>
 		            		{{funcionarios.funcionario_establecimiento.fe_memorandum}}
-		          		</div>     -->
+		          		</div>    
 			        </div> 
 		        	<br>
 			    </div>

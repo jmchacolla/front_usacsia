@@ -9,6 +9,31 @@ angular.module("adminApp", ["authService", "ngRoute", "ngResource", "satellizer"
 //$authProvider.signupUrl = CONFIG.DOMINIO_SERVICIOS+'/usuarios';
 
   $routeProvider
+  // ======================================jhon===========================================================================
+  //lista a los funcionarios de Usacsia
+  .when('/funcionario', {  
+    templateUrl: 'templates/funcionario/funcionarios.html',
+    controller: 'FuncionarioCtrl',
+    data: {
+      authorized: [ROLES.ADMIN_ESTAB.ROL, ROLES.ADMIN_MEDICO.ROL]
+    }
+  })
+// detalle de funcionario
+  .when('/funcionario/:fun_id', {
+    templateUrl: 'templates/funcionario/ver.html',
+    controller: 'VerFuncionarioCtrl',
+/*    data: {
+      authorized: [ROLES.ADMIN_SEDES.ROL, ROLES.ADMIN_ESTAB.ROL, ROLES.ADMIN_MEDICO.ROL]
+    }*/
+  })
+
+  // ======================================/jhon==========================================================================
+
+
+
+
+
+
     // ========================= PAGINA PUBLICA  ============================================================================
   //pagina inicial de la aplicacion
   .when('/inicio', {
