@@ -632,7 +632,7 @@ angular.module("adminApp", ["authService", "ngRoute", "ngResource", "satellizer"
   })
 
   // ========================= CONSULTORIOS ============================================================================
-  .when('/consultorios', {//arreglar la ruta con establecimientos
+/*  .when('/consultorios', {//arreglar la ruta con establecimientos
     templateUrl: 'templates/consultorio/consultorios.html',
     controller: 'ListaConsultorioCtrl',
     data: {
@@ -659,7 +659,7 @@ angular.module("adminApp", ["authService", "ngRoute", "ngResource", "satellizer"
     data: {
       authorized: [ROLES.ADMIN_ESTAB.ROL, ROLES.ADMIN_MEDICO.ROL]
     }
-  })
+  })*/
   
   // ========================= REFERENCIA ============================================================================
   .when('/referencia/create/:pac_id', {
