@@ -2,24 +2,24 @@ TOP-MENU inicio -->
 <div ng-include="'./templates/menu_inicio.html'"></div>
 
 <!-- CONTEXT-MENU  -->
-	<div ng-include="'./templates/menu_lateral.html'">
-	</div>
-	<!-- CONTENIDO MODULO inicio -->
-	<div class="col-md-8 col-sm-8">
-		<div class="row">
-			<div class="col-md-12">
-				<h2 class="text-primary">
-					<span class="glyphicon glyphicon-th-list" aria-hidden="true"></span>
-					{{ajustes.pagina.titulo}}
-				</h2>
-				<hr>
-			</div>
-		</div>
-			<div class="col-md-12">
-			<!-- AQUI VAN LAS TABLAS O FORMULARIOS incrustados -->
-			<!-- INICIO ng-include="'./forms/funcionario/edit_fun_per.html'"-->
-			<!-- <form name="editFun" novalidate > -->
-				  <div ng-controller="UploadFunCtrl as vista"> 
+  <div ng-include="'./templates/menu_lateral.html'">
+  </div>
+  <!-- CONTENIDO MODULO inicio -->
+  <div class="col-md-8 col-sm-8">
+    <div class="row">
+      <div class="col-md-12">
+        <h2 class="text-primary">
+          <span class="glyphicon glyphicon-th-list" aria-hidden="true"></span>
+          {{ajustes.pagina.titulo}}
+        </h2>
+        <hr>
+      </div>
+    </div>
+      <div class="col-md-12">
+      <!-- AQUI VAN LAS TABLAS O FORMULARIOS incrustados -->
+      <!-- INICIO ng-include="'./forms/funcionario/edit_fun_per.html'"-->
+      <!-- <form name="editFun" novalidate > -->
+          <div ng-controller="UploadFunCtrl as vista"> 
       <div class="row">
         <div class="col-md-12">
           <label class="control-label">Los campos marcados con asterisco (<strong class="fg_red">*</strong>) son obligatorios</label>
@@ -63,8 +63,8 @@ TOP-MENU inicio -->
                       </div>
                       <div class="col-md-6">
                         <label class="control-label">Expedido: <strong class="fg_red">*</strong></label>
-                        <select class="form-control" name="per_ci_expedido" ng-model="personas.persona.per_ci_expedido" ng-model-options="{ updateOn: 'blur' }" required>
-                          <option value="LP">La Paz</option>
+                        <select class="form-control" name="per_ci_expedido" ng-model="personas.persona.per_ci_expedido" ng-model-options="{ updateOn: 'blur' }" >
+                          <option value="LP">La Paz</option><!-- required -->
                           <option value="OR">Oruro</option>
                           <option value="PT">Potosi</option>
                           <option value="PA">Pando</option>
@@ -75,7 +75,7 @@ TOP-MENU inicio -->
                           <option value="TJ">Tarija</option>
                         </select>
                         <span class="messages" ng-show="editFuncionario.ci_expedido.$touched">
-                          <span ng-show="editFuncionario.ci_expedido.$error.required">El campo es obligatorio.</span>
+                          <!-- <span ng-show="editFuncionario.ci_expedido.$error.required">El campo es obligatorio.</span> -->
                         </span>
                       </div>
                     </div>
@@ -83,7 +83,7 @@ TOP-MENU inicio -->
                     <div class="row">
                       <div class="col-md-4">
                         <label for="nombre" class="control-label">Nombre: <strong class="fg_red">*</strong></label>
-                        <input class="form-control" name="nombre" type="Text" placeholder="Nombre" ng-model="personas.persona.per_nombres" ng-model-options="{ updateOn: 'blur' }" required ng-pattern="patternCadena">
+                        <input class="form-control" name="nombre" type="Text" placeholder="Nombre" ng-model="personas.persona.per_nombres" ng-model-options="{ updateOn: 'blur' }"  ng-pattern="patternCadena"><!-- required -->
                         <span class="messages" ng-show="editFuncionario.nombre.$touched">
                           <span ng-show="editFuncionario.nombre.$error.required">El campo es obligatorio.</span>
                           <span ng-show="editFuncionario.nombre.$error.pattern">No se admiten símbolos especiales o números.</span>
@@ -172,9 +172,9 @@ TOP-MENU inicio -->
                     <div class="row">
                       <div class="col-md-6">
                         <label class="control-label">Nro. Celular: <strong class="fg_red">*</strong></label>
-                        <input type="" class="form-control" name="numero_celular" placeholder="Nro. de celular" ng-model="personas.persona.per_numero_celular" ng-model-options="{ updateOn: 'blur' }" min="60000000" max="79999999" required>
+                        <input type="" class="form-control" name="numero_celular" placeholder="Nro. de celular" ng-model="personas.persona.per_numero_celular" ng-model-options="{ updateOn: 'blur' }" min="60000000" max="79999999" ><!-- required -->
                         <span class="messages" ng-show="editFuncionario.$submitted || editFuncionario.numero_celular.$touched">
-                          <span ng-show="editFuncionario.numero_celular.$error.required">El campo es obligatorio.</span>
+                          <!-- <span ng-show="editFuncionario.numero_celular.$error.required">El campo es obligatorio.</span> -->
                           <span ng-show="editFuncionario.numero_celular.$error.min">Número de celular incorrecto.</span>
                           <span ng-show="editFuncionario.numero_celular.$error.max">Número de celular incorrecto.</span>
                         </span>
@@ -183,7 +183,7 @@ TOP-MENU inicio -->
                         <label class="control-label">Email: </label>
                         <input type="email" class="form-control" name="email" placeholder="ejemplo@hotmail.com" ng-model="personas.persona.per_email" ng-model-options="{ updateOn: 'blur' }"> 
                         <span class="messages" ng-show="editFuncionario.$submitted || editFuncionario.email.$touched">
-                          <span ng-show="editFuncionario.email.$error.required">El campo es obligatorio.</span>
+                         <!--  <span ng-show="editFuncionario.email.$error.required">El campo es obligatorio.</span> -->
                           <span ng-show="editFuncionario.email.$error.email">Formato de email incorrecto.</span>
                         </span>
                       </div>
@@ -191,7 +191,7 @@ TOP-MENU inicio -->
                         <label class="control-label">Ocupacion: </label>
                         <input type="text" class="form-control" name="ocupacion" placeholder="ejemplo@hotmail.com" ng-model="personas.persona.per_ocupacion" ng-model-options="{ updateOn: 'blur' }"> 
                         <span class="messages" ng-show="editFuncionario.$submitted || editFuncionario.ocupacion.$touched">
-                          <span ng-show="editFuncionario.ocupacion.$error.required">El campo es obligatorio.</span>
+                    <!--       <span ng-show="editFuncionario.ocupacion.$error.required">El campo es obligatorio.</span> -->
                          
                         </span>
                       </div>
@@ -231,9 +231,9 @@ TOP-MENU inicio -->
                   </div>    
                   <div class="col-md-2">
                     <label class="control-label">Número: <strong class="fg_red">*</strong></label>
-                    <input type="" class="form-control" name="numero" placeholder="numero" ng-model="funcionarios.persona.per_numero" ng-model-options="{ updateOn: 'blur' }" pattern="[0-9]{1,8}" required>
+                    <input type="" class="form-control" name="numero" placeholder="numero" ng-model="funcionarios.persona.per_numero" ng-model-options="{ updateOn: 'blur' }" pattern="[0-9]{1,8}" ><!-- required -->
                     <span class="messages" ng-show="editFuncionario.numero.$touched">
-                      <span ng-show="editFuncionario.numero.$error.required">El campo es obligatorio.</span>
+                     <!--  <span ng-show="editFuncionario.numero.$error.required">El campo es obligatorio.</span> -->
                       <span ng-show="editFuncionario.numero.$error.pattern">Solo se acepta números.</span>
                     </span>
                   </div>      
@@ -248,7 +248,7 @@ TOP-MENU inicio -->
                     <!-- ng-controller="IndexCargoCtrl" -->
                      <!--  <div > -->
                         <label class="control-label">Cargo: <strong class="fg_red">*</strong></label>
- 						<input type="" class="form-control" name="cargo" placeholder="cargo" ng-model="funcionarios.funcionario.fun_cargo" ng-model-options="{ updateOn: 'blur' }" pattern="[0-9]{1,8}" required>
+                         <input type="" class="form-control" name="cargo" placeholder="cargo" ng-model="funcionarios.funcionario.fun_cargo" ng-model-options="{ updateOn: 'blur' }"  required>
                        <!--  <select class="form-control" name="cargo" ng-model="funcionarios.funcionario_establecimiento.fe_cargo"  ng-options="cargo.car_tipo as cargo.car_tipo for cargo in cargos" >
                         </select> -->
                         <span class="messages" ng-show="editFuncionario.cargo.$touched">
@@ -302,6 +302,7 @@ TOP-MENU inicio -->
                       </label>
                     </div>
                     <br>
+                    <!--  -->
                     <button ng-show = "para_enviar" class="btn btn-primary" ng-disabled="editFuncionario.$invalid" ng-click="submitP($parent.personas,dE);submitFun($parent.funcionarios, fechaITrabEDIT, fechaFTrabEDIT); vista.enviar();reset(editFuncionario)" title="Debe llenar todos los campos obligatorios de manera correcta"><span class="glyphicon glyphicon-save"></span> {{$parent.ajustes.pagina.action}}</button>
                     </div>    
                   </div> 
@@ -322,11 +323,11 @@ TOP-MENU inicio -->
 
 
 
-		<!-- 	</form> -->
-			<!-- FIN -->
-			<!-- AQUI VAN LOAS TABLAS O FORMULARIOS incrustados -->
-			
-			</div>
-		</div>
-	</div>
+    <!--  </form> -->
+      <!-- FIN -->
+      <!-- AQUI VAN LOAS TABLAS O FORMULARIOS incrustados -->
+      
+      </div>
+    </div>
+  </div>
 <!-- CONTENIDO MODULO fin

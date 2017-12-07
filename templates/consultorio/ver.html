@@ -1,130 +1,51 @@
-<!-- TOP-MENU inicio -->
+<!-- TOP-MENU inicio --> 
 <div ng-include="'./templates/menu_inicio.html'"></div>
 <!-- CONTEXT-MENU  -->
 <div ng-include="'./templates/menu_lateral.html'"></div>
  
 <!-- CONTENIDO MODULO -->
-	<div class="col-md-8 col-sm-8">
-		<div class="row">
-			<div class="col-md-12">
-				<h2 class="text-primary">
-					<span class="glyphicon glyphicon-file" aria-hidden="true"></span>
-					{{ajustes.pagina.titulo}}
-				</h2>
-				<hr>
-			</div>
-		</div>
+  <div class="col-md-8 col-sm-8">
+    <div class="row">
+      <div class="col-md-12">
+        <h2 class="text-primary">
+          <span class="glyphicon glyphicon-file" aria-hidden="true"></span>
+          {{ajustes.pagina.titulo}}
+        </h2>
+        <hr>
+      </div>
+    </div>
 
-		<div class="row">
-			<div class="col-md-12">
-			  <!-- AQUI VAN LAS TABLAS O FORMULARIOS incrustados -->
-			  <!-- INICIO -->
+    <div class="row">
+      <div class="col-md-12">
+        <!-- AQUI VAN LAS TABLAS O FORMULARIOS incrustados -->
+        <!-- INICIO -->
         <div class="well well-sm" style="background-color:#fff;">
           <div class="row">
-            <h4 class="text-primary text-center">DESCRIPCIÓN DEL CONSULTORIO</h4>
+            <h4 class="text-primary text-center">DESCRIPCIÓN DEL CONSULTORIO </h4>
+            <hr class="bg-red">
             <div class="col-md-6">
               <label class="text-primary">Nombre del consultorio:</label><br>
-              {{consultorios.consultorio.con_nombre}}
+              {{consultorios.ambientes.amb_nombre}}
             </div>    
             <div class="col-md-6">
               <label class="text-primary">Código:</label><br>
-              {{consultorios.consultorio.con_cod}}
+              {{consultorios.consultorios.con_cod}}
             </div>   
             <div class="col-md-6">
               <label class="text-primary">Tipo:</label><br>
-              {{consultorios.consultorio.con_tipo}}
+              {{consultorios.ambientes.amb_tipo}}
             </div> 
             <div class="col-md-6">
               <label class="text-primary">Descripción:</label><br>
-              {{consultorios.consultorio.con_descripcion}}
+              {{consultorios.ambientes.amb_descripcion}}
             </div>  
           </div>
-          <hr>
-          <div class="row">
-            <h4 class="text-primary text-center">SERVICIOS PRESTADOS</h4>
-            <div class="col-md-12">
-              <br>
-              <table class="table table-bordered table-striped table-hover">
-                <thead >
-                  <th >Nombre servicio</th>
-                  <th >Tipo</th>
-                  <th >Eliminar</th>
-                </thead>
-                <tbody ng-repeat="servicio in consultorios.servicio_consultorio">
-                  <tr>
-                    <td>{{servicio.ser_nombre}}</td>
-                    <td>{{servicio.ser_tipo}}</td>
-                    <td>
-                      <button class="btn btn-danger" data-toggle="modal" ng-click="get_ser(servicio.sc_id, servicio.ser_nombre)" data-target="#miCuadroModal0" title="Quitar servicio a consultorio">
-                      <span class="glyphicon glyphicon-trash"></span></button>
-                      <!--CUADRO MODAL-->
-                      <div id="miCuadroModal0" class="modal fade" role="dialog" tabindex="-1">
-                        <div class="modal-dialog">
-                          <div class="modal-content">
-                            <div class="modal-header bg-green">
-                              <button type="button" class="close" data-dismiss="modal">x</button>
-                              <h4 class="modal-title fg-white"> QUITAR SERVICIO</h4>
-                            </div>
-                            <div class="modal-body lead text-center">
-                              ¿Esta seguro que desea eliminar este servicio? 
-                              <div class="well well-sm">
-                                <strong>{{nombre_servicio}}</strong>
-                              </div>
-                            </div>
-                            <div class="modal-footer">
-                              <button type="button" class="btn btn-primary" data-dismiss="modal" ng-click="quitar(se_sc_id)">
-                              <span class="glyphicon glyphicon-ok"></span>SI</button>
-                              <button type="button" class="btn btn-danger" data-dismiss="modal"><span class="glyphicon glyphicon-remove"></span>
-                              NO</button>
-                            </div>
-                          </div>
-                        </div>
-                      </div>
-                    </td>
-                  </tr>
-                </tbody>
-              </table>
-            </div>
-            <br>
-
-            <div class="col-md-6">
-              <select name="serv" class="form-control" ng-model="servicios_consultorios_obtenidos" ng-options="presta as presta.ser_nombre for presta in prestas" required>
-              </select>
-            </div>
-            <div class="col-md-3">
-              <button class="btn btn-primary" data-toggle="modal" ng-click="get_ser(servicios_consultorios_obtenidos.se_id, servicios_consultorios_obtenidos.ser_nombre)" data-target="#miCuadroModal1" title="Asignar servicio a consultorio" ng-disabled="">
-                <span class="glyphicon glyphicon-save"></span> {{ajustes.pagina.action}}
-              </button>
-              <!--CUADRO MODAL-->
-              <div id="miCuadroModal1" class="modal fade" role="dialog" tabindex="-1">
-                <div class="modal-dialog">
-                  <div class="modal-content">
-                    <div class="modal-header bg-green">
-                      <button type="button" class="close" data-dismiss="modal">x</button>
-                      <h4 class="modal-title fg-white"> AGREGAR SERVICIO</h4>
-                    </div>
-                    <div class="modal-body lead text-center">
-                      ¿Esta seguro que desea agregar este servicio? 
-                      <div class="well well-sm">
-                        <strong>{{nombre_servicio}}</strong>
-                      </div>
-                    </div>
-                    <div class="modal-footer">
-                      <button type="button" class="btn btn-primary" data-dismiss="modal" ng-click="asigna_servicio_consultorio(se_sc_id)">
-                      <span class="glyphicon glyphicon-ok"></span>SI</button>
-                      <button type="button" class="btn btn-danger" data-dismiss="modal"><span class="glyphicon glyphicon-remove"></span>
-                      NO</button>
-                    </div>
-                  </div>
-                </div>
-              </div>
-            </div>
-            <div class="col-md-3"></div>
-          </div>
+         
+         
         </div>
-	  </div>
+    </div>
     </div>
     <!-- fin cuerpo -->
   </div>
 <!-- CONTENIDO MODULO fin -->
-<!--  <button type="button" class="btn  btn-resaltar form-signin">REGISTRAR</button> -->
+<!--  <button type="button" class="btn  btn-resaltar form-signin">REGISTRAR</button>

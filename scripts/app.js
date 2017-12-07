@@ -121,7 +121,7 @@ when('/atencion', {//--------medico
   })
   /************************************CONSULTORIOS***********************************/
   .when('/consultorios', {//arreglar la ruta con establecimientos
-    templateUrl: 'templates/consultorio/index.html',
+    templateUrl: 'templates/consultorio/consultorios.html',
     controller: 'ListaConsultorioCtrl',
    /* data: {
       authorized: [ROLES.ADMIN_ESTAB.ROL, ROLES.ADMIN_MEDICO.ROL]
@@ -232,6 +232,10 @@ when('/atencion', {//--------medico
 
 
 
+
+
+
+
 /*===================================VERONICA================================================*/
 
 /*-----------------------------laboratorista---------------------------------*/
@@ -259,18 +263,11 @@ when('/atencion', {//--------medico
 
 
   /*---------------------------BUSQUEDA DE PERSONAS PREREGISTRADAS------------------------------*/
-
-
   .when('/buscar-persona', {
     templateUrl: 'templates/personatramite/create.html',
     controller: 'BusquedaPersonaController'
   })
-
   /*===================================VERONICA================================================*/
-
-
-
-
 
 
 
@@ -642,7 +639,7 @@ when('/atencion', {//--------medico
   })
 
   // ========================= CONSULTORIOS ============================================================================
-  .when('/consultorios', {//arreglar la ruta con establecimientos
+/*  .when('/consultorios', {//arreglar la ruta con establecimientos
     templateUrl: 'templates/consultorio/consultorios.html',
     controller: 'ListaConsultorioCtrl',
     data: {
@@ -669,7 +666,7 @@ when('/atencion', {//--------medico
     data: {
       authorized: [ROLES.ADMIN_ESTAB.ROL, ROLES.ADMIN_MEDICO.ROL]
     }
-  })
+  })*/
   
   // ========================= REFERENCIA ============================================================================
   .when('/referencia/create/:pac_id', {
