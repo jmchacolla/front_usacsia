@@ -1,6 +1,7 @@
 'use strict';
 angular.module("adminApp")
-//30-11-2017
+//30-11-2017   ***********************    WENDY   *****************************************
+//*************************PERSONAS***************************
 .factory('PersonasC', ['$resource', 'CONFIG', function ($resource, CONFIG){
   return $resource(CONFIG.DOMINIO_SERVICIOS+"/persona", {}, {
     update: {method: "PUT", params: {}}
@@ -12,6 +13,7 @@ angular.module("adminApp")
     update: {method: "PUT", params: {per_id: "@per_id"}}
   })
 }])
+//***********************************************PAIS}++++++++++++++++++++
 
 .factory('Paises', ['$resource', 'CONFIG', function ($resource, CONFIG){
   return $resource(CONFIG.DOMINIO_SERVICIOS+"/pais", {}, {
@@ -46,6 +48,43 @@ angular.module("adminApp")
     update: {method: "PUT", params: {}}
   })
 }])
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 
