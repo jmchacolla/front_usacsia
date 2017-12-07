@@ -68,50 +68,12 @@ angular.module("adminApp")
       titulo:'Asignacion de Número de Muestra'
     }
   }
-
-    $scope.muestra = {
-    pt_id: 0,
-    mue_num_muestra: 1
-  };
-
-  $scope.submit = function(){
-    PaisService.save($scope.pais).$promise.then(function(data){
-      if(data.msg){ 
-        angular.copy({}, $scope.pais);
-        toastr.success('pais creado creada correctamente');
-        $scope.ajustes.pagina.success = "pais creado correctamente";
-      }
-    });
-  }
-  
-  $scope.sortType = 'per_id'; // set the default sort type
-  $scope.sortReverse  = true;  // set the default sort order
-  $scope.Personas = [];
-
-  $scope.loading=true;//para hacer un loading
-  // PruebaLaboratorioService.get(function(data){
-  //   console.log(data);
-  //   $scope.prueba_laboratorio = data.prueba_laboratorio;
-  //   if(data.prueba_laboratorio.length>0){
-  //     $scope.loading = false;
-  //     $scope.msg = true;
-  //   }
-  //   else{
-  //     $scope.loading = false;
-  //     $scope.msg = false;
-  //   }
-    
-  // },function () {
-  //     toastr.error("ERROR INESPERADO, por favor actualize la página");
-  //     $scope.loading = false;
-  //     $scope.msg = false;
-  //   }); 
 }])
 
 .controller('crear',['authUser', '$scope', 'Funcionarios', '$routeParams', '$location', '$timeout', 'toastr', 'CONFIG', '$resource','PaisService','$http',
 function (authUser,$scope, Funcionarios, $routeParams, $location, $timeout, toastr, CONFIG, $resource,PaisService,$http)
 {
-      $scope.pais = {
+    $scope.pais = {
     nac_nombre: "pais creado desde angularrrrrrr3",
     nac_capital: "capitalasdf desde angular3",
     nac_continente: "continente3"
@@ -132,7 +94,7 @@ function (authUser,$scope, Funcionarios, $routeParams, $location, $timeout, toas
 
 .controller('apiAppCtrl_persona', ['$http', '$scope', 'CONFIG', buscaPersonaController])
 function buscaPersonaController($http, $scope, CONFIG){
-  $scope.ss="dcs";
+  
 
   $scope.buscaPersona = function($per_ci){
     console.log('esta buscando persona');

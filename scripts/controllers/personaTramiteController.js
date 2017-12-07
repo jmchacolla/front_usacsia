@@ -1,6 +1,7 @@
 'use strict';
 angular.module("adminApp")
-.controller('PersonaTramiteController', ['$scope', 'ListarTramitesService', '$route', 'toastr', function ($scope, ListarTramitesService, $route, toastr){
+.controller('PersonaTramiteController', ['$scope', 'ListarTramitesService', '$route', 'toastr', function ($scope, ListarTramitesService, $route, toastr)
+{
   $scope.ajustes = {
     menu:{
       titulo: 'Gestión de tramites de Carné Sanitario',
@@ -67,4 +68,60 @@ angular.module("adminApp")
   }
 }])
 
+
+
+.controller('BusquedaPersonaController', ['$scope', '$route','PersonaTramite', 'toastr', function ($scope, $route, PersonaTramite,toastr){
+  $scope.ajustes = {
+    menu:{
+      titulo: 'Gestion de solicitudes de trámite',
+      items:[
+        {nombre:'Busqueda de personas registradas', enlace:'#/', estilo:'active'}]
+    },
+    pagina:{
+      titulo:'Personas registradas'
+    }
+  }
+ 
+    $scope.persona_tramite={
+      tra_id:1, 
+      per_id:14,
+      pt_numero_tramite:5555, 
+      pt_vigencia_pago:"",
+      pt_fecha_ini :"",
+      pt_fecha_fin :"",
+      pt_estado_pago:"sin concluir",
+      pt_estado_tramite:"sin concluir",
+      pt_monto:25.00,
+      pt_tipo_tramite:"renovacion"
+    };
+
+  $scope.save = function(){
+    PersonaTramite.save($scope.persona_tramite).$promise.then(function(data)
+    {
+      console.log($scope.persona_tramite);
+        if(data.mensaje){
+          toastr.success('Pago registrado correctamente');
+        }
+    })
+  }
+
+}])
+
+.controller('BuscaPersonaCtrl', ['$http', '$scope', 'CONFIG', buscaPersonaController])
+
+function buscaPersonaController($http, $scope, CONFIG){
+  $scope.buscaPersona = function($per_ci){
+    console.log('esta buscando persona');
+      $scope.resultado="Cargando...";
+      $http.get(CONFIG.DOMINIO_SERVICIOS+'/personas_ci/'+$scope.per_ci).success(function(respuesta){
+          $scope.persona = respuesta.persona;
+          if(!respuesta.persona){
+              $scope.msg=false;
+              $scope.resultado="No se encontraron resultados";              
+          } else if(respuesta.persona){
+              $scope.msg=true;
+          }  
+      });
+  }
+}
 

@@ -550,6 +550,16 @@ angular.module("adminApp")
 }])
 
 
+.factory('PersonaTramite', ['$resource', 'CONFIG', function ($resource, CONFIG){
+  return $resource(CONFIG.DOMINIO_SERVICIOS+"/pers_tra/:pt_id", {pt_id:"@_pt_id"}, {
+    update: {method: "PUT", params: {pt_id: "@pt_id"}}
+  })
+}])
+
+
+
+
+
 /*=========================================USACSIA====================================*/
 
 

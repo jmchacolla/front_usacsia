@@ -49,7 +49,7 @@ angular.module("adminApp", ["authService", "ngRoute", "ngResource", "satellizer"
     }*/
   })
 
-      .when('/personas', {
+  .when('/personas', {
     templateUrl: 'templates/persona/index.html',
     controller: 'ListaPersonasCtrl',
  /*   data: {
@@ -139,12 +139,13 @@ angular.module("adminApp", ["authService", "ngRoute", "ngResource", "satellizer"
     controller: 'NumeroMuestraController'
   })
 
-  .when('/form-asignacion-numero-muestra', {
-    templateUrl: 'forms/pruebalaboratorio/asignacion_numero_muestra',
-    controller: 'NumeroMuestraController'
+
+  /*---------------------------BUSQUEDA DE PERSONAS PREREGISTRADAS------------------------------*/
+
+  .when('/buscar-persona', {
+    templateUrl: 'templates/personatramite/create.html',
+    controller: 'BusquedaPersonaController'
   })
-
-
 
 
 
