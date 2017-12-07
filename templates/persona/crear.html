@@ -2,33 +2,34 @@
 <div ng-include="'./templates/menu_inicio.html'"></div>
 
 <!-- CONTEXT-MENU  -->
-	<div ng-include="'./templates/menu_lateral.html'">
-	</div>
+  <div ng-include="'./templates/menu_lateral.html'">
+  </div>
 <!-- CONTENIDO MODULO inicio -->
-	<div class="col-md-8 col-sm-8">
-		<div class="row">
-			<div class="col-md-12">
-				<h2 class="text-primary">
-					<span class="glyphicon glyphicon-th-list" aria-hidden="true"></span>
-					{{ajustes.pagina.titulo}}
-				</h2>
-				<hr>
-			</div>
-		</div>
-			<div class="col-md-12" ng-controller="FechaFunCtrl">
-			<!-- AQUI VAN LAS TABLAS O FORMULARIOS incrustados -->
-			
-			<!-- INICIO -->
-			<label class="control-label">Los campos marcados con asterisco (<strong class="fg_red">*</strong>) son obligatorios</label>
-			<!-- ng-include="'forms/persona/persona.html'" -->
-			<form name="addPersona" novalidate >
-				
+  <div class="col-md-8 col-sm-8">
+    <div class="row">
+      <div class="col-md-12">
+        <h2 class="text-primary">
+          <span class="glyphicon glyphicon-th-list" aria-hidden="true"></span>
+          {{ajustes.pagina.titulo}}
+        </h2>
+        <hr>
+      </div>
+    </div>
+      <div class="col-md-12" ng-controller="FechaFunCtrl">
+      <!-- AQUI VAN LAS TABLAS O FORMULARIOS incrustados -->
+      
+      <!-- INICIO -->
+      <label class="control-label">Los campos marcados con asterisco (<strong class="fg_red">*</strong>) son obligatorios</label>
+      <!-- ng-include="'forms/persona/persona.html'" -->
+      <form name="addPersona" novalidate >
+        
 <div class="well well-sm" style="background-color:#fff;" ng-controller="UploadCiudCtrl as vista">
   <h4 class="text-center text-primary">I. DATOS GENERALES</h4>
    <hr class="bg-red">
   <br>
   <div class="row">
     <div class="col-md-3">
+      <div class="well well-sm">
       <div ng-if="thumbnail.dataUrl == ''">
           <img ng-src="./images/perfil.jpg" align="center" class="img-responsive img-thumbnail"/>
       </div>
@@ -41,8 +42,10 @@
         <label>Cargar Imagen</label>
         <input type="file" name="fileInput" id ="fileInput" class="filestyle" data-buttonText="Find file"  file-model="vista.ima_nombre" onchange="angular.element(this).scope().photoChanged(this.files)" />
         <input type="hidden" name="" ng-model="persona.ima_nombre" value="{{persona.ima_nombre}}">
+        {{vista.ima_enlace}}
         <br>
       </div> 
+      </div>
    </div>    
     <div class="col-md-9">
     <div class="row">
@@ -215,7 +218,7 @@
             <span ng-show="addPersona.numero_celular.$error.max">Número de celular incorrecto.</span>
           </span>
         </div>
-        <div class="col-md-4">
+        <!-- <div class="col-md-4">
           <label class="control-label">Permanencia:</label>
           <select class="form-control" name="tipo_permanencia" ng-model="persona.per_tipo_permanencia">
             <option value="RESIDENTE">RESIDENTE</option>
@@ -224,7 +227,7 @@
             <option value="VISITANTE RECURRENTE EXTRANJERO">VISITANTE RECURRENTE EXTRANJERO</option>
             <option value="VISITANTE EVENTUAL EXTRANJERO">VISITANTE EVENTUAL EXTRANJERO</option>
           </select>
-        </div>
+        </div> -->
       </div>
       <div class="row">
         <div class="col-md-4">
@@ -245,27 +248,27 @@
   <br>  
   <div class="row">
  <!--  <div class="col-md-4" ng-controller="MunicipioCtrl">
-  	<label class="control-label">Municipio: <strong class="fg_red">*</strong></label>
-  	<select class="form-control " name="municipio" ng-model="persona.mun_id"  ng-options="municipio.mun_id as municipio.mun_nombre for municipio in municipios" ng-change="ver_zonas(persona.mun_id)" required>
-  	</select>
-  	<span class="messages" ng-show="addPersona.$submitted || addPersona.municipio.$touched">
+    <label class="control-label">Municipio: <strong class="fg_red">*</strong></label>
+    <select class="form-control " name="municipio" ng-model="persona.mun_id"  ng-options="municipio.mun_id as municipio.mun_nombre for municipio in municipios" ng-change="ver_zonas(persona.mun_id)" required>
+    </select>
+    <span class="messages" ng-show="addPersona.$submitted || addPersona.municipio.$touched">
         <span ng-show="addPersona.municipio.$error.required">El campo es obligatorio.</span>
    </span>
 </div>  -->
 <div class="col-md-4" ng-controller="MunicipioCtrl">
-  	<label class="control-label">Municipio: <strong class="fg_red">*</strong></label>
-  	<select class="form-control " name="municipio" ng-model="persona.mun_id"  ng-options="municipio.mun_id as municipio.mun_nombre for municipio in municipios" ng-change="ver_zonas(persona.mun_id)" required>
-  	<option value="">--Elige opcion--</option>
-  	</select>
-  	<span class="messages" ng-show="addPersona.$submitted || addPersona.municipio.$touched">
+    <label class="control-label">Municipio: <strong class="fg_red">*</strong></label>
+    <select class="form-control " name="municipio" ng-model="persona.mun_id"  ng-options="municipio.mun_id as municipio.mun_nombre for municipio in municipios" ng-change="ver_zonas(persona.mun_id)" required>
+    <option value="">--Elige opcion--</option>
+    </select>
+    <span class="messages" ng-show="addPersona.$submitted || addPersona.municipio.$touched">
         <span ng-show="addPersona.municipio.$error.required">El campo es obligatorio.</span>
    </span>
 </div> 
 <div class="col-md-3">
-	<label class="control-label">Zona/Comunidad: <strong class="fg_red">*</strong></label>
-  	<select ng-show="!zon" class="form-control " name="zona_comunidad" ng-model="persona.zon_id"  ng-options="zona.zon_id as zona.zon_nombre for zona in zonas" required>
-  	</select>
-  	<!-- <input ng-show = "zon" type="text" class="form-control" name="zona_comunidad1" ng-model="persona.per_zona_comunidad.zon_nombre" ng-pattern="patternCadenaNumero" required> -->
+  <label class="control-label">Zona/Comunidad: <strong class="fg_red">*</strong></label>
+    <select ng-show="!zon" class="form-control " name="zona_comunidad" ng-model="persona.zon_id"  ng-options="zona.zon_id as zona.zon_nombre for zona in zonas" required>
+    </select>
+    <!-- <input ng-show = "zon" type="text" class="form-control" name="zona_comunidad1" ng-model="persona.per_zona_comunidad.zon_nombre" ng-pattern="patternCadenaNumero" required> -->
     <span  class="messages" ng-show="addPersona.$submitted || addPersona.zona_comunidad.$touched">
         <span ng-show="addPersona.zona_comunidad.$error.required">El campo es obligatorio.</span>
         <span ng-show="addPersona.zona_comunidad.$error.pattern">Formato introducido es incorrecta.</span>
@@ -277,10 +280,10 @@
 </div>
 
 <!-- <div class="col-md-3">
-	<label class="control-label">Zona/Comunidad: <strong class="fg_red">*</strong></label>
-  	<select ng-show="!zon" class="form-control " name="zona_comunidad" ng-model="persona.zon_id"  ng-options="zona.zon_id as zona.zon_nombre for zona in zonas" ng-change="ver_estab()" required>
-  	</select>
-  	<input ng-show = "zon" type="text" class="form-control" name="zona_comunidad1" ng-model="persona.zon_id.zon_nombre" ng-pattern="patternCadenaNumero" required>
+  <label class="control-label">Zona/Comunidad: <strong class="fg_red">*</strong></label>
+    <select ng-show="!zon" class="form-control " name="zona_comunidad" ng-model="persona.zon_id"  ng-options="zona.zon_id as zona.zon_nombre for zona in zonas" ng-change="ver_estab()" required>
+    </select>
+    <input ng-show = "zon" type="text" class="form-control" name="zona_comunidad1" ng-model="persona.zon_id.zon_nombre" ng-pattern="patternCadenaNumero" required>
     <span  class="messages" ng-show="addPersona.$submitted || addPersona.zona_comunidad.$touched">
         <span ng-show="addPersona.zona_comunidad.$error.required">El campo es obligatorio.</span>
         <span ng-show="addPersona.zona_comunidad.$error.pattern">Formato introducido es incorrecta.</span>
@@ -296,7 +299,7 @@
       
     <div class="col-md-4">
       <label class="control-label">Calle/Avenida: <strong class="fg_red">*</strong></label>
-      <input type="" class="form-control" name="avenida_calle" placeholder="avenida calle" ng-model="persona.dir_avenida_calle" ng-model-options="{ updateOn: 'blur' }" required ng-pattern="patternCadenaNumero" >
+      <input type="" class="form-control" name="avenida_calle" placeholder="avenida calle" ng-model="persona.per_avenida_calle" ng-model-options="{ updateOn: 'blur' }" required ng-pattern="patternCadenaNumero" >
       <span class="messages" ng-show="addPersona.avenida_calle.$touched">
         <span ng-show="addPersona.avenida_calle.$error.required">El campo es obligatorio.</span>
         <span ng-show="addPersona.avenida_calle.$error.pattern">No se admiten símbolos especiales.</span>
@@ -304,21 +307,35 @@
     </div>    
     <div class="col-md-4">
       <label class="control-label">Número:</label>
-      <input type="" class="form-control" name="numero" placeholder="Número" ng-model="persona.dir_numero">
+      <input type="" class="form-control" name="numero" placeholder="Número" ng-model="persona.per_numero">
     </div>        
   </div>
   <br>      
   <div class="row">
     <div class="col-md-6 col-md-offset-3 text-center">
       <div class="well well-sm">
+      <div class="checkbox">
+          <label style="font-size: 1.5em">
+            <input type = "checkbox" ng-model = "para_enviar" title="Haga click aqui para habilitar o deshabilitar el envío del formulario"> 
+            <span class="cr"><i class="cr-icon glyphicon glyphicon-ok"></i></span>
+            <small style="font-size: 0.6em" class="text-primary" title="Haga click en la casilla de verificación del lado para editar los datos del ciudadano">
+              <span class="glyphicon glyphicon-hand-left"></span>
+              <span class="glyphicon glyphicon-chevron-left"></span>
+              ¿DESEA GUARDAR ESTE FORMULARIO?
+            </small>
+          </label>
+        </div>
+      <!-- <div class="checkbox">
+
         <input type = "checkbox" ng-model = "para_enviar" title="Haga click aqui para habilitar o deshabilitar el envío del formulario"> 
         <small class="text-primary" title="Haga click en la casilla de verificación del lado para registrar al ciudadano">
           <span class="glyphicon glyphicon-hand-left"></span>
           <span class="glyphicon glyphicon-chevron-left"></span>
           ¿DESEA GUARDAR ESTE FORMULARIO?</small>
-        <br>
+        <br> -->
         <button ng-show = "para_enviar" class="btn btn-primary" ng-click="submit($parent.persona,d);vista.enviar();reset(addPersona)" ng-disabled="addPersona.$invalid"><span class="glyphicon glyphicon-save"></span> {{ajustes.pagina.action}}</button>
-      </div>      
+     <!--  </div> -->  
+      </div>    
     </div>
   </div>  
    </div>  
@@ -346,11 +363,11 @@ width: 100%;
 height: auto;
 }
 </style>
-			</form>
-			<!-- FIN -->
-			<!-- AQUI VAN LOAS TABLAS O FORMULARIOS incrustados -->
-			
-			</div>
-		</div>
-	</div>
+      </form>
+      <!-- FIN -->
+      <!-- AQUI VAN LOAS TABLAS O FORMULARIOS incrustados -->
+      
+      </div>
+    </div>
+  </div>
 <!-- CONTENIDO MODULO fin -->

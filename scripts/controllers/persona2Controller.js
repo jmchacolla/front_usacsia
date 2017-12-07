@@ -16,7 +16,7 @@ angular.module("adminApp")
   }
   
   $scope.persona = {
-  	zon_id:null,
+    zon_id:null,
     per_ci: null,
     per_tipo_documento: "",
     per_pais: null,
@@ -35,10 +35,10 @@ angular.module("adminApp")
     per_tipo_permanencia: "",
     
    
-   /* ima_nombre: "perfil.jpg",
+    ima_nombre: "perfil.jpg",
     ima_enlace: "./img-per",
     ima_tipo: ""
-    dir_zona_comunidad: null,
+   /* dir_zona_comunidad: null,
     dir_avenida_calle: "",
     dir_numero: 0,
     mun_id: null,
@@ -59,8 +59,8 @@ $scope.zon=false;
       console.log(mun_id+"<<< MUN_ID");
       $scope.zon=false;
       Zonas.get({mun_id:mun_id}, function(data){
-      	  $scope.zonas=data.zona;
-      	  console.log("ZOnasss",$scope.zonas);
+          $scope.zonas=data.zona;
+          console.log("ZOnasss",$scope.zonas);
           //Agregando 26/10/17
           if($scope.zonas.length == 0){
                 $scope.zon=true;
@@ -99,6 +99,8 @@ $scope.zon=false;
        $scope.required_p = false;
     }
   });
+  $scope.persona.ima_enlace="./img-per";
+   $scope.persona.ima_tipo="fotografia";
 
   $scope.submit = function(b, fechaNacimiento){
 
@@ -115,6 +117,7 @@ $scope.zon=false;
     if($scope.persona.per_tipo_documento=="SIN DOCUMENTO"){
       $scope.persona.per_ci=1234567;
     }
+    console.log($scope.persona, "persona guardada",$scope.persona.ima_enlace);
 
     PersonasC.save($scope.persona).$promise.then(function(data){
       if(data.msg){
@@ -223,8 +226,8 @@ $scope.zon=false;
   }*/
 }])
 
-.controller('EditPersonaCtrl', [/*'authUser',*/ '$scope', 'Personas', '$routeParams','$location', '$timeout', 'toastr',
- function (/*authUser,*/ $scope,Personas,$routeParams, $location, $timeout, toastr) {
+.controller('EditPersonaCtrl', [/*'authUser',*/ '$scope', 'Personas', '$routeParams','$location', '$timeout', 'toastr','Zonas',
+ function (/*authUser,*/ $scope,Personas,$routeParams, $location, $timeout, toastr,Zonas) {
  /* if(authUser.isLoggedIn()) {*/
     $scope.ajustes = {
       menu:{
@@ -248,6 +251,22 @@ $scope.zon=false;
       $scope.mescE = ('0' + (fecha_naci.getMonth() + 1)).slice(-2);
       $scope.aniocE = (fecha_naci.getFullYear() + 0)+"";
     });
+$scope.zon=false;
+  $scope.ver_zonas=function(mun_id){
+      console.log(mun_id+"<<< MUN_ID");
+      $scope.zon=false;
+      Zonas.get({mun_id:mun_id}, function(data){
+          $scope.zonas=data.zona;
+          console.log("ZOnasss",$scope.zonas);
+          //Agregando 26/10/17
+          if($scope.zonas.length == 0){
+                $scope.zon=true;
+          }
+          console.log("length "+$scope.zonas.length);
+      })
+  };
+
+
 
     $scope.submit = function(a, fecha_naci){
       $scope.persona1 = {
@@ -265,12 +284,14 @@ $scope.zon=false;
         per_avenida_calle : $scope.persona.persona.per_avenida_calle,
         per_numero : $scope.persona.persona.per_numero,
         per_ocupacion : $scope.persona.persona.per_ocupacion,
-        per_tipo_permanencia : $scope.persona.persona.per_tipo_permanencia
-      
+        per_tipo_permanencia : $scope.persona.persona.per_tipo_permanencia,
+         per_tipo_permanencia : $scope.persona.persona.per_tipo_permanencia,
+        per_tipo_documento : $scope.persona.persona.per_tipo_documento,
+        per_pais : $scope.persona.persona.per_pais,
        
-       /* ima_nombre : $scope.persona.imagen[0].ima_nombre,
+       /**/ ima_nombre : $scope.persona.imagen[0].ima_nombre,
         ima_enlace : $scope.persona.imagen[0].ima_enlace,
-        ima_tipo : $scope.persona.imagen[0].ima_tipo,*/
+        ima_tipo : $scope.persona.imagen[0].ima_tipo
       /*  dir_zona_comunidad : $scope.persona.direccion[0].dir_zona_comunidad,
         dir_avenida_calle : $scope.persona.direccion[0].dir_avenida_calle,
         dir_numero : $scope.persona.direccion[0].dir_numero,
