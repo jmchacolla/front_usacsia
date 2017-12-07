@@ -40,7 +40,8 @@ angular.module("adminApp", ["authService", "ngRoute", "ngResource", "satellizer"
     templateUrl: 'templates/publico/index.html'
   })
 
-//30-11-2017
+//30-11-2017*****************WENDY*******************************
+/************************************************PERSONA****************************************/
     .when('/persona/create', {
     templateUrl: 'templates/persona/crear.html',
     controller: 'CrearPersona2Ctrl'
@@ -49,7 +50,7 @@ angular.module("adminApp", ["authService", "ngRoute", "ngResource", "satellizer"
     }*/
   })
 
-  .when('/personas', {
+      .when('/personas', {
     templateUrl: 'templates/persona/index.html',
     controller: 'ListaPersonasCtrl',
  /*   data: {
@@ -71,7 +72,7 @@ angular.module("adminApp", ["authService", "ngRoute", "ngResource", "satellizer"
       authorized: [ROLES.ADMIN_SEDES.ROL]
     }*/
   })
-/*funcionario*/
+/******************************************funcionario**********************************/
     .when('/funcionarios', {  //lista a los funcionarios de un establecimiento
     templateUrl: 'templates/funcionario/funcionarios.html',
     controller: 'FuncionarioCtrl',
@@ -95,7 +96,7 @@ angular.module("adminApp", ["authService", "ngRoute", "ngResource", "satellizer"
       authorized: [ROLES.ADMIN_ESTAB.ROL, ROLES.ADMIN_MEDICO.ROL]
     }*/
   })
-//falta revisar
+  //crar funcionario cuando ya existe la persona
     .when('/funcionarios/createfuncionario', {
     templateUrl: 'templates/funcionario/create.html',
     controller: 'CreateFunCtrl',
@@ -103,6 +104,7 @@ angular.module("adminApp", ["authService", "ngRoute", "ngResource", "satellizer"
       authorized: [ROLES.ADMIN_ESTAB.ROL, ROLES.ADMIN_MEDICO.ROL]
     }*/
   })
+    //**********************REVISAR
   .when('/funcionarios/edit/:fun_id', {
     templateUrl: 'templates/funcionario/edit.html',
     controller: 'EditFuncionarioCtrl',
@@ -110,7 +112,83 @@ angular.module("adminApp", ["authService", "ngRoute", "ngResource", "satellizer"
       authorized: [ROLES.ADMIN_ESTAB.ROL, ROLES.ADMIN_MEDICO.ROL]
     }*/
   })
+  /************************************CONSULTORIOS***********************************/
+  .when('/consultorios', {//arreglar la ruta con establecimientos
+    templateUrl: 'templates/consultorio/index.html',
+    controller: 'ListaConsultorioCtrl',
+   /* data: {
+      authorized: [ROLES.ADMIN_ESTAB.ROL, ROLES.ADMIN_MEDICO.ROL]
+    }*/
+  })
 
+    .when('/consultorios/ver/:amb_id', {//FALTA PROTEGER ESTA RUTA
+    templateUrl: 'templates/consultorio/ver.html',
+    controller: 'VerConsultorioCtrl',
+  /*  data: {
+      authorized: [ROLES.ADMIN_ESTAB.ROL, ROLES.ADMIN_MEDICO.ROL]
+    }*/
+  })
+
+    .when('/consultorios/create', {
+    templateUrl: 'templates/consultorio/create.html',
+    controller: 'CrearConsultorioCtrl',
+   /* data: {
+      authorized: [ROLES.ADMIN_ESTAB.ROL, ROLES.ADMIN_MEDICO.ROL]
+    }*/
+  })
+  .when('/consultorios/edit/:amb_id', {//FALTA PROTEGER ESTA RUTA
+    templateUrl: 'templates/consultorio/edit.html',
+    controller: 'EditConsultorioCtrl',
+    /*data: {
+      authorized: [ROLES.ADMIN_ESTAB.ROL, ROLES.ADMIN_MEDICO.ROL]
+    }*/
+  })
+/***************************************************LABORATORIOS********************************/
+   .when('/laboratorios', {//arreglar la ruta con establecimientos
+    templateUrl: 'templates/laboratorio/laboratorios.html',
+    controller: 'ListaLaboratorioCtrl',
+   /* data: {
+      authorized: [ROLES.ADMIN_ESTAB.ROL, ROLES.ADMIN_MEDICO.ROL]
+    }*/
+  })
+  
+.when('/laboratorios/ver/:amb_id', {//FALTA PROTEGER ESTA RUTA
+    templateUrl: 'templates/laboratorio/ver.html',
+    controller: 'VerLaboratorioCtrl',
+  /*  data: {
+      authorized: [ROLES.ADMIN_ESTAB.ROL, ROLES.ADMIN_MEDICO.ROL]
+    }*/
+  })
+    .when('/laboratorios/create', {
+    templateUrl: 'templates/laboratorio/create.html',
+    controller: 'CrearLaboratorioCtrl',
+   /* data: {
+      authorized: [ROLES.ADMIN_ESTAB.ROL, ROLES.ADMIN_MEDICO.ROL]
+    }*/
+  })
+  .when('/laboratorios/edit/:amb_id', {//FALTA PROTEGER ESTA RUTA
+    templateUrl: 'templates/laboratorio/edit.html',
+    controller: 'EditLaboratorioCtrl',
+    /*data: {
+      authorized: [ROLES.ADMIN_ESTAB.ROL, ROLES.ADMIN_MEDICO.ROL]
+    }*/
+  })
+//*******************************==========================PAIS==========================================================================
+  .when('/homepais',{
+   templateUrl:'templates/pais/list.html',
+   controller: 'PaisCtrl',
+    /*data: {
+      authorized: [ROLES.ADMIN_SEDES.ROL]
+    }*/
+  })
+    .when('/pais/create',{
+   templateUrl:'templates/pais/create.html',
+   controller: 'PaisCreateCtrl',
+    /*data: {
+      authorized: [ROLES.ADMIN_SEDES.ROL]
+    }*/
+  })
+  
 
 
 
