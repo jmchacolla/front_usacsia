@@ -104,7 +104,6 @@ angular.module("adminApp")
         }
     })
   }
-
 }])
 
 .controller('BuscaPersonaCtrl', ['$http', '$scope', 'CONFIG', buscaPersonaController])
