@@ -19,7 +19,7 @@
       <div class="well well-sm">
         <strong class="pull-left lead">Herramientas: &nbsp;</strong>
         <form class="form-inline pull-left">
-          <input type="text" class="form-control" placeholder="Filtrar por ..." ng-model="per_ci">
+          <input type="text" class="form-control" placeholder="Filtrar por ..." ng-model="searchText">
         </form>
         &nbsp;&nbsp;
         <!--
@@ -53,7 +53,7 @@
         <table class="table table-bordered table-striped table-hover" ng-show="!loading && msg">
           <thead >
             <th >
-              <a href="" ng-click="sortType = 'per_ci'; sortReverse = !sortReverse">C.I.</a>
+              <a href="" ng-click="sortType = 'per_ci'; sortReverse = !sortReverse">Nro.</a>
               <span ng-show="sortType == 'per_ci' && !sortReverse" class="glyphicon glyphicon-sort-by-order"></span>
               <span ng-show="sortType == 'per_ci' && sortReverse" class="glyphicon glyphicon-sort-by-order-alt"></span>
             </th>
@@ -67,51 +67,48 @@
               <span ng-show="sortType == 'per_nombres' && !sortReverse" class="glyphicon glyphicon-sort-by-alphabet"></span>
               <span ng-show="sortType == 'per_nombres' && sortReverse" class="glyphicon glyphicon-sort-by-alphabet-alt"></span></a>
             </th>
-            <th >tramite</th>
-            <th >Fecha de Nacimiento</th>
-            <th >Genero</th>
-            <th >Ocupacion</th>
-            <th >Tipo</th>
-            <th >Ver</th>
-            <th >Editar</th>
-            <th >Borrar</th>
+            <!-- <th >tramite</th> -->
+            <th>
+              <a href="" ng-click="sortType = 'fic_edad'; sortReverse = !sortReverse">Edad 
+              <span ng-show="sortType == 'fic_edad' && !sortReverse" class="glyphicon glyphicon-sort-by-alphabet"></span>
+              <span ng-show="sortType == 'fic_edad' && sortReverse" class="glyphicon glyphicon-sort-by-alphabet-alt"></span></a>
+            </th>
+            <th ><a href="">Genero</a></th>
+            <th ><a href="">Ocupacion</a></th>
+            <th ><a href="">Tipo</a></th>
+            <th ><a href="">Estado</a></th>
           </thead>
-
-          <tbody ng-repeat="pt in persona_tramite | orderBy:sortType:sortReverse | filter:per_ci">
+<!-- |  -->
+          <tbody ng-repeat="ficha in fichas |orderBy:sortType:sortReverse | filter:searchText ">
             <tr>
-              <td>{{pt.per_ci + ""}} {{pt.per_ci_expedido | uppercase}}</td>
-              <td>{{pt.per_apellido_primero + " " + pt.per_apellido_segundo}}</td>
-              <td>{{pt.per_nombres}}</td>
-              <td>{{pt.tra_nombre}}</td>
-              <td>{{pt.per_fecha_nacimiento}}</td>
-              <td>{{pt.per_genero}}</td>
-              <td>{{pt.per_ocupacion}}</td>
-              <td>{{pt.pt_tipo_tramite}}</td>
+              <td>{{ficha.fic_numero}}</td>
+              <td>{{ficha.per_apellido_primero + " " + ficha.per_apellido_segundo}}</td>
+              <td>{{ficha.per_nombres}}</td>
+              <td>{{ficha.per_fecha_nacimiento}}</td>
+              <td>{{ficha.per_genero}}</td>
+              <td>{{ficha.per_ocupacion}}</td>
               <td>
-                <a href="#/personas/ver/{{persona.per_id}}" class="btn btn-success"><span class="glyphicon glyphicon-file" title="Ver"></span></a><!-- ver -->
+                <a href=""></a><!-- ver -->
               </td>
-              <td>
-                <a class="btn btn-primary" href="#/personas/edit/{{persona.per_id}}">
-                <span class="glyphicon glyphicon-pencil"></span></a><!-- editar -->
-              </td>
+
               <td >
-                <button class="btn btn-danger" data-toggle="modal" data-target="#miCuadroModal1" ng-click="get_per_id(persona.per_id, persona.per_apellido_primero, persona.per_apellido_segundo, persona.per_nombres)" title="Eliminar"><span class="glyphicon glyphicon-trash"></span></button> <!--archivar -->
+                <button class="btn btn-danger" data-toggle="modal" data-target="#miCuadroModal1" ng-click="get_per_id(ficha.per_id, ficha.per_apellido_primero, ficha.per_apellido_segundo, ficha.per_nombres, ficha.fic_id)" title="Eliminar"><span class="glyphicon glyphicon-pencil"></span>{{ficha.fic_estado}}</button> <!--archivar -->
                 <div id="miCuadroModal1" class="modal fade" role="dialog" tabindex="-1">
                   <div class="modal-dialog">
                     <div class="modal-content">
-                      <div class="modal-header bg-green">
+                      <div class="modal-header bg-red">
                         <button type="button" class="close" data-dismiss="modal">×</button>
-                        <h4 class="modal-title fg-white">ELIMINAR REGISTROS DE CIUDADANO</h4>
+                        <h4 class="modal-title fg-white">ATENCIÓN AL PACIENTE</h4>
                       </div>
                       <div class="modal-body lead text-center">
-                        Está seguro que desea eliminar los registros de esta persona?
+                        Se hará la atencion del paciente:
                         <br>
                         <div class="well well-sm">
                           <strong>{{nombre_completo | uppercase}}</strong>
                         </div>
                       </div>
                       <div class="modal-footer">
-                        <button type="button" class="btn btn-primary" data-dismiss="modal" ng-click="remove(persona.per_id)">
+                        <button type="button" class="btn btn-primary" data-dismiss="modal" ng-click="atender(ficha.fic_id)">
                           <span class="glyphicon glyphicon-ok"></span>SI
                         </button>
                         <button type="button" class="btn btn-danger" data-dismiss="modal">

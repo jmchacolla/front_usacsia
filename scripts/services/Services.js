@@ -588,6 +588,23 @@ angular.module("adminApp")
     update: {method: "PUT", params: {fun_id: "@fun_id"}}
   })
 }])
+
+.factory('FichasfechaService', ['$resource', 'CONFIG', function ($resource,CONFIG){
+  return $resource(CONFIG.DOMINIO_SERVICIOS+"/fichasfecha", {}, {
+    update: {method: "PUT", params: {}}
+  })
+}])
+.factory('FichaServices', ['$resource', 'CONFIG', function ($resource,CONFIG) {
+  return $resource(CONFIG.DOMINIO_SERVICIOS+"/ficha/:fic_id",{fic_id:"@_fic_id"},{
+    update:{method:"PUT",params:{fic_id: "@fic_id"}}
+  })
+}])
+/*
+factory('Fichasfecha', ['$resource', 'CONFIG', function ($resource, CONFIG) {
+  return $resource(CONFIG.DOMINIO_SERVICIOS+"/fichasfecha/:fechas", {fechas:"@_fechas"},{
+    update: {method: "PUT", params:{fechas: "@fechas"}}
+  })
+}])*/
 // ===============================/jhon
 
 

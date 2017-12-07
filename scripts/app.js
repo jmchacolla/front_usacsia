@@ -28,9 +28,12 @@ angular.module("adminApp", ["authService", "ngRoute", "ngResource", "satellizer"
   })
 //persona_tramite lista para atender pacientes
 
-when('/atencion', {//--------medico
+.when('/atencion', {//--------medico
   templateUrl: 'templates/personatramite/atencion.html',
-  controller: 'PersonaTramiteController'
+  controller: 'AtencionCtrl',
+  /*    data: {
+        authorized: [ROLES.ADMIN_SEDES.ROL, ROLES.ADMIN_ESTAB.ROL, ROLES.ADMIN_MEDICO.ROL]
+      }*/
 })
 
 

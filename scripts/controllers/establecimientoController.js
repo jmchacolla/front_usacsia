@@ -388,11 +388,11 @@ angular.module("adminApp")
       })
 
     }
-    function toTime(timeString){
+   /* function toTime(timeString){
       var timeTokens = timeString.split(':');
       return new Date(1970,0,1, timeTokens[0], timeTokens[1], timeTokens[2]);
     }
-
+*/
   } else {
     $location.path('/inicio');
   }
