@@ -225,6 +225,10 @@ angular.module("adminApp", ["authService", "ngRoute", "ngResource", "satellizer"
 
 
 
+
+
+
+
 /*===================================VERONICA================================================*/
 
 /*-----------------------------laboratorista---------------------------------*/
@@ -258,6 +262,10 @@ angular.module("adminApp", ["authService", "ngRoute", "ngResource", "satellizer"
     templateUrl: 'templates/personatramite/create.html',
     controller: 'BusquedaPersonaController'
   })
+
+
+  /*===================================VERONICA================================================*/
+
 
   /*===================================VERONICA================================================*/
 
