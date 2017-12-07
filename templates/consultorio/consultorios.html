@@ -50,7 +50,7 @@
               <span ng-show="sortType == 'amb_descripcion' && !sortReverse" class="glyphicon glyphicon-chevron-up"></span>
               <span ng-show="sortType == 'amb_descripcion' && sortReverse" class="glyphicon glyphicon-chevron-down"></span></a>
             </th>
-            <th>ID AMBIENTE</th>
+          
             <th >Ver</th>
             <th>Editar</th>
             <th>Eliminar</th>
@@ -60,7 +60,7 @@
               <td>{{consultorio.con_cod}}</td>
               <td>{{consultorio.amb_nombre}}</td>
               <td>{{consultorio.amb_descripcion}} </td>  
-              <td>{{consultorio.amb_id}}</td>
+            
               
               <td class="text-center">
                 <a href="#/consultorios/ver/{{consultorio.amb_id}}" class="btn btn-success" title="VER DATOS DEL CONSULTORIO"><span class="glyphicon glyphicon-file"></span></a>
@@ -70,20 +70,20 @@
               </td>
               <td>
               <!-- funcionario.fe_inicio_trabajo, fucionario.fe_fin_trabajo, funcionario.fe_memorandum, -->
-                <button ng-click="get_fe_id(funcionario.fun_id, funcionario.per_apellido_primero, funcionario.per_apellido_segundo, funcionario.per_nombres, funcionario.fun_cargo, funcionario.fun_profesion, funcionario.fun_estado)" title="DAR DE BAJA A FUNCIONARIO DEL ESTABLECIMIENTO" class="btn btn-danger" data-toggle="modal" data-target="#miCuadroModal1" ><span class="glyphicon glyphicon-trash"></span></button>
+                <button ng-click="get_con_id(consultorio.amb_id, consultorio.amb_nombre)" title="ELIMINAR CONSULTORIO" class="btn btn-danger" data-toggle="modal" data-target="#miCuadroModal1" ><span class="glyphicon glyphicon-trash"></span></button>
                 <div id="miCuadroModal1" class="modal fade" role="dialog" tabindex="-1">
                   <div class="modal-dialog">
                     <div class="modal-content">
-                      <div class="modal-header bg-green">
+                      <div class="modal-header bg-red">
                         <button type="button" class="close" data-dismiss="modal">×</button>
-                        <h4 class="modal-title fg-white">DAR DE BAJA A FUNCIONARIO</h4>
+                        <h4 class="modal-title fg-white">ELIMINAR CONSULTORIO</h4>
                       </div>
                       <div class="modal-body lead text-center">
-                        ¿Está seguro que desea dar de baja a este funcionario?
-                        <div class="well well-sm"><strong>{{nombre_completo | uppercase}}</strong></div>
+                        ¿Está seguro que desea eliminar este consultorio?
+                        <div class="well well-sm"><strong>{{nombre | uppercase}}</strong></div>
                       </div>
                       <div class="modal-footer">
-                        <button type="button" class="btn btn-primary" data-dismiss="modal" ng-click="remove(funcionario.fun_id)"><span class="glyphicon glyphicon-ok"></span> SI</button>
+                        <button type="button" class="btn btn-primary" data-dismiss="modal" ng-click="remove(consultorio.amb_id)"><span class="glyphicon glyphicon-ok"></span> SI</button>
                         <button type="button" class="btn btn-danger" data-dismiss="modal"><span class="glyphicon glyphicon-remove"></span> NO</button>
                       </div>
                     </div>

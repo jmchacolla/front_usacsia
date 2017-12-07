@@ -55,7 +55,7 @@ function (CONFIG,/*authUser,*/ $scope, $routeParams, Consultorios, /*Cons,*/ toa
 	}
 
 	$scope.remove = function(){
-	    Consultorios.delete({con_id:id}).$promise.then(function(data){
+	    Consultorios.delete({amb_id:id}).$promise.then(function(data){
 	      if(data.mensaje) {
 	        toastr.success('Eliminado correctamente');
 	        $route.reload();
