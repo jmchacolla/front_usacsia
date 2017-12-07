@@ -1,7 +1,7 @@
 'use strict';
 angular.module("adminApp")
 //30-11-2017   ***********************    WENDY   *****************************************
-//*************************PERSONAS***************************
+//*************************P E R S O N A S***************************
 .factory('PersonasC', ['$resource', 'CONFIG', function ($resource, CONFIG){
   return $resource(CONFIG.DOMINIO_SERVICIOS+"/persona", {}, {
     update: {method: "PUT", params: {}}
@@ -13,7 +13,7 @@ angular.module("adminApp")
     update: {method: "PUT", params: {per_id: "@per_id"}}
   })
 }])
-//***********************************************PAIS}++++++++++++++++++++
+//**************************************P A I S********************************
 
 .factory('Paises', ['$resource', 'CONFIG', function ($resource, CONFIG){
   return $resource(CONFIG.DOMINIO_SERVICIOS+"/pais", {}, {
@@ -48,6 +48,32 @@ angular.module("adminApp")
     update: {method: "PUT", params: {}}
   })
 }])
+// ==================== C O N S U L T O R I O S =====================================================
+//listar, ver, editar consultorios
+.factory('Consultorios', ['$resource', 'CONFIG', function ($resource, CONFIG){
+  return $resource(CONFIG.DOMINIO_SERVICIOS+"/consultorio/:amb_id", {amb_id:"@_amb_id"}, {
+    update: {method: "PUT", params: {amb_id: "@amb_id"}}
+  })
+}])
+//crear consultorio
+.factory('Cons', ['$resource', 'CONFIG', function ($resource, CONFIG){
+  return $resource(CONFIG.DOMINIO_SERVICIOS+"/ambiente_consultorio", {}, {
+    update: {method: "PUT", params: {}}
+  })
+}])
+// ==================== L A B O R A T O R I O S ========================================================
+//listar, ver, editar LABORATORIOS
+.factory('Laboratorios', ['$resource', 'CONFIG', function ($resource, CONFIG){
+  return $resource(CONFIG.DOMINIO_SERVICIOS+"/laboratorio/:amb_id", {amb_id:"@_amb_id"}, {
+    update: {method: "PUT", params: {amb_id: "@amb_id"}}
+  })
+}])
+//crear LABORATORIO
+.factory('Labs', ['$resource', 'CONFIG', function ($resource, CONFIG){
+  return $resource(CONFIG.DOMINIO_SERVICIOS+"/ambiente_laboratorio", {}, {
+    update: {method: "PUT", params: {}}
+  })
+}])
 
 
 
@@ -99,7 +125,8 @@ angular.module("adminApp")
 
 
 
-//yosi
+
+//yosi +++++++++++++++++++++++++ S E S A R ++++++++++++++++++++++++++++++++++++++++++++++++++
 
 // ==================== E S T A B L E C I M I E N T O S ============================================================
 //Lista los establecimientos de salud
@@ -252,11 +279,11 @@ angular.module("adminApp")
 
 // ==================== C O N S U L T O R I O S =================================================================
 //Nuevo (Listar los consultorios de un establecimiento)
-.factory('ConsultoriosEstablecimientos', ['$resource', 'CONFIG', function ($resource, CONFIG){
+/*.factory('ConsultoriosEstablecimientos', ['$resource', 'CONFIG', function ($resource, CONFIG){
   return $resource(CONFIG.DOMINIO_SERVICIOS+"/consultorios_establecimientos/:es_id", {es_id:"@_es_id"}, {
     update: {method: "PUT", params: {es_id: "@es_id"}}
   })
-}])
+}])*/
 //Nuevo(Lista los consultorios dado un servicio, tambien crea un  nuevo servicio_consultorio)
 .factory('ServicioConsultorios', ['$resource', 'CONFIG', function ($resource, CONFIG){//Ver si este servicio se utiliza en algun lado
   return $resource(CONFIG.DOMINIO_SERVICIOS+"/servicios_consultorios/:sc_id", {sc_id:"@_sc_id"}, {
@@ -264,11 +291,11 @@ angular.module("adminApp")
   })
 }])
 //crear, editar, ver y eliminar consultorio
-.factory('Cons', ['$resource', 'CONFIG', function ($resource, CONFIG){
+/*.factory('Cons', ['$resource', 'CONFIG', function ($resource, CONFIG){
   return $resource(CONFIG.DOMINIO_SERVICIOS+"/consultorios/:con_id",{con_id:"@_con_id"}, {
     update: {method: "PUT", params: {con_id: "@con_id"}}
   })
-}])
+}])*/
 
 //==================== R E F E R E N C I A S ==================================================================
 //Nuevo (listar referencias realizadas por el establecimiento)

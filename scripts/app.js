@@ -114,7 +114,7 @@ angular.module("adminApp", ["authService", "ngRoute", "ngResource", "satellizer"
   })
   /************************************CONSULTORIOS***********************************/
   .when('/consultorios', {//arreglar la ruta con establecimientos
-    templateUrl: 'templates/consultorio/index.html',
+    templateUrl: 'templates/consultorio/consultorios.html',
     controller: 'ListaConsultorioCtrl',
    /* data: {
       authorized: [ROLES.ADMIN_ESTAB.ROL, ROLES.ADMIN_MEDICO.ROL]

@@ -91,8 +91,8 @@ angular.module("adminApp")
       if(data.status){
         toastr.success('ELIMINADO CORRECTAMENTE');
          $timeout(function() {
-          /*$route.reload();*/
-           $location.path('/funcionarios');
+          $route.reload();
+           /*$location.path('/funcionarios');*/
         },1000);
       }
     })
