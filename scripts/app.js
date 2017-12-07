@@ -192,7 +192,7 @@ angular.module("adminApp", ["authService", "ngRoute", "ngResource", "satellizer"
 
 
 
-
+/*===================================VERONICA================================================*/
 
 /*-----------------------------laboratorista---------------------------------*/
 
@@ -220,10 +220,16 @@ angular.module("adminApp", ["authService", "ngRoute", "ngResource", "satellizer"
 
   /*---------------------------BUSQUEDA DE PERSONAS PREREGISTRADAS------------------------------*/
 
+<<<<<<< HEAD
   .when('/buscar-persona', {
     templateUrl: 'templates/personatramite/create.html',
     controller: 'BusquedaPersonaController'
   })
+=======
+  /*===================================VERONICA================================================*/
+
+
+>>>>>>> vero_ramita_100105
 
 
 
