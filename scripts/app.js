@@ -114,7 +114,7 @@ angular.module("adminApp", ["authService", "ngRoute", "ngResource", "satellizer"
 
 
 
-
+/*===================================VERONICA================================================*/
 
 /*-----------------------------laboratorista---------------------------------*/
 
@@ -143,6 +143,9 @@ angular.module("adminApp", ["authService", "ngRoute", "ngResource", "satellizer"
     templateUrl: 'forms/pruebalaboratorio/asignacion_numero_muestra',
     controller: 'NumeroMuestraController'
   })
+
+
+  /*===================================VERONICA================================================*/
 
 
 
