@@ -26,6 +26,13 @@ angular.module("adminApp", ["authService", "ngRoute", "ngResource", "satellizer"
       authorized: [ROLES.ADMIN_SEDES.ROL, ROLES.ADMIN_ESTAB.ROL, ROLES.ADMIN_MEDICO.ROL]
     }*/
   })
+//persona_tramite lista para atender pacientes
+
+when('/atencion', {//--------medico
+  templateUrl: 'templates/personatramite/atencion.html',
+  controller: 'PersonaTramiteController'
+})
+
 
   // ======================================/jhon==========================================================================
 
@@ -1129,28 +1136,7 @@ angular.module("adminApp", ["authService", "ngRoute", "ngResource", "satellizer"
     }
   })
   
-  //===========================RED==========================================================================
-  .when('/homered',{
-   templateUrl:'templates/redes/list.html',
-   controller: 'RedCtrl',
-    data: {
-      authorized: [ROLES.ADMIN_SEDES.ROL]
-    }
-  })
-   .when('/createred', {
-    templateUrl:'templates/redes/create.html',
-    controller: 'CreateCtrlRed',
-    data: {
-      authorized: [ROLES.ADMIN_SEDES.ROL]
-    }
-  })
-  .when('/editred/:red_id', {
-    templateUrl:'templates/redes/edit.html',
-    controller: 'EditCtrlRed',
-    data: {
-      authorized: [ROLES.ADMIN_SEDES.ROL]
-    }
-  })
+
   
   //===========================TIPO==========================================================================
   .when('/hometipo',{//Lista los tipos de establecimientos de salud
