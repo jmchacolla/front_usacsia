@@ -1,6 +1,6 @@
 'use strict';
 angular.module("adminApp")
-.controller('PersonaTramiteController', ['$scope', 'ListarTramitesService', '$route', 'toastr', function ($scope, ListarTramitesService, $route, toastr)
+.controller('PersonaTramiteController', ['$scope', 'ListarTramitesService', '$route', 'toastr', '$location', function ($scope, ListarTramitesService, $route, toastr,$location)
 {
   $scope.ajustes = {
     menu:{
@@ -99,7 +99,7 @@ angular.module("adminApp")
     PersonaTramite.save($scope.persona_tramite).$promise.then(function(data)
     {
       console.log($scope.persona_tramite);
-        if(data.mensaje){
+          if(data.mensaje){
           toastr.success('Pago registrado correctamente');
         }
     })
@@ -109,7 +109,7 @@ angular.module("adminApp")
 .controller('BuscaPersonaCtrl', ['$http', '$scope', 'CONFIG', buscaPersonaController])
 
 
-.controller('AtencionCtrl', ['$scope', 'FichasfechaService', 'Ficha', '$route', 'toastr', '$timeout', function ($scope, FichasfechaService, Ficha, $route, toastr,$timeout) 
+.controller('AtencionCtrl', ['$scope', 'FichasfechaService', 'Ficha', '$route', 'toastr', '$timeout', '$location',function ($scope, FichasfechaService, Ficha, $route, toastr,$timeout, $location) 
 {
     $scope.today=moment(new Date(), "YYYY-MM-DD") .format("DD-MM-YY");
     $scope.ajustes = {
@@ -173,31 +173,21 @@ angular.module("adminApp")
     $scope.nombre_completo = per_apellido_primero + " " + per_apellido_segundo + " " + per_nombres;
 
   }
-  $scope.atender = function (fic_id) {
+  $scope.atender = function (fic_id, pt_id) {
     // body...
-    id=fic_id;
-    $scope.ficha={
-      fic_estado:'ATENDIDO'
-      // fic_id:id
-    }
+    var id=fic_id;
+    var pt=pt_id;
     Ficha.update({fic_id:id}).$promise.then(function (data) {
       if(data.status){
               toastr.success('Registrando paciente');
               $timeout(function() {
-                $route.reload();
+               $location.path('/prueba-medica/'+pt);
                 },1000);
             }
     })
     console.log('entro');
   }
-  // $scope.remove = function(per_id){
-  //   Personas.delete({per_id:id}).$promise.then(function(data){
-  //     if(data.mensaje){
-  //       toastr.success('Registrando paciente');
-  //       $route.reload();
-  //     }
-  //   })
-  // }
+
 
   
 }])
