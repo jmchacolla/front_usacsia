@@ -109,7 +109,7 @@ angular.module("adminApp")
 .controller('BuscaPersonaCtrl', ['$http', '$scope', 'CONFIG', buscaPersonaController])
 
 
-.controller('AtencionCtrl', ['$scope', 'FichasfechaService', '$route', 'toastr', function ($scope, FichasfechaService, $route, toastr) 
+.controller('AtencionCtrl', ['$scope', 'FichasfechaService', 'Ficha', '$route', 'toastr', '$timeout', function ($scope, FichasfechaService, Ficha, $route, toastr,$timeout) 
 {
     $scope.today=moment(new Date(), "YYYY-MM-DD") .format("DD-MM-YY");
     $scope.ajustes = {
@@ -127,7 +127,8 @@ angular.module("adminApp")
       $scope.fecharef=moment(fecha2,"YYYY-MM-DD").format("DD-MM-YYYY");*/
       
       fecha1:moment(new Date(), "YYYY-MM-DD") .format("DD-MM-YYYY"),
-      fecha2:moment(new Date(), "YYYY-MM-DD") .format("DD-MM-YYYY")
+      fecha2:moment(new Date(), "YYYY-MM-DD") .format("DD-MM-YYYY"),
+      fic_estado:'PENDIENTE'
     };
     $scope.sortType = 'per_id'; // set the default sort type
     $scope.sortReverse  = true;  // set the default sort order
@@ -172,16 +173,22 @@ angular.module("adminApp")
     $scope.nombre_completo = per_apellido_primero + " " + per_apellido_segundo + " " + per_nombres;
 
   }
-  $scope.atender = function (f_id) {
+  $scope.atender = function (fic_id) {
     // body...
-    id=f_id;
+    id=fic_id;
     $scope.ficha={
-      fic_estado:'ATENDIDO',
-      fic_id:id
+      fic_estado:'ATENDIDO'
+      // fic_id:id
     }
-    FichaServices.update({fic_id:id},$scope.ficha).$promise.then(function (data) {
-      // body...
+    Ficha.update({fic_id:id}).$promise.then(function (data) {
+      if(data.status){
+              toastr.success('Registrando paciente');
+              $timeout(function() {
+                $route.reload();
+                },1000);
+            }
     })
+    console.log('entro');
   }
   // $scope.remove = function(per_id){
   //   Personas.delete({per_id:id}).$promise.then(function(data){

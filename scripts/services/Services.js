@@ -594,7 +594,7 @@ angular.module("adminApp")
     update: {method: "PUT", params: {}}
   })
 }])
-.factory('FichaServices', ['$resource', 'CONFIG', function ($resource,CONFIG) {
+.factory('Ficha', ['$resource', 'CONFIG', function ($resource,CONFIG) {
   return $resource(CONFIG.DOMINIO_SERVICIOS+"/ficha/:fic_id",{fic_id:"@_fic_id"},{
     update:{method:"PUT",params:{fic_id: "@fic_id"}}
   })
