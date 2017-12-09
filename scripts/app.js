@@ -116,6 +116,39 @@ angular.module("adminApp", ["authService", "ngRoute", "ngResource", "satellizer"
 
 
 
+/*-----------------------------laboratorista---------------------------------*/
+
+  .when('/prueba-laboratorio', {
+    templateUrl: 'templates/pruebalaboratorio/index.html',
+    controller: 'PruebaLaboratorioController'
+    // data: {
+    //   authorized: [ROLES.ESTADISTICA.ROL, ROLES.RECAUDADOR.ROL, ROLES.ESTAD_RECAU_ENFER.ROL]
+    // }
+  })
+
+/*-----------------------------tramites---------------------------------*/
+
+  .when('/tramites', {
+    templateUrl: 'templates/personatramite/index.html',
+    controller: 'PersonaTramiteController'
+  })
+
+  /*-----------------------------asignacion de numero de muestra---------------------------------*/
+  .when('/asignar-numero-muestra', {
+    templateUrl: 'templates/pruebalaboratorio/create.html',
+    controller: 'NumeroMuestraController'
+  })
+
+  .when('/form-asignacion-numero-muestra', {
+    templateUrl: 'forms/pruebalaboratorio/asignacion_numero_muestra',
+    controller: 'NumeroMuestraController'
+  })
+
+
+
+
+
+
 
 
 

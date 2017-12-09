@@ -1,0 +1,85 @@
+ <div ng-controller="apiAppCtrl_persona">
+        <p>
+          <h4 class="text-primary">Instrucciones</h4>
+          Para la asignacion del n&uacute;mero de muestra:</b>
+          <ul>
+            <li>Debe ingresar el n&uacute;mero de carnet en el respectivo buscador</li>
+            <li>Luego pulse en <b>Buscar</b></li>
+            <li>En el conjunto de resultados, pulse en <b>Registrar</b>, seg&uacute;n corresponda, en la fila del funcionario buscado.</li>
+          </ul>
+          En caso de NO obtener resultados, haga clic en <b>Registrar Funcionario Nuevo</b>
+        </p>
+        <!-- Inicio Controller apiAppCtrl -->
+       
+       <div class="well well-sm">
+         <div class="row">
+           <div class="col-md-6 col-md-offset-2">
+              <input class="form-control input-lg" ng-model="per_ci" type="text" placeholder="Escriba el Nro. de C.I.">
+           </div>
+           <div class="col-md-4">
+           <button class="btn btn-primary btn-lg" ng-click="buscaPersona()"><span class="glyphicon glyphicon-search"></span><strong> BUSCAR</strong></button>
+           </div>
+
+         </div>  
+       </div>
+        &nbsp;&nbsp;
+       <div><center><h3>RESULTADOS<span class="text-primary">  {{ tamanio }} </span></h3></center></div>
+       <div ng-show="msg">
+          <div class="lead text-center">
+            <hr>
+          </div>
+              <div class="panel">
+                  <div class="panel-body">
+                    <div class="row">
+                      <div class="col-md-6">
+                        <div class="row">
+                            <div class="col-md-12 col-sm-12">
+                               <label class="control-label">Nombre:</label> {{persona_tramite.per_nombres+" "+persona_tramite.per_apellido_primero+" "+persona_tramite.per_apellido_segundo}}
+                            </div>                     
+                        </div>
+                        <div class="row">
+                            <div class="col-md-12 col-sm-12">
+                               <label class="text-center text-primary">CI:</label> {{persona_tramite.per_ci+" "+persona_tramite.per_ci_expedido+" "+numero_muestra}}
+                            </div>                      
+                        </div>
+                      </div>
+                      <div class="col-md-3">
+                        <label class="control-label ">Número de Muestra:</label>
+                            <input type="" class="form-control" name="memo" ng-model="numero_muestra">
+                      </div>
+                      <div class="col-md-3">
+                        <label class="control-label ">Consultorio</label>
+                        <div class="input-group">
+                            <input type="" class="form-control" name="memo" placeholder="Nro. Consultorio">
+                          </div>
+                      </div>
+                    </div>
+
+                  </div>
+
+              </div>
+              <div class="row">
+                  <div class="col-md-4 col-md-offset-4 text-center" >
+                      <a class="btn btn-primary btn-lg" ng-click="">
+                          <span class="glyphicon glyphicon-plus"></span>
+                          ASIGNAR NUMERO DE MUESTRA
+                      </a>
+                  </div>
+
+                   <div class="col-md-4 col-md-offset-4 text-center" ng-controller="crear">
+                      <a class="btn btn-primary btn-lg" ng-click="submit()">
+                          <span class="glyphicon glyphicon-plus"></span>
+                          Crear
+                      </a>
+                  </div>
+              </div>
+        </div> <!-- div del message -->
+       <!--  <div class="row panel-group tabla-cuerpo">  -->
+       </div>  
+   <!-- fin ng-show -->
+
+    <!-- fin datos del funcionario -->
+</div>  
+
+
+

@@ -514,6 +514,7 @@ angular.module("adminApp")
 }])
 
 
+/*=========================================USACSIA====================================*/
 
 // ===============================FUNCIONARIOS  jhon
 .factory('Funcionario', ['$resource', 'CONFIG', function ($resource, CONFIG){
@@ -522,6 +523,34 @@ angular.module("adminApp")
   })
 }])
 // ===============================/jhon
+
+
+
+
+/*vVEROOOOOO*/
+
+.factory('PruebaLaboratorioService', ['$resource', 'CONFIG', function ($resource, CONFIG){
+  return $resource(CONFIG.DOMINIO_SERVICIOS+"/prueba_laboratorio/:pl_id", {pl_id:"@_pl_id"}, {
+    update: {method: "PUT", params: {pl_id: "@pl_id"}}
+  })
+}])
+
+
+.factory('ListarTramitesService', ['$resource', 'CONFIG', function ($resource, CONFIG){
+  return $resource(CONFIG.DOMINIO_SERVICIOS+"/tramites_x_tipo_tramite/:tra_id", {tra_id:"@_tra_id"}, {
+    update: {method: "PUT", params: {tra_id: "@tra_id"}}
+  })
+}])
+
+
+.factory('PaisService', ['$resource', 'CONFIG', function ($resource, CONFIG){
+  return $resource(CONFIG.DOMINIO_SERVICIOS+"/pais/:nac_id", {nac_id:"@_nac_id"}, {
+    update: {method: "PUT", params: {nac_id: "@nac_id"}}
+  })
+}])
+
+
+/*=========================================USACSIA====================================*/
 
 
 
