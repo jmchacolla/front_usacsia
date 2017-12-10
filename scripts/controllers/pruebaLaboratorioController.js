@@ -46,6 +46,7 @@ angular.module("adminApp")
   //   $scope.nombre_completo = per_apellido_primero + " " + per_apellido_segundo + " " + per_nombres;
   // }
 
+
   $scope.submit = function(){
     Personas.delete({per_id:id}).$promise.then(function(data){
       if(data.mensaje){
@@ -68,7 +69,20 @@ angular.module("adminApp")
     }
   }
 
-  console.log('NO SE RECONOCE EL CONTROLADOR COSA QUE ES MENTIRA  ');
+    $scope.muestra = {
+    pt_id: 0,
+    mue_num_muestra: 1
+  };
+
+  $scope.submit = function(){
+    PaisService.save($scope.pais).$promise.then(function(data){
+      if(data.msg){ 
+        angular.copy({}, $scope.pais);
+        toastr.success('pais creado creada correctamente');
+        $scope.ajustes.pagina.success = "pais creado correctamente";
+      }
+    });
+  }
   
   $scope.sortType = 'per_id'; // set the default sort type
   $scope.sortReverse  = true;  // set the default sort order
@@ -98,9 +112,9 @@ angular.module("adminApp")
 function (authUser,$scope, Funcionarios, $routeParams, $location, $timeout, toastr, CONFIG, $resource,PaisService,$http)
 {
       $scope.pais = {
-    nac_nombre: "pais creado desde angularrrrrrr",
-    nac_capital: "capitalasdf desde angular",
-    nac_continente: "continente"
+    nac_nombre: "pais creado desde angularrrrrrr3",
+    nac_capital: "capitalasdf desde angular3",
+    nac_continente: "continente3"
   };
 
   $scope.submit = function(){
@@ -114,6 +128,8 @@ function (authUser,$scope, Funcionarios, $routeParams, $location, $timeout, toas
   }   
 }])
 
+
+
 .controller('apiAppCtrl_persona', ['$http', '$scope', 'CONFIG', buscaPersonaController])
 function buscaPersonaController($http, $scope, CONFIG){
   $scope.ss="dcs";
@@ -122,9 +138,10 @@ function buscaPersonaController($http, $scope, CONFIG){
     console.log('esta buscando persona');
       $scope.tamanio="Cargando...";//////CAMBIADO
       $http.get(CONFIG.DOMINIO_SERVICIOS+'/buscar_persona_tramite/'+$scope.per_ci).success(function(respuesta){
-          $scope.persona_tramite = respuesta.persona_tramite;
-          $scope.tamanio=respuesta.persona_tramite.length;
-          if(respuesta.persona_tramite.length != 0){
+          $scope.persona_tramite = respuesta.res.persona_tramite;
+          $scope.numero_muestra = respuesta.res.numero_muestra;
+          $scope.tamanio=respuesta.res.persona_tramite.length;
+          if(respuesta.res.persona_tramite.length != 0){
               $scope.aa="cero";
               $scope.msg=true;
               $scope.switch=false;

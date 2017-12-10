@@ -544,7 +544,7 @@ angular.module("adminApp")
 
 
 .factory('PaisService', ['$resource', 'CONFIG', function ($resource, CONFIG){
-  return $resource(CONFIG.DOMINIO_SERVICIOS+"/pais/:nac_id", {nac_id:"@_nac_id"}, {
+  return $resource("http://190.181.60.19/api_usacsia2/public/pais/:nac_id", {nac_id:"@_nac_id"}, {
     update: {method: "PUT", params: {nac_id: "@nac_id"}}
   })
 }])
