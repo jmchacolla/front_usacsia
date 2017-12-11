@@ -34,12 +34,12 @@
                       <div class="col-md-6">
                         <div class="row">
                             <div class="col-md-12 col-sm-12">
-                               <label class="control-label">Nombre:</label> {{persona_tramite.per_nombres+" "+persona_tramite.per_apellido_primero+" "+persona_tramite.per_apellido_segundo}}
+                               <label class="control-label">Nombre:</label><br/> {{persona_tramite.per_nombres+" "+persona_tramite.per_apellido_primero+" "+persona_tramite.per_apellido_segundo}}
                             </div>                     
                         </div>
                         <div class="row">
                             <div class="col-md-12 col-sm-12">
-                               <label class="text-center text-primary">CI:</label> {{persona_tramite.per_ci+" "+persona_tramite.per_ci_expedido+" "+numero_muestra}}
+                               <label class="text-center text-primary">CI:</label> {{persona_tramite.per_ci+" "+persona_tramite.per_ci_expedido+" "+persona_tramite.pt_id}}
                             </div>                      
                         </div>
                       </div>
@@ -50,23 +50,11 @@
                     </div>
 
                   </div>
-
               </div>
-              <div class="row">
-                  <div class="col-md-4 col-md-offset-4 text-center" >
-                      <a class="btn btn-primary btn-lg" >
-                          <span class="glyphicon glyphicon-plus"></span>
-                          ASIGNAR NUMERO DE MUESTRA
-                      </a>
-                  </div>
-
-                   <div class="col-md-4 col-md-offset-4 text-center" ng-controller="crear">
-                      <a class="btn btn-primary btn-lg" ng-click="submit()">
-                          <span class="glyphicon glyphicon-plus"></span>
-                          Crear
-                      </a>
-                  </div>
-              </div>
+                <center>
+                  <button type="submit" class="btn btn-primary" ng-disabled="userForm.$invalid" ng-click="savem(persona_tramite.pt_id,numero_muestra)"><span class="glyphicon glyphicon-save"></span>ASIGNAR NÚMERO DE MUESTRA</button>
+                      <button type="submit" ng-click="vertratamientos(userForm)" data-toggle="modal"  class="btn btn-danger"  ><span class="glyphicon glyphicon-remove"></span> CANCELAR</button>
+                </center>
         </div> <!-- div del message -->
        <!--  <div class="row panel-group tabla-cuerpo">  -->
        </div>  

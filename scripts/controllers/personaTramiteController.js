@@ -70,7 +70,8 @@ angular.module("adminApp")
 
 
 
-.controller('BusquedaPersonaController', ['$scope', '$route','PersonaTramite', 'toastr', function ($scope, $route, PersonaTramite,toastr){
+/*CRAEAR PERSONA TRAMITE*/
+.controller('RegistrarPagoTramiteCtrl', ['$scope', '$route','PersonaTramite','Tramite' ,'toastr', function ($scope, $route, PersonaTramite,Tramite,toastr){
   $scope.ajustes = {
     menu:{
       titulo: 'Gestion de solicitudes de trámite',
@@ -78,28 +79,38 @@ angular.module("adminApp")
         {nombre:'Busqueda de personas registradas', enlace:'#/', estilo:'active'}]
     },
     pagina:{
-      titulo:'Personas registradas'
+      titulo:'Registrar Pago'
     }
   }
  
     $scope.persona_tramite={
-      tra_id:1, 
-      per_id:14,
-      pt_numero_tramite:5555, 
-      pt_vigencia_pago:"",
+      tra_id:null, 
+      per_id:null,
       pt_fecha_ini :"",
-      pt_fecha_fin :"",
-      pt_estado_pago:"sin concluir",
-      pt_estado_tramite:"sin concluir",
-      pt_monto:25.00,
-      pt_tipo_tramite:"renovacion"
+      pt_monto:null,
+      pt_tipo_tramite:""
     };
 
-  $scope.save = function(){
+    $scope.CurrentDate = new Date();
+    Tramite.get(function(data){
+      console.log("amuestra");
+    $scope.tramite = data.tramites;
+
+      $scope.monto = function(costo){
+        console.log("creo costo",costo);
+          $scope.tramite=costo;  
+      }
+    })
+
+
+  $scope.save = function(a, per_id){
+    $scope.persona_tramite.per_id=per_id;
+    $scope.persona_tramite.pt_fecha_ini=new Date('Y-m-d');
+    // $scope.persona_tramite.tra_id=tra_id;
     PersonaTramite.save($scope.persona_tramite).$promise.then(function(data)
     {
       console.log($scope.persona_tramite);
-        if(data.mensaje){
+        if(data.status){
           toastr.success('Pago registrado correctamente');
         }
     })

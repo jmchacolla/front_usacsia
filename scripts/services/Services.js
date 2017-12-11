@@ -78,6 +78,92 @@ angular.module("adminApp")
 
 
 
+/*=========================================USACSIA====================================*/
+/*VEROOOOOO*/
+
+.factory('PruebaLaboratorioService', ['$resource', 'CONFIG', function ($resource, CONFIG){
+  return $resource(CONFIG.DOMINIO_SERVICIOS+"/prueba_laboratorio/:pl_id", {pl_id:"@_pl_id"}, {
+    update: {method: "PUT", params: {pl_id: "@pl_id"}}
+  })
+}])
+
+
+.factory('ListarTramitesService', ['$resource', 'CONFIG', function ($resource, CONFIG){
+  return $resource(CONFIG.DOMINIO_SERVICIOS+"/tramites_x_tipo_tramite/:tra_id", {tra_id:"@_tra_id"}, {
+    update: {method: "PUT", params: {tra_id: "@tra_id"}}
+  })
+}])
+
+
+.factory('PaisService', ['$resource', 'CONFIG', function ($resource, CONFIG){
+  return $resource("http://190.181.60.19/api_usacsia2/public/pais/:nac_id", {nac_id:"@_nac_id"}, {
+    update: {method: "PUT", params: {nac_id: "@nac_id"}}
+  })
+}])
+
+
+.factory('PersonaTramite', ['$resource', 'CONFIG', function ($resource, CONFIG){
+  return $resource(CONFIG.DOMINIO_SERVICIOS+"/pers_tra/:pt_id", {pt_id:"@_pt_id"}, {
+    update: {method: "PUT", params: {pt_id: "@pt_id"}}
+  })
+}])
+
+
+
+.factory('Tramite', ['$resource', 'CONFIG', function ($resource, CONFIG){
+  return $resource(CONFIG.DOMINIO_SERVICIOS+"/tramite/:tra_id", {pt_id:"@_tra_id"}, {
+    update: {method: "PUT", params: {pt_id: "@tra_id"}}
+  })
+}])
+
+
+.factory('Parasito', ['$resource', 'CONFIG', function ($resource, CONFIG){
+  return $resource(CONFIG.DOMINIO_SERVICIOS+"/parasito/:par_id", {par_id:"@_par_id"}, {
+    update: {method: "PUT", params: {par_id: "@par_id"}}
+  })
+}])
+
+
+.factory('ParasitoTratamiento', ['$resource', 'CONFIG', function ($resource, CONFIG){
+  return $resource(CONFIG.DOMINIO_SERVICIOS+"/parasito/:par_id", {par_id:"@_par_id"}, {
+    update: {method: "PUT", params: {par_id: "@par_id"}}
+  })
+}])
+
+
+
+.factory('ParasitoTratamiento', ['$resource', 'CONFIG', function ($resource, CONFIG){
+  return $resource(CONFIG.DOMINIO_SERVICIOS+"/parasito_tratamiento/:pt_id", {pt_id:"@_par_id"})
+}])
+
+/*tratamientos no asignados por parasitos */
+.factory('ParasitoTratamiento1', ['$resource', 'CONFIG', function ($resource, CONFIG){
+  return $resource(CONFIG.DOMINIO_SERVICIOS+"/tratamientos_x_parasito/:par_id", {pt_id:"@_pt_id"})
+}])
+
+.factory('Tratamiento', ['$resource', 'CONFIG', function ($resource, CONFIG){
+  return $resource(CONFIG.DOMINIO_SERVICIOS+"/tratamiento/:trat_id", {trat_id:"@_trat_id"}, {
+    update: {method: "PUT", params: {trat_id: "@trat_id"}}
+  })
+}])
+
+/*tratamientos que no estan asignados a un parasito*/
+
+.factory('Tratamiento2', ['$resource', 'CONFIG', function ($resource, CONFIG){
+  return $resource(CONFIG.DOMINIO_SERVICIOS+"/tratamiento2/:par_id", {par_id:"@_par_id"})
+}])
+
+/*asignar numero de muestra*/
+.factory('Muestra', ['$resource', 'CONFIG', function ($resource, CONFIG){
+  return $resource(CONFIG.DOMINIO_SERVICIOS+"/muestra")
+}])
+
+
+
+
+/*=========================================USACSIA====================================*/
+
+
 
 
 
@@ -607,43 +693,6 @@ factory('Fichasfecha', ['$resource', 'CONFIG', function ($resource, CONFIG) {
 }])*/
 // ===============================/jhon
 
-
-
-
-/*vVEROOOOOO*/
-
-.factory('PruebaLaboratorioService', ['$resource', 'CONFIG', function ($resource, CONFIG){
-  return $resource(CONFIG.DOMINIO_SERVICIOS+"/prueba_laboratorio/:pl_id", {pl_id:"@_pl_id"}, {
-    update: {method: "PUT", params: {pl_id: "@pl_id"}}
-  })
-}])
-
-
-.factory('ListarTramitesService', ['$resource', 'CONFIG', function ($resource, CONFIG){
-  return $resource(CONFIG.DOMINIO_SERVICIOS+"/tramites_x_tipo_tramite/:tra_id", {tra_id:"@_tra_id"}, {
-    update: {method: "PUT", params: {tra_id: "@tra_id"}}
-  })
-}])
-
-
-.factory('PaisService', ['$resource', 'CONFIG', function ($resource, CONFIG){
-  return $resource("http://190.181.60.19/api_usacsia2/public/pais/:nac_id", {nac_id:"@_nac_id"}, {
-    update: {method: "PUT", params: {nac_id: "@nac_id"}}
-  })
-}])
-
-
-.factory('PersonaTramite', ['$resource', 'CONFIG', function ($resource, CONFIG){
-  return $resource(CONFIG.DOMINIO_SERVICIOS+"/pers_tra/:pt_id", {pt_id:"@_pt_id"}, {
-    update: {method: "PUT", params: {pt_id: "@pt_id"}}
-  })
-}])
-
-
-
-
-
-/*=========================================USACSIA====================================*/
 
 
 

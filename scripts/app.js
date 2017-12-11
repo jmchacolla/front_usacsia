@@ -240,7 +240,6 @@ angular.module("adminApp", ["authService", "ngRoute", "ngResource", "satellizer"
 
 
 /*===================================VERONICA================================================*/
-
 /*-----------------------------laboratorista---------------------------------*/
 
   .when('/prueba-laboratorio', {
@@ -251,6 +250,7 @@ angular.module("adminApp", ["authService", "ngRoute", "ngResource", "satellizer"
     // }
   })
 
+
 /*-----------------------------tramites---------------------------------*/
 
   .when('/tramites', {
@@ -259,16 +259,65 @@ angular.module("adminApp", ["authService", "ngRoute", "ngResource", "satellizer"
   })
 
   /*-----------------------------asignacion de numero de muestra---------------------------------*/
-  .when('/asignar-numero-muestra', {
-    templateUrl: 'templates/pruebalaboratorio/create.html',
+  .when('/numero-muestra/crear', {
+    templateUrl: 'templates/muestra/create.html',
     controller: 'NumeroMuestraController'
   })
 
+  .when('/numero-muestra', {
+    templateUrl: 'templates/muestra/index.html',
+    controller: 'ListarMuestraController'
+    // data: {
+    //   authorized: [ROLES.ESTADISTICA.ROL, ROLES.RECAUDADOR.ROL, ROLES.ESTAD_RECAU_ENFER.ROL]
+    // }
+  })
+  
 
   /*---------------------------BUSQUEDA DE PERSONAS PREREGISTRADAS------------------------------*/
-  .when('/buscar-persona', {
+  .when('/registrar-pago', {
     templateUrl: 'templates/personatramite/create.html',
-    controller: 'BusquedaPersonaController'
+    controller: 'RegistrarPagoTramiteCtrl'
+  })
+
+  /*--------------------------------------------------------------------------------------------*/
+
+
+  .when('/parasito/crear', {
+    templateUrl: 'templates/parasito/crear.html',
+    controller: 'CrearParasitoCtrl'
+  })
+
+  .when('/parasito', {
+    templateUrl: 'templates/parasito/index.html',
+    controller: 'ListarParasitoCtrl'
+  })
+
+  .when('/parasito/editar/:par_id', {
+    templateUrl: 'templates/parasito/editar.html',
+    controller: 'EditarParasitoCtrl'
+  })
+
+  .when('/parasito/ver/:par_id', {
+    templateUrl: 'templates/parasito/ver.html',
+    controller: 'VerParasitoCtrl'
+  })
+
+  .when('/login_u', {
+    templateUrl: 'templates/login_u.html',
+    controller: 'LoginCtrl'
+  })
+
+
+/*tratamientos*/
+
+    .when('/tratamiento/crear', {
+    templateUrl: 'templates/tratamiento/crear.html',
+    controller: 'CrearTratamientoCtrl'
+  })
+
+  .when('/tratamiento', {
+    templateUrl: 'templates/tratamiento/index.html',
+    controller: 'ListarTratamientoCtrl'
   })
   /*===================================VERONICA================================================*/
 
