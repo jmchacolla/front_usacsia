@@ -251,12 +251,6 @@ angular.module("adminApp", ["authService", "ngRoute", "ngResource", "satellizer"
   })
 
 
-/*-----------------------------tramites---------------------------------*/
-
-  .when('/tramites', {
-    templateUrl: 'templates/personatramite/index.html',
-    controller: 'PersonaTramiteController'
-  })
 
   /*-----------------------------asignacion de numero de muestra---------------------------------*/
   .when('/numero-muestra/crear', {
@@ -271,13 +265,37 @@ angular.module("adminApp", ["authService", "ngRoute", "ngResource", "satellizer"
     //   authorized: [ROLES.ESTADISTICA.ROL, ROLES.RECAUDADOR.ROL, ROLES.ESTAD_RECAU_ENFER.ROL]
     // }
   })
+
+
+  /*-----------------------------prueba laboratorio---------------------------------*/
+
+    .when('/numero-muestra/crear', {
+    templateUrl: 'templates/muestra/create.html',
+    controller: 'NumeroMuestraController'
+  })
+
+  .when('/numero-muestra', {
+    templateUrl: 'templates/muestra/index.html',
+    controller: 'ListarMuestraController'
+    // data: {
+    //   authorized: [ROLES.ESTADISTICA.ROL, ROLES.RECAUDADOR.ROL, ROLES.ESTAD_RECAU_ENFER.ROL]
+    // }
+  })
   
 
-  /*---------------------------BUSQUEDA DE PERSONAS PREREGISTRADAS------------------------------*/
-  .when('/registrar-pago', {
+  /*---------------------------busqueda de personas preregistradas para pago de tramite------------------------------*/
+  .when('/tramite/crear', {
     templateUrl: 'templates/personatramite/create.html',
     controller: 'RegistrarPagoTramiteCtrl'
   })
+
+  /*-----------------------------tramites---------------------------------*/
+
+  .when('/tramites', {
+    templateUrl: 'templates/personatramite/index.html',
+    controller: 'PersonaTramiteController'
+  })
+
 
   /*--------------------------------------------------------------------------------------------*/
 
@@ -302,15 +320,9 @@ angular.module("adminApp", ["authService", "ngRoute", "ngResource", "satellizer"
     controller: 'VerParasitoCtrl'
   })
 
-  .when('/login_u', {
-    templateUrl: 'templates/login_u.html',
-    controller: 'LoginCtrl'
-  })
-
-
 /*tratamientos*/
 
-    .when('/tratamiento/crear', {
+  .when('/tratamiento/crear', {
     templateUrl: 'templates/tratamiento/crear.html',
     controller: 'CrearTratamientoCtrl'
   })
