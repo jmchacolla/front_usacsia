@@ -267,22 +267,6 @@ angular.module("adminApp", ["authService", "ngRoute", "ngResource", "satellizer"
   })
 
 
-  /*-----------------------------prueba laboratorio---------------------------------*/
-
-    .when('/numero-muestra/crear', {
-    templateUrl: 'templates/muestra/create.html',
-    controller: 'NumeroMuestraController'
-  })
-
-  .when('/numero-muestra', {
-    templateUrl: 'templates/muestra/index.html',
-    controller: 'ListarMuestraController'
-    // data: {
-    //   authorized: [ROLES.ESTADISTICA.ROL, ROLES.RECAUDADOR.ROL, ROLES.ESTAD_RECAU_ENFER.ROL]
-    // }
-  })
-  
-
   /*---------------------------busqueda de personas preregistradas para pago de tramite------------------------------*/
   .when('/tramite/crear', {
     templateUrl: 'templates/personatramite/create.html',
