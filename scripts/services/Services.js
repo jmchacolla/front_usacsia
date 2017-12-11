@@ -685,12 +685,11 @@ angular.module("adminApp")
     update:{method:"PUT",params:{fic_id: "@fic_id"}}
   })
 }])
-/*
-factory('Fichasfecha', ['$resource', 'CONFIG', function ($resource, CONFIG) {
-  return $resource(CONFIG.DOMINIO_SERVICIOS+"/fichasfecha/:fechas", {fechas:"@_fechas"},{
-    update: {method: "PUT", params:{fechas: "@fechas"}}
+.factory('PruebaMedica', ['$resource', 'CONFIG', function ($resource,CONFIG) {
+  return $resource(CONFIG.DOMINIO_SERVICIOS+"/prueba_medica",{},{
+    update:{method:"PUT",params:{}}
   })
-}])*/
+}])
 // ===============================/jhon
 
 
