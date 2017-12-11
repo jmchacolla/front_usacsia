@@ -35,9 +35,15 @@ angular.module("adminApp", ["authService", "ngRoute", "ngResource", "satellizer"
         authorized: [ROLES.ADMIN_SEDES.ROL, ROLES.ADMIN_ESTAB.ROL, ROLES.ADMIN_MEDICO.ROL]
       }*/
 })
+// crear prueba medica form registro de signos vitales
 .when('/prueba-medica/:pt_id', {
   templateUrl: 'templates/pruebamedica/create.html',
   controller: 'PruebaMedicaCtrl'
+})
+// realizar los examenes
+.when('/prueba-medica/prueba/:pm_id', {
+  templateUrl: 'templates/pruebamedica/prueba.html',
+  controller: 'PruebaEnfermedadCtrl'
 })
 
 //jhon==========================================================================
@@ -863,30 +869,30 @@ angular.module("adminApp", ["authService", "ngRoute", "ngResource", "satellizer"
   .when('/homeenfermedad',{
    templateUrl:'templates/enfermedad/list.html',
    controller: 'HomeCtrlEnf',
-    data: {
-      authorized: [ROLES.ADMIN_SEDES.ROL]
-    }
+    // data: {
+    //   authorized: [ROLES.ADMIN_SEDES.ROL]
+    // }
   })
-  .when('/editenfermedad/:enf_id', {
+  .when('/editenfermedad/:enfe_id', {
     templateUrl:'templates/enfermedad/edit.html',
     controller: 'EditCtrlEnf',
-    data: {
-      authorized: [ROLES.ADMIN_SEDES.ROL]
-    }
+    // data: {
+    //   authorized: [ROLES.ADMIN_SEDES.ROL]
+    // }
   })
   .when('/createenfermedad', {
     templateUrl:'templates/enfermedad/create.html',
     controller: 'CreateCtrlEnf',
-    data: {
-      authorized: [ROLES.ADMIN_SEDES.ROL]
-    }
+    // data: {
+    //   authorized: [ROLES.ADMIN_SEDES.ROL]
+    // }
   })
-  .when('/verenfermedad/:enf_id', {
+  .when('/verenfermedad/:enfe_id', {
     templateUrl:'templates/enfermedad/ver.html',
     controller: 'VerCtrlEnf',
-    data: {
-      authorized: [ROLES.ADMIN_SEDES.ROL]
-    }
+    // data: {
+    //   authorized: [ROLES.ADMIN_SEDES.ROL]
+    // }
   })
   
   // ========================= ALERTAS ============================================================================

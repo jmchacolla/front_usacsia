@@ -1,7 +1,7 @@
 'use-strict';
 angular.module("adminApp")
 
-.controller('PruebaMedicaCtrl', ['$scope', 'PruebaMedica', 'PersonaTramite', '$route', '$resource','$routeParams', 'toastr','$location', function ($scope, PruebaMedica, PersonaTramite, $route, $resource,$routeParams, toastr, $location){
+.controller('PruebaMedicaCtrl', ['$scope', 'PruebaMedica', 'PersonaTramite', '$route', '$resource','$routeParams', 'toastr','$location', '$timeout', function ($scope, PruebaMedica, PersonaTramite, $route, $resource,$routeParams, toastr, $location, $timeout){
     $scope.ajustes = {
       menu:{
         titulo: 'Gestion de Consultas',
@@ -18,7 +18,8 @@ angular.module("adminApp")
   $scope.Personas = [];
 
   $scope.loading=true;//para hacer un loading
-   pt_id = $routeParams.pt_id;
+  var pt_id = $routeParams.pt_id;
+  console.log(pt_id,'es el pt');
    
 
    //datos del persona
@@ -26,6 +27,8 @@ angular.module("adminApp")
    PersonaTramite.get({pt_id:pt_id}, function(data)
    {
      $scope.pertramite = data.pertramite;
+     console.log(data);
+     console.log('llego');
      if ($scope.pertramite.persona.per_genero=='F' || $scope.pertramite.persona.per_genero=='f'){
        $scope.pertramite.persona.per_genero='FEMENINO';
      }
@@ -34,89 +37,55 @@ angular.module("adminApp")
      }
    });
 
-   $scope.referencias={
-      br_frec_cardiaca:null,
-      br_frec_resp:null,
-      br_pa_sistolica:null,
-      br_pa_diastolica:null,
-      br_temperatura:null,
-      br_peso:null,
-      br_talla:null,
+   $scope.pruebamed={
       pt_id:pt_id,
+      ser_id:1,//---------medicina general
+      fun_id:1,//----------debe ser de sesion
+      pm_fc:"",
+      pm_fr:"",
+      pm_pa_sistolica:"",
+      pm_pa_diastolica:"",
+      pm_temperatura:"",
+      pm_peso:null,
+      pm_talla:null,
+      pm_imc:null,
+      pm_fecha:"",
+      pm_diagnostico:"",
    };
    //calculando IMC
    var peso=0;
    var talla = 0; 
-   $scope.imc=null;
+   
    $scope.calculapeso = function(a,b){
        
      if(a==null || b==null)
      {   
-         $scope.imc2=0;
+         $scope.pruebamed.pm_imc=0;
      }
      else if(a!=null && b!=null)
      {   
          var aa=(a).toFixed(2);
          var bb=(b).toFixed(2);
-         $scope.imc2=(a/Math.pow(b,2)).toFixed(2);
+         $scope.pruebamed.pm_imc=(a/Math.pow(b,2)).toFixed(2);
      }
    }
 
 
-    $scope.save = function(br_frec_cardiaca, br_frec_resp, br_pa_sistolica, br_pa_diastolica, br_temperatura, br_peso, br_peso, br_talla, br_talla, br_peso, br_talla){
-      PruebaMedica.save($scope.referencias).$promise.then(function(data)
+    $scope.save = function(pm_fc, pm_fr, pm_pa_sistolica, pm_pa_diastolica, pm_temperatura, pm_peso, pm_peso, pm_talla, pm_talla, pm_peso, pm_talla,pm_imc){
+ 
+      PruebaMedica.save($scope.pruebamed).$promise.then(function(data)
       {
-          $scope.refer={
-                  pt_id:pt_id,
-                  br_frec_cardiaca:br_frec_cardiaca,
-                  br_frec_resp:br_frec_resp,
-                  br_pa_sistolica:br_pa_sistolica,
-                  br_temperatura:br_temperatura,
-                  br_peso:br_peso,
-                  imc2
-                  br_diagnostico:"",
-                  br_pa_diastolica:br_pa_diastolica,
-                  br_talla:br_talla,
-                  br_estado_referencia:false,
-                  br_servicio_referente:br_servicio_referente,
-                  br_servicio_destino:br_servicio_destino
-           };
-
-          // console.log('prueba medica ---------', data);
-          //   if(data.mensaje){
-          //   toastr.success('Pago registrado correctamente');
-          // }
+          console.log('prueba medica ---------', data);
+            if(data.mensaje){
+            toastr.success('Registro realizado correctamente');
+            $timeout(function() {
+               $location.path('/prueba-medica/prueba/'+pt_id);
+                },1000);
+          }
       })
   }
 
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
 
-  // var id=0;
-  // $scope.nombre_completo = "";
-  // $scope.get_per_id = function(per_id, per_apellido_primero, per_apellido_segundo, per_nombres){
-  //   id = per_id;
-  //   $scope.nombre_completo = per_apellido_primero + " " + per_apellido_segundo + " " + per_nombres;
-  // }
-
-
-  // $scope.submit = function(){
-  //   Personas.delete({per_id:pt_id}).$promise.then(function(data){
-  //     if(data.mensaje){
-  //       toastr.success('Eliminado correctamente');
-  //       $route.reload();
-  //     }
-  //   })
-  // }
 }])
 
 

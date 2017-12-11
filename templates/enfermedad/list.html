@@ -23,7 +23,7 @@
             <div class="well well-sm">
                <strong class="pull-left lead">Herramientas: &nbsp;</strong>
                 <form class="form-inline pull-left">
-                <input type="text" class="form-control" placeholder="Filtrar por nombre enfermedad" ng-model="enf_nombre">
+                <input type="text" class="form-control" placeholder="Filtrar por nombre enfermedad" ng-model="enfe_nombre">
                     
                 </form>
             <div class="clearfix"></div>
@@ -35,17 +35,17 @@
             <div class="col-md-12">
             <!-- AQUI VAN LAS TABLAS O FORMULARIOS incrustados -->
             <!-- INICIO -->
-            <div class="table-responsive">
+            <div class="table-responsive" >
                 <div class="text-center" ng-show="loading"><br><img ng-src="./images/image.gif" class="loader-img"></div>
                 <div ng-show="!loading && !msg">No se encontraron resultados</div>
                 <table class="table table-hovertable table-bordered table-striped table-hover" ng-show="!loading && msg">
                     <thead>
                         
                         <th >
-                            <a href="" ng-click="sortType = 'enf_nombre'; sortReverse = !sortReverse">
+                            <a href="" ng-click="sortType = 'enfe_nombre'; sortReverse = !sortReverse">
                             Nombre enfermedad
-                            <span ng-show="sortType == 'enf_nombre' && !sortReverse" class="glyphicon glyphicon-sort-by-alphabet"></span>
-                            <span ng-show="sortType == 'enf_nombre' && sortReverse" class="glyphicon glyphicon-sort-by-alphabet-alt"></span>
+                            <span ng-show="sortType == 'enfe_nombre' && !sortReverse" class="glyphicon glyphicon-sort-by-alphabet"></span>
+                            <span ng-show="sortType == 'enfe_nombre' && sortReverse" class="glyphicon glyphicon-sort-by-alphabet-alt"></span>
                             </a>
                         </th>
                         <th >Prevención</th>
@@ -55,27 +55,26 @@
                         
                     </thead>
                     
-                    <tbody ng-repeat="enfermedad in enfermedad | filter:enf_nombre | orderBy:sortType:sortReverse">
+                    <tbody ng-repeat="enfermedad in enfermedad | filter:enfe_nombre | orderBy:sortType:sortReverse">
                       <tr>
                         
-                        <td>{{enfermedad.enf_nombre}}</td>
-                        <td>{{enfermedad.enf_prevencion}}</td>
+                        <td>{{enfermedad.enfe_nombre}}</td>
+                        <td>{{enfermedad.enfe_prevencion}}</td>
                         <td>
-                            <a href="#/verenfermedad/{{enfermedad.enf_id}}" class="btn btn-success">
+                            <a href="#/verenfermedad/{{enfermedad.enfe_id}}" class="btn btn-success">
                                 <span class="glyphicon glyphicon-file"></span>
                                 </a> 
                         </td>
                         <td>
-                            <a href="#/editenfermedad/{{enfermedad.enf_id}}" class="btn btn-primary">
+                            <a href="#/editenfermedad/{{enfermedad.enfe_id}}" class="btn btn-primary">
                                 <span class="glyphicon glyphicon-pencil"></span>
                                 </a>                   
                         </td>
                         <td>
                             <!-- BOTON PARA CUADROS MODALES -->
-                            <button type="button" class="btn btn-danger" data-toggle="modal" data-target="#miCuadroModal1" ng-click="get_enf_id(enfermedad.enf_id, enfermedad.enf_nombre)" title="Eliminar">
+                            <button type="button" class="btn btn-danger" data-toggle="modal" data-target="#miCuadroModal1" ng-click="get_enfe_id(enfermedad.enfe_id, enfermedad.enfe_nombre)" title="Eliminar">
                               <span class="glyphicon glyphicon-trash"></span>
                             </button>
-                            
                             <!--CUADRO MODAL</div>-->
                             <div id="miCuadroModal1" class="modal fade" role="dialog" tabindex="-1">
                               <div class="modal-dialog">

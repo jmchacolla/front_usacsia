@@ -180,16 +180,17 @@ angular.module("adminApp")
 
   var id=0;
   $scope.nombre_completo = "";
-  $scope.get_per_id = function(per_id, per_apellido_primero, per_apellido_segundo, per_nombres){
-    id = per_id;
+  $scope.get_per_id = function(pt_id, per_apellido_primero, per_apellido_segundo, per_nombres){
+    id = pt_id;
     $scope.nombre_completo = per_apellido_primero + " " + per_apellido_segundo + " " + per_nombres;
 
   }
-  $scope.atender = function (fic_id, pt_id) {
+  $scope.atender = function (fic_id/*, pt_id*/) {
     // body...
-    var id=fic_id;
-    var pt=pt_id;
-    Ficha.update({fic_id:id}).$promise.then(function (data) {
+    var fic_id=fic_id;
+    var pt=id;
+    console.log(pt, 'akiiiii');
+    Ficha.update({fic_id:fic_id}).$promise.then(function (data) {
       if(data.status){
               toastr.success('Registrando paciente');
               $timeout(function() {
@@ -197,7 +198,7 @@ angular.module("adminApp")
                 },1000);
             }
     })
-    console.log('entro');
+
   }
 
 
