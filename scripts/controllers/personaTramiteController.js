@@ -138,7 +138,7 @@ angular.module("adminApp")
   $scope.loading=true;//para hacer un loading
   var tra_id = 1;
   FichasfechaService.get($scope.fecha, function(data){
-    console.log('*******persona_tramite ---------', data);
+    // console.log('*******persona_tramite ---------', data);
     $scope.fichas = data.fichas;
     // for (var i=0; i=$scope.fichas.length; i++)
     // {
