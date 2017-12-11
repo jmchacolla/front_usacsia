@@ -71,7 +71,7 @@ angular.module("adminApp")
 
 
 /*CRAEAR PERSONA TRAMITE*/
-.controller('RegistrarPagoTramiteCtrl', ['$scope', '$route','PersonaTramite','Tramite' ,'toastr', function ($scope, $route, PersonaTramite,Tramite,toastr){
+.controller('CrearPersonaTramiteCtrl', ['$scope', '$route','PersonaTramite','Tramite' ,'toastr', function ($scope, $route, PersonaTramite,Tramite,toastr){
   $scope.ajustes = {
     menu:{
       titulo: 'Gestion de solicitudes de trámite',

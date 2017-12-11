@@ -286,7 +286,7 @@ angular.module("adminApp", ["authService", "ngRoute", "ngResource", "satellizer"
   /*---------------------------busqueda de personas preregistradas para pago de tramite------------------------------*/
   .when('/tramite/crear', {
     templateUrl: 'templates/personatramite/create.html',
-    controller: 'RegistrarPagoTramiteCtrl'
+    controller: 'CrearPersonaTramiteCtrl'
   })
 
   /*-----------------------------tramites---------------------------------*/
