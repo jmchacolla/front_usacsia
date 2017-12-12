@@ -693,6 +693,13 @@ angular.module("adminApp")
   })
 }])
 
+//--prueba enfermedad opearaciones
+.factory('PruebaEnfermedad', ['$resource', 'CONFIG', function ($resource,CONFIG) {
+  return $resource(CONFIG.DOMINIO_SERVICIOS+"/prueba_enfermedad/:pre_id",{pre_id:"@pre_id"},{
+    update:{method:"PUT",params:{pre_id: "@pre_id"}}
+  })
+}])
+
 
 
 // ===============================/jhon

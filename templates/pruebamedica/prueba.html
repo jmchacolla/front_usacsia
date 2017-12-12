@@ -60,24 +60,8 @@
             <div class="row">
                     <div class="col-md-6" ng-repeat='enfermedad in enfermedad'>
                         <div class="formulario">
-                                <!-- <div class="checkbox">
-                                    <input class="checkbox" type="checkbox" name="conta{{enfermedad.enfe_id}}" id="contacto{{enfermedad.enfe_id}}" ng-model="{{enfermedad.enfe_resultado}}" ng-init="{{enfermedad.enfe_resultado}}=false" ng-click="reset_cont(checked)">
-                                    <label for="contacto">{{enfermedad.enfe_nombre}}</label>
-                                </div> -->
-
-                                <!-- <div class="formulario">
-                                <div class="checkbox" data-toggle="modal" data-target="#miCuadroModal2" ng-click="get_se_id(enfermedad.enfe_id)">
-                                    <input class="checkbox" type="checkbox" ng-model="enfermedad.enfe_resultado" name="check{{enfermedad.enfe_id}}" id="id{{enfermedad.enfe_id}}">
-                                    <label>{{enfermedad.enfe_nombre}}</label>
-                                    <label ng-if="enfermedad.enfe_resultado">SI</label>
-                                    <label ng-if="!enfermedad.enfe_resultado">NO</label>
-                                </div>
-
-                                </div> -->
                                 <p>{{enfermedad.enfe_nombre}}</p>
-                                <input type="checkbox" ng-model="enfermedad.enfe_resultado" ng-click="boton(enfermedad.enfe_id)" />
-
-
+                                <input type="checkbox" ng-model="botoncito.check{{enfermedad.enfe_id}}" ng-click="boton(enfermedad.enfe_id, botoncito.check{{enfermedad.enfe_id}})" />
                         </div><br/>
                     </div>
             </div>
