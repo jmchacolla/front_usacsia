@@ -80,7 +80,7 @@ angular.module("adminApp")
 $pru=$scope.prueba_medica.prueba_medica;
 $scope.diagnostico = function (pm_diagnostico) {
   $pru={pm_diagnostico:pm_diagnostico};
-  
+  PruebaMedica.update($prueba_medica)
 }
     
 }])
