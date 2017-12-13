@@ -14,19 +14,26 @@ angular.module('adminApp')
 //DOMINIO_SERVICIOS: "http://localhost:8000"
 
 
-<<<<<<< HEAD
+
 //DOMINIO_SERVICIOS: "http://localhost:8000"//---------------------jhon
-=======
+
 // DOMINIO_SERVICIOS: "http://localhost:8000"//---------------------jhon
->>>>>>> 938dd85bae522c8ea2cda43273d9312a286bdcc2
+
 
 //wendy
-// DOMINIO_SERVICIOS: "http://localhost:8080/api_usacsia/public"
-  // DOMINIO_SERVICIOS: "http://localhost/usacsia_php_5.6/usacsia_git/api_usacsia/public"
+ DOMINIO_SERVICIOS: "http://localhost:8080/api_usacsia/public"
+ 
+
+
+
+
+
+
+ 
 
 
 //vero
-DOMINIO_SERVICIOS: "http://localhost/usacsia_php_5.6/usacsia_git2/api_usacsia/public"
+//DOMINIO_SERVICIOS: "http://localhost/usacsia_php_5.6/usacsia_git2/api_usacsia/public"
 })
 
 // ========================= ROLES ============================================================================
