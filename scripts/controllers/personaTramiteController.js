@@ -1,5 +1,6 @@
 'use strict';
 angular.module("adminApp")
+
 .controller('PersonaTramiteController', ['$scope', 'ListarTramitesService', '$route', 'toastr', '$location', function ($scope, ListarTramitesService, $route, toastr,$location)
 {
   $scope.ajustes = {
@@ -71,7 +72,7 @@ angular.module("adminApp")
 
 
 /*CRAEAR PERSONA TRAMITE*/
-.controller('CrearPersonaTramiteCtrl', ['$scope', '$route','PersonaTramite','Tramite' ,'toastr', function ($scope, $route, PersonaTramite,Tramite,toastr){
+.controller('CrearPersonaTramiteCtrl', ['$scope', '$route','PersonaTramite','Tramite' ,'toastr', '$location', function ($scope, $route, PersonaTramite,Tramite,toastr, $location){
   $scope.ajustes = {
     menu:{
       titulo: 'Gestion de solicitudes de trámite',
@@ -113,14 +114,16 @@ angular.module("adminApp")
 
         if(data.mensaje){
           toastr.success('Pago registrado correctamente');
+          $timeout(function() {
+               $location.path('/boleta-pago/'+data.persona_tramite.pt_id);
+                },1000);
         }
     })
   }
 }])
 
-.controller('BuscaPersonaCtrl', ['$http', '$scope', 'CONFIG', buscaPersonaController])
 
-
+/*LISTAR FICHAS DE ATENCION*/
 .controller('AtencionCtrl', ['$scope', 'FichasfechaService', 'Ficha', '$route', 'toastr', '$timeout', '$location',function ($scope, FichasfechaService, Ficha, $route, toastr,$timeout, $location) 
 {
     $scope.today=moment(new Date(), "YYYY-MM-DD") .format("DD-MM-YY");
@@ -135,9 +138,6 @@ angular.module("adminApp")
       }
     }
     $scope.fecha={
-       /*var fecha2=($scope.referencias.referencia.created_at).split(' ');
-      $scope.fecharef=moment(fecha2,"YYYY-MM-DD").format("DD-MM-YYYY");*/
-      
       fecha1:moment(new Date(), "YYYY-MM-DD") .format("DD-MM-YYYY"),
       fecha2:moment(new Date(), "YYYY-MM-DD") .format("DD-MM-YYYY"),
       fic_estado:'PENDIENTE'
@@ -150,7 +150,7 @@ angular.module("adminApp")
   $scope.loading=true;//para hacer un loading
   var tra_id = 1;
   FichasfechaService.get($scope.fecha, function(data){
-    // console.log('*******persona_tramite ---------', data);
+    console.log('*******fichafecha---------', data);
     $scope.fichas = data.fichas;
     // for (var i=0; i=$scope.fichas.length; i++)
     // {
@@ -204,6 +204,8 @@ angular.module("adminApp")
 
   
 }])
+/*BUSCA PERSONA POR CI*/
+.controller('BuscaPersonaCtrl', ['$http', '$scope', 'CONFIG', buscaPersonaController])
 function buscaPersonaController($http, $scope, CONFIG){
   $scope.buscaPersona = function($per_ci){
     console.log('esta buscando persona');
@@ -215,6 +217,7 @@ function buscaPersonaController($http, $scope, CONFIG){
               $scope.resultado="No se encontraron resultados";              
           } else if(respuesta.persona){
               $scope.msg=true;
+              $scope.resultado='';
           }  
       });
   }
