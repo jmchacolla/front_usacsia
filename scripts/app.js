@@ -5,27 +5,27 @@ angular.module("adminApp", ["authService", "ngRoute", "ngResource", "satellizer"
   console.log($httpProvider.interceptors);
 })*/
 .config(['$routeProvider', '$authProvider', 'CONFIG', 'ROLES', function ($routeProvider, $authProvider, CONFIG, ROLES){
-  $authProvider.loginUrl = CONFIG.DOMINIO_SERVICIOS+'/auth_login';
+  $authProvider.loginUrl = CONFIG.DOMINIO_SERVICIOS+'/login';
 //$authProvider.signupUrl = CONFIG.DOMINIO_SERVICIOS+'/usuarios';
 
   $routeProvider
   // ======================================jhon===========================================================================
   //lista a los funcionarios de Usacsia
-  .when('/funcionario', {  
+/*  .when('/funcionario', {  
     templateUrl: 'templates/funcionario/funcionarios.html',
     controller: 'FuncionarioCtrl',
     data: {
       authorized: [ROLES.ADMIN_ESTAB.ROL, ROLES.ADMIN_MEDICO.ROL]
     }
-  })
+  })*/
 // detalle de funcionario
-  .when('/funcionario/:fun_id', {
+/*  .when('/funcionario/:fun_id', {
     templateUrl: 'templates/funcionario/ver.html',
     controller: 'VerFuncionarioCtrl',
-/*    data: {
+    data: {
       authorized: [ROLES.ADMIN_SEDES.ROL, ROLES.ADMIN_ESTAB.ROL, ROLES.ADMIN_MEDICO.ROL]
-    }*/
-  })
+    }
+  })*/
 //persona_tramite lista para atender pacientes
 
 .when('/atencion', {//--------medico
@@ -210,7 +210,14 @@ angular.module("adminApp", ["authService", "ngRoute", "ngResource", "satellizer"
       authorized: [ROLES.ADMIN_SEDES.ROL]
     }*/
   })
-
+  .when('/establecimientossol', {
+    title: 'Establecimientos Solicitantes',
+    templateUrl: 'templates/establecimiento_solicitante/establecimientos.html',
+    controller: 'ListaEstabSolCtrl' /* ,
+  data: {
+      authorized: [ROLES.ADMIN_SEDES.ROL]
+    }*/
+  })
 
 //*******************************==========================PAIS==========================================================================
   .when('/homepais',{

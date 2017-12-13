@@ -78,9 +78,25 @@ angular.module("adminApp")
 //Lista los establecimientos usacsia
 .factory('Establecimientos', ['$resource', 'CONFIG', function ($resource, CONFIG){
   return $resource(CONFIG.DOMINIO_SERVICIOS+"/usacsia/:usa_id", {usa_id:"@_usa_id"}, {
-    update: {method: "PUT", params: {usa_id: "@eusa_id"}}
+    update: {method: "PUT", params: {usa_id: "@usa_id"}}
   })
 }])
+
+//Lista los establecimientos solicitantes
+.factory('EstabSols', ['$resource', 'CONFIG', function ($resource, CONFIG){
+  return $resource(CONFIG.DOMINIO_SERVICIOS+"/establecimiento_solicitante/:ess_id", {ess_id:"@_ess_id"}, {
+    update: {method: "PUT", params: {ess_id: "@ess_id"}}
+  })
+}])
+
+
+
+
+
+
+
+
+
 
 
 
