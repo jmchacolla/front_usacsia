@@ -10,7 +10,7 @@
 			<div class="col-md-12" >
 				<h2 class="text-primary">
 					<span class="glyphicon glyphicon-th-large" aria-hidden="true"></span>
-					Establecimiento de salud: <strong>{{establecimiento.establecimientos.es_nombre}}</strong>
+					Establecimiento : <strong>{{establecimiento.establecimientos.es_nombre}}</strong>
 				</h2>
 				<hr class="bg-green">
 			</div>
@@ -19,9 +19,9 @@
 	    <div class="row">
 		    <div class="col-md-12">
 		    <!-- FIN -->
-		    	<tabs>
+		    	<!-- <tabs> -->
 					<!-- ..............DATOS GENERALES................. -->
-					<pane title="DATOS GENERALES">
+				<!-- 	<pane title="DATOS GENERALES"> -->
 		                <div class="panel">
 							<br>
 							<h4 class="text-center text-primary">I. DATOS GENERALES</h4>
@@ -35,23 +35,23 @@
 							        	</div>
 							        </div>
 							        <div class="col-lg-6 col-md-6 col-sm-6 col-xs-12">
-								        <label class="control-label">Nombre o razón social del establecimiento de salud:</label>
+								        <label class="control-label">Nombre del establecimiento:</label>
 							        	<div class="">
-							            	<p >{{establecimiento.establecimientos.es_nombre}}</p>
+							            	<p >{{establecimiento.usa_nombre}}</p>
 							        	</div>
 							        </div>
 							        <div class="col-lg-3 col-md-3 col-sm-3 col-xs-6">
 								        <label class="control-label">Código:</label>
 							        	<div class="">
-							            	<p >{{establecimiento.establecimientos.es_codigo}}</p>
+							            	<p >{{establecimiento.usa_codigo}}</p>
 							        	</div>
 							        </div>
-							        <div class="col-lg-3 col-md-3 col-sm-3 col-xs-6">
+							       <!--  <div class="col-lg-3 col-md-3 col-sm-3 col-xs-6">
 								        <label class="control-label">NIT:</label>
 							        	<div class="">
 							            	<p >{{establecimiento.establecimientos.es_nit}}</p>
 							        	</div>
-							        </div>
+							        </div> 
 							        <div class="col-lg-6 col-md-6 col-sm-6 col-xs-12">
 								        <label class="control-label">Resolución Ministerial:</label>
 							        	<div class="">
@@ -70,64 +70,64 @@
 							            	<p ng-if="establecimiento.telefonos[0].te_numero !=null" >{{establecimiento.telefonos[0].te_numero}}</p>
 							            	<p ng-if="establecimiento.telefonos[0].te_numero ==null" >---</p>
 							        	</div>
-							        </div>
+							        </div>-->
 							        <div class="col-lg-3 col-md-6 col-sm-6 col-xs-6">
 								        <label class="control-label">Número Fax:</label>
 							        	<div class="">
-							            	<p ng-if="establecimiento.establecimientos.es_fax !=null" >{{establecimiento.establecimientos.es_fax}}</p>
-							            	<p ng-if="establecimiento.establecimientos.es_fax ==null" >---</p>
+							            	<p ng-if="establecimiento.usa_fax !=null" >{{establecimiento.usa_fax}}</p>
+							            	<p ng-if="establecimiento.usa_fax ==null" >---</p>
 							        	</div>
 							        </div>
 							        <div class="col-lg-6 col-md-6 col-sm-6 col-xs-12">
 								        <label class="control-label">Correo electrónico:</label>
 							        	<div class="">
-							        	    <p ng-if="establecimiento.establecimientos.es_correo_electronico !=''">{{establecimiento.establecimientos.es_correo_electronico}}</p>
-							        	    <p ng-if="establecimiento.establecimientos.es_correo_electronico ==''">---</p>
+							        	    <p ng-if="establecimiento.usa_correo_electronico !=''">{{establecimiento.usa_correo_electronico}}</p>
+							        	    <p ng-if="establecimiento.usa_correo_electronico ==''">---</p>
 							        	</div>
 							        </div>
 							        <div class="col-lg-6 col-md-6 col-sm-6 col-xs-12">
 								        <label class="control-label">Página institucional:</label>
 							        	<div class="">
-							            	<p ng-if="establecimiento.establecimientos.es_direccion_web !=''">{{establecimiento.establecimientos.es_direccion_web}}</p>
-							            	<p ng-if="establecimiento.establecimientos.es_direccion_web ==''">---</p>
+							            	<p ng-if="establecimiento.usa_direccion_web !=''">{{establecimiento.usa_direccion_web}}</p>
+							            	<p ng-if="establecimiento.usa_direccion_web ==''">---</p>
 							        	</div>
 							        </div>
-							        <div class="col-lg-6 col-md-6 col-sm-6 col-xs-12">
+							      <!--   <div class="col-lg-6 col-md-6 col-sm-6 col-xs-12">
 								        <label class="control-label">Resolución Ministerial:</label>
 							        	<div class="">
 							            	<p >{{establecimiento.establecimientos.es_numero_rm}}</p>
 							        	</div>
-							        </div>
+							        </div> 
 							        <div class="col-lg-6 col-md-6 col-sm-6 col-xs-6">
 								        <label class="control-label">Horas:</label>
 							        	<div class="">
 							            	<p >{{establecimiento.establecimientos.es_horas}}</p>
 							        	</div>
-							        </div>
+							        </div>-->
 							        <div class="col-lg-6 col-md-6 col-sm-6 col-xs-6">
 								        <label class="control-label">Horario:</label>
 							        	<div class="">
-							        	    <p >{{establecimiento.establecimientos.es_inicio_atencion  | date: 'H:mm'}} - {{establecimiento.establecimientos.es_final_atencion | date: 'H:mm'}}</p>
+							        	    <p >{{establecimiento.usa_inicio_atencion  | date: 'H:mm'}} - {{establecimiento.usa_final_atencion | date: 'H:mm'}}</p>
 							        	</div>
 							        </div>
 							        <div class="col-lg-6 col-md-6 col-sm-6 col-xs-6">
 								        <label class="control-label">Fecha de creación:</label>
 							        	<div class="">
-							            	<p >{{establecimiento.establecimientos.es_fecha_creacion}}</p>
+							            	<p >{{establecimiento.usa_fecha_creacion}}</p>
 							        	</div>
 							        </div>
 							        <div class="col-lg-6 col-md-6 col-sm-6 col-xs-6">
 								        <label class="control-label">Inicio de actividad:</label>
 							        	<div class="">
-							        	    <p >{{establecimiento.establecimientos.es_fecha_inicio_actividad}}</p>
+							        	    <p >{{establecimiento.usa_fecha_inicio_actividad}}</p>
 							        	</div>
 							        </div>
-							        <div class="col-lg-6 col-md-6 col-sm-6 col-xs-12">
+							       <!--  <div class="col-lg-6 col-md-6 col-sm-6 col-xs-12">
 								        <label class="control-label">Red:</label>
 							        	<div class="">
 							            	<p >{{establecimiento.reds.red_nombre}}</p>
 							        	</div>
-							        </div>
+							        </div> 
 							        <div class="col-lg-6 col-md-6 col-sm-6 col-xs-12">
 								        <label class="control-label">Tipo:</label>
 							        	<div class="">
@@ -139,13 +139,13 @@
 							        	<div class="">
 							            	<p >{{establecimiento.establecimientos.es_nivel}}</p>
 							        	</div>
-							        </div>
+							        </div>-->
 							    </div>
 							</div>
 						</div>
-		            </pane>
+		           <!--  </pane> -->
 					<!-- ..............DIRECCION................. -->
-		            <pane title="DIRECCIÓN">
+		          <!--   <pane title="DIRECCIÓN"> -->
 		            	<div class="panel">
 							<br>
 							<h4 class="text-center text-primary">II. DIRECCION</h4>
@@ -155,39 +155,39 @@
 							        <div class="col-lg-6 col-md-6 col-sm-6 col-xs-12">
 								        <label class="control-label">Municipio:</label>
 							        	<div class="">
-							            	<p>{{establecimiento.municipios.mun_nombre}}</p>
+							            	<p>{{establecimiento.usa_municipio}}</p>
 							        	</div>
 							        </div>
 							        <div class="col-lg-6 col-md-6 col-sm-6 col-xs-12">
 								        <label class="control-label">Zona/Localidad/Comunidad:</label>
 							        	<div class="">
-							        	    <p>{{establecimiento.establecimientos.es_zona_localidad_comuni}}</p>
+							        	    <p>{{establecimiento.usa_zona_localidad_comuni}}</p>
 							        	</div>
 							        </div>
 							        <div class="col-lg-6 col-md-6 col-sm-6 col-xs-12">
 								        <label class="control-label">Av./Calle:</label>
 							        	<div class="">
-							            	<p>{{establecimiento.establecimientos.es_avenida_calle}}</p>
+							            	<p>{{establecimiento.usa_avenida_calle}}</p>
 							        	</div>
 							        </div>
 							        <div class="col-lg-6 col-md-6 col-sm-6 col-xs-12">
 								        <label class="control-label">Número:</label>
 							        	<div class="">
-							            	<p>{{establecimiento.establecimientos.es_numero}}</p>
+							            	<p>{{establecimiento.usa_numero}}</p>
 							        	</div>
 							        </div>
 							        <div class="col-lg-6 col-md-6 col-sm-6 col-xs-12">
 								        <label class="control-label">Latitud:</label>
 							        	<div class="">
-							              <p ng-if="establecimiento.establecimientos.es_latitud !=null">{{establecimiento.establecimientos.es_latitud}}</p>
-							              <p ng-if="establecimiento.establecimientos.es_latitud ==null">---</p>
+							              <p ng-if="establecimiento.usa_latitud !=null">{{establecimiento.usa_latitud}}</p>
+							              <p ng-if="establecimiento.usa_latitud ==null">---</p>
 							        	</div>
 							        </div>
 							        <div class="col-lg-6 col-md-6 col-sm-6 col-xs-12">
 								        <label class="control-label">Longitud:</label>
 							        	<div class="">
-							            <p ng-if="establecimiento.establecimientos.es_longitud !=null">{{establecimiento.establecimientos.es_longitud}}</p>
-							            <p ng-if="establecimiento.establecimientos.es_longitud ==null">---</p>
+							            <p ng-if="establecimiento.usa_longitud !=null">{{establecimiento.usa_longitud}}</p>
+							            <p ng-if="establecimiento.usa_longitud ==null">---</p>
 							        	</div>
 							        </div>
 							        <!--
@@ -201,9 +201,9 @@
 								</div>
 							</div>
 						</div>
-		            </pane>
+		      <!--       </pane> -->
 	 				<!-- ..............SERVICIOS................. -->
-		            <pane title="SERVICIOS">
+		          <!--   <pane title="SERVICIOS">
 		            	<div class="panel">
 							<br>
 							<h4 class="text-center text-primary">III. SERVICIOS</h4>
@@ -218,7 +218,7 @@
 											</form>
 											&nbsp;&nbsp;
 											<!--<button class="btn btn-primary"><span class="glyphicon glyphicon-tasks"></span> Exportar lista en XLS</button>-->
-											<button class="btn btn-default" onclick="generateSER_AE()"><span class="glyphicon glyphicon-save-file"></span> Exportar lista en PDF</button>
+										<!-- 	<button class="btn btn-default" onclick="generateSER_AE()"><span class="glyphicon glyphicon-save-file"></span> Exportar lista en PDF</button>
 											<div class="clearfix"></div>
 										</div>
 									</div>
@@ -259,9 +259,9 @@
 								</div>
 							</div>
 						</div>
-		            </pane>
+		            </pane>  -->
 					<!-- ...............CONSULTORIOS.............. -->
-		            <pane title="CONSULTORIOS">
+		          <!--   <pane title="CONSULTORIOS">
 						<div class="panel">
 							<br>
 							<h4 class="text-center text-primary">IV. CONSULTORIOS</h4>
@@ -272,7 +272,7 @@
 										<div class="well well-sm">
 											<strong class="pull-left lead">Herramientas: &nbsp;</strong>
 											<form class="form-inline pull-left">
-												<input type="text" class="form-control" placeholder="Filtrar por ..." ng-model="se_nombre">
+												<input type="text" class="form-control" placeholder="Filtrar por ..." ng-model="con_nombre">
 											</form>
 											&nbsp;&nbsp;
 											<button class="btn btn-default" onclick="generateCON()"><span class="glyphicon glyphicon-save-file"></span> Exportar lista en PDF</button>
@@ -304,16 +304,16 @@
 								</div>
 							</div>
 						</div>
-		            </pane>
+		            </pane> -->
 					<!-- ...............FUNCIONARIOS.............. ............................-->
-		            <pane title="FUNCIONARIOS">
+		           <!--  <pane title="FUNCIONARIOS">
 						<div class="panel">
 							<br>
 							<h4 class="text-center text-primary">V. FUNCIONARIOS</h4>
 							<hr class="bg-green">
-							<div class="panel-body">
+							<div class="panel-body"> -->
 								<!--  ...............herramientas................ -->
-								<div class="row">
+								<!-- <div class="row">
 									<div class="col-md-12">
 									<div class="well well-sm">
 										<strong class="pull-left lead">Herramientas: &nbsp;</strong>
@@ -325,10 +325,10 @@
 										<button class="btn btn-default" ng-click="cuenta_funcionarios()"><span class="glyphicon glyphicon-user"></span> Asignar administrador</button>
 									</div>
 									</div>
-								</div>
+								</div> -->
 								<!--  .............../herramientas................ -->
-								<!--  ...............contenido................ -->
-								<div class="form-group " ng-controller="FuncionarioEstCtrl">
+								<!--  ...............contenido FuncionarioEstCtrl................ -->
+								<!-- <div class="form-group " ng-controller="FuncionarioCtrl">
 									<div ng-show="loading" class="text-center"><br><img ng-src="./images/image.gif"  class="loader-img"></div>
       								<div ng-show="!loading && !msg">No se encontraron resultados</div>
 								    <div class="table-responsive">
@@ -380,7 +380,7 @@
 								</div>
 							</div>
 						</div>
-		            </pane>
+		            </pane> -->
 		            <!--<pane title="HORARIO DE ATENCIÓN">
 						<div class="panel">
 							<div class="panel-body">
@@ -417,7 +417,7 @@
 						</div>
 		            </pane>-->
 
-		        </tabs>
+		   <!--      </tabs> -->
 			<!-- AQUI VAN LOAS TABLAS O FORMULARIOS incrustados -->
 			</div>
 		</div>

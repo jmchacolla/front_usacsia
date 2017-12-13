@@ -74,6 +74,13 @@ angular.module("adminApp")
     update: {method: "PUT", params: {}}
   })
 }])
+// ==================== E S T A B L E C I M I E N T O S ============================================================
+//Lista los establecimientos usacsia
+.factory('Establecimientos', ['$resource', 'CONFIG', function ($resource, CONFIG){
+  return $resource(CONFIG.DOMINIO_SERVICIOS+"/usacsia/:usa_id", {usa_id:"@_usa_id"}, {
+    update: {method: "PUT", params: {usa_id: "@eusa_id"}}
+  })
+}])
 
 
 
@@ -130,11 +137,11 @@ angular.module("adminApp")
 
 // ==================== E S T A B L E C I M I E N T O S ============================================================
 //Lista los establecimientos de salud
-.factory('Establecimientos', ['$resource', 'CONFIG', function ($resource, CONFIG){
+/*.factory('Establecimientos', ['$resource', 'CONFIG', function ($resource, CONFIG){
   return $resource(CONFIG.DOMINIO_SERVICIOS+"/establecimiento_salud/:es_id", {es_id:"@_es_id"}, {
     update: {method: "PUT", params: {es_id: "@es_id"}}
   })
-}])
+}])*/
 //Listar establecimientos de salud por red
 .factory('Establecimiento', ['$resource', 'CONFIG', function ($resource, CONFIG){//Establecimientos por Red
   return $resource(CONFIG.DOMINIO_SERVICIOS+"/establecimiento_salud_red/:red_id",  {red_id:"@_red_id"}, {
