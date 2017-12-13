@@ -46,10 +46,10 @@ CONTROLADORES PARA LAS PAGINAS PUBLICAS
 	}
 	$scope.initMap = function(){
 		var cercanos;
-			  var infowindow = new google.maps.InfoWindow();
-			  var marker, i;
-		 navigator.geolocation.getCurrentPosition(function(pos) {
-			  $scope.position = new google.maps.LatLng(pos.coords.latitude, pos.coords.longitude);
+		var infowindow = new google.maps.InfoWindow();
+		var marker, i;
+		navigator.geolocation.getCurrentPosition(function(pos) {
+		$scope.position = new google.maps.LatLng(pos.coords.latitude, pos.coords.longitude);
 //              console.log(JSON.stringify($scope.position));
 				
 			  $scope.latitud_usuario = pos.coords.latitude;
@@ -61,9 +61,9 @@ CONTROLADORES PARA LAS PAGINAS PUBLICAS
 				var image = './images/marcador_mapa.png';
 				for (i in $scope.establecimientos) {  
 					marker = new google.maps.Marker({
-					  position: new google.maps.LatLng($scope.establecimientos[i].es_latitud, $scope.establecimientos[i].es_longitud),
-					  map: map,
-					  icon: image
+					position: new google.maps.LatLng($scope.establecimientos[i].es_latitud, $scope.establecimientos[i].es_longitud),
+					map: map,
+					icon: image
 					});
 					google.maps.event.addListener(marker, 'click', (function(marker,i) {
 					  return function() {
@@ -71,7 +71,7 @@ CONTROLADORES PARA LAS PAGINAS PUBLICAS
 						infowindow.open(map, marker);
 					  }
 					})(marker,i));
-				  }			  
+				}			  
 			  });
 
 			  // Creamos un objeto mapa y lo situamos en coordenadas actuales
@@ -99,8 +99,6 @@ CONTROLADORES PARA LAS PAGINAS PUBLICAS
 		 })
 	}
 }])
-
-
 .controller('MostrarEstablecimientosCtrl', ['$scope', 'Establecimientos', '$routeParams', function ($scope, Establecimientos, $routeParams){
 	//$scope.ajustes es un objeto de configuracion de las paginas y menus
 	$scope.ajustes = {

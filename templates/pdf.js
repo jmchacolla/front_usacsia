@@ -307,15 +307,13 @@ function generateCON() {
 function generateCon_usa() {
         var pdfsize = 'a4';
         var pdf = new jsPDF('l', 'pt', 'letter');  
-
-
         pdf.setProperties({
           title: 'Lista de consultorios'
         });
 
         var totalPagesExp = "{total_pages_count_string}";
         var pageContent = function (data) {
-          console.log("dataaa",data);
+
              // HEADER
               pdf.text(280,30, "LISTA DE CONSULTORIOS");
             //FOOTER

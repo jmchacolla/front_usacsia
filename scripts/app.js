@@ -210,7 +210,14 @@ angular.module("adminApp", ["authService", "ngRoute", "ngResource", "satellizer"
       authorized: [ROLES.ADMIN_SEDES.ROL]
     }*/
   })
-
+  .when('/establecimientossol', {
+    title: 'Establecimientos Solicitantes',
+    templateUrl: 'templates/establecimiento_solicitante/establecimientos.html',
+    controller: 'ListaEstabSolCtrl' /* ,
+  data: {
+      authorized: [ROLES.ADMIN_SEDES.ROL]
+    }*/
+  })
 
 //*******************************==========================PAIS==========================================================================
   .when('/homepais',{

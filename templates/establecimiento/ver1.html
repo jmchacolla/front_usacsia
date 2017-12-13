@@ -10,7 +10,7 @@
 			<div class="col-md-12" >
 				<h2 class="text-primary">
 					<span class="glyphicon glyphicon-th-large" aria-hidden="true"></span>
-					Establecimiento : <strong>{{establecimiento.usa_nombre}}</strong>
+					Establecimiento :<br> <strong>{{establecimiento.usa_nombre}}</strong>
 				</h2>
 				<hr class="bg-red">
 			</div>
@@ -40,6 +40,16 @@
 							            	<p >{{establecimiento.usa_nombre}}</p>
 							        	</div>
 							        </div> -->
+							         <div class="col-md-6">
+								        <label class="text-primary control-label">Geolocalización del establecimiento:
+										<!--Latitud:{{establecimiento.es_latitud}}<br>
+											Longitud:{{establecimiento.es_longitud}}<br>-->
+										</label>				  
+										<ng-map center="{{establecimiento.usa_latitud}},{{establecimiento.usa_longitud}}" zoom="16">
+											<marker position="{{establecimiento.usa_latitud}},{{establecimiento.usa_longitud}}" title="Hello World!"></marker>
+										</ng-map>
+											<br>
+							        </div>
 							        <div class="col-lg-3 col-md-3 col-sm-3 col-xs-6">
 								        <label class="control-label">Código:</label>
 							        	<div class="">
@@ -107,7 +117,7 @@
 		            	<div class="panel">
 							<br>
 							<h4 class="text-center text-primary">II. DIRECCION</h4>
-							<hr class="bg-green">
+							<hr class="bg-red">
 							<div class="panel-body">
 								<div class="form-group">
 							        <div class="col-lg-6 col-md-6 col-sm-6 col-xs-12">
