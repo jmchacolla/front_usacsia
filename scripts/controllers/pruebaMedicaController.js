@@ -16,7 +16,6 @@ angular.module("adminApp")
   $scope.sortType = 'per_id'; // set the default sort type
   $scope.sortReverse  = true;  // set the default sort order
   $scope.Personas = [];
-
   $scope.loading=true;//para hacer un loading
   var pt_id = $routeParams.pt_id;
   console.log(pt_id,'es el pt');
