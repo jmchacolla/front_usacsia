@@ -21,31 +21,7 @@ angular.module("adminApp")
     {
       $scope.prueba_medica = data.prueba_medica;
       console.log('la data',data);
-
     });
-
-    // listar enfermedades
-    
-    // Enfermedades.get(function(data)
-    // {
-    //   $scope.enfermedad = data.enfermedad;
-
-    // });
-    //   $scope.save = function(pm_fc, pm_fr, pm_pa_sistolica, pm_pa_diastolica, pm_temperatura, pm_peso, pm_peso, pm_talla, pm_talla, pm_peso, pm_talla,pm_imc){
-    
-    //     PruebaMedica.save($scope.pruebamed).$promise.then(function(data)
-    //     {
-    //         console.log('prueba medica ---------', data);
-    //           if(data.mensaje){
-    //           toastr.success('Registro realizado correctamente');
-    //           $timeout(function() {
-    //              $location.path('/prueba-medica/prueba/'+pt_id);
-    //               },1000);
-    //         }
-    //     })
-    // }
-
-
     $scope.cambiartrue=function (enfe_id, enf_nombre, pre_id) {
       $scope.pruebaenfermedad={
         enfe_id:enfe_id,
@@ -77,12 +53,18 @@ angular.module("adminApp")
       
     }
 
-$pru=$scope.prueba_medica.prueba_medica;
-$scope.diagnostico = function (pm_diagnostico) {
-  $pru={pm_diagnostico:pm_diagnostico};
-  PruebaMedica.update($prueba_medica)
-}
+
+    $scope.diagnostico = function (pm_diagnostico) {
+      $scope.prueba={pm_diagnostico:pm_diagnostico};
+      console.log($scope.prueba);
+      PruebaMedica.update($scope.prueba, {pm_id:pm_id}, function (data) {
+        console.log('la data---------', data);
+        if (data.mensaje) {
+          toastr.success('Diagnostico guardado exitosamente');
+        }
+      })
+    }
     
 }])
 
-pm_id, pt_id, ser_id, fun_id, pm_fr, pm_fc, pm_peso, pm_diagnostico, pm_estado, pm_fecha, pm_pa_sistolica, pm_pa_diastolica, pm_temperatura, pm_imc, pm_talla
+// pm_id, pt_id, ser_id, fun_id, pm_fr, pm_fc, pm_peso, pm_diagnostico, pm_estado, pm_fecha, pm_pa_sistolica, pm_pa_diastolica, pm_temperatura, pm_imc, pm_talla

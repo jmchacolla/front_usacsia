@@ -49,8 +49,8 @@ angular.module("adminApp")
       pm_peso:null,
       pm_talla:null,
       pm_imc:null,
-      pm_fecha:"",
-      pm_diagnostico:"",
+      // pm_fecha:"",
+      // pm_diagnostico:"",
    };
    //calculando IMC
    var peso=0;
@@ -71,7 +71,7 @@ angular.module("adminApp")
    }
 
 
-    $scope.save = function(pm_fc, pm_fr, pm_pa_sistolica, pm_pa_diastolica, pm_temperatura, pm_peso, pm_peso, pm_talla, pm_talla, pm_peso, pm_talla,pm_imc){
+    $scope.save = function(pm_fc, pm_fr, pm_pa_sistolica, pm_pa_diastolica, pm_temperatura, pm_peso, pm_imc,  pm_talla){
  
       PruebaMedica.save($scope.pruebamed).$promise.then(function(data)
       {
@@ -79,7 +79,7 @@ angular.module("adminApp")
             if(data.mensaje){
             toastr.success('Registro realizado correctamente');
             $timeout(function() {
-               $location.path('/prueba-medica/prueba/'+pt_id);
+               $location.path('/prueba-medica/prueba/'+data.prueba_medica.prueba_medica.pm_id);
                 },1000);
           }
       })
