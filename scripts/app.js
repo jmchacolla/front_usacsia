@@ -26,6 +26,16 @@ angular.module("adminApp", ["authService", "ngRoute", "ngResource", "satellizer"
       authorized: [ROLES.ADMIN_SEDES.ROL, ROLES.ADMIN_ESTAB.ROL, ROLES.ADMIN_MEDICO.ROL]
     }*/
   })
+//persona_tramite lista para atender pacientes
+
+.when('/atencion', {//--------medico
+  templateUrl: 'templates/personatramite/atencion.html',
+  controller: 'AtencionCtrl',
+  /*    data: {
+        authorized: [ROLES.ADMIN_SEDES.ROL, ROLES.ADMIN_ESTAB.ROL, ROLES.ADMIN_MEDICO.ROL]
+      }*/
+})
+
 
   // ======================================/jhon==========================================================================
 
@@ -250,7 +260,6 @@ angular.module("adminApp", ["authService", "ngRoute", "ngResource", "satellizer"
 
 
 /*===================================VERONICA================================================*/
-
 /*-----------------------------laboratorista---------------------------------*/
 
   .when('/prueba-laboratorio', {
@@ -261,24 +270,70 @@ angular.module("adminApp", ["authService", "ngRoute", "ngResource", "satellizer"
     // }
   })
 
-/*-----------------------------tramites---------------------------------*/
+
+
+  /*-----------------------------asignacion de numero de muestra---------------------------------*/
+  .when('/numero-muestra/crear', {
+    templateUrl: 'templates/muestra/create.html',
+    controller: 'NumeroMuestraController'
+  })
+
+  .when('/numero-muestra', {
+    templateUrl: 'templates/muestra/index.html',
+    controller: 'ListarMuestraController'
+    // data: {
+    //   authorized: [ROLES.ESTADISTICA.ROL, ROLES.RECAUDADOR.ROL, ROLES.ESTAD_RECAU_ENFER.ROL]
+    // }
+  })
+
+
+  /*---------------------------busqueda de personas preregistradas para pago de tramite------------------------------*/
+  .when('/tramite/crear', {
+    templateUrl: 'templates/personatramite/create.html',
+    controller: 'CrearPersonaTramiteCtrl'
+  })
+
+  /*-----------------------------tramites---------------------------------*/
 
   .when('/tramites', {
     templateUrl: 'templates/personatramite/index.html',
     controller: 'PersonaTramiteController'
   })
 
-  /*-----------------------------asignacion de numero de muestra---------------------------------*/
-  .when('/asignar-numero-muestra', {
-    templateUrl: 'templates/pruebalaboratorio/create.html',
-    controller: 'NumeroMuestraController'
+
+  /*--------------------------------------------------------------------------------------------*/
+
+
+  .when('/parasito/crear', {
+    templateUrl: 'templates/parasito/crear.html',
+    controller: 'CrearParasitoCtrl'
   })
 
+  .when('/parasito', {
+    templateUrl: 'templates/parasito/index.html',
+    controller: 'ListarParasitoCtrl'
+  })
 
-  /*---------------------------BUSQUEDA DE PERSONAS PREREGISTRADAS------------------------------*/
-  .when('/buscar-persona', {
-    templateUrl: 'templates/personatramite/create.html',
-    controller: 'BusquedaPersonaController'
+  .when('/parasito/editar/:par_id', {
+    templateUrl: 'templates/parasito/editar.html',
+    controller: 'EditarParasitoCtrl'
+  })
+
+  .when('/parasito/ver/:par_id', {
+    templateUrl: 'templates/parasito/ver.html',
+    controller: 'VerParasitoCtrl'
+  })
+
+/*tratamientos*/
+
+  .when('/tratamiento/crear', {
+    templateUrl: 'templates/tratamiento/crear.html',
+    controller: 'CrearTratamientoCtrl'
+  })
+
+  .when('/tratamiento', {
+    templateUrl: 'templates/tratamiento/index.html',
+    controller: 'ListarTratamientoCtrl'
   })
   /*===================================VERONICA================================================*/
 
@@ -1146,28 +1201,7 @@ angular.module("adminApp", ["authService", "ngRoute", "ngResource", "satellizer"
     }
   })
   
-  //===========================RED==========================================================================
-  .when('/homered',{
-   templateUrl:'templates/redes/list.html',
-   controller: 'RedCtrl',
-    data: {
-      authorized: [ROLES.ADMIN_SEDES.ROL]
-    }
-  })
-   .when('/createred', {
-    templateUrl:'templates/redes/create.html',
-    controller: 'CreateCtrlRed',
-    data: {
-      authorized: [ROLES.ADMIN_SEDES.ROL]
-    }
-  })
-  .when('/editred/:red_id', {
-    templateUrl:'templates/redes/edit.html',
-    controller: 'EditCtrlRed',
-    data: {
-      authorized: [ROLES.ADMIN_SEDES.ROL]
-    }
-  })
+
   
   //===========================TIPO==========================================================================
   .when('/hometipo',{//Lista los tipos de establecimientos de salud
