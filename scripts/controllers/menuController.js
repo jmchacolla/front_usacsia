@@ -59,9 +59,9 @@ angular.module('adminApp')
 		var SesionG = localStorage.getItem("Sesion");
   		var SesionG = JSON.parse(SesionG);
   		console.log(typeof localStorage.getItem("DOS_ESTAB"));
-		if(SesionG.roles.length>1 || localStorage.getItem("DOS_ESTAB")=="2"){
+		/*if(SesionG.roles.length>1 || localStorage.getItem("DOS_ESTAB")=="2"){
 			vm.cambia_rol=true;
-		}
+		}*/
 		
 		var FunG = localStorage.getItem("Funcionario");
 		var FunG = JSON.parse(FunG);

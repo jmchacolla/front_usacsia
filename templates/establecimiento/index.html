@@ -20,7 +20,7 @@
 			<div class="well well-sm">
 				<strong class="pull-left lead">Herramientas: &nbsp;</strong>
 				<form class="form-inline pull-left">
-					<input type="text" class="form-control" placeholder="Filtrar por ..." ng-model="es_nombre">
+					<input type="text" class="form-control" placeholder="Filtrar por ..." ng-model="usa_nombre">
 				</form>
 				&nbsp;&nbsp;
 				<!--<button class="btn btn-primary"><span class="glyphicon glyphicon-tasks"></span> Exportar lista en XLS</button>-->
@@ -40,17 +40,17 @@
 			<table class="table table-hovertable table-bordered table-striped table-hover" ng-show="!loading && msg" id="tablaES">
 				<thead >
 					<!--<th >Nº</th>-->
-					<th >Código</th>
+					<!-- <th >Código</th> -->
 					<th >
-						<a href="" ng-click="sortType = 'es_nombre'; sortReverse = !sortReverse">
+						<a href="" ng-click="sortType = 'usa_nombre'; sortReverse = !sortReverse">
 	                	Nombre
-	                	<span ng-show="sortType == 'es_nombre' && !sortReverse" class="glyphicon glyphicon-sort-by-alphabet-alt"></span>
-	                    <span ng-show="sortType == 'es_nombre' && sortReverse" class="glyphicon glyphicon-sort-by-alphabet"></span>
+	                	<span ng-show="sortType == 'usa_nombre' && !sortReverse" class="glyphicon glyphicon-sort-by-alphabet-alt"></span>
+	                    <span ng-show="sortType == 'usa_nombre' && sortReverse" class="glyphicon glyphicon-sort-by-alphabet"></span>
 	                    </a>
 					</th>
-					<th >Nivel</th>
+					<!-- <th >Nivel</th>
 					<th >Horario</th>
-					<th >Red</th>
+					<th >Red</th> -->
 					<th >Municipio</th>
 					<th >Ver</th>
 					<th>Editar</th>
@@ -59,38 +59,38 @@
 				<tbody ng-repeat="establecimiento in establecimientos | orderBy:sortType:sortReverse | filter:es_nombre | startFromGrid: currentPage * pageSize | limitTo: pageSize ">
 				  <tr>
 				  	<!--<td>{{$index + 1}}</td>-->
-					<td>{{establecimiento.es_codigo}}</td>
-					<td> <a href="#/establecimientos/ver/{{establecimiento.es_id}}">{{establecimiento.es_nombre}}</a></td>
-					<td>{{establecimiento.es_nivel}}</td>
+					<!-- <td>{{establecimiento.es_codigo}}</td> -->
+					<td> <a href="#/establecimientos/ver/{{establecimiento.es_id}}">{{establecimiento.usa_nombre}}</a></td>
+					<!-- <td>{{establecimiento.es_nivel}}</td>
 					<td>{{establecimiento.es_inicio_atencion + " - " + establecimiento.es_final_atencion}}</td>
-					<td>{{establecimiento.red_nombre}}</td>
-					<td>{{establecimiento.mun_nombre}}</td>
+					<td>{{establecimiento.red_nombre}}</td> -->
+					<td>{{establecimiento.usa_municipio}}</td>
 					<td><!--Ver Establecimiento-->
-						<a class="btn btn-success" href="#/establecimientos/ver/{{establecimiento.es_id}}" title="Ver Establecimiento" ><span class="glyphicon glyphicon-file "></span></a>
+						<a class="btn btn-success" href="#/establecimientos/ver/{{establecimiento.usa_id}}" title="Ver Establecimiento wendy" ><span class="glyphicon glyphicon-file "></span></a>
 					</td>
 					<td><!--Editar establecimiento-->
-						<a ng-href="#/establecimientos/edit/{{establecimiento.es_id}}" class="btn btn-primary" title="Editar Establecimiento" ><span class="glyphicon glyphicon-pencil "></span></a>
+						<a ng-href="#/establecimientos/edit/{{establecimiento.usa_id}}" class="btn btn-primary" title="Editar Establecimiento" ><span class="glyphicon glyphicon-pencil "></span></a>
 					</td>
 					<td>
 						<!-- BOTON PARA CUADROS MODALES -->
-					  	<button class="btn btn-danger" title="Eliminar Establecimiento" data-toggle="modal" data-target="#miCuadroModal1" ng-click="get_es_id(establecimiento.es_id, establecimiento.es_nombre)"><span class="glyphicon glyphicon-trash "></span></button>
+					  	<button class="btn btn-danger" title="Eliminar Establecimiento" data-toggle="modal" data-target="#miCuadroModal1" ng-click="get_es_id(establecimiento.usa_id, establecimiento.es_nombre)"><span class="glyphicon glyphicon-trash "></span></button>
 					  	<!--CUADRO MODAL-->
 					  	<div id="miCuadroModal1" class="modal fade" role="dialog" tabindex="-1">
 						  <div class="modal-dialog">
 						    <div class="modal-content">
 						      <div class="modal-header bg-green">
 						        <button type="button" class="close" data-dismiss="modal">×</button>
-						        <h4 class="modal-title fg-white">ELIMINAR ESTABLECIMIENTO DE SALUD</h4>
+						        <h4 class="modal-title fg-white">ELIMINAR ESTABLECIMIENTO USACSIA</h4>
 						      </div>
 						      <div class="modal-body lead text-center">
-						        ¿Esta seguro que desea eliminar este establecimiento de salud?
+						        ¿Esta seguro que desea eliminar este establecimiento USACSIA?
 						        <br>
 						        <div class="well well-sm">
 									<strong>{{nombre | uppercase}}</strong>
 								</div>
 						      </div>
 						      <div class="modal-footer">
-						        <button type="button" class="btn btn-primary" data-dismiss="modal" ng-click="remove(establecimiento.es_id)">
+						        <button type="button" class="btn btn-primary" data-dismiss="modal" ng-click="remove(establecimiento.usa_id)">
 									<span class="glyphicon glyphicon-ok"></span>
 									SI
 								</button>

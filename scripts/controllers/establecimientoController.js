@@ -6,19 +6,18 @@ angular.module("adminApp")
   $scope.ajustes = {
     //Configuraciones del menu:
     menu:{
-      titulo: 'Gestión de Establecimientos de Salud',
+      titulo: 'Gestión de Establecimientos USACSIA',
       items:[
         {nombre:'Establecimientos', enlace:'#/establecimientos', estilo:'active'},
-        {nombre:'Nuevo establecimiento', enlace:'#/establecimientos/create', estilo:''},
-        {nombre:'Establecimientos por Red', enlace:'#/red/establecimientos', estilo:''}]
+        {nombre:'Nuevo establecimiento', enlace:'#/establecimientos/create', estilo:''}]
     },
     //Configuraciones de la página
     pagina:{
-      titulo:'Establecimientos de Salud'
+      titulo:'Establecimientos USACSIA'
     }
   }
 
-  $scope.sortType = 'es_id'; // set the default sort type
+  $scope.sortType = 'usa_id'; // set the default sort type
   $scope.sortReverse  = false;  // set the default sort order
   $scope.establecimientos = [];
   
@@ -35,7 +34,7 @@ angular.module("adminApp")
   };
 
   Establecimientos.get(function(data){
-    $scope.establecimientos = data.establecimiento;
+    $scope.establecimientos = data.usacsia;
     //PARA HACER UN LOADING EN EL TEMPLATE
     if(data.status){
       $scope.loading = false;
@@ -50,8 +49,8 @@ angular.module("adminApp")
 
   var id = 0;
   $scope.nombre = "";
-  $scope.get_es_id = function(es_id, es_nombre){
-    id=es_id;
+  $scope.get_es_id = function(usa_id, es_nombre){
+    id=usa_id;
     $scope.nombre = es_nombre;
   }
 
@@ -98,12 +97,114 @@ angular.module("adminApp")
   //fin paginación 
 }])
 
+.controller('VerEstablecimientoCtrl', ['CONFIG', 'authUser','$scope','Establecimientos','Funcionario', '$routeParams', '$location', '$timeout',
+  function (CONFIG, authUser,$scope, Establecimientos, Funcionario, $routeParams, $location, $timeout){
+  /*if(authUser.isLoggedIn()){*/
+
+    if(CONFIG.ROL_CURRENT_USER == 1)
+    {
+      $scope.ajustes = {
+        menu:{
+          titulo: 'Gestión de Establecimientos de Salud',
+          items:[
+            {nombre:'Establecimientos', enlace:'#/establecimientos', estilo:''},
+            {nombre:'Nuevo Establecimiento', enlace:'#/establecimientos/create', estilo:''},
+            {nombre:'Establecimientos por Red', enlace:'#/red/establecimientos', estilo:''}]
+        },
+        pagina:{
+          titulo:'Información General del Establecimiento'
+        }
+      }
+    }
+   /* else if(CONFIG.ROL_CURRENT_USER == 2 || CONFIG.ROL_CURRENT_USER == 9){
+      $scope.ajustes = {
+        menu:{
+          titulo: 'Gestión del Establecimiento de Salud',
+          items:[
+            {nombre:'Establecimiento', enlace:'#/establecimientos/ver', estilo:'active'},
+            {nombre:'Editar Establecimiento', enlace:'#/establecimientos/edit', estilo:''}]
+        },
+        pagina:{
+          titulo:'Información General del Establecimiento'
+        }
+      }
+    }
+    else{
+      $scope.ajustes = {
+        menu:{
+          titulo: 'Gestión del Establecimiento de Salud',
+          items:[
+            {nombre:'Establecimiento', enlace:'#/establecimientos/ver', estilo:'active'}]
+        },
+        pagina:{
+          titulo:'Información General del Establecimiento'
+        }
+      }
+    }*/
+  /*  var es_id = 0;
+    if(CONFIG.ROL_CURRENT_USER == 1)
+    {
+      es_id = $routeParams.es_id;
+    }else{
+      var FunG = localStorage.getItem("Funcionario");
+      var FunG = JSON.parse(FunG);
+      es_id = FunG.es_id;
+    }*/
+    Establecimientos.get({usa_id:usa_id}, function(data){
+      $scope.establecimiento = data.usacsia;
+
+      $scope.establecimiento.usa_fecha_creacion = moment($scope.establecimiento.usa_fecha_creacion,"YYYY-MM-DD").format("DD-MM-YYYY");
+      $scope.establecimiento.usa_fecha_inicio_actividad = moment($scope.establecimiento.usa_fecha_inicio_actividad,"YYYY-MM-DD").format("DD-MM-YYYY");
+      $scope.establecimiento.usa_inicio_atencion = toTime($scope.establecimiento.usa_inicio_atencion);
+      $scope.establecimiento.usa_final_atencion = toTime($scope.establecimiento.usa_final_atencion);
+    });
+
+    $scope.cuenta_funcionarios = function(){
+      Funcionario.get({es_id:es_id}, function(data){
+        $scope.funcionarios = data.funcionario;
+        if($scope.funcionarios.length>0) {
+          $timeout(function() {
+            $location.path('/usuario/create/'+es_id);
+          },0);
+        }  
+        else {
+          $timeout(function() {
+            $location.path('/funcionarios/createf/'+es_id);
+          },0);
+        }  
+      })
+
+    }
+    function toTime(timeString){
+      var timeTokens = timeString.split(':');
+      return new Date(1970,0,1, timeTokens[0], timeTokens[1], timeTokens[2]);
+    }
+
+ /* } else {
+    $location.path('/inicio');
+  }*/
+}])
 .filter('startFromGrid', function() {
    return function(input, start) {
       start = +start;
       return input.slice(start);
    };
 })
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 .controller('CreateEstablecimientoCtrl', ['$scope','Establecimientos', 'Redes', '$location', '$timeout', 'toastr',
  function ($scope, Establecimientos, Redes, $location, $timeout, toastr){

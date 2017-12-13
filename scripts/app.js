@@ -116,7 +116,7 @@ angular.module("adminApp", ["authService", "ngRoute", "ngResource", "satellizer"
     }*/
   })
   //crar funcionario cuando ya existe la persona
-    .when('/funcionarios/createfuncionario', {
+    .when('/funcionarios/createfo', {
     templateUrl: 'templates/funcionario/create.html',
     controller: 'CreateFunCtrl',
    /* data: {
@@ -192,6 +192,26 @@ angular.module("adminApp", ["authService", "ngRoute", "ngResource", "satellizer"
       authorized: [ROLES.ADMIN_ESTAB.ROL, ROLES.ADMIN_MEDICO.ROL]
     }*/
   })
+
+
+  //***************************E S T A B L E C I M I E N T O S**********************
+  .when('/establecimientos', {
+    title: 'Establecimientos',
+    templateUrl: 'templates/establecimiento/index.html',
+    controller: 'IndexEstablecimientoCtrl' /* ,
+  data: {
+      authorized: [ROLES.ADMIN_SEDES.ROL]
+    }*/
+  })
+  .when('/establecimientos/ver/:usa_id', {
+    templateUrl: 'templates/establecimiento/ver1.html',
+    controller: 'VerEstablecimientoCtrl',
+/*    data: {
+      authorized: [ROLES.ADMIN_SEDES.ROL]
+    }*/
+  })
+
+
 //*******************************==========================PAIS==========================================================================
   .when('/homepais',{
    templateUrl:'templates/pais/list.html',
@@ -260,12 +280,6 @@ angular.module("adminApp", ["authService", "ngRoute", "ngResource", "satellizer"
   })
 
 
-/*-----------------------------tramites---------------------------------*/
-
-  .when('/tramites', {
-    templateUrl: 'templates/personatramite/index.html',
-    controller: 'PersonaTramiteController'
-  })
 
   /*-----------------------------asignacion de numero de muestra---------------------------------*/
   .when('/numero-muestra/crear', {
@@ -280,13 +294,21 @@ angular.module("adminApp", ["authService", "ngRoute", "ngResource", "satellizer"
     //   authorized: [ROLES.ESTADISTICA.ROL, ROLES.RECAUDADOR.ROL, ROLES.ESTAD_RECAU_ENFER.ROL]
     // }
   })
-  
 
-  /*---------------------------BUSQUEDA DE PERSONAS PREREGISTRADAS------------------------------*/
-  .when('/registrar-pago', {
+
+  /*---------------------------busqueda de personas preregistradas para pago de tramite------------------------------*/
+  .when('/tramite/crear', {
     templateUrl: 'templates/personatramite/create.html',
-    controller: 'RegistrarPagoTramiteCtrl'
+    controller: 'CrearPersonaTramiteCtrl'
   })
+
+  /*-----------------------------tramites---------------------------------*/
+
+  .when('/tramites', {
+    templateUrl: 'templates/personatramite/index.html',
+    controller: 'PersonaTramiteController'
+  })
+
 
   /*--------------------------------------------------------------------------------------------*/
 
@@ -311,15 +333,9 @@ angular.module("adminApp", ["authService", "ngRoute", "ngResource", "satellizer"
     controller: 'VerParasitoCtrl'
   })
 
-  .when('/login_u', {
-    templateUrl: 'templates/login_u.html',
-    controller: 'LoginCtrl'
-  })
-
-
 /*tratamientos*/
 
-    .when('/tratamiento/crear', {
+  .when('/tratamiento/crear', {
     templateUrl: 'templates/tratamiento/crear.html',
     controller: 'CrearTratamientoCtrl'
   })
@@ -439,14 +455,14 @@ angular.module("adminApp", ["authService", "ngRoute", "ngResource", "satellizer"
 
   // ========================= ESTABLECIMIENTOS ============================================================================
   //Lista todos los establecimientos
-  .when('/establecimientos', {
+/*  .when('/establecimientos', {
     title: 'Establecimientos',
     templateUrl: 'templates/establecimiento/index.html',
     controller: 'IndexEstablecimientoCtrl',
     data: {
       authorized: [ROLES.ADMIN_SEDES.ROL]
     }
-  })
+  })*/
   .when('/establecimientos/create', { 
     templateUrl: 'forms/establecimiento/create.html',
     controller: 'CreateEstablecimientoCtrl',
@@ -468,14 +484,14 @@ angular.module("adminApp", ["authService", "ngRoute", "ngResource", "satellizer"
       authorized: [ROLES.ADMIN_SEDES.ROL]
     }
   })
-  .when('/establecimientos/ver', {//Muestra los datos del establecimiento del funcionario
+/*  .when('/establecimientos/ver', {//Muestra los datos del establecimiento del funcionario
     templateUrl: 'templates/establecimiento/datos.html',
     controller: 'VerEstablecimientoCtrl',
     data: {
       authorized: [ROLES.ADMIN_ESTAB.ROL, ROLES.ADMIN_MEDICO.ROL, ROLES.ESTADISTICA.ROL, ROLES.MEDICO.ROL,
                   ROLES.RECAUDADOR.ROL, ROLES.ENFERMERO.ROL, ROLES.ESTAD_RECAU_ENFER.ROL]
     }
-  })
+  })*/
   .when('/establecimientos/edit', {
     templateUrl: 'forms/establecimiento/edit.html',
     controller: 'EditEstablecimientoCtrl',
@@ -626,7 +642,7 @@ angular.module("adminApp", ["authService", "ngRoute", "ngResource", "satellizer"
       authorized: [ROLES.ADMIN_ESTAB.ROL, ROLES.ADMIN_MEDICO.ROL]
     }
   })*/
-  .when('/funcionarios/habilitar/:fe_id/:fe_estado', {
+  .when('/funcionarios/habilitar/:fun_id/:fun_estado', {
     templateUrl: 'templates/funcionario/edit.html',
     controller: 'EditFuncionarioCtrl',
     data: {

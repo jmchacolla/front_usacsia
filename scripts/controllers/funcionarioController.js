@@ -497,27 +497,28 @@ function (/*authUser,*/$scope, Funcionarios, $routeParams, $location, $timeout, 
       console.log($scope.es_id);*/
    /* }*/
     
-    $scope.agregar_fun=function(per_id, ci, nom, ap1, ap2,valor){
+  $scope.agregar_fun=function(per_id, ci, nom, ap1, ap2,valor){
       $scope.fun_id = null;
       $scope.valor=valor;
       $http.get(CONFIG.DOMINIO_SERVICIOS+'/funcionarios_per/'+per_id).success(function(respuesta){
-        if(respuesta.funcionario.funcionario_establecimiento.length !=0){//En caso de que sea funcionario de algún establecimiento
+        if(respuesta.funcionario.length !=0){//En caso de que sea funcionario de algún establecimiento
           //Verificando si el funcionario se encuentra registrado en el establecimiento
-          $scope.fun_id = respuesta.funcionario.funcionario.fun_id;
+          $scope.fun_id = respuesta.funcionario.fun_id;
+          console.log("$sope.fun_id",$scope.fun_id)
           $scope.fe_estado = false;
           $scope.fe_estado_activo = false;
           $scope.fe_id = null;
-          for (var i = 0; i < respuesta.funcionario.funcionario_establecimiento.length; i++) {
-            if(respuesta.funcionario.funcionario_establecimiento[i].es_id == $scope.es_id) {
-              if(respuesta.funcionario.funcionario_establecimiento[i].fe_estado == "INACTIVO"){
+          for (var i = 0; i < respuesta.funcionario.length; i++) {
+           
+              if(respuesta.funcionario[i].fe_estado == "INACTIVO"){
                 $scope.valor="2";
                 $scope.fe_estado = true;
-                $scope.fe_id = respuesta.funcionario.funcionario_establecimiento[i].fe_id;
+                $scope.fe_id = respuesta.funcionario[i].fun_id;
               } else {
                 $scope.valor="1";//Si entra aquí el funcionario esta en el establecimiento
                 $scope.fe_estado_activo = true;
               }
-            }
+           
           };
           console.log($scope.valor);
           if($scope.valor="0"){
@@ -864,15 +865,18 @@ function controladorPrincipal($http, $scope, CONFIG){
 
 function controladorPrincipal_fun($http, $scope, CONFIG){
   $scope.ss="dcs";
+  $scope.mos=false;
   $scope.buscaPersona = function(){
-      $scope.tamanio="Cargando Wendy...";//////CAMBIADO
+      $scope.tamanio="Cargando ";//////CAMBIADO
       $http.get(CONFIG.DOMINIO_SERVICIOS+'/personas_ci/'+$scope.per_ci).success(function(respuesta){
-
+     
           $scope.personas = respuesta.persona;
+          console.log($scope.persona);
           $scope.tamanio=respuesta.persona.length;
           console.log("Aaaaaaaaaaaaaaaaaaaaaa");
           console.log($scope.personas,"PERSONAS",$scope.tamanio);
           if(respuesta.persona.length != 0){
+             $scope.mos=true;
               $scope.aa="cero";
               $scope.msg=true;
               $scope.switch=false;

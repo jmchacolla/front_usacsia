@@ -23,7 +23,7 @@
   		<!-- INICIO -->
 		<form name="userForm" novalidate>
 	       	<!-- ver habilitado por false -->
-	       	<div ng-controller="CrearParasitoTratamientoCtrl">
+	       	<div>
 		       	<div class="well well-sm" style="background-color:#fff;" >
 		            <div class="panel">
 		              	<div class="text-center text-primary">I. DATOS DEL TRATAMIENTO</div>
@@ -47,7 +47,7 @@
 		            </div>
 		            <center>
 		            	<button type="submit" class="btn btn-primary" ng-disabled="userForm.$invalid" ng-click="save($parent.tratamiento)"><span class="glyphicon glyphicon-save"></span>GUARDAR</button>
-		                  <button type="submit" ng-click="vertratamientos(userForm)" data-toggle="modal"  class="btn btn-danger"  ><span class="glyphicon glyphicon-remove"></span> CANCELAR</button>
+		                  <button type="submit" data-toggle="modal"  class="btn btn-danger"  ><span class="glyphicon glyphicon-remove"></span> CANCELAR</button>
 		            </center>
 		       	</div>
 		    </div>
