@@ -315,7 +315,10 @@ angular.module("adminApp", ["authService", "ngRoute", "ngResource", "satellizer"
     templateUrl: 'templates/personatramite/index.html',
     controller: 'PersonaTramiteController'
   })
-
+  .when('/boleta-pago/:pt_id', {
+    templateUrl: 'templates/personatramite/boleta.html',
+    controller: 'BoletaCtrl'
+  })
 
   /*--------------------------------------------------------------------------------------------*/
 
