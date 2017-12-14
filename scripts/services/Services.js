@@ -155,7 +155,21 @@ angular.module("adminApp")
 
 /*asignar numero de muestra*/
 .factory('Muestra', ['$resource', 'CONFIG', function ($resource, CONFIG){
-  return $resource(CONFIG.DOMINIO_SERVICIOS+"/muestra")
+  return $resource(CONFIG.DOMINIO_SERVICIOS+"/muestra/:mue_id",  {par_id:"@_par_id"})
+}])
+
+/*listar parasitos que estan en la prueba*/
+
+.factory('ParasitosPrueba', ['$resource', 'CONFIG', function ($resource, CONFIG){
+  return $resource(CONFIG.DOMINIO_SERVICIOS+"/parasitosprueba/:pl_id",  {pl_id:"@_pl_id"})
+}])
+/*listar parasitos que no estan en la prueba*/
+.factory('ParasitosNoPrueba', ['$resource', 'CONFIG', function ($resource, CONFIG){
+  return $resource(CONFIG.DOMINIO_SERVICIOS+"/parasitos_no_prueba/:pl_id",  {pl_id:"@_pl_id"})
+}])
+
+.factory('PruebaPar', ['$resource', 'CONFIG', function ($resource, CONFIG){
+  return $resource(CONFIG.DOMINIO_SERVICIOS+"/prueba_par/:pp_id",  {pp_id:"@_pp_id"})
 }])
 
 
