@@ -278,9 +278,34 @@ angular.module("adminApp", ["authService", "ngRoute", "ngResource", "satellizer"
 /*===================================VERONICA================================================*/
 /*-----------------------------laboratorista---------------------------------*/
 
+  .when('/buscar-numero-muestra', {
+    templateUrl: 'templates/pruebalaboratorio/buscar_numeromuestra.html',
+    controller: 'CrearPruebaLaboratorioCtrl'
+    // data: {
+    //   authorized: [ROLES.ESTADISTICA.ROL, ROLES.RECAUDADOR.ROL, ROLES.ESTAD_RECAU_ENFER.ROL]
+    // }
+  })
+
+  .when('/prueba-laboratorio/crear/:pl_id', {
+    templateUrl: 'templates/pruebalaboratorio/crear.html',
+    controller: 'EditarPruebaLaboratorioCtrl'
+    // data: {
+    //   authorized: [ROLES.ESTADISTICA.ROL, ROLES.RECAUDADOR.ROL, ROLES.ESTAD_RECAU_ENFER.ROL]
+    // }
+  })
+
+    .when('/pais', {
+    templateUrl: 'templates/pais/list.html',
+    controller: 'PaisCtrl2'
+    // data: {
+    //   authorized: [ROLES.ESTADISTICA.ROL, ROLES.RECAUDADOR.ROL, ROLES.ESTAD_RECAU_ENFER.ROL]
+    // }
+  })
+
+
   .when('/prueba-laboratorio', {
     templateUrl: 'templates/pruebalaboratorio/index.html',
-    controller: 'PruebaLaboratorioController'
+    controller: 'PruebaLaboratorioCtrl'
     // data: {
     //   authorized: [ROLES.ESTADISTICA.ROL, ROLES.RECAUDADOR.ROL, ROLES.ESTAD_RECAU_ENFER.ROL]
     // }
@@ -301,6 +326,7 @@ angular.module("adminApp", ["authService", "ngRoute", "ngResource", "satellizer"
     //   authorized: [ROLES.ESTADISTICA.ROL, ROLES.RECAUDADOR.ROL, ROLES.ESTAD_RECAU_ENFER.ROL]
     // }
   })
+
 
 
   /*---------------------------busqueda de personas preregistradas para pago de tramite------------------------------*/

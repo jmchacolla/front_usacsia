@@ -1,6 +1,6 @@
 'use strict';
 angular.module('adminApp')
-.controller('PaisCtrl', ['$scope', 'Paises',
+.controller('PaisCtrl2', ['$scope', 'Paises',
  function ($scope, Paises) {
 	$scope.ajustes = {
     menu:{
@@ -18,8 +18,6 @@ angular.module('adminApp')
         {nombre:'Gestión de Redes', enlace:'#/homered', estilo:''},
         {nombre:'Gestión de Roles', enlace:'#/homerol', estilo:''},
         {nombre:'Gestión de Cargos', enlace:'#/homecargo', estilo:''}]
-        
-
        },
     pagina:{
       titulo:'Paises'

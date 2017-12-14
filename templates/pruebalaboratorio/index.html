@@ -66,12 +66,12 @@
 				            <span ng-show="sortType == 'per_ci' && sortReverse" class="glyphicon glyphicon-chevron-down"></span>
 						</th>
 						<th >
-							<a href="" ng-click="sortType = 'pac_hist_clinico'; sortReverse = !sortReverse">FUNCIONARIO ID
+							<a href="" ng-click="sortType = 'pac_hist_clinico'; sortReverse = !sortReverse">APELLIDOS
 							<span ng-show="sortType == 'pac_hist_clinico' && !sortReverse" class="glyphicon glyphicon-chevron-up"></span>
 	                        <span ng-show="sortType == 'pac_hist_clinico' && sortReverse" class="glyphicon glyphicon-chevron-down"></span></a>
 						</th>
 						<th >
-							<a href="" ng-click="sortType = 'per_apellido_primero'; sortReverse = !sortReverse">NUMERO DE MUESTRA
+							<a href="" ng-click="sortType = 'per_apellido_primero'; sortReverse = !sortReverse">NOMBRE
 							<span ng-show="sortType == 'per_apellido_primero' && !sortReverse" class="glyphicon glyphicon-chevron-up"></span>
 	                        <span ng-show="sortType == 'per_apellido_primero' && sortReverse" class="glyphicon glyphicon-chevron-down"></span></a>
 						</th>
@@ -90,14 +90,11 @@
 					</thead>
 					<tbody ng-repeat="pl in prueba_laboratorio | orderBy:sortType:sortReverse ">
 					  <tr>
-						<td>{{pl.pl_id}}</td>
-						<td>{{pl.fun_id}}
-						</td>
-						<td>{{pl.pl_num_muestra}}
-						</td>
-						<td>{{pl.pl_estado}}
-						</td>
-						<td>{{pl.pl_tipo_atencion}}</td>
+						<td>{{pl.mue_num_muestra}}</td>
+						<td>{{pl.per_apellido_primero+" "+pl.per_apellido_segundo}}</td>
+						<td>{{pl.per_nombres |uppercase}}</td>
+						<td>{{pl.mue_num_muestra}}</td>
+						<td>{{pl.pl_tipo}}</td>
 						<td>
 							<a href="#/pacientes/ver/{{paciente.pac_id}}" class="btn btn-success"><span class="glyphicon glyphicon-file"></span></a>
 						</td>
