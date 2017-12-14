@@ -164,6 +164,7 @@ angular.module("adminApp")
 .factory('Muestra', ['$resource', 'CONFIG', function ($resource, CONFIG){
   return $resource(CONFIG.DOMINIO_SERVICIOS+"/muestra")
 }])
+/*prueba e*/
 
 
 
@@ -529,8 +530,8 @@ angular.module("adminApp")
 
 //==================== E N F E R M E D A D E S ===========================================================================
 .factory('Enfermedades',['$resource', 'CONFIG', function ($resource, CONFIG) {
-  return $resource(CONFIG.DOMINIO_SERVICIOS+"/enfermedad/:enf_id",{id:"@_enf_id"},
-    {update: {method:"PUT", params:{enf_id:"@enf_id"}}
+  return $resource(CONFIG.DOMINIO_SERVICIOS+"/enfermedad/:enfe_id",{id:"@_enfe_id"},
+    {update: {method:"PUT", params:{enfe_id:"@enfe_id"}}
   })
 }])
 
@@ -692,12 +693,22 @@ angular.module("adminApp")
     update:{method:"PUT",params:{fic_id: "@fic_id"}}
   })
 }])
-/*
-factory('Fichasfecha', ['$resource', 'CONFIG', function ($resource, CONFIG) {
-  return $resource(CONFIG.DOMINIO_SERVICIOS+"/fichasfecha/:fechas", {fechas:"@_fechas"},{
-    update: {method: "PUT", params:{fechas: "@fechas"}}
+// index,store,update,listar prueba_medica
+.factory('PruebaMedica', ['$resource', 'CONFIG', function ($resource,CONFIG) {
+  return $resource(CONFIG.DOMINIO_SERVICIOS+"/prueba_medica/:pm_id",{pm_id:"@pm_id"},{
+    update:{method:"PUT",params:{pm_id: "@pm_id"}}
   })
-}])*/
+}])
+
+//--prueba enfermedad opearaciones
+.factory('PruebaEnfermedad', ['$resource', 'CONFIG', function ($resource,CONFIG) {
+  return $resource(CONFIG.DOMINIO_SERVICIOS+"/prueba_enfermedad/:pre_id",{pre_id:"@pre_id"},{
+    update:{method:"PUT",params:{pre_id: "@pre_id"}}
+  })
+}])
+
+
+
 // ===============================/jhon
 
 

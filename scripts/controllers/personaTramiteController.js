@@ -1,6 +1,6 @@
 'use strict';
 angular.module("adminApp")
-.controller('PersonaTramiteController', ['$scope', 'ListarTramitesService', '$route', 'toastr', function ($scope, ListarTramitesService, $route, toastr)
+.controller('PersonaTramiteController', ['$scope', 'ListarTramitesService', '$route', 'toastr', '$location', function ($scope, ListarTramitesService, $route, toastr,$location)
 {
   $scope.ajustes = {
     menu:{
@@ -110,7 +110,8 @@ angular.module("adminApp")
     PersonaTramite.save($scope.persona_tramite).$promise.then(function(data)
     {
       console.log($scope.persona_tramite);
-        if(data.status){
+
+        if(data.mensaje){
           toastr.success('Pago registrado correctamente');
         }
     })
@@ -120,7 +121,7 @@ angular.module("adminApp")
 .controller('BuscaPersonaCtrl', ['$http', '$scope', 'CONFIG', buscaPersonaController])
 
 
-.controller('AtencionCtrl', ['$scope', 'FichasfechaService', 'Ficha', '$route', 'toastr', '$timeout', function ($scope, FichasfechaService, Ficha, $route, toastr,$timeout) 
+.controller('AtencionCtrl', ['$scope', 'FichasfechaService', 'Ficha', '$route', 'toastr', '$timeout', '$location',function ($scope, FichasfechaService, Ficha, $route, toastr,$timeout, $location) 
 {
     $scope.today=moment(new Date(), "YYYY-MM-DD") .format("DD-MM-YY");
     $scope.ajustes = {
@@ -149,7 +150,7 @@ angular.module("adminApp")
   $scope.loading=true;//para hacer un loading
   var tra_id = 1;
   FichasfechaService.get($scope.fecha, function(data){
-    console.log('*******persona_tramite ---------', data);
+    // console.log('*******persona_tramite ---------', data);
     $scope.fichas = data.fichas;
     // for (var i=0; i=$scope.fichas.length; i++)
     // {
@@ -179,36 +180,27 @@ angular.module("adminApp")
 
   var id=0;
   $scope.nombre_completo = "";
-  $scope.get_per_id = function(per_id, per_apellido_primero, per_apellido_segundo, per_nombres){
-    id = per_id;
+  $scope.get_per_id = function(pt_id, per_apellido_primero, per_apellido_segundo, per_nombres){
+    id = pt_id;
     $scope.nombre_completo = per_apellido_primero + " " + per_apellido_segundo + " " + per_nombres;
 
   }
-  $scope.atender = function (fic_id) {
+  $scope.atender = function (fic_id/*, pt_id*/) {
     // body...
-    id=fic_id;
-    $scope.ficha={
-      fic_estado:'ATENDIDO'
-      // fic_id:id
-    }
-    Ficha.update({fic_id:id}).$promise.then(function (data) {
+    var fic_id=fic_id;
+    var pt=id;
+    console.log(pt, 'akiiiii');
+    Ficha.update({fic_id:fic_id}).$promise.then(function (data) {
       if(data.status){
               toastr.success('Registrando paciente');
               $timeout(function() {
-                $route.reload();
+               $location.path('/prueba-medica/'+pt);
                 },1000);
             }
     })
-    console.log('entro');
+
   }
-  // $scope.remove = function(per_id){
-  //   Personas.delete({per_id:id}).$promise.then(function(data){
-  //     if(data.mensaje){
-  //       toastr.success('Registrando paciente');
-  //       $route.reload();
-  //     }
-  //   })
-  // }
+
 
   
 }])

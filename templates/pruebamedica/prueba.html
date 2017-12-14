@@ -1,0 +1,125 @@
+<div ng-include="'./templates/menu_inicio.html'"></div>
+
+
+
+<!-- CONTEXT-MENU  -->
+  <div ng-include="'./templates/menu_lateral.html'"></div>
+<!-- CONTENIDO MODULO inicio -->
+<!-- CONTENIDO MODULO inicio -->
+    <div class="col-md-8 col-sm-8">
+       <div class="row">
+          <div class="col-md-12">
+            <h2 class="text-primary">
+              <span class="glyphicon glyphicon-th-large" aria-hidden="true"></span>
+              {{ajustes.pagina.titulo}}
+            </h2>
+            <hr class="bg-red">
+          </div>
+       </div>
+      <div class="row">
+        <div class="col-md-12" >
+          <!-- AQUI VAN LAS TABLAS O FORMULARIOS incrustados ng-controller="apiApppCtrl as vm" -->
+          <!-- INICIO -->
+        <form name="userForm" novalidate>
+
+            <div class="row">
+                <h4 class="text-center text-primary">I. FICHA DE IDENTIFICACIÓN</h4>
+                    <hr class="bg-red"> 
+            </div>   
+            <div class="row" >
+              <div class="col-md-4" >
+                  <label for="nit" class="control-label">Nombres del paciente: </label>
+                  <input disabled type="text" class="form-control" id="nomp" ng-model="prueba_medica.paciente.per_nombres">
+              </div>  
+              <div class="col-md-4" >
+                  <label for="nit" class="control-label">Apellido Paterno: </label>
+                  <input disabled type="text" class="form-control" id="appt" ng-model="prueba_medica.paciente.per_apellido_primero">
+              </div>  
+              <div class="col-md-4" >
+                  <label for="nit" class="control-label">Apellido Materno: </label>
+                  <input disabled type="text" class="form-control" id="appm" ng-model="prueba_medica.paciente.per_apellido_segundo">
+              </div>
+              <div class="col-md-4" >
+                  <label for="nit" class="control-label">C.I.:</label>
+                  <input disabled type="text" class="form-control" id="appm" ng-model="prueba_medica.paciente.per_ci">
+              </div> 
+              <div class="col-md-4" >
+                  <label for="nit" class="control-label">Edad:</label>
+                  <input disabled type="text" class="form-control" id="appm" ng-model="prueba_medica.paciente.per_fecha_nacimiento">
+              </div>
+              <div class="col-md-4" >
+                  <label for="nit" class="control-label">Ocupación:</label>
+                  <input disabled type="text" class="form-control" id="appm" ng-model="prueba_medica.paciente.per_ocupacion">
+              </div>
+            </div> 
+
+            <div class="row">
+                <h4 class="text-center text-primary">II. DATOS DE PRUEBA CLÍNICA</h4>
+                    <hr class="bg-red"> 
+            </div>   
+            <div class="row">
+                    <div class="col-md-6" ng-repeat='prueba in prueba_medica.pruebas'>
+                        <div class="formulario">
+                            <p>
+                              <button type="button" class="btn btn-danger"  ng-click="cambiartrue(prueba.enfe_id, prueba.enfe_nombre,prueba.pre_id)" title="Positivo">
+                                <span class="glyphicon glyphicon-plus"></span>
+                              </button>
+                              <button type="button" class="btn btn-success" ng-click="cambiarfalse(prueba.enfe_id, prueba.enfe_nombre,prueba.pre_id)" title="Negativo">
+                                <span class="glyphicon glyphicon-minus"></span>
+                              </button>
+                               {{prueba.enfe_nombre}}
+                            </p>
+                            <hr>
+
+                        </div><br/>
+                    </div>
+            </div>
+            <hr>
+        </div><!-- fin formulario -->
+        <div class="row">
+            <h4 class="text-center text-primary">III. DIAGNÓSTICO</h4>
+                <hr class="bg-red"> 
+        </div>
+        <div>
+          <textarea ng-model=prueba_medica.prueba_medica.pm_diagnostico></textarea>
+        </div>
+            <p ng-show="$parent.ajustes.pagina.success" class="alert alert-success">{{$parent.ajustes.pagina.success}}</p>
+      
+                <!--  <div class="modal-footer"> -->
+              <center>
+                          <button type="submit" data-toggle="modal"  class="btn btn-primary" ng-disabled="userForm.$invalid" ng-click="diagnostico(prueba_medica.prueba_medica.pm_diagnostico)"><span class="glyphicon glyphicon-save"></span> GUARDAR</button>
+                          <a href="#/establecimientos/pacientes">
+                          <button type="submit" data-toggle="modal"  class="btn btn-danger"  ><span class="glyphicon glyphicon-remove"></span> CANCELAR</button>
+                          </a>
+              </center>
+            <!-- </div> -->
+<!--      </div> -->
+      
+      <!-- FIN -->
+      <!-- AQUI VAN LOS TABLAS O FORMULARIOS incrustados -->
+        </form>
+    </div>
+<!-- fin cuerpo -->
+      </div>
+      </div>
+    </div>
+  </div>
+<!-- CONTENIDO MODULO fin -->
+<!--  <button type="button" class="btn  btn-resaltar form-signin">REGISTRAR</button> -->
+
+<style type="text/css">
+   .messages {
+    color: #FA787E;
+  }
+  form.ng-submitted input.ng-invalid{
+    border-color: #FA787E;
+  }
+ form input.ng-invalid.ng-touched {
+    border-color: #FA787E;
+  }
+ 
+ /*  form input.ng-valid.ng-touched {
+    border-color: #78FA89;
+  }
+*/  
+</style>
