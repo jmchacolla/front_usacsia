@@ -150,9 +150,10 @@ angular.module("adminApp")
       var FunG = JSON.parse(FunG);
       es_id = FunG.es_id;
     }*/
+    var usa_id=$routeParams.usa_id;
     Establecimientos.get({usa_id:usa_id}, function(data){
       $scope.establecimiento = data.usacsia;
-
+console.log("ESTABLEC_USACSIA",$scope.establecimiento);
       $scope.establecimiento.usa_fecha_creacion = moment($scope.establecimiento.usa_fecha_creacion,"YYYY-MM-DD").format("DD-MM-YYYY");
       $scope.establecimiento.usa_fecha_inicio_actividad = moment($scope.establecimiento.usa_fecha_inicio_actividad,"YYYY-MM-DD").format("DD-MM-YYYY");
       $scope.establecimiento.usa_inicio_atencion = toTime($scope.establecimiento.usa_inicio_atencion);
@@ -411,7 +412,7 @@ angular.module("adminApp")
     }
   }
 })*/
-
+/*
 .controller('VerEstablecimientoCtrl', ['CONFIG', 'authUser','$scope','Establecimientos','Funcionario', '$routeParams', '$location', '$timeout',
   function (CONFIG, authUser,$scope, Establecimientos, Funcionario, $routeParams, $location, $timeout){
   if(authUser.isLoggedIn()){
@@ -488,16 +489,16 @@ angular.module("adminApp")
         }  
       })
 
-    }
+    }*/
    /* function toTime(timeString){
       var timeTokens = timeString.split(':');
       return new Date(1970,0,1, timeTokens[0], timeTokens[1], timeTokens[2]);
     }
 */
-  } else {
+/*  } else {
     $location.path('/inicio');
   }
-}])
+}])*/
 
 .controller('EditEstablecimientoCtrl', ['CONFIG','authUser','$scope','Establecimientos','$routeParams','$location','$timeout','toastr',
   function (CONFIG,authUser,$scope,Establecimientos,$routeParams,$location,$timeout,toastr){
