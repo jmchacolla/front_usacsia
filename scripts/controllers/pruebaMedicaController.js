@@ -13,12 +13,12 @@ angular.module("adminApp")
       }
     }
   
-  $scope.sortType = 'per_id'; // set the default sort type
-  $scope.sortReverse  = true;  // set the default sort order
-  $scope.Personas = [];
-  $scope.loading=true;//para hacer un loading
-  var pt_id = $routeParams.pt_id;
-  console.log(pt_id,'es el pt');
+    $scope.sortType = 'per_id'; // set the default sort type
+    $scope.sortReverse  = true;  // set the default sort order
+    $scope.Personas = [];
+    $scope.loading=true;//para hacer un loading
+    var pt_id = $routeParams.pt_id;
+    console.log(pt_id,'es el pt');
    
 
    //datos del persona
@@ -84,6 +84,60 @@ angular.module("adminApp")
       })
   }
 
+
+}])
+.controller('FichaClinicaCtrl', ['$scope', 'PersonaporCI', 'FichaClinica', '$route', '$resource', '$routeParams', 'toastr', '$location', '$timeout', function ($scope, PersonaporCI,FichaClinica, $route, $resource,$routeParams, toastr, $location, $timeout) {
+    $scope.ajustes = {
+      menu:{
+        titulo: 'Gestion de Consultas',
+        items:[
+          {nombre:'Ciudadanos Registrados', enlace:'#/persona-usacsia', estilo:'active'}]
+      },
+      pagina:{
+        titulo:'Ficha Clínica'
+      }
+    }
+    //  $scope.sortType = 'per_id'; // set the default sort type
+    // $scope.sortReverse  = true;  // set the default sort order
+    // $scope.loading=true;//para hacer un loading
+
+    var per_ci=$routeParams.per_ci;
+    PersonaporCI.get({per_ci:per_ci},function (data) {
+      console.log('data-------', data);
+      $scope.persona=data.persona;
+      console.log('data-------', $scope.persona);
+    });
+    FichaClinica.get({per_ci:per_ci},function (data) {
+      console.log('data-------', data);
+      $scope.pruebas=data.pruebas;
+      console.log('data-------', $scope.pruebas);
+      if ($scope.pertramite.persona.per_genero=='F' || $scope.pertramite.persona.per_genero=='f'){
+       $scope.pertramite.persona.per_genero='FEMENINO';
+     }
+     else if($scope.pertramite.persona.per_genero=='M' || $scope.pertramite.persona.per_genero=='m'){
+       $scope.pertramite.persona.per_genero='MASCULINO';
+     }
+    });
+
+}])
+/*--ver prueba medica por pm_id*/
+.controller('PruebaMedicaVerCtrl', ['$scope', 'PruebaMedica', '$route', '$resource', '$routeParams', 'toastr', '$location', '$timeout', function ($scope, PruebaMedica, $route, $resource,$routeParams, toastr, $location, $timeout) {
+
+      $scope.ajustes = {
+        menu:{
+          titulo: 'Gestion de Consultas',
+          items:[
+            {nombre:'Ciudadanos Registrados', enlace:'#/persona-usacsia', estilo:'active'}]
+        },
+        pagina:{
+          titulo:'Ficha Clínica'
+        }
+      }
+      var pm_id=$routeParams.pm_id;
+      PruebaMedica.get({pm_id:pm_id},function (data) {
+        console.log('data-------', data);
+        $scope.prueba_medica=data.prueba_medica;
+      });
 
 }])
 

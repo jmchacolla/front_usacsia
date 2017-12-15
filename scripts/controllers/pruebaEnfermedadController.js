@@ -35,13 +35,6 @@ angular.module("adminApp")
           toastr.error('Registro positivo para:  '+$nombre+' realizado correctamente');
         }
       })
-    /*  $scope.prmedica={pm_estado:'OBSERVADO'};
-      PruebaMedica.update($scope.prmedica, {pm_id:pm_id}, function (data) {
-        console.log('la data---------', data);
-        if (data.mensaje) {
-          toastr.success('Estado modificado exitosamente');
-        }
-      })*/
       
     }
     $scope.cambiarfalse=function (enfe_id, enf_nombre, pre_id) {
@@ -68,10 +61,13 @@ angular.module("adminApp")
         console.log('la data---------', data);
         if (data.mensaje) {
           toastr.success('Diagnostico guardado exitosamente');
+          PruebaMedica.get({pm_id:pm_id}, function (data2) {
+              console.log('data2',data2);
+             $location.path('/ficha-clinica/'+data2.prueba_medica.paciente.per_ci);
+          })
         }
       })
     }
     
 }])
 
-// pm_id, pt_id, ser_id, fun_id, pm_fr, pm_fc, pm_peso, pm_diagnostico, pm_estado, pm_fecha, pm_pa_sistolica, pm_pa_diastolica, pm_temperatura, pm_imc, pm_talla
