@@ -35,6 +35,13 @@ angular.module("adminApp")
           toastr.error('Registro positivo para:  '+$nombre+' realizado correctamente');
         }
       })
+    /*  $scope.prmedica={pm_estado:'OBSERVADO'};
+      PruebaMedica.update($scope.prmedica, {pm_id:pm_id}, function (data) {
+        console.log('la data---------', data);
+        if (data.mensaje) {
+          toastr.success('Estado modificado exitosamente');
+        }
+      })*/
       
     }
     $scope.cambiarfalse=function (enfe_id, enf_nombre, pre_id) {

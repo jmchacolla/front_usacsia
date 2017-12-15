@@ -1443,3 +1443,6 @@ td.visible-print,th.visible-print{display:table-cell!important}
 @media print{.visible-print-inline-block{display:inline-block!important}
 .hidden-print{display:none!important}
 }
+.div-scroll{
+height: 300px;border: 1px solid #ddd;overflow-y: scroll;	
+}
