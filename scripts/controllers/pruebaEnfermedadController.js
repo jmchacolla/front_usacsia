@@ -65,6 +65,7 @@ angular.module("adminApp")
               console.log('data2',data2);
              $location.path('/ficha-clinica/'+data2.prueba_medica.paciente.per_ci);
           })
+        // PruebaMedica.update()
         }
       })
     }
