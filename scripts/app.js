@@ -228,7 +228,13 @@ angular.module("adminApp", ["authService", "ngRoute", "ngResource", "satellizer"
       authorized: [ROLES.ADMIN_SEDES.ROL]
     }*/
   })
-
+  .when('/establecimientos/create', { 
+    templateUrl: 'templates/establecimiento_solicitante/crear.html',
+    controller: 'CrearEstabSolCtrl',
+/*    data: {
+      authorized: [ROLES.ADMIN_SEDES.ROL]
+    }*/
+  })
 //*******************************==========================PAIS==========================================================================
   .when('/homepais',{
    templateUrl:'templates/pais/list.html',
@@ -509,13 +515,13 @@ angular.module("adminApp", ["authService", "ngRoute", "ngResource", "satellizer"
       authorized: [ROLES.ADMIN_SEDES.ROL]
     }
   })*/
-  .when('/establecimientos/create', { 
+/*  .when('/establecimientos/create', { 
     templateUrl: 'forms/establecimiento/create.html',
     controller: 'CreateEstablecimientoCtrl',
     data: {
       authorized: [ROLES.ADMIN_SEDES.ROL]
     }
-  })
+  })*/
   .when('/establecimientos/ver/:es_id', {
     templateUrl: 'templates/establecimiento/ver.html',
     controller: 'VerEstablecimientoCtrl',

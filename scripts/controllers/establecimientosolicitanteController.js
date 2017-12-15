@@ -9,7 +9,7 @@ angular.module("adminApp")
       titulo: 'Gestión de Establecimientos Solicitantes',
       items:[
         {nombre:'Establecimientos', enlace:'#/establecimientossol', estilo:'active'},
-        {nombre:'Nuevo establecimiento', enlace:'#/establecimientossol/create', estilo:''}]
+        {nombre:'Nuevo establecimiento', enlace:'#/establecimientos/create', estilo:''}]
     },
     //Configuraciones de la página
     pagina:{
@@ -97,4 +97,136 @@ angular.module("adminApp")
   //para llamar a la función:
   $scope.configPages();
   //fin paginación 
+}])
+
+
+
+.controller('CrearEstabSolCtrl', ['$scope','EstabSols','Zonas',  '$location', '$timeout', 'toastr',
+ function ($scope, EstabSols,Zonas,  $location, $timeout, toastr){
+  $scope.ajustes = {
+    menu:{
+      titulo: 'Gestión de Establecimientos Solicitantes',
+      items:[
+        {nombre:'Establecimientos', enlace:'#/establecimientos', estilo:''},
+        {nombre:'Nuevo Establecimiento', enlace:'#/establecimientos/create', estilo:'active'}
+      ]
+    },
+    pagina:{
+      titulo:'Nuevo Establecimiento',
+      action: "CREAR"
+    }
+  }
+
+  $scope.zon=false;
+  $scope.ver_zonas=function(mun_id){
+      console.log(mun_id+"<<< MUN_ID");
+      $scope.zon=false;
+      Zonas.get({mun_id:mun_id}, function(data){
+          $scope.zonas=data.zona;
+          console.log("ZOnasss",$scope.zonas);
+
+          if($scope.zonas.length == 0){
+                $scope.zon=true;
+          }
+          console.log("length "+$scope.zonas.length);
+      })
+  };
+
+$scope.initMap = function(){
+  /* 
+    var infowindow = new google.maps.InfoWindow();
+    var marker, i;
+    navigator.geolocation.getCurrentPosition(function(pos) {
+    $scope.position = new google.maps.LatLng(pos.coords.latitude, pos.coords.longitude);
+//              console.log(JSON.stringify($scope.position));
+        
+
+        // Creamos un objeto mapa y lo situamos en coordenadas actuales
+        var map = new google.maps.Map(document.getElementById('mapa'),{
+        center: {lat: pos.coords.latitude, lng: pos.coords.longitude},
+        scrollwheel: false,
+        zoom: 16
+        });
+        
+        //marcador solito
+        var marker = new google.maps.Marker({
+          position: new google.maps.LatLng(pos.coords.latitude, pos.coords.longitude),
+          map: map,
+        animation: google.maps.Animation.BOUNCE,
+        title: ''
+        });   
+        console.log("MARKER",marker); 
+        var markerLatLng = marker.getPosition();
+        console.log("POSITIONmmm",markerLatLng.lat());
+        console.log("POSITIONmmm",markerLatLng.lng());  
+        //console.log("POSITIONmmmmm",marker.position.lat.[[Scopes]].0.a);  
+        infowindow.setContent('<h4 class="text-primary">Tú estas aquí <br><small>Esta es tu ubicación aproximada</small></h4>');
+        infowindow.open(map, marker);
+        google.maps.event.addListener(marker, 'click', (function(marker) {
+            return function() {
+            infowindow.setContent('<h4 class="text-primary">Tú estas aquí <br><small>Esta es tu ubicación aproximada</small></h4>');
+            infowindow.open(map, marker);
+            }
+        })(marker));
+     })*/
+
+
+
+  };
+
+
+
+
+
+
+
+  $scope.establecimiento = {
+    coo_per_id:null,
+    zon_id:null,
+    ess_razon_social:null,
+    ess_telefono:null,
+    ess_correo_electronico:null,
+    ess_tipo:null,
+    ess_avenida_calle:null,
+    ess_numero:null,
+    ess_stand:"",
+    ess_latitud:null,
+    ess_longitud:null,
+    ess_altitud:null,
+    ie_nombre:"EST.JPG",
+    ie_enlace: "./img-est/",
+    ie_tipo:"fotografia"
+  };
+
+
+
+  $scope.patternCadena = /^[a-zA-ZñÑáéíóúÁÉÍÓÚ .]*$/;
+  $scope.patternNumero = /^[0-9]*$/;
+  $scope.patternNombreEstab = /^[a-zA-ZñÑáéíóúÁÉÍÓÚ. 0-9()-º]*$/;
+  $scope.patternCadenaNumero = /^[a-zA-ZñÑáéíóúÁÉÍÓÚ. 0-9]*$/;
+  $scope.patternFecha = /^(0[1-9]|1[0-9]|2[0-9]|3[01]).(0[1-9]|1[012]).[0-9]{4}$/;
+  $scope.patternHora = /^[0-9:]*$/;
+  //VALIDAR NUMEROS !!!!!!
+  $scope.submit = function(a){
+
+    EstabSols.save($scope.establecimiento).$promise.then(function(data){
+      if(data.status) {
+        angular.copy({}, $scope.establecimiento);
+        $scope.ajustes.pagina.success = "Establecimiento añadido correctamente";
+        toastr.success('Establecimiento añadido correctamente');
+        $timeout(function() {
+          $location.path('/establecimientos');
+        },0);
+      }
+    });
+  };
+
+  $scope.reset = function(form) {
+    $scope.establecimiento = {};
+    if (form) {
+      //console.log(form);
+      form.$setPristine();
+      form.$setUntouched();
+    }
+  };
 }])

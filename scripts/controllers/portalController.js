@@ -52,7 +52,7 @@ CONTROLADORES PARA LAS PAGINAS PUBLICAS
 		$scope.position = new google.maps.LatLng(pos.coords.latitude, pos.coords.longitude);
 //              console.log(JSON.stringify($scope.position));
 				
-			  $scope.latitud_usuario = pos.coords.latitude;
+			/*  $scope.latitud_usuario = pos.coords.latitude;
 			  $scope.longitud_usuario = pos.coords.longitude;
 			  
 			  Establecimientos_cercanos.get({latitud:pos.coords.latitude, longitud: pos.coords.longitude, cantidad:7},function(data){
@@ -73,7 +73,7 @@ CONTROLADORES PARA LAS PAGINAS PUBLICAS
 					})(marker,i));
 				}			  
 			  });
-
+*/
 			  // Creamos un objeto mapa y lo situamos en coordenadas actuales
 			  var map = new google.maps.Map(document.getElementById('mapa'),{
 				center: {lat: pos.coords.latitude, lng: pos.coords.longitude},
@@ -87,7 +87,12 @@ CONTROLADORES PARA LAS PAGINAS PUBLICAS
 			    map: map,
 				animation: google.maps.Animation.BOUNCE,
 				title: ''
-			  });			
+			  });		
+			  console.log("MARKER",marker);	
+			  var markerLatLng = marker.getPosition();
+			  console.log("POSITIONmmm",markerLatLng.lat());
+			  console.log("POSITIONmmm",markerLatLng.lng());	
+			  //console.log("POSITIONmmmmm",marker.position.lat.[[Scopes]].0.a);	
 			  infowindow.setContent('<h4 class="text-primary">Tú estas aquí <br><small>Esta es tu ubicación aproximada</small></h4>');
 			  infowindow.open(map, marker);
 			  google.maps.event.addListener(marker, 'click', (function(marker) {

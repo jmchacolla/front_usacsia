@@ -48,6 +48,11 @@ angular.module("adminApp")
     update: {method: "PUT", params: {}}
   })
 }])
+.factory('Func', ['$resource', 'CONFIG', function ($resource, CONFIG){
+  return $resource(CONFIG.DOMINIO_SERVICIOS+"/funcio/:fun_id", {fun_id:"@_fun_id"}, {
+    update: {method: "PUT", params: {fun_id: "@fun_id"}}
+  })
+}])
 // ==================== C O N S U L T O R I O S =====================================================
 //listar, ver, editar consultorios
 .factory('Consultorios', ['$resource', 'CONFIG', function ($resource, CONFIG){

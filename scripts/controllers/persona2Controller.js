@@ -48,12 +48,7 @@ angular.module("adminApp")
   };
 
   var vm=this;//muestra los servicios de la zona seleccionado
-    vm.buscaCons1 = function(){
-      $http.get(CONFIG.DOMINIO_SERVICIOS+'/zona/'+vm.zon_id).success(function(respuesta){
-        vm.cons = respuesta.zona.zon_id;
-        console.log("ajax",vm.cons);
-      });
-    };
+
 $scope.zon=false;
   $scope.ver_zonas=function(mun_id){
       console.log(mun_id+"<<< MUN_ID");
