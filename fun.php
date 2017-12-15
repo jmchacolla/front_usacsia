@@ -11,7 +11,7 @@ $uploadfile = $uploaddir . basename($_FILES['file']['name']);
 if (move_uploaded_file($_FILES['file']['tmp_name'], $uploadfile)) {
     $data['url'] = $uploadfile;
     http_response_code(200);
-    header('Content-Type: kgjgjg');
+    //header('Content-Type: kgjgjg');
     //echo json_encode($data);
 } else {
     $data['error'] = 'No se pudo subir la imagen';
@@ -19,8 +19,4 @@ if (move_uploaded_file($_FILES['file']['tmp_name'], $uploadfile)) {
     header('Content-Type: application/json');
     echo json_encode($data);
 }
-
-
-
-
 ?>

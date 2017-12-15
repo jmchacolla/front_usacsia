@@ -19,14 +19,14 @@ TOP-MENU inicio -->
       <!-- AQUI VAN LAS TABLAS O FORMULARIOS incrustados -->
       <!-- INICIO ng-include="'./forms/funcionario/edit_fun_per.html'"-->
       <!-- <form name="editFun" novalidate > -->
-          <div ng-controller="UploadFunCtrl as vista"> 
+    <div ng-controller="UploadFunCtrl as vista"> 
       <div class="row">
         <div class="col-md-12">
           <label class="control-label">Los campos marcados con asterisco (<strong class="fg_red">*</strong>) son obligatorios</label>
           
           <div class="well well-sm" style="background-color:#fff;">
-              <h4 class="text-center text-primary">I. DATOS GENERALES</h4>
-              <hr class="bg-red">
+            <h4 class="text-center text-primary">I. DATOS GENERALES</h4>
+            <hr class="bg-red">
             <br>
             <div ng-controller="FechaFunCtrl">
               <form role="form"  name="editFuncionario" novalidate>
@@ -85,21 +85,21 @@ TOP-MENU inicio -->
                         <label for="nombre" class="control-label">Nombre: <strong class="fg_red">*</strong></label>
                         <input class="form-control" name="nombre" type="Text" placeholder="Nombre" ng-model="personas.persona.per_nombres" ng-model-options="{ updateOn: 'blur' }"  ng-pattern="patternCadena"><!-- required -->
                         <span class="messages" ng-show="editFuncionario.nombre.$touched">
-                          <span ng-show="editFuncionario.nombre.$error.required">El campo es obligatorio.</span>
+                        <!--   <span ng-show="editFuncionario.nombre.$error.required">El campo es obligatorio.</span> -->
                           <span ng-show="editFuncionario.nombre.$error.pattern">No se admiten símbolos especiales o números.</span>
                         </span>
                       </div>
                       <div class="col-md-4">
                         <label for="nombre" class="control-label">Apellido paterno: <strong class="fg_red">*</strong></label>
-                        <input class="form-control" name="apellido_primero" type="Text" placeholder="Apellido paterno" ng-model="personas.persona.per_apellido_primero" ng-model-options="{ updateOn: 'blur' }" required ng-pattern="patternCadena">
+                        <input class="form-control" name="apellido_primero" type="Text" placeholder="Apellido paterno" ng-model="personas.persona.per_apellido_primero" ng-model-options="{ updateOn: 'blur' }"  ng-pattern="patternCadena"><!-- required -->
                         <span class="messages" ng-show="editFuncionario.apellido_primero.$touched">
-                          <span ng-show="editFuncionario.apellido_primero.$error.required">El campo es obligatorio.</span>
+                          <!-- <span ng-show="editFuncionario.apellido_primero.$error.required">El campo es obligatorio.</span> -->
                           <span ng-show="editFuncionario.apellido_primero.$error.pattern">No se admiten símbolos especiales o números.</span>
                         </span>
                       </div>
                       <div class="col-md-4">
                         <label for="nombre" class="control-label">Apellido materno: <strong class="fg_red">*</strong></label>
-                        <input class="form-control" name="apellido_segundo" type="Text" placeholder="Apellido materno" ng-model="personas.persona.per_apellido_segundo" ng-model-options="{ updateOn: 'blur' }" required ng-pattern="patternCadena">
+                        <input class="form-control" name="apellido_segundo" type="Text" placeholder="Apellido materno" ng-model="personas.persona.per_apellido_segundo" ng-model-options="{ updateOn: 'blur' }"  ng-pattern="patternCadena"><!-- required -->
                         <span class="messages" ng-show="editFuncionario.apellido_segundo.$touched">
                           <span ng-show="editFuncionario.apellido_segundo.$error.required">El campo es obligatorio.</span>
                           <span ng-show="editFuncionario.apellido_segundo.$error.pattern">No se admiten símbolos especiales o números.</span>
@@ -112,12 +112,12 @@ TOP-MENU inicio -->
                         <label for="fecha_nacimiento" class="control-label">Fecha de nacimiento: <strong class="fg_red">*</strong></label>
                         <div class="row">
                           <div class="col-md-4">
-                                <select class="form-control" name="dia" ng-model="diacE" ng-change="restEDIT()" ng-options="dia.dia_id as dia.dia for dia in dias"   required>
-                                 <!--  <option value="">Dia</option> -->
+                                <select class="form-control" name="dia" ng-model="diacE" ng-change="restEDIT()" ng-options="dia.dia_id as dia.dia for dia in dias"   >
+                                 <!-- required <option value="">Dia</option> -->
                                 </select>
                           </div>
                           <div class="col-md-4">
-                            <select class="form-control" aria-label="MES" title="Mes" name="m1" ng-model="mescE" ng-change="restEDIT()" required placeholder="MES">
+                            <select class="form-control" aria-label="MES" title="Mes" name="m1" ng-model="mescE" ng-change="restEDIT()"  placeholder="MES"><!-- required -->
                               <option value="">Mes</option>
                               <option value="01">Enero</option>
                               <option value="02">Febrero</option>
@@ -203,19 +203,19 @@ TOP-MENU inicio -->
                   <hr class="bg-red">  
                 <br> 
                 <div class="row">
-                  <div class="col-md-4" ng-controller="MunicipioCtrl">
+                <!--   <div class="col-md-4" ng-controller="MunicipioCtrl">
                     <label class="control-label">Municipio: <strong class="fg_red">*</strong></label>
                     <select class="form-control" name="municipio" ng-model="funcionarios.zona.mun_id"  ng-options="municipio.mun_id as municipio.mun_nombre for municipio in municipios" ng-model-options="{ updateOn: 'blur' }" ng-change="ver_zonas(funcionarios.zona.mun_id)" required>
                     </select>
                     <span class="messages" ng-show="editFuncionario.municipio.$touched">
                       <span ng-show="editFuncionario.municipio.$error.required">El campo es obligatorio.</span>
                     </span>
-                  </div> 
+                  </div>  -->
                   <div class="col-md-3">
                     <label class="control-label">Zona/Comunidad: <strong class="fg_red">*</strong></label>
-                     <select class="form-control" name="zona_comunidad" ng-model="funcionarios.zona.zon_id"  ng-options="zona.zon_id as zona.zon_nombre for zona in zonas" ng-model-options="{ updateOn: 'blur' }" required>
+                     <select class="form-control" name="zona_comunidad" ng-model="funcionarios.zona.zon_id"  ng-options="zona.zon_id as zona.zon_nombre for zona in zonas" ng-model-options="{ updateOn: 'blur' }" >
                     </select>
-                   <!--  <input type="" class="form-control" name="zona_comunidad" placeholder="zona comunidad" ng-model="personas.direccion[0].dir_zona_comunidad" ng-model-options="{ updateOn: 'blur' }" required ng-pattern="patternCadenaNumero"> -->
+                   <!--required  <input type="" class="form-control" name="zona_comunidad" placeholder="zona comunidad" ng-model="personas.direccion[0].dir_zona_comunidad" ng-model-options="{ updateOn: 'blur' }" required ng-pattern="patternCadenaNumero"> -->
                     <span class="messages" ng-show="editFuncionario.zona_comunidad.$touched">
                       <span ng-show="editFuncionario.zona_comunidad.$error.required">El campo es obligatorio.</span>
                       <span ng-show="editFuncionario.zona_comunidad.$error.pattern">No se admiten símbolos especiales.</span>
@@ -223,7 +223,7 @@ TOP-MENU inicio -->
                   </div>  
                   <div class="col-md-3">
                     <label class="control-label">Calle/Avenida: <strong class="fg_red">*</strong></label>
-                    <input type="" class="form-control" name="avenida_calle" placeholder="avenida calle" ng-model="funcionarios.persona.per_avenida_calle" ng-model-options="{ updateOn: 'blur' }" required ng-pattern="patternCadenaNumero">
+                    <input type="" class="form-control" name="avenida_calle" placeholder="avenida calle" ng-model="funcionarios.persona.per_avenida_calle" ng-model-options="{ updateOn: 'blur' }"  ng-pattern="patternCadenaNumero"><!-- required -->
                     <span class="messages" ng-show="editFuncionario.avenida_calle.$touched">
                       <span ng-show="editFuncionario.avenida_calle.$error.required">El campo es obligatorio.</span>
                       <span ng-show="editFuncionario.avenida_calle.$error.pattern">El formato introducido es incorrecto.</span>
@@ -248,11 +248,23 @@ TOP-MENU inicio -->
                     <!-- ng-controller="IndexCargoCtrl" -->
                      <!--  <div > -->
                         <label class="control-label">Cargo: <strong class="fg_red">*</strong></label>
-                         <input type="" class="form-control" name="cargo" placeholder="cargo" ng-model="funcionarios.funcionario.fun_cargo" ng-model-options="{ updateOn: 'blur' }"  required>
-                       <!--  <select class="form-control" name="cargo" ng-model="funcionarios.funcionario_establecimiento.fe_cargo"  ng-options="cargo.car_tipo as cargo.car_tipo for cargo in cargos" >
+                         <input type="" class="form-control" name="cargo" placeholder="cargo" ng-model="funcionarios.funcionario.fun_cargo" ng-model-options="{ updateOn: 'blur' }"  style="text-transform:uppercase;">
+                       <!-- required <select class="form-control" name="cargo" ng-model="funcionarios.funcionario_establecimiento.fe_cargo"  ng-options="cargo.car_tipo as cargo.car_tipo for cargo in cargos" >
                         </select> -->
                         <span class="messages" ng-show="editFuncionario.cargo.$touched">
                           <span ng-show="editFuncionario.cargo.$error.required">El campo es obligatorio.</span>
+                        </span>
+                    <!--   </div>   -->
+                    </div> 
+                     <div class="col-md-6">
+                    <!-- ng-controller="IndexCargoCtrl" -->
+                     <!--  <div > -->
+                        <label class="control-label">Profesión: <strong class="fg_red">*</strong></label>
+                         <input type="" class="form-control" name="prof" placeholder="profesión" ng-model="funcionarios.funcionario.fun_profesion" ng-model-options="{ updateOn: 'blur' }" style="text-transform:uppercase;" >
+                       <!-- required <select class="form-control" name="cargo" ng-model="funcionarios.funcionario_establecimiento.fe_cargo"  ng-options="cargo.car_tipo as cargo.car_tipo for cargo in cargos" >
+                        </select> -->
+                        <span class="messages" ng-show="editFuncionario.prof.$touched">
+                          <span ng-show="editFuncionario.prof.$error.required">El campo es obligatorio.</span>
                         </span>
                     <!--   </div>   -->
                     </div> 
@@ -303,7 +315,7 @@ TOP-MENU inicio -->
                     </div>
                     <br>
                     <!--  -->
-                    <button ng-show = "para_enviar" class="btn btn-primary" ng-disabled="editFuncionario.$invalid" ng-click="submitP($parent.personas,dE);submitFun($parent.funcionarios, fechaITrabEDIT, fechaFTrabEDIT); vista.enviar();reset(editFuncionario)" title="Debe llenar todos los campos obligatorios de manera correcta"><span class="glyphicon glyphicon-save"></span> {{$parent.ajustes.pagina.action}}</button>
+                    <button ng-show = "para_enviar" class="btn btn-primary" ng-disabled="editFuncionario.$invalid" ng-click="submitP($parent.personas,dE);submitFun($parent.funcionarios); vista.enviar();reset(editFuncionario)" title="Debe llenar todos los campos obligatorios de manera correcta"><span class="glyphicon glyphicon-save"></span> {{$parent.ajustes.pagina.action}}</button>
                     </div>    
                   </div> 
                 </div> 

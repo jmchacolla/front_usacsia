@@ -305,8 +305,8 @@ $scope.zon=false;
 }])
 
 
-.controller('EditFuncionarioCtrl',[/*'authUser', */'$scope','Zonas', 'Funcionarios', 'Personas','$routeParams','$location', '$timeout','toastr',
-            function (/*authUser,*/ $scope,Zonas, Funcionarios,Personas,$routeParams,$location,$timeout,toastr){
+.controller('EditFuncionarioCtrl',[/*'authUser', */'$scope','Zonas', 'Funcionarios', 'Personas','Func','$routeParams','$location', '$timeout','toastr',
+            function (/*authUser,*/ $scope,Zonas, Funcionarios,Personas,Func,$routeParams,$location,$timeout,toastr){
 /*  if(authUser.isLoggedIn()){*/
     $scope.ajustes = {
       menu:{
@@ -321,26 +321,20 @@ $scope.zon=false;
       }
     }
 
-/*    var fe_estado = $routeParams.fe_estado;
-    if(fe_estado!=null){
-      $scope.ajustes.pagina.titulo = 'Habilitar al Funcionario de Salud';
-      $scope.ajustes.pagina.action = 'HABILITAR';
-    }*/
-
-$scope.zon=false;
+/*$scope.zon=false;
   $scope.ver_zonas=function(mun_id){
       console.log(mun_id+"<<< MUN_ID");
-      $scope.zon=false;
-      Zonas.get({mun_id:mun_id}, function(data){
+      $scope.zon=false;*/
+      Zonas.get({mun_id:1}, function(data){
           $scope.zonas=data.zona;
           console.log("ZOnasss",$scope.zonas);
           //Agregando 26/10/17
-          if($scope.zonas.length == 0){
+  /*        if($scope.zonas.length == 0){
                 $scope.zon=true;
-          }
+          }*/
           console.log("length "+$scope.zonas.length);
       })
-  };
+/*  };*/
     var fun_id=$routeParams.fun_id;
     Funcionarios.get({fun_id:fun_id}, function(data) {
       $scope.funcionarios = data.funcionario;
@@ -375,55 +369,43 @@ $scope.zon=false;
         per_clave_publica : $scope.personas.persona.per_clave_publica,
         per_avenida_calle:$scope.personas.persona.per_avenida_calle,
         per_numero:$scope.personas.persona.per_numero,
+
         ima_nombre : $scope.personas.imagen[0].ima_nombre,
         ima_enlace : "./img-per",
         ima_tipo : $scope.personas.imagen[0].ima_tipo
      
-      }
-     /* if(fecha_naci != null){
+      };
+      if(fecha_naci != null){
          $scope.personaE.per_fecha_nacimiento=fecha_naci;
       }
-      if($scope.funcionarios.funcionario.fun_estado_laboral=="CONTRATO"){
-        $scope.variable=true;
-      }*/
-console.log($scope.personaE);
+     
+      console.log("ANTES DE EDITAR",$scope.personaE);
+
       Personas.update({per_id:$scope.personas.persona.per_id}, $scope.personaE).$promise.then(function(data){
-        if(data.msg){
-          //$scope.ajustes.pagina.success = "Los datos del funcionario fueron actualizados correctamente";
-          //toastr.success('Datos personales editados correctamente');
+        if(data.status){
+           console.log("DESPUES DE EDITAR LO LOGRO",$scope.personaE);
+         
         }
       })
     };
-
-    $scope.submitFun = function(b, fechaIni, fechaFin){ 
+//EDITAR SOLO DATOS FUNCIONARIO
+    $scope.submitFun = function(b){ 
       $scope.funcionarioPer = {
         fun_cargo : $scope.funcionarios.funcionario.fun_cargo,
         fun_profesion : $scope.funcionarios.funcionario.fun_profesion,
         fun_estado : "ACTIVO"
       };
-      console.log($scope.funcionarioPer);
+      console.log("ANTES DE GUARDAR FUNCIONARIOS",$scope.funcionarioPer);
 
-     /* if($scope.funcionarios.funcionario_establecimiento.fe_estado_laboral == "POR CONTRATAR"){
-        $scope.funcionarioPer.fe_memorandum = null;
-      } */
-
-      ///MIENTRAS NO SE USEN LAS FECHAS
-   /*   if($scope.funcionarioPer.fe_inicio_trabajo == null){
-         $scope.funcionarioPer.fe_inicio_trabajo="01-01-2001";
-      }
-      if($scope.funcionarioPer.fe_fin_trabajo == null){
-         $scope.funcionarioPer.fe_fin_trabajo="01-01-2001";
-      }*/
-      
-      Funcionarios.update({fun_id:$scope.funcionarios.funcionario.fun_id}, $scope.funcionarioPer).$promise.then(function(data){
+      Func.update({fun_id:fun_id}, $scope.funcionarioPer).$promise.then(function(data){
         if(data.status){
-          if(fun_estado!=null){
-            $scope.ajustes.pagina.success = "SE HABILITÓ AL FUNCIONARIO EN EL ESTABLECIMIENTO";
-            toastr.success('SE HABILITÓ AL FUNCIONARIO EN EL ESTABLECIMIENTO');
-          } else {
+      /*    if(fun_estado!=null){
+            toastr.success('SE HABILITÓ AL FUNCIONARIO EN EL ESTABLECIMIENTO');*/
+       /*   } else {*/
             $scope.ajustes.pagina.success = "LOS DATOS DEL FUNCIONARIO SE ACTUALIZARON DE MANERA CORRECTA";
             toastr.success('LOS DATOS DEL FUNCIONARIO SE ACTUALIZARON DE MANERA CORRECTA');
-          }
+         /* }*/
+         console.log("DATAAAA",data)
           $timeout(function() {
             $location.path('/funcionarios/ver/'+data.funcionario.fun_id);
           },1000);
