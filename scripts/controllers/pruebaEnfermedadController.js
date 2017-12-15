@@ -68,6 +68,7 @@ angular.module("adminApp")
         console.log('la data---------', data);
         if (data.mensaje) {
           toastr.success('Diagnostico guardado exitosamente');
+        // PruebaMedica.update()
         }
       })
     }
