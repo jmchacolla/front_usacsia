@@ -277,7 +277,7 @@ $scope.sangre=function(){
 
 
 
-.controller('apiAppCtrl_parasignados', ['$http', '$scope', 'CONFIG', pasitosAsignadosCtrl])
+// .controller('apiAppCtrl_parasignados', ['$http', '$scope', 'CONFIG', pasitosAsignadosCtrl])
 .controller('apiAppCtrl_numeromuestra', ['$http', '$scope', 'CONFIG', buscaNumeroMuestraCtrl])
 function buscaNumeroMuestraCtrl($http, $scope, CONFIG){
   $scope.buscaNumeroMuestra = function(){
