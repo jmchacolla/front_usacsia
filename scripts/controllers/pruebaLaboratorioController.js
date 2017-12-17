@@ -275,9 +275,6 @@ $scope.sangre=function(){
 }])
 
 
-
-
-// .controller('apiAppCtrl_parasignados', ['$http', '$scope', 'CONFIG', pasitosAsignadosCtrl])
 .controller('apiAppCtrl_numeromuestra', ['$http', '$scope', 'CONFIG', buscaNumeroMuestraCtrl])
 function buscaNumeroMuestraCtrl($http, $scope, CONFIG){
   $scope.buscaNumeroMuestra = function(){
@@ -291,7 +288,6 @@ function buscaNumeroMuestraCtrl($http, $scope, CONFIG){
               $scope.ver=true;
               $scope.switch=false;
           } else if(!respuesta.muestra){
-              $scope.aa="uno";
               $scope.ver=false;
               $scope.tamanio="El numero de muestra ingresado no fue asignado";
           }
@@ -299,8 +295,6 @@ function buscaNumeroMuestraCtrl($http, $scope, CONFIG){
               $scope.tamanio="La muestra ya fue analizada";
               $scope.verprueba=true;
           }
-
-
       });
   }
 };
