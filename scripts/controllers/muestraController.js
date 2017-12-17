@@ -1,6 +1,6 @@
 'use-strict';
 angular.module("adminApp")
-.controller('NumeroMuestraController', ['$scope','Muestra', '$route', 'toastr', function ($scope,Muestra, $route, toastr){
+.controller('NumeroMuestraController', ['$http','CONFIG','$scope','Muestra', '$route', 'toastr', function ($http,CONFIG,$scope,Muestra, $route, toastr){
   $scope.ajustes = {
     menu:{
       titulo: 'Gestión de Ciudadanos',
@@ -11,11 +11,13 @@ angular.module("adminApp")
       titulo:'Asignacion de Número de Muestra'
     }
   }
-
+  $scope.CurrentDate=new Date();
   $scope.muestra={
     pt_id:null,
     mue_num_muestra:null
   }
+  $scope.num_muestra_traido_del_crear=0;
+  $scope.aux=null;
   $scope.savem=function(a,b)
   {
      $scope.muestra.pt_id=a;
@@ -25,11 +27,30 @@ angular.module("adminApp")
       if(data.status)
       {
         $scope.ajustes.pagina.success="Muestra asignada exitosamente";
+        $scope.aux=data.muestra.mue_num_muestra;
+        $scope.aux2=data.muestra.mue_id;
+        console.log('ESTE ES EL NUMERO DE MUESTRA QUE SE ASIGNÓ',$scope.aux,$scope.aux2);
+        verNumeroMuestra($scope.aux2);
         toastr.success('Muestra asignada correctamente');
       }
     });
   }
+  function verNumeroMuestra(mue_id){
+      $http.get(CONFIG.DOMINIO_SERVICIOS+'/muestra/'+mue_id).success(function(respuesta){
+          $scope.num_muestra_traido_del_crear = respuesta.muestra.mue_num_muestra;
+          console.log('llamo a la funcion', $scope.num_muestra_traido_del_crear);
+      });
+  }
+
+
+  $scope.recarga=function(){
+    $route.reload();
+  }
+
 }])
+
+
+
 
 .controller('ListarMuestraController', ['$scope','Muestra', '$route', 'toastr', function ($scope,Muestra, $route, toastr){
   $scope.ajustes = {
@@ -60,27 +81,30 @@ angular.module("adminApp")
 
 }])
 
-
-.controller('apiAppCtrl_persona', ['$http', '$scope', 'CONFIG', buscaPersonaController])
-function buscaPersonaController($http, $scope, CONFIG){
-  
-
+.controller('apiAppCtrl_persona', ['$http', '$scope', 'CONFIG', '$route', buscaPersonaController])
+function buscaPersonaController($http, $scope, CONFIG, $route){
   $scope.buscaPersona = function($per_ci){
     console.log('esta buscando persona');
       $scope.tamanio="Cargando...";//////CAMBIADO
       $http.get(CONFIG.DOMINIO_SERVICIOS+'/buscar_persona_tramite/'+$scope.per_ci).success(function(respuesta){
-          $scope.persona_tramite = respuesta.res.persona_tramite;
-          $scope.numero_muestra = respuesta.res.numero_muestra;
-          $scope.tamanio=respuesta.res.persona_tramite.length;
-          if(respuesta.res.persona_tramite.length != 0){
-              $scope.aa="cero";
-              $scope.msg=true;
+          $scope.persona_tramite = respuesta.persona_tramite;
+          $scope.numero_muestra = "numero que yo puse";
+          $scope.tamanio="";
+          if(respuesta.persona_tramite){
+              $scope.tamanio="";
+              $scope.ver=true;
               $scope.switch=false;
-          } else if(respuesta.persona_tramite.length == 0){
-              $scope.aa="uno";
-              $scope.msg=false;
-              $scope.tamanio="No se encontraron resultados";
-          }  
+          } else if(!respuesta.persona_tramite){
+              $scope.ver=false;
+              $scope.tamanio="La persona con el carnet ingresado, no inició un Trámite";
+          }
+          if(respuesta.muestra){
+              $scope.tamanio="La persona ya cuenta con un numero de muestra";
+              $scope.verprueba=true;
+          }
       });
   }
 }
+
+
+
