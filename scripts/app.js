@@ -40,10 +40,20 @@ angular.module("adminApp", ["authService", "ngRoute", "ngResource", "satellizer"
   templateUrl: 'templates/pruebamedica/create.html',
   controller: 'PruebaMedicaCtrl'
 })
-// realizar los examenes
+// realizar los examenes prueba enfermedad
 .when('/prueba-medica/prueba/:pm_id', {
   templateUrl: 'templates/pruebamedica/prueba.html',
   controller: 'PruebaEnfermedadCtrl'
+})
+//ver prueba medica por pm_id
+.when('/prueba-medica/ver/:pm_id', {
+  templateUrl: 'templates/pruebamedica/ver.html',
+  controller: 'PruebaMedicaVerCtrl'
+})
+//historial clinico por ci
+.when('/ficha-clinica/:per_ci', {
+  templateUrl: 'templates/pruebamedica/ficha-clinica.html',
+  controller: 'FichaClinicaCtrl'
 })
 
 //jhon==========================================================================

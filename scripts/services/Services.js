@@ -734,6 +734,11 @@ angular.module("adminApp")
     update:{method:"PUT",params:{pm_id: "@pm_id"}}
   })
 }])
+.factory('FichaClinica', ['$resource', 'CONFIG', function ($resource,CONFIG) {
+  return $resource(CONFIG.DOMINIO_SERVICIOS+"/pruebamedicapersona/:per_ci",{per_ci:"@per_ci"},{
+    update:{method:"PUT",params:{per_ci: "@per_ci"}}
+  })
+}])
 
 //--prueba enfermedad opearaciones
 .factory('PruebaEnfermedad', ['$resource', 'CONFIG', function ($resource,CONFIG) {
@@ -741,7 +746,9 @@ angular.module("adminApp")
     update:{method:"PUT",params:{pre_id: "@pre_id"}}
   })
 }])
-
+.factory('PersonaporCI', ['$resource','CONFIG', function ($resource, CONFIG) {
+  return $resource(CONFIG.DOMINIO_SERVICIOS+"/personas_ci/:per_ci", {per_ci:"@_per_ci"},{ update:{method:"PUT", params:{per_ci:"@per_ci"}}})
+}])
 
 
 // ===============================/jhon
