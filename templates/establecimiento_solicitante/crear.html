@@ -1,6 +1,5 @@
 <!-- TOP-MENU inicio -->
 <div ng-include="'./templates/menu_inicio.html'"></div>
-
 <!-- CONTEXT-MENU  -->
 <div ng-include="'./templates/menu_lateral.html'"></div>
 <!-- CONTENIDO MODULO inicio -->
@@ -54,7 +53,7 @@
 								<div class="row">
 									<div class="col-md-8">
 										<label for="nombre" class="control-label">Nombre o razón social: <strong class="fg_red">*</strong></label>
-					                    <input class="form-control" id="nombre" name="nombre" type="Text" placeholder="Nombre del establecimiento de salud" ng-model="establecimiento.es_nombre" ng-model-options="{ updateOn: 'blur' }" ng-pattern="patternNombreEstab" required autofocus>
+					                    <input class="form-control" id="nombre" name="nombre" type="Text" placeholder="Nombre del establecimiento de salud" ng-model="establecimiento.ess_razon_social" ng-model-options="{ updateOn: 'blur' }" ng-pattern="patternNombreEstab" required autofocus>
 					                    <span class="messages" ng-show="addEstablecimiento.nombre.$touched">
 			        						<span ng-show="addEstablecimiento.nombre.$error.required">El campo es obligatorio.</span>
 			    							<span ng-show="addEstablecimiento.nombre.$error.pattern">No se admiten símbolos especiales.</span>
@@ -62,7 +61,7 @@
 									</div>
 									      <div class="col-md-4" ng-controller="ListaPersonasCtrl" >
 								              <label for="nombrelab" class="control-label">Coordinador: <strong class="fg_red">*</strong></label>
-								               <select class="form-control " name="coordinador" ng-model="establecimiento.per_id"  ng-options="persona.per_id as persona.per_nombres+' '+persona.per_apellido_primero+' '+persona.per_apellido_segundo for persona in personas" required>
+								               <select class="form-control " name="coordinador" ng-model="establecimiento.coo_per_id"  ng-options="persona.per_id as persona.per_nombres+' '+persona.per_apellido_primero+' '+persona.per_apellido_segundo for persona in personas" required>
 								              <option value="">--Elige opcion--</option>
 								              </select>
 								              <span class="messages" ng-show="addEstablecimiento.$submitted || addEstablecimiento.coordinador.$touched">
@@ -111,7 +110,6 @@
 							    </span>
 							  
 							</div>
-	  
 							<div class="col-md-4">
 		                        <label class="control-label">Calle/Avenida: <strong class="fg_red">*</strong></label>
 		                        <input type="" class="form-control" id="calleavenida" name="calleavenida" placeholder="Calle/Avenida" ng-model="establecimiento.ess_avenida_calle" ng-model-options="{ updateOn: 'blur' }" required ng-pattern="patternCadenaNumero">
@@ -137,9 +135,6 @@
 		                          	<!-- <span class="input-group-btn">
 								     	<button class="btn btn-secondary resaltar" type="button"><span class="glyphicon glyphicon-plus"></span></button>
 								  	</span> -->
-
-
-
 								    <span class="messages" ng-show="addEstablecimiento.telefono.$touched">
 							          	<span ng-show="addEstablecimiento.telefono.$error.required">El campo es obligatorio.</span>
 							          	<span ng-show="addEstablecimiento.telefono.$error.min">Número de teléfono incorrecto, el número no puede ser menor a 2000000.</span>
@@ -157,28 +152,26 @@
 						</div>
 						<br>	  
 						<div class="row">
-				<!-- 			<div class="col-md-6">
+				<!--    <div class="col-md-6">
 							    <label class="control-label">Fax:</label>
 							    <input type="" class="form-control" id="" placeholder="Fax" ng-model="establecimiento.es_fax" ng-pattern="patternNumero">
 							    <span class="messages" ng-show="addEstablecimiento.fax.$touched">
 									<span ng-show="addEstablecimiento.fax.$error.pattern">Solo se admiten números.</span>
 						        </span>
-							</div> -->
-						
-							<button class="btn btn-primary" ng-click="initMap()">GENERAR POSICION</button>
+						</div> -->
+
 							<div class="col-md-3">
 		                        <label class="control-label">Latitud:</label>
-		                        <input type="" class="form-control" id="" placeholder="Latitud" ng-model="establecimiento.ess_latitud">
+		                        <input type="" class="form-control" id="" placeholder="Latitud" ng-model="latitud">
 							</div>	  
 							<div class="col-md-3">
 		                        <label class="control-label">Longitud:</label>
-		                        <input type="" class="form-control" id="" placeholder="Longitud" ng-model="establecimiento.ess_longitud">
+		                        <input type="" class="form-control" id="" placeholder="Longitud" ng-model="longitud">
 							</div>	 
 							<br>
+								<button class="btn btn-primary" ng-click="initMap()">GENERAR POSICION</button>
 							<div id="mapa" style="width: 50%; height: 300px;">
-							<!--  <marker id="foo" position="-16.363882,86.044922"
-						        >
-						      </marker> -->
+						
 							</div> 
 						</div>	 
 						<hr>
@@ -197,7 +190,7 @@
 								        </label>
 									</div>
 							        <br>
-									<button ng-show = "para_enviar" type="submit" class="btn btn-primary" ng-click="submit($parent.establecimiento); vista.enviar();reset(addEstablecimiento)" ng-disabled="addEstablecimiento.$invalid" title="Debe llenar todos los campos obligatorios de manera correcta"><span class="glyphicon glyphicon-save"></span> GUARDAR</button>
+									<button ng-show = "para_enviar" type="submit" class="btn btn-primary" ng-click="submit($parent.establecimiento,latitud,longitud); vista.enviar();reset(addEstablecimiento)" ng-disabled="addEstablecimiento.$invalid" title="Debe llenar todos los campos obligatorios de manera correcta"><span class="glyphicon glyphicon-save"></span> GUARDAR</button>
 								</div>
 							</div>	  
 						</div>	  	
@@ -230,51 +223,49 @@
 
 <script type="text/javascript">
 
-  var map = null;
-var infoWindow = null;
- 
-function openInfoWindow(marker) {
-    var markerLatLng = marker.getPosition();
-    infoWindow.setContent([
-        'La posicion del marcador es',
-        markerLatLng.lat(),
-        ', ',
-        markerLatLng.lng(),
-        'bla bla bla'
-    ].join(''));
-    infoWindow.open(map, marker);
+		/*var map = null;
+		var infoWindow = null;
+		 
+		function openInfoWindow(marker) {
+		    var markerLatLng = marker.getPosition();
+		    infoWindow.setContent([
+		        'La posicion del marcador es',
+		        markerLatLng.lat(),
+		        ', ',
+		        markerLatLng.lng(),
+		        'latitud, longitud'
+		    ].join(''));
+		    infoWindow.open(map, marker);
 
-}
- 
-function initialize() {
+		}
+		function initialize() {
+			var lat;
+		    var myLatlng = new google.maps.LatLng(-16.5100454,-68.12356620000003);
+		    var myOptions = {
+		      zoom: 16,
+		      center: myLatlng,
+		      mapTypeId: google.maps.MapTypeId.ROADMAP
+		    }
+		 
+		    map = new google.maps.Map(document.getElementById('mapa'), myOptions);
+			infoWindow = new google.maps.InfoWindow();
+		 	var marker = new google.maps.Marker({
+		        position: myLatlng,
+		        draggable: true,
+		        map: map,
+		        title:'Ejemplo marcador arrastrable;'
+		    });
+		 var wen = marker.getPosition();
+		        console.log("weeeen",wen.lat());
+		        console.log("wennn",wen.lng());  
+		    google.maps.event.addListener(marker, 'click', function(){
+		        openInfoWindow(marker);
+		 console.log("POSITIONNNNNN",myLatlng);
 
-    var myLatlng = new google.maps.LatLng(-16.5100454,-68.12356620000003);
-    var myOptions = {
-      zoom: 16,
-      center: myLatlng,
-      mapTypeId: google.maps.MapTypeId.ROADMAP
-    }
- 
-    map = new google.maps.Map(document.getElementById('mapa'), myOptions);
-
-    infoWindow = new google.maps.InfoWindow();
- 
-    var marker = new google.maps.Marker({
-        position: myLatlng,
-        draggable: true,
-        map: map,
-        title:'Ejemplo marcador arrastrable;'
-    });
- var wen = marker.getPosition();
-        console.log("weeeen",wen.lat());
-        console.log("wennn",wen.lng());  
-    google.maps.event.addListener(marker, 'click', function(){
-        openInfoWindow(marker);
- console.log("POSITIONNNNNN",myLatlng);
-    });
-}
-							 
-							$(document).ready(function() {
-							    initialize();
-							});
-							</script>
+		    });
+		}
+									 
+		$(document).ready(function() {
+		    initialize();
+		});*/
+</script>

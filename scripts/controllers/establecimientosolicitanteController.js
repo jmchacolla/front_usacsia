@@ -131,18 +131,18 @@ angular.module("adminApp")
           console.log("length "+$scope.zonas.length);
       })
   };
-
+$scope.latitud=null;
+ $scope.longitud=null;
+ var lat,long;
 $scope.initMap = function(){
-  /* 
+   
     var infowindow = new google.maps.InfoWindow();
     var marker, i;
     navigator.geolocation.getCurrentPosition(function(pos) {
     $scope.position = new google.maps.LatLng(pos.coords.latitude, pos.coords.longitude);
 //              console.log(JSON.stringify($scope.position));
-        
-
-        // Creamos un objeto mapa y lo situamos en coordenadas actuales
-        var map = new google.maps.Map(document.getElementById('mapa'),{
+      // Creamos un objeto mapa y lo situamos en coordenadas actuales
+    /* */   var map = new google.maps.Map(document.getElementById('mapa'),{
         center: {lat: pos.coords.latitude, lng: pos.coords.longitude},
         scrollwheel: false,
         zoom: 16
@@ -152,29 +152,49 @@ $scope.initMap = function(){
         var marker = new google.maps.Marker({
           position: new google.maps.LatLng(pos.coords.latitude, pos.coords.longitude),
           map: map,
-        animation: google.maps.Animation.BOUNCE,
+          draggable: true,
+//        animation: google.maps.Animation.BOUNCE,
         title: ''
         });   
-        console.log("MARKER",marker); 
+        
         var markerLatLng = marker.getPosition();
-        console.log("POSITIONmmm",markerLatLng.lat());
-        console.log("POSITIONmmm",markerLatLng.lng());  
+        $scope.latitud=markerLatLng.lat();
+        $scope.longitud=markerLatLng.lng();
+        console.log("latitud para mostrar en input",$scope.latitud);
+        console.log("longitud para mostrar en input",$scope.longitud);
         //console.log("POSITIONmmmmm",marker.position.lat.[[Scopes]].0.a);  
         infowindow.setContent('<h4 class="text-primary">Tú estas aquí <br><small>Esta es tu ubicación aproximada</small></h4>');
         infowindow.open(map, marker);
+
         google.maps.event.addListener(marker, 'click', (function(marker) {
             return function() {
-            infowindow.setContent('<h4 class="text-primary">Tú estas aquí <br><small>Esta es tu ubicación aproximada</small></h4>');
+            /*infowindow.setContent('<h4 class="text-primary">Tú estas aquí <br><small>Esta es tu ubicación aproximada</small></h4>');*/
+            /*infowindow.setContent([
+                'La posicion del marcador es',
+                markerLatLng.lat(),
+                ', ',
+                markerLatLng.lng(),
+                'latitud, longitud'
+            ].join(''));*/
+            var markerLatLng1 = marker.getPosition();
+             lat=markerLatLng1.lat();
+            long=markerLatLng1.lng();
+            console.log("latitudq",lat);
+            console.log("longitudq",long);  
+
+ 
             infowindow.open(map, marker);
             }
         })(marker));
-     })*/
 
 
+     })
+
+
+
+       
 
   };
-
-
 
 
 
@@ -184,14 +204,14 @@ $scope.initMap = function(){
     coo_per_id:null,
     zon_id:null,
     ess_razon_social:null,
-    ess_telefono:null,
-    ess_correo_electronico:null,
-    ess_tipo:null,
-    ess_avenida_calle:null,
-    ess_numero:null,
+    ess_telefono:0,
+    ess_correo_electronico:'',
+    ess_tipo:'',
+    ess_avenida_calle:'',
+    ess_numero:0,
     ess_stand:"",
-    ess_latitud:null,
-    ess_longitud:null,
+    ess_latitud:0,
+    ess_longitud:0,
     ess_altitud:null,
     ie_nombre:"EST.JPG",
     ie_enlace: "./img-est/",
@@ -207,15 +227,16 @@ $scope.initMap = function(){
   $scope.patternFecha = /^(0[1-9]|1[0-9]|2[0-9]|3[01]).(0[1-9]|1[012]).[0-9]{4}$/;
   $scope.patternHora = /^[0-9:]*$/;
   //VALIDAR NUMEROS !!!!!!
-  $scope.submit = function(a){
-
+  $scope.submit = function(a,lat,lon){
+    $scope.establecimiento.ess_latitud=lat;
+    $scope.establecimiento.ess_longitud=lon;
     EstabSols.save($scope.establecimiento).$promise.then(function(data){
-      if(data.status) {
+      if(data.msg) {
         angular.copy({}, $scope.establecimiento);
         $scope.ajustes.pagina.success = "Establecimiento añadido correctamente";
         toastr.success('Establecimiento añadido correctamente');
         $timeout(function() {
-          $location.path('/establecimientos');
+          $location.path('/establecimientossol');
         },0);
       }
     });
