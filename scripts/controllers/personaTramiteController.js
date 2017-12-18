@@ -94,30 +94,29 @@ angular.module("adminApp")
 
     $scope.CurrentDate = new Date();
     Tramite.get(function(data){
-      console.log("amuestra");
     $scope.tramite = data.tramites;
+    console.log("tramite del get",$scope.tramite);
 
       $scope.monto = function(costo){
-        console.log("creo costo",costo);
-          $scope.tramite=costo;  
+          $scope.persona_tramite.pt_monto=costo;  
       }
     })
 
-
+    /**/
   $scope.save = function(a, per_id){
     $scope.persona_tramite.per_id=per_id;
-    // $scope.persona_tramite.pt_fecha_ini=new Date('Y-m-d');
-    // $scope.persona_tramite.tra_id=tra_id;
-    PersonaTramite.save($scope.persona_tramite).$promise.then(function(data)
-    {
-      console.log('el data', data);
+    console.log('la persona-tramite que se va a cerar', $scope.persona_tramite);
+   
+    // PersonaTramite.save($scope.persona_tramite).$promise.then(function(data)
+    // {
+    //   console.log('el data', data);
 
-        if(data.mensaje){
-          toastr.success('Pago registrado correctamente'+data.persona_tramite.pt_id+' es');
-               $location.path('/boleta-pago/'+data.persona_tramite.pt_id);
+    //     if(data.mensaje){
+    //       toastr.success('Pago registrado correctamente'+data.persona_tramite.pt_id+' es');
+    //            $location.path('/boleta-pago/'+data.persona_tramite.pt_id);
 
-        }
-    })
+    //     }
+    // })
   }
 }])
 
