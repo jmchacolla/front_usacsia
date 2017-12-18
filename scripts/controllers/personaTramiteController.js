@@ -20,7 +20,7 @@ angular.module("adminApp")
   $scope.sortReverse  = true;  // set the default sort order
   $scope.Personas = [];
 
-
+  
   $scope.loading=true;//para hacer un loading
   var tra_id = 1;
   ListarTramitesService.get({tra_id:1}, function(data){

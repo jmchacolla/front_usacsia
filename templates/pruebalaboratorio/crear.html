@@ -8,7 +8,7 @@
     <div class="col-md-12">
       <h2 class="text-primary">
         <span class="glyphicon glyphicon-th-list" aria-hidden="true"></span>
-        {{ajustes.pagina.titulo}}
+        {{ajustes.pagina.titulo+" "+numero_muestra.mue_num_muestra}}
       </h2>
       <hr>
     </div>
@@ -59,31 +59,34 @@
                         </div>
                     </div>
 
-
                     <div class="panel">
                         <div class="panel-body">
                           <div class="row">
-                            <div class="panel col-md-12">
+                            <div class="col-md-6">
+                             <div class="panel">
                                <h4 class="text-center text-primary">LISTA DE PARÁSITOS</h4>
-                                <div class="panel col-md-12">
-                                  <div class="col-md-12">
-                                    <div class="col-md-6">
-                                      <label class="control-label"> Selceccione el par&aacute;sito encontrado en la muestra</label>
-                                              <select name="select" class="form-control" ng-model="pruebapar.par_id" ng-options="par.par_id as par.par_nombre  for par in parasitosno">
-                                              </select>
-                                    </div>
-                                    <div class="col-md-6">
-                                      <center>
-
-                                              <button type="submit" class="btn btn-success" ng-click="saveppp(parasito.par_id)" ng-disabled="parasitosno==null || pruebapar.par_id==null"><span class="glyphicon glyphicon-plus"></span> AGREGAR PARÁSITO</button>
-                                            </center>
-                                    </div>
-                                  </div>
-                                  <!-- comienzan las tablar -->
+                                <div class="panel-body">
+                                  <span class="messages" ng-show="tam==0">Selceccione el par&aacute;sito encontrado en la muestra</span>
+                                  <table class="table table-hovertable table-bordered table-striped table-hover">
+                                    <thead>
+                                        <th >Parasito</th>
+                                        <th >Agregar</th> 
+                                    </thead>
+                                    <tbody ng-repeat="parasito in parasitosno | orderBy:sortType:sortReverse">
+                                    <tr>
+                                    <td>{{parasito.par_nombre | uppercase}}</td>
+                                    <td>
+                                      <button type="button" class="btn btn-success" ng-click="agregar(parasito.par_id)" title="Agregar">
+                                        <span class="glyphicon glyphicon-plus"></span>
+                                      </button>
+                                    </td>
+                                    </tr>
+                                  </tbody>
+                                  </table>
                                 </div>
                             </div>
-                          </div>
-                          <div class="row">
+                            </div>
+                            <div class="col-md-6">    
                              <div class="panel">
                                <h4 class="text-center text-primary">PARÁSITOS ENCONTRADOS</h4>
 
@@ -103,9 +106,11 @@
                                       </button>
                                     </td>
                                     </tr>
+                                  </tbody>
                                   </table>
                                 </div>
-                            </div>                           
+                            </div>
+                            </div>                          
                           </div>
                           <div class="row">
                               <div class="col-md-12">
