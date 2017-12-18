@@ -734,6 +734,12 @@ angular.module("adminApp")
     update:{method:"PUT",params:{fic_id: "@fic_id"}}
   })
 }])
+//ultima ficha que recepciona un medico para atender----jhon
+.factory('UltimaFichaAtendida', ['$resource', 'CONFIG', function ($resource, CONFIG) {
+  return $resource(CONFIG.DOMINIO_SERVICIOS+"/ultimafichaatendida/:pt_id",{pt_id:"@_pt_id"},{
+    update:{method:"PUT",params:{pt_id: "@pt_id"}}
+  })
+}])
 // index,store,update,listar prueba_medica
 .factory('PruebaMedica', ['$resource', 'CONFIG', function ($resource,CONFIG) {
   return $resource(CONFIG.DOMINIO_SERVICIOS+"/prueba_medica/:pm_id",{pm_id:"@pm_id"},{

@@ -1,7 +1,7 @@
 'use-strict';
 angular.module("adminApp")
 
-.controller('PruebaMedicaCtrl', ['$scope', 'PruebaMedica', 'PersonaTramite', '$route', '$resource','$routeParams', 'toastr','$location', '$timeout', function ($scope, PruebaMedica, PersonaTramite, $route, $resource,$routeParams, toastr, $location, $timeout){
+.controller('PruebaMedicaCtrl', ['$scope', 'PruebaMedica', 'PersonaTramite', '$route', '$resource','$routeParams', 'toastr','$location', '$timeout', 'UltimaFichaAtendida', function ($scope, PruebaMedica, PersonaTramite, $route, $resource,$routeParams, toastr, $location, $timeout, UltimaFichaAtendida){
     $scope.ajustes = {
       menu:{
         titulo: 'Gestion de Consultas',
@@ -35,11 +35,11 @@ angular.module("adminApp")
        $scope.pertramite.persona.per_genero='MASCULINO';
      }
    });
-
    $scope.pruebamed={
       pt_id:pt_id,
       ser_id:1,//---------medicina general
-      fun_id:8,//----------debe ser de sesion
+      fun_id:1,//----------debe ser de sesion
+      fic_id:null,
       pm_fc:"",
       pm_fr:"",
       pm_pa_sistolica:"",
@@ -48,6 +48,7 @@ angular.module("adminApp")
       pm_peso:null,
       pm_talla:null,
       pm_imc:null,
+
       // pm_fecha:"",
       // pm_diagnostico:"",
    };
@@ -68,10 +69,14 @@ angular.module("adminApp")
          $scope.pruebamed.pm_imc=(a/Math.pow(b,2)).toFixed(2);
      }
    }
+   var ficha=0;
+   UltimaFichaAtendida.get({pt_id:pt_id}, function (f) {
+     $scope.pruebamed.fic_id=f.ficha.fic_id;
+     console.log('-----ficha', $scope.pruebamed);
+   })
 
-
-    $scope.save = function(pm_fc, pm_fr, pm_pa_sistolica, pm_pa_diastolica, pm_temperatura, pm_peso, pm_imc,  pm_talla){
- 
+    $scope.save = function(){
+        console.log('prueba medica ---------', $scope.pruebamed);
       PruebaMedica.save($scope.pruebamed).$promise.then(function(data)
       {
           console.log('prueba medica ---------', data);

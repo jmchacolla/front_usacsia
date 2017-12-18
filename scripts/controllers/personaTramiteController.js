@@ -157,15 +157,7 @@ angular.module("adminApp")
     FichasfechaService.get($scope.fecha, function(data){
       console.log('*******fichafecha---------', data);
       $scope.fichas = data.fichas;
-    // for (var i=0; i=$scope.fichas.length; i++)
-    // {
-    //   if ($scope.fichas[i].per_genero=='F' || $scope.fichas[i].per_genero=='f'){
-    //     $scope.fichas[i].per_genero='FEMENINO';
-    //   }
-    //   else if($scope.fichas[i].per_genero=='M' || $scope.fichas[i].per_genero=='m'){
-    //     $scope.fichas[i].per_genero='MASCULINO';
-    //   }
-    // }
+
       if(data.fichas.length>0){
         $scope.loading = false;
         $scope.msg = true;
