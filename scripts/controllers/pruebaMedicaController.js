@@ -97,10 +97,6 @@ angular.module("adminApp")
         titulo:'Ficha Clínica'
       }
     }
-    //  $scope.sortType = 'per_id'; // set the default sort type
-    // $scope.sortReverse  = true;  // set the default sort order
-    // $scope.loading=true;//para hacer un loading
-
     var per_ci=$routeParams.per_ci;
     PersonaporCI.get({per_ci:per_ci},function (data) {
       console.log('data-------', data);
@@ -137,7 +133,9 @@ angular.module("adminApp")
       PruebaMedica.get({pm_id:pm_id},function (data) {
         console.log('data-------', data);
         $scope.prueba_medica=data.prueba_medica;
+        
       });
+
 
 }])
 

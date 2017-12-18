@@ -1,6 +1,6 @@
 'use strict';
 angular.module('adminApp')
-.controller('PaisCtrl2', ['$scope', 'Paises',
+.controller('PaisCtrl', ['$scope', 'Paises',
  function ($scope, Paises) {
 	$scope.ajustes = {
     menu:{
