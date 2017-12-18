@@ -23,7 +23,7 @@ angular.module('adminApp')
 
 //wendy
 
-//  DOMINIO_SERVICIOS: "http://localhost:8080/api_usacsia/public"
+ DOMINIO_SERVICIOS: "http://localhost:8080/api_usacsia/public"
 //dominio servidor
 //  DOMINIO_SERVICIOS: "https://190.181.60.19/api_usacsia/public"
  

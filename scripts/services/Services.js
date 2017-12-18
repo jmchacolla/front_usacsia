@@ -99,6 +99,12 @@ angular.module("adminApp")
     update: {method: "PUT", params: {}}
   })
 }])
+//ver completo
+.factory('VerPT', ['$resource', 'CONFIG', function ($resource, CONFIG){
+  return $resource(CONFIG.DOMINIO_SERVICIOS+"/ver_c/:pt_id", {pt_id:"@_pt_id"}, {
+    update: {method: "PUT", params: {pt_id:"@_pt_id"}}
+  })
+}])
 
 
 

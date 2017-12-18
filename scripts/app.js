@@ -238,6 +238,13 @@ angular.module("adminApp", ["authService", "ngRoute", "ngResource", "satellizer"
       authorized: [ROLES.ADMIN_SEDES.ROL]
     }*/
   })
+  .when('/pers_tra/ver/:pt_id', { 
+    templateUrl: 'templates/personatramite/ver.html',
+    controller: 'VerFinalCtrl',
+/*    data: {
+      authorized: [ROLES.ADMIN_SEDES.ROL]
+    }*/
+  })
 //*******************************==========================PAIS==========================================================================
   .when('/homepais',{
    templateUrl:'templates/pais/list.html',
