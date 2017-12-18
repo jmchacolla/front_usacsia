@@ -327,6 +327,11 @@ angular.module("adminApp", ["authService", "ngRoute", "ngResource", "satellizer"
     // }
   })
 
+  // .when('/ultima-prueba-laboratorio', {
+  //   templateUrl: 'ultima-prueba-laboratorio.html',
+  //   controller: 'UltimaPruebaLaboratorioCtrl'
+  // })
+
 
 
   /*-----------------------------asignacion de numero de muestra---------------------------------*/
