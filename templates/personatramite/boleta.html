@@ -3,7 +3,7 @@
 <!-- CONTEXT-MENU -->
 <div ng-include="'./templates/menu_lateral.html'"></div>
 <!-- CONTENIDO MODULO inicio -->
-<div class="col-md-8 col-sm-8">
+<div class="col-md-8 col-sm-8" >
   <div class="row">
     <div class="col-md-12">
       <h2 class="text-primary">
@@ -43,4 +43,9 @@
       </div>
     </div>
   </div>
+<div ng-controller="pdf_pago_Ctrl"  align="center">
+   <button type="button" class="btn btn-default" ng-click="openPdf1()" >IMPRIMIR PAGO  <span class="glyphicon glyphicon-open-file"></span></button>
+   <button type="button"  class="btn btn-default" ng-click="downloadPdf1()">Descargar PDF PAGO  <span class="glyphicon glyphicon-download-alt"></span></button>
+</div>
+
 </div>
