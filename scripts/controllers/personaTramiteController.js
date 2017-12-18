@@ -299,6 +299,7 @@ angular.module("adminApp")
     VerPT.get({pt_id:pt_id}, function(data)
     {
       $scope.pertramite = data.pertramite;
+      $scope.numero=$scope.pertramite.persona_tramite.pt_numero_tramite;
      console.log('-----', $scope.pertramite);
        /*nt=$scope.pertramite.persona_tramite.pt_numero_tramite;
       $scope.today=moment(new Date(), "YYYY-MM-DD") .format("DD-MM-YY");

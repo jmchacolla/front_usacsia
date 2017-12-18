@@ -231,14 +231,14 @@ angular.module("adminApp", ["authService", "ngRoute", "ngResource", "satellizer"
     }*/
   })
 //*******************************==========================P E R S O N A S  Q  C O N C L U Y E R O N==========================================================================
-    .when('/personas/conc', { 
+    .when('/tramites_concluidos', { 
     templateUrl: 'templates/personatramite/final2.html',
     controller: 'ListaFinalCtrl',
 /*    data: {
       authorized: [ROLES.ADMIN_SEDES.ROL]
     }*/
   })
-  .when('/pers_tra/ver/:pt_id', { 
+  .when('/tramites_concluidos/ver/:pt_id', { 
     templateUrl: 'templates/personatramite/ver.html',
     controller: 'VerFinalCtrl',
 /*    data: {
