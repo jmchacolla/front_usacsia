@@ -17,11 +17,12 @@ angular.module("adminApp")
   }
   $scope.num_ficha_traido_del_crear=0;
   $scope.aux=null;
+  //guarda la ficha input pt_id
   $scope.savef=function(a)
   {
      $scope.ficha.pt_id=a;
      console.log('hasta aqui llego la funcion',$scope.ficha);
-    Ficha.save($scope.muestra).$promise.then(function(data)
+    Ficha.save($scope.ficha).$promise.then(function(data)
     {
       if(data.status)
       {
