@@ -300,7 +300,7 @@ angular.module("adminApp")
     {
       $scope.pertramite = data.pertramite;
       $scope.numero=$scope.pertramite.persona_tramite.pt_numero_tramite;
-     console.log('-----', $scope.pertramite);
+     console.log('pertramite-----', $scope.pertramite);
        /*nt=$scope.pertramite.persona_tramite.pt_numero_tramite;
       $scope.today=moment(new Date(), "YYYY-MM-DD") .format("DD-MM-YY");
       $scope.monto='Numeros a Letras';*/
