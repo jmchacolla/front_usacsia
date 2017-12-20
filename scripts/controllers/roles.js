@@ -25,7 +25,7 @@ angular.module('adminApp')
 
  // DOMINIO_SERVICIOS: "http://localhost:8080/api_usacsia/public"
 //dominio servidor
-//  DOMINIO_SERVICIOS: "https://190.181.60.19/api_usacsia/public"
+  DOMINIO_SERVICIOS: "http://localhost:8080/api_usacsia_v1/public"
  
 
 //vero
@@ -86,7 +86,7 @@ angular.module('adminApp')
     ROL:10,
     PATH:"/"
   },
-  RESP_LAB: {
+  RESPONSABLE_LAB: {
     ROL:11,
     PATH:"/"
   },
@@ -163,7 +163,7 @@ angular.module('adminApp')
           $location.path(ROLES.ENFERMERA.PATH);
         }
         else if (CONFIG.ROL_CURRENT_USER == 11) {
-          $location.path(ROLES.RESP_LAB.PATH);
+          $location.path(ROLES.RESPONSABLE_LAB.PATH);
         }
         else if (CONFIG.ROL_CURRENT_USER == 12) {
           $location.path(ROLES.RECEP_LAB.PATH);
