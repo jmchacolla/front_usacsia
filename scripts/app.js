@@ -20,6 +20,11 @@ angular.module("adminApp", ["authService", "ngRoute", "ngResource", "satellizer"
         authorized: [ROLES.ADMIN_SEDES.ROL, ROLES.ADMIN_ESTAB.ROL, ROLES.ADMIN_MEDICO.ROL]
       }*/
 })
+//---ver carne sanitario ver por pt_id
+.when('/carne-sanitario/:pt_id', {
+  templateUrl: 'templates/carne/ver.html',
+  controller: 'CarneSanitarioCtrl'
+})
 // crear prueba medica form registro de signos vitales
 .when('/prueba-medica/:pt_id', {
   templateUrl: 'templates/pruebamedica/create.html',
