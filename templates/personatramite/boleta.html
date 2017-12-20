@@ -33,12 +33,15 @@
       <div class="text-center" ng-show="loading"><br><img ng-src="./images/image.gif" class="loader-img"></div>
       <div ng-show="!loading && !msg">No se encontraron resultados</div>
       <div  class="well well-sm">
-           <div>Unidad de:<span class="lead">{{pertramite.tramite.tra_nombre}}</span></div><div>Monto:<span class="lead"></span>{{pertramite.persona_tramite.pt_monto}}</div>
-           <div>Hemos recibido del Señor(es): <span class="lead">{{pertramite.persona.per_nombres}} {{pertramite.persona.per_apellido_primero}} {{pertramite.persona.per_apellido_segundo}}</span></div>
-           <!-- <div>La suma de: <span class="lead">{{pertramite.persona_tramite.pt_monto}}</span> Bolivianos.</div> -->
-           <div>La suma de: <span class="lead">{{monto}}</span> Bolivianos.</div>
-           <div>Por concepto de: {{pertramite.tramite.tra_nombre}}</div>
-           <div><center>La Paz {{today}}</center></div>
+           <div class="panel">
+             <div>Unidad de:<span class="lead">&nbsp;&nbsp;{{pertramite.tramite.tra_nombre}}</span></div>
+             <div>Monto:<span class="lead"></span>&nbsp;&nbsp;&nbsp;&nbsp;<span class="lead">{{pertramite.persona_tramite.pt_monto}}</span></div>
+             <div>Hemos recibido del Señor(es): <span class="lead">&nbsp;&nbsp;&nbsp;&nbsp;{{pertramite.persona.per_nombres}} {{pertramite.persona.per_apellido_primero}} {{pertramite.persona.per_apellido_segundo}}</span></div>
+             <!-- <div>La suma de: <span class="lead">{{pertramite.persona_tramite.pt_monto}}</span> Bolivianos.</div> -->
+             <div>La suma de: <span class="lead">&nbsp;&nbsp;&nbsp;&nbsp;{{monto}}</span> &nbsp;&nbsp;&nbsp;&nbsp;Bolivianos.</div>
+             <div>Por concepto de: &nbsp;&nbsp;&nbsp;&nbsp;{{pertramite.tramite.tra_nombre}}</div>
+             <div><center>La Paz {{today}}</center></div>
+           </div>
 
       </div>
     </div>
