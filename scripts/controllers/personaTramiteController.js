@@ -306,7 +306,7 @@ angular.module("adminApp")
     {
       $scope.pertramite = data.pertramite;
       $scope.numero=$scope.pertramite.persona_tramite.pt_numero_tramite;
-     console.log('-----', $scope.pertramite);
+     console.log('pertramite-----', $scope.pertramite);
        /*nt=$scope.pertramite.persona_tramite.pt_numero_tramite;
       $scope.today=moment(new Date(), "YYYY-MM-DD") .format("DD-MM-YY");
       $scope.monto='Numeros a Letras';*/
@@ -317,9 +317,6 @@ angular.module("adminApp")
 }])
 
 
-
-
-
 .controller('pdf_pago_Ctrl',['$scope', 'PersonaTramite', 'CONFIG','$routeParams', '$http', function ($scope, PersonaTramite, CONFIG, $routeParams, $http){
   // prepare the document definition using declarative approach
     var id = $routeParams.pt_id;
@@ -328,9 +325,11 @@ angular.module("adminApp")
     PersonaTramite.get({pt_id:id}, function(data)
     {
       $scope.persona = data.pertramite;
-      var fecha_cont=moment(new Date(), "YYYY-MM-DD") .format("DD-MM-YY");
+      console.log('persona', $scope.persona);
+      var fechapago= $scope.persona.persona_tramite.pt_fecha_ini;
+      var fecha_cont=moment(new Date(), "YYYY-MM-DD") .format("DD-MM-YYYY");
       var horaC=fecha_cont[1];
-      var fechaCONT = moment(fecha_cont,"YYYY-MM-DD").format("DD-MM-YYYY");
+      var fechaCONT = moment(fecha_cont,"DD-MM-YYYY").format("DD-MM-YYYY");
       var firma_acomp = "FIRMA USUARIO";
       var bolivia="";
       var gober="";
@@ -343,14 +342,22 @@ angular.module("adminApp")
           var img3 =convertImgToDataURLviaCanvas("./scripts/logoSEDES.png", function(base64Img) {
             sedes =base64Img;
             console.log("entro al controlador pdf",$scope.persona)
+
+            var tituloqr= 'Nro. Trámite: '+$scope.persona.persona_tramite.pt_numero_tramite;
+            var textoqr= 'USACSIA-CARNÉ-SANITARIO-'+$scope.persona.persona_tramite.pt_numero_tramite;
+            //estilo, encabezado de QR
+            function header(text) {
+              return {text: text, margins: [0, 0, 0, 8],alignment: 'right'};
+            }
             var docDefinition = {
                 
                 //pageOrientation: 'landscape',
                 //pageSize: 'LEGAL',
                 pageMargins: [ 30, 5, 30, 5 ],
-                content: [
-                  {
 
+                content: [
+
+                  {
                   table: {
                   widths: [110, 300, 260],
                   body: [
@@ -382,6 +389,12 @@ angular.module("adminApp")
                   border: [false, false, false, false]
 
                 },
+                header(tituloqr),
+                    {
+                      qr: textoqr,
+                      fit:50,
+                      alignment: 'right'
+                    },
                 {
                    text: "CI:  N°"+$scope.persona.persona.per_ci, fontSize: 12, alignment: 'right'
                 },
@@ -405,7 +418,7 @@ angular.module("adminApp")
                                  [{text: 'UNIDAD DE:', bold: true},$scope.persona.tramite.tra_nombre,{text: 'FECHA: ', bold: true},fechaCONT,{text: 'HORA: ', bold: true},horaC],
                                   [{text: 'HEMOS RECIBIDO DEL SR:', bold: true},$scope.persona.persona.per_nombres+" "+$scope.persona.persona.per_apellido_primero+" "+$scope.persona.persona.per_apellido_segundo,{text: ''},'',{text: ' '},''],
                                    [{text: 'LA SUMA DE:', bold: true},$scope.persona.tramite.tra_costo+" BOLIVIANOS",{text: ''},'',{text: ' '},''],
-                                   [{text: 'POR CONCEPTO DE:', bold: true},'FORM',{text: ''},'',{text: ' '},''],
+                                   [{text: 'POR CONCEPTO DE:', bold: true},$scope.persona.tramite.tra_nombre,{text: ''},'',{text: ' '},''],
                              
                                 
                                 ]
@@ -474,6 +487,7 @@ angular.module("adminApp")
              };       
 
               $scope.openPdf1 = function() {
+                
                 pdfMake.createPdf(docDefinition).open();
               };
 
@@ -487,24 +501,27 @@ angular.module("adminApp")
         });//fin imagen sedes
 
          function convertImgToDataURLviaCanvas(url, callback, outputFormat) {
-          var img = new Image();
-          img.crossOrigin = 'Anonymous';
-          img.onload = function() {
-            var canvas = document.createElement('CANVAS');
-            var ctx = canvas.getContext('2d');
-            var dataURL;
-            canvas.height = this.height;
-            canvas.width = this.width;
-            ctx.drawImage(this, 0, 0);
-            dataURL = canvas.toDataURL(outputFormat);
-            callback(dataURL);
-            canvas = null;
-          };
-          img.src = url;
+            var img = new Image();
+            img.crossOrigin = 'Anonymous';
+            img.onload = function() {
+              var canvas = document.createElement('CANVAS');
+              var ctx = canvas.getContext('2d');
+              var dataURL;
+              canvas.height = this.height;
+              canvas.width = this.width;
+              ctx.drawImage(this, 0, 0);
+              dataURL = canvas.toDataURL(outputFormat);
+              callback(dataURL);
+              canvas = null;
+            };
+            img.src = url;
         };
     });// ============  FIN persona tramite.get
 
-}])
+}])//=================  FIN pdf_pago_Ctrl
+
+
+// 
 
 
 
