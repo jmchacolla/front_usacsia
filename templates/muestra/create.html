@@ -28,13 +28,14 @@
        
          <div class="well well-sm">
            <div class="row">
+            <form name="busqForm" novalidate>
              <div class="col-md-6 col-md-offset-2">
-                <input ng-disabled="num_muestra_traido_del_crear!=0" class="form-control input-lg" ng-model="per_ci" type="text" placeholder="Escriba el Nro. de C.I.">
+                <input name="perci"  ng-disabled="num_muestra_traido_del_crear!=0" class="form-control input-lg" ng-model="per_ci" type="text" placeholder="Escriba el Nro. de C.I." required autofocus>
              </div>
              <div class="col-md-4">
-             <button ng-disabled="num_muestra_traido_del_crear!=0" class="btn btn-primary btn-lg" ng-click="buscaPersona()"><span class="glyphicon glyphicon-search"></span><strong> BUSCAR</strong></button>
+             <button ng-disabled="busqForm.$invalid" class="btn btn-primary btn-lg" ng-click="buscaPersona()"><span class="glyphicon glyphicon-search"></span><strong> BUSCAR</strong></button>
              </div>
-
+            </form>
            </div>  
          </div>
           &nbsp;&nbsp;

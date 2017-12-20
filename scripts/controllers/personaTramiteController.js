@@ -281,7 +281,224 @@ angular.module("adminApp")
     })
   }
 }])
+.controller('VerFinalCtrl', ['$scope', 'VerPT',  '$route', 'toastr', '$timeout', '$location', '$routeParams', function ($scope, VerPT, $route, toastr,$timeout, $location, $routeParams) {
 
+  $scope.ajustes = {
+      menu:{
+        titulo: 'Gestión de tramites de Carné Sanitario',
+        items:[
+          {nombre:'Solicitudes de Carné Sanitario', enlace:'#/persona-usacsia', estilo:'active'}]
+      },
+      pagina:{
+        titulo:'Tramite: '/*$scope.pertramite.persona_tramite.pt_numero_tramite*/
+      }
+    };
+    
+    var pt_id = $routeParams.pt_id;
+
+    VerPT.get({pt_id:pt_id}, function(data)
+    {
+      $scope.pertramite = data.pertramite;
+      $scope.numero=$scope.pertramite.persona_tramite.pt_numero_tramite;
+     console.log('-----', $scope.pertramite);
+       /*nt=$scope.pertramite.persona_tramite.pt_numero_tramite;
+      $scope.today=moment(new Date(), "YYYY-MM-DD") .format("DD-MM-YY");
+      $scope.monto='Numeros a Letras';*/
+     
+    
+    });
+
+}])
+
+
+
+
+
+.controller('pdf_pago_Ctrl',['$scope', 'PersonaTramite', 'CONFIG','$routeParams', '$http', function ($scope, PersonaTramite, CONFIG, $routeParams, $http){
+  // prepare the document definition using declarative approach
+    var id = $routeParams.pt_id;
+    console.log("IDEDESS",id);
+   /* var id=8;*/
+    PersonaTramite.get({pt_id:id}, function(data)
+    {
+      $scope.persona = data.pertramite;
+      var fecha_cont=moment(new Date(), "YYYY-MM-DD") .format("DD-MM-YY");
+      var horaC=fecha_cont[1];
+      var fechaCONT = moment(fecha_cont,"YYYY-MM-DD").format("DD-MM-YYYY");
+      var firma_acomp = "FIRMA USUARIO";
+      var bolivia="";
+      var gober="";
+      var sedes="";
+      var img1 =convertImgToDataURLviaCanvas("./scripts/escudo_bolivia.png", function(base64Img) {
+        bolivia =base64Img;
+        //console.log("BASE 64"+bolivia);
+        var img2 =convertImgToDataURLviaCanvas("./scripts/escudo-gober.png", function(base64Img) {
+          gober =base64Img;
+          var img3 =convertImgToDataURLviaCanvas("./scripts/logoSEDES.png", function(base64Img) {
+            sedes =base64Img;
+            console.log("entro al controlador pdf",$scope.persona)
+            var docDefinition = {
+                
+                //pageOrientation: 'landscape',
+                //pageSize: 'LEGAL',
+                pageMargins: [ 30, 5, 30, 5 ],
+                content: [
+                  {
+
+                  table: {
+                  widths: [110, 300, 260],
+                  body: [
+                      [
+                        {
+                          image: gober,
+                          width: 70,
+                          height: 76
+                        },
+                        {
+                          /*image: gober,
+                          width: 64,
+                          height: 62*/
+                          text: "\n \n \n GOBIERNO AUTONOMO DEPARTAMENTAL DE LA PAZ \n SERVICIO DEPARTAMENTAL DE SALUD \n UNIDAD DE SALUD AMBIENTAL \n CONTROL SANITARIO E INOCUIDAD ALIMENTARIA \n \n CAJA RECAUDADORA DE USACSIA",
+                          alignment: 'center',
+                          style: 'header' 
+                        },
+                        {
+                          image: sedes,
+                          width: 35,
+                          height: 55
+                        }
+                      ],
+                  ],
+
+                  },
+                  layout: 'noBorders',
+                  style: 'cuerpo',
+                  border: [false, false, false, false]
+
+                },
+                {
+                   text: "CI:  N°"+$scope.persona.persona.per_ci, fontSize: 12, alignment: 'right'
+                },
+                {
+                  text: " \nBOLETA DE PAGOS\n\n",
+                  alignment: 'center',
+                  style: 'header'  
+                },
+
+{
+
+                    table: {
+                    widths: [530],
+
+                      body: [
+                        [
+                          {
+                            table: {
+                              headerRows: 1,
+                              body: [
+                                 [{text: 'UNIDAD DE:', bold: true},$scope.persona.tramite.tra_nombre,{text: 'FECHA: ', bold: true},fechaCONT,{text: 'HORA: ', bold: true},horaC],
+                                  [{text: 'HEMOS RECIBIDO DEL SR:', bold: true},$scope.persona.persona.per_nombres+" "+$scope.persona.persona.per_apellido_primero+" "+$scope.persona.persona.per_apellido_segundo,{text: ''},'',{text: ' '},''],
+                                   [{text: 'LA SUMA DE:', bold: true},$scope.persona.tramite.tra_costo+" BOLIVIANOS",{text: ''},'',{text: ' '},''],
+                                   [{text: 'POR CONCEPTO DE:', bold: true},'FORM',{text: ''},'',{text: ' '},''],
+                             
+                                
+                                ]
+                              },
+                              layout: 'noBorders',
+                              style: 'cuerpo',
+                              border: [true, true, true, false]
+                          }
+                        ],
+                       
+                   
+                        [
+                          {
+
+                            table: {
+                            widths: [130, 130, 130,130],
+                            body: [
+                                  ['\n \n',''/*,'',''*/],
+                                  ['\n \n',''/*,'\n\n',''*/],
+                                  ['',''/*,'\n\n',''*/],                                  
+                                  [{text: 'REVISADO', bold: true, alignment: 'center'},
+                                  {text: 'FIRMA USUARIO', bold: true,alignment: 'center'}/*,{text: '', bold: true,alignment: 'center'},{text: '', bold: true, alignment: 'center' }*/]
+                              ]
+                            },
+                            layout: 'noBorders',
+                            style: 'cuerpo1',
+                            border: [true, false, true, true]
+                          }
+                        ],
+                      ],
+                      style: 'cuerpo' 
+                    }     
+                },
+
+
+
+                  
+                ],
+                styles: {
+                  header: {
+                    bold: true,
+                    color: '#000',
+                    fontSize: 10
+                  },
+                  cuerpo: {
+                    color: '#000',
+                    fontSize: 8
+                  },
+                  cuerpo1: {
+                    color: '#000',
+                    fontSize: 7
+                  },
+                  demoTable: {
+                    color: '#666',
+                    fontSize: 10
+                  },
+                  tableHeader: {
+                    bold: true,
+                    fontSize: 13,
+                    color: 'black'
+                  },
+                  tableExample: {
+                    margin: [0, 5, 0, 15]
+                  }
+                }
+             };       
+
+              $scope.openPdf1 = function() {
+                pdfMake.createPdf(docDefinition).open();
+              };
+
+              $scope.downloadPdf1 = function() {
+                pdfMake.createPdf(docDefinition).download();
+              };
+ 
+
+        });//fin imagen escudo bolivia
+        });//fin imagen gober
+        });//fin imagen sedes
+
+         function convertImgToDataURLviaCanvas(url, callback, outputFormat) {
+          var img = new Image();
+          img.crossOrigin = 'Anonymous';
+          img.onload = function() {
+            var canvas = document.createElement('CANVAS');
+            var ctx = canvas.getContext('2d');
+            var dataURL;
+            canvas.height = this.height;
+            canvas.width = this.width;
+            ctx.drawImage(this, 0, 0);
+            dataURL = canvas.toDataURL(outputFormat);
+            callback(dataURL);
+            canvas = null;
+          };
+          img.src = url;
+        };
+    });// ============  FIN persona tramite.get
+
+}])
 
 
 
@@ -314,14 +531,14 @@ angular.module("adminApp")
 /*BUSCA PERSONA POR CI*/
 .controller('BuscaPersonaCtrl', ['$http', '$scope', 'CONFIG', buscaPersonaController])
 function buscaPersonaController($http, $scope, CONFIG){
-  $scope.buscaPersona = function($per_ci){
+  $scope.buscaPersona = function(){
     console.log('esta buscando persona');
       $scope.resultado="Cargando...";
       $http.get(CONFIG.DOMINIO_SERVICIOS+'/personas_ci/'+$scope.per_ci).success(function(respuesta){
           $scope.persona = respuesta.persona;
           if(!respuesta.persona){
               $scope.ver=false;
-              $scope.resultado="No se encontraron resultados";              
+              $scope.resultado=" La persona no se encuentra registrada";              
           } else if(respuesta.persona){
               $scope.ver=true;
               $scope.resultado='';

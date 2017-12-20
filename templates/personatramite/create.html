@@ -27,13 +27,15 @@
         </p>
         <!-- Inicio Controller apiAppCtrl -->
        <div class="well well-sm">
-         <div class="row">
-           <div class="col-md-6 col-md-offset-2">
-              <input class="form-control input-lg" ng-model="per_ci" type="text" placeholder="Escriba el Nro. de C.I.">
-           </div>
-           <div class="col-md-4">
-           <button  class="btn btn-primary btn-lg" ng-click="buscaPersona()"><span class="glyphicon glyphicon-search"></span><strong> BUSCAR</strong></button>
-           </div>
+         <div class="row" >
+          <form name="busqForm" novalidate>
+            <div class="col-md-6 col-md-offset-2">
+                <input name="perci" class="form-control input-lg" ng-model="per_ci" type="text" placeholder="Escriba el Nro. de C.I." required autofocus>
+            </div>
+             <div class="col-md-4">
+             <button  class="btn btn-primary btn-lg" ng-disabled="busqForm.$invalid" ng-click="buscaPersona()"><span class="glyphicon glyphicon-search"></span><strong> BUSCAR</strong></button>
+             </div>
+           </form>
          </div>  
        </div>
         &nbsp;&nbsp;
@@ -47,7 +49,7 @@
                   <div class="row">
                     <div class="col-md-8">
                              <label class="control-label">Nombre:</label> 
-                             <h4>{{persona.per_id+" "+persona.per_nombres+" "+persona.per_apellido_primero+" "+persona.per_apellido_segundo}}</h4>
+                             <h4>{{persona.per_nombres+" "+persona.per_apellido_primero+" "+persona.per_apellido_segundo}}</h4>
                              <label class="control-label">CI:</label> <h4>{{persona.per_ci+" "+persona.per_ci_expedido}}</h4>
                             <label for="tra" class="control-label">Trámite:</label><strong class="fg_red">*</strong>
                              <select  name="tra" class="form-control" ng-model="tramiteselect" ng-options="tramite as tramite.tra_nombre  for tramite in tramite" required>
