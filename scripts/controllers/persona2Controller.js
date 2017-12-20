@@ -280,12 +280,16 @@ $scope.zon=false;
         per_numero : $scope.persona.persona.per_numero,
         per_ocupacion : $scope.persona.persona.per_ocupacion,
         per_tipo_permanencia : $scope.persona.persona.per_tipo_permanencia,
-         per_tipo_permanencia : $scope.persona.persona.per_tipo_permanencia,
+        per_tipo_permanencia : $scope.persona.persona.per_tipo_permanencia,
         per_tipo_documento : $scope.persona.persona.per_tipo_documento,
         per_pais : $scope.persona.persona.per_pais,
+
+        /*ima_nombre : $scope.personas.imagen[0].ima_nombre,
+        ima_enlace : "./img-per",
+        ima_tipo : $scope.personas.imagen[0].ima_tipo*/
        
-       /**/ ima_nombre : $scope.persona.imagen[0].ima_nombre,
-        ima_enlace : $scope.persona.imagen[0].ima_enlace,
+        ima_nombre : $scope.persona.imagen[0].ima_nombre,
+        ima_enlace : "./img-per",
         ima_tipo : $scope.persona.imagen[0].ima_tipo
       /*  dir_zona_comunidad : $scope.persona.direccion[0].dir_zona_comunidad,
         dir_avenida_calle : $scope.persona.direccion[0].dir_avenida_calle,

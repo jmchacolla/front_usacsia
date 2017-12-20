@@ -1,4 +1,4 @@
-<!-- TOP-MENU inicio -->
+TOP-MENU inicio -->
 <div ng-include="'./templates/menu_inicio.html'"></div>
 <!-- CONTEXT-MENU  -->
 <div ng-include="'./templates/menu_lateral.html'"></div>
@@ -22,7 +22,7 @@
 						<div class="row">
 			              <div class="col-md-12">
 			                <label class="control-label">Funcionario:</label>
-			                <select class="form-control" name="funcionario" ng-model="vm.aux"  ng-options="funcionario.fe_id as funcionario.per_nombres+' '+funcionario.per_apellido_primero+' '+funcionario.per_apellido_segundo+' - '+funcionario.fe_cargo for funcionario in funcionarios" ng-change="vm.buscaFuncionario()" required>
+			                <select class="form-control" name="funcionario" ng-model="vm.aux"  ng-options="funcionario.fun_id as funcionario.per_nombres+' '+funcionario.per_apellido_primero+' '+funcionario.per_apellido_segundo+' - '+funcionario.fun_cargo for funcionario in funcionarios" ng-change="vm.buscaFuncionario()" required>
 		           			</select>
 		           			<span class="messages" ng-show="AsignaRol.$submitted || AsignaRol.funcionario.$touched">
 			                  <span ng-show="AsignaRol.funcionario.$error.required">El campo es obligatorio</span>
@@ -56,7 +56,7 @@
 					</form>
 		        </div>
 		    </div>
-	        <div class="col-md-6" ng-controller="UsuariosEstabCtrl">
+	        <div class="col-md-6" ng-controller="UsuariosFunCtrl">
 					<!-- INICIO -->
 					<h4 class="text-center text-primary"><strong>USUARIOS REGISTRADOS</strong></h4>
 					<div class="text-center" ng-show="loading"><br><img ng-src="./images/image.gif" class="loader-img"></div>
@@ -80,4 +80,4 @@
 			<!-- </div>AQUI VAN LOAS TABLAS O FORMULARIOS incrustados -->
 		</div>
 	</div>
-<!-- CONTENIDO MODULO fin -->
+<!-- CONTENIDO MODULO fin

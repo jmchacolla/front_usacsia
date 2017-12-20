@@ -73,7 +73,7 @@
             <th >Ocupacion</th>
             <th >Tipo</th>
             <th >Ver</th>
-            <th >Editar</th>
+           <!--  <th >Editar</th> -->
             <th >Borrar</th>
           </thead>
 
@@ -88,12 +88,12 @@
               <td>{{pt.per_ocupacion}}</td>
               <td>{{pt.pt_tipo_tramite}}</td>
               <td>
-                <a href="#/personas/ver/{{persona.per_id}}" class="btn btn-success"><span class="glyphicon glyphicon-file" title="Ver"></span></a><!-- ver -->
+                <a href="#/boleta-pago/{{pt.pt_id}}" class="btn btn-success"><span class="glyphicon glyphicon-file" title="Ver"></span></a><!-- ver -->
               </td>
-              <td>
+              <!-- <td>
                 <a class="btn btn-primary" href="#/personas/edit/{{persona.per_id}}">
-                <span class="glyphicon glyphicon-pencil"></span></a><!-- editar -->
-              </td>
+                <span class="glyphicon glyphicon-pencil"></span></a> editar 
+              </td> -->
               <td >
                 <button class="btn btn-danger" data-toggle="modal" data-target="#miCuadroModal1" ng-click="get_per_id(persona.per_id, persona.per_apellido_primero, persona.per_apellido_segundo, persona.per_nombres)" title="Eliminar"><span class="glyphicon glyphicon-trash"></span></button> <!--archivar -->
                 <div id="miCuadroModal1" class="modal fade" role="dialog" tabindex="-1">

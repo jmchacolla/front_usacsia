@@ -14,8 +14,8 @@ angular.module('authService', [])
 		};
 	})
 
-	.factory('authUser', function ($auth, sessionControl, toastr, $location, $rootScope, /*FuncionarioPer,*/ CONFIG,/* Establecimientos,*/$route,$timeout,RolResource,Personas,Paises,/*PacientePersona,*/UsuariosEstab) {
-		var cacheSession = function(usu_nick, rol_id, usu_identificador/*per_id,*/, id){
+	.factory('authUser', function ($auth, sessionControl, toastr, $location, $rootScope, FuncionarioPer, CONFIG,/* Establecimientos,*/$route,$timeout,RolResource,Personas,Paises,/*PacientePersona,*/UsuariosEstab) {
+		var cacheSession = function(usu_nick, rol_id, usu_identificador, id){
 			//Asigna variables de sesion
 			sessionControl.set('userIsLogin',true);
 			sessionControl.set('usu_nick', usu_nick);
@@ -88,24 +88,26 @@ angular.module('authService', [])
 					//mientras no corre el servicio de roles
 					localStorage.setItem("ROL_CURRENT_USER_NAME", response.data.rol.rol_nombre);//para
 					//para saber que persona es
-
-				/*	PersonasFind.get({per_ci:response.data.user.usu_nick}, function(data){
-						var persona = data.persona;
-						//console.log("PERSONA CI DE LOGUEO",data.persona);
-						persona = JSON.stringify(persona);
-						localStorage.setItem("DatosPer", persona);
-					});
-			*/
+					if(response.data.user.rol_id !=1)
+					{
+						FuncionarioPer.get({per_id:response.data.user.usu_identificador}, function(data)
+						{
+							var funcionario = data.funcionario;
+							console.log("GUARDANDO DATOS DE FUNCIONARIO EN LOCALSTORAGE",funcionario)
+							funcionario = JSON.stringify(funcionario);
+							localStorage.setItem("Funcionario", funcionario);
+					  		//Guarda los datos del funcionario en LocalStorage, se guarda el establecimiento del rol que seleccionó
+						  		/*var datosFun = {
+							   		fun_id: funcionario.fun_id,//data.funcionario.funcionario.fun_id,
+							  	}
+							  	var datosFunG = JSON.stringify(datosFun);
+							  	localStorage.setItem("Funcionario", datosFunG);*/
+						});
+					}
 					$timeout(function() {
 						              $location.path('/');
 						          	},1500);
-					//para almacenar en localStorage los datos de la persona logueada
-/*					Personas.get({per_id:response.data.user.per_id}, function(data){
-						var persona = data.persona;
-						persona = JSON.stringify(persona);
-						localStorage.setItem("DatosPer", persona);
-					});*/
-					
+										
 					//PARA ROLES
 		/*			if (datosSesion.roles.length>1){//Cuando el usuario tiene más roles
 						$timeout(function() {

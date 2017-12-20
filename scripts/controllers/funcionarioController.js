@@ -8,7 +8,7 @@ angular.module("adminApp")
       titulo: 'Gestión de Funcionarios de USACSIA',
       items:[
         {nombre:'Funcionarios', enlace:'#/funcionarios', estilo:'active'},
-        {nombre:'Registrar funcionario', enlace:'#/funcionarios/createf', estilo:''}]
+        {nombre:'Registrar funcionario', enlace:'#/funcionarios/createFun', estilo:''}]
     },
     pagina:{
       titulo:'Funcionarios de USACSIA'
@@ -104,12 +104,12 @@ angular.module("adminApp")
             function (/*authUser,*/ $scope,CONFIG, Personas, Funcionarios, $routeParams, $location) {
   /*if(authUser.isLoggedIn()){ */
     if(CONFIG.ROL_CURRENT_USER==1){
-     // var es_id = $routeParams.es_id;
+     var es_id = 1;
       $scope.ajustes = {
         menu:{
           titulo: 'Gestión de Funcionarios USACSIA',
           items:[
-          /*  {nombre:'Ver Datos del Establecimiento', enlace:'#/establecimientos/ver/'+es_id+"#FUNCIONARIOS", estilo:''}*/
+            {nombre:'Ver Datos del Establecimiento', enlace:'#/establecimientos/ver/'+es_id, estilo:''}
           ]
         },
         pagina:{
@@ -167,14 +167,14 @@ angular.module("adminApp")
 .controller('CreateFuncionarioPersonaCtrl',['CONFIG','Zonas', '$scope', 'FuncionarioPersona', '$location', '$timeout', 'toastr', '$routeParams', '$resource', 
   function (CONFIG,Zonas,$scope, FuncionarioPersona, $location, $timeout, toastr, $routeParams, $resource)
   { 
-    var es_id = 0;
+    var es_id = 1;
 /*    if(CONFIG.ROL_CURRENT_USER!=1) {*/
       $scope.ajustes = {
         menu:{
           titulo: 'Gestión de Funcionarios',
           items:[
             {nombre:'Funcionarios', enlace:'#/funcionarios', estilo:''},
-            {nombre:'Registrar Funcionario', enlace:'#/funcionarios/createf', estilo:'active'}]
+            {nombre:'Registrar Funcionario', enlace:'#/funcionarios/createFun', estilo:'active'}]
         },
         pagina:{
           titulo:'Registrar Funcionario',
@@ -187,7 +187,7 @@ angular.module("adminApp")
         menu:{
           titulo: 'Gestión de Funcionarios',
           items:[
-            {nombre:'Ver Datos del Establecimiento', enlace:'#/establecimientos/ver/'+es_id+"#FUNCIONARIOS", estilo:''}]
+            {nombre:'Ver Datos del Establecimiento', enlace:'#/establecimientos/ver/'+es_id, estilo:''}]
         },
         pagina:{
           titulo:'Registrar Funcionario',
@@ -371,7 +371,7 @@ $scope.zon=false;
         per_numero:$scope.personas.persona.per_numero,
 
         ima_nombre : $scope.personas.imagen[0].ima_nombre,
-        ima_enlace : "./img-per",
+        ima_enlace : "./img-fun",
         ima_tipo : $scope.personas.imagen[0].ima_tipo
      
       };
@@ -428,6 +428,115 @@ $scope.zon=false;
 }])
 
 
+.controller('CreateFuCtrl',[/*'authUser',*/ '$scope', 'Funcionarios', '$routeParams', '$location', '$timeout', 'toastr', 'CONFIG', '$resource','Personas',
+function (/*authUser,*/$scope, Funcionarios, $routeParams, $location, $timeout, toastr, CONFIG, $resource,Personas)
+{
+  /*if (authUser.isLoggedIn()){*/
+    var es_id = 1;
+    $scope.rol_id = CONFIG.ROL_CURRENT_USER;
+    if($scope.rol_id == 1)
+    {
+      
+      $scope.ajustes = {
+        menu:{
+          titulo: 'Gestión de Funcionarios de Salud',
+          items:[
+            {nombre:'Ver Datos del Establecimiento', enlace:'#/establecimientos/ver/'+es_id, estilo:''}]
+        },
+        pagina:{
+          titulo:'Registrar Funcionario',
+            action: "CREAR"
+        }
+      }
+    }
+    else{
+      $scope.ajustes = {
+        menu:{
+          titulo: 'Gestión de Funcionarios de Salud',
+          items:[
+            {nombre:'Funcionarios', enlace:'#/establecimiento/funcionarios', estilo:''},
+            {nombre:'Registrar funcionario', enlace:'#/funcionarios/createf', estilo:'active'}]
+        },
+        pagina:{
+          titulo:'Registrar Funcionario',
+            action: "CREAR"
+        }
+      }
+    }
+    $scope.mensaje="hola";
+    
+    /*$scope.fun_id_params = $routeParams.fun_id;
+    console.log($scope.fun_id_params);*/
+    $scope.funcionarios = {
+        per_id: null,
+        fun_cargo: '',
+        fun_profesion: '',
+        fun_estado: ''
+ 
+    };
+
+
+
+    $scope.submit = function(b, per_id)
+    {
+      $scope.funcionarios.per_id = per_id;
+
+        var FunG = localStorage.getItem("Funcionario");
+        var FunG = JSON.parse(FunG);
+  
+        console.log("datos que se guardaram",$scope.funcionarios);
+      Funcionarios.save($scope.funcionarios).$promise.then(function(data)
+      {
+        if(data.msg)
+        {
+          angular.copy({}, $scope.funcionarios);
+          $scope.ajustes.pagina.success = "Funcionario guardado correctamente";
+          toastr.success('Funcionario registrado correctamente');
+          $timeout(function() {
+              $location.path('/funcionarios');
+          },1000);
+        }
+      },function () {
+        toastr.error("Error inesperado");
+      })
+    }
+    /*para agregar a un funcionario */
+    $scope.busca_fun=true;
+    var per_id = $routeParams.per_id;
+    if(per_id!=null){
+      Personas.get({per_id:per_id},function(data)
+      {
+          $scope.personas_encontrada = data.persona;
+          $scope.fecha_nacimiento = moment($scope.personas_encontrada.persona.per_fecha_nacimiento,"YYYY-MM-DD").format("DD-MM-YYYY");
+          if($scope.personas_encontrada.persona.per_genero == "F" || $scope.personas_encontrada.persona.per_genero == "f") {
+            $scope.genero="FEMENINO";
+          }else if($scope.personas_encontrada.persona.per_genero == "M" || $scope.personas_encontrada.persona.per_genero == "m"){
+            $scope.genero="MASCULINO";
+          };
+      });
+    }
+    $scope.per_ci="";
+    /*para agregar a un funcionario */
+    $scope.reset = function(form) {
+      $scope.funcionarios = {};
+      if (form) {
+        form.$setPristine();
+        form.$setUntouched();
+      }
+    };
+
+/*  } else {
+    $location.path('/inicio');
+  }*/
+}])
+
+
+
+
+
+
+
+
 
 
 
@@ -437,24 +546,24 @@ $scope.zon=false;
 function (/*authUser,*/$scope, Funcionarios, $routeParams, $location, $timeout, toastr, CONFIG, $resource,Personas,$http)
 {
   /*if (authUser.isLoggedIn()){*/
-   /* var es_id = 0;*/
-/*    $scope.rol_id = CONFIG.ROL_CURRENT_USER;
+    var es_id = 1;
+    $scope.rol_id = CONFIG.ROL_CURRENT_USER;
     if($scope.rol_id == 1)
-    {*/
+    {
       //es_id = $routeParams.es_id;
       $scope.ajustes = {
         menu:{
           titulo: 'Gestión de Funcionarios de USACSIA',
           items:[
-           /* {nombre:'Ver Datos del Establecimiento', enlace:'#/establecimientos/ver/'+es_id+"#FUNCIONARIOS", estilo:''}*/]
+            {nombre:'Ver Datos del Establecimiento', enlace:'#/establecimientos/ver/'+es_id, estilo:''}]
         },
         pagina:{
           titulo:'Registrar Funcionario',
             action: "CREAR"
         }
       }
-    /*}
-    else{*/
+    }
+    else{
       $scope.ajustes = {
         menu:{
           titulo: 'Gestión de Funcionarios de USACSIA',
@@ -467,7 +576,7 @@ function (/*authUser,*/$scope, Funcionarios, $routeParams, $location, $timeout, 
             action: "CREAR"
         }
       }
-   /* }*/
+    }
 
     $scope.per_ci="";
   /*  if ($scope.rol_id != 1) {*/
@@ -482,6 +591,7 @@ function (/*authUser,*/$scope, Funcionarios, $routeParams, $location, $timeout, 
   $scope.agregar_fun=function(per_id, ci, nom, ap1, ap2,valor){
       $scope.fun_id = null;
       $scope.valor=valor;
+      console.log("llego a la funcion agregar fun");
       $http.get(CONFIG.DOMINIO_SERVICIOS+'/funcionarios_per/'+per_id).success(function(respuesta){
         if(respuesta.funcionario.length !=0){//En caso de que sea funcionario de algún establecimiento
           //Verificando si el funcionario se encuentra registrado en el establecimiento
@@ -532,11 +642,11 @@ function (/*authUser,*/$scope, Funcionarios, $routeParams, $location, $timeout, 
         console.log(fe_id);
         localStorage.setItem("aux_es_id",$scope.es_id);
         if (fun_id != null) {
-          if (fe_id!=null){
+         /* if (fe_id!=null){
             $location.path('/funcionarios/habilitar/'+fe_id+'/1');
           } else {
             $location.path('/funcionarios/create_fun/'+per_id+'/'+fun_id);
-          }
+          }*/
         } else {
           $location.path('/funcionarios/create_fun/'+per_id);
         }
@@ -806,7 +916,7 @@ function (authUser,$scope, Funcionarios, $routeParams, $location, $timeout, toas
 function controladorPrincipal($http, $scope, CONFIG){
   var vm=this;
   $scope.ss="dcs";
-  //$scope.tamanio=0;
+  /*$scope.tamanio=0;*/
 
   vm.buscaPersona = function(){
       $scope.tamanio="Cargando...";//////CAMBIADO
@@ -848,21 +958,23 @@ function controladorPrincipal($http, $scope, CONFIG){
 function controladorPrincipal_fun($http, $scope, CONFIG){
   $scope.ss="dcs";
   $scope.mos=false;
+  $scope.msg=true;
   $scope.buscaPersona = function(){
-      $scope.tamanio="Cargando ";//////CAMBIADO
+      $scope.tamanio="Cargando... ";//////CAMBIADO
       $http.get(CONFIG.DOMINIO_SERVICIOS+'/personas_ci/'+$scope.per_ci).success(function(respuesta){
      
           $scope.personas = respuesta.persona;
           console.log($scope.persona);
-          $scope.tamanio=respuesta.persona.length;
-          console.log("Aaaaaaaaaaaaaaaaaaaaaa");
+          $scope.tamanio=$scope.personas.length;
           console.log($scope.personas,"PERSONAS",$scope.tamanio);
-          if(respuesta.persona.length != 0){
+          if(respuesta.persona){
+
              $scope.mos=true;
               $scope.aa="cero";
               $scope.msg=true;
               $scope.switch=false;
-          } else if(respuesta.persona.length == 0){
+          } else /*if(respuesta.mensaje=='no')*/{
+             console.log("No existe",$scope.mos);
               $scope.aa="uno";
               $scope.msg=false;
               $scope.tamanio="No se encontraron resultados";

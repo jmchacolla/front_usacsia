@@ -105,6 +105,19 @@ angular.module("adminApp")
     update: {method: "PUT", params: {pt_id:"@_pt_id"}}
   })
 }])
+//==================== U S U A R I O S =================================================================
+//LISTAR, CREAR USUARIO CONTROL
+.factory('Usuarios', ['$resource', 'CONFIG', function ($resource, CONFIG) {
+  return $resource(CONFIG.DOMINIO_SERVICIOS+"/usuarios/:usu_id", {usu_id:"@_usu_id"}, {
+    update: {method: "PUT", params: {usu_id: "@usu_id"}}
+  })
+}])
+//lista usuarios funcionarios --laboratorista 8976543 --medico 8976854 --caja 8765784 --admin 83062745
+.factory('UsuariosF', ['$resource', 'CONFIG', function ($resource, CONFIG) {
+  return $resource(CONFIG.DOMINIO_SERVICIOS+"/usuarios_fun/:usu_id", {usu_id:"@_usu_id"}, {
+    update: {method: "PUT", params: {usu_id: "@usu_id"}}
+  })
+}])
 
 
 
@@ -535,11 +548,11 @@ angular.module("adminApp")
 }])
 
 //==================== U S U A R I O S ===========================================================================
-.factory('Usuarios', ['$resource', 'CONFIG', function ($resource, CONFIG) {
+/*.factory('Usuarios', ['$resource', 'CONFIG', function ($resource, CONFIG) {
   return $resource(CONFIG.DOMINIO_SERVICIOS+"/usuarios/:usu_id", {usu_id:"@_usu_id"}, {
     update: {method: "PUT", params: {usu_id: "@usu_id"}}
   })
-}])
+}])*/
 //Lista los usuarios de un establecimiento
 .factory('UsuariosEstab', ['$resource', 'CONFIG', function ($resource,CONFIG) {
   return $resource(CONFIG.DOMINIO_SERVICIOS+"/usuarios_establecimiento/:es_id", {es_id:"@_es_id"},

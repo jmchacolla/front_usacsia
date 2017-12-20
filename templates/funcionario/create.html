@@ -41,21 +41,20 @@
          </div>  
        </div>
         &nbsp;&nbsp;
-       <div><center><h3>RESULTADOS<span class="text-primary">  {{ tamanio }} </span></h3></center></div>
+       <div><center><h3>RESULTADOS:<span class="text-primary">  {{ tamanio }} </span></h3></center></div>
        <div ng-show="!msg">
           <div class="lead text-center">
-          <hr><!--   ng-if="rol_id!=1"-->
             <a class="btn btn-primary btn-lg" href="#/funcionarios/createFun">
               <span class="glyphicon glyphicon-plus"></span>
-              REGISTRAR FUNCIONARIO NUEVO 
+              REGISTRAR FUNCIONARIO NUEVO  
             </a>
-         <!--    <a class="btn btn-primary btn-lg" href="#/funcionarios/createF/{{es_id}}" ng-if="rol_id==1">
+           <!--  <a class="btn btn-primary btn-lg" href="#/funcionarios/createFun" ng-if="rol_id==1">
               <span class="glyphicon glyphicon-plus"></span>
               REGISTRAR FUNCIONARIO NUEVO 
-            </a> -->
+            </a>  ng-repeat="personas in personas"-->
           </div>
-        </div>
-       <!--  <div class="row panel-group tabla-cuerpo">  ng-repeat="persona in personas"-->
+      </div>
+    <div class="row panel-group tabla-cuerpo">  
        <div class="form-group" ng-show="mos">
            <!--  <div><center>  RESULTADOS {{ tamanio }}</center></div> -->
              <table class="table table-bordered table-striped table-hover">
@@ -87,8 +86,8 @@
                       <h3 class="modal-title fg-white">REGISTRAR FUNCIONARIO NUEVO</h3>
                     </div>
                     <form role="form" name="addCod" novalidate>
-                    <div class="modal-body">
-                      <div ng-if="valor == '0' && !fun_estado">
+                    <div class="modal-body"><!--  -->
+                      <div ng-if="valor == '0' && !fe_estado">
                         <div class="well well-sm">
                           <strong>REGISTRAR A:</strong> 
                           <span>{{nom+" "+ap1+"  "+ap2}}</span>
@@ -96,26 +95,26 @@
                           <span>{{ci}}</span><br>
                         </div>
                       </div> 
-                       <div ng-if="fun_estado">
+<!--                        <div ng-if="fun_estado">
                         <div class="well well-sm">
                           <strong>HABILITAR A:</strong> 
                           <span>{{nom+" "+ap1+"  "+ap2}}</span>
                           <strong>CON NÚMERO DE C.I.:</strong>
                           <span>{{ci}}</span><br>
                         </div>
-                      </div> 
+                      </div> ng-if="valor == '0' && !fun_estado"  -->
                     </div>
-                    <div ng-if="valor == '0' && !fun_estado" class="modal-footer">
-                      <button type="button" class="btn btn-primary" data-dismiss="modal" ng-click="reg(persona.per_id,fun_id,null)"><span class="glyphicon glyphicon-ok"></span> REGISTRAR</button>
+                    <div class="modal-footer">
+                      <button type="button" class="btn btn-primary" data-dismiss="modal" ng-click="reg(personas.per_id,fun_id,null)"><span class="glyphicon glyphicon-ok"></span> REGISTRAR</button>
                       <button type="button" class="btn btn-danger" data-dismiss="modal"><span class="glyphicon glyphicon-remove"></span> CANCELAR</button>
-
+<!-- ng-click="reg(personas.per_id,fun_id,null)" -->
                       
                     </div>
-                    <div ng-if="fun_estado" class="modal-footer">
+                   <!--  <div ng-if="fun_estado" class="modal-footer">
                       <button type="button" class="btn btn-success" data-dismiss="modal" ng-click="reg(persona.per_id,fun_id,fe_id)"><span class="glyphicon glyphicon-ok"></span> HABILITAR</button>
                       <button type="button" class="btn btn-danger" data-dismiss="modal"><span class="glyphicon glyphicon-remove"></span> CANCELAR</button>
                     </div>
-                 
+                  -->
                     </form>
                   </div>
                 </div>

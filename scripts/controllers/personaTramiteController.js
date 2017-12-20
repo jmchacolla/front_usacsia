@@ -1,13 +1,14 @@
 'use strict';
 angular.module("adminApp")
-
+//lista tramites
 .controller('PersonaTramiteController', ['$scope', 'ListarTramitesService', '$route', 'toastr', '$location', function ($scope, ListarTramitesService, $route, toastr,$location)
 {
   $scope.ajustes = {
     menu:{
       titulo: 'Gestión de tramites de Carné Sanitario',
       items:[
-        {nombre:'Solicitudes de Carné Sanitario', enlace:'#/persona-usacsia', estilo:'active'}]
+        {nombre:'Solicitudes de Carné Sanitario', enlace:'#/tramites', estilo:'active'},
+        {nombre:'Busqueda de personas registradas', enlace:'#/tramite/crear', estilo:''}]
     },
     pagina:{
       titulo:'Tramites de Carné Sanitario'
@@ -71,13 +72,14 @@ angular.module("adminApp")
 
 
 
-/*CRAEAR PERSONA TRAMITE*/
+/*CRAEAR PERSONA TRAMITE---- BUSQUEDA POR CI*/
 .controller('CrearPersonaTramiteCtrl', ['$scope', '$route','PersonaTramite','Tramite' ,'toastr', '$location', function ($scope, $route, PersonaTramite,Tramite,toastr, $location){
   $scope.ajustes = {
     menu:{
       titulo: 'Gestion de solicitudes de trámite',
       items:[
-        {nombre:'Busqueda de personas registradas', enlace:'#/', estilo:'active'}]
+      {nombre:'Solicitudes de Carné Sanitario', enlace:'#/tramites', estilo:''},
+      {nombre:'Busqueda de personas registradas', enlace:'#/tramite/crear', estilo:'active'}]
     },
     pagina:{
       titulo:'Registrar Pago'
@@ -138,7 +140,7 @@ angular.module("adminApp")
       menu:{
         titulo: 'Gestión de tramites de Carné Sanitario',
         items:[
-          {nombre:'Solicitudes de Carné Sanitario', enlace:'#/persona-usacsia', estilo:'active'}]
+        {nombre:'Fichas de atencion', enlace:'#/atencion', estilo:'active'}]
       },
       pagina:{
         titulo:'Atención para el Carné Sanitario '+$scope.today
@@ -193,6 +195,8 @@ angular.module("adminApp")
       })
     }
 }])
+
+/*VER PAGO*/
 .controller('BoletaCtrl', ['$scope', 'PersonaTramite', 'Ficha', '$route', 'toastr', '$timeout', '$location', '$routeParams', function ($scope, PersonaTramite, Ficha, $route, toastr,$timeout, $location, $routeParams) {
     
     var pt_id = $routeParams.pt_id;
@@ -214,7 +218,7 @@ angular.module("adminApp")
       menu:{
         titulo: 'Gestión de tramites de Carné Sanitario',
         items:[
-          {nombre:'Solicitudes de Carné Sanitario', enlace:'#/persona-usacsia', estilo:'active'}]
+        {nombre:'Detalle pago', enlace:'#/boleta-pago/:'+pt_id, estilo:'active'}]
       },
       pagina:{
         titulo:'Comprobante de pago Trámite N°: '+nt/*$scope.pertramite.persona_tramite.pt_numero_tramite*/
@@ -231,7 +235,7 @@ angular.module("adminApp")
     menu:{
       titulo: 'Gestión de tramites Concluidos',
       items:[
-        {nombre:'Tramites Concluidos', enlace:'#/personas/conc', estilo:'active'}]
+        {nombre:'Tramites Concluidos', enlace:'#/tramites_concluidos', estilo:'active'}]
     },
     pagina:{
       titulo:'Tramites de Carné Sanitario'
@@ -287,10 +291,12 @@ angular.module("adminApp")
       menu:{
         titulo: 'Gestión de tramites de Carné Sanitario',
         items:[
-          {nombre:'Solicitudes de Carné Sanitario', enlace:'#/persona-usacsia', estilo:'active'}]
+        
+        {nombre:'Busqueda de personas registradas', enlace:'#/tramite/crear', estilo:''},
+        {nombre:'Solicitudes de Carné Sanitario', enlace:'#/atencion', estilo:''}]
       },
       pagina:{
-        titulo:'Tramite: '/*$scope.pertramite.persona_tramite.pt_numero_tramite*/
+        titulo:'Detalle tramite concluido: '/*$scope.pertramite.persona_tramite.pt_numero_tramite*/
       }
     };
     
@@ -351,8 +357,8 @@ angular.module("adminApp")
                       [
                         {
                           image: gober,
-                          width: 70,
-                          height: 76
+                          width: 68,
+                          height: 73
                         },
                         {
                           /*image: gober,

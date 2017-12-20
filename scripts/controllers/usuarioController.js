@@ -63,8 +63,8 @@ angular.module('adminApp')
 
 
 //Permite asignar roles a los funcionarios
-.controller('UsuarioCreateCtrl', [/*'authUser',*/ '$scope', '$http', 'CONFIG', 'Usuarios', '$routeParams', 'Establecimientos', '$location', '$timeout', 'toastr', '$route', 'FuncionariosEstablecimiento',
-  function (/*authUser,*/ $scope, $http, CONFIG, Usuarios, $routeParams, Establecimientos, $location, $timeout, toastr, $route, FuncionariosEstablecimiento) {
+.controller('UsuarioCreateCtrl', [/*'authUser',*/ '$scope', '$http', 'CONFIG', 'Usuarios', '$routeParams'/*, 'Establecimientos'*/, '$location', '$timeout', 'toastr', '$route', 'Funcionarios',
+  function (/*authUser,*/ $scope, $http, CONFIG, Usuarios, $routeParams, /*Establecimientos,*/ $location, $timeout, toastr, $route, Funcionarios) {
   /*if(authUser.isLoggedIn()){*/
     $scope.rol_id = CONFIG.ROL_CURRENT_USER;
     var es_id = 0;
@@ -163,17 +163,21 @@ angular.module('adminApp')
     {
       $scope.funcionarios = data.funcionario;
     }); */ 
-
+    Funcionarios.get(function(data)
+    {
+      $scope.funcionarios=data.funcionario;
+       console.log("SERVICIO DE FUNCIONARIOS",$scope.funcionarios);
+    });
     vm.buscaFuncionario = function(){
-      $http.get(/*CONFIG.DOMINIO_SERVICIOS+*/"http://localhost:8080/api_usacsia/public/funcionario/"+vm.aux).success(function(data){
+      $http.get(CONFIG.DOMINIO_SERVICIOS+"/funcionario/"+vm.aux).success(function(data){
         vm.funci = data.funcionario;
         console.log("datos obtenidos del funcionario",vm.funci);
-        vm.usuario.usu_tipo = "P";
-      //  vm.usuario.per_id = vm.funci.persona.per_id;
-        vm.usuario.usu_identificador ="2"
-        vm.usuario.usu_nick = vm.funci.persona.per_nombres;
-        vm.usuario.password = vm.funci.persona.per_ci;
       
+        vm.usuario.usu_tipo = "P";
+        vm.usuario.usu_identificador =vm.funci.persona.per_id;
+        vm.usuario.usu_nick = vm.funci.persona.per_ci;
+        vm.usuario.password = vm.funci.persona.per_ci;
+    
       })
     }
     $scope.submit = function(){
@@ -411,6 +415,110 @@ angular.module('adminApp')
   }
 }])
 
+
+.controller('UsuariosFunCtrl', ['CONFIG', '$scope', 'UsuariosF', '$routeParams', 'toastr', '$route', 'RolesUsuarios', 'Usuarios', function (CONFIG,$scope,UsuariosF,$routeParams,toastr,$route,RolesUsuarios,Usuarios) {
+  $scope.ajustes = {
+    menu:{
+      titulo: 'Gestión de usuarios',
+      items:[
+        {nombre:'Usuarios', enlace:'#/establecimiento/usuarios', estilo:'active'},
+        {nombre:'Asignar Roles', enlace:'#/usuario/create', estilo:''}]
+    },
+    pagina:{
+      titulo:'Usuarios Funcionarios'
+    }
+  }
+
+  $scope.sortType = 'usu_id'; // set the default sort type
+  $scope.sortReverse  = true;  // set the default sort order
+  $scope.loading=true;
+
+
+    var FunG = localStorage.getItem("Funcionario");
+    var FunG = JSON.parse(FunG);
+
+  
+  UsuariosF.get(function(data){
+    $scope.usuarios = data.usuario;
+    console.log("USUARIOS FUNCIONARIOS wendy",$scope.usuarios);
+    if(data.status && $scope.usuarios.length>0) {
+      $scope.loading = false;
+      $scope.msg = data.status;
+      /*for (var i = $scope.usuarios.length - 1; i >= 0; i--) {
+        if ($scope.usuarios[i].rol_id==5){
+          $scope.usuarios[i].rol_nombre = "ENFERMER0(A)";
+        }
+      };*/
+    } else {
+      $scope.loading = false;
+      $scope.msg = false;
+    }
+
+  },function () {
+      toastr.error("ERROR INESPERADO, POR FAVOR ACTUALICE LA PÁGINA");
+      $scope.loading = false;
+      $scope.msg = false;
+    });
+
+  $scope.ru_id = 0;
+  $scope.nick = "";
+  $scope.rol = "";
+  $scope.roles = [
+    { rol_id: 2, rol_nombre: "ADMINISTRADOR ESTABLECIMIENTO", rol_descripcion: "SE ENCARGA DE GESTIONAR TODOS LOS ELEMENTOS A REGISTRAR, ACTUALIZAR Y DAR DE BAJA EN ELE ESTABLECIMIENTO."},
+    { rol_id: 9, rol_nombre: "ADMINISTRADOR MEDICO", rol_descripcion: "TIENE LOS ROLES DE ADMINISTRADOR DE ESTABLECIMIENTO Y MEDICO."},
+    //{ rol_id: 3, rol_nombre: "ESTADISTICA", rol_descripcion: "SE ENCARGA DE TAREAS ESPECIFICAS, REPORTES Y ESTADISTICAS"},
+    { rol_id: 4, rol_nombre: "MEDICO", rol_descripcion: "FUNCIONES ESPECIFICAS: REFERENCIA"},
+    { rol_id: 5, rol_nombre: "ENFERMERA", rol_descripcion: "FUNCIONES ESPECIFICAS: REGISTRAR Y HACER SEGUIMIENTO A VACUNAS"},
+    { rol_id: 6, rol_nombre: "ADMISIONISTA", rol_descripcion: "COMPLEMENTAR LA INFORMACION FINACIERA DE LAS RECERVAS Y FICHAJE"},
+    //{ rol_id: 10, rol_nombre: "ESTADISTICO ADMISIONISTA ENFERMERA", rol_descripcion: "TIENE LOS ROLES DE ESTADISTICO ADMISIONISTA Y ENFERMERA "}
+  ]
+  $scope.get_usu_id = function (ru_id,nombres,paterno,materno,rol,rol_id,usu_id,per_id) {
+    $scope.ru_id = ru_id;
+    $scope.nick = nombres + " " + paterno + " " + materno;
+    $scope.rol = rol;
+    $scope.rol_id = rol_id;
+    $scope.usu_id = usu_id;
+    $scope.per_id = per_id;
+  }
+
+  $scope.usu = {
+    rol_id: null,
+    ru_estado: "ACTIVO"
+  };
+
+  $scope.cambiar_rol = function(rol_nuevo){
+    console.log($scope.usu);
+    RolesUsuarios.update({ru_id:$scope.ru_id}, $scope.usu).$promise.then(function(data){
+      if(data.status){
+        toastr.success('Los datos fueron actualizados correctamente');
+        $route.reload();
+      }
+    })
+  }
+
+  $scope.restablecer_contrasenia = function(usu_id,per_id){
+    Usuarios.update({usu_id:usu_id, per_id:per_id}).$promise.then(function(data){
+      if(data.msg){
+        toastr.success('Se reestableció la contraseña correctamente');
+      } 
+    },function () {
+      toastr.error('Error inesperado, vuelva a intentar');
+    })
+  }
+
+  $scope.remove = function(usu_id)
+  {
+    RolesUsuarios.update({ru_id:id, rol_id:$scope.rol_id, ru_estado:"INACTIVO"}).$promise.then(function(data)
+    {
+      if(data.status)
+      {
+        toastr.success('Eliminado correctamente');
+        $route.reload();
+      }
+    })
+  }
+}])
+
 .controller('UsuariosEstabCtrl', ['CONFIG', '$scope', 'UsuariosEstab', '$routeParams', 'toastr', '$route', 'RolesUsuarios', 'Usuarios', function (CONFIG,$scope,UsuariosEstab,$routeParams,toastr,$route,RolesUsuarios,Usuarios) {
   $scope.ajustes = {
     menu:{
@@ -563,7 +671,7 @@ angular.module('adminApp')
 }])
 
 //Permite al usuario editar su contraseña
-.controller('EditUsuarioCtrl', ['$scope', 'Usuarios', function ($scope, Usuarios) {
+.controller('EditUsuarioCtrl', ['$scope','toastr','$route', 'Usuarios', function ($scope,toastr,$route, Usuarios) {
   $scope.ajustes = {
     menu:{
       titulo: 'Mi Perfil',
@@ -597,16 +705,19 @@ angular.module('adminApp')
         {
           $scope.mensaje = data.usuario;
           $scope.ajustes.pagina.success = null;
-        } else if (data.usuario == "La contraseña debe ser mínimo 8 caracteres"){
+        } 
+        else if (data.usuario == "La contraseña debe ser mínimo 8 caracteres"){
           $scope.mensaje = data.usuario;
           $scope.ajustes.pagina.success = null;
-        } else if (data.usuario.id){
-          $scope.ajustes.pagina.success = "SE CAMBIÓ LA CONTRASEÑA DE MANERA CORRECTA";
+        } 
+        else if (data.usuario_nuevo.id){
+        $scope.ajustes.pagina.success = "SE CAMBIÓ LA CONTRASEÑA DE MANERA CORRECTA";
           $scope.mensaje = null;
           $scope.usuario1 = {
             password : null,
             new_password : null
           }
+      
         } else{
           $scope.mensaje = "ERROR, VUELVA A INTENTAR";
           $scope.ajustes.pagina.success = null;

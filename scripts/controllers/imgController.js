@@ -22,10 +22,11 @@ angular.module("adminApp")
                     }
                     $scope.persona.ima_nombre=file.name;  //obtenemos el nombre de la imagen :)
                     console.log("IMAGENNN",$scope.persona.ima_nombre);
-                    $scope.persona/*.imagen[0]*/.ima_nombre=file.name;
-                    console.log("IMAGENNN",$scope.persona.ima_nombre);
+                    $scope.persona.imagen[0].ima_nombre=file.name;//para editar
+                    console.log("IMAGENNN",$scope.persona.imagen[0].ima_nombre);
                     /*$scope.persona.imagen[0].ima_nombre=file.name;
-                    $scope.personas.imagen[0].ima_nombre=file.name;*/
+                    $scope.persona.imagen[0].ima_nombre=file.name;
+                     console.log("IMAGENNN corregido",$scope.personas.imagen[0].ima_nombre);*/
                 });
             }
         }
@@ -49,7 +50,7 @@ angular.module("adminApp")
     vm.enviar=function() {
         //Asignamos el file-model a la variable file, gracias a la directiva de mas arriba.
         var file = vm.ima_nombre;
-
+        console.log("funcion enviar agarra nombre",file);
         var fd = new FormData();
         fd.append('file', file); //Agregamos data al "formulario" que vamos a enviar
 

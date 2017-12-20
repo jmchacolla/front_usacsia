@@ -44,9 +44,9 @@ angular.module('adminApp')
 		//Almacena los datos de persona en caso de que sea una paciente
 		
 
-		//var DatosPer = localStorage.getItem("DatosPer");
-	//	var DatosPer = JSON.parse(DatosPer);
-	//	vm.persona = DatosPer;
+		var DatosPer = localStorage.getItem("DatosPer");
+		var DatosPer = JSON.parse(DatosPer);
+		vm.persona = DatosPer;
 
 		vm.logout = function(){
 			authUser.logout();
@@ -68,6 +68,7 @@ angular.module('adminApp')
 		
 		var FunG = localStorage.getItem("Funcionario");
 		var FunG = JSON.parse(FunG);
+		console.log("MENUCONTROLLER DATOS FUNCIONARIO", FunG);
 		
 		/*$scope.muestranotireferencia = 0;// para que solo muestre las referencias recibidas a establecimientos que reciben referencias
 		if (CONFIG.ROL_CURRENT_USER==4 || CONFIG.ROL_CURRENT_USER == 6 || CONFIG.ROL_CURRENT_USER == 9 || CONFIG.ROL_CURRENT_USER == 10) {
@@ -225,11 +226,11 @@ angular.module('adminApp')
 		
 		vm.usu_nick=SesionG.usu_nick;
 		//vm.nombreEst = localStorage.getItem("nombreEst");
-		if(vm.rol != 1 && vm.rol != 7 && (localStorage.getItem("DatosEstablecimiento")!=null)) {
+/*		if(vm.rol != 1 && vm.rol != 7 && (localStorage.getItem("DatosEstablecimiento")!=null)) {
 			var Establecimiento = localStorage.getItem("DatosEstablecimiento");
 	  		var Establecimiento = JSON.parse(Establecimiento);
 	  		vm.nombreEst = Establecimiento.establecimientos.es_nombre;
-		}
+		}*/
 		
 	}])
 ;
