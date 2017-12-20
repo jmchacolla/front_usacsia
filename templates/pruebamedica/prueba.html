@@ -77,17 +77,49 @@
             <hr>
         </div><!-- fin formulario -->
         <div class="row">
-            <h4 class="text-center text-primary">III. DIAGNÓSTICO</h4>
+            <h4 class="text-center text-primary">III. RESULTADOS DE LABORATORIO</h4>
                 <hr class="bg-red"> 
         </div>
         <div>
-          <textarea ng-model=prueba_medica.prueba_medica.pm_diagnostico></textarea>
+          <div>
+            <label>Fecha:</label>
+            <span class="lead">{{prueba_laboratorio.pl_fecha_recepcion}}</span>
+          </div>
+          <div>
+            <label>Color:</label>
+            <span class="lead">{{prueba_laboratorio.pl_color}}</span>
+          </div>
+          <div>
+            <label>Aspecto</label>
+            <span class="lead">{{prueba_laboratorio.pl_aspecto}}</span>
+          </div>
+          <div>
+            <label>Responsable:</label>
+            <span class="lead">{{fun.fun_cargo}} {{per.per_nombres}} {{per.per_apellido_primero}} {{per.per_apellido_segundo}} </span>
+          </div>
+        </div>
+        <div class="row">
+          <div ng-repeat="pparasito in prupar" class="col-md-3 col-xs-6">
+            <button class="btn btn-danger">
+            <span class="glyphicon glyphicon-alert"></span> {{pparasito.par_nombre}}
+            </button>
+          </div>
+        </div>
+          <hr>
+        <div class="row">
+            <h4 class="text-center text-primary">IV. DIAGNÓSTICO</h4>
+                <hr class="bg-red"> 
+        </div>
+        <div>
+          <center>
+            <textarea ng-model=prueba_medica.prueba_medica.pm_diagnostico class="col-md-8 col-sm-12"></textarea>
+          </center>
         </div>
             <p ng-show="$parent.ajustes.pagina.success" class="alert alert-success">{{$parent.ajustes.pagina.success}}</p>
       
                 <!--  <div class="modal-footer"> -->
               <center>
-                          <button type="submit" data-toggle="modal"  class="btn btn-primary" ng-disabled="userForm.$invalid" ng-click="diagnostico(prueba_medica.prueba_medica.pm_diagnostico)"><span class="glyphicon glyphicon-save"></span> GUARDAR</button>
+                          <button type="submit" data-toggle="modal"  class="btn btn-primary" ng-disabled="userForm.$invalid" ng-click="diagnostico(prueba_medica.prueba_medica.pm_diagnostico)"><span class="glyphicon glyphicon-save"></span> GUARDAR Y TERMINAR</button>
                           <a href="#/establecimientos/pacientes">
                           <button type="submit" data-toggle="modal"  class="btn btn-danger"  ><span class="glyphicon glyphicon-remove"></span> CANCELAR</button>
                           </a>
