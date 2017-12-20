@@ -131,7 +131,7 @@ angular.module("adminApp")
             {nombre:'Ciudadanos Registrados', enlace:'#/persona-usacsia', estilo:'active'}]
         },
         pagina:{
-          titulo:'Ficha Clínica'
+          titulo:'Resultados de prueba medica'
         }
       }
       var pm_id=$routeParams.pm_id;
