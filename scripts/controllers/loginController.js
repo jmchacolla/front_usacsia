@@ -4,8 +4,8 @@ angular.module("adminApp")
 .controller('LoginCtrl', function (authUser) {
 	var vm = this;
 	vm.loginForm = {
-	usu_nick: '83062745',
-	password: '83062745'
+	usu_nick: '811863',
+	password: '811863'
 	};
 
 	vm.login = function(){

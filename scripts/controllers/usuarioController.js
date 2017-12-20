@@ -18,6 +18,7 @@ angular.module('adminApp')
     PersonaporCI.get({per_ci:SesionG.usu_nick}, function(data)
     {
       $scope.persona = data.persona;
+      console.log("DATOS DE PERSONA",$scope.persona);
       if($scope.persona.per_genero=='F' || $scope.persona.per_genero=='f'){
         $scope.ajustes.menu.titulo = "Bienvenida";
       }
@@ -25,7 +26,7 @@ angular.module('adminApp')
         $scope.ajustes.menu.titulo = "Bienvenido";
       }
     });
-    console.log("entra a usuario controller para ver persona y logra verla persona con personasfind");
+    console.log("entra a usuario controller para ver persona y logra verla persona con personaporci");
   }
   $scope.ajustes = {
     menu:{
