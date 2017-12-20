@@ -223,6 +223,94 @@ angular.module("adminApp")
     });
 
 }])
+
+
+.controller('ListaFinalCtrl', ['$scope', 'Final', '$route', 'toastr', '$location', function ($scope, Final, $route, toastr,$location)
+{
+  $scope.ajustes = {
+    menu:{
+      titulo: 'Gestión de tramites Concluidos',
+      items:[
+        {nombre:'Tramites Concluidos', enlace:'#/personas/conc', estilo:'active'}]
+    },
+    pagina:{
+      titulo:'Tramites de Carné Sanitario'
+    }
+  }
+
+  
+  $scope.sortType = 'pt_id'; // set the default sort type
+  $scope.sortReverse  = true;  // set the default sort order
+  $scope.Personas = [];
+
+
+  $scope.loading=true;//para hacer un loading
+
+  Final.get(function(data){
+  
+    $scope.persona_tramite = data.persona_tramite;
+
+    if(data.persona_tramite.length>0){
+      $scope.loading = false;
+      $scope.msg = true;
+    }
+    else{
+      $scope.loading = false;
+      $scope.msg = false;
+    }
+    
+  },function () {
+      toastr.error("ERROR INESPERADO, por favor actualize la página");
+      $scope.loading = false;
+      $scope.msg = false;
+    }); 
+
+  var id=0;
+  $scope.nombre_completo = "";
+  $scope.get_per_id = function(per_id, per_apellido_primero, per_apellido_segundo, per_nombres){
+    id = per_id;
+    $scope.nombre_completo = per_apellido_primero + " " + per_apellido_segundo + " " + per_nombres;
+  }
+
+  $scope.remove = function(per_id){
+    Personas.delete({per_id:id}).$promise.then(function(data){
+      if(data.mensaje){
+        toastr.success('Eliminado correctamente');
+        $route.reload();
+      }
+    })
+  }
+}])
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 /*BUSCA PERSONA POR CI*/
 .controller('BuscaPersonaCtrl', ['$http', '$scope', 'CONFIG', buscaPersonaController])
 function buscaPersonaController($http, $scope, CONFIG){

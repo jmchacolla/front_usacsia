@@ -21,9 +21,11 @@ angular.module("adminApp")
                         });
                     }
                     $scope.persona.ima_nombre=file.name;  //obtenemos el nombre de la imagen :)
-                    $scope.persona.imagen[0].ima_nombre=file.name;
-                    $scope.persona.imagen[0].ima_nombre=file.name;
-                    $scope.personas.imagen[0].ima_nombre=file.name;
+                    console.log("IMAGENNN",$scope.persona.ima_nombre);
+                    $scope.persona/*.imagen[0]*/.ima_nombre=file.name;
+                    console.log("IMAGENNN",$scope.persona.ima_nombre);
+                    /*$scope.persona.imagen[0].ima_nombre=file.name;
+                    $scope.personas.imagen[0].ima_nombre=file.name;*/
                 });
             }
         }

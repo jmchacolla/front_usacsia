@@ -361,6 +361,61 @@ function generateCon_usa() {
         pdf.output("dataurlnewwindow");
 
       };
+//personas que concluyeron el tramite
+function generatePe() {
+        var pdfsize = 'a4';
+        var pdf = new jsPDF('l', 'pt', 'letter');  
+        pdf.setProperties({
+          title: 'Lista de Personas'
+        });
+        var totalPagesExp = "{total_pages_count_string}";
+        var pageContent = function (data) {
+
+             // HEADER
+              pdf.text(280,30, "LISTA DE PERSONAS");
+            //FOOTER
+              var str = "Página " + data.pageCount;
+              // Total page number plugin only available in jspdf v1.0+
+              if (typeof pdf.putTotalPages === 'function') {
+                  str = str + " de " + totalPagesExp;
+              }
+              pdf.setFontSize(10);
+              pdf.text(str, data.settings.margin.left, pdf.internal.pageSize.height - 10);
+        };
+        var res = pdf.autoTableHtmlToJson(document.getElementById("table"));
+     
+        var col=res.columns;
+        col.splice(4,5);
+        pdf.autoTable(col, res.data, {
+          addPageContent: pageContent,
+          theme: 'grid',
+          //startY: pdf.autoTableEndPosY() + 30,
+          startY: 60,
+          styles: {
+            overflow: 'linebreak',
+            fontSize: 10,
+            rowHeight: 40,
+            columnWidth: 'wrap'
+          },
+          columnStyles: {
+            //1: {columnWidth: 'auto'}
+           0: {columnWidth: 'auto'},
+           1: {columnWidth: 'auto'},
+           2: {columnWidth: 'auto'},
+           3: {columnWidth: 'auto'},
+           4: {columnWidth: 'auto'},
+           5: {columnWidth: 'auto'}
+          }
+        });
+        
+        if (typeof pdf.putTotalPages === 'function') {
+            pdf.putTotalPages(totalPagesExp);
+        };
+
+        /*pdf.save(pdfsize + ".pdf");*/
+        pdf.output("dataurlnewwindow");
+
+      };
 
 /*  3) servicios del estblecimiento de salud  */
 

@@ -1,11 +1,11 @@
 'use strict';
 angular.module('adminApp')
-.controller('InicioCtrl', ['Personas', '$scope', 'CONFIG', function (Personas, $scope, CONFIG){
+.controller('InicioCtrl', [/*'Personas',*/ 'PersonaporCI','$scope', 'CONFIG', function (/*Personas,*/ PersonaporCI,$scope, CONFIG){
   var SesionG = localStorage.getItem("Sesion");
   if (SesionG != null)
   {
     var SesionG = JSON.parse(SesionG);
-    Personas.get({per_id:SesionG.per_id}, function(data)
+  /*  Personas.get({per_id:SesionG.per_id}, function(data)
     {
       $scope.persona = data.persona;
       if($scope.persona.persona.per_genero=='F' || $scope.persona.persona.per_genero=='f'){
@@ -14,7 +14,18 @@ angular.module('adminApp')
       else if($scope.persona.persona.per_genero=='M' || $scope.persona.persona.per_genero=='m'){
         $scope.ajustes.menu.titulo = "Bienvenido";
       }
+    });*/
+    PersonaporCI.get({per_ci:SesionG.usu_nick}, function(data)
+    {
+      $scope.persona = data.persona;
+      if($scope.persona.per_genero=='F' || $scope.persona.per_genero=='f'){
+        $scope.ajustes.menu.titulo = "Bienvenida";
+      }
+      else if($scope.persona.per_genero=='M' || $scope.persona.per_genero=='m'){
+        $scope.ajustes.menu.titulo = "Bienvenido";
+      }
     });
+    console.log("entra a usuario controller para ver persona y logra verla persona con personasfind");
   }
   $scope.ajustes = {
     menu:{
@@ -49,8 +60,155 @@ angular.module('adminApp')
   }
 }])
 
+
+
+//Permite asignar roles a los funcionarios
+.controller('UsuarioCreateCtrl', [/*'authUser',*/ '$scope', '$http', 'CONFIG', 'Usuarios', '$routeParams', 'Establecimientos', '$location', '$timeout', 'toastr', '$route', 'FuncionariosEstablecimiento',
+  function (/*authUser,*/ $scope, $http, CONFIG, Usuarios, $routeParams, Establecimientos, $location, $timeout, toastr, $route, FuncionariosEstablecimiento) {
+  /*if(authUser.isLoggedIn()){*/
+    $scope.rol_id = CONFIG.ROL_CURRENT_USER;
+    var es_id = 0;
+    if($scope.rol_id == 1){
+      es_id = $routeParams.es_id;
+      $scope.ajustes = {
+        menu:{
+          titulo: 'Gestión de usuarios',
+          items:[
+          /*  {nombre:'Ver Datos del Establecimiento', enlace:'#/establecimientos/ver/'+es_id+"#FUNCIONARIOS", estilo:''}*/]
+        },
+        pagina:{
+          titulo:'Asignar Roles',
+          action: "ASIGNAR ROL"
+        }
+      }
+    }
+    else{
+     /* var FunG = localStorage.getItem("Funcionario");
+      var FunG = JSON.parse(FunG);
+      es_id = FunG.es_id;*/
+      $scope.ajustes = {
+        menu:{
+          titulo: 'Gestión de usuarios',
+          items:[
+            {nombre:'Usuarios', enlace:'#/establecimiento/usuarios', estilo:''},
+            {nombre:'Asignar Roles', enlace:'#/usuario/create', estilo:'active'}]
+        },
+        pagina:{
+          titulo:'Asignar Roles',
+          action: "ASIGNAR ROL"
+        }
+      }
+    }
+    var vm = this;
+    vm.usuario = {}
+    //Descomentar cuando este en ver establecimiento
+    //Establecimientos.get({es_id:es_id}, function(data){
+      //$scope.establecimiento = data.establecimiento;
+      /*if($scope.rol_id == 1 && $scope.establecimiento.establecimientos.es_nivel == "PRIMER NIVEL")
+      {
+        $scope.roles = [
+          { rol_id: 2, rol_nombre: "ADMINISTRADOR ESTABLECIMIENTO", rol_descripcion: "SE ENCARGA DE GESTIONAR TODOS LOS ELEMENTOS A REGISTRAR, ACTUALIZAR Y DAR DE BAJA EN ELE ESTABLECIMIENTO."},
+          { rol_id: 9, rol_nombre: "ADMINISTRADOR MEDICO", rol_descripcion: "TIENE LOS ROLES DE ADMINISTRADOR DE ESTABLECIMIENTO Y MEDICO"}
+        ]
+        vm.usuario.rol_id = 9;
+      }
+      else*/ 
+        //SESAR
+      /*if($scope.rol_id == 1){
+        $scope.roles = [
+          {rol_id: 2, rol_nombre: "JEFE USACSIA", rol_descripcion: "SE ENCARGA DE GESTIONAR TODOS LOS ELEMENTOS A REGISTRAR, ACTUALIZAR Y DAR DE BAJA EN ELE ESTABLECIMIENTO."},
+          {rol_id: 9, rol_nombre: "ADMINISTRADOR MEDICO", rol_descripcion: "TIENE LOS ROLES DE ADMINISTRADOR DE ESTABLECIMIENTO Y MEDICO."}
+        ]
+        vm.usuario.rol_id = 2;
+      }
+      else {
+        $scope.roles = [
+          { rol_id: 2, rol_nombre: "ADMINISTRADOR ESTABLECIMIENTO", rol_descripcion: "SE ENCARGA DE GESTIONAR TODOS LOS ELEMENTOS A REGISTRAR, ACTUALIZAR Y DAR DE BAJA EN ELE ESTABLECIMIENTO."},
+          { rol_id: 9, rol_nombre: "ADMINISTRADOR MEDICO", rol_descripcion: "TIENE LOS ROLES DE ADMINISTRADOR DE ESTABLECIMIENTO Y MEDICO."},
+          //{ rol_id: 3, rol_nombre: "ESTADISTICA", rol_descripcion: "SE ENCARGA DE TAREAS ESPECIFICAS, REPORTES Y ESTADISTICAS"},
+          { rol_id: 4, rol_nombre: "MEDICO", rol_descripcion: "FUNCIONES ESPECIFICAS: REFERENCIA"},
+          { rol_id: 5, rol_nombre: "ENFERMERA", rol_descripcion: "FUNCIONES ESPECIFICAS: REGISTRAR Y HACER SEGUIMIENTO A VACUNAS"},
+          { rol_id: 6, rol_nombre: "ADMISIONISTA", rol_descripcion: "COMPLEMENTAR LA INFORMACION FINACIERA DE LAS RECERVAS Y FICHAJE"},
+          //{ rol_id: 10, rol_nombre: "ESTADISTICO ADMISIONISTA ENFERMERA", rol_descripcion: "TIENE LOS ROLES DE ESTADISTICO ADMISIONISTA Y ENFERMERA "}
+        ]
+      }*/
+    //})
+     $scope.roles = [
+          { rol_id: 2, rol_nombre: "JEFE USACSIA", rol_descripcion: "GENERA FIRMA, FIRMA DOCUMENTOS"},
+          { rol_id: 3, rol_nombre: "CAJERO", rol_descripcion: "Registra pago de trámites, genera reportes, asigna consultorio"},
+          { rol_id: 4, rol_nombre: "PERSONA", rol_descripcion: "CUANDO SE REGISTRA EN EL SISTEMA"},
+          { rol_id: 5, rol_nombre: "PACIENTE", rol_descripcion: "Paga CaS, entrega muestra, consulta medica, imprime CaS, Seguimiento"},
+          { rol_id: 6, rol_nombre: "EMPRESA", rol_descripcion: "Registra empresa, carga lista empleados, solicita trámite CaS, CaS empleados, CeS, seguimiento a tramites, carga documentos, paga trámites"},
+          { rol_id: 7, rol_nombre: "RESPONSABLE DE AREA CARNÉ SANITARIO", rol_descripcion: "Registra consultorio, laboratorio, asigna horarios, reprograma carnetización, especifica dias de antención, renera reportes"},
+
+          { rol_id: 8, rol_nombre: "RECEPCIONISTA", rol_descripcion: "Asiste en registro de personas, toma fotografias, asigna consultorio"},
+          //{ rol_id: 3, rol_nombre: "ESTADISTICA", rol_descripcion: "SE ENCARGA DE TAREAS ESPECIFICAS, REPORTES Y ESTADISTICAS"},
+          { rol_id: 9, rol_nombre: "MEDICO", rol_descripcion: "Registra resultados de consulta, genera reportes"},
+          { rol_id: 10, rol_nombre: "ENFERMERA", rol_descripcion: "REGISTRA SIGNOS VITALES"},
+          { rol_id: 11, rol_nombre: "RESPONSABLE DE LABORATORIO", rol_descripcion: "Genera reportes mensuales"},
+          { rol_id: 12, rol_nombre: "RECEPSIONISTA DE LABORATORIO", rol_descripcion: "Asigna numero de muestra, asigna consultorio"},
+          { rol_id: 13, rol_nombre: "TECNICO DE LABORATORIO", rol_descripcion: "Registra resultados de observacion, genera informes"},
+          { rol_id: 14, rol_nombre: "RESPONSABLE DE AREA CERTIFICADO SANITARIO", rol_descripcion: "Genera reportes mensuales, genera firma, firma documentos"},
+          { rol_id: 15, rol_nombre: "REVISOR", rol_descripcion: "Registra resultados de observacion de docuemntos"},
+          { rol_id: 16, rol_nombre: "INSPECTOR", rol_descripcion: "Llenado de ficha inspección, asigna categoria, genera reportes"},
+          { rol_id: 17, rol_nombre: "JEFE DE UNIDAD ADMIN FINANCIERA", rol_descripcion: "Genera firma, firma documentos"},
+          { rol_id: 18, rol_nombre: "RESPONSABLE TESORERIA", rol_descripcion: "Revisa reportes financieros, valida documento"},
+         
+        ]
+
+
+      //SESAR
+    //Obtiene a los funcionarios de un establecimiento que no tienen una cuenta de usuario
+/*    FuncionariosEstablecimiento.get({es_id:es_id}, function(data)
+    {
+      $scope.funcionarios = data.funcionario;
+    }); */ 
+
+    vm.buscaFuncionario = function(){
+      $http.get(/*CONFIG.DOMINIO_SERVICIOS+*/"http://localhost:8080/api_usacsia/public/funcionario/"+vm.aux).success(function(data){
+        vm.funci = data.funcionario;
+        console.log("datos obtenidos del funcionario",vm.funci);
+        vm.usuario.usu_tipo = "P";
+      //  vm.usuario.per_id = vm.funci.persona.per_id;
+        vm.usuario.usu_identificador ="2"
+        vm.usuario.usu_nick = vm.funci.persona.per_nombres;
+        vm.usuario.password = vm.funci.persona.per_ci;
+      
+      })
+    }
+    $scope.submit = function(){
+      Usuarios.save(vm.usuario).$promise.then(function(data){
+        if(data.msg){
+          angular.copy({}, vm.usuario);
+          $scope.ajustes.pagina.success = "El rol fue asignado exitosamente";
+          vm.aux = null;
+          vm.funci.per_nombres = null;
+          vm.funci.per_ci = null;
+          if($scope.rol_id == 2 || $scope.rol_id == 9){
+            toastr.success('Rol asignado correctamente');
+            $timeout(function() {
+              $location.path('/');
+            },0);
+          } else {
+            toastr.success('Rol asignado correctamente');
+            $route.reload();
+          }
+        }
+      });
+    }
+ /* } else {
+    $location.path('/inicio');
+  }*/
+}])
+
+
+
+
+
+
+
 //Para definir el rol que el usuario quiere usar
-.controller('RolUsuarioCtrl', ['$scope','$timeout','$location','FuncionarioPer','Establecimientos','CONFIG','UsuarioEstado','PacientePersona',
+/*.controller('RolUsuarioCtrl', ['$scope','$timeout','$location','FuncionarioPer','Establecimientos','CONFIG','UsuarioEstado','PacientePersona',
  function ($scope,$timeout,$location,FuncionarioPer,Establecimientos,CONFIG,UsuarioEstado,PacientePersona) {
 
   var SesionG = localStorage.getItem("Sesion");
@@ -205,7 +363,7 @@ angular.module('adminApp')
       $location.path('/');
     },1000);
   }
-}])
+}])*/
 
 ///!!!!!! QUITAR !!!!!!!!
 .controller('ManualCtrl', ['$scope', 'CONFIG', function ($scope, CONFIG) {
@@ -254,7 +412,7 @@ angular.module('adminApp')
 }])
 
 .controller('UsuariosEstabCtrl', ['CONFIG', '$scope', 'UsuariosEstab', '$routeParams', 'toastr', '$route', 'RolesUsuarios', 'Usuarios', function (CONFIG,$scope,UsuariosEstab,$routeParams,toastr,$route,RolesUsuarios,Usuarios) {
-	$scope.ajustes = {
+  $scope.ajustes = {
     menu:{
       titulo: 'Gestión de usuarios',
       items:[
@@ -360,115 +518,6 @@ angular.module('adminApp')
   }
 }])
 
-//Permite asignar roles a los funcionarios
-.controller('UsuarioCreateCtrl', ['authUser', '$scope', '$http', 'CONFIG', 'Usuarios', '$routeParams', 'Establecimientos', '$location', '$timeout', 'toastr', '$route', 'FuncionariosEstablecimiento',
-	function (authUser, $scope, $http, CONFIG, Usuarios, $routeParams, Establecimientos, $location, $timeout, toastr, $route, FuncionariosEstablecimiento) {
-	if(authUser.isLoggedIn()){
-    $scope.rol_id = CONFIG.ROL_CURRENT_USER;
-    var es_id = 0;
-    if($scope.rol_id == 1){
-      es_id = $routeParams.es_id;
-      $scope.ajustes = {
-        menu:{
-          titulo: 'Gestión de usuarios',
-          items:[
-            {nombre:'Ver Datos del Establecimiento', enlace:'#/establecimientos/ver/'+es_id+"#FUNCIONARIOS", estilo:''}]
-        },
-        pagina:{
-          titulo:'Asignar Roles',
-          action: "ASIGNAR ROL"
-        }
-      }
-    }
-    else{
-      var FunG = localStorage.getItem("Funcionario");
-      var FunG = JSON.parse(FunG);
-      es_id = FunG.es_id;
-      $scope.ajustes = {
-        menu:{
-          titulo: 'Gestión de usuarios',
-          items:[
-            {nombre:'Usuarios', enlace:'#/establecimiento/usuarios', estilo:''},
-            {nombre:'Asignar Roles', enlace:'#/usuario/create', estilo:'active'}]
-        },
-        pagina:{
-          titulo:'Asignar Roles',
-          action: "ASIGNAR ROL"
-        }
-      }
-    }
-    var vm = this;
-    vm.usuario = {}
-    //Descomentar cuando este en ver establecimiento
-    //Establecimientos.get({es_id:es_id}, function(data){
-      //$scope.establecimiento = data.establecimiento;
-      /*if($scope.rol_id == 1 && $scope.establecimiento.establecimientos.es_nivel == "PRIMER NIVEL")
-      {
-        $scope.roles = [
-          { rol_id: 2, rol_nombre: "ADMINISTRADOR ESTABLECIMIENTO", rol_descripcion: "SE ENCARGA DE GESTIONAR TODOS LOS ELEMENTOS A REGISTRAR, ACTUALIZAR Y DAR DE BAJA EN ELE ESTABLECIMIENTO."},
-          { rol_id: 9, rol_nombre: "ADMINISTRADOR MEDICO", rol_descripcion: "TIENE LOS ROLES DE ADMINISTRADOR DE ESTABLECIMIENTO Y MEDICO"}
-        ]
-        vm.usuario.rol_id = 9;
-      }
-      else*/ 
-      if($scope.rol_id == 1){
-        $scope.roles = [
-          {rol_id: 2, rol_nombre: "ADMINISTRADOR ESTABLECIMIENTO", rol_descripcion: "SE ENCARGA DE GESTIONAR TODOS LOS ELEMENTOS A REGISTRAR, ACTUALIZAR Y DAR DE BAJA EN ELE ESTABLECIMIENTO."},
-          {rol_id: 9, rol_nombre: "ADMINISTRADOR MEDICO", rol_descripcion: "TIENE LOS ROLES DE ADMINISTRADOR DE ESTABLECIMIENTO Y MEDICO."}
-        ]
-        vm.usuario.rol_id = 2;
-      }
-      else {
-        $scope.roles = [
-          { rol_id: 2, rol_nombre: "ADMINISTRADOR ESTABLECIMIENTO", rol_descripcion: "SE ENCARGA DE GESTIONAR TODOS LOS ELEMENTOS A REGISTRAR, ACTUALIZAR Y DAR DE BAJA EN ELE ESTABLECIMIENTO."},
-          { rol_id: 9, rol_nombre: "ADMINISTRADOR MEDICO", rol_descripcion: "TIENE LOS ROLES DE ADMINISTRADOR DE ESTABLECIMIENTO Y MEDICO."},
-          //{ rol_id: 3, rol_nombre: "ESTADISTICA", rol_descripcion: "SE ENCARGA DE TAREAS ESPECIFICAS, REPORTES Y ESTADISTICAS"},
-          { rol_id: 4, rol_nombre: "MEDICO", rol_descripcion: "FUNCIONES ESPECIFICAS: REFERENCIA"},
-          { rol_id: 5, rol_nombre: "ENFERMERA", rol_descripcion: "FUNCIONES ESPECIFICAS: REGISTRAR Y HACER SEGUIMIENTO A VACUNAS"},
-          { rol_id: 6, rol_nombre: "ADMISIONISTA", rol_descripcion: "COMPLEMENTAR LA INFORMACION FINACIERA DE LAS RECERVAS Y FICHAJE"},
-          //{ rol_id: 10, rol_nombre: "ESTADISTICO ADMISIONISTA ENFERMERA", rol_descripcion: "TIENE LOS ROLES DE ESTADISTICO ADMISIONISTA Y ENFERMERA "}
-        ]
-      }
-    //})
-    
-    //Obtiene a los funcionarios de un establecimiento que no tienen una cuenta de usuario
-    FuncionariosEstablecimiento.get({es_id:es_id}, function(data)
-    {
-      $scope.funcionarios = data.funcionario;
-    });  
-
-    vm.buscaFuncionario = function(){
-      $http.get(CONFIG.DOMINIO_SERVICIOS+"/funcionarios/"+vm.aux).success(function(data){
-        vm.funci = data.funcionario;
-        vm.usuario.per_id = vm.funci.persona.per_id;
-        vm.usuario.usu_nick = vm.funci.persona.per_nombres;
-        vm.usuario.password = vm.funci.persona.per_ci; 
-      })
-    }
-    $scope.submit = function(){
-      Usuarios.save(vm.usuario).$promise.then(function(data){
-        if(data.msg){
-          angular.copy({}, vm.usuario);
-          $scope.ajustes.pagina.success = "El rol fue asignado exitosamente";
-          vm.aux = null;
-          vm.funci.per_nombres = null;
-          vm.funci.per_ci = null;
-          if($scope.rol_id == 2 || $scope.rol_id == 9){
-            toastr.success('Rol asignado correctamente');
-            $timeout(function() {
-              $location.path('/establecimiento/usuarios');
-            },0);
-          } else {
-            toastr.success('Rol asignado correctamente');
-            $route.reload();
-          }
-        }
-      });
-    }
-  } else {
-    $location.path('/inicio');
-  }
-}])
 
 ///Para ver el perfil de un usuario, funcionario, persona
 .controller('PerfilCtrl', ['CONFIG', '$scope', 'Usuarios', 'Funcionarios', 'Personas', 

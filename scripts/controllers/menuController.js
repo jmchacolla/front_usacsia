@@ -1,8 +1,8 @@
 'use strict';
 
 angular.module('adminApp')
-	.controller('MenuCtrl', ['$auth','authUser', '$location', '$scope', 'sessionControl', 'ROLES', 'CONFIG', '$routeParams', 'ReferenciasEstablecimientoDestino','ContrareferenciasEstablecimientoOrigen', 'ReservasDia', 'CitasMedicos',
-		function ($auth,authUser, $location, $scope, sessionControl, ROLES, CONFIG, $routeParams,ReferenciasEstablecimientoDestino,ContrareferenciasEstablecimientoOrigen,ReservasDia,CitasMedicos){
+	.controller('MenuCtrl', ['$auth','authUser', '$location', '$scope', 'sessionControl', 'ROLES', 'CONFIG', '$routeParams', 'ReservasDia', 'CitasMedicos',
+		function ($auth,authUser, $location, $scope, sessionControl, ROLES, CONFIG, $routeParams,ReservasDia,CitasMedicos){
 		var vm = this;
 		vm.isLogin = authUser.isLoggedIn();
 
@@ -17,8 +17,8 @@ angular.module('adminApp')
 		vm.user = {
 			usu_nick: sessionControl.get('usu_nick'),
 			rol_id: sessionControl.get('rol_id'),
-			roles: sessionControl.get('roles'),
-			per_id: sessionControl.get('per_id'),
+		      //	roles: sessionControl.get('roles'),
+		//	per_id: sessionControl.get('per_id'),
 		}
 				
 		///$watch es para mostrar el dato
@@ -42,9 +42,11 @@ angular.module('adminApp')
 		vm.CONFIG = CONFIG;
 		//console.log(typeof CONFIG.ROL_CURRENT_USER);
 		//Almacena los datos de persona en caso de que sea una paciente
-		var DatosPer = localStorage.getItem("DatosPer");
-		var DatosPer = JSON.parse(DatosPer);
-		vm.persona = DatosPer;
+		
+
+		//var DatosPer = localStorage.getItem("DatosPer");
+	//	var DatosPer = JSON.parse(DatosPer);
+	//	vm.persona = DatosPer;
 
 		vm.logout = function(){
 			authUser.logout();
@@ -55,11 +57,12 @@ angular.module('adminApp')
 		};
 
 		//Para cambiar de rol si, se tiene más de uno
-		vm.cambia_rol=false;
+	/*	vm.cambia_rol=false;
 		var SesionG = localStorage.getItem("Sesion");
   		var SesionG = JSON.parse(SesionG);
   		console.log(typeof localStorage.getItem("DOS_ESTAB"));
-		/*if(SesionG.roles.length>1 || localStorage.getItem("DOS_ESTAB")=="2"){
+
+		if(SesionG.roles.length>1 || localStorage.getItem("DOS_ESTAB")=="2"){
 			vm.cambia_rol=true;
 		}*/
 		
@@ -135,7 +138,7 @@ angular.module('adminApp')
 
 		//PARA LAS NOTIFICACIONES DE RESERVAS/////////////////////////////////////////////////////////
 		//NOTIFICACIONES PARA EL MEDICO Y ADMINISTRADOR MEDICO
-		if((CONFIG.ROL_CURRENT_USER == 4 || CONFIG.ROL_CURRENT_USER == 9) && FunG) {
+	/*	if((CONFIG.ROL_CURRENT_USER == 4 || CONFIG.ROL_CURRENT_USER == 9) && FunG) {
 			$scope.CurrentDate = new Date();
 	   		$scope.fecha_hoy=moment($scope.CurrentDate,"YYYY-MM-DD").format("YYYY-MM-DD");
 			CitasMedicos.get({fe_id:FunG.fe_id,fecha:$scope.fecha_hoy},function(data){
@@ -169,9 +172,9 @@ angular.module('adminApp')
 					FunG = null;
 				}
 			}, 120000);
-		}
+		}*/
 		//NOTIFICACIONES PARA EL ADMISIONISTA O ADMISIONISTA-ESTADISTICO-ENFERMERO
-		if((CONFIG.ROL_CURRENT_USER == 6 || CONFIG.ROL_CURRENT_USER == 10) && FunG)
+	/*	if((CONFIG.ROL_CURRENT_USER == 6 || CONFIG.ROL_CURRENT_USER == 10) && FunG)
 		{
 			$scope.nro=0;
 			ReservasDia.get({es_id:FunG.es_id},function(data){
@@ -204,7 +207,7 @@ angular.module('adminApp')
 					FunG = null;
 				}
 			}, 120000);
-		}
+		}*/
 	}])
 
 	.controller('MenuLateralCtrl', ['$scope', 'CONFIG', function ($scope, CONFIG) {

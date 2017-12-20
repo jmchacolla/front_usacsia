@@ -93,6 +93,12 @@ angular.module("adminApp")
     update: {method: "PUT", params: {ess_id: "@ess_id"}}
   })
 }])
+//listar personas que concluyeron el tramite
+.factory('Final', ['$resource', 'CONFIG', function ($resource, CONFIG){
+  return $resource(CONFIG.DOMINIO_SERVICIOS+"/lista_final", {}, {
+    update: {method: "PUT", params: {}}
+  })
+}])
 
 
 

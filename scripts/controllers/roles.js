@@ -23,52 +23,86 @@ angular.module('adminApp')
 
 //wendy
   DOMINIO_SERVICIOS: "http://localhost:8080/api_usacsia/public"
+//dominio servidor
+//  DOMINIO_SERVICIOS: "https://190.181.60.19/api_usacsia/public"
  
 
 //vero
-DOMINIO_SERVICIOS: "http://localhost/usacsia_php_5.6/usacsia_git2/api_usacsia/public"
+//DOMINIO_SERVICIOS: "http://localhost/usacsia_php_5.6/usacsia_git2/api_usacsia/public"
 })
 
 // ========================= ROLES ============================================================================
 .constant('ROLES', {
-  ADMIN_SEDES: {
+   ADMIN_USACSIA: {
     ROL:1,
     PATH:"/"
   },
-  ADMIN_ESTAB: {
+  JEFE_USACSIA: {
     ROL:2,
     PATH:"/"
   },
-  ESTADISTICA: {
+  CAJERO: {
     ROL:3,
     PATH:"/"
   },
-  MEDICO: {
+  PERSONA: {
     ROL:4,
     PATH:"/"
   },
-  ENFERMERO: {
+  PACIENTE: {
     ROL:5,
     PATH:"/"
   },
-  RECAUDADOR: {
+  EMPRESA: {
     ROL:6,
     PATH:"/"
   },
-  PACIENTE: {
+  ADMIN_CARNET: {
     ROL:7,
     PATH:"/"
   },
-  ROOT: {
+  RECEPCIONISTA: {
     ROL:8,
     PATH:"/"
   },
-  ADMIN_MEDICO: {
+  MEDICO: {
     ROL:9,
     PATH:"/"
   },
-  ESTAD_RECAU_ENFER: {
+  ENFERMERA: {
     ROL:10,
+    PATH:"/"
+  },
+  RESP_LAB: {
+    ROL:11,
+    PATH:"/"
+  },
+  RECEP_LAB: {
+    ROL:12,
+    PATH:"/"
+  },
+  TECNICO_LABORATORIO: {
+    ROL:13,
+    PATH:"/"
+  },
+  ADMIN_CERTIFICADO: {
+    ROL:14,
+    PATH:"/"
+  },
+  REVISOR: {
+    ROL:15,
+    PATH:"/"
+  },
+  INSPECTOR: {
+    ROL:16,
+    PATH:"/"
+  },
+  JEFE_FINANCIERA: {
+    ROL:17,
+    PATH:"/"
+  },
+  RESPONSABLE_TESORERIA: {
+    ROL:18,
     PATH:"/"
   }
 })
@@ -76,6 +110,7 @@ DOMINIO_SERVICIOS: "http://localhost/usacsia_php_5.6/usacsia_git2/api_usacsia/pu
 .run(["$rootScope", "$location", "CONFIG", "ROLES",   function($rootScope, $location, CONFIG, ROLES){
   $rootScope.$on('$routeChangeStart', function (event, next)
   { 
+    console.log(next.data);
     if(next.data !== undefined)
     { 
       if(next.data.authorized.indexOf(CONFIG.ROL_CURRENT_USER) !== -1)
@@ -85,34 +120,58 @@ DOMINIO_SERVICIOS: "http://localhost/usacsia_php_5.6/usacsia_git2/api_usacsia/pu
       else
       {
         if (CONFIG.ROL_CURRENT_USER == 1) {
-          $location.path(ROLES.ADMIN_SEDES.PATH);
+          $location.path(ROLES.ADMIN_USACSIA.PATH);
         }
         else if (CONFIG.ROL_CURRENT_USER == 2) {
-          $location.path(ROLES.ADMIN_ESTAB.PATH);
+          $location.path(ROLES.JEFE_USACSIA.PATH);
         }
         else if (CONFIG.ROL_CURRENT_USER == 3) {
-          $location.path(ROLES.ESTADISTICA.PATH);
+          $location.path(ROLES.CAJERO.PATH);
         }
         else if (CONFIG.ROL_CURRENT_USER == 4) {
-          $location.path(ROLES.MEDICO.PATH);
+          $location.path(ROLES.PERSONA.PATH);
         }
         else if (CONFIG.ROL_CURRENT_USER == 5) {
-          $location.path(ROLES.ENFERMERO.PATH);
-        }
-        else if (CONFIG.ROL_CURRENT_USER == 6) {
-          $location.path(ROLES.RECAUDADOR.PATH);
-        }
-        else if (CONFIG.ROL_CURRENT_USER == 7) {
           $location.path(ROLES.PACIENTE.PATH);
         }
+        else if (CONFIG.ROL_CURRENT_USER == 6) {
+          $location.path(ROLES.ESMPRESA.PATH);
+        }
+        else if (CONFIG.ROL_CURRENT_USER == 7) {
+          $location.path(ROLES.ADMIN_CARNET.PATH);
+        }
         else if (CONFIG.ROL_CURRENT_USER == 8) {
-          $location.path(ROLES.ROOT.PATH);
+          $location.path(ROLES.RECEPCIONISTA.PATH);
         }
         else if (CONFIG.ROL_CURRENT_USER == 9) {
-          $location.path(ROLES.ADMIN_MEDICO.PATH);
+          $location.path(ROLES.MEDICO.PATH);
         }
         else if (CONFIG.ROL_CURRENT_USER == 10) {
-          $location.path(ROLES.ESTAD_RECAU_ENFER.PATH);
+          $location.path(ROLES.ENFERMERA.PATH);
+        }
+        else if (CONFIG.ROL_CURRENT_USER == 11) {
+          $location.path(ROLES.RESP_LAB.PATH);
+        }
+        else if (CONFIG.ROL_CURRENT_USER == 12) {
+          $location.path(ROLES.RECEP_LAB.PATH);
+        }
+         else if (CONFIG.ROL_CURRENT_USER == 13) {
+          $location.path(ROLES.TECNICO_LABORATORIO.PATH);
+        }
+         else if (CONFIG.ROL_CURRENT_USER == 14) {
+          $location.path(ROLES.ADMIN_CERTIFICADO.PATH);
+        }
+        else if (CONFIG.ROL_CURRENT_USER == 15) {
+          $location.path(ROLES.REVISOR.PATH);
+        }
+        else if (CONFIG.ROL_CURRENT_USER == 16) {
+          $location.path(ROLES.INSPECTOR.PATH);
+        }
+        else if (CONFIG.ROL_CURRENT_USER == 17) {
+          $location.path(ROLES.JEFE_FINANCIERA.PATH);
+        }
+         else if (CONFIG.ROL_CURRENT_USER == 18) {
+          $location.path(ROLES.RESPONSABLE_TESORERIA.PATH);
         }
       }
     }

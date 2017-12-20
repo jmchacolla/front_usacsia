@@ -39,7 +39,7 @@ angular.module("adminApp")
    $scope.pruebamed={
       pt_id:pt_id,
       ser_id:1,//---------medicina general
-      fun_id:1,//----------debe ser de sesion
+      fun_id:8,//----------debe ser de sesion
       pm_fc:"",
       pm_fr:"",
       pm_pa_sistolica:"",

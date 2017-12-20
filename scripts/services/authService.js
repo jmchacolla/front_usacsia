@@ -14,20 +14,20 @@ angular.module('authService', [])
 		};
 	})
 
-	.factory('authUser', function ($auth, sessionControl, toastr, $location, $rootScope, FuncionarioPer, CONFIG, Establecimientos,$route,$timeout,RolResource,Personas,PacientePersona,UsuariosEstab) {
-		var cacheSession = function(usu_nick, roles, per_id, id){
+	.factory('authUser', function ($auth, sessionControl, toastr, $location, $rootScope, /*FuncionarioPer,*/ CONFIG,/* Establecimientos,*/$route,$timeout,RolResource,Personas,Paises,/*PacientePersona,*/UsuariosEstab) {
+		var cacheSession = function(usu_nick, rol_id, usu_identificador/*per_id,*/, id){
 			//Asigna variables de sesion
 			sessionControl.set('userIsLogin',true);
 			sessionControl.set('usu_nick', usu_nick);
-			sessionControl.set('roles', roles);
-			sessionControl.set('per_id', per_id);
+			sessionControl.set('rol_id', rol_id);
+			sessionControl.set('per_id', usu_identificador);
 			sessionControl.set('id', id);//Id del usuario
 		};
 		var unCacheSession = function (){
 			//Elimina variables de sesion
 			sessionControl.unset('userIsLogin');
 			sessionControl.unset('usu_nick');
-			sessionControl.unset('roles');
+			sessionControl.unset('rol_id');
 			sessionControl.unset('per_id');
 			sessionControl.unset('id');
 		};
@@ -35,35 +35,79 @@ angular.module('authService', [])
 		var login = function(loginForm){
 			$auth.login(loginForm).then(
 				function(response){
-					
+					console.log("DATA",response.data);
+					console.log("CONFIG",response.config.data);
 					if(response.data.error && response.config.data.usu_nick !='' && response.config.data.password != undefined) {
 						toastr.error('El nombre de usuario y la contraseña no coinciden', 'Error');
 						console.log(response);
 					}
-					cacheSession(response.data.user.usu_nick, response.data.roles, response.data.user.per_id, response.data.user.id);
+					cacheSession(response.data.user.usu_nick, response.data.user.rol_id, /*response.data.user.per_id,*/ response.data.user.id);
 					toastr.success('Sesion iniciada con exito.', 'Mensaje');
 					console.log(response,"RESPONSE");
 					//Guardando los datos de la sesión en una variable para localStorage
 					var datosSesion = {//datos de la sesion
 						usu_nick: response.data.user.usu_nick,
-						per_id: response.data.user.per_id,
-						roles: response.data.roles,
+						per_id: response.data.user.usu_identificador,
+						rol_id: response.data.user.rol_id,
 						id: response.data.user.id,
 					};
-
+					/*Paises.get(function(data){
+						var paisess=data.pais;
+						console.log(paisess);
+					});*/
 					//guardando en localStorage los datos de la sesion
 					var Sesion = JSON.stringify(datosSesion);
+					console.log("datos sesion", Sesion);
 					localStorage.setItem("Sesion", Sesion);
-					
+					console.log("GUARDO DATOS DE LA SESION");
+
 					//para almacenar en localStorage los datos de la persona logueada
-					Personas.get({per_id:response.data.user.per_id}, function(data){
+					//convirtiendo text a int
+					var per_id= parseInt(response.data.user.usu_identificador, 10);
+					console.log("CONVIRTIENDO TEXT EN INT",per_id);
+					Personas.get({per_id:per_id}, function(data){
 						var persona = data.persona;
+						//console.log("GUARDANDO DATOS DE PERSONA EN LOCALSTORAGE",persona)
 						persona = JSON.stringify(persona);
 						localStorage.setItem("DatosPer", persona);
 					});
+
+
+
+
+//para el rol
+					CONFIG.ROL_CURRENT_USER = parseInt(response.data.user.rol_id, 10);//este es el usuario que esta logueado
+					console.log("ROL",CONFIG.ROL_CURRENT_USER );
+					//DEBERIA GUARDARSE EL ROL NOMBRE AQUI, MIENTRAS ESTOY PONIENDO USU_NICK
+  					CONFIG.ROL_CURRENT_USER_NAME = response.data.rol.rol_nombre;
+  					console.log("rol_nombre",CONFIG.ROL_CURRENT_USER_NAME );
+
+
+					localStorage.setItem("ROL_CURRENT_USER", parseInt(response.data.user.rol_id, 10));//para obtener el rol_id
+					//localStorage.setItem("ROL_CURRENT_USER_NAME", response.data.user.rol_nombre);//para obtener el rol_nombre
+					//mientras no corre el servicio de roles
+					localStorage.setItem("ROL_CURRENT_USER_NAME", response.data.rol.rol_nombre);//para
+					//para saber que persona es
+
+				/*	PersonasFind.get({per_ci:response.data.user.usu_nick}, function(data){
+						var persona = data.persona;
+						//console.log("PERSONA CI DE LOGUEO",data.persona);
+						persona = JSON.stringify(persona);
+						localStorage.setItem("DatosPer", persona);
+					});
+			*/
+					$timeout(function() {
+						              $location.path('/');
+						          	},1500);
+					//para almacenar en localStorage los datos de la persona logueada
+/*					Personas.get({per_id:response.data.user.per_id}, function(data){
+						var persona = data.persona;
+						persona = JSON.stringify(persona);
+						localStorage.setItem("DatosPer", persona);
+					});*/
 					
 					//PARA ROLES
-					if (datosSesion.roles.length>1){//Cuando el usuario tiene más roles
+		/*			if (datosSesion.roles.length>1){//Cuando el usuario tiene más roles
 						$timeout(function() {
 			              	$location.path('/rol/usuario');
 			          	},1500);
@@ -73,9 +117,9 @@ angular.module('authService', [])
   						CONFIG.ROL_CURRENT_USER_NAME = response.data.roles[0].rol_nombre;
 						localStorage.setItem("ROL_CURRENT_USER", parseInt(response.data.roles[0].rol_id, 10));//para obtener el rol_id
 						localStorage.setItem("ROL_CURRENT_USER_NAME", response.data.roles[0].rol_nombre);//para obtener el rol_id
-
+*/
 						//Para almacenar los datos de un funcionario de un establecimiento en localStorage
-						if((response.data.roles[0].rol_id !=1) && (response.data.roles[0].rol_id !=7))
+						/*if((response.data.roles[0].rol_id !=1) && (response.data.roles[0].rol_id !=7))
 						{	
 							var es_id=0;
 							var nombres_establecimientos = [];
@@ -121,9 +165,9 @@ angular.module('authService', [])
 						  		}
 						  		
 							});
-						}
+						}*/
 						//Para almacenar el pac_id del paciente
-						if((response.data.roles[0].rol_id == 7)) {
+					/*	if((response.data.roles[0].rol_id == 7)) {
 							var pac_id=0;
 							PacientePersona.get({per_id:response.data.user.per_id}, function(data)
 						  	{
@@ -139,8 +183,8 @@ angular.module('authService', [])
 							$timeout(function() {
 				              $location.path('/');
 				          	},1500);
-						}
-					}
+						}*/
+				/*	}*/
 					//console.log(typeof response.data.user.rol_id);
 				},
 				function(){
@@ -160,14 +204,12 @@ angular.module('authService', [])
 				localStorage.removeItem("DatosPer");
 				localStorage.removeItem("ROL_CURRENT_USER");
 				localStorage.removeItem("ROL_CURRENT_USER_NAME");
-				localStorage.removeItem("DatosEstablecimiento");
+				//localStorage.removeItem("DatosEstablecimiento");
 				localStorage.removeItem("Funcionario");
-				localStorage.removeItem("PacId");
+			//	localStorage.removeItem("PacId");
 				localStorage.removeItem("aux_es_id");
 				localStorage.removeItem("DOS_ESTAB");
-				//localStorage.removeItem("tipoEst");
-				//localStorage.removeItem("valor1");
-				//localStorage.removeItem("valor2");
+				
 				$auth.logout();
 				unCacheSession();
 				$timeout(function() {
