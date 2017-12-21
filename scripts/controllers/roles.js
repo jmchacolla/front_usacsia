@@ -29,7 +29,7 @@ angular.module('adminApp')
  
 
 //vero
-//DOMINIO_SERVICIOS: "http://localhost/usacsia_php_5.6/usacsia_git2/api_usacsia/public"
+DOMINIO_SERVICIOS: "http://localhost/usacsia_php_5.6/usacsia_git2/api_usacsia/public"
 
   // DOMINIO_SERVICIOS: "http://localhost:8080/api_usacsia/public"
  

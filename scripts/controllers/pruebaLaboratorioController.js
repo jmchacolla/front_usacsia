@@ -144,14 +144,14 @@ angular.module("adminApp")
 
 .controller('EditarPruebaLaboratorioCtrl', ['$http','CONFIG','$scope', '$routeParams','ParasitosPrueba','Parasito','ParasitosNoPrueba','PruebaLaboratorioService','PruebaPar','ParasitosPrueba', 'Muestra','$route', 'toastr','$location','$timeout',
   function ($http,CONFIG,$scope,$routeParams,ParasitosPrueba,Parasito,ParasitosNoPrueba,PruebaLaboratorioService,PruebaPar,ParasitosPrueba,Muestra, $route, toastr,$location,$timeout){
-  $scope.ajustes = {
+    $scope.ajustes = {
     menu:{
       titulo: 'Gestión de Ciudadanos',
       items:[
         {nombre:'Ciudadanos Registrados', enlace:'#/persona-usacsia', estilo:'active'}]
     },
     pagina:{
-      titulo:'Crea Prueba Laboratorio'
+      titulo:'Prueba de laboratorio:'
     }
   }
   
@@ -173,8 +173,6 @@ angular.module("adminApp")
   //     $scope.loading = false;
   //     $scope.msg = false;
   //   });
-
-
   $scope.sortType = 'per_id'; // set the default sort type
   $scope.sortReverse  = true;  // set the default sort order
   var fun_id=1;//remplaar con la sesion
@@ -187,6 +185,7 @@ angular.module("adminApp")
     console.log('numero de muetra traido',$scope.numero_muestra, data.prueba_laboratorio.mue_num_muestra,data);
   })
 
+
   /*lista de parasitos que no estan asignados en la prueba*/
     ParasitosNoPrueba.get({pl_id:pl_id},function(data){
      $scope.parasitosno = data.pruebaparasito;
@@ -198,7 +197,8 @@ angular.module("adminApp")
       par_id:null
     }
   /*se crea la prueba parasito, solo recibe pl_id y par_id*/
-    $scope.saveppp=function(){
+    $scope.agregar=function(a){
+     $scope.pruebapar.par_id=a; 
     console.log("parasitos encontrados en la prueba.....",$scope.pruebapar);
     PruebaPar.save($scope.pruebapar).$promise.then(function(data)
     {
