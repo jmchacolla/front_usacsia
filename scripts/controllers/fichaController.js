@@ -21,7 +21,7 @@ angular.module("adminApp")
   {
      $scope.ficha.pt_id=a;
      console.log('hasta aqui llego la funcion',$scope.ficha);
-    Ficha.save($scope.muestra).$promise.then(function(data)
+    Ficha.save($scope.ficha).$promise.then(function(data)
     {
       if(data.status)
       {
