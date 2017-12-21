@@ -31,7 +31,7 @@
           <form name="busqForm" novalidate>
            <div class="row">
              <div class="col-md-6 col-md-offset-2">
-                <input name="nummuestra" class="form-control input-lg" ng-model="numero_muestra" type="text" placeholder="Escriba el Nro. de Muestra">
+                <input name="nummuestra" class="form-control input-lg" ng-model="numero_muestra" type="text" placeholder="Escriba el Nro. de Muestra" required autofocus>
              </div>
              <div class="col-md-4">
              <button class="btn btn-primary btn-lg" ng-disabled="busqForm.$invalid" ng-click="buscaNumeroMuestra()"><span class="glyphicon glyphicon-search"></span><strong> BUSCAR</strong></button>
