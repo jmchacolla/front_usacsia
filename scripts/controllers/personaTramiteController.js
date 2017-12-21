@@ -315,8 +315,9 @@ angular.module("adminApp")
 
 .controller('pdf_pago_Ctrl',['$scope', 'PersonaTramite', 'CONFIG','$routeParams', '$http', function ($scope, PersonaTramite, CONFIG, $routeParams, $http){
   // prepare the document definition using declarative approach
-    /*var id = $routeParams.bc_id;*/
-    var id=1;
+    var id = $routeParams.pt_id;
+    console.log("IDEDESS",id);
+   /* var id=8;*/
     PersonaTramite.get({pt_id:id}, function(data)
     {
       $scope.persona = data.pertramite;
