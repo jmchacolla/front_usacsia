@@ -126,6 +126,13 @@ angular.module("adminApp")
   })
 }])
 
+//jhon----seguimiento
+.factory('Seguimiento', ['$resource', 'CONFIG', function ($resource, CONFIG) {
+  return $resource(CONFIG.DOMINIO_SERVICIOS+"/seguimiento", {}, {
+    update:{method: 'PUT', params: {}}
+  })
+}])
+
 
 
 
@@ -234,6 +241,11 @@ angular.module("adminApp")
 /*prueba e*/
 
 
+.factory('DocumentoTramite', ['$resource', 'CONFIG', function ($resource, CONFIG){
+  return $resource(CONFIG.DOMINIO_SERVICIOS+"/documento_tramite/:dt_id", {dt_id:"@_dt_id"}, {
+    update: {method: "PUT", params: {dt_id: "@dt_id"}}
+  })
+}])
 
 
 /*=========================================USACSIA====================================*/
@@ -787,7 +799,7 @@ angular.module("adminApp")
 .factory('PersonaporCI', ['$resource','CONFIG', function ($resource, CONFIG) {
   return $resource(CONFIG.DOMINIO_SERVICIOS+"/personas_ci/:per_ci", {per_ci:"@_per_ci"},{ update:{method:"PUT", params:{per_ci:"@per_ci"}}})
 }])
-
+// ---ultima prueba de laboratorio del tramite
 .factory('UltimaPL', ['$resource', 'CONFIG', function ($resource, CONFIG) {
   return $resource(CONFIG.DOMINIO_SERVICIOS+"/ultima_prueba_laboratorio/:pt_id", {pt_id:"@_pt_id"},{update:{method:"PUT",params:{pt_id:"@pt_id"}}})
 }])

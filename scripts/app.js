@@ -265,7 +265,8 @@ angular.module("adminApp", ["authService", "ngRoute", "ngResource", "satellizer"
       authorized: [ROLES.ADMIN_USACSIA.ROL]
     }
   })
-  .when('/establecimientos/create', { 
+
+  .when('/establecimientos/crear', { 
     templateUrl: 'templates/establecimiento_solicitante/crear.html',
     controller: 'CrearEstabSolCtrl',
     data: {
@@ -431,19 +432,22 @@ angular.module("adminApp", ["authService", "ngRoute", "ngResource", "satellizer"
     }
   })
 
-  /*seguimiento a tramite --------------------NO FUNCIONA REVISAR 20-12 2017*/
+  /*login seguimiento a tramite-----NO FUNCIONA REVISAR 20-12 2017 ----revisado 21-12-17 jhon*/
 
     .when('/seguimiento-tramite', {
     templateUrl: 'templates/personatramite/seguimientotramite.html',
-    controller: 'SeguimientoTramiteTramiteCtrl',
-    data: {
-      authorized: [ROLES.ADMIN_USACSIA.ROL]
-    }
+    controller: 'SeguimientoTramiteCtrl'
+
+  })
+  /*ver seguimiento tramite*/
+  .when('/serguimiento-tramite-cas/:pt_id', {
+    templateUrl: 'templates/personatramite/seguimientover.html',
+    controller: 'SeguimientoVerCtrl'
   })
 
   /*-----------------------------tramites---------------------------------*/
 
-  .when('/tramites', {
+  .when('/tramites-car', {
     templateUrl: 'templates/personatramite/index.html',
     controller: 'PersonaTramiteController',
     data: {
@@ -458,6 +462,10 @@ angular.module("adminApp", ["authService", "ngRoute", "ngResource", "satellizer"
     }
   })
 
+  .when('/tramites-cer', {
+    templateUrl: 'templates/personatramite/indexcer.html',
+    controller: 'PersonaTramiteCertificadoCtrl'
+  })
   /*--------------------------------------------------------------------------------------------*/
 
 
@@ -510,6 +518,16 @@ angular.module("adminApp", ["authService", "ngRoute", "ngResource", "satellizer"
       authorized: [ROLES.ADMIN_USACSIA.ROL, ROLES.ADMIN_CARNET.ROL]
     }
   })
+
+    .when('/documento-tramite/crear/:et_id', {
+    templateUrl: 'templates/documento_tramite/crear.html',
+    controller: 'CrearDocumentoTramiteCtrl'
+  })
+
+/*-------------------------------------- documentos -----------------------------------------*/
+    
+  /*--------PENDIENTE------*/
+
   /*===================================VERONICA================================================*/
 
 

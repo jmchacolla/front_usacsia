@@ -188,11 +188,7 @@ $scope.initMap = function(){
         })(marker));
 
 
-     })
-
-
-
-       
+     })   
 
   };
 

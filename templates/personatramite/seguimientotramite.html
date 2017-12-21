@@ -1,0 +1,60 @@
+<!-- TOP-MENU inicio -->
+<div ng-include="'./templates/menu_inicio.html'"></div>
+<!-- CONTEXT-MENU -->
+<div ng-include="'./templates/menu_lateral.html'"></div>
+<!-- CONTENIDO MODULO inicio -->
+<div class="col-md-8 col-sm-8">
+  <div class="row">
+    <div class="col-md-12">
+      <h2 class="text-primary">
+        <span class="glyphicon glyphicon-th-list" aria-hidden="true"></span>
+        {{ajustes.pagina.titulo}}
+      </h2>
+      <hr >
+    </div>
+  </div>
+  <div class="row">
+    <div class="col-md-12">
+
+      <p>
+        <h4 class="text-primary">Instrucciones:</h4>
+        Para la asignacion del número de muestra:</b>
+        <ul>
+          <li>Debe ingresar el número muestra en el respectivo buscador</li>
+          <li>Luego pulse en <b>Buscar</b></li>
+          <li>En el conjunto de resultados, pulse en <b>Registrar</li>
+        </ul>
+        Si el número de muestra ingresado no fue registrado, no se mostrarán resultados</b>
+      </p>
+      <div class="well well-sm">
+       <form name="busqForm" novalidate>
+        <div class="row">
+          <div class="col-md-6 col-md-offset-2">
+             <input name="nummuestra" class="form-control input-lg" ng-model="datos.per_ci" type="text" placeholder="Número de C.I." required autofocus>
+          </div>
+          <div class="col-md-6 col-md-offset-2">
+             <input name="nummuestra" type="number" class="form-control input-lg" ng-model="datos.pt_numero_tramite" type="text" placeholder="Número de de su trámite."  required autofocus>
+          </div>
+          <div class="col-md-6 text-center">
+          <button class="btn btn-primary btn-lg" ng-disabled="busqForm.$invalid" ng-click="buscaTramite()"><span class="glyphicon glyphicon-search"></span><strong> BUSCAR</strong></button>
+          </div>
+        </div>
+
+        <div  ng-show="message" class="panel">
+          <h3 class="text-center text-primary">
+            <span class="glyphicon glyphicon-alert" aria-hidden="true"></span>
+             Advertencia
+          </h3>
+          <hr class="bg-red">
+          <div class="text-center">
+            {{message}}
+          </div>
+        </div>
+       </form>
+      </div>
+
+
+    </div>
+  </div>
+ 
+</div>
