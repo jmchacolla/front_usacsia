@@ -6,10 +6,11 @@ angular.module("adminApp")
     $scope.thumbnail = {
         dataUrl: ''
     };
-
     $scope.fileReaderSupported = window.FileReader != null;
+    console.log("que rayos es filesreadersupported",$scope.fileReaderSupported);
         $scope.photoChanged = function(files){
             if (files != null) {
+                console.log("que rayos es files",files);
                 var file = files[0];
             if ($scope.fileReaderSupported && file.type.indexOf('image') > -1) {
                 $timeout(function() {
@@ -22,11 +23,11 @@ angular.module("adminApp")
                     }
                     $scope.persona.ima_nombre=file.name;  //obtenemos el nombre de la imagen :)
                     console.log("IMAGENNN",$scope.persona.ima_nombre);
-                    $scope.persona.imagen[0].ima_nombre=file.name;//para editar
-                    console.log("IMAGENNN",$scope.persona.imagen[0].ima_nombre);
+                   $scope.persona.imagen/*[0]*/.ima_nombre=file.name;//para editar
+                    console.log("IMAGENNN para editar",$scope.persona.imagen/*[0]*/.ima_nombre);
+                     /*$scope.persona.imagen[0].ima_nombre=file.name;
                     $scope.persona.imagen[0].ima_nombre=file.name;
-                    $scope.persona.imagen[0].ima_nombre=file.name;
-                     console.log("IMAGENNN corregido",$scope.personas.imagen[0].ima_nombre);
+                     console.log("IMAGENNN corregido",$scope.personas.imagen[0].ima_nombre);*/
                 });
             }
         }
@@ -91,7 +92,7 @@ angular.module("adminApp")
                             });
                         }
                         $scope.funcionarios.ima_nombre=file.name;  //obtenemos el nombre de la imagen :)
-                        $scope.personas.imagen[0].ima_nombre=file.name; //para editar
+                        $scope.personas.imagen/*[0]*/.ima_nombre=file.name; //para editar
                     });
                 }
             }

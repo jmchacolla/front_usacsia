@@ -171,7 +171,6 @@ angular.module("adminApp", ["authService", "ngRoute", "ngResource", "satellizer"
 
   })
 
-    //**********************REVISAR
   .when('/funcionarios/edit/:fun_id', {
     templateUrl: 'templates/funcionario/edit.html',
     controller: 'EditFuncionarioCtrl',
@@ -273,7 +272,7 @@ angular.module("adminApp", ["authService", "ngRoute", "ngResource", "satellizer"
       authorized: [ROLES.ADMIN_USACSIA.ROL]
     }
   })
-//*******************************==========================P E R S O N A S  Q  C O N C L U Y E R O N==========================================================================
+//****************===========TRAMITES CONCLUIDOS=================================================
     .when('/tramites_concluidos', { 
     templateUrl: 'templates/personatramite/final2.html',
     controller: 'ListaFinalCtrl',
@@ -303,6 +302,15 @@ angular.module("adminApp", ["authService", "ngRoute", "ngResource", "satellizer"
       authorized: [ROLES.ADMIN_USACSIA.ROL]
     }
   })
+    //==========================DEPARTAMENTO===================================================================
+  .when('/homedepartamento',{
+   templateUrl:'templates/departamento/list.html',
+   controller: 'HomeCtrlDep'/*,
+    data: {
+      authorized: [ROLES.ADMIN_SEDES.ROL]
+    }*/
+  })
+  
   
 
 
@@ -413,7 +421,7 @@ angular.module("adminApp", ["authService", "ngRoute", "ngResource", "satellizer"
     }
   })
 
-
+//****************===========PAGOS=================================================
   /*---------------------------busqueda de personas preregistradas para pago de tramite------------------------------*/
   .when('/tramite/crear', {
     templateUrl: 'templates/personatramite/create.html',

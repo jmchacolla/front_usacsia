@@ -68,14 +68,14 @@ angular.module('adminApp')
   function (/*authUser,*/ $scope, $http, CONFIG, Usuarios, $routeParams, /*Establecimientos,*/ $location, $timeout, toastr, $route, Funcionarios) {
   /*if(authUser.isLoggedIn()){*/
     $scope.rol_id = CONFIG.ROL_CURRENT_USER;
-    var es_id = 0;
+    var es_id = 1;
     if($scope.rol_id == 1){
-      es_id = $routeParams.es_id;
+   
       $scope.ajustes = {
         menu:{
           titulo: 'Gestión de usuarios',
           items:[
-          /*  {nombre:'Ver Datos del Establecimiento', enlace:'#/establecimientos/ver/'+es_id+"#FUNCIONARIOS", estilo:''}*/]
+            {nombre:'Ver Datos del Establecimiento', enlace:'#/establecimientos/ver/'+es_id, estilo:''}]
         },
         pagina:{
           titulo:'Asignar Roles',

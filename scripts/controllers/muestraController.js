@@ -3,12 +3,13 @@ angular.module("adminApp")
 .controller('NumeroMuestraController', ['$http','CONFIG','$scope','Muestra', '$route', 'toastr', function ($http,CONFIG,$scope,Muestra, $route, toastr){
   $scope.ajustes = {
     menu:{
-      titulo: 'Gestión de Ciudadanos',
+      titulo: 'Gestión de Muestras',
       items:[
-        {nombre:'Asignacion de Número de Muestra', enlace:'#/persona-usacsia', estilo:'active'}]
+        {nombre:'Asignación de Número de Muestra', enlace:'#/numero-muestra/crear', estilo:'active'},
+        {nombre:'Muestras asignadas', enlace:'#/numero-muestra', estilo:''}]
     },
     pagina:{
-      titulo:'Asignacion de Número de Muestra'
+      titulo:'Asignación de Número de Muestra'
     }
   }
   $scope.CurrentDate=new Date();
@@ -54,9 +55,9 @@ angular.module("adminApp")
 .controller('ListarMuestraController', ['$scope','Muestra', '$route', 'toastr', function ($scope,Muestra, $route, toastr){
   $scope.ajustes = {
     menu:{
-      titulo: 'Gestión de Ciudadanos',
+      titulo: 'Gestión de Muestras',
       items:[
-        {nombre:'Asignacion de Número de Muestra', enlace:'#/persona-usacsia', estilo:'active'}]
+        {nombre:'Muestras asignadas', enlace:'#/numero-muestra', estilo:'active'}]
     },
     pagina:{
       titulo:'Números de muestra asignados'

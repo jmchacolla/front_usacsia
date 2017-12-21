@@ -29,12 +29,12 @@
   <div class="row">
    <div class="col-md-3">
        <div class="well well-sm">
-            <div ng-if="persona.imagen[0].ima_nombre == ''">
+            <div ng-if="persona.imagen.ima_nombre == ''">
               <img ng-src="./images/perfil.jpg" align="center" class="img-responsive img-thumbnail"/>
             </div>
-            <div ng-if="persona.imagen[0].ima_nombre != ''" style="height:190px !important; overflow:auto;">
+            <div ng-if="persona.imagen.ima_nombre != ''" style="height:190px !important; overflow:auto;">
                 <div ng-if="thumbnail.dataUrl ==''">
-                  <img ng-src="{{persona.imagen[0].ima_enlace}}/{{persona.imagen[0].ima_nombre}}" align="center" class="img-responsive img-thumbnail"/>
+                  <img ng-src="{{persona.imagen.ima_enlace}}/{{persona.imagen.ima_nombre}}" align="center" class="img-responsive img-thumbnail"/>
                 </div>
                 <div ng-if="thumbnail.dataUrl !=''" style="height:190px !important; overflow:auto;">
                   <img ng-src="{{thumbnail.dataUrl}}" align="center" class="img-responsive img-thumbnail"/>
@@ -45,9 +45,9 @@
         <br>
             <div class="form-group">
               <label>Cargar Imagen</label>
-                <input type="file" name="fileInput" id ="fileInput" class="filestyle" data-buttonText="Find file"  file-model="vista.ima_nombre" onchange="angular.element(this).scope().photoChanged(this.files)"/>
-                <input type="hidden" name="" ng-model="persona.imagen[0].ima_nombre" value="{{persona.imagen[0].ima_nombre}}">
-                 {{persona.imagen[0].ima_nombre}}
+                <input type="file" name="fileInput" id ="fileInput" class="filestyle" data-buttonText="Find file"  file-model="vista.ima_nombre" onchange="angular.element(this).scope().photoChanged(this.files)"/><!--ng-model="persona.imagen[0].ima_nombre"  -->
+                <input type="hidden" name="" ng-model="persona.imagen.ima_nombre" value="{{persona.imagen.ima_nombre}}">
+                 {{persona.imagen.ima_nombre}}
               <br>
             </div> 
       </div> 

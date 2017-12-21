@@ -2,20 +2,19 @@
 angular.module("adminApp")
 
 .controller('PruebaEnfermedadCtrl', ['$scope', '$scope', 'PruebaMedica', 'UltimaPL','PruebaEnfermedad', '$route', '$resource', '$routeParams', 'toastr', '$location', '$timeout', '$http', 'PruebaLaboratorioService', 'PersonaTramite', 'CONFIG', function ($scope,$scope, PruebaMedica, UltimaPL, PruebaEnfermedad, $route, $resource,$routeParams, toastr, $location, $timeout, $http, PruebaLaboratorioService, PersonaTramite,  CONFIG) {
-
-
-    $scope.ajustes = {
+  var pm_id = $routeParams.pm_id;
+  $scope.ajustes = {
       menu:{
-        titulo: 'Gestion de Consultas',
+        titulo: 'Gestion de Pruebas Medicas',
         items:[
-          {nombre:'Ciudadanos Registrados', enlace:'#/persona-usacsia', estilo:'active'}]
+          {nombre:'Crear prueba medica', enlace:'#/prueba-medica/prueba/'+pm_id, estilo:'active'}]
       },
       pagina:{
         titulo:'Prueba Clínica'
       }
     }
     // ver datos persona y prueba medica
-    var pm_id = $routeParams.pm_id;
+    
     // console.log(pm_id);
     PruebaMedica.get({pm_id:pm_id}, function(data)
     {

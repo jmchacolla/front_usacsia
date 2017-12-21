@@ -5,11 +5,13 @@ angular.module("adminApp")
   function ($scope, CONFIG, Tratamiento,$routeParams, $route, toastr, $location,$timeout){
   $scope.ajustes = {
     menu:{
-      titulo: 'Gestión de Contrareferencias',
+      titulo: 'Gestión de Tratamientos',
       items:[
-        {nombre:'Referencias Realizadas', enlace:'#/referencias', estilo:''},
-        {nombre:'Referencias Recibidas', enlace:'#/referenciasRec', estilo:''},
-        {nombre:'Contrareferencias Realizadas', enlace:'#/contrareferenciasrea', estilo:'active'}
+        {nombre:'Gestión de Parasitos', enlace:'#/parasito', estilo:''},
+        {nombre:'Gestión de Tratamientos', enlace:'#/tratamiento', estilo:'active'},
+        {nombre:'Gestión de Enferemdades', enlace:'#/homeenfermedad', estilo:''},
+         {nombre:'Paises', enlace:'#/homepais', estilo:''},
+        {nombre:'Departamentos', enlace:'#/homedepartamento'}
         ]
     },
     pagina:{
@@ -94,11 +96,10 @@ angular.module("adminApp")
   function ($scope, CONFIG, Tratamiento,$routeParams, $route, toastr, $location,$timeout){
   $scope.ajustes = {
     menu:{
-      titulo: 'Gestión de Contrareferencias',
+      titulo: 'Gestión de Tratamientos',
       items:[
-        {nombre:'Referencias Realizadas', enlace:'#/referencias', estilo:''},
-        {nombre:'Referencias Recibidas', enlace:'#/referenciasRec', estilo:''},
-        {nombre:'Contrareferencias Realizadas', enlace:'#/contrareferenciasrea', estilo:'active'}
+        {nombre:'Tratamientos', enlace:'#/tratamiento', estilo:''},
+        {nombre:'Crear Tratamiento', enlace:'#/tratamiento/crear', estilo:'active'}
         ]
     },
     pagina:{

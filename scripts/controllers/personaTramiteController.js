@@ -15,7 +15,7 @@ angular.module("adminApp")
     }
   }
 
-  console.log('LLEGO AL CONTROLADOR---------');
+
   
   $scope.sortType = 'per_id'; // set the default sort type
   $scope.sortReverse  = true;  // set the default sort order
@@ -138,7 +138,7 @@ angular.module("adminApp")
     $scope.today=moment(new Date(), "YYYY-MM-DD") .format("DD-MM-YY");
     $scope.ajustes = {
       menu:{
-        titulo: 'Gestión de tramites de Carné Sanitario',
+        titulo: 'Atencion de Pacientes',
         items:[
         {nombre:'Fichas de atencion', enlace:'#/atencion', estilo:'active'}]
       },
@@ -198,6 +198,8 @@ angular.module("adminApp")
 
 /*VER PAGO*/
 .controller('BoletaCtrl', ['$scope', 'PersonaTramite', 'Ficha', '$route', 'toastr', '$timeout', '$location', '$routeParams', function ($scope, PersonaTramite, Ficha, $route, toastr,$timeout, $location, $routeParams) {
+
+  
     
     var pt_id = $routeParams.pt_id;
     var nt;
@@ -216,9 +218,12 @@ angular.module("adminApp")
       // }
     $scope.ajustes = {
       menu:{
-        titulo: 'Gestión de tramites de Carné Sanitario',
+        titulo: 'Gestión de pagos',
         items:[
-        {nombre:'Detalle pago', enlace:'#/boleta-pago/:'+pt_id, estilo:'active'}]
+        {nombre:'Busqueda de personas registradas', enlace:'#/tramite/crear', estilo:''},
+        {nombre:'Solicitudes de Carné Sanitario', enlace:'#/tramites', estilo:''},
+        {nombre:'Detalle pago', enlace:'#/boleta-pago/'+pt_id, estilo:'active'}
+        ]
       },
       pagina:{
         titulo:'Comprobante de pago Trámite N°: '+nt/*$scope.pertramite.persona_tramite.pt_numero_tramite*/
@@ -233,7 +238,7 @@ angular.module("adminApp")
 {
   $scope.ajustes = {
     menu:{
-      titulo: 'Gestión de tramites Concluidos',
+      titulo: 'Gestión de tramites Concluidos de Carné Sanitario',
       items:[
         {nombre:'Tramites Concluidos', enlace:'#/tramites_concluidos', estilo:'active'}]
     },
@@ -286,21 +291,21 @@ angular.module("adminApp")
   }
 }])
 .controller('VerFinalCtrl', ['$scope', 'VerPT',  '$route', 'toastr', '$timeout', '$location', '$routeParams', function ($scope, VerPT, $route, toastr,$timeout, $location, $routeParams) {
+   var pt_id = $routeParams.pt_id;
 
   $scope.ajustes = {
       menu:{
-        titulo: 'Gestión de tramites de Carné Sanitario',
+        titulo: 'Gestión de tramites Concluidos de Carné Sanitario',
         items:[
-        
-        {nombre:'Busqueda de personas registradas', enlace:'#/tramite/crear', estilo:''},
-        {nombre:'Solicitudes de Carné Sanitario', enlace:'#/atencion', estilo:''}]
+            {nombre:'Tramites concluidos', enlace:'#/tramites_concluidos', estilo:''},
+            {nombre:'Detalle de Tramite concluido', enlace:'#/tramites_concluidos/ver/'+pt_id, estilo:'active'}]
       },
       pagina:{
         titulo:'Detalle tramite concluido: '/*$scope.pertramite.persona_tramite.pt_numero_tramite*/
       }
     };
     
-    var pt_id = $routeParams.pt_id;
+   
 
     VerPT.get({pt_id:pt_id}, function(data)
     {

@@ -3,9 +3,9 @@ angular.module("adminApp")
 .controller('NumeroFichaController', ['$http','CONFIG','$scope','Ficha', '$route', 'toastr', function ($http,CONFIG,$scope,Ficha, $route, toastr){
   $scope.ajustes = {
     menu:{
-      titulo: 'Gestión de Ciudadanos',
+      titulo: 'Gestión de Fichas',
       items:[
-        {nombre:'Asignacion de Número de Muestra', enlace:'#/persona-usacsia', estilo:'active'}]
+        {nombre:'Asignacion de Número de Ficha', enlace:'#/numero-ficha/crear', estilo:'active'}]
     },
     pagina:{
       titulo:'Asignacion de Número de Ficha'

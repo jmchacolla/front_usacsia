@@ -6,18 +6,12 @@ angular.module('adminApp')
     menu:{
       titulo: 'Gestión de País',
       items:[
-        {nombre:'Paises', enlace:'#/homepais', estilo:'active'},
-        {nombre:'Departamentos', enlace:'#/homedepartamento'},
-        {nombre:'Provincias', enlace:'#/homeprovincia'},
-        {nombre:'Regiones', enlace:'#/homeregion'},
-        {nombre:'Gestión de Municipios', enlace:'#/homemunicipio', estilo:''},
-        {nombre:'Gestión de Tipos de Establecimientos de Salud', enlace:'#/hometipo', estilo:''},
-        {nombre:'Gestión de Seguros', enlace:'#/homeseguro', estilo:''},
-        {nombre:'Gestión de Institucion', enlace:'#/homeinstitucion', estilo:''},
-        {nombre:'Gestion de  Subsectores', enlace:'#/homesubsector', estilo:''},
-        {nombre:'Gestión de Redes', enlace:'#/homered', estilo:''},
-        {nombre:'Gestión de Roles', enlace:'#/homerol', estilo:''},
-        {nombre:'Gestión de Cargos', enlace:'#/homecargo', estilo:''}]
+        {nombre:'Gestión de Parasitos', enlace:'#/parasito', estilo:''},
+        {nombre:'Gestión de Tratamientos', enlace:'#/tratamiento', estilo:''},
+        {nombre:'Gestión de Enferemdades', enlace:'#/homeenfermedad', estilo:''},
+         {nombre:'Paises', enlace:'#/homepais', estilo:'active'},
+        {nombre:'Departamentos', enlace:'#/homedepartamento'}
+       ]
        },
     pagina:{
       titulo:'Paises'

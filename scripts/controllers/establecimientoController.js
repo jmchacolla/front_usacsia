@@ -8,8 +8,8 @@ angular.module("adminApp")
     menu:{
       titulo: 'Gestión de Establecimientos USACSIA',
       items:[
-        {nombre:'Establecimientos', enlace:'#/establecimientos', estilo:'active'},
-        {nombre:'Nuevo establecimiento', enlace:'#/establecimientos/create', estilo:''}]
+        {nombre:'Establecimientos', enlace:'#/establecimientos', estilo:'active'}/*,
+        {nombre:'Nuevo establecimiento', enlace:'#/establecimientos/create', estilo:''}*/]
     },
     //Configuraciones de la página
     pagina:{
@@ -105,11 +105,11 @@ angular.module("adminApp")
     {
       $scope.ajustes = {
         menu:{
-          titulo: 'Gestión de Establecimientos de Salud',
+          titulo: 'Gestión de Establecimiento USACSIA',
           items:[
-            {nombre:'Establecimientos', enlace:'#/establecimientos', estilo:''},
+            {nombre:'Establecimiento', enlace:'#/establecimientos', estilo:''}/*,
             {nombre:'Nuevo Establecimiento', enlace:'#/establecimientos/create', estilo:''},
-            {nombre:'Establecimientos por Red', enlace:'#/red/establecimientos', estilo:''}]
+            {nombre:'Establecimientos por Red', enlace:'#/red/establecimientos', estilo:''}*/]
         },
         pagina:{
           titulo:'Información General del Establecimiento'
@@ -153,7 +153,7 @@ angular.module("adminApp")
     var usa_id=$routeParams.usa_id;
     Establecimientos.get({usa_id:usa_id}, function(data){
       $scope.establecimiento = data.usacsia;
-console.log("ESTABLEC_USACSIA",$scope.establecimiento);
+      console.log("ESTABLEC_USACSIA",$scope.establecimiento);
       $scope.establecimiento.usa_fecha_creacion = moment($scope.establecimiento.usa_fecha_creacion,"YYYY-MM-DD").format("DD-MM-YYYY");
       $scope.establecimiento.usa_fecha_inicio_actividad = moment($scope.establecimiento.usa_fecha_inicio_actividad,"YYYY-MM-DD").format("DD-MM-YYYY");
       $scope.establecimiento.usa_inicio_atencion = toTime($scope.establecimiento.usa_inicio_atencion);
@@ -205,8 +205,7 @@ console.log("ESTABLEC_USACSIA",$scope.establecimiento);
 
 
 
-
-
+//****************+CONTROLADORES SESAR
 .controller('CreateEstablecimientoCtrl', ['$scope','Establecimientos', 'Redes', '$location', '$timeout', 'toastr',
  function ($scope, Establecimientos, Redes, $location, $timeout, toastr){
   $scope.ajustes = {

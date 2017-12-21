@@ -7,18 +7,11 @@ $scope.ajustes = {
     menu:{
       titulo: 'Gestión de Departamento',
       items:[
-        {nombre:'Paises', enlace:'#/homepais'},
-        {nombre:'Departamentos', enlace:'#/homedepartamento', estilo:'active'},
-        {nombre:'Provincias', enlace:'#/homeprovincia'},
-        {nombre:'Regiones', enlace:'#/homeregion'},
-        {nombre:'Gestión de Municipios', enlace:'#/homemunicipio', estilo:''},
-        {nombre:'Listar Tipos de Establecimientos de Salud', enlace:'#/hometipo', estilo:''},
-        {nombre:'Gestion de Seguros', enlace:'#/homeseguro', estilo:''},
-        {nombre:'Gestión de Institucion', enlace:'#/homeinstitucion', estilo:''},
-        {nombre:'Gestión de Subsectores', enlace:'#/homesubsector', estilo:''},
-        {nombre:'Gestión de Redes', enlace:'#/homered', estilo:''},
-        {nombre:'Gestión de Roles', enlace:'#/homerol', estilo:''},
-        {nombre:'Gestión de Cargos', enlace:'#/homecargo', estilo:''}]
+         {nombre:'Gestión de Parasitos', enlace:'#/parasito', estilo:''},
+        {nombre:'Gestión de Tratamientos', enlace:'#/tratamiento', estilo:''},
+        {nombre:'Gestión de Enferemdades', enlace:'#/homeenfermedad', estilo:''},
+         {nombre:'Paises', enlace:'#/homepais', estilo:'active'},
+        {nombre:'Departamentos', enlace:'#/homedepartamento'}]
         
     },
     pagina:{
@@ -138,10 +131,6 @@ $scope.remove = function(dep_id) {
 	}
 }])
 
-.factory('Departamento',function($resource) {
-	return $resource("http://190.181.60.19/api_awebss/public/departamentos/:dep_id",{dep_id:"@_dep_id"},
-		{update: {method:"PUT", params:{dep_id:"@dep_id"}}
-})
-})
+
 
  

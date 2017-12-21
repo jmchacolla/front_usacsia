@@ -2,11 +2,12 @@
 angular.module("adminApp")
 
 .controller('PruebaMedicaCtrl', ['$scope', 'PruebaMedica', 'PersonaTramite', '$route', '$resource','$routeParams', 'toastr','$location', '$timeout', 'UltimaFichaAtendida', function ($scope, PruebaMedica, PersonaTramite, $route, $resource,$routeParams, toastr, $location, $timeout, UltimaFichaAtendida){
-    $scope.ajustes = {
+  var pt_id = $routeParams.pt_id;  
+  $scope.ajustes = {
       menu:{
-        titulo: 'Gestion de Consultas',
+        titulo: 'Gestion de Pruebas Medicas',
         items:[
-          {nombre:'Ciudadanos Registrados', enlace:'#/persona-usacsia', estilo:'active'}]
+          {nombre:'Crear prueba medica', enlace:'#/prueba-medica/'+pt_id, estilo:'active'}]
       },
       pagina:{
         titulo:'Ficha Clínica'
@@ -17,7 +18,7 @@ angular.module("adminApp")
     $scope.sortReverse  = true;  // set the default sort order
     $scope.Personas = [];
     $scope.loading=true;//para hacer un loading
-    var pt_id = $routeParams.pt_id;
+    
     console.log(pt_id,'es el pt');
    
 
