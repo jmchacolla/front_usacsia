@@ -83,7 +83,7 @@ angular.module("adminApp")
               // -----actualizando pm
               PruebaMedica.update(estadopm, {pm_id:pm_id}, function (prme) {//--modificando estado pm
                 console.log('condiciones', prme.prueba_medica.pm_estado, $scope.prueba_laboratorio.pl_estado)
-                if (prme.prueba_medica.pm_estado=='OK' && $scope.prueba_laboratorio.pl_estado=='OK') {
+                if (prme.prueba_medica.pm_estado=='OK' && $scope.prueba_laboratorio.pl_estado=='NO OBSERVADO') {
                   // var fconcluido=new Date(DD-MM-YY);
                   estadotramite={pt_estado_tramite:'CONCLUIDO'/*, pt_fecha_fin:fconcluido*/};
                 }else{
