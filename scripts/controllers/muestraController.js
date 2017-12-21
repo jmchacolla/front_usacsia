@@ -14,7 +14,6 @@ angular.module("adminApp")
   $scope.CurrentDate=new Date();
   $scope.muestra={
     pt_id:null,
-    mue_num_muestra:null
   }
   $scope.num_muestra_traido_del_crear=0;
   $scope.aux=null;

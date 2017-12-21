@@ -11,7 +11,7 @@ angular.module('adminApp')
 
 //  DOMINIO_SERVICIOS: "http://localhost/api_usacsia/public"//-----------jhon
 
- DOMINIO_SERVICIOS: "http://localhost/api_usacsia/public"//-----------jhon
+ // DOMINIO_SERVICIOS: "http://localhost/api_usacsia/public"//-----------jhon
 
 //DOMINIO_SERVICIOS: "http://190.181.60.19/api_usacsia/public"
 

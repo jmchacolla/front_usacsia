@@ -322,14 +322,14 @@ angular.module("adminApp")
 /*BUSCA PERSONA POR CI*/
 .controller('BuscaPersonaCtrl', ['$http', '$scope', 'CONFIG', buscaPersonaController])
 function buscaPersonaController($http, $scope, CONFIG){
-  $scope.buscaPersona = function($per_ci){
+  $scope.buscaPersona = function(){
     console.log('esta buscando persona');
       $scope.resultado="Cargando...";
       $http.get(CONFIG.DOMINIO_SERVICIOS+'/personas_ci/'+$scope.per_ci).success(function(respuesta){
           $scope.persona = respuesta.persona;
           if(!respuesta.persona){
               $scope.ver=false;
-              $scope.resultado="No se encontraron resultados";              
+              $scope.resultado=" La persona no se encuentra registrada";              
           } else if(respuesta.persona){
               $scope.ver=true;
               $scope.resultado='';

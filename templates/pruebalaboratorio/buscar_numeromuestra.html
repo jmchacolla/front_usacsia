@@ -28,15 +28,16 @@
         </p>
         <!-- Inicio Controller apiAppCtrl -->
          <div class="well well-sm">
+          <form name="busqForm" novalidate>
            <div class="row">
              <div class="col-md-6 col-md-offset-2">
-                <input class="form-control input-lg" ng-model="numero_muestra" type="text" placeholder="Escriba el Nro. de Muestra">
+                <input name="nummuestra" class="form-control input-lg" ng-model="numero_muestra" type="text" placeholder="Escriba el Nro. de Muestra">
              </div>
              <div class="col-md-4">
-             <button class="btn btn-primary btn-lg" ng-disabled="numero_muestra==null" ng-click="buscaNumeroMuestra()"><span class="glyphicon glyphicon-search"></span><strong> BUSCAR</strong></button>
+             <button class="btn btn-primary btn-lg" ng-disabled="busqForm.$invalid" ng-click="buscaNumeroMuestra()"><span class="glyphicon glyphicon-search"></span><strong> BUSCAR</strong></button>
              </div>
-
            </div>  
+          </form>
          </div>
          <div><center><h3>RESULTADOS<span class="text-primary">  {{ tamanio }} </span></h3></center></div>
          <div ng-if="ver">

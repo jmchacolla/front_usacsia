@@ -27,13 +27,15 @@
         </p>
         <!-- Inicio Controller apiAppCtrl -->
        <div class="well well-sm">
-         <div class="row">
-           <div class="col-md-6 col-md-offset-2">
-              <input class="form-control input-lg" ng-model="per_ci" type="text" placeholder="Escriba el Nro. de C.I.">
-           </div>
-           <div class="col-md-4">
-           <button  class="btn btn-primary btn-lg" ng-click="buscaPersona()"><span class="glyphicon glyphicon-search"></span><strong> BUSCAR</strong></button>
-           </div>
+         <div class="row" >
+          <form name="busqForm" novalidate>
+            <div class="col-md-6 col-md-offset-2">
+                <input name="perci" class="form-control input-lg" ng-model="per_ci" type="text" placeholder="Escriba el Nro. de C.I." required autofocus>
+            </div>
+             <div class="col-md-4">
+             <button  class="btn btn-primary btn-lg" ng-disabled="busqForm.$invalid" ng-click="buscaPersona()"><span class="glyphicon glyphicon-search"></span><strong> BUSCAR</strong></button>
+             </div>
+           </form>
          </div>  
        </div>
         &nbsp;&nbsp;
