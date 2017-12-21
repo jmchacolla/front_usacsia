@@ -108,7 +108,7 @@ angular.module("adminApp")
 
   $scope.saveplnegativo=function(mue_id){
     $scope.pruebalaboratorio.mue_id=mue_id;
-    $scope.pruebalaboratorio.pl_estado='SIN OBSERVACION';
+    $scope.pruebalaboratorio.fun_id=fun_id;
     console.log("prueba laboratorio creada",$scope.pruebalaboratorio);
     PruebaLaboratorioService.save($scope.pruebalaboratorio).$promise.then(function(data)
     {
@@ -125,6 +125,7 @@ angular.module("adminApp")
 
   $scope.savepl=function(mue_id){
     $scope.pruebalaboratorio.mue_id=mue_id;
+    $scope.pruebalaboratorio.fun_id=fun_id;
     console.log("prueba laboratorio creada",$scope.pruebalaboratorio);
     PruebaLaboratorioService.save($scope.pruebalaboratorio).$promise.then(function(data)
     {
@@ -141,8 +142,8 @@ angular.module("adminApp")
 }])
 
 
-.controller('EditarPruebaLaboratorioCtrl', ['$scope', '$routeParams','ParasitosPrueba','Parasito','ParasitosNoPrueba','PruebaLaboratorioService','PruebaPar','ParasitosPrueba', 'Muestra','$route', 'toastr','$location','$timeout',
-  function ($scope,$routeParams,ParasitosPrueba,Parasito,ParasitosNoPrueba,PruebaLaboratorioService,PruebaPar,ParasitosPrueba,Muestra, $route, toastr,$location,$timeout){
+.controller('EditarPruebaLaboratorioCtrl', ['$http','CONFIG','$scope', '$routeParams','ParasitosPrueba','Parasito','ParasitosNoPrueba','PruebaLaboratorioService','PruebaPar','ParasitosPrueba', 'Muestra','$route', 'toastr','$location','$timeout',
+  function ($http,CONFIG,$scope,$routeParams,ParasitosPrueba,Parasito,ParasitosNoPrueba,PruebaLaboratorioService,PruebaPar,ParasitosPrueba,Muestra, $route, toastr,$location,$timeout){
   $scope.ajustes = {
     menu:{
       titulo: 'Gestión de Ciudadanos',
@@ -154,36 +155,43 @@ angular.module("adminApp")
     }
   }
   
-  $scope.loading=true;//para hacer un loading
-  PruebaLaboratorioService.get(function(data){
-    console.log(data);
-    $scope.prueba_laboratorio = data.prueba_laboratorio;
-    if(data.prueba_laboratorio.length>0){
-      $scope.loading = false;
-      $scope.msg = true;
-    }
-    else{
-      $scope.loading = false;
-      $scope.msg = false;
-    }
-  },function () {
-      toastr.error("ERROR INESPERADO, por favor actualize la página");
-      $scope.loading = false;
-      $scope.msg = false;
-    });
+
+  // $scope.loading=true;//para hacer un loading
+  // PruebaLaboratorioService.get(function(data){
+  //   console.log(data);
+  //   $scope.prueba_laboratorio = data.prueba_laboratorio;
+  //   if(data.prueba_laboratorio.length>0){
+  //     $scope.loading = false;
+  //     $scope.msg = true;
+  //   }
+  //   else{
+  //     $scope.loading = false;
+  //     $scope.msg = false;
+  //   }
+  // },function () {
+  //     toastr.error("ERROR INESPERADO, por favor actualize la página");
+  //     $scope.loading = false;
+  //     $scope.msg = false;
+  //   });
 
 
   $scope.sortType = 'per_id'; // set the default sort type
   $scope.sortReverse  = true;  // set the default sort order
-  var mue_id = $routeParams.mue_id;
   var fun_id=1;//remplaar con la sesion
   $scope.CurrentDate=new Date();
   var pl_id=$routeParams.pl_id;
 
+  /*para ver el numero de muestra*/
+  PruebaLaboratorioService.get({pl_id:pl_id},function(data){
+    $scope.numero_muestra=data.prueba_laboratorio;
+    console.log('numero de muetra traido',$scope.numero_muestra, data.prueba_laboratorio.mue_num_muestra,data);
+  })
+
   /*lista de parasitos que no estan asignados en la prueba*/
     ParasitosNoPrueba.get({pl_id:pl_id},function(data){
      $scope.parasitosno = data.pruebaparasito;
-     console.log("llega al parasito---",$scope.parasitosno);
+     console.log("llega al parasito no ---",$scope.parasitosno);
+
   })
     $scope.pruebapar={
       pl_id:pl_id,
@@ -197,28 +205,50 @@ angular.module("adminApp")
       if(data.status)
         {
           $scope.ajustes.pagina.success="Parasito agregado exitosamente";
-          toastr.success('Parasito agregado correctamente');
-          $route.reload();
+          actualiza_parasitos_no_prueba($scope.pruebapar.pl_id);
+          actualiza_parasitos_prueba($scope.pruebapar.pl_id);
         }else{
         toastr.error("ERROR INESPERADO, POR FAVOR VUELVA A INTENTAR");
       }
     })
   }
 
+    $scope.tam=1;
   /*lista de parasitos que estan asignados en la prueba*/
     ParasitosPrueba.get({pl_id:pl_id},function(data){
      $scope.parasitos = data.pruebaparasito;
-     console.log("llega al parasito---",$scope.parasitosno);
+     console.log("llega al parasito---",data.pruebaparasito);
+     if(data.pruebaparasito.length==0){
+          $scope.tam=0;   
+     }else{
+       $scope.tam=1;
+     }
   })
     $scope.retirar = function(pp_id) {
     PruebaPar.delete({pp_id:pp_id}).$promise.then(function(data){
         if(data.status) {
-          $route.reload();
-          toastr.success('Parasito retirado exitosamente');
+         actualiza_parasitos_no_prueba($scope.pruebapar.pl_id);
+         actualiza_parasitos_prueba($scope.pruebapar.pl_id);
         }else{
         toastr.error("ERROR INESPERADO, POR FAVOR VUELVA A INTENTAR");
       }
       })
+  }
+
+  function actualiza_parasitos_no_prueba(pl_id){
+     $http.get(CONFIG.DOMINIO_SERVICIOS+'/parasitos_no_prueba/'+pl_id).success(function(respuesta){
+                $scope.parasitosno = respuesta.pruebaparasito;
+            });
+  }
+  function actualiza_parasitos_prueba(pl_id){
+    $http.get(CONFIG.DOMINIO_SERVICIOS+'/parasitosprueba/'+pl_id).success(function(respuesta){
+                $scope.parasitos = respuesta.pruebaparasito;
+                if(respuesta.pruebaparasito.length==0){
+                  $scope.tam=0;
+                    }else{
+                      $scope.tam=1;
+                    }
+            });
   }
 
 /*ultimo cambio*/
@@ -258,7 +288,7 @@ $scope.sangre=function(){
 }
       
 
-  /*se ceditan los datos de la prueba laboratorio*/
+  /*se editan los datos de la prueba laboratorio*/
   $scope.guardar=function(par_id){
     $scope.prueba_labo.pl_moco=$scope.checkmoco;
     $scope.prueba_labo.pl_sangre=$scope.checksangre;
@@ -267,11 +297,43 @@ $scope.sangre=function(){
     {
       if(data.status){
         toastr.success('Prueba de laboratorio Guardada correctamente');
+        $timeout(function() {
+          $location.path('/prueba-laboratorio/ver/'+pl_id);
+        },1000);
         }
       }
     })
 }
 
+}])
+
+
+
+.controller('VerPruebaLaboratorioCtrl', ['$http','CONFIG','$scope', '$routeParams','ParasitosPrueba','Parasito','ParasitosNoPrueba','PruebaLaboratorioService','PruebaPar','ParasitosPrueba', 'Muestra','$route', 'toastr','$location','$timeout',
+  function ($http,CONFIG,$scope,$routeParams,ParasitosPrueba,Parasito,ParasitosNoPrueba,PruebaLaboratorioService,PruebaPar,ParasitosPrueba,Muestra, $route, toastr,$location,$timeout){
+  $scope.ajustes = {
+    menu:{
+      titulo: 'Gestión de Ciudadanos',
+      items:[
+        {nombre:'Ciudadanos Registrados', enlace:'#/persona-usacsia', estilo:'active'}]
+    },
+    pagina:{
+      titulo:'Crea Prueba Laboratorio'
+    }
+  }
+  
+  $scope.sortType = 'per_id'; // set the default sort type
+  $scope.sortReverse  = true;  // set the default sort order
+  var fun_id=1;//remplaar con la sesion
+  $scope.CurrentDate=new Date();
+  var pl_id=$routeParams.pl_id;
+
+  /*para ver el numero de muestra*/
+  PruebaLaboratorioService.get({pl_id:pl_id},function(data){
+    $scope.prueba_laboratorio =data.prueba_laboratorio;
+    $scope.funcionario =data.funcionario;
+    $scope.parasitos =data.parasitos;
+  })
 }])
 
 
@@ -298,21 +360,5 @@ function buscaNumeroMuestraCtrl($http, $scope, CONFIG){
       });
   }
 };
-
-
-
-// function pasitosAsignadosCtrl($http, $scope, CONFIG){
-//   $scope.pasitosAsignados = function(){
-    
-//     $http.get(CONFIG.DOMINIO_SERVICIOS+'/parasitosprueba/'+$scope.pruebapar.pl_id).success(function(respuesta){
-//           $scope.pruebaparasitos = respuesta.pruebaparasito;
-//           console.log('parasito_agregado', $scope.pruebapar.pl_id);
-//       });
-//   }
-  
-// }
-
-
-
 
 

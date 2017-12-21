@@ -14,10 +14,77 @@
     </div>
   </div>
   <div class="col-md-12">
-    <div ng-controller="CrearPersonaTramiteCtrl">
-      <div ng-include="'forms/personatramite/create.html'">
-      </div>
-    </div>  
+  <!-- inicio contenido -->
+  <div ng-controller="BuscaPersonaCtrl">
+        <p>
+          <h4 class="text-primary">Instrucciones</h4>
+          Para el registro del pago de tramites:</b>
+          <ul>
+            <li>Debe ingresar el n&uacute;mero de carnet en el respectivo buscador</li>
+            <li>Luego pulse en <b>Buscar</b></li>
+            <li>En el conjunto de resultados, pulse en <b>Registrar Pago</b></li>
+          </ul>
+        </p>
+        <!-- Inicio Controller apiAppCtrl -->
+       <div class="well well-sm">
+         <div class="row">
+           <div class="col-md-6 col-md-offset-2">
+              <input class="form-control input-lg" ng-model="per_ci" type="text" placeholder="Escriba el Nro. de C.I.">
+           </div>
+           <div class="col-md-4">
+           <button class="btn btn-primary btn-lg" ng-click="buscaPersona()"><span class="glyphicon glyphicon-search"></span><strong> BUSCAR</strong></button>
+           </div>
+
+         </div>  
+       </div>
+        &nbsp;&nbsp;
+       <div><center><h3>RESULTADOS<span class="text-primary">{{resultado}} </span></h3></center></div>
+         <div class="well well-sm" ng-if="ver">
+          <div class="panel">
+              <h4 class="text-primary text-center">I. DATOS DE LA PERSONA</h4>
+              <form name="userForm" novalidate>
+              <hr class="bg-red">
+                <div class="panel-body">
+                  <div class="row">
+                    <div class="col-md-8">
+                             <label class="control-label">Nombre:</label> 
+                             <h4>{{persona.per_id+" "+persona.per_nombres+" "+persona.per_apellido_primero+" "+persona.per_apellido_segundo}}</h4>
+                             <label class="control-label">CI:</label> <h4>{{persona.per_ci+" "+persona.per_ci_expedido}}</h4>
+                            <label for="tra" class="control-label">Trámite:</label><strong class="fg_red">*</strong>
+                             <select  name="tra" class="form-control" ng-model="tramiteselect" ng-options="tramite as tramite.tra_nombre  for tramite in tramite" required>
+                              </select>
+                              <span ng-if="userForm.tra.$touched && tramiteselect.tra_id==null" class="messages">El campo es obligatorio</span>                      
+                    </div>                   
+                    <div class="col-md-4">
+                        <label class="control-label ">Costo del trámite:</label>
+                        <div class="well well-sm">
+                          <center>
+                            <h1 class="h1" ng-if="tramiteselect.tra_costo==null">--</h1>
+                            <h1 class="h1" ng-if="tramiteselect.tra_costo!=null">Bs. {{tramiteselect.tra_costo}}</h1>
+                          </center>
+                        </div>
+                    </div>                      
+                  </div>
+
+                </div>
+              
+              <div class="row">
+                <div class="col-md-4 col-md-offset-4 text-center" >
+                    <button type="submit" class="btn btn-success" ng-click="save($parent.persona_tramite, persona.per_id,tramiteselect.tra_id,tramiteselect.tra_costo)" ng-disabled="tramiteselect.tra_id==null"><span class="glyphicon glyphicon-plus"></span> REGISTRAR PAGO</button>
+                </div>
+              </div>
+              </form>
+          </div>
+        </div> <!-- div del message -->
+       <!--  <div class="row panel-group tabla-cuerpo">  -->
+      </div>  
+   <!-- fin ng-show -->
+</div>  
+
+
+
+
+  <!-- fin contenido -->
   </div>
 </div>
 <!-- CONTENIDO MODULO fin -->

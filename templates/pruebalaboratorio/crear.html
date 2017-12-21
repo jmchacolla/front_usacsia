@@ -14,43 +14,48 @@
     </div>
   </div>
   <div class="col-md-12">
-    
-
 <!--  -->
-          <form name="userForm">
+          <form name="userForm" novalidate>
             <div class="well well-sm">
                     <div class="panel">
-                        <div class="text-center text-primary">II. EXAMEN MICROSCÓPICO</div>
+                        <h4 class="text-center text-primary">II. EXAMEN MICROSCÓPICO</h4>
                         <hr class="bg-green">
                         <div class="panel-body">
                           <div class="row">
-                              <div class="col-md-8 col-sm-6 col-xs-12">
+                              <div class="col-md-4 col-sm-6 col-xs-12">
                                   <label class="control-label ">Color:</label>
-                                  <input class="form-control" ng-model="prueba_labo.pl_color">
-                              </div>
-                              <div class="col-md-4 col-sm-6">
-                                <div class="formulario">
-                                  <div class="checkbox">
-                                  <input type="checkbox" name="fue_1" id="r1" ng-click="moco()">
-                                  <label for="r1">Presencia de moco</label>
+                                  <input name="color" class="form-control" ng-model="prueba_labo.pl_color" required autofocus>
+                                  <span class="messages" ng-show="userForm.$submitted || userForm.color.$touched">
+                                  <span ng-show="userForm.color.$error.required">El campo es obligatorio.</span></span>
+                                  <div class="formulario">
+                                    <div class="checkbox">
+                                     <input type="checkbox" name="fue_1" id="r1" ng-click="moco()">
+                                      <label for="r1">Presencia de moco</label>
+                                    </div>
                                   </div>
+                            </div>
+                            <div class="col-md-4 col-sm-6">
+                                <label class="control-label ">Aspecto:</label>
+                                <input name="aspecto" class="form-control" ng-model="prueba_labo.pl_aspecto" required>
+                                  <span class="messages" ng-show="userForm.$submitted || userForm.aspecto.$touched">
+                                  <span ng-show="userForm.aspecto.$error.required">El campo es obligatorio.</span></span>
+                          
+                               <div class="formulario">
+                                 <div class="checkbox">
+                                     <input type="checkbox" name="fue_2" id="r2" ng-click="sangre()">
+                                     <label for="r2">Presencia de sangre</label>
+                                 </div>
+                               </div>
+                            </div>
+                            <div class="col-md-4">
+                                <label class="control-label ">Numero de Muestra:</label>
+                                <div class="well well-sm">
+                                <center>
+                                  <h1 class="h1">{{numero_muestra.mue_num_muestra}}</h1>
+                                </center>
                                 </div>
                               </div>
-                        </div>
-                        <div class="row">
-                            <div class="col-md-8 col-sm-6 col-xs-12">
-                                <label class="control-label ">Aspecto:</label>
-                                <input class="form-control" ng-model="prueba_labo.pl_aspecto">
-                            </div>
-                          <div class="formulario">
-                            <div class="checkbox">
-                              <div class="col-md-4   col-sm-6">
-                                <input type="checkbox" name="fue_2" id="r2" ng-click="sangre()">
-                                <label for="r2">Presencia de sangre</label>
-                              </div>
-                            </div>
                           </div>
-                        </div>
                         </div>
                     </div>
 
@@ -59,30 +64,32 @@
                         <div class="panel-body">
                           <div class="row">
                             <div class="panel col-md-12">
-                               <center>LISTA DE PARÁSITOSasdfasdfasfd</center>
+                               <h4 class="text-center text-primary">LISTA DE PARÁSITOS</h4>
                                 <div class="panel col-md-12">
                                   <div class="col-md-12">
                                     <div class="col-md-6">
-                                              <select class="form-control" ng-model="pruebapar.par_id" ng-options="par.par_id as par.par_nombre  for par in parasitosno" >
+                                      <label class="control-label"> Selceccione el par&aacute;sito encontrado en la muestra</label>
+                                              <select name="select" class="form-control" ng-model="pruebapar.par_id" ng-options="par.par_id as par.par_nombre  for par in parasitosno">
                                               </select>
                                     </div>
                                     <div class="col-md-6">
                                       <center>
-                                              <button type="submit" class="btn btn-primary" ng-click="saveppp(parasito.par_id)" ng-disabled="userForm.$invalid"><span class="glyphicon glyphicon-plus"></span> AGREGAR PARÁSITO</button>
+
+                                              <button type="submit" class="btn btn-success" ng-click="saveppp(parasito.par_id)" ng-disabled="parasitosno==null || pruebapar.par_id==null"><span class="glyphicon glyphicon-plus"></span> AGREGAR PARÁSITO</button>
                                             </center>
                                     </div>
                                   </div>
                                   <!-- comienzan las tablar -->
                                 </div>
                             </div>
-                        </div>
-                        <div class="row">
+                          </div>
+                          <div class="row">
+                             <div class="panel">
+                               <h4 class="text-center text-primary">PARÁSITOS ENCONTRADOS</h4>
 
-                            <!-- comienzan las tablas -->
-                            <div class="panel col-md-12">
-                               <center>PARÁSITOS ENCONTRADOS</center>
-                                <div class="panel col-md-12">
-                                  <table class="table table-hovertable table-bordered table-striped table-hover" ng-show="!loading && msg">
+                                <div class="panel-body">
+                                  <span class="messages" ng-show="tam==0">Debe haber por lo menos un parásito encontrado.</span>
+                                  <table class="table table-hovertable table-bordered table-striped table-hover">
                                     <thead>
                                         <th >Parasito</th>
                                         <th >Quitar</th> 
@@ -98,25 +105,21 @@
                                     </tr>
                                   </table>
                                 </div>
-                            </div>
+                            </div>                           
                           </div>
                           <div class="row">
-                            <div class="col-md-12">
-                              <label for="sevref" class="control-label ">Observaciones:<strong class="fg_red">*</strong></label>
-                                <textarea class="form-control" style="resize: vertical;min-height:100px;max-height: 150px;" ng-model="prueba_labo.pl_observaciones"></textarea>
-                            </div>
+                              <div class="col-md-12">
+                                <label  class="control-label ">Observaciones:<strong class="fg_red">*</strong></label>
+                                  <textarea class="form-control" style="resize: vertical;min-height:100px;max-height: 150px;" ng-model="prueba_labo.pl_observaciones"></textarea>
+                              </div>
                           </div>
-
                         </div>
                     </div>
-                    </div>
                     <center>
-                      <button type="submit" class="btn btn-primary" ng-click="guardar()"><span class="glyphicon glyphicon-save"></span>GUARDAR</button>
+                      <button type="submit" class="btn btn-success" ng-click="guardar()" ng-disabled="userForm.$invalid || tam==0"><span class="glyphicon glyphicon-save" ></span>GUARDAR</button>
                       <a href="">
-                          <button type="submit" class="btn btn-danger"  ><span class="glyphicon glyphicon-remove"></span> CANCELAR</button>
                         </a>
                     </center>
-                </div>
             </form>
 <!--  -->
 

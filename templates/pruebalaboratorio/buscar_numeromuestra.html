@@ -27,14 +27,13 @@
           Si el n&uacute;mero de muestra ingresado no fue registrado, no se mostrar&aacute;n resultados</b>
         </p>
         <!-- Inicio Controller apiAppCtrl -->
-       
          <div class="well well-sm">
            <div class="row">
              <div class="col-md-6 col-md-offset-2">
                 <input class="form-control input-lg" ng-model="numero_muestra" type="text" placeholder="Escriba el Nro. de Muestra">
              </div>
              <div class="col-md-4">
-             <button class="btn btn-primary btn-lg" ng-click="buscaNumeroMuestra()"><span class="glyphicon glyphicon-search"></span><strong> BUSCAR</strong></button>
+             <button class="btn btn-primary btn-lg" ng-disabled="numero_muestra==null" ng-click="buscaNumeroMuestra()"><span class="glyphicon glyphicon-search"></span><strong> BUSCAR</strong></button>
              </div>
 
            </div>  
@@ -42,44 +41,32 @@
          <div><center><h3>RESULTADOS<span class="text-primary">  {{ tamanio }} </span></h3></center></div>
          <div ng-if="ver">
             <div class="lead text-center">
-              <hr>
+              <hr class="bg-red">
             </div>
                   <div class="well well-sm">
                     <div class="panel">
-                      <div class="text-center text-primary">I. DATOS GENERALES DEL USUARIO</div>
+                      <h4 class="text-center text-primary">I. DATOS GENERALES DEL USUARIO</h4>
                       <hr class="bg-green">
                       <div class="panel-body">
                         <div class="row">
-                          <div class="col-md-6">
-                              <label class="control-label ">Nombre:</label>
-                              <input disabled class="form-control" ng-model="muestra.per_nombres">
-                          </div>
-                          <div class="col-md-3">
+                          <div class="col-md-4">
+                            <label class="control-label ">Nombre:</label>
+                            <h4>{{muestra.per_nombres+" "+muestra.per_apellido_primero+" "+muestra.per_apellido_segundo}}</h4>
                             <label class="control-label ">CI:.</label>
-                            <div class="input-group">
-                                  <input  disabled class="form-control" id="" ng-model="muestra.per_ci">  
+                            <h4>{{muestra.per_ci+" "+muestra.per_ci_expedido}}</h4>
+                          </div>
+                          <div class="col-md-4">
+                            <label class="control-label ">Tipo de usuario:</label>
+                            <h4>{{muestra.mue_tipo}}</h4>
+                          </div>
+                          <div class="col-md-4">
+                              <label class="control-label ">Numero de Muestra:</label>
+                              <div class="well well-sm">
+                              <center>
+                                <h1 class="h1">{{muestra.mue_num_muestra}}</h1>
+                              </center>
                               </div>
                           </div>
-                          <div class="col-md-3">
-                            <label class="control-label ">Fecha:</label>
-                            <div class="input-group">
-                                  <label class="form-control">{{CurrentDate | date:'dd/MM/yyyy'}} </label>
-                                  <span class="input-group-addon">
-                                      <span class="glyphicon glyphicon-calendar"></span>
-                                  </span>
-                              </div>
-                          </div>
-                        </div>
-                        <div class="row">
-                          <div class="form-group col-md-6">
-                              <label for="sevref" class="control-label ">Tipo de usuario:<strong class="fg_red">*</strong></label>
-                              <input disabled class="form-control" id="" ng-model="muestra.mue_tipo" placeholder="CONTROL-REVISAR EN BD">
-                          </div>   
-                          <div class="form-group col-md-6">
-                              <label for="sevref" class="control-label ">Numero de Muestra:<strong class="fg_red"> *</strong></label>
-                              <input disabled class="form-control" id="" ng-model="muestra.mue_num_muestra">
-                          </div>
-                          {{contrareferencia.fe_id_contacto}}
                         </div>
                       </div>
                       <center>
@@ -96,11 +83,6 @@
 
       <!-- fin datos del funcionario -->
   </div>  
-
-
-
-
-
   </div>
 </div>
 
