@@ -22,7 +22,7 @@ angular.module('adminApp')
 
 
 //wendy
-  DOMINIO_SERVICIOS: "http://localhost:8080/api_usacsia/public"
+  // DOMINIO_SERVICIOS: "http://localhost:8080/api_usacsia/public"
  
 
 //vero

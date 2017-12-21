@@ -103,21 +103,30 @@ angular.module("adminApp")
     })
 
     /**/
-  $scope.save = function(a, per_id){
+      $scope.tramiteselect={
+    tra_id:null,
+    tra_nombre:"",
+    tr_costo:null,
+    tra_vigencia:"",
+  };
+  $scope.save = function(a, per_id,tra_id,tra_costo){
     $scope.persona_tramite.per_id=per_id;
+    $scope.persona_tramite.tra_id=tra_id;
+    $scope.persona_tramite.pt_monto=tra_costo;
     console.log('la persona-tramite que se va a cerar', $scope.persona_tramite);
-   
-    // PersonaTramite.save($scope.persona_tramite).$promise.then(function(data)
-    // {
-    //   console.log('el data', data);
+    PersonaTramite.save($scope.persona_tramite).$promise.then(function(data)
+    {
+      console.log('el data', data);
 
-    //     if(data.mensaje){
-    //       toastr.success('Pago registrado correctamente'+data.persona_tramite.pt_id+' es');
-    //            $location.path('/boleta-pago/'+data.persona_tramite.pt_id);
+        if(data.mensaje){
+          toastr.success('Pago registrado correctamente'+data.persona_tramite.pt_id+' es');
+               $location.path('/boleta-pago/'+data.persona_tramite.pt_id);
 
-    //     }
-    // })
+        }
+    })
   }
+
+   $scope.ver=false;
 }])
 
 
@@ -231,10 +240,10 @@ function buscaPersonaController($http, $scope, CONFIG){
       $http.get(CONFIG.DOMINIO_SERVICIOS+'/personas_ci/'+$scope.per_ci).success(function(respuesta){
           $scope.persona = respuesta.persona;
           if(!respuesta.persona){
-              $scope.msg=false;
+              $scope.ver=false;
               $scope.resultado="No se encontraron resultados";              
           } else if(respuesta.persona){
-              $scope.msg=true;
+              $scope.ver=true;
               $scope.resultado='';
           }  
       });

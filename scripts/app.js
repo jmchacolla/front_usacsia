@@ -310,6 +310,14 @@ angular.module("adminApp", ["authService", "ngRoute", "ngResource", "satellizer"
     // }
   })
 
+   .when('/prueba-laboratorio/ver/:pl_id', {
+    templateUrl: 'templates/pruebalaboratorio/ver.html',
+    controller: 'VerPruebaLaboratorioCtrl'
+    // data: {
+    //   authorized: [ROLES.ESTADISTICA.ROL, ROLES.RECAUDADOR.ROL, ROLES.ESTAD_RECAU_ENFER.ROL]
+    // }
+  })
+
     .when('/pais', {
     templateUrl: 'templates/pais/list.html',
     controller: 'PaisCtrl2'
@@ -342,7 +350,11 @@ angular.module("adminApp", ["authService", "ngRoute", "ngResource", "satellizer"
     //   authorized: [ROLES.ESTADISTICA.ROL, ROLES.RECAUDADOR.ROL, ROLES.ESTAD_RECAU_ENFER.ROL]
     // }
   })
-
+  /*-----------------------------------Número de ficha crear------------------------------------*/
+  .when('/numero-ficha/crear', {
+    templateUrl: 'templates/ficha/crear.html',
+    controller: 'NumeroFichaController'
+  })
 
 
   /*---------------------------busqueda de personas preregistradas para pago de tramite------------------------------*/
