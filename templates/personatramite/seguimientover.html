@@ -70,6 +70,9 @@
               <span ng-show="pertramite.persona_tramite.pt_estado_tramite=='CONCLUIDO'" class="btn btn-info">
                 &nbsp;&nbsp;<span  class="glyphicon glyphicon-ok-circle"></span> {{pertramite.persona_tramite.pt_estado_tramite}}
               </span>
+              <span ng-show="!pertramite.persona_tramite.pt_estado_tramite" class="btn btn-info">
+                &nbsp;&nbsp;<span  class="glyphicon glyphicon-ok-circle"></span> SIN REGISTRO
+              </span>
             </div>
             <div class="col-md-3 col-sm-6">
               <label class="text-primary">Consulta médica:</label><br>
@@ -82,6 +85,9 @@
               <span ng-show="pruebam.pm_estado=='PENDIENTE'" class="btn btn-warning">
                 &nbsp;&nbsp;<span  class="glyphicon glyphicon-time"></span> {{pruebam.pm_estado}}
               </span>
+              <span ng-show="!pruebam.pm_estado" class="btn btn">
+                &nbsp;&nbsp;<span  class="glyphicon glyphicon-ban-circle"></span> SIN REGISTRO
+              </span>
             </div>
 
 
@@ -92,6 +98,9 @@
               </span>
               <span ng-show="plab.prueba_laboratorio.pl_estado=='NO OBSERVADO'" class="btn btn-success">
                 &nbsp;&nbsp;<span  class="glyphicon glyphicon-ok"></span> {{plab.prueba_laboratorio.p_lestado}}
+              </span>
+              <span ng-show="!plab.prueba_laboratorio.pl_estado" class="btn btn">
+                &nbsp;&nbsp;<span  class="glyphicon glyphicon-ban-circle"></span> SIN REGISTRO
               </span>
             </div>
 

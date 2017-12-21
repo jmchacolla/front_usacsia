@@ -18,7 +18,7 @@ angular.module('adminApp')
                 var pt_id = data.pt_id;
               if (pt_id) {
                     $timeout(function() {
-                            $location.path('/serguimiento-tramite-cas/'+pt_id);
+                            $location.path('/seguimiento-tramite-cas/'+pt_id);
                         },1000);
               }else{
                 console.log('esto es----',data.message);
@@ -54,7 +54,7 @@ angular.module('adminApp')
 
     UltimaPL.get({pt_id:pt_id}, function (upl) {
         $scope.plab=upl;
-    })
+    })  
 
 }])
 

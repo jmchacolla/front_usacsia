@@ -432,7 +432,7 @@ angular.module("adminApp", ["authService", "ngRoute", "ngResource", "satellizer"
 
   })
   /*ver seguimiento tramite*/
-  .when('/serguimiento-tramite-cas/:pt_id', {
+  .when('/seguimiento-tramite-cas/:pt_id', {
     templateUrl: 'templates/personatramite/seguimientover.html',
     controller: 'SeguimientoVerCtrl'
   })
