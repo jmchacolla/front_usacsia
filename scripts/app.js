@@ -424,14 +424,17 @@ angular.module("adminApp", ["authService", "ngRoute", "ngResource", "satellizer"
     }
   })
 
-  /*seguimiento a tramite --------------------NO FUNCIONA REVISAR 20-12 2017*/
+  /*login seguimiento a tramite-----NO FUNCIONA REVISAR 20-12 2017 ----revisado 21-12-17 jhon*/
 
     .when('/seguimiento-tramite', {
     templateUrl: 'templates/personatramite/seguimientotramite.html',
-    controller: 'SeguimientoTramiteTramiteCtrl',
-    data: {
-      authorized: [ROLES.ADMIN_USACSIA.ROL]
-    }
+    controller: 'SeguimientoTramiteCtrl'
+
+  })
+  /*ver seguimiento tramite*/
+  .when('/serguimiento-tramite-cas/:pt_id', {
+    templateUrl: 'templates/personatramite/seguimientover.html',
+    controller: 'SeguimientoVerCtrl'
   })
 
   /*-----------------------------tramites---------------------------------*/
@@ -516,8 +519,6 @@ angular.module("adminApp", ["authService", "ngRoute", "ngResource", "satellizer"
 /*-------------------------------------- documentos -----------------------------------------*/
     
   /*--------PENDIENTE------*/
-
-    /*--------PENDIENTE------*/
 
   /*===================================VERONICA================================================*/
 
