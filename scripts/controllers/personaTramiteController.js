@@ -210,16 +210,16 @@ angular.module("adminApp")
       // else if($scope.pertramite.persona.per_genero=='M' || $scope.pertramite.persona.per_genero=='m'){
       //   $scope.pertramite.persona.per_genero='MASCULINO';
       // }
-    $scope.ajustes = {
-      menu:{
-        titulo: 'Gestión de tramites de Carné Sanitario',
-        items:[
-          {nombre:'Solicitudes de Carné Sanitario', enlace:'#/persona-usacsia', estilo:'active'}]
-      },
-      pagina:{
-        titulo:'Comprobante de pago Trámite N°: '+nt/*$scope.pertramite.persona_tramite.pt_numero_tramite*/
-      }
-    };
+      $scope.ajustes = {
+        menu:{
+          titulo: 'Gestión de tramites de Carné Sanitario',
+          items:[
+            {nombre:'Solicitudes de Carné Sanitario', enlace:'#/persona-usacsia', estilo:'active'}]
+        },
+        pagina:{
+          titulo:'Comprobante de pago Trámite N°: '+nt/*$scope.pertramite.persona_tramite.pt_numero_tramite*/
+        }
+      };
     });
 
 }])

@@ -383,11 +383,16 @@ angular.module("adminApp", ["authService", "ngRoute", "ngResource", "satellizer"
     controller: 'CrearPersonaTramiteCtrl'
   })
 
-  /*seguimiento a tramite*/
+  /*login seguimiento a tramite*/
 
     .when('/seguimiento-tramite', {
     templateUrl: 'templates/personatramite/seguimientotramite.html',
-    controller: 'SeguimientoTramiteTramiteCtrl'
+    controller: 'SeguimientoTramiteCtrl'
+  })
+  /*ver seguimiento tramite*/
+  .when('/serguimiento-tramite-cas/:pt_id', {
+    templateUrl: 'templates/personatramite/seguimientover.html',
+    controller: 'SeguimientoVerCtrl'
   })
 
   /*-----------------------------tramites---------------------------------*/
