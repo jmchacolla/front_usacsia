@@ -7,7 +7,7 @@ angular.module("adminApp")
     menu:{
       titulo: 'Gestión de tramites de Carné Sanitario',
       items:[
-        {nombre:'Solicitudes de Carné Sanitario', enlace:'#/tramites', estilo:'active'},
+        {nombre:'Solicitudes de Carné Sanitario', enlace:'#/tramites-car', estilo:'active'},
         {nombre:'Busqueda de personas registradas', enlace:'#/tramite/crear', estilo:''}]
     },
     pagina:{
@@ -78,7 +78,7 @@ angular.module("adminApp")
     menu:{
       titulo: 'Gestion de solicitudes de trámite',
       items:[
-      {nombre:'Solicitudes de Carné Sanitario', enlace:'#/tramites', estilo:''},
+      {nombre:'Solicitudes de Carné Sanitario', enlace:'#/tramites-car', estilo:''},
       {nombre:'Busqueda de personas registradas', enlace:'#/tramite/crear', estilo:'active'}]
     },
     pagina:{
@@ -222,7 +222,7 @@ angular.module("adminApp")
         titulo: 'Gestión de pagos',
         items:[
         {nombre:'Busqueda de personas registradas', enlace:'#/tramite/crear', estilo:''},
-        {nombre:'Solicitudes de Carné Sanitario', enlace:'#/tramites', estilo:''},
+        {nombre:'Solicitudes de Carné Sanitario', enlace:'#/tramites-car', estilo:''},
         {nombre:'Detalle pago', enlace:'#/boleta-pago/'+pt_id, estilo:'active'}
         ]
       },
