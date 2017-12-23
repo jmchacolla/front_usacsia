@@ -796,6 +796,9 @@ angular.module("adminApp")
 .factory('UltimaPL', ['$resource', 'CONFIG', function ($resource, CONFIG) {
   return $resource(CONFIG.DOMINIO_SERVICIOS+"/ultima_prueba_laboratorio/:pt_id", {pt_id:"@_pt_id"},{update:{method:"PUT",params:{pt_id:"@pt_id"}}})
 }])
+.factory('Receta', ['$resource', 'CONFIG', function ($resource, CONFIG) {
+  return $resource(CONFIG.DOMINIO_SERVICIOS+"/receta", {},{ update:{method:"PUT", params:{}}})
+}])
 
 
 // ===============================/jhon

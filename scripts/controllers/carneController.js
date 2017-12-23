@@ -38,7 +38,7 @@ angular.module("adminApp")
       $scope.persona = data.pertramite;
       $scope.per = data.pertramite;
       console.log('persona-----------', $scope.persona);
-      console.log('imagen-----------', $scope.persona.imagen[0].ima_enlace+'/'+$scope.persona.imagen[0].ima_nombre);
+      console.log('imagen-----------', $scope.persona.imagen.ima_enlace+'/'+$scope.persona.imagen.ima_nombre);
       var fechapago= $scope.persona.persona_tramite.pt_fecha_ini;
       var fecha_cont=moment(new Date(), "YYYY-MM-DD") .format("DD-MM-YYYY");
       var horaC=fecha_cont[1];
@@ -47,7 +47,7 @@ angular.module("adminApp")
       var ipersona="";
       var gober="";
       var sedes="";
-      var imagenpersona=$scope.persona.imagen[0].ima_enlace+'/'+$scope.persona.imagen[0].ima_nombre;
+      var imagenpersona=$scope.persona.imagen.ima_enlace+'/'+$scope.persona.imagen.ima_nombre;
       var img1 =convertImgToDataURLviaCanvas( imagenpersona, function(base64Img) {
         ipersona =base64Img;
         var img2 =convertImgToDataURLviaCanvas("./scripts/escudo-gober.png", function(base64Img) {
