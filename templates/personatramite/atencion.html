@@ -54,7 +54,7 @@
                 <table class="table table-bordered table-striped table-hover" ng-show="!loading && msg">
                   <thead >
                     <th >
-                      <a href="" ng-click="sortType = 'per_ci'; sortReverse = !sortReverse">Nro.</a>
+                      <a href="" ng-click="sortType = 'per_ci'; sortReverse = !sortReverse">Nro. Ficha</a>
                       <span ng-show="sortType == 'per_ci' && !sortReverse" class="glyphicon glyphicon-sort-by-order"></span>
                       <span ng-show="sortType == 'per_ci' && sortReverse" class="glyphicon glyphicon-sort-by-order-alt"></span>
                     </th>
@@ -100,7 +100,7 @@
                                 <h4 class="modal-title fg-white">ATENCIÓN AL PACIENTE</h4>
                               </div>
                               <div class="modal-body lead text-center">
-                                Se hará la atencion del paciente:
+                                Se hará la atención del paciente:
                                 <br>
                                 <div class="well well-sm">
                                   <strong>{{nombre_completo | uppercase}}</strong>

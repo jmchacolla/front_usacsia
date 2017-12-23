@@ -8,7 +8,8 @@ angular.module("adminApp")
       titulo: 'Gestión de Funcionarios de USACSIA',
       items:[
         {nombre:'Funcionarios', enlace:'#/funcionarios', estilo:'active'},
-        {nombre:'Registrar funcionario', enlace:'#/funcionarios/createFun', estilo:''}]
+        {nombre:'Registrar funcionario', enlace:'#/funcionarios/createFun', estilo:''},
+        {nombre:'Buscar Persona', enlace:'#/funcionarios/createfo', estilo:''}]
     },
     pagina:{
       titulo:'Funcionarios de USACSIA'
@@ -109,6 +110,7 @@ angular.module("adminApp")
         menu:{
           titulo: 'Gestión de Funcionarios USACSIA',
           items:[
+            {nombre:'Funcionarios', enlace:'#/funcionarios', estilo:''},
             {nombre:'Ver Datos del Establecimiento', enlace:'#/establecimientos/ver/'+es_id, estilo:''}
           ]
         },
@@ -168,21 +170,22 @@ angular.module("adminApp")
   function (CONFIG,Zonas,$scope, FuncionarioPersona, $location, $timeout, toastr, $routeParams, $resource)
   { 
     var es_id = 1;
-/*    if(CONFIG.ROL_CURRENT_USER!=1) {*/
+    if(CONFIG.ROL_CURRENT_USER=1) {
       $scope.ajustes = {
         menu:{
           titulo: 'Gestión de Funcionarios',
           items:[
             {nombre:'Funcionarios', enlace:'#/funcionarios', estilo:''},
-            {nombre:'Registrar Funcionario', enlace:'#/funcionarios/createFun', estilo:'active'}]
+            {nombre:'Registrar Funcionario', enlace:'#/funcionarios/createFun', estilo:'active'},
+            {nombre:'Buscar Persona', enlace:'#/funcionarios/createfo', estilo:''}]
         },
         pagina:{
           titulo:'Registrar Funcionario',
           action:'CREAR'
         }
       }
-    /*} else {*/
-     /* es_id = $routeParams.es_id;*/
+    } else {
+      es_id = 1;
       $scope.ajustes = {
         menu:{
           titulo: 'Gestión de Funcionarios',
@@ -193,7 +196,7 @@ angular.module("adminApp")
           titulo:'Registrar Funcionario',
           action:'CREAR'
         }
-      /*}*/
+      }
     }
 
     $scope.mensaje="hola";
@@ -214,7 +217,7 @@ angular.module("adminApp")
         per_numero_celular: null,
         per_clave_publica: "",
         per_avenida_calle: "",
-        per_numero:0,
+        per_numero:null,
         per_ocupacion:"",
         per_tipo_permanencia: "RESIDENTE",
         ima_nombre:"perfil.jpg",
@@ -307,16 +310,17 @@ $scope.zon=false;
 
 .controller('EditFuncionarioCtrl',[/*'authUser', */'$scope','Zonas', 'Funcionarios', 'Personas','Func','$routeParams','$location', '$timeout','toastr',
             function (/*authUser,*/ $scope,Zonas, Funcionarios,Personas,Func,$routeParams,$location,$timeout,toastr){
+              var es_id=1;
 /*  if(authUser.isLoggedIn()){*/
     $scope.ajustes = {
       menu:{
         titulo: 'Gestión de Funcionarios de USACSIA',
         items:[
           {nombre:'Funcionarios', enlace:'#/funcionarios', estilo:''},
-          {nombre:'Registrar funcionario', enlace:'#/funcionarios/createfuncionario', estilo:''}]
+          {nombre:'Ver Datos del Establecimiento', enlace:'#/establecimientos/ver/'+es_id, estilo:''}]
       },
       pagina:{
-        titulo:'Editar Datos del Funcionario',
+        titulo:'Editar Datos del Funcionario de wendy',
         action:'EDITAR'
       }
     }
@@ -370,9 +374,9 @@ $scope.zon=false;
         per_avenida_calle:$scope.personas.persona.per_avenida_calle,
         per_numero:$scope.personas.persona.per_numero,
 
-        ima_nombre : $scope.personas.imagen[0].ima_nombre,
-        ima_enlace : "./img-fun",
-        ima_tipo : $scope.personas.imagen[0].ima_tipo
+        ima_nombre : $scope.personas.imagen/*[0]*/.ima_nombre,
+        ima_enlace : "./img-per",
+        ima_tipo : $scope.personas.imagen/*[0]*/.ima_tipo
      
       };
       if(fecha_naci != null){
@@ -439,9 +443,11 @@ function (/*authUser,*/$scope, Funcionarios, $routeParams, $location, $timeout, 
       
       $scope.ajustes = {
         menu:{
-          titulo: 'Gestión de Funcionarios de Salud',
+          titulo: 'Gestión de Funcionarios de USACSIA',
           items:[
-            {nombre:'Ver Datos del Establecimiento', enlace:'#/establecimientos/ver/'+es_id, estilo:''}]
+             {nombre:'Funcionarios', enlace:'#/funcionarios', estilo:''},
+              {nombre:'Registrar funcionario', enlace:'#/funcionarios/createFun', estilo:''},
+              {nombre:'Buscar Persona', enlace:'#/funcionarios/createfo', estilo:'active'}]
         },
         pagina:{
           titulo:'Registrar Funcionario',
@@ -452,10 +458,10 @@ function (/*authUser,*/$scope, Funcionarios, $routeParams, $location, $timeout, 
     else{
       $scope.ajustes = {
         menu:{
-          titulo: 'Gestión de Funcionarios de Salud',
+          titulo: 'Gestión de Funcionarios de USACSIA',
           items:[
             {nombre:'Funcionarios', enlace:'#/establecimiento/funcionarios', estilo:''},
-            {nombre:'Registrar funcionario', enlace:'#/funcionarios/createf', estilo:'active'}]
+            {nombre:'Registrar funcionario', enlace:'#/funcionarios/createfo', estilo:'active'}]
         },
         pagina:{
           titulo:'Registrar Funcionario',
@@ -532,16 +538,6 @@ function (/*authUser,*/$scope, Funcionarios, $routeParams, $location, $timeout, 
 
 
 
-
-
-
-
-
-
-
-
-
-
 .controller('CreateFunCtrl',[/*'authUser',*/ '$scope', 'Funcionarios', '$routeParams', '$location', '$timeout', 'toastr', 'CONFIG', '$resource','Personas','$http',
 function (/*authUser,*/$scope, Funcionarios, $routeParams, $location, $timeout, toastr, CONFIG, $resource,Personas,$http)
 {
@@ -569,7 +565,8 @@ function (/*authUser,*/$scope, Funcionarios, $routeParams, $location, $timeout, 
           titulo: 'Gestión de Funcionarios de USACSIA',
           items:[
             {nombre:'Funcionarios', enlace:'#/funcionarios', estilo:''},
-            {nombre:'Registrar funcionario', enlace:'#/funcionarios/createfuncionario', estilo:'active'}]
+            {nombre:'Registrar funcionario', enlace:'#/funcionarios/createFun', estilo:''},
+            {nombre:'Buscar Persona', enlace:'#/funcionarios/createfo', estilo:'active'}]
         },
         pagina:{
           titulo:'Registrar Funcionario',
@@ -593,6 +590,7 @@ function (/*authUser,*/$scope, Funcionarios, $routeParams, $location, $timeout, 
       $scope.valor=valor;
       console.log("llego a la funcion agregar fun");
       $http.get(CONFIG.DOMINIO_SERVICIOS+'/funcionarios_per/'+per_id).success(function(respuesta){
+        console.log("ver si existe funcionario",respuesta.funcionario.length);
         if(respuesta.funcionario.length !=0){//En caso de que sea funcionario de algún establecimiento
           //Verificando si el funcionario se encuentra registrado en el establecimiento
           $scope.fun_id = respuesta.funcionario.fun_id;
@@ -784,7 +782,7 @@ function (/*authUser,*/$scope, Funcionarios, $routeParams, $location, $timeout, 
   } 
 }])
 
-
+/*
 .controller('CreateFuncionarioCtrl',['authUser', '$scope', 'Funcionarios', '$routeParams', '$location', '$timeout', 'toastr', 'CONFIG', '$resource','Personas',
 function (authUser,$scope, Funcionarios, $routeParams, $location, $timeout, toastr, CONFIG, $resource,Personas)
 {
@@ -875,7 +873,7 @@ function (authUser,$scope, Funcionarios, $routeParams, $location, $timeout, toas
       })
     }
     /*para agregar a un funcionario */
-    $scope.busca_fun=true;
+  /*  $scope.busca_fun=true;
     var per_id = $routeParams.per_id;
     if(per_id!=null){
       Personas.get({per_id:per_id},function(data)
@@ -891,7 +889,7 @@ function (authUser,$scope, Funcionarios, $routeParams, $location, $timeout, toas
     }
     $scope.per_ci="";
     /*para agregar a un funcionario */
-    $scope.reset = function(form) {
+/*    $scope.reset = function(form) {
       $scope.funcionarios = {};
       if (form) {
         form.$setPristine();
@@ -902,8 +900,7 @@ function (authUser,$scope, Funcionarios, $routeParams, $location, $timeout, toas
   } else {
     $location.path('/inicio');
   }
-}])
-
+}])*/
 
 
 .controller('apiAppCtrl_fun', ['$http', '$scope', 'CONFIG', controladorPrincipal_fun])

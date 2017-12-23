@@ -288,9 +288,11 @@ $scope.zon=false;
         ima_enlace : "./img-per",
         ima_tipo : $scope.personas.imagen[0].ima_tipo*/
        
-        ima_nombre : $scope.persona.imagen[0].ima_nombre,
+        ima_nombre : $scope.persona.imagen.ima_nombre,
         ima_enlace : "./img-per",
-        ima_tipo : $scope.persona.imagen[0].ima_tipo
+        ima_tipo : $scope.persona.imagen.ima_tipo
+
+
       /*  dir_zona_comunidad : $scope.persona.direccion[0].dir_zona_comunidad,
         dir_avenida_calle : $scope.persona.direccion[0].dir_avenida_calle,
         dir_numero : $scope.persona.direccion[0].dir_numero,

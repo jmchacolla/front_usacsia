@@ -52,8 +52,8 @@
             </th>
             <th >Ocupación</th>
             <th >Ver</th>
-            <th>Editar</th>
-            <th>Dar de baja</th>
+           <!--  <th>Editar</th>
+            <th>Dar de baja</th> -->
           </thead>
           <tbody>
             <tr  ng-repeat="pt in persona_tramite  | orderBy:sortType:sortReverse | filter:per_ci">
@@ -64,13 +64,12 @@
               <td class="text-center">
                 <a href="#/tramites_concluidos/ver/{{pt.pt_id}}" class="btn btn-success" title="VER DATOS DE PERSONA"><span class="glyphicon glyphicon-file"></span></a>
               </td>
-              <td>
+              <!--   <td>
                 <a href="#/funcionarios/edit/{{funcionario.fun_id}}" class="btn btn-primary" title="EDITAR A FUNCIONARIO"><span class="glyphicon glyphicon-pencil"></span></a>
               </td>
               <td>
-              <!-- funcionario.fe_inicio_trabajo, fucionario.fe_fin_trabajo, funcionario.fe_memorandum, -->
-                <button ng-click="get_fe_id(funcionario.fun_id, funcionario.per_apellido_primero, funcionario.per_apellido_segundo, funcionario.per_nombres, funcionario.fun_cargo, funcionario.fun_profesion, funcionario.fun_estado)" title="DAR DE BAJA A FUNCIONARIO DEL ESTABLECIMIENTO" class="btn btn-danger" data-toggle="modal" data-target="#miCuadroModal1" ><span class="glyphicon glyphicon-trash"></span></button>
-                <div id="miCuadroModal1" class="modal fade" role="dialog" tabindex="-1">
+               <button ng-click="get_fe_id(funcionario.fun_id, funcionario.per_apellido_primero, funcionario.per_apellido_segundo, funcionario.per_nombres, funcionario.fun_cargo, funcionario.fun_profesion, funcionario.fun_estado)" title="DAR DE BAJA A FUNCIONARIO DEL ESTABLECIMIENTO" class="btn btn-danger" data-toggle="modal" data-target="#miCuadroModal1" ><span class="glyphicon glyphicon-trash"></span></button>
+              <div id="miCuadroModal1" class="modal fade" role="dialog" tabindex="-1">
                   <div class="modal-dialog">
                     <div class="modal-content">
                       <div class="modal-header bg-red">
@@ -88,7 +87,7 @@
                     </div>
                   </div>
                 </div>
-              </td>
+              </td> -->
             </tr>
           </tbody>
         </table>

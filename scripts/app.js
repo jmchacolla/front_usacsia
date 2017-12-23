@@ -171,7 +171,6 @@ angular.module("adminApp", ["authService", "ngRoute", "ngResource", "satellizer"
 
   })
 
-    //**********************REVISAR
   .when('/funcionarios/edit/:fun_id', {
     templateUrl: 'templates/funcionario/edit.html',
     controller: 'EditFuncionarioCtrl',
@@ -274,7 +273,7 @@ angular.module("adminApp", ["authService", "ngRoute", "ngResource", "satellizer"
       authorized: [ROLES.ADMIN_USACSIA.ROL]
     }
   })
-//*******************************==========================P E R S O N A S  Q  C O N C L U Y E R O N==========================================================================
+//****************===========TRAMITES CONCLUIDOS=================================================
     .when('/tramites_concluidos', { 
     templateUrl: 'templates/personatramite/final2.html',
     controller: 'ListaFinalCtrl',
@@ -304,6 +303,15 @@ angular.module("adminApp", ["authService", "ngRoute", "ngResource", "satellizer"
       authorized: [ROLES.ADMIN_USACSIA.ROL]
     }
   })
+    //==========================DEPARTAMENTO===================================================================
+  .when('/homedepartamento',{
+   templateUrl:'templates/departamento/list.html',
+   controller: 'HomeCtrlDep'/*,
+    data: {
+      authorized: [ROLES.ADMIN_SEDES.ROL]
+    }*/
+  })
+  
   
 
 
@@ -414,7 +422,7 @@ angular.module("adminApp", ["authService", "ngRoute", "ngResource", "satellizer"
     }
   })
 
-
+//****************===========PAGOS=================================================
   /*---------------------------busqueda de personas preregistradas para pago de tramite------------------------------*/
   .when('/tramite/crear', {
     templateUrl: 'templates/personatramite/create.html',
@@ -453,7 +461,7 @@ angular.module("adminApp", ["authService", "ngRoute", "ngResource", "satellizer"
       authorized: [ROLES.ADMIN_USACSIA.ROL, ROLES.CAJERO.ROL]
     }
   })
-
+//+++++++++++++++++++++++++++++++++TRAMITES CERTIFICADO
   .when('/tramites-cer', {
     templateUrl: 'templates/personatramite/indexcer.html',
     controller: 'PersonaTramiteCertificadoCtrl'
@@ -547,7 +555,7 @@ angular.module("adminApp", ["authService", "ngRoute", "ngResource", "satellizer"
 //Redirecciona automaticamente al login
 .run(function($rootScope, $location, authUser, toastr, sessionControl, Personas){
   var rutasPrivadas = 
-  ['/','/atencion','/prueba-medica/:pt_id','/prueba-medica/prueba/:pm_id','/prueba-medica/ver/:pm_id','/ficha-clinica/:per_ci','/perfil', '/usuario/edit','/usuario/create','/persona/create','/personas','/personas/ver/:per_id','/personas/edit/:per_id', '/funcionarios','/funcionarios/ver/:fun_id', '/funcionarios/createFun','/funcionarios/edit/:fun_id', '/consultorios','/consultorios/ver/:amb_id', '/consultorios/create','/consultorios/edit/:amb_id','/laboratorios','/laboratorios/ver/:amb_id', '/laboratorios/create','/laboratorios/edit/:amb_id',  '/establecimientos','/establecimientos/ver/:usa_id','/establecimientossol','/establecimientos/create','/tramites_concluidos',  '/tramites_concluidos/ver/:pt_id', '/homepais','/pais/create','/buscar-numero-muestra','/prueba-laboratorio/crear/:pl_id','/prueba-laboratorio/ver/:pl_id', '/prueba-laboratorio','/numero-muestra/crear','/numero-muestra','/numero-ficha/crear','/tramite/crear','/tramites','/boleta-pago/:pt_id','/parasito/crear', '/parasito','/parasito/editar/:par_id','/parasito/ver/:par_id','/tratamiento/crear', '/tratamiento',];
+  ['/','/atencion','/prueba-medica/:pt_id','/prueba-medica/prueba/:pm_id','/prueba-medica/ver/:pm_id','/ficha-clinica/:per_ci','/perfil', '/usuario/edit','/usuario/create','/persona/create','/personas','/personas/ver/:per_id','/personas/edit/:per_id', '/funcionarios','/funcionarios/ver/:fun_id', '/funcionarios/createFun','/funcionarios/edit/:fun_id', '/consultorios','/consultorios/ver/:amb_id', '/consultorios/create','/consultorios/edit/:amb_id','/laboratorios','/laboratorios/ver/:amb_id', '/laboratorios/create','/laboratorios/edit/:amb_id',  '/establecimientos','/establecimientos/ver/:usa_id','/establecimientossol','/establecimientos/create','/tramites_concluidos',  '/tramites_concluidos/ver/:pt_id', '/homepais','/pais/create','/buscar-numero-muestra','/prueba-laboratorio/crear/:pl_id','/prueba-laboratorio/ver/:pl_id', '/prueba-laboratorio','/numero-muestra/crear','/numero-muestra','/numero-ficha/crear','/tramite/crear','/tramites-car','/boleta-pago/:pt_id','/parasito/crear', '/parasito','/parasito/editar/:par_id','/parasito/ver/:par_id','/tratamiento/crear', '/tratamiento',];
   
   $rootScope.$on('$routeChangeStart', function(){
     if (($.inArray($location.path(), rutasPrivadas) !== -1 ) && !authUser.isLoggedIn()) {

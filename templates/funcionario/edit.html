@@ -33,12 +33,13 @@ TOP-MENU inicio -->
                 <div class="row">
                   <div class="col-md-3">
                     <div class="well well-sm">
-                        <div ng-if="personas.imagen[0].ima_nombre == ''">
+                    <!-- ng-if="personas.imagen[0].ima_nombre == ''" -->
+                        <div ng-if="personas.imagen.ima_nombre == ''">
                           <img ng-src="./images/perfil.jpg" align="center" class="img-responsive img-thumbnail"/>
-                        </div>
-                        <div ng-if="personas.imagen[0].ima_nombre != ''" style="height:190px !important; overflow:auto;">
-                          <div ng-if="thumbnail.dataUrl ==''">
-                            <img ng-src="{{personas.imagen[0].ima_enlace}}/{{personas.imagen[0].ima_nombre}}" align="center" class="img-responsive img-thumbnail"/>
+                        </div><!--ng-if="personas.imagen[0].ima_nombre != ''"  -->
+                        <div ng-if="personas.imagen.ima_nombre != ''" style="height:190px !important; overflow:auto;">
+                          <div ng-if="thumbnail.dataUrl ==''"><!-- ng-src="{{personas.imagen[0].ima_enlace}}/{{personas.imagen[0].ima_nombre}}" -->
+                            <img ng-src="{{personas.imagen.ima_enlace}}/{{personas.imagen.ima_nombre}}" align="center" class="img-responsive img-thumbnail"/>
                           </div>
                           <div ng-if="thumbnail.dataUrl !=''">
                             <img ng-src="{{thumbnail.dataUrl}}" align="center" class="img-responsive img-thumbnail"/>
@@ -49,8 +50,8 @@ TOP-MENU inicio -->
                         <div class="form-group">
                           <label>Cargar Imagen</label>
                           <input type="file" name="fileInput" id ="fileInput" class="filestyle" data-buttonText="Find file"  file-model="vista.ima_nombre" onchange="angular.element(this).scope().photoChanged(this.files)" width="200%" height="200%" />
-                          {{personas.imagen[0].ima_nombre}}
-                          <input type="hidden" name="" ng-model="personas.imagen[0].ima_nombre" value="{{funcionarios.ima_nombre}}">
+                          {{personas.imagen.ima_nombre}}
+                          <input type="hidden" name="" ng-model="personas.imagen.ima_nombre" value="{{funcionarios.ima_nombre}}">
                           <br>
                         </div> 
                     </div>

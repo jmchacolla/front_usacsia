@@ -118,6 +118,13 @@ angular.module("adminApp")
     update: {method: "PUT", params: {usu_id: "@usu_id"}}
   })
 }])
+//*****************************TABLAS ADMINISTRATIVAS************************
+//--------------------------DEPARTAMENTO----------------------------
+.factory('Departamento', ['$resource', 'CONFIG', function ($resource, CONFIG) {
+  return $resource(CONFIG.DOMINIO_SERVICIOS+"/departamento/:dep_id", {dep_id:"@_dep_id"}, {
+    update: {method: "PUT", params: {dep_id: "@dep_id"}}
+  })
+}])
 
 //jhon----seguimiento
 .factory('Seguimiento', ['$resource', 'CONFIG', function ($resource, CONFIG) {

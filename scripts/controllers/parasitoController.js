@@ -5,11 +5,13 @@ angular.module("adminApp")
   function ($scope, CONFIG, Parasito,$routeParams, $route, toastr, $location,$timeout){
   $scope.ajustes = {
     menu:{
-      titulo: 'Gestión de Contrareferencias',
+      titulo: 'Gestión de Parasitos',
       items:[
-        {nombre:'Referencias Realizadas', enlace:'#/referencias', estilo:''},
-        {nombre:'Referencias Recibidas', enlace:'#/referenciasRec', estilo:''},
-        {nombre:'Contrareferencias Realizadas', enlace:'#/contrareferenciasrea', estilo:'active'}
+       {nombre:'Gestión de Parasitos', enlace:'#/parasito', estilo:'active'},
+        {nombre:'Gestión de Tratamientos', enlace:'#/tratamiento', estilo:''},
+        {nombre:'Gestión de Enferemdades', enlace:'#/homeenfermedad', estilo:''},
+         {nombre:'Paises', enlace:'#/homepais', estilo:''},
+        {nombre:'Departamentos', enlace:'#/homedepartamento'}
         ]
     },
     pagina:{
@@ -91,11 +93,10 @@ angular.module("adminApp")
   function ($scope, CONFIG, Parasito,$routeParams, $route, toastr, $location,$timeout){
   $scope.ajustes = {
     menu:{
-      titulo: 'Gestión de Contrareferencias',
+      titulo: 'Gestión de Parasitos',
       items:[
-        {nombre:'Referencias Realizadas', enlace:'#/referencias', estilo:''},
-        {nombre:'Referencias Recibidas', enlace:'#/referenciasRec', estilo:''},
-        {nombre:'Contrareferencias Realizadas', enlace:'#/contrareferenciasrea', estilo:'active'}
+         {nombre:'Parasitos', enlace:'#/parasito', estilo:''},
+        {nombre:'Crear Parasito', enlace:'#/parasito/crear', estilo:'active'}
         ]
     },
     pagina:{
@@ -154,7 +155,7 @@ angular.module("adminApp")
   function ($scope, CONFIG, Parasito,Tratamiento2,ParasitoTratamiento1,ParasitoTratamiento,$routeParams, $route, toastr, $location,$timeout){
   $scope.ajustes = {
     menu:{
-      titulo: 'Gestión de Contrareferencias',
+      titulo: 'Gestión de Parasitos',
       items:[
         {nombre:'Referencias Realizadas', enlace:'#/referencias', estilo:''},
         {nombre:'Referencias Recibidas', enlace:'#/referenciasRec', estilo:''},

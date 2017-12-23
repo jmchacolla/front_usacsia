@@ -42,15 +42,3 @@ angular.module('adminApp')
 	})
 }])
 
-.factory('Provincia', ['$resource', function ($resource){
-  return $resource("http://190.181.60.19/api_awebss/public/provincias/:pro_id", {pro_id:"@_pro_id"}, {
-    update: {method: "PUT", params: {pro_id: "@pro_id"}}
-  })
-}])
- 
-
-.factory('Departamento',function($resource) {
-  return $resource("http://190.181.60.19/api_awebss/public/departamentos/:dep_id",{dep_id:"@_dep_id"},
-    {update: {method:"PUT", params:{dep_id:"@dep_id"}}
-})
-})
