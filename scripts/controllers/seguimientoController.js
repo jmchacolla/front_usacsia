@@ -49,6 +49,7 @@ angular.module('adminApp')
     });
     UltimaFichaAtendida.get({pt_id:pt_id}, function (argument) {
         $scope.pruebam=argument.prueba_medica;
+        $scope.receta=argument.receta;
         // console.log('argument',  $scope.pruebam);
     });
 

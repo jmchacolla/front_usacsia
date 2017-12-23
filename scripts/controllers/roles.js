@@ -26,7 +26,7 @@ DOMINIO_SERVICIOS: "http://localhost/api_usacsia_v1_0/public"
  // DOMINIO_SERVICIOS: "http://localhost:8080/api_usacsia/public"
 //dominio servidor
 
-DOMINIO_SERVICIOS: "http://localhost:8080/api_usacsia_v1_0/public"
+// DOMINIO_SERVICIOS: "http://localhost:8080/api_usacsia_v1_0/public"
 
   // DOMINIO_SERVICIOS: "http://localhost:8080/api_usacsia_v1/public"
 
