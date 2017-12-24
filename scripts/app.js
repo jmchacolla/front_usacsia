@@ -71,6 +71,11 @@ angular.module("adminApp", ["authService", "ngRoute", "ngResource", "satellizer"
     templateUrl: 'templates/publico/index.html'
   })
 
+  .when('/inicio2', {
+    templateUrl: 'templates/publico/index2.html'
+  })
+
+
 //30-11-2017*****************WENDY*******************************
 
 //8-12-17
