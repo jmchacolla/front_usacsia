@@ -214,6 +214,11 @@ angular.module("adminApp")
 /*prueba e*/
 
 
+.factory('DocumentoTramite', ['$resource', 'CONFIG', function ($resource, CONFIG){
+  return $resource(CONFIG.DOMINIO_SERVICIOS+"/documento_tramite/:dt_id", {dt_id:"@_dt_id"}, {
+    update: {method: "PUT", params: {dt_id: "@dt_id"}}
+  })
+}])
 
 
 /*=========================================USACSIA====================================*/
