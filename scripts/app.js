@@ -266,7 +266,8 @@ angular.module("adminApp", ["authService", "ngRoute", "ngResource", "satellizer"
       authorized: [ROLES.ADMIN_USACSIA.ROL]
     }
   })
-  .when('/establecimientos/create', { 
+
+  .when('/establecimientos/crear', { 
     templateUrl: 'templates/establecimiento_solicitante/crear.html',
     controller: 'CrearEstabSolCtrl',
     data: {
@@ -435,7 +436,7 @@ angular.module("adminApp", ["authService", "ngRoute", "ngResource", "satellizer"
 
   /*-----------------------------tramites---------------------------------*/
 
-  .when('/tramites', {
+  .when('/tramites-car', {
     templateUrl: 'templates/personatramite/index.html',
     controller: 'PersonaTramiteController',
     data: {
@@ -450,6 +451,10 @@ angular.module("adminApp", ["authService", "ngRoute", "ngResource", "satellizer"
     }
   })
 
+  .when('/tramites-cer', {
+    templateUrl: 'templates/personatramite/indexcer.html',
+    controller: 'PersonaTramiteCertificadoCtrl'
+  })
   /*--------------------------------------------------------------------------------------------*/
 
 
@@ -502,6 +507,18 @@ angular.module("adminApp", ["authService", "ngRoute", "ngResource", "satellizer"
       authorized: [ROLES.ADMIN_USACSIA.ROL, ROLES.ADMIN_CARNET.ROL]
     }
   })
+
+    .when('/documento-tramite/crear/:et_id', {
+    templateUrl: 'templates/documento_tramite/crear.html',
+    controller: 'CrearDocumentoTramiteCtrl'
+  })
+
+/*-------------------------------------- documentos -----------------------------------------*/
+    
+  /*--------PENDIENTE------*/
+
+    /*--------PENDIENTE------*/
+
   /*===================================VERONICA================================================*/
 
 

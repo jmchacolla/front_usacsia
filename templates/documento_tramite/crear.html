@@ -1,0 +1,160 @@
+<!-- TOP-MENU inicio -->
+<div ng-include="'./templates/menu_inicio.html'"></div>
+<!-- CONTEXT-MENU  -->
+<div ng-include="'./templates/menu_lateral.html'"></div>
+<!-- CONTENIDO MODULO inicio -->
+<div class="col-md-8 col-sm-8">
+    <div class="row">
+      <div class="col-md-12">
+        <h2 class="text-primary">
+          <span class="glyphicon glyphicon-th-large" aria-hidden="true"></span>
+          {{ajustes.pagina.titulo}}
+        </h2>
+	    <hr class="bg-red">
+      </div>
+    </div>
+    <div class="row">
+      	<div class="col-md-12">
+  		<!-- AQUI VAN LAS TABLAS O FORMULARIOS incrustados -->
+  		<!-- INICIO -->
+  		<div> 
+  			<!-- ng-controller="UploadLicFuncionamienoCtrl as vm2" -->
+	  		<div >
+	  			<!-- ng-controller="UploadCopiaCICtrl as vm3" -->
+	  			<div >
+
+		  		<label class="control-label">Los campos marcados con asterisco (<strong class="fg_red">*</strong>) son obligatorios</label>	
+				<!-- CONTENIDO MODULO inicio -->
+					<form role="form" name="docForm" novalidate>
+						<div class="row">
+							<div class="col-md-12">
+							<!-- AQUI VAN LAS TABLAS O FORMULARIOS incrustados -->
+							<!-- INICIO -->
+								<div class="well well-sm" style="background-color:#fff;">
+									
+									<div class="row">
+										<div class="col-md-4">
+											<div ng-controller="UploadNITCtrl as vm"> 
+											<form name="docForm1">
+						                    <div class="well well-sm">
+						                    	<h4 class="text-center text-primary">I. NIT </h4>
+						                    	<hr class="bg-red">
+												<div ng-if="thumbnail.dataUrl == ''">
+													<img ng-src="./images/imagen-default.jpg" align="center" class="img-responsive img-thumbnail"/>
+												</div>
+												<div ng-if="thumbnail.dataUrl != ''" style="height:190px !important; overflow:auto;">
+													<img ng-src="{{ thumbnail.dataUrl }}" align="center" class="img-responsive img-thumbnail"/>
+												</div>
+												
+												<div class="form-group">
+													<label>Cargar Imagen</label>
+													<input type="file" name="fileInput" id ="fileInput" class="filestyle" data-buttonText="Find file" file-model="vm.ima_nombre" onchange="angular.element(this).scope().photoChanged(this.files)" required/>
+													<input type="hidden" name="" ng-model="documentoTramite1.dt_nombre" value="{{vm.ima_nombre}}">
+													<br>
+												</div> 
+												<label for="nombre" class="control-label">Observacion: <strong class="fg_red">*</strong></label>
+							                   <label><input type="radio" name="ro" id="r1" checked ng-click="cambio()">No</label>
+							                   <label><input type="radio" name="ro" id="r2" ng-click="cambio()">Si</label><br>
+							                	
+										        <textarea style="resize: vertical;min-height:70px;max-height: 150px;" ng-show="obs" class="form-control" name="nombres" type="text" placeholder="Nombre" ng-model="persona.per_nombres" ng-model-options="{ updateOn: 'blur' }" required ng-pattern="patternCadena" autofocus>
+										        	</textarea>
+										        <span class="messages" ng-show="addPersona.nombres.$touched"></span>
+										        	<center>
+							                    <button ng-disabled="docForm1.$invalid" type="submit" class="btn btn-primary" ng-click="vm.enviar();submit(1)" title="Debe llenar todos los campos obligatorios de manera correcta"><span class="glyphicon glyphicon-save"></span> GUARDAR</button>
+							                    </center>
+						                    </div>
+						                    </form>
+						                	</div>
+						                </div>
+
+						                <div class="col-md-4">
+						                	<div ng-controller="UploadLicenciaFuncionamientoCtrl as vm"> 
+											<form name="docForm2">
+						                    <div class="well well-sm">
+						                    	<h4 class="text-center text-primary">II. LICENCIA DE FUNCIONAMIENTO </h4>
+						                    	<hr class="bg-red">
+												<div ng-if="thumbnail.dataUrl == ''">
+													<img ng-src="./images/imagen-default.jpg" align="center" class="img-responsive img-thumbnail"/>
+												</div>
+												<div ng-if="thumbnail.dataUrl != ''" style="height:190px !important; overflow:auto;">
+													<img ng-src="{{ thumbnail.dataUrl }}" align="center" class="img-responsive img-thumbnail"/>
+												</div>
+												
+												<div class="form-group">
+													<label>Cargar Imagen</label>
+													<input type="file" name="fileInput" id ="fileInput" class="filestyle" data-buttonText="Find file" file-model="vm.ima_nombre" onchange="angular.element(this).scope().photoChanged(this.files)" required/>
+													<input type="hidden" name="" ng-model="documentoTramite2.dt_nombre" value="{{vm.ima_nombre}}">
+													<br>
+												</div> 
+												<label for="nombre" class="control-label">Observacion: <strong class="fg_red">*</strong></label>
+							                   <label><input type="radio" name="ro" id="r1" checked ng-click="cambio()">No</label>
+							                   <label><input type="radio" name="ro" id="r2" ng-click="cambio()">Si</label><br>
+							                	
+										        <textarea style="resize: vertical;min-height:70px;max-height: 150px;" ng-show="obs" class="form-control" name="nombres" type="text" placeholder="Nombre" ng-model="persona.per_nombres" ng-model-options="{ updateOn: 'blur' }" required ng-pattern="patternCadena" autofocus>
+										        	</textarea>
+										        <span class="messages" ng-show="addPersona.nombres.$touched"></span>
+										        	<center>
+							                    <button type="submit" class="btn btn-primary" ng-click="vm.enviar();submit(2)" title="Debe llenar todos los campos obligatorios de manera correcta"><span class="glyphicon glyphicon-save"></span> GUARDAR</button>
+							                    </center>
+						                    </div>
+						                    </form>
+						                	</div>
+						                </div>
+
+						                <div class="col-md-4">
+						                	<div ng-controller="UploadCICtrl as vm"> 
+											<form name="docForm3">
+						                    <div class="well well-sm">
+						                    	<h4 class="text-center text-primary">III. CARNÉ DE IDENTIDAD </h4>
+						                    	<hr class="bg-red">
+												<div ng-if="thumbnail.dataUrl == ''">
+													<img ng-src="./images/imagen-default.jpg" align="center" class="img-responsive img-thumbnail"/>
+												</div>
+												<div ng-if="thumbnail.dataUrl != ''" style="height:190px !important; overflow:auto;">
+													<img ng-src="{{ thumbnail.dataUrl }}" align="center" class="img-responsive img-thumbnail"/>
+												</div>
+												
+												<div class="form-group">
+													<label>Cargar Imagen</label>
+													<input type="file" name="fileInput" id ="fileInput" class="filestyle" data-buttonText="Find file" file-model="vm.ima_nombre" onchange="angular.element(this).scope().photoChanged(this.files)" required/>
+													<input type="hidden" name="" ng-model="documentoTramite3.dt_nombre" value="{{vm.ima_nombre}}">
+													<br>
+												</div> 
+												<label for="nombre" class="control-label">Observacion: <strong class="fg_red">*</strong></label>
+							                   <label><input type="radio" name="ro" id="r1" checked ng-click="cambio()">No</label>
+							                   <label><input type="radio" name="ro" id="r2" ng-click="cambio()">Si</label><br>
+							                	
+										        <textarea style="resize: vertical;min-height:70px;max-height: 150px;" ng-show="obs" class="form-control" name="dt3" type="text" placeholder="Nombre" ng-model="persona.per_nombres" ng-model-options="{ updateOn: 'blur' }" required ng-pattern="patternCadena" autofocus>
+										        	</textarea>
+										        <span class="messages" ng-show="docForm3.dt3.$touched"></span>
+										        	<center>
+							                    <button type="submit" class="btn btn-primary" ng-click="vm.enviar();submit(3)" title="Debe llenar todos los campos obligatorios de manera correcta"><span class="glyphicon glyphicon-save"></span> GUARDAR</button>
+							                    </center>
+						                    </div>
+						                    </form>
+						                	</div>
+						            	</div>
+									</div>	
+								</div>
+							<!-- FIN -->
+							<!-- AQUI VAN LOS TABLAS O FORMULARIOS incrustados -->
+							</div>
+						</div>
+					</form>
+				<!-- CONTENIDO MODULO fin -->
+				</div>
+			</div>
+		</div>
+		<p ng-show="ajustes.pagina.success" class="alert alert-success">{{ajustes.pagina.success}}</p>
+		</div> <!-- fin controlador de imagen -->
+
+		<!-- FIN -->
+		<!-- AQUI VAN LOAS TABLAS O FORMULARIOS incrustados -->
+	</div>
+	<script type="text/javascript">
+    	$(":file").filestyle({buttonText: " Abrir"});
+    	//$('#fileInput').filestyle({buttonName : 'btn-warning'});
+	</script>
+</div>
+<script type="text/javascript">
+</script>
