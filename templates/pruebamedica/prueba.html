@@ -15,39 +15,43 @@
        </div>
       <div class="row">
         <div class="col-md-12" >
-          <div class="well wel-sm">
+          <div class="well wel-sm" style="background-color:#fff;">
             <!-- AQUI VAN LAS TABLAS O FORMULARIOS incrustados ng-controller="apiApppCtrl as vm" -->
             <!-- INICIO -->
             <form name="userForm" novalidate>
               <div class="row">
                   <h4 class="text-center text-primary">I. FICHA DE IDENTIFICACIÓN</h4>
-                      <hr class="bg-red"> 
+                  <hr class="bg-red"> 
               </div>   
               <div class="row" >
-                <div class="col-md-4" >
-                    <label for="nit" class="control-label">Nombres del paciente: </label>
-                    <input disabled type="text" class="form-control" id="nomp" ng-model="prueba_medica.paciente.per_nombres">
-                </div>  
-                <div class="col-md-4" >
-                    <label for="nit" class="control-label">Apellido Paterno: </label>
-                    <input disabled type="text" class="form-control" id="appt" ng-model="prueba_medica.paciente.per_apellido_primero">
-                </div>  
-                <div class="col-md-4" >
-                    <label for="nit" class="control-label">Apellido Materno: </label>
-                    <input disabled type="text" class="form-control" id="appm" ng-model="prueba_medica.paciente.per_apellido_segundo">
-                </div>
-                <div class="col-md-4" >
-                    <label for="nit" class="control-label">C.I.:</label>
-                    <input disabled type="text" class="form-control" id="appm" ng-model="prueba_medica.paciente.per_ci">
-                </div> 
-                <div class="col-md-4" >
-                    <label for="nit" class="control-label">Edad:</label>
-                    <input disabled type="text" class="form-control" id="appm" ng-model="prueba_medica.paciente.per_fecha_nacimiento">
-                </div>
-                <div class="col-md-4" >
-                    <label for="nit" class="control-label">Ocupación:</label>
-                    <input disabled type="text" class="form-control" id="appm" ng-model="prueba_medica.paciente.per_ocupacion">
-                </div>
+                  <div class="col-md-3 col-sm-6">
+                    <label class="text-primary">Nombre:</label><br>
+                    {{prueba_medica.paciente.per_nombres}}
+                  </div>
+                  <div class="col-md-3 col-sm-6">
+                    <label class="text-primary">Apellido paterno:</label><br>
+                    {{prueba_medica.paciente.per_apellido_primero}}
+                  </div>
+                  <div class="col-md-3 col-sm-6">
+                    <label class="text-primary">Apellido materno:</label><br>
+                    {{prueba_medica.paciente.per_apellido_segundo}}
+                  </div>
+                  <div class="col-md-3 col-sm-6">
+                    <label class="text-primary">CI:</label><br>
+                    {{prueba_medica.paciente.per_ci + " "}} {{prueba_medica.paciente.per_ci_expedido | uppercase}}
+                  </div>
+                  <div class="col-md-3 col-sm-6">
+                    <label class="text-primary">Fecha de Nacimiento:</label><br>
+                    {{prueba_medica.paciente.per_fecha_nacimiento}}
+                  </div>
+                  <div class="col-md-3 col-sm-6">
+                    <label class="text-primary">Genero:</label><br>
+                    {{prueba_medica.paciente.per_genero}}
+                  </div>
+                  <div class="col-md-3 col-sm-6">
+                    <label class="text-primary">Ocupación:</label><br>
+                    {{prueba_medica.paciente.per_ocupacion}}
+                  </div>
               </div> 
               <div class="row">
                   <h4 class="text-center text-primary">II. DATOS DE PRUEBA CLÍNICA</h4>
@@ -56,71 +60,111 @@
               <div class="row">
                       <div class="col-md-6" ng-repeat='prueba in prueba_medica.pruebas'>
                           <div class="formulario">
-                              <p>
-                                <button type="button" class="btn btn-danger btn-small"  ng-click="cambiartrue(prueba.enfe_id, prueba.enfe_nombre,prueba.pre_id)" title="Positivo">
+                                <button type="button" class="btn btn-danger btn-xs"  ng-click="cambiartrue(prueba.enfe_id, prueba.enfe_nombre,prueba.pre_id)" title="Positivo">
                                   <span class="glyphicon glyphicon-plus"></span>
                                 </button>
-                                <button type="button" class="btn btn-success" ng-click="cambiarfalse(prueba.enfe_id, prueba.enfe_nombre,prueba.pre_id)" title="Negativo">
+                                <button type="button" class="btn btn-success btn-xs" ng-click="cambiarfalse(prueba.enfe_id, prueba.enfe_nombre,prueba.pre_id)" title="Negativo">
                                   <span class="glyphicon glyphicon-minus"></span>
                                 </button>
-                                 {{prueba.enfe_nombre}}
-                              </p>
-                              <hr>
+                                 <label>{{prueba.enfe_nombre}}</label>
+                            <hr>
                           </div>
-                          <br/>
                       </div>
               </div>
-              <hr>
               <div class="row">
                   <h4 class="text-center text-primary">III. RESULTADOS DE LABORATORIO</h4>
                       <hr class="bg-red"> 
               </div>
-              <div><!-- akiiii -->
-                <div>
-                  <label>Fecha:</label>
-                  <span class="lead">{{prueba_laboratorio.pl_fecha_recepcion}}</span>
+              <div class="row"><!-- akiiii -->
+                <div class="col-md-3 col-sm-6">
+                  <label class="text-primary">Fecha:</label><br>
+                  {{prueba_laboratorio.pl_fecha_recepcion}}
+                </div>
+                <div class="col-md-3 col-sm-6">
+                  <label class="text-primary">Color:</label><br>
+                  {{prueba_laboratorio.pl_color}}
+                </div>
+                <div class="col-md-3 col-sm-6">
+                  <label class="text-primary">Aspecto:</label><br>
+                  {{prueba_laboratorio.pl_aspecto}}
+                </div>
+                <div class="col-md-3 col-sm-6">
+                  <label class="text-primary">Responsable:</label><br>
+                  {{fun.fun_cargo}} {{per.per_nombres}} {{per.per_apellido_primero}} {{per.per_apellido_segundo}} 
+                </div>
+                <hr>
+              </div>
+              <div class="row">
+                <div class="col-md-12">
+                  <label class="text-primary">Resultados de prueba:</label>
+                  <br>
+                  
+                </div>
+
+                <div ng-repeat="pparasito in prupar" class="col-md-4 col-xs-6">
+                  <button class="btn btn-danger">
+                    <span class="glyphicon glyphicon-alert"></span> {{pparasito.par_nombre}}
+                  </button>
+                  <hr>
                 </div>
                 <div>
-                  <label>Color:</label>
-                  <span class="lead">{{prueba_laboratorio.pl_color}}</span>
-                </div>
-                <div>
-                  <label>Aspecto</label>
-                  <span class="lead">{{prueba_laboratorio.pl_aspecto}}</span>
-                </div>
-                <div>
-                  <label>Responsable:</label>
-                  <span class="lead">{{fun.fun_cargo}} {{per.per_nombres}} {{per.per_apellido_primero}} {{per.per_apellido_segundo}} </span>
+                  
                 </div>
               </div>
               <div class="row">
-                <div ng-repeat="pparasito in prupar" class="col-md-3 col-xs-6">
-                  <button class="btn btn-danger">
-                  <span class="glyphicon glyphicon-alert"></span> {{pparasito.par_nombre}}
-                  </button>
+                  <h4 class="text-center text-primary">TRATAMIENTO</h4>
+                  <hr class="bg-red">
+              </div>
+              <div ng-show="!vertr">
+                <button type="submit" data-toggle="modal"  class="btn btn-primary" ng-click="vertramite()"><span class="glyphicon glyphicon-pencil"></span> ASIGNAR TRATAMIENTO</button>
+              </div>
+              <div ng-show="vertr">
+                <div class="row">
+                  <div class="col-md-3">
+                    <label class="control-label">Seleccione un tratamiento: </label>
+                  </div>
+                  <div class="col-md-6">
+                    <select class="form-control " name="tramite" ng-model="tratamiento.trat_id"  ng-options="tratamiento.trat_id as tratamiento.trat_nombre for tratamiento in tratamientos.tratamiento" ng-change="agregarReceta(tratamiento.trat_id )">
+                      <option value="">--Elige una opción--</option>
+                    </select>
+                  </div>
+                </div>
+                <div class="row">
+                  <div class="col-md-12">
+                    <label class="control-label">Detalle de la receta médica: </label><br>
+                  </div>
+                  <div class="col-md-12">
+                    <textarea ng-model='rec_texto' class="col-md-12 col-sm-12" heigth="100">
+                      
+                    </textarea>
+                  </div>
+                  <div class="col-md-12">
+                    <center>
+                      <button type="submit" data-toggle="modal"  class="btn btn-primary" ng-disabled="userForm.$invalid" ng-click="savetratamiento()"><span class="glyphicon glyphicon-save"></span> GUARDAR TRATAMIENTO</button>
+                      <button class="btn btn-danger"  ng-click="vertramite()"><span class="glyphicon glyphicon-remove"></span> CANCELAR</button>
+                    </center>
+                  </div>
                 </div>
               </div>
                 <hr>
               <div class="row">
                   <h4 class="text-center text-primary">IV. DIAGNÓSTICO</h4>
-                      <hr class="bg-red"> 
+                  <hr class="bg-red">
               </div>
-              <div>
-                <center>
-                  <textarea ng-model=prueba_medica.prueba_medica.pm_diagnostico class="col-md-8 col-sm-12"></textarea>
-                </center>
-                <br>
+              <div class="col-md-12">
+                  <textarea ng-model=prueba_medica.prueba_medica.pm_diagnostico class="col-md-12 col-sm-12" rows="10"></textarea>
               </div>
               <br>
               <div class="row">
                   <p ng-show="$parent.ajustes.pagina.success" class="alert alert-success">{{$parent.ajustes.pagina.success}}</p>
                     <center>
                       <button type="submit" data-toggle="modal"  class="btn btn-primary" ng-disabled="userForm.$invalid" ng-click="diagnostico(prueba_medica.prueba_medica.pm_diagnostico)"><span class="glyphicon glyphicon-save"></span> GUARDAR Y TERMINAR</button>
-                      <a href="#/establecimientos/pacientes">
+                      <a href="#/atencion">
                       <button type="submit" data-toggle="modal"  class="btn btn-danger"  ><span class="glyphicon glyphicon-remove"></span> CANCELAR</button>
                       </a>
                     </center>
               </div>
+          </div>
             </form>
             
           </div>

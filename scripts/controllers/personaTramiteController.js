@@ -208,7 +208,7 @@ angular.module("adminApp")
       $scope.pertramite = data.pertramite;
       console.log('-----', $scope.pertramite);
       nt=$scope.pertramite.persona_tramite.pt_numero_tramite;
-      $scope.today=moment(new Date(), "YYYY-MM-DD") .format("DD-MM-YY");
+      $scope.day=moment($scope.pertramite.persona_tramite.pt_fecha_ini, "YYYY-MM-DD") .format("DD-MM-YYYY");
       $scope.monto='Numeros a Letras';
       // if ($scope.pertramite.persona.per_genero=='F' || $scope.pertramite.persona.per_genero=='f'){
       //   $scope.pertramite.persona.per_genero='FEMENINO';
@@ -488,8 +488,8 @@ function ($scope, ListarTramitesService, $route, toastr,$location)
             }
             var docDefinition = {
                 
-                //pageOrientation: 'landscape',
-                //pageSize: 'LEGAL',
+                pageOrientation: 'landscape',
+                pageSize: 'A5',
                 pageMargins: [ 30, 5, 30, 5 ],
 
                 content: [

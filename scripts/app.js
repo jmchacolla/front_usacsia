@@ -71,6 +71,11 @@ angular.module("adminApp", ["authService", "ngRoute", "ngResource", "satellizer"
     templateUrl: 'templates/publico/index.html'
   })
 
+  .when('/inicio2', {
+    templateUrl: 'templates/publico/index2.html'
+  })
+
+
 //30-11-2017*****************WENDY*******************************
 
 //8-12-17
@@ -440,7 +445,7 @@ angular.module("adminApp", ["authService", "ngRoute", "ngResource", "satellizer"
 
   })
   /*ver seguimiento tramite*/
-  .when('/serguimiento-tramite-cas/:pt_id', {
+  .when('/seguimiento-tramite-cas/:pt_id', {
     templateUrl: 'templates/personatramite/seguimientover.html',
     controller: 'SeguimientoVerCtrl'
   })
@@ -521,6 +526,16 @@ angular.module("adminApp", ["authService", "ngRoute", "ngResource", "satellizer"
 
     .when('/documento-tramite/crear/:et_id', {
     templateUrl: 'templates/documento_tramite/crear.html',
+    controller: 'CrearDocumentoTramiteCtrl'
+  })
+
+
+    .when('/firma/crear', {
+    templateUrl: 'templates/firma/crear.html',
+    controller: 'FirmaCrearCtrl'
+  })
+    .when('/firma/editar', {
+    templateUrl: 'templates/firma/editar.html',
     controller: 'CrearDocumentoTramiteCtrl'
   })
 

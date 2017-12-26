@@ -14,9 +14,8 @@ angular.module('adminApp')
 
 // DOMINIO_SERVICIOS: "http://localhost:8000"//---------------------jhon
 // DOMINIO_SERVICIOS:"http://192.168.43.53:8000"
-
 //DOMINIO_SERVICIOS: "http://190.181.60.19/api_usacsia/public"
-
+DOMINIO_SERVICIOS: "http://localhost/api_usacsia_v1_0/public"
 
 
 
@@ -27,22 +26,16 @@ angular.module('adminApp')
  // DOMINIO_SERVICIOS: "http://localhost:8080/api_usacsia/public"
 //dominio servidor
 
-DOMINIO_SERVICIOS: "http://localhost:8080/api_usacsia_v1_0/public"
+// DOMINIO_SERVICIOS: "http://localhost:8080/api_usacsia_v1_0/public"
 
   // DOMINIO_SERVICIOS: "http://localhost:8080/api_usacsia_v1/public"
 
 
 //vero
-
-  // DOMINIO_SERVICIOS: "http://localhost:8080/api_usacsia/public"
- 
-//DOMINIO_SERVICIOS: "http://localhost/usacsia_php_5.6/usacsia_git2/api_usacsia/public"
- 
-
-//vero
-//DOMINIO_SERVICIOS: "http://localhost/usacsia_php_5.6/usacsia_git2/api_usacsia/public"
+// DOMINIO_SERVICIOS: "http://localhost:8080/api_usacsia/public"
 // DOMINIO_SERVICIOS: "http://localhost:8000"
-
+DOMINIO_SERVICIOS: "http://localhost/usacsia_php_5.6/solo_api_dorys_git/api_usacsia_v1_0/public"
+// DOMINIO_SERVICIOS: "http://10.0.25.104/api_usacsia/public"
 })
 
 

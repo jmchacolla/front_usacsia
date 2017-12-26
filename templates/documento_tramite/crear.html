@@ -53,8 +53,7 @@
 													<br>
 												</div> 
 												<label for="nombre" class="control-label">Observacion: <strong class="fg_red">*</strong></label>
-							                   <label><input type="radio" name="ro" id="r1" checked ng-click="cambio()">No</label>
-							                   <label><input type="radio" name="ro" id="r2" ng-click="cambio()">Si</label><br>
+							                   <label><input type="checkbox" ng-click="cambio()">Si</label>
 							                	
 										        <textarea style="resize: vertical;min-height:70px;max-height: 150px;" ng-show="obs" class="form-control" name="nombres" type="text" placeholder="Nombre" ng-model="persona.per_nombres" ng-model-options="{ updateOn: 'blur' }" required ng-pattern="patternCadena" autofocus>
 										        	</textarea>
@@ -87,10 +86,9 @@
 													<br>
 												</div> 
 												<label for="nombre" class="control-label">Observacion: <strong class="fg_red">*</strong></label>
-							                   <label><input type="radio" name="ro" id="r1" checked ng-click="cambio()">No</label>
-							                   <label><input type="radio" name="ro" id="r2" ng-click="cambio()">Si</label><br>
+							                   <label><input type="checkbox" ng-click="cambio2()">Si</label>
 							                	
-										        <textarea style="resize: vertical;min-height:70px;max-height: 150px;" ng-show="obs" class="form-control" name="nombres" type="text" placeholder="Nombre" ng-model="persona.per_nombres" ng-model-options="{ updateOn: 'blur' }" required ng-pattern="patternCadena" autofocus>
+										        <textarea style="resize: vertical;min-height:70px;max-height: 150px;" ng-show="obs2" class="form-control" name="nombres" type="text" placeholder="Nombre" ng-model="persona.per_nombres" ng-model-options="{ updateOn: 'blur' }" required ng-pattern="patternCadena" autofocus>
 										        	</textarea>
 										        <span class="messages" ng-show="addPersona.nombres.$touched"></span>
 										        	<center>
@@ -121,10 +119,9 @@
 													<br>
 												</div> 
 												<label for="nombre" class="control-label">Observacion: <strong class="fg_red">*</strong></label>
-							                   <label><input type="radio" name="ro" id="r1" checked ng-click="cambio()">No</label>
-							                   <label><input type="radio" name="ro" id="r2" ng-click="cambio()">Si</label><br>
+							                   <label><input type="checkbox" ng-click="cambio3()">Si</label>
 							                	
-										        <textarea style="resize: vertical;min-height:70px;max-height: 150px;" ng-show="obs" class="form-control" name="dt3" type="text" placeholder="Nombre" ng-model="persona.per_nombres" ng-model-options="{ updateOn: 'blur' }" required ng-pattern="patternCadena" autofocus>
+										        <textarea style="resize: vertical;min-height:70px;max-height: 150px;" ng-show="obs3" class="form-control" name="dt3" type="text" placeholder="Nombre" ng-model="persona.per_nombres" ng-model-options="{ updateOn: 'blur' }" required ng-pattern="patternCadena" autofocus>
 										        	</textarea>
 										        <span class="messages" ng-show="docForm3.dt3.$touched"></span>
 										        	<center>
