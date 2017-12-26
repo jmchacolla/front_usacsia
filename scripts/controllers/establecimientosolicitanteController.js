@@ -9,7 +9,7 @@ angular.module("adminApp")
       titulo: 'Gestión de Establecimientos Solicitantes',
       items:[
         {nombre:'Establecimientos', enlace:'#/establecimientossol', estilo:'active'},
-        {nombre:'Nuevo establecimiento', enlace:'#/establecimientos/create', estilo:''}]
+        {nombre:'Nuevo establecimiento', enlace:'#/establecimientosol/persona', estilo:''}]
     },
     //Configuraciones de la página
     pagina:{
@@ -104,19 +104,19 @@ angular.module("adminApp")
 .controller('CrearEstabSolCtrl', ['$http','CONFIG','$scope','EstabSols','Zonas',  '$location', '$timeout', 'toastr',
  function ($scope, EstabSols,Zonas,  $location, $timeout, toastr){
   $scope.ajustes = {
+    //Configuraciones del menu:
     menu:{
       titulo: 'Gestión de Establecimientos Solicitantes',
       items:[
-        {nombre:'Establecimientos', enlace:'#/establecimientos', estilo:''},
-        {nombre:'Nuevo Establecimiento', enlace:'#/establecimientos/create', estilo:'active'}
-      ]
+        {nombre:'Establecimientos', enlace:'#/establecimientossol', estilo:''},
+        {nombre:'Nuevo establecimiento', enlace:'#/establecimientosol/persona', estilo:'active'}]
     },
+    //Configuraciones de la página
     pagina:{
       titulo:'Nuevo Establecimiento',
       action: "CREAR"
     }
   }
-
   $scope.zon=false;
   $scope.ver_zonas=function(mun_id){
       console.log(mun_id+"<<< MUN_ID");
@@ -189,10 +189,7 @@ $scope.latitud=null;
             infowindow.open(map, marker);
             }
         })(marker));
-
-
      })   
-
   // };
 
 
@@ -250,3 +247,56 @@ $scope.latitud=null;
     }
   };
 }])
+
+
+
+.controller('BuscarCrearPersonaCtrl', ['$scope','EstabSols', '$route', 'toastr',
+  function ($scope, EstabSols, $route, toastr){
+  $scope.ajustes = {
+    //Configuraciones del menu:
+    menu:{
+      titulo: 'Gestión de Establecimientos Solicitantes',
+      items:[
+        {nombre:'Establecimientos', enlace:'#/establecimientossol', estilo:''},
+        {nombre:'Nuevo establecimiento', enlace:'#/establecimientosol/persona', estilo:'active'}]
+    },
+    //Configuraciones de la página
+    pagina:{
+      titulo:'Buscar propietario registrado'
+    }
+  }
+
+  $scope.crear_desde_establecimiento=true;
+
+      $scope.formcrear=false;
+    $scope.vercrear=function(){
+      $scope.formcrear=true;
+    }
+}])
+
+
+/*BUSCA PERSONA POR CI*/
+.controller('BuscaPersonaRegistradaCtrl', ['$http', '$scope', 'CONFIG', buscaPersonaRegistradaController])
+function buscaPersonaRegistradaController($http, $scope, CONFIG){
+  $scope.buscaPersona = function(){
+    console.log('esta buscando persona');
+      $scope.resultado="Cargando...";
+      $http.get(CONFIG.DOMINIO_SERVICIOS+'/personas_ci/'+$scope.per_ci).success(function(respuesta){
+        console.log('datos del apersona buscada: ', respuesta);
+          if(!respuesta.persona){
+              $scope.ver=false;
+              $scope.noexiste=true;
+              $scope.resultado=" La persona no se encuentra registrada";              
+          } else if(respuesta.persona){
+              $scope.ver=true;
+              $scope.resultado='';
+              $scope.persona = respuesta.persona.persona;
+              $scope.zona = respuesta.persona.zona;
+              $scope.municipio = respuesta.persona.municipio;
+              $scope.provincia = respuesta.persona.provincia;
+          }  
+      });
+  }
+}
+
+

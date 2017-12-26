@@ -50,6 +50,14 @@
 										</div> 
 				                    </div>
 								</div>	
+
+								<div class="col-lg-8 col-xs-12">
+							        <label class="control-label">Hora:</label>
+						        	<div class="">
+						            	<p>{{Current_date | date:'Y-m'}}</p>
+						        	</div>
+						        </div>
+
 								<div class="col-md-8">
 									<div class="row">
 										<div class="col-md-8">
@@ -60,15 +68,6 @@
 				    							<span ng-show="addEstablecimiento.nombre.$error.pattern">No se admiten símbolos especiales.</span>
 			      							</span>
 										</div>
-										      <div class="col-md-4" ng-controller="ListaPersonasCtrl" >
-									              <label for="nombrelab" class="control-label">Coordinador: <strong class="fg_red">*</strong></label>
-									               <select class="form-control " name="coordinador" ng-model="establecimiento.coo_per_id"  ng-options="persona.per_id as persona.per_nombres+' '+persona.per_apellido_primero+' '+persona.per_apellido_segundo for persona in personas" required>
-									              <option value="">--Elige opcion--</option>
-									              </select>
-									              <span class="messages" ng-show="addEstablecimiento.$submitted || addEstablecimiento.coordinador.$touched">
-									                  <span ng-show="addEstablecimiento.coordinador.$error.required">El campo es obligatorio.</span>
-									             </span>						            
-									        </div>    
 									</div>
 									<br>
 									<div class="row">
