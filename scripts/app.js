@@ -528,6 +528,11 @@ angular.module("adminApp", ["authService", "ngRoute", "ngResource", "satellizer"
     templateUrl: 'templates/documento_tramite/crear.html',
     controller: 'CrearDocumentoTramiteCtrl'
   })
+    /*jhon- arancel categoria*/
+    .when('/categoria', {
+      templateUrl: 'templates/arancel/categoria-lista.html',
+      controller: 'CategoriaCtrl'
+    })
 
 /*-------------------------------------- documentos -----------------------------------------*/
     
