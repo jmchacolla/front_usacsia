@@ -283,14 +283,14 @@ angular.module("adminApp", ["authService", "ngRoute", "ngResource", "satellizer"
     templateUrl: 'templates/personatramite/final2.html',
     controller: 'ListaFinalCtrl',
     data: {
-      authorized: [ROLES.ADMIN_USACSIA.ROL, ROLES.ADMIN_CARNET.ROL]
+      authorized: [ROLES.ADMIN_USACSIA.ROL, ROLES.ADMIN_CARNET.ROL,ROLES.JEFE_USACSIA.ROL]
     }
   })
   .when('/tramites_concluidos/ver/:pt_id', { 
     templateUrl: 'templates/personatramite/ver.html',
     controller: 'VerFinalCtrl',
     data: {
-      authorized: [ROLES.ADMIN_USACSIA.ROL, ROLES.ADMIN_CARNET.ROL]
+      authorized: [ROLES.ADMIN_USACSIA.ROL, ROLES.ADMIN_CARNET.ROL,ROLES.JEFE_USACSIA.ROL]
     }
   })
 //*******************************==========================PAIS==========================================================================
@@ -533,6 +533,16 @@ angular.module("adminApp", ["authService", "ngRoute", "ngResource", "satellizer"
       templateUrl: 'templates/arancel/categoria-lista.html',
       controller: 'CategoriaCtrl'
     })
+
+
+    .when('/firma/crear', {
+    templateUrl: 'templates/firma/crear.html',
+    controller: 'FirmaCrearCtrl'
+  })
+    .when('/firma/editar', {
+    templateUrl: 'templates/firma/editar.html',
+    controller: 'CrearDocumentoTramiteCtrl'
+  })
 
 /*-------------------------------------- documentos -----------------------------------------*/
     

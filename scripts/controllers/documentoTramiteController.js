@@ -31,6 +31,24 @@ function ($scope, DocumentoTramite, $route,$routeParams,toastr,$location)
     }
     console.log('raidoooooooos',$scope.obs);
   }
+    $scope.obs2=false;
+  $scope.cambio2 = function(){
+    if($scope.obs2){
+      $scope.obs2=false;
+    }else{
+      $scope.obs2=true;
+    }
+    console.log('raidoooooooos',$scope.obs2);
+  }
+    $scope.obs3=false;
+  $scope.cambio3 = function(){
+    if($scope.obs3){
+      $scope.obs3=false;
+    }else{
+      $scope.obs3=true;
+    }
+    console.log('raidoooooooos',$scope.obs3);
+  }
   
   $scope.documentoTramite1={
     doc_id:1,

@@ -4,9 +4,7 @@ angular.module("adminApp")
 .controller('ListaRefCtrl',['$scope','CONFIG', 'ReferenciasEstablecimientoOrigen','Referencia','$routeParams', '$location', '$timeout', 'toastr','$route', function ($scope, CONFIG,ReferenciasEstablecimientoOrigen,Referencia,$routeParams, $location, $timeout, toastr,$route){
   var SesionG = localStorage.getItem("Sesion");
   var SesionG = JSON.parse(SesionG);
-  $scope.user = {
-    rol_id: CONFIG.ROL_CURRENT_USER
-  }
+
   if ((localStorage.getItem("nivelEst")!='PRIMER NIVEL') || ((parseInt(localStorage.getItem("tipoEst"), 10)==5) && (localStorage.getItem("nivelEst")=='PRIMER NIVEL')))
   {
     if ($scope.user.rol_id != 6)

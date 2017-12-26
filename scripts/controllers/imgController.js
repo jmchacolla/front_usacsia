@@ -453,6 +453,74 @@ angular.module("adminApp")
     };
 }])
 
+.controller('UploadFirmaCtrl', ['$scope', '$timeout','$http',function($scope, $timeout, $http){
+    
+        $scope.thumbnail = {
+            dataUrl: ''
+        };
+
+        $scope.fileReaderSupported = window.FileReader != null;
+            $scope.photoChanged = function(files){
+                if (files != null) {
+                    var file = files[0];
+                if ($scope.fileReaderSupported && file.type.indexOf('image') > -1) {
+                    $timeout(function() {
+                        var fileReader = new FileReader();
+                        fileReader.readAsDataURL(file);
+                        fileReader.onload = function(e) {
+                            $timeout(function(){
+                                $scope.thumbnail.dataUrl = e.target.result;
+                            });
+                        }
+                        $scope.firma.fir_nombre=file.name;  //obtenemos el nombre de la imagen :)
+                    });
+                }
+            }
+        };
+
+        var vm = this;
+        vm.img=false;
+        //Probando los estados http
+        function a(){
+            return $http({
+                method: 'POST',
+                url: 'prueba.php',
+                })
+        };
+        vm.b=a().then(function (alguien) {
+            vm.alguien=alguien;
+        });
+
+
+        vm.enviar=function() {
+        //Asignamos el file-model a la variable file, gracias a la directiva de mas arriba.
+        var file = vm.ima_nombre;
+
+        var fd = new FormData();
+        fd.append('file', file); //Agregamos data al "formulario" que vamos a enviar
+
+        $http.post('firma.php', fd, {
+            transformRequest: angular.identity, //Le decimos a angular que no serialize el envio
+            headers: {'Content-Type': undefined}
+            })
+            .success(function(response){
+                //Guardamos la url de la imagen y hacemos que la muestre.
+                vm.ima_nombre=response;
+                vm.img=true;
+            })
+            .error(function(response){
+
+        });
+        $scope.msg="Imagen cargada correctamente";
+    };
+}])
+
+
+
+
+
+
+
 
 
 

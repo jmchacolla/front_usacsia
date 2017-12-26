@@ -21,7 +21,10 @@ angular.module("adminApp")
     
     console.log(pt_id,'es el pt');
    
-
+  var FunG = localStorage.getItem("Funcionario");
+  var FunG = JSON.parse(FunG);
+  $scope.fun_id = FunG.fun_id;
+  console.log("es el id del funcionario",$scope.fun_id);
    //datos del persona
 
    PersonaTramite.get({pt_id:pt_id}, function(data)
@@ -39,7 +42,7 @@ angular.module("adminApp")
    $scope.pruebamed={
       pt_id:pt_id,
       ser_id:1,//---------medicina general
-      fun_id:1,//----------debe ser de sesion
+      fun_id:$scope.fun_id,//----------debe ser de sesion
       fic_id:null,
       pm_fc:"",
       pm_fr:"",

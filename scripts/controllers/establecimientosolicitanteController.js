@@ -101,7 +101,7 @@ angular.module("adminApp")
 
 
 
-.controller('CrearEstabSolCtrl', ['$scope','EstabSols','Zonas',  '$location', '$timeout', 'toastr',
+.controller('CrearEstabSolCtrl', ['$http','CONFIG','$scope','EstabSols','Zonas',  '$location', '$timeout', 'toastr',
  function ($scope, EstabSols,Zonas,  $location, $timeout, toastr){
   $scope.ajustes = {
     menu:{
@@ -134,7 +134,7 @@ angular.module("adminApp")
 $scope.latitud=null;
  $scope.longitud=null;
  var lat,long;
-$scope.initMap = function(){
+// $scope.initMap = function(){
    
     var infowindow = new google.maps.InfoWindow();
     var marker, i;
@@ -158,10 +158,12 @@ $scope.initMap = function(){
         });   
         
         var markerLatLng = marker.getPosition();
+        $scope.markerLatLng=markerLatLng;
         $scope.latitud=markerLatLng.lat();
         $scope.longitud=markerLatLng.lng();
-        console.log("latitud para mostrar en input",$scope.latitud);
-        console.log("longitud para mostrar en input",$scope.longitud);
+        console.log("el objeto con la posicion completa",$scope.markerLatLng);
+        console.log("latitud por defecto",$scope.latitud);
+        console.log("longitud por defecto",$scope.longitud);
         //console.log("POSITIONmmmmm",marker.position.lat.[[Scopes]].0.a);  
         infowindow.setContent('<h4 class="text-primary">Tú estas aquí <br><small>Esta es tu ubicación aproximada</small></h4>');
         infowindow.open(map, marker);
@@ -176,11 +178,12 @@ $scope.initMap = function(){
                 markerLatLng.lng(),
                 'latitud, longitud'
             ].join(''));*/
+
             var markerLatLng1 = marker.getPosition();
-             lat=markerLatLng1.lat();
-            long=markerLatLng1.lng();
-            console.log("latitudq",lat);
-            console.log("longitudq",long);  
+             document.getElementById("establecimientolatitud").value=markerLatLng1.lat();
+             document.getElementById("establecimientolongitud").value=markerLatLng1.lng();
+            console.log("latitud del click", $scope.latitud);
+            console.log("longitud del click", $scope.longitud);  
 
  
             infowindow.open(map, marker);
@@ -190,7 +193,7 @@ $scope.initMap = function(){
 
      })   
 
-  };
+  // };
 
 
 
