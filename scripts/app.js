@@ -565,6 +565,11 @@ angular.module("adminApp", ["authService", "ngRoute", "ngResource", "satellizer"
     templateUrl: 'templates/firma/editar.html',
     controller: 'CrearDocumentoTramiteCtrl'
   })
+    /*busca establecimiento_solictante por ci o por razon social*/
+    .when('/buscarpropietario', {
+      templateUrl: 'buscarpropietario.html',
+      controller: 'BuscarpropietarioCtrl'
+    })
 
 /*-------------------------------------- documentos -----------------------------------------*/
     
