@@ -30,20 +30,13 @@ angular.module("adminApp")
     per_numero_celular: null,
     per_clave_publica: "",
     per_avenida_calle: "",
-    per_numero:0,
+    per_numero:null,
     per_ocupacion:"",
     per_tipo_permanencia: "",
-    
-   
+
     ima_nombre: "perfil.jpg",
     ima_enlace: "./img-per",
     ima_tipo: ""
-   /* dir_zona_comunidad: null,
-    dir_avenida_calle: "",
-    dir_numero: 0,
-    mun_id: null,
-    dir_tipo: "DOMICILIO",*/
-    
     
   };
 
