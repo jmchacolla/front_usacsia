@@ -15,14 +15,14 @@
   </div>
   <div class="col-md-12">
   <!-- inicio contenido -->
-  <div ng-controller="BuscaPersonaCtrl">
+  <div >
         <p>
           <h4 class="text-primary">Instrucciones</h4>
           Para el registro del pago de tramites:</b>
           <ul>
-            <li>Debe ingresar el n&uacute;mero de carnet en el respectivo buscador</li>
-            <li>Luego pulse en <b>Buscar</b></li>
-            <li>En el conjunto de resultados, pulse en <b>Registrar Pago</b></li>
+            <li>Debe ingresar el n&uacute;mero de carnet en el respectivo buscador.</li>
+            <li>Luego pulse en <b>Buscar.</b></li>
+            <li>En el conjunto de resultados, pulse en <b>Registrar Pago.</b></li>
           </ul>
         </p>
         <!-- Inicio Controller apiAppCtrl -->
@@ -30,10 +30,10 @@
          <div class="row" >
           <form name="busqForm" novalidate>
             <div class="col-md-6 col-md-offset-2">
-                <input name="perci" class="form-control input-lg" ng-model="per_ci" type="text" placeholder="Escriba el Nro. de C.I." required autofocus>
+                <input name="parametro" class="form-control input-lg" ng-model="parametro" type="text" placeholder="Escriba el Nro. de C.I." required autofocus>
             </div>
              <div class="col-md-4">
-             <button  class="btn btn-primary btn-lg" ng-disabled="busqForm.$invalid" ng-click="buscaPersona()"><span class="glyphicon glyphicon-search"></span><strong> BUSCAR</strong></button>
+             <button  class="btn btn-primary btn-lg" ng-disabled="busqForm.$invalid" ng-click="buscar()"><span class="glyphicon glyphicon-search"></span><strong> BUSCAR</strong></button>
              </div>
            </form>
          </div>  

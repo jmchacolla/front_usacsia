@@ -99,3 +99,54 @@ angular.module("adminApp")
     })
   } 
 }])
+
+
+.controller('BuscarPropietarioCtrl', ['$scope', '$http', 'BuscarPropietario', '$route', '$resource', '$routeParams', 'toastr', '$location', '$timeout', 'CONFIG', function ($scope, $http,BuscarPropietario, $route, $resource,$routeParams, toastr, $location, $timeout,CONFIG) {
+    // $scope.parametro='joder';
+    $scope.buscar=function () {
+      console.log('parametro---------', $scope.parametro);
+
+      $http.get(CONFIG.DOMINIO_SERVICIOS+'/buscarpropietario/'+$scope.parametro).success(function (respuesta) {
+        console.log('data---------', respuesta);
+        $scope.esta=respuesta.ess;
+        if(!respuesta.ess){
+            $scope.ver=false;
+            $scope.resultado=" No se encuentra el registro";              
+        } else if(respuesta.persona){
+            $scope.ver=true;
+            $scope.resultado='';
+        }
+      })
+
+      // BuscarPropietario.get($scope.parametro, function (data) {
+      //   $scope.ess=data.ess;
+      //   $scope.empresa=data.empresa
+      //   $scope.empresa_propietario=data.empresa_propietario;
+      //   $scope.propietario=data.propietario;
+      //   if(!rdata.ess){
+      //       $scope.ver=false;
+      //       $scope.resultado=" No se encuentra el registro";              
+      //   } else if(respuesta.persona){
+      //       $scope.ver=true;
+      //       $scope.resultado='';
+      //   }
+
+      // })
+    }
+  
+}])
+
+/*$scope.buscaPersona = function(){
+    console.log('esta buscando persona');
+      $scope.resultado="Cargando...";
+      $http.get(CONFIG.DOMINIO_SERVICIOS+'/personas_ci/'+$scope.per_ci).success(function(respuesta){
+          $scope.persona = respuesta.persona;
+          if(!respuesta.persona){
+              $scope.ver=false;
+              $scope.resultado=" La persona no se encuentra registrada";              
+          } else if(respuesta.persona){
+              $scope.ver=true;
+              $scope.resultado='';
+          }  
+      });
+  }*/
