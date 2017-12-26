@@ -14,7 +14,7 @@ angular.module("adminApp")
       action:'REGISTRAR'
     }
   }
-  
+
   $scope.persona = {
     zon_id:null,
     per_ci: null,
@@ -112,9 +112,16 @@ $scope.zon=false;
         angular.copy({}, $scope.persona);
         $scope.ajustes.pagina.success = "El ciudadano registrada exitosamente";
         toastr.success('Persona registrada correctamente');
-        $timeout(function() {
-          $location.path('/personas');
-        },0);
+
+          $timeout(function() {
+            if(!$scope.crear_desde_establecimiento){
+                $location.path('/personas');
+            }else{
+                console.log('aqui me llevaria', data.persona.persona.per_id, );
+                console.log('objeto completo', data);
+                $location.path('/establecimientosol/persona/ver/'+data.persona.persona.per_id);
+            }    
+          },0);  
       }
     });
   }
