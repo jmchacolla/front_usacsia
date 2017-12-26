@@ -274,7 +274,7 @@ angular.module("adminApp", ["authService", "ngRoute", "ngResource", "satellizer"
 
   .when('/establecimientosol/crear', { 
     templateUrl: 'templates/establecimiento_solicitante/crear.html',
-    controller: 'BuscarCrearPersonaCtrl',
+    controller: 'CrearEstabSol2Ctrl',
     data: {
       authorized: [ROLES.ADMIN_USACSIA.ROL]
     }

@@ -695,7 +695,7 @@ function buscaPersonaController($http, $scope, CONFIG){
     console.log('esta buscando persona');
       $scope.resultado="Cargando...";
       $http.get(CONFIG.DOMINIO_SERVICIOS+'/personas_ci/'+$scope.per_ci).success(function(respuesta){
-          $scope.persona = respuesta.persona;
+          $scope.persona = respuesta.persona.persona;
           if(!respuesta.persona){
               $scope.ver=false;
               $scope.resultado=" La persona no se encuentra registrada";              
