@@ -62,11 +62,13 @@ angular.module("adminApp")
       titulo:'Busca Número de Muestra'
     }
   }
-  
+  var FunG = localStorage.getItem("Funcionario");
+  var FunG = JSON.parse(FunG);
+
   $scope.sortType = 'per_id'; // set the default sort type
   $scope.sortReverse  = true;  // set the default sort order
   var mue_id = $routeParams.mue_id;
-  var fun_id=1;//remplaar con la sesion
+  var fun_id=FunG.fun_id;//remplaar con la sesion
   /*
 
   prueba laboratiosio deberia tener presencia de moco, y presencia de sangre*/
@@ -176,9 +178,13 @@ angular.module("adminApp")
   //     $scope.loading = false;
   //     $scope.msg = false;
   //   });
+
+  var FunG = localStorage.getItem("Funcionario");
+  var FunG = JSON.parse(FunG);
+
   $scope.sortType = 'per_id'; // set the default sort type
   $scope.sortReverse  = true;  // set the default sort order
-  var fun_id=1;//remplaar con la sesion
+  var fun_id=FunG.fun_id;//remplaar con la sesion
   $scope.CurrentDate=new Date();
   
 
@@ -326,10 +332,12 @@ $scope.sangre=function(){
       titulo:'Detalle de Prueba Laboratorio'
     }
   }
-  
+  var FunG = localStorage.getItem("Funcionario");
+  var FunG = JSON.parse(FunG);
+
   $scope.sortType = 'per_id'; // set the default sort type
   $scope.sortReverse  = true;  // set the default sort order
-  var fun_id=1;//remplaar con la sesion
+  var fun_id=FunG.fun_id;//remplaar con la sesion
   $scope.CurrentDate=new Date();
  
 

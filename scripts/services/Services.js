@@ -132,9 +132,32 @@ angular.module("adminApp")
     update:{method: 'PUT', params: {}}
   })
 }])
+//--------------------------CREAR CARNET SANITARIO----------------------------
+.factory('CarnetSanitario', ['$resource', 'CONFIG', function ($resource, CONFIG) {
+  return $resource(CONFIG.DOMINIO_SERVICIOS+"/carnet/:cas_id", {cas_id:"@_cas_id"}, {
+    update: {method: "PUT", params: {cas_id: "@cas_id"}}
+  })
+}])
 
+//-------------------------CAMBIAR ESTADO DE TRAMITE----------------------------
+.factory('TramiteEstado', ['$resource', 'CONFIG', function ($resource, CONFIG) {
+  return $resource(CONFIG.DOMINIO_SERVICIOS+"/tramite_estado/:pt_id", {pt_id:"@_pt_id"}, {
+    update: {method: "PUT", params: {pt_id: "@pt_id"}}
+  })
+}])
 
-
+//-------------------------CREAR, VER, LISTAR FIRMA----------------------------
+.factory('Firma', ['$resource', 'CONFIG', function ($resource, CONFIG) {
+  return $resource(CONFIG.DOMINIO_SERVICIOS+"/func_firma/:fir_id", {fir_id:"@_fir_id"}, {
+    update: {method: "PUT", params: {fir_id: "@fir_id"}}
+  })
+}])
+//------------------------VER FIRMA DE UN FUNCIONARIO----------------------------
+.factory('FirmaFun', ['$resource', 'CONFIG', function ($resource, CONFIG) {
+  return $resource(CONFIG.DOMINIO_SERVICIOS+"/firma/:fun_id", {fun_id:"@_fun_id"}, {
+    update: {method: "PUT", params: {fun_id: "@fun_id"}}
+  })
+}])
 
 
 
@@ -805,6 +828,10 @@ angular.module("adminApp")
 }])
 .factory('Receta', ['$resource', 'CONFIG', function ($resource, CONFIG) {
   return $resource(CONFIG.DOMINIO_SERVICIOS+"/receta", {},{ update:{method:"PUT", params:{}}})
+}])
+
+.factory('Categoria', ['$resource', 'CONFIG', function ($resource, CONFIG) {
+  return $resource(CONFIG.DOMINIO_SERVICIOS+"/categoria/:cat_id", {cat_id:"@_cat_id"},{ update:{method:"PUT", params:{cat_id:"@cat_id"}}})
 }])
 
 
