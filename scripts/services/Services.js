@@ -2,6 +2,7 @@
 angular.module("adminApp")
 //30-11-2017   ***********************    WENDY   *****************************************
 //*************************P E R S O N A S***************************
+//crear persona
 .factory('PersonasC', ['$resource', 'CONFIG', function ($resource, CONFIG){
   return $resource(CONFIG.DOMINIO_SERVICIOS+"/persona", {}, {
     update: {method: "PUT", params: {}}
