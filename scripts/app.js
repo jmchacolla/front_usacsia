@@ -528,7 +528,6 @@ angular.module("adminApp", ["authService", "ngRoute", "ngResource", "satellizer"
     }
   })
 
-/*tratamientos----------¿POR QUE NO SE USA ESTO EN LA FICHA??????????? 20-12-2017*/
 
   .when('/tratamiento/crear', {
     templateUrl: 'templates/tratamiento/crear.html',
