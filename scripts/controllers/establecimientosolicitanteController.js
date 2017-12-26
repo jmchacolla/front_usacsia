@@ -100,10 +100,10 @@ angular.module("adminApp")
 }])
 
 
-
 .controller('CrearEstabSolCtrl', ['$http','CONFIG','$scope','EstabSols','Zonas',  '$location', '$timeout', 'toastr',
  function ($scope, EstabSols,Zonas,  $location, $timeout, toastr){
-  $scope.ajustes = {
+
+ $scope.ajustes = {
     //Configuraciones del menu:
     menu:{
       titulo: 'Gestión de Establecimientos Solicitantes',
@@ -117,6 +117,8 @@ angular.module("adminApp")
       action: "CREAR"
     }
   }
+  console.log("MENUUUU",$scope.ajustes.pagina.titulo);
+
   $scope.zon=false;
   $scope.ver_zonas=function(mun_id){
       console.log(mun_id+"<<< MUN_ID");
@@ -189,7 +191,10 @@ $scope.latitud=null;
             infowindow.open(map, marker);
             }
         })(marker));
+
+
      })   
+
   // };
 
 
@@ -213,8 +218,6 @@ $scope.latitud=null;
     ie_enlace: "./img-est/",
     ie_tipo:"fotografia"
   };
-
-
 
   $scope.patternCadena = /^[a-zA-ZñÑáéíóúÁÉÍÓÚ .]*$/;
   $scope.patternNumero = /^[0-9]*$/;
