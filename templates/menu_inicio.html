@@ -30,14 +30,14 @@
 							Registrar pago</a>
 						</li>
 						<li>
-							<a href="#/tramites-car" ng-show="menu.CONFIG.ROL_CURRENT_USER == 1 || menu.CONFIG.ROL_CURRENT_USER == 7" >
+							<a href="#/tramites-car" ng-show="menu.CONFIG.ROL_CURRENT_USER == 1 || menu.CONFIG.ROL_CURRENT_USER == 7 || menu.CONFIG.ROL_CURRENT_USER == 3" >
 							<span class="glyphicon glyphicon-asterisk" aria-hidden="true"></span>
 							Tramites de Carné Sanitario</a>
 						</li>
 				  		<li>
 							<a href="#/numero-muestra/crear" ng-show="menu.CONFIG.ROL_CURRENT_USER == 1 ||menu.CONFIG.ROL_CURRENT_USER == 12" >
 							<span class="glyphicon glyphicon-asterisk" aria-hidden="true"></span>
-								Asignar Numero de muesra</a>
+							Asignar Numero de muesra</a>
 						</li>
 						<li ng-show="menu.CONFIG.ROL_CURRENT_USER == 1 || menu.CONFIG.ROL_CURRENT_USER == 13">
 							<a href="#/buscar-numero-muestra">
@@ -82,7 +82,7 @@
 							<span class="glyphicon glyphicon-asterisk" aria-hidden="true"></span>
 							Establecimientos Solicitantes</a>
 						</li>
-						<li ng-show="menu.CONFIG.ROL_CURRENT_USER == 1 || menu.CONFIG.ROL_CURRENT_USER == 7">
+						<li ng-show="menu.CONFIG.ROL_CURRENT_USER == 1 || menu.CONFIG.ROL_CURRENT_USER == 7 || menu.CONFIG.ROL_CURRENT_USER == 2">
 							<a href="#/tramites_concluidos">
 							<span class="glyphicon glyphicon-asterisk" aria-hidden="true"></span>
 							Tramites concluidos</a>
@@ -91,7 +91,7 @@
 							<a href="#/prueba-laboratorio" ng-show="menu.CONFIG.ROL_CURRENT_USER == 1 || menu.CONFIG.ROL_CURRENT_USER == 13"><span class="glyphicon glyphicon-asterisk" aria-hidden="true"></span> Lista de pruebas de laboratorio</a>
 						</li>
 
-						<li>
+						<li ng-show="menu.CONFIG.ROL_CURRENT_USER == 1 || menu.CONFIG.ROL_CURRENT_USER == 13">
 							<a href="#/numero-muestra" >
 							<span class="glyphicon glyphicon-asterisk" aria-hidden="true"></span>
 								Numeros de muestra asignados</a>

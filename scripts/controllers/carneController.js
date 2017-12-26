@@ -1,6 +1,63 @@
 'use strict';
 angular.module("adminApp")
 
+/*CRAEAR PERSONA TRAMITE---- BUSQUEDA POR CI*/
+/*.controller('CrearCarnetSanitarioCtrl', ['$scope', '$route','CarnetSanitario','Tramite' ,'toastr', '$location', function ($scope, $route, CarnetSanitario,Tramite,toastr, $location){
+  $scope.ajustes = {
+    menu:{
+      titulo: 'Gestion de Carnés Sanitario',
+      items:[
+      {nombre:'Solicitudes de Carné Sanitario', enlace:'#/tramites-car', estilo:''}]
+    },
+    pagina:{
+      titulo:'Registrar Pago'
+    }
+  }
+ 
+    $scope.persona_tramite={
+      tra_id:null, 
+      per_id:null,
+      // pt_fecha_ini :"",
+      pt_monto:null,
+      pt_tipo_tramite:""
+    };
+
+    $scope.CurrentDate = new Date();
+    Tramite.get(function(data){
+    $scope.tramite = data.tramites;
+    console.log("tramite del get",$scope.tramite);
+
+      $scope.monto = function(costo){
+          $scope.persona_tramite.pt_monto=costo;  
+      }
+    })
+
+      $scope.tramiteselect={
+    tra_id:null,
+    tra_nombre:"",
+    tr_costo:null,
+    tra_vigencia:"",
+  };
+  $scope.save = function(a, per_id,tra_id,tra_costo){
+    $scope.persona_tramite.per_id=per_id;
+    $scope.persona_tramite.tra_id=tra_id;
+    $scope.persona_tramite.pt_monto=tra_costo;
+    console.log('la persona-tramite que se va a cerar', $scope.persona_tramite);
+    PersonaTramite.save($scope.persona_tramite).$promise.then(function(data)
+    {
+      console.log('el data', data);
+
+        if(data.mensaje){
+          toastr.success('Pago registrado correctamente'+data.persona_tramite.pt_id+' es');
+               $location.path('/boleta-pago/'+data.persona_tramite.pt_id);
+
+        }
+    })
+  }
+
+   $scope.ver=false;
+}])*/
+
 
 .controller('CarneSanitarioCtrl', ['$scope', 'PersonaTramite', '$route', 'toastr', '$location', '$routeParams', function ($scope, PersonaTramite, $route, toastr,$location, $routeParams) {
 
@@ -28,11 +85,14 @@ angular.module("adminApp")
 }])
 
 
-.controller('pdf_carneCtrl',['$scope', 'PersonaTramite', 'CONFIG','$routeParams', '$http', function ($scope, PersonaTramite, CONFIG, $routeParams, $http){
+.controller('pdf_carneCtrl',['$scope', 'PersonaTramite', 'CONFIG','$routeParams', '$http','FirmaFun', function ($scope, PersonaTramite, CONFIG, $routeParams, $http,FirmaFun){
   // prepare the document definition using declarative approach
     var id = $routeParams.pt_id;
     console.log("IDEDESS",id);
    /* var id=8;*/
+    var FunG = localStorage.getItem("Funcionario");
+  var FunG = JSON.parse(FunG);
+  var fun_id=FunG.fun_id;//remplaar con la sesion
     PersonaTramite.get({pt_id:id}, function(data)
     {
       $scope.persona = data.pertramite;
@@ -47,14 +107,26 @@ angular.module("adminApp")
       var ipersona="";
       var gober="";
       var sedes="";
+      var ifirma="";
       var imagenpersona=$scope.persona.imagen/*[0]*/.ima_enlace+'/'+$scope.persona.imagen/*[0]*/.ima_nombre;
+      FirmaFun.get({fun_id:fun_id}, function(data)
+      {
+        $scope.firmas=data.firma;
+        var imagenfirma=$scope.firmas.firma/*[0]*/.fir_url+'/'+$scope.firmas.firma.fir_name;
+        console.log('imagen firma-----------', imagenfirma);
+
+      
+
+
       var img1 =convertImgToDataURLviaCanvas( imagenpersona, function(base64Img) {
         ipersona =base64Img;
         var img2 =convertImgToDataURLviaCanvas("./scripts/escudo-gober.png", function(base64Img) {
           gober =base64Img;
           var img3 =convertImgToDataURLviaCanvas("./scripts/logoSEDES.png", function(base64Img) {
             sedes =base64Img;
-            console.log("entro al controlador pdf---------",$scope.persona)
+             var img4 =convertImgToDataURLviaCanvas( imagenfirma, function(base64Img) {
+                ifirma =base64Img;
+            console.log("entro al controlador pdf---------",$scope.persona,$scope.firmas);
 
             var tituloqr= 'Nro. Trámite: '+$scope.persona.persona_tramite.pt_numero_tramite;
             var textoqr= 'USACSIA-CARNÉ-SANITARIO-'+$scope.persona.persona.per_nombres+" "+$scope.persona.persona.per_apellido_primero+" "+$scope.persona.persona.per_apellido_segundo+'-'+$scope.persona.persona.per_ci+'-'+$scope.persona.persona.per_ci_expedido+'/'+$scope.persona.persona_tramite.pt_numero_tramite;
@@ -156,7 +228,9 @@ angular.module("adminApp")
                                                         text: $scope.persona.persona_tramite.pt_numero_tramite, bold:true, fontSize:5
                                                     }
 
-                                            ]
+
+                                            ],
+                                        
                                         },
                                         {
                                             qr: textoqr, fit:65, alignment: 'right'
@@ -167,6 +241,27 @@ angular.module("adminApp")
                             layout: 'noBorders',
                             border: [false, false, false, false]
                         },
+                        {
+                          table:{
+                            /*widths:[50,75,50],*/
+                            body:[
+                                [
+                                  /*  {},*/
+                                      {
+                                        image: ifirma,
+                                        width: 80,
+                                        height: 40,
+                                        align:'center'
+                                      },
+                                    /*{}*/
+                                
+                                ]
+                            ]
+                          },
+                          layout: 'noBorders',
+                            border: [false, false, false, false]
+                        }
+
                    
                   
                 ],
@@ -207,7 +302,7 @@ angular.module("adminApp")
                 pdfMake.createPdf(docDefinition).download();
               };
  
-
+            });//fin imagen firma
           });//fin imagen logoSEDES
         });//fin imagen gober
       });//fin imagen sedes
@@ -228,6 +323,7 @@ angular.module("adminApp")
             };
             img.src = url;
         };
+      });//fin firma funcionario get
     });// ============  FIN persona tramite.get
 
 }])

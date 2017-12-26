@@ -590,8 +590,8 @@ function (/*authUser,*/$scope, Funcionarios, $routeParams, $location, $timeout, 
       $scope.valor=valor;
       console.log("llego a la funcion agregar fun");
       $http.get(CONFIG.DOMINIO_SERVICIOS+'/funcionarios_per/'+per_id).success(function(respuesta){
-        console.log("ver si existe funcionario",respuesta.funcionario.length);
-        if(respuesta.funcionario.length !=0){//En caso de que sea funcionario de algún establecimiento
+        console.log("ver si existe funcionario",respuesta.length);
+        if(respuesta.length !=0){//En caso de que sea funcionario de algún establecimiento
           //Verificando si el funcionario se encuentra registrado en el establecimiento
           $scope.fun_id = respuesta.funcionario.fun_id;
           console.log("$sope.fun_id",$scope.fun_id)

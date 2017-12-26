@@ -232,23 +232,12 @@ angular.module("adminApp")
     };
 
 
-     /* $scope.ajustes = {
-        menu:{
-          titulo: 'Gestión de tramites de Carné Sanitario',
-          items:[
-          {nombre:'Detalle pago', enlace:'#/boleta-pago/:'+pt_id, estilo:'active'}]
-        },
-        pagina:{
-          titulo:'Comprobante de pago Trámite N°: '+nt/*$scope.pertramite.persona_tramite.pt_numero_tramite
-        }
-      };*/
-
     });
 
 }])
 
 
-.controller('ListaFinalCtrl', ['$scope', 'Final', '$route', 'toastr', '$location', function ($scope, Final, $route, toastr,$location)
+.controller('ListaFinalCtrl', ['$scope','CONFIG', 'Final', '$route', 'toastr', '$location','Personas','TramiteEstado','CarnetSanitario','FirmaFun', function ($scope,CONFIG, Final, $route, toastr,$location,Personas,TramiteEstado,CarnetSanitario,FirmaFun)
 {
   $scope.ajustes = {
     menu:{
@@ -260,7 +249,9 @@ angular.module("adminApp")
       titulo:'Tramites de Carné Sanitario'
     }
   }
-
+  $scope.user = {
+    rol_id: CONFIG.ROL_CURRENT_USER
+  }
   
   $scope.sortType = 'pt_id'; // set the default sort type
   $scope.sortReverse  = true;  // set the default sort order
@@ -287,7 +278,76 @@ angular.module("adminApp")
       $scope.loading = false;
       $scope.msg = false;
     }); 
+  var FunG = localStorage.getItem("Funcionario");
+  var FunG = JSON.parse(FunG);
+  var fun_id=FunG.fun_id;//remplaar con la sesion
 
+ console.log("esta en el controlador"); 
+    var id = 0;
+   $scope.rec=function(pt_id, per_id){
+    console.log("LLEGA A LA FUNCION",pt_id);
+    id=pt_id;
+    Personas.get({per_id:per_id}, function(data)
+      {
+        $scope.persona = data.persona;
+        $scope.nombre=$scope.persona.persona.per_nombres+' '+$scope.persona.persona.per_apellido_primero+' '+$scope.persona.persona.per_apellido_segundo;
+
+      });
+    
+  };
+  console.log('este es el pt fuera de la funcion',id);
+
+  $scope.recepcionar=function(){
+    $scope.estado={
+      pt_estado_tramite:'APROBADO'
+    }
+    console.log('el pt_id para cambiar estado',id);
+    TramiteEstado.update({pt_id:id}, $scope.estado).$promise.then(function(data)
+    {
+      console.log("entra a update")
+      if(data.status)
+      {
+          console.log("lo logro...");
+          toastr.success('Aprobacion correcta');
+          //tengo que obtener la firma del funcionario que se logueo y guardar en carnet recien
+          console.log("PARA VER LA FIRMA", fun_id);
+          FirmaFun.get({fun_id:fun_id}, function(data)
+          {
+            $scope.firmas=data.firma;
+            console.log("obteniendo la firma del fucnionario loguaado", $scope.firmas);
+            
+            $scope.carnet={
+                pt_id:id,
+                cas_numero:1234567,
+                cas_fecha_inicio:'23-12-2017',
+                cas_fecha_fin:'23-12-2018',
+                cas_url:$scope.firmas.firma.fir_url,
+                cas_nombre:$scope.firmas.firma.fir_name
+            }
+            console.log("PARA GUARDAR EL CARNET",$scope.carnet);
+            CarnetSanitario.save($scope.carnet).$promise.then(function(data)
+            {
+               if(data.msg){
+                angular.copy({}, $scope.carnet);
+                console.log("se registro carnet correctamente",data);
+              
+              }
+
+            });//fin carnetsanitario
+          } );//FIN DE FIRMAFUNCIONARIO
+          $route.reload();
+      }
+
+    });//FIN TRAMITE ESTADO
+
+
+
+
+
+    console.log($scope.estado);
+    
+  };
+   
   var id=0;
   $scope.nombre_completo = "";
   $scope.get_per_id = function(per_id, per_apellido_primero, per_apellido_segundo, per_nombres){
@@ -318,8 +378,7 @@ angular.module("adminApp")
         titulo:'Detalle tramite concluido: '/*$scope.pertramite.persona_tramite.pt_numero_tramite*/
       }
     };
-    
-   
+  
 
     VerPT.get({pt_id:pt_id}, function(data)
     {
