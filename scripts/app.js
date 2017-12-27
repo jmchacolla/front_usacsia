@@ -550,7 +550,6 @@ angular.module("adminApp", ["authService", "ngRoute", "ngResource", "satellizer"
     }
   })
 
-/*tratamientos----------¿POR QUE NO SE USA ESTO EN LA FICHA??????????? 20-12-2017*/
 
   .when('/tratamiento/crear', {
     templateUrl: 'templates/tratamiento/crear.html',
@@ -587,7 +586,17 @@ angular.module("adminApp", ["authService", "ngRoute", "ngResource", "satellizer"
     templateUrl: 'templates/firma/editar.html',
     controller: 'CrearDocumentoTramiteCtrl'
   })
+    /*busca establecimiento_solictante por ci o por razon social*/
+    .when('/buscarpropietario', {
+      templateUrl: 'buscarpropietario.html',
+      controller: 'BuscarpropietarioCtrl'
+    })
 
+/*jhon busca un establecimiento por ci de propietario o razon social*/
+  .when('/buscar-propietario', {
+    templateUrl: 'templates/empresatramite/buscar.html',
+    controller: 'BuscarPropietarioCtrl'
+  })
 /*-------------------------------------- documentos -----------------------------------------*/
     
   /*--------PENDIENTE------*/
