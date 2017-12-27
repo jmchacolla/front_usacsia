@@ -1,0 +1,409 @@
+<!-- TOP-MENU inicio -->
+<div ng-include="'./templates/menu_inicio.html'"></div>
+<!-- CONTEXT-MENU  -->
+<div ng-include="'./templates/menu_lateral.html'">
+</div>
+<div class="col-md-8 col-sm-8">
+       <div class="row">
+          <div class="col-md-12">
+            <h2 class="text-primary">
+              <span class="glyphicon glyphicon-th-large" aria-hidden="true"></span>
+              {{ajustes.pagina.titulo}}
+            </h2>
+            <hr class="bg-green">
+          </div>
+       </div>
+    <label class="control-label">Los campos marcados con asterisco (<strong class="fg_red">*</strong>) son obligatorios</label>
+    <div class="row">
+      <div class="col-md-12" >
+      <!-- AQUI VAN LAS TABLAS O FORMULARIOS incrustados ng-controller="apiApppCtrl as vm" -->
+      <!-- INICIO -->
+        <form name="userForm" novalidate>
+          <div class="well well-sm" style="background-color:#fff;">
+                    <div class="row">
+                          <div class="col-md-4">
+                              <label for="nombreesr" class="control-label">No de ficha:</label>
+                              <input name="nombreesr" disabled class="form-control" id="nombre" type="Text" ng-model="ficha">
+                          </div>
+                          <div class="col-md-4">
+                              <label for="resolucion" class="control-label">Extingiodores:</label>
+                              <input class="form-control" id="red" type="Text" ng-model="ficha" >    <!-- ficha.fi_extinguidor -->      
+                          </div>   
+                          <div class="col-md-4">
+                              <label for="resolucion" class="control-label">No carnet sanitario:</label>
+                              <input disabled class="form-control" id="red" type="Text" ng-model="ficha1" >          
+                          </div> 
+                          <div class="col-md-4">
+                              <label for="resolucion" class="control-label">Funcionario:</label>
+                              <input disabled class="form-control" id="red" type="Text" ng-model="ficha1" >
+                          </div> 
+                    </div>
+                    <h4 class="text-center text-primary">I. DATOS PROPIETARIO</h4>
+                    <hr class="bg-red">  
+                    <div class="row">
+                        <div class="col-md-4">
+                            <label for="nombreesr" class="control-label">Propietario:</label>
+                            <input name="nombreesr" disabled class="form-control" id="nombre" type="Text" ng-model="ficha">
+                        </div>
+                        <div class="col-md-4">
+                            <label for="resolucion" class="control-label">Establecimiento:</label>
+                            <input disabled class="form-control" id="red" type="Text" ng-model="ficha" >          
+                        </div>   
+                        <div class="col-md-4">
+                            <label for="resolucion" class="control-label">Dirección:</label>
+                            <input disabled class="form-control" id="red" type="Text" ng-model="ficha" >          
+                        </div> 
+                        <div class="col-md-2">
+                            <label class="control-label ">Fecha:</label>
+                            <div class="input-group">
+                                  <label class="form-control">{{CurrentDate | date:'dd/MM/yyyy'}} </label>
+                                  <span class="input-group-addon">
+                                      <span class="glyphicon glyphicon-calendar"></span>
+                                  </span>
+                              </div>
+                        </div>
+                        <div class="col-md-2">
+                              <label class="control-label ">Hora:</label>
+                              <div class="input-group">
+                                  <label class="form-control">{{CurrentDate | date:'HH:mm:ss'}}</label>
+                                  <span class="input-group-addon">
+                                      <span class="glyphicon glyphicon-time"></span>
+                                  </span>
+                              </div>
+                        </div>
+                    </div> 
+                    <hr>
+                   <div class="row">
+                      <h4 class="text-center text-primary">II. FICHA DE INSPECCIÓN</h4>
+                          <hr class="bg-red"> 
+                  </div>   
+                  <div class="row" >
+                        <div class="col-md-12">
+                        <label class="control-label">Alejados de focos de insalubridad no comunicados con viviendas: <strong class="fg_red">*</strong></label>
+                          <div class="formulario">
+                              <div class="radio">
+                                <div class="col-md-4">
+                                  <input type="radio" name="genero" id="M" value="M" ng-model="ficha1"><!-- ficha1.fi1_foco_insalubridad -->
+                                  <label for="TRUE">Si</label>
+                                </div>
+                                <div class="col-md-4">
+                                  <input type="radio" name="genero" id="F" value="F" ng-model="ficha1"><!--ficha1.fi1_foco_insalubridad  -->
+                                  <label for="FALSE">No</label>
+                                </div>
+                                <span class="messages" ng-show="addPersona.$submitted || addPersona.genero.$touched">
+                                  <span ng-show="addPersona.genero.$error.required">El campo es obligatorio.</span>
+                                </span>
+                              </div>
+                          </div>
+                        </div> 
+
+                  </div>
+                  <div class="row" >
+                        <div class="col-md-12">
+                        <label class="control-label">Exhibición de certificado sanitario: <strong class="fg_red">*</strong></label>
+                          <div class="formulario">
+                              <div class="radio">
+                                <div class="col-md-4">
+                                  <input type="radio" name="genero" id="M" value="M" ng-model="ficha1"><!-- ficha1.fi1_foco_insalubridad -->
+                                  <label for="TRUE">Si</label>
+                                </div>
+                                <div class="col-md-4">
+                                  <input type="radio" name="genero" id="F" value="F" ng-model="ficha1"><!--ficha1.fi1_foco_insalubridad  -->
+                                  <label for="FALSE">No</label>
+                                </div>
+                                <span class="messages" ng-show="addPersona.$submitted || addPersona.genero.$touched">
+                                  <span ng-show="addPersona.genero.$error.required">El campo es obligatorio.</span>
+                                </span>
+                              </div>
+                          </div>
+                        </div> 
+
+                  </div> 
+                  <div class="row" >
+                        <div class="col-md-12">
+                        <label class="control-label">Exhibición de Carné sanitario: <strong class="fg_red">*</strong></label>
+                          <div class="formulario">
+                              <div class="radio">
+                                <div class="col-md-4">
+                                  <input type="radio" name="genero" id="M" value="M" ng-model="ficha1"><!-- ficha1.fi1_foco_insalubridad -->
+                                  <label for="TRUE">Si</label>
+                                </div>
+                                <div class="col-md-4">
+                                  <input type="radio" name="genero" id="F" value="F" ng-model="ficha1"><!--ficha1.fi1_foco_insalubridad  -->
+                                  <label for="FALSE">No</label>
+                                </div>
+                                <span class="messages" ng-show="addPersona.$submitted || addPersona.genero.$touched">
+                                  <span ng-show="addPersona.genero.$error.required">El campo es obligatorio.</span>
+                                </span>
+                              </div>
+                          </div>
+                        </div> 
+
+                  </div>
+                  <div class="row">
+                        <div class="col-md-6">
+                            <label for="diagnostico" class="control-label ">Detalle de la infraestructura:<strong class="fg_red">*</strong></label><br>
+                            <textarea name="diagnostico" ng-model-options="{ updateOn: 'blur' }" rows="6" cols="45" style="resize: vertical;min-height:70px;max-height: 150px;" placeholder="Diagnostico" ng-model="referencias.br_diagnostico" required></textarea>
+                            <span class="messages" ng-show="userForm.$submitted || userForm.diagnostico.$touched">
+                            <span ng-show="userForm.diagnostico.$error.required">El campo es obligatorio</span>
+                            </span>
+                        </div>
+                  </div>
+                  <div class="row">
+                      <div class="col-md-2">
+                          <label for="fc" class="control-label ">Servicios Higienicos:<strong class="fg_red">*</strong></label>
+                          <input name="fc" type="number" ng-model-options="{ updateOn: 'blur' }" class="form-control" id="fc" placeholder="FC" ng-model="referencias.br_frec_cardiaca" min="0" max="400" required>
+                          <span class="messages" ng-show="userForm.$submitted || userForm.fc.$touched ">
+                           <span ng-show="userForm.fc.$error.required">El campo es obligatorio</span>
+                            <span ng-show="userForm.fc.$error.max">La frecuencia no puede exceder de 400 lpm</span>
+                           <span ng-show="userForm.fc.$error.min">La frecuencia no puede ser menor de 0 lpm</span>
+                          </span> 
+                      </div>
+                      <div class="col-md-2">
+                          <label for="fc" class="control-label ">Otros:<strong class="fg_red">*</strong></label>
+                          <input name="fc" type="number" ng-model-options="{ updateOn: 'blur' }" class="form-control" id="fc" placeholder="FC" ng-model="referencias.br_frec_cardiaca" min="0" max="400" required>
+                          <span class="messages" ng-show="userForm.$submitted || userForm.fc.$touched ">
+                           <span ng-show="userForm.fc.$error.required">El campo es obligatorio</span>
+                            <span ng-show="userForm.fc.$error.max">La frecuencia no puede exceder de 400 lpm</span>
+                           <span ng-show="userForm.fc.$error.min">La frecuencia no puede ser menor de 0 lpm</span>
+                          </span> 
+                      </div>
+                      <div class="col-md-2">
+                          <label for="fc" class="control-label ">Inodoro:<strong class="fg_red">*</strong></label>
+                          <input name="fc" type="number" ng-model-options="{ updateOn: 'blur' }" class="form-control" id="fc" placeholder="FC" ng-model="referencias.br_frec_cardiaca" min="0" max="400" required>
+                          <span class="messages" ng-show="userForm.$submitted || userForm.fc.$touched ">
+                           <span ng-show="userForm.fc.$error.required">El campo es obligatorio</span>
+                            <span ng-show="userForm.fc.$error.max">La frecuencia no puede exceder de 400 lpm</span>
+                           <span ng-show="userForm.fc.$error.min">La frecuencia no puede ser menor de 0 lpm</span>
+                          </span> 
+                      </div>
+                      <div class="col-md-2">
+                          <label for="fc" class="control-label ">Jaboncillo:<strong class="fg_red">*</strong></label>
+                          <input name="fc" type="number" ng-model-options="{ updateOn: 'blur' }" class="form-control" id="fc" placeholder="FC" ng-model="referencias.br_frec_cardiaca" min="0" max="400" required>
+                          <span class="messages" ng-show="userForm.$submitted || userForm.fc.$touched ">
+                           <span ng-show="userForm.fc.$error.required">El campo es obligatorio</span>
+                            <span ng-show="userForm.fc.$error.max">La frecuencia no puede exceder de 400 lpm</span>
+                           <span ng-show="userForm.fc.$error.min">La frecuencia no puede ser menor de 0 lpm</span>
+                          </span> 
+                      </div>
+                      <div class="col-md-2">
+                          <label for="fc" class="control-label ">Lavamanos de porcelana:<strong class="fg_red">*</strong></label>
+                          <input name="fc" type="number" ng-model-options="{ updateOn: 'blur' }" class="form-control" id="fc" placeholder="FC" ng-model="referencias.br_frec_cardiaca" min="0" max="400" required>
+                          <span class="messages" ng-show="userForm.$submitted || userForm.fc.$touched ">
+                           <span ng-show="userForm.fc.$error.required">El campo es obligatorio</span>
+                            <span ng-show="userForm.fc.$error.max">La frecuencia no puede exceder de 400 lpm</span>
+                           <span ng-show="userForm.fc.$error.min">La frecuencia no puede ser menor de 0 lpm</span>
+                          </span> 
+                      </div>
+                      <div class="col-md-2">
+                          <label for="fc" class="control-label ">Toallas:<strong class="fg_red">*</strong></label>
+                          <input name="fc" type="number" ng-model-options="{ updateOn: 'blur' }" class="form-control" id="fc" placeholder="FC" ng-model="referencias.br_frec_cardiaca" min="0" max="400" required>
+                          <span class="messages" ng-show="userForm.$submitted || userForm.fc.$touched ">
+                           <span ng-show="userForm.fc.$error.required">El campo es obligatorio</span>
+                            <span ng-show="userForm.fc.$error.max">La frecuencia no puede exceder de 400 lpm</span>
+                           <span ng-show="userForm.fc.$error.min">La frecuencia no puede ser menor de 0 lpm</span>
+                          </span> 
+                      </div>
+                      <div class="col-md-2">
+                          <label for="fc" class="control-label ">Duchas:<strong class="fg_red">*</strong></label>
+                          <input name="fc" type="number" ng-model-options="{ updateOn: 'blur' }" class="form-control" id="fc" placeholder="FC" ng-model="referencias.br_frec_cardiaca" min="0" max="400" required>
+                          <span class="messages" ng-show="userForm.$submitted || userForm.fc.$touched ">
+                           <span ng-show="userForm.fc.$error.required">El campo es obligatorio</span>
+                            <span ng-show="userForm.fc.$error.max">La frecuencia no puede exceder de 400 lpm</span>
+                           <span ng-show="userForm.fc.$error.min">La frecuencia no puede ser menor de 0 lpm</span>
+                          </span> 
+                      </div>
+                  </div>
+                  <div class="row">
+                    <div class="col-md-6">
+                            <label for="diagnostico" class="control-label ">Detalle Equipo - Utencilios:<strong class="fg_red">*</strong></label><br>
+                            <textarea name="diagnostico" ng-model-options="{ updateOn: 'blur' }" rows="6" cols="45" style="resize: vertical;min-height:70px;max-height: 150px;" placeholder="Diagnostico" ng-model="referencias.br_diagnostico" required></textarea>
+                            <span class="messages" ng-show="userForm.$submitted || userForm.diagnostico.$touched">
+                            <span ng-show="userForm.diagnostico.$error.required">El campo es obligatorio</span>
+                            </span>
+                     </div>
+                     <div class="col-md-6">
+                            <label for="diagnostico" class="control-label ">Otros:<strong class="fg_red">*</strong></label><br>
+                            <textarea name="diagnostico" ng-model-options="{ updateOn: 'blur' }" rows="6" cols="45" style="resize: vertical;min-height:70px;max-height: 150px;" placeholder="Diagnostico" ng-model="referencias.br_diagnostico" required></textarea>
+                            <span class="messages" ng-show="userForm.$submitted || userForm.diagnostico.$touched">
+                            <span ng-show="userForm.diagnostico.$error.required">El campo es obligatorio</span>
+                            </span>
+                     </div>
+                  </div>
+                  <div class="row">
+                     <div class="col-md-4">
+                        <label for="seguro" class="control-label ">Facilidades para el aseo personal: <strong class="fg_red">*</strong></label>
+                        <select class="form-control" name="seguro" ng-model="referencias.br_seguro" required>
+                           <option value="BUENO">BUENO</option>
+                            <option value="REGULAR">REGULAR</option>
+                            <option value="MALO">MALO</option>
+                            
+                        </select>
+                        <span class="messages" ng-show="userForm.$submitted || userForm.seguro.$touched">
+                        <span ng-show="userForm.seguro.$error.required">El campo es obligatorio</span>
+                        </span>
+                    </div>
+                    <div class="col-md-4">
+                        <label for="seguro" class="control-label ">Disposición de residuos Sólidos <strong class="fg_red">*</strong></label>
+                        <select class="form-control" name="seguro" ng-model="referencias.br_seguro" required>
+                           <option value="BUENO">BUENO</option>
+                            <option value="REGULAR">REGULAR</option>
+                            <option value="MALO">MALO</option>
+                            
+                        </select>
+                        <span class="messages" ng-show="userForm.$submitted || userForm.seguro.$touched">
+                        <span ng-show="userForm.seguro.$error.required">El campo es obligatorio</span>
+                        </span>
+                    </div>
+                    <div class="col-md-4">
+                        <label for="seguro" class="control-label ">Disposición de residuos Sólidos <strong class="fg_red">*</strong></label>
+                        <select class="form-control" name="seguro" ng-model="referencias.br_seguro" required>
+                           <option value="BUENO">BUENO</option>
+                            <option value="REGULAR">REGULAR</option>
+                            <option value="MALO">MALO</option>
+                            
+                        </select>
+                        <span class="messages" ng-show="userForm.$submitted || userForm.seguro.$touched">
+                        <span ng-show="userForm.seguro.$error.required">El campo es obligatorio</span>
+                        </span>
+                    </div>
+                    <div class="col-md-4">
+                        <label for="seguro" class="control-label ">Abastecimiento de agua <strong class="fg_red">*</strong></label>
+                        <select class="form-control" name="seguro" ng-model="referencias.br_seguro" required>
+                           <option value="BUENO">BUENO</option>
+                            <option value="REGULAR">REGULAR</option>
+                            <option value="MALO">MALO</option>
+                            
+                        </select>
+                        <span class="messages" ng-show="userForm.$submitted || userForm.seguro.$touched">
+                        <span ng-show="userForm.seguro.$error.required">El campo es obligatorio</span>
+                        </span>
+                    </div> 
+                    <div class="col-md-4">
+                        <label for="seguro" class="control-label ">Control de insector y roedores <strong class="fg_red">*</strong></label>
+                        <select class="form-control" name="seguro" ng-model="referencias.br_seguro" required>
+                           <option value="BUENO">BUENO</option>
+                            <option value="REGULAR">REGULAR</option>
+                            <option value="MALO">MALO</option>
+                            
+                        </select>
+                        <span class="messages" ng-show="userForm.$submitted || userForm.seguro.$touched">
+                        <span ng-show="userForm.seguro.$error.required">El campo es obligatorio</span>
+                        </span>
+                    </div>
+                    <div class="col-md-4">
+                        <label for="seguro" class="control-label ">Disposición de residuos Liquidos <strong class="fg_red">*</strong></label>
+                        <select class="form-control" name="seguro" ng-model="referencias.br_seguro" required>
+                           <option value="BUENO">BUENO</option>
+                            <option value="REGULAR">REGULAR</option>
+                            <option value="MALO">MALO</option>
+                            
+                        </select>
+                        <span class="messages" ng-show="userForm.$submitted || userForm.seguro.$touched">
+                        <span ng-show="userForm.seguro.$error.required">El campo es obligatorio</span>
+                        </span>
+                    </div>
+                    <div class="col-md-4">
+                        <label for="seguro" class="control-label ">Distribucion de dependencias<strong class="fg_red">*</strong></label>
+                        <select class="form-control" name="seguro" ng-model="referencias.br_seguro" required>
+                           <option value="BUENO">BUENO</option>
+                            <option value="REGULAR">REGULAR</option>
+                            <option value="MALO">MALO</option>
+                            
+                        </select>
+                        <span class="messages" ng-show="userForm.$submitted || userForm.seguro.$touched">
+                        <span ng-show="userForm.seguro.$error.required">El campo es obligatorio</span>
+                        </span>
+                    </div>
+                    <div class="col-md-4">
+                        <label for="seguro" class="control-label ">Conservacion de productos y materia prima <strong class="fg_red">*</strong></label>
+                        <select class="form-control" name="seguro" ng-model="referencias.br_seguro" required>
+                           <option value="BUENO">BUENO</option>
+                            <option value="REGULAR">REGULAR</option>
+                            <option value="MALO">MALO</option>
+                            
+                        </select>
+                        <span class="messages" ng-show="userForm.$submitted || userForm.seguro.$touched">
+                        <span ng-show="userForm.seguro.$error.required">El campo es obligatorio</span>
+                        </span>
+                    </div>
+                    
+                  </div>
+                  <div class="row">
+                     <div class="col-md-6">
+                            <label for="diagnostico" class="control-label ">Recomendaciones:<strong class="fg_red">*</strong></label><br>
+                            <textarea name="diagnostico" ng-model-options="{ updateOn: 'blur' }" rows="6" cols="45" style="resize: vertical;min-height:70px;max-height: 150px;" placeholder="Diagnostico" ng-model="referencias.br_diagnostico" required></textarea>
+                            <span class="messages" ng-show="userForm.$submitted || userForm.diagnostico.$touched">
+                            <span ng-show="userForm.diagnostico.$error.required">El campo es obligatorio</span>
+                            </span>
+                     </div>
+                    
+                  </div>
+                  <div class="row">
+                   <div class="col-md-4">
+                              <label for="resolucion" class="control-label">Categoria:</label>
+                              <input class="form-control" id="red" type="Text" ng-model="ficha" >    <!-- ficha.fi_extinguidor -->      
+                  </div>   
+                  </div>
+
+
+        <!--   <div class="row">
+              <div class="col-md-6">
+                <div class="formulario">
+                   <div class="checkbox">
+                          <input class="checkbox" type="checkbox" name="acomp" id="M" value="M" ng-model="checkedI" ng-init="checked=false" ng-click="reset_acomp(checkedI)">
+                          <label for="M">Tiene Acompañante</label>
+                    </div>
+                </div>
+              </div>
+              <div ng-if="checkedI" class=" col-md-6">
+                  <label for="acomp" class="control-label ">Acompañante:</label>
+                   <input name="acomp" type="text" class="form-control" ng-pattern="patternCadena" id="acomp" placeholder="Acompañante" ng-model="referencias.br_acomp" >
+                   <span class="messages" ng-show="userForm.acomp.$touched">
+                      <span ng-show="userForm.acomp.$error.pattern">No se admiten símbolos especiales o números.</span>
+                   </span>
+             </div>
+          </div> -->
+     
+       </div><!-- fin formulario -->
+       <p ng-show="$parent.ajustes.pagina.success" class="alert alert-success">{{$parent.ajustes.pagina.success}}</p>
+      
+
+       <center>
+       <!-- ng-click="save(establecimientos.establecimientos.es_id,re.establecimiento.es_id,funcionarios.funcionario_establecimiento.fe_id,re.funcio.fe_id,referencias.fe_id_contacto,referencias.br_cod,referencias.br_frec_cardiaca,referencias.br_frec_resp,referencias.br_pa_sistolica,referencias.br_temperatura,referencias.br_peso,referencias.br_resumen,referencias.br_resultado_examen,referencias.br_diagnostico,referencias.br_tratamiento_inicial,referencias.br_acomp,referencias.br_motivo,re.estabs.subsector.ss_nombre,referencias.br_fecha_llegada,referencias.br_hora_llegada,referencias.br_fecha_recepcion,referencias.br_hora_recepcion,referencias.br_seguro,referencias.br_pa_diastolica,referencias.br_talla,referencias.br_servicio_referente,referencias.br_servicio_destino)" -->
+                  <button type="submit" data-toggle="modal"  class="btn btn-primary" ng-disabled="userForm.$invalid" ><span class="glyphicon glyphicon-save"></span> GUARDAR</button>
+                  <a href="#/establecimientos/pacientes">
+                  <button type="submit" data-toggle="modal"  class="btn btn-danger"  ><span class="glyphicon glyphicon-remove"></span> CANCELAR</button>
+                  </a>
+      </center>
+        <!-- </div> -->
+<!--      </div> -->
+      
+      <!-- FIN -->
+      <!-- AQUI VAN LOS TABLAS O FORMULARIOS incrustados -->
+     </form>
+ </div>
+<!-- fin cuerpo -->
+      </div>
+      </div>
+    </div>
+  </div>
+<!-- CONTENIDO MODULO fin -->
+<!--  <button type="button" class="btn  btn-resaltar form-signin">REGISTRAR</button> -->
+
+<style type="text/css">
+   .messages {
+    color: #FA787E;
+  }
+  form.ng-submitted input.ng-invalid{
+    border-color: #FA787E;
+  }
+ form input.ng-invalid.ng-touched {
+    border-color: #FA787E;
+  }
+ 
+ /*  form input.ng-valid.ng-touched {
+    border-color: #78FA89;
+  }
+*/  
+</style>

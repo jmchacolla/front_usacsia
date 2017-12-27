@@ -961,7 +961,7 @@ function controladorPrincipal_fun($http, $scope, CONFIG){
       $scope.tamanio="Cargando... ";//////CAMBIADO
       $http.get(CONFIG.DOMINIO_SERVICIOS+'/personas_ci/'+$scope.per_ci).success(function(respuesta){
      
-          $scope.personas = respuesta.persona;
+          $scope.personas = respuesta.persona.persona;
           console.log($scope.persona);
           $scope.tamanio=$scope.personas.length;
           console.log($scope.personas,"PERSONAS",$scope.tamanio);
