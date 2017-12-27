@@ -335,6 +335,13 @@ angular.module("adminApp", ["authService", "ngRoute", "ngResource", "satellizer"
       authorized: [ROLES.ADMIN_SEDES.ROL]
     }*/
   })
+  .when('/inspeccion/fichas/crear2',{
+   templateUrl:'templates/ficha_inspeccion2/crear.html',
+   controller: 'CrearFicha2Ctrl'/*,
+    data: {
+      authorized: [ROLES.ADMIN_SEDES.ROL]
+    }*/
+  })
   
   
 

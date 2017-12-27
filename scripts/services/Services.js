@@ -165,6 +165,12 @@ angular.module("adminApp")
     update: {method: "PUT", params: {}}
   })
 }])
+//------------------------CREAR FICHA 2----------------------------
+.factory('Ficha2', ['$resource', 'CONFIG', function ($resource, CONFIG) {
+  return $resource(CONFIG.DOMINIO_SERVICIOS+"/ficha2", {}, {
+    update: {method: "PUT", params: {}}
+  })
+}])
 //------------------------VER EMPRESA TRAMITE----------------------------
 .factory('EmpTra', ['$resource', 'CONFIG', function ($resource, CONFIG) {
   return $resource(CONFIG.DOMINIO_SERVICIOS+"/empresa_tramite/:et_id", {et_id:"@_et_id"}, {
