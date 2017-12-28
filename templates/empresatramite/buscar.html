@@ -1,0 +1,83 @@
+<!-- TOP-MENU inicio -->
+<div ng-include="'./templates/menu_inicio.html'"></div>
+<!-- CONTEXT-MENU  -->
+<div ng-include="'./templates/menu_lateral.html'"></div>
+<!-- CONTENIDO MODULO inicio -->
+<div class="col-md-8 col-sm-8">
+  <div class="row">
+    <div class="col-md-12">
+      <h2 class="text-primary">
+        <span class="glyphicon glyphicon-th-list" aria-hidden="true"></span>
+        {{ajustes.pagina.titulo}}
+      </h2>
+      <hr>
+    </div>
+  </div>
+  <div class="col-md-12">
+  <!-- inicio contenido -->
+  <div >
+        <p>
+          <h4 class="text-primary">Instrucciones</h4>
+          Para el registro del pago de tramites:</b>
+          <ul>
+            <li>Debe ingresar el n&uacute;mero de C.I. o NIT en el respectivo buscador.</li>
+            <li>Luego pulse en <b>Buscar.</b></li>
+            <li>En el conjunto de resultados, pulse en <b>Seleccionar</b></li>
+          </ul>
+        </p>
+        <!-- Inicio Controller apiAppCtrl -->
+       <div class="well well-sm">
+         <div class="row" >
+          <form name="busqForm" novalidate>
+            <div class="col-md-6 col-md-offset-2">
+                <input name="parametro" class="form-control input-lg" ng-model="parametro" type="text" placeholder="Escriba el Nro. de C.I." required autofocus>
+            </div>
+             <div class="col-md-4">
+             <button  class="btn btn-primary btn-lg" ng-disabled="busqForm.$invalid" ng-click="buscar()"><span class="glyphicon glyphicon-search"></span><strong> BUSCAR</strong></button>
+             </div>
+           </form>
+         </div>  
+       </div>
+        &nbsp;&nbsp;
+       <div><center><h3><span class="text-primary">RESULTADOS</span></h3>{{resultado}}</center></div>
+        <div class="well well-sm" style="background-color: #fff;" ng-if="ver">
+          <div class="" >
+            <div class="table-responsive">
+              <table class="table table-striped">
+                <thead>
+                  <th class="text-center text-primary">Razon social</th>
+                  <th class="text-center text-primary">C.I./NIT</th>
+                  <th class="text-center text-primary">Nombre del establecimiento</th>
+                  <th class="text-center text-primary">Nro.Kardex</th>
+                  <th class="text-center text-primary">NIT del establecimiento</th>
+                  <th class="text-center text-primary">Licencia de funcionamiento</th>
+                  <th class="text-center text-primary">Acción</th>
+                </thead>
+                <tbody ng-repeat="persona in personas">
+                  <tr>
+                    <td ng-show="persona.per_nombres">{{persona.per_nombres}}{{persona.per_apellido_primero}}{{persona.per_apellido_segundo}}</td>
+                    <td ng-show="persona.per_nombres">{{persona.per_ci+" "+persona.per_ci_expedido}}</td>
+                    <td ng-show="persona.pjur_id">{{persona.pjur_razon_social}}</td>
+                    <td ng-show="persona.pjur_id">{{persona.pjur_nit}}</td>
+                    <td>{{persona.ess_razon_social}}</td>
+                    <td>{{persona.emp_kardex}}</td>
+                    <td>{{persona.emp_nit}}</td>
+                    <td>{{persona.emp_licencia}}</td>
+                    <td><a href="" class="btn btn-success btn-xs" ng-click="boleta(persona)"><span class="glyphicon glyphicon-ok"></span> Seleccionar</a></td>
+                  </tr>
+                </tbody>
+              </table>
+            </div>
+          </div>
+        </div>
+      </div>  
+   <!-- fin ng-show -->
+</div>  
+
+
+
+
+  <!-- fin contenido -->
+  </div>
+</div>
+<!-- CONTENIDO MODULO fin -->

@@ -66,8 +66,8 @@
                         <span ng-show="addFuncionario.profesion.$error.required">El campo es obligatorio.</span>
                       </span>
                     </div> 
-                    <div class="col-md-6">
-                      <div ng-controller="IndexCargoCtrl">
+                    <div class="col-md-6"><!--ng-controller="IndexCargoCtrl"  -->
+                      <div >
                         <label class="control-label">Cargo: <strong class="fg_red">*</strong></label>
                          <input type="" class="form-control" name="cargo" placeholder="Ej. Tecnico" ng-model="funcionarios.fun_cargo" ng-model-options="{ updateOn: 'blur' }" required>
                         <!-- <select class="form-control" name="cargo" ng-model="funcionarios.fe_cargo"  ng-options="cargo.car_tipo as cargo.car_tipo for cargo in cargos" >

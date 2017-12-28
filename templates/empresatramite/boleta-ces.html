@@ -1,0 +1,109 @@
+<!-- TOP-MENU inicio -->
+<div ng-include="'./templates/menu_inicio.html'"></div>
+<!-- CONTEXT-MENU -->
+<div ng-include="'./templates/menu_lateral.html'"></div>
+<!-- CONTENIDO MODULO inicio -->
+<div class="col-md-8 col-sm-8" >
+  <div class="row">
+    <div class="col-md-12">
+      <h2 class="text-primary">
+        <span class="glyphicon glyphicon-th-list" aria-hidden="true"></span>
+        {{ajustes.pagina.titulo}}
+      </h2>
+      <hr class="bg-red">
+    </div>
+  </div>
+
+    <div class="well well-sm" style="background-color:#fff;">
+      <div class="col-md-12">
+        <h3 class="text-center text-primary">
+         I. Boleta de pago
+        </h3>
+        <hr class="bg-red">
+      </div>
+      <div>
+        <div>
+          <div class="col-md-6 col-sm-6">
+            <label class="text-primary">Razón Social del Propietario:</label>&nbsp;&nbsp;&nbsp;
+            {{establecimiento.est_sol.ess_razon_social}}
+          </div>
+          <div class="col-md-6 col-sm-6">
+            <label class="text-primary">C.I./NIT:</label>&nbsp;&nbsp;&nbsp;
+            {{establecimiento.empresa.emp_kardex}}
+          </div>
+        </div>
+          <hr class="bg-red">
+        <div class="col-md-6 col-sm-6">
+          <label class="text-primary">Razón Social del Establecimiento:</label>&nbsp;&nbsp;&nbsp;
+          {{establecimiento.est_sol.ess_razon_social}}
+        </div>
+        <div class="col-md-6 col-sm-6">
+          <label class="text-primary">Kardex:</label>&nbsp;&nbsp;&nbsp;
+          {{establecimiento.empresa.emp_kardex}}
+        </div>
+
+        <div class="col-md-6 col-sm-6">
+          <label class="text-primary">Provincia:</label>&nbsp;&nbsp;&nbsp;
+          {{establecimiento.provincia.pro_nombre|uppercase}}
+        </div>
+        <div class="col-md-6 col-sm-6">
+          <label class="text-primary">Municipio:</label>&nbsp;&nbsp;&nbsp;
+          {{establecimiento.municipio.mun_nombre}}
+        </div>
+        <div class="col-md-6 col-sm-6">
+          <label class="text-primary">Zona:</label>&nbsp;&nbsp;&nbsp;
+          {{establecimiento.zona.zon_nombre}}
+        </div>
+        <div class="col-md-6 col-sm-6">
+          <label class="text-primary">Avenida/Calle:</label>&nbsp;&nbsp;&nbsp;
+          {{establecimiento.est_sol.ess_avenida_calle}}
+        </div>
+        <div class="col-md-6 col-sm-6">
+          <label class="text-primary">Número:</label>&nbsp;&nbsp;&nbsp;
+          {{establecimiento.est_sol.ess_numero}}
+        </div>
+        <hr class="bg-red">
+        <div class="col-md-6 col-sm-6">
+          <label for="tra" class="control-label text-primary">Trámite:</label><strong class="fg_red">*</strong>
+           <select  name="tra" class="form-control col-md-6 col-sm-6" ng-change="verpagos(persona.mun_id)" ng-model="tramiteselect" ng-options="tramite as tramite.tra_nombre  for tramite in tramite" required>
+            </select>
+            <span ng-if="userForm.tra.$touched && tramiteselect.tra_id==null" class="messages">El campo es obligatorio</span> 
+        </div>
+        <div class="col-md-6 col-sm-6">
+          <label for="tra" class="control-label text-primary">Selecione concepto de pago:</label><strong class="fg_red">*</strong>
+          <select  name="tra" class="form-control col-md-6 col-sm-6" ng-model="tramiteselect" ng-options="tramite as tramite.tra_nombre  for tramite in tramite" required>
+          </select>
+            <span ng-if="userForm.tra.$touched && tramiteselect.tra_id==null" class="messages">El campo es obligatorio</span> 
+        </div>
+        <div class="col-md-6 col-sm-6">
+            <label class="control-label text-primary">Monto a cancelar:</label>
+            <div class="well well-sm">
+              <center>
+                <h3 ng-if="tramiteselect.tra_costo==null">--</h3>
+                <h3 ng-if="tramiteselect.tra_costo!=null">Bs. {{tramiteselect.tra_costo}}</h3>
+              </center>
+            </div>
+        </div>
+        <div class="col-md-6 col-sm-6">
+          <label class="text-primary">Unidad de:</label>&nbsp;&nbsp;&nbsp;
+          {{tramiteselect.tra_nombre}}
+        </div>
+      </div>
+      
+      
+      <div class="row">
+        <div class="col-md-4 col-md-offset-4 text-center" >
+            <button type="submit" class="btn btn-success" ng-click="save($parent.persona_tramite, persona.per_id,tramiteselect.tra_id,tramiteselect.tra_costo)" ng-disabled="tramiteselect.tra_id==null"><span class="glyphicon glyphicon-plus"></span> REGISTRAR PAGO</button>
+        </div>
+      </div>
+      <!-- <div ng-controller="pdf_pagoCESCtrl"  align="center"> -->
+      <div   align="center">
+         <button type="button" class="btn btn-default" ng-click="openPdfF1()" >IMPRIMIR PAGO  <span class="glyphicon glyphicon-print"></span></button>
+         <button type="button"  class="btn btn-default" ng-click="downloadPdfF1()">Descargar PDF PAGO  <span class="glyphicon glyphicon-download-alt"></span></button>
+      </div>
+
+    </div>
+
+      
+
+</div>

@@ -1,5 +1,5 @@
 'use strict';
-angular.module("adminApp", ["authService", "ngRoute", "ngResource", "satellizer", "toastr", "platypus.tabs", 'ngMap', 'vcRecaptcha','angular.filter'])
+angular.module("adminApp", ["authService", "ngRoute", "ngResource", "satellizer", "toastr", "platypus.tabs", 'ngMap', 'vcRecaptcha','angular.filter', 'angularMoment'])
 /*.config(function ($httpProvider) {
   $httpProvider.interceptors.push('authInterceptor');
   console.log($httpProvider.interceptors);
@@ -70,7 +70,7 @@ angular.module("adminApp", ["authService", "ngRoute", "ngResource", "satellizer"
   .when('/inicio', {
     templateUrl: 'templates/publico/index.html'
   })
-
+//no existe esta ruta
   .when('/inicio2', {
     templateUrl: 'templates/publico/index2.html'
   })
@@ -312,10 +312,32 @@ angular.module("adminApp", ["authService", "ngRoute", "ngResource", "satellizer"
       authorized: [ROLES.ADMIN_USACSIA.ROL]
     }
   })
-    //==========================DEPARTAMENTO===================================================================
+    //==========================           DEPARTAMENTO                   =====================================
   .when('/homedepartamento',{
    templateUrl:'templates/departamento/list.html',
    controller: 'HomeCtrlDep'/*,
+    data: {
+      authorized: [ROLES.ADMIN_SEDES.ROL]
+    }*/
+  })
+//=========================         FICHAS DE INSPECCION     =======================================
+  .when('/inspeccion/fichas',{
+   templateUrl:'templates/ficha_inspeccion/fichas_inspeccion.html',
+  /* controller: 'FichaICtrl',
+    data: {
+      authorized: [ROLES.ADMIN_SEDES.ROL]
+    }*/
+  })
+   .when('/inspeccion/fichas/crear1',{
+   templateUrl:'templates/ficha_inspeccion1/crear.html',
+   controller: 'CrearFicha1Ctrl'/*,
+    data: {
+      authorized: [ROLES.ADMIN_SEDES.ROL]
+    }*/
+  })
+  .when('/inspeccion/fichas/crear2',{
+   templateUrl:'templates/ficha_inspeccion2/crear.html',
+   controller: 'CrearFicha2Ctrl'/*,
     data: {
       authorized: [ROLES.ADMIN_SEDES.ROL]
     }*/
@@ -528,7 +550,6 @@ angular.module("adminApp", ["authService", "ngRoute", "ngResource", "satellizer"
     }
   })
 
-/*tratamientos----------¿POR QUE NO SE USA ESTO EN LA FICHA??????????? 20-12-2017*/
 
   .when('/tratamiento/crear', {
     templateUrl: 'templates/tratamiento/crear.html',
@@ -566,6 +587,24 @@ angular.module("adminApp", ["authService", "ngRoute", "ngResource", "satellizer"
     controller: 'CrearDocumentoTramiteCtrl'
   })
 
+/*#######################################CERTIFICADO SANITARIO#######################################*/
+/*========================== empresa tramite==========================================*/
+    /*busca establecimiento_solictante por ci o por razon social*/
+    .when('/buscarpropietario', {
+      templateUrl: 'buscarpropietario.html',
+      controller: 'BuscarpropietarioCtrl'
+    })
+/*jhon busca un establecimiento por ci de propietario o razon social*/
+  .when('/buscar-propietario', {
+    templateUrl: 'templates/empresatramite/buscar.html',
+    controller: 'BuscarPropietarioCtrl'
+  })
+  /*jhon generador de boleta pago form1 ces*/
+  .when('/boleta-ces/:et_id', {
+    templateUrl: 'templates/empresatramite/boleta-ces.html',
+    controller: 'BoletaCesCtrl'
+  })
+  /*========================== /empresa tramite =======================================*/
 /*-------------------------------------- documentos -----------------------------------------*/
     
   /*--------PENDIENTE------*/
