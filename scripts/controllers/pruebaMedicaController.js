@@ -95,7 +95,7 @@ angular.module("adminApp")
 
 
 }])
-.controller('FichaClinicaCtrl', ['$scope', 'PersonaporCI', 'FichaClinica', '$route', '$resource', '$routeParams', 'toastr', '$location', '$timeout', function ($scope, PersonaporCI,FichaClinica, $route, $resource,$routeParams, toastr, $location, $timeout) {
+.controller('FichaClinicaCtrl', ['$scope', 'PersonaporCI', 'FichaClinica', '$route', '$resource', '$routeParams', 'toastr', '$location', '$timeout', 'CONFIG', function ($scope, PersonaporCI,FichaClinica, $route, $resource,$routeParams, toastr, $location, $timeout, CONFIG) {
     $scope.ajustes = {
       menu:{
         titulo: 'Gestion de Consultas',

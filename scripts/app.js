@@ -1,5 +1,5 @@
 'use strict';
-angular.module("adminApp", ["authService", "ngRoute", "ngResource", "satellizer", "toastr", "platypus.tabs", 'ngMap', 'vcRecaptcha','angular.filter'])
+angular.module("adminApp", ["authService", "ngRoute", "ngResource", "satellizer", "toastr", "platypus.tabs", 'ngMap', 'vcRecaptcha','angular.filter', 'angularMoment'])
 /*.config(function ($httpProvider) {
   $httpProvider.interceptors.push('authInterceptor');
   console.log($httpProvider.interceptors);
@@ -564,17 +564,25 @@ angular.module("adminApp", ["authService", "ngRoute", "ngResource", "satellizer"
     templateUrl: 'templates/firma/editar.html',
     controller: 'CrearDocumentoTramiteCtrl'
   })
+
+/*#######################################CERTIFICADO SANITARIO#######################################*/
+/*========================== empresa tramite==========================================*/
     /*busca establecimiento_solictante por ci o por razon social*/
     .when('/buscarpropietario', {
       templateUrl: 'buscarpropietario.html',
       controller: 'BuscarpropietarioCtrl'
     })
-
 /*jhon busca un establecimiento por ci de propietario o razon social*/
   .when('/buscar-propietario', {
     templateUrl: 'templates/empresatramite/buscar.html',
     controller: 'BuscarPropietarioCtrl'
   })
+  /*jhon generador de boleta pago form1 ces*/
+  .when('/boleta-ces/:et_id', {
+    templateUrl: 'templates/empresatramite/boleta-ces.html',
+    controller: 'BoletaCesCtrl'
+  })
+  /*========================== /empresa tramite =======================================*/
 /*-------------------------------------- documentos -----------------------------------------*/
     
   /*--------PENDIENTE------*/

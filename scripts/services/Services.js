@@ -830,6 +830,7 @@ angular.module("adminApp")
 .factory('Receta', ['$resource', 'CONFIG', function ($resource, CONFIG) {
   return $resource(CONFIG.DOMINIO_SERVICIOS+"/receta", {},{ update:{method:"PUT", params:{}}})
 }])
+/*##################################EMPRESA############################################*/
 
 .factory('Categoria', ['$resource', 'CONFIG', function ($resource, CONFIG) {
   return $resource(CONFIG.DOMINIO_SERVICIOS+"/categoria/:cat_id", {cat_id:"@_cat_id"},{ update:{method:"PUT", params:{cat_id:"@cat_id"}}})
@@ -838,9 +839,15 @@ angular.module("adminApp")
 .factory('BuscarPropietario', ['$resource', 'CONFIG', function ($resource, CONFIG) {
   return $resource(CONFIG.DOMINIO_SERVICIOS+"/buscarpropietario/:parametro",{parametro:"@_parametro"},{ update:{method:"PUT", params:{parametro:"@parametro"}}})
 }])
+.factory('PagoPendiente', ['$resource', 'CONFIG', function ($resource, CONFIG) {
+  return $resource(CONFIG.DOMINIO_SERVICIOS+"/pago_pendiente/:pp_id", {pp_id:"@_pp_id"},{ update:{method:"PUT", params:{pp_id:"@pp_id"}}})
+}])
+
+.factory('EmpresaTramite', ['$resource', 'CONFIG', function ($resource, CONFIG) {
+  return $resource(CONFIG.DOMINIO_SERVICIOS+"/empresa_tramite/:et_id", {et_id:"@_et_id"},{ update:{method:"PUT", params:{et_id:"@et_id"}}})
+}])
 
 
-// ===============================/jhon
 
 
 

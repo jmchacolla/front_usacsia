@@ -101,52 +101,127 @@ angular.module("adminApp")
 }])
 
 
-.controller('BuscarPropietarioCtrl', ['$scope', '$http', 'BuscarPropietario', '$route', '$resource', '$routeParams', 'toastr', '$location', '$timeout', 'CONFIG', function ($scope, $http,BuscarPropietario, $route, $resource,$routeParams, toastr, $location, $timeout,CONFIG) {
-    // $scope.parametro='joder';
+.controller('BuscarPropietarioCtrl', ['$scope', '$http', 'moment', 'BuscarPropietario', 'EmpresaTramite', '$route', '$resource', '$routeParams', 'toastr', '$location', '$timeout', 'CONFIG', function ($scope, $http, moment, BuscarPropietario, EmpresaTramite, $route, $resource,$routeParams, toastr, $location, $timeout,CONFIG) {
+    $scope.ajustes = {
+      menu:{
+        titulo: 'Búsqueda de Establecimiento',
+        items:[
+          {nombre:'Funcionarios', enlace:'#/funcionarios', estilo:'active'},
+          {nombre:'Registrar funcionario', enlace:'#/funcionarios/createFun', estilo:''},
+          {nombre:'Buscar Persona', enlace:'#/funcionarios/createfo', estilo:''}]
+      },
+      pagina:{
+        titulo:'Búsqueda de Establecimiento'
+      }
+    }
     $scope.buscar=function () {
       console.log('parametro---------', $scope.parametro);
-
       $http.get(CONFIG.DOMINIO_SERVICIOS+'/buscarpropietario/'+$scope.parametro).success(function (respuesta) {
-        console.log('data---------', respuesta);
-        $scope.esta=respuesta.ess;
-        if(!respuesta.ess){
+        $scope.personas=respuesta.persona;
+        console.log('persona---------', $scope.personas);
+        if(respuesta.persona.length<=0){
             $scope.ver=false;
-            $scope.resultado=" No se encuentra el registro";              
-        } else if(respuesta.persona){
+            $scope.resultado=" No se encuentra resultados";              
+        } else if(respuesta.persona.length>0){
             $scope.ver=true;
             $scope.resultado='';
         }
       })
-
-      // BuscarPropietario.get($scope.parametro, function (data) {
-      //   $scope.ess=data.ess;
-      //   $scope.empresa=data.empresa
-      //   $scope.empresa_propietario=data.empresa_propietario;
-      //   $scope.propietario=data.propietario;
-      //   if(!rdata.ess){
-      //       $scope.ver=false;
-      //       $scope.resultado=" No se encuentra el registro";              
-      //   } else if(respuesta.persona){
-      //       $scope.ver=true;
-      //       $scope.resultado='';
-      //   }
-
-      // })
     }
-  
+    // var fconcluido=new Date(DD-MM-YY);
+    // var today=new Date(YYYY-MM-DD);
+    // 
+    function restaFechas(f1,f2)
+     {
+     var aFecha1 = f1.split('/'); 
+     var aFecha2 = f2.split('/'); 
+     var fFecha1 = Date.UTC(aFecha1[2],aFecha1[1]-1,aFecha1[0]); 
+     var fFecha2 = Date.UTC(aFecha2[2],aFecha2[1]-1,aFecha2[0]); 
+     var dif = fFecha2 - fFecha1;
+     var dias = Math.floor(dif / (1000 * 60 * 60 * 24)); 
+     return dias;
+     }
+
+    $scope.boleta =function (persona) {
+
+      var emptr={
+                ess_id:persona.ess_id,
+                fun_id:1, /*-------------------------por defecto debe guardar de la sesion*/
+                et_tipo_tramite:'RENOVACION'
+              };
+
+      if(!persona.et_vigencia_documento|| persona.et_estado_tramite !='APROBADO')
+      {
+        $timeout(function() {
+            $location.path('/boleta-ces/'+persona.et_id);
+        },1000);
+      }
+      if (persona.et_estado_pago=='VENCIDO') {
+        EmpresaTramite.save(emptr).promise.then(function (argument) {
+          console.log('et_id------', argument.et_id);
+          if (argument.msg) {
+            $timeout(function() {
+                $location.path('/boleta-ces/'+argument.et_id);
+            },1000);
+          }
+        });
+      }
+        var today= moment().format('DD/MM/YYYY');
+        var vigencia=moment(persona.et_vigencia_documento).format('DD/MM/YYYY');
+        var c=restaFechas(today,vigencia);
+        console.log('haber----',c);
+
+      if(persona.et_estado_tramite=='APROBADO'&& c<=30)
+      {   
+        
+          EmpresaTramite.save(emptr).promise.then(function (argument) {
+            console.log('et_id------', argument.et_id);
+            if (argument.msg) {
+              $timeout(function() {
+                  $location.path('/boleta-ces/'+argument.et_id);
+              },1000);
+            }
+          })
+      }
+      if(persona.et_estado_tramite=='APROBADO'&& c>=30)
+      {
+        toastr.error('El docuemnto aún se encuentra en vigencia');
+      }
+    }
 }])
 
-/*$scope.buscaPersona = function(){
-    console.log('esta buscando persona');
-      $scope.resultado="Cargando...";
-      $http.get(CONFIG.DOMINIO_SERVICIOS+'/personas_ci/'+$scope.per_ci).success(function(respuesta){
-          $scope.persona = respuesta.persona;
-          if(!respuesta.persona){
-              $scope.ver=false;
-              $scope.resultado=" La persona no se encuentra registrada";              
-          } else if(respuesta.persona){
-              $scope.ver=true;
-              $scope.resultado='';
-          }  
-      });
-  }*/
+.controller('BoletaCesCtrl', ['$scope', '$http', 'EstabSols', 'Tramite','PagoPendiente', '$route', '$resource', '$routeParams', 'toastr', '$location', '$timeout', 'CONFIG', function ($scope, $http,EstabSols, Tramite, PagoPendiente, $route, $resource,$routeParams, toastr, $location, $timeout,CONFIG) {
+  $scope.ajustes = {
+    menu:{
+      titulo: 'Búsqueda de Establecimiento',
+      items:[
+        {nombre:'Funcionarios', enlace:'#/funcionarios', estilo:'active'},
+        {nombre:'Registrar funcionario', enlace:'#/funcionarios/createFun', estilo:''},
+        {nombre:'Buscar Persona', enlace:'#/funcionarios/createfo', estilo:''}]
+    },
+    pagina:{
+      titulo:'Boleta de pago Formulario N° 1'
+    }
+  }
+
+  var ess_id=$routeParams.ess_id;
+  EstabSols.get({ess_id:ess_id}, function (argument) {
+    console.log('argument-------', argument);
+    $scope.establecimiento=argument.establecimiento;
+  })
+  Tramite.get(function(data){
+  $scope.tramite = data.tramites;
+  console.log("tramite del get",$scope.tramite);
+    $scope.monto = function(costo){
+        $scope.persona_tramite.pt_monto=costo;  
+    }
+  })
+  $scope.verpagos=function (et_id) {
+    PagoPendiente.get({et_id:et_id}, function (argument) {
+    console.log('argument-------', argument);
+    $scope.pagop=argument.pagop;
+  })
+  }
+
+
+}])
