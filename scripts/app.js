@@ -513,6 +513,16 @@ angular.module("adminApp", ["authService", "ngRoute", "ngResource", "satellizer"
     controller: 'CrearDocumentoTramiteCtrl'
   })
 
+
+    .when('/firma/crear', {
+    templateUrl: 'templates/firma/crear.html',
+    controller: 'FirmaCrearCtrl'
+  })
+    .when('/firma/editar', {
+    templateUrl: 'templates/firma/editar.html',
+    controller: 'CrearDocumentoTramiteCtrl'
+  })
+
 /*-------------------------------------- documentos -----------------------------------------*/
     
   /*--------PENDIENTE------*/
