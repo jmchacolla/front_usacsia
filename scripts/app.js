@@ -1,5 +1,5 @@
 'use strict';
-angular.module("adminApp", ["authService", "ngRoute", "ngResource", "satellizer", "toastr", "platypus.tabs", 'ngMap', 'vcRecaptcha','angular.filter'])
+angular.module("adminApp", ["authService", "ngRoute", "ngResource", "satellizer", "toastr", "platypus.tabs", 'ngMap', 'vcRecaptcha','angular.filter', 'angularMoment'])
 /*.config(function ($httpProvider) {
   $httpProvider.interceptors.push('authInterceptor');
   console.log($httpProvider.interceptors);
@@ -272,10 +272,10 @@ angular.module("adminApp", ["authService", "ngRoute", "ngResource", "satellizer"
   })
 
 
-  .when('/establecimientosol/crear', { 
-    templateUrl: 'templates/establecimiento_solicitante/crear.html',
-    controller: 'CrearEstabSolCtrl',
-    data: {
+  .when('/establecimientosol/crear/:per_id', { 
+    templateUrl: 'templates/establecimiento_solicitante/crear2.html',
+    controller: 'CrearEstablecimientoSolicitanteCtrl',
+      data: {
       authorized: [ROLES.ADMIN_USACSIA.ROL]
     }
   })
@@ -612,17 +612,25 @@ angular.module("adminApp", ["authService", "ngRoute", "ngResource", "satellizer"
     templateUrl: 'templates/firma/editar.html',
     controller: 'CrearDocumentoTramiteCtrl'
   })
+
+/*#######################################CERTIFICADO SANITARIO#######################################*/
+/*========================== empresa tramite==========================================*/
     /*busca establecimiento_solictante por ci o por razon social*/
     .when('/buscarpropietario', {
       templateUrl: 'buscarpropietario.html',
       controller: 'BuscarpropietarioCtrl'
     })
-
 /*jhon busca un establecimiento por ci de propietario o razon social*/
   .when('/buscar-propietario', {
     templateUrl: 'templates/empresatramite/buscar.html',
     controller: 'BuscarPropietarioCtrl'
   })
+  /*jhon generador de boleta pago form1 ces*/
+  .when('/boleta-ces/:et_id', {
+    templateUrl: 'templates/empresatramite/boleta-ces.html',
+    controller: 'BoletaCesCtrl'
+  })
+  /*========================== /empresa tramite =======================================*/
 /*-------------------------------------- documentos -----------------------------------------*/
     
   /*--------PENDIENTE------*/
@@ -654,7 +662,9 @@ angular.module("adminApp", ["authService", "ngRoute", "ngResource", "satellizer"
 //Redirecciona automaticamente al login
 .run(function($rootScope, $location, authUser, toastr, sessionControl, Personas){
   var rutasPrivadas = 
+
   ['/','/atencion','/prueba-medica/:pt_id','/prueba-medica/prueba/:pm_id','/prueba-medica/ver/:pm_id','/ficha-clinica/:per_ci','/perfil', '/usuario/edit','/usuario/create','/persona/create','/personas','/personas/ver/:per_id','/personas/edit/:per_id', '/funcionarios','/funcionarios/ver/:fun_id', '/funcionarios/createFun','/funcionarios/edit/:fun_id', '/consultorios','/consultorios/ver/:amb_id', '/consultorios/create','/consultorios/edit/:amb_id','/laboratorios','/laboratorios/ver/:amb_id', '/laboratorios/create','/laboratorios/edit/:amb_id',  '/establecimientos','/establecimientos/ver/:usa_id','/establecimientossol','/establecimientos/crear','/establecimientosol/crear','/tramites_concluidos',  '/tramites_concluidos/ver/:pt_id', '/homepais','/pais/create','/buscar-numero-muestra','/prueba-laboratorio/crear/:pl_id','/prueba-laboratorio/ver/:pl_id', '/prueba-laboratorio','/numero-muestra/crear','/numero-muestra','/numero-ficha/crear','/tramite/crear','/tramites-car','/boleta-pago/:pt_id','/parasito/crear', '/parasito','/parasito/editar/:par_id','/parasito/ver/:par_id','/tratamiento/crear', '/tratamiento','/homedepartamento',];
+
   
   $rootScope.$on('$routeChangeStart', function(){
     if (($.inArray($location.path(), rutasPrivadas) !== -1 ) && !authUser.isLoggedIn()) {

@@ -324,6 +324,18 @@ angular.module("adminApp")
   })
 }])
 
+.factory('Subclacificacion', ['$resource', 'CONFIG', function ($resource, CONFIG){
+  return $resource(CONFIG.DOMINIO_SERVICIOS+"/subclasificacion/:sub_id", {sub_id:"@_sub_id"}, {
+    update: {method: "PUT", params: {sub_id: "@sub_id"}}
+  })
+}])
+
+.factory('Propietario', ['$resource', 'CONFIG', function ($resource, CONFIG){
+  return $resource(CONFIG.DOMINIO_SERVICIOS+"/propietario/:pro_id", {pro_id:"@_pro_id"}, {
+    update: {method: "PUT", params: {pro_id: "@pro_id"}}
+  })
+}])
+
 
 /*=========================================USACSIA====================================*/
 
@@ -883,6 +895,7 @@ angular.module("adminApp")
 .factory('Receta', ['$resource', 'CONFIG', function ($resource, CONFIG) {
   return $resource(CONFIG.DOMINIO_SERVICIOS+"/receta", {},{ update:{method:"PUT", params:{}}})
 }])
+/*##################################EMPRESA############################################*/
 
 .factory('Categoria', ['$resource', 'CONFIG', function ($resource, CONFIG) {
   return $resource(CONFIG.DOMINIO_SERVICIOS+"/categoria/:cat_id", {cat_id:"@_cat_id"},{ update:{method:"PUT", params:{cat_id:"@cat_id"}}})
@@ -891,9 +904,19 @@ angular.module("adminApp")
 .factory('BuscarPropietario', ['$resource', 'CONFIG', function ($resource, CONFIG) {
   return $resource(CONFIG.DOMINIO_SERVICIOS+"/buscarpropietario/:parametro",{parametro:"@_parametro"},{ update:{method:"PUT", params:{parametro:"@parametro"}}})
 }])
+.factory('PagoPendiente', ['$resource', 'CONFIG', function ($resource, CONFIG) {
+  return $resource(CONFIG.DOMINIO_SERVICIOS+"/pago_pendiente/:pp_id", {pp_id:"@_pp_id"},{ update:{method:"PUT", params:{pp_id:"@pp_id"}}})
+}])
+/*jhon-----retorna la lista de pagos pendientes por trámite*/
+.factory('PagoPendienteTramite', ['$resource', 'CONFIG', function ($resource, CONFIG) {
+  return $resource(CONFIG.DOMINIO_SERVICIOS+"/ppportramite/:et_id", {et_id:"@_et_id"},{ update:{method:"PUT", params:{et_id:"@et_id"}}})
+}])
+
+.factory('EmpresaTramite', ['$resource', 'CONFIG', function ($resource, CONFIG) {
+  return $resource(CONFIG.DOMINIO_SERVICIOS+"/empresa_tramite/:et_id", {et_id:"@_et_id"},{ update:{method:"PUT", params:{et_id:"@et_id"}}})
+}])
 
 
-// ===============================/jhon
 
 
 

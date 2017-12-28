@@ -100,8 +100,8 @@ angular.module("adminApp")
 }])
 
 
-.controller('CrearEstabSolCtrl', ['$http','CONFIG','$scope','EstabSols','Zonas',  '$location', '$timeout', 'toastr',
- function ($scope, EstabSols,Zonas,  $location, $timeout, toastr){
+.controller('CrearEstablecimientoSolicitanteCtrl', ['$scope','$routeParams','Personas','Subclacificacion','EstabSols','Zonas',  '$location', '$timeout', 'toastr',
+ function ($scope,$routeParams, Personas,Subclacificacion,EstabSols,Zonas,  $location, $timeout, toastr){
 
  $scope.ajustes = {
     //Configuraciones del menu:
@@ -113,12 +113,55 @@ angular.module("adminApp")
     },
     //Configuraciones de la página
     pagina:{
-      titulo:'Nuevo Establecimiento',
+      titulo:'Registrar Establecimiento',
       action: "CREAR"
     }
   }
-  console.log("MENUUUU",$scope.ajustes.pagina.titulo);
 
+  var per_id=$routeParams.per_id;
+    Personas.get({per_id:per_id},function(data){
+      $scope.persona=data.persona.persona;
+  });
+
+  $scope.CurrentDate=new Date();
+
+  $scope.items = [];
+  Subclacificacion.get(function(data){
+      $scope.subcla=data.subcla;
+      console.log($scope.subcla);
+
+/*agregar rubros en la empresa*/
+    var aux=null;
+    
+    $scope.agregar = function (sub_id,sub_nombre, item) {
+      if (item){
+        $scope.items.push(item);
+        for (var i = $scope.subcla.length - 1; i >= 0; i--) {
+          if($scope.subcla[i].sub_id==sub_id){
+            aux=$scope.subcla[i];
+            $scope.subcla.splice(i,1);
+          }
+        };
+        // console.log('este es el vector reducido', $scope.subcla);
+        // console.log('este es el vector de items', $scope.items);
+      }
+    };
+
+/*quitar rubros en la empresa*/
+    $scope.quitar = function (sub_id,item) {
+      if (sub_id){
+        $scope.subcla.push(item);
+        for (var i = $scope.items.length - 1; i >= 0; i--) {
+          if($scope.items[i].sub_id==sub_id){
+            aux=$scope.items[i];
+            $scope.items.splice(i,1);
+          }
+        };
+      }
+    };
+  });
+/*------------------------------------------------*/
+    
   $scope.zon=false;
   $scope.ver_zonas=function(mun_id){
       console.log(mun_id+"<<< MUN_ID");
@@ -136,8 +179,8 @@ angular.module("adminApp")
 $scope.latitud=null;
  $scope.longitud=null;
  var lat,long;
-// $scope.initMap = function(){
-   
+
+$scope.initMap = function(){  
     var infowindow = new google.maps.InfoWindow();
     var marker, i;
     navigator.geolocation.getCurrentPosition(function(pos) {
@@ -172,37 +215,19 @@ $scope.latitud=null;
 
         google.maps.event.addListener(marker, 'click', (function(marker) {
             return function() {
-            /*infowindow.setContent('<h4 class="text-primary">Tú estas aquí <br><small>Esta es tu ubicación aproximada</small></h4>');*/
-            /*infowindow.setContent([
-                'La posicion del marcador es',
-                markerLatLng.lat(),
-                ', ',
-                markerLatLng.lng(),
-                'latitud, longitud'
-            ].join(''));*/
-
             var markerLatLng1 = marker.getPosition();
              document.getElementById("establecimientolatitud").value=markerLatLng1.lat();
              document.getElementById("establecimientolongitud").value=markerLatLng1.lng();
             console.log("latitud del click", $scope.latitud);
             console.log("longitud del click", $scope.longitud);  
 
- 
             infowindow.open(map, marker);
             }
         })(marker));
-
-
      })   
-
-  // };
-
-
-
-
+  };
 
   $scope.establecimiento = {
-    coo_per_id:null,
     zon_id:null,
     ess_razon_social:null,
     ess_telefono:0,
@@ -213,11 +238,33 @@ $scope.latitud=null;
     ess_stand:"",
     ess_latitud:0,
     ess_longitud:0,
-    ess_altitud:null,
+    ess_altitud:0,
     ie_nombre:"EST.JPG",
     ie_enlace: "./img-est/",
-    ie_tipo:"fotografia"
+    ie_tipo:"fotografia",
+    emp_nit:"",
+    emp_url_nit:"",
+    emp_url_licencia:"",
+    pro_tipo:"N",
+    per_id:per_id,
+    tra_id:2
   };
+
+  /*
+  FALTA LLENAR EMP_NIT
+  URL_LICENCIA
+  PROTIPO
+  TRA_ID
+  */
+
+
+    $scope.todo1={
+      establecimiento:$scope.establecimiento,
+      vector:$scope.items
+    };
+
+    $scope.todo=JSON.stringify($scope.todo1);
+  
 
   $scope.patternCadena = /^[a-zA-ZñÑáéíóúÁÉÍÓÚ .]*$/;
   $scope.patternNumero = /^[0-9]*$/;
@@ -226,17 +273,13 @@ $scope.latitud=null;
   $scope.patternFecha = /^(0[1-9]|1[0-9]|2[0-9]|3[01]).(0[1-9]|1[012]).[0-9]{4}$/;
   $scope.patternHora = /^[0-9:]*$/;
   //VALIDAR NUMEROS !!!!!!
-  $scope.submit = function(a,lat,lon){
-    $scope.establecimiento.ess_latitud=lat;
-    $scope.establecimiento.ess_longitud=lon;
-    EstabSols.save($scope.establecimiento).$promise.then(function(data){
-      if(data.msg) {
-        angular.copy({}, $scope.establecimiento);
+  $scope.submit = function(){
+    console.log('EL OBJETO QUE S VA A CREAR', $scope.todo);
+    EstabSols.save($scope.todo1).$promise.then(function(data){
+      if(data.status) {
+        angular.copy({}, $scope.todo);
         $scope.ajustes.pagina.success = "Establecimiento añadido correctamente";
         toastr.success('Establecimiento añadido correctamente');
-        $timeout(function() {
-          $location.path('/establecimientossol');
-        },0);
       }
     });
   };
@@ -250,7 +293,6 @@ $scope.latitud=null;
     }
   };
 }])
-
 
 
 .controller('BuscarCrearPersonaCtrl', ['$scope','EstabSols', '$route', 'toastr',
@@ -268,6 +310,7 @@ $scope.latitud=null;
       titulo:'Buscar propietario registrado'
     }
   }
+  $scope.var='P';
 
   $scope.crear_desde_establecimiento=true;
 
@@ -280,6 +323,7 @@ $scope.latitud=null;
 
 /*BUSCA PERSONA POR CI*/
 .controller('BuscaPersonaRegistradaCtrl', ['$http', '$scope', 'CONFIG', buscaPersonaRegistradaController])
+.controller('BuscaPJuridicaRegistradaCtrl', ['$http', '$scope', 'CONFIG', buscaPJuridicaRegistradaController])
 function buscaPersonaRegistradaController($http, $scope, CONFIG){
   $scope.buscaPersona = function(){
     console.log('esta buscando persona');
@@ -301,5 +345,27 @@ function buscaPersonaRegistradaController($http, $scope, CONFIG){
       });
   }
 }
+
+
+/*BUSCA PROPIETARIO POR NIT*/
+function buscaPJuridicaRegistradaController($http, $scope, CONFIG){
+  $scope.buscaPJuridica = function(pjur_nit){
+    console.log('esta buscando pjuridica', pjur_nit);
+      $scope.resultado="Cargando...";
+      $http.get(CONFIG.DOMINIO_SERVICIOS+'/buscarpjuridica/'+pjur_nit).success(function(respuesta){
+        console.log('respuesta pjuridica: ', respuesta);
+          if(respuesta.pjuridica==null){
+              $scope.veremp=false;
+              $scope.noexistemp=true;
+              $scope.resultadoemp=" La empresa no se encuentra registrada";              
+          } else if(respuesta.pjuridica){
+              $scope.veremp=true;
+              $scope.resultadoemp='';
+          }  
+      });
+  }
+}
+
+
 
 
