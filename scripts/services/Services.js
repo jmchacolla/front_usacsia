@@ -289,6 +289,18 @@ angular.module("adminApp")
   })
 }])
 
+.factory('Subclacificacion', ['$resource', 'CONFIG', function ($resource, CONFIG){
+  return $resource(CONFIG.DOMINIO_SERVICIOS+"/subclasificacion/:sub_id", {sub_id:"@_sub_id"}, {
+    update: {method: "PUT", params: {sub_id: "@sub_id"}}
+  })
+}])
+
+.factory('Propietario', ['$resource', 'CONFIG', function ($resource, CONFIG){
+  return $resource(CONFIG.DOMINIO_SERVICIOS+"/propietario/:pro_id", {pro_id:"@_pro_id"}, {
+    update: {method: "PUT", params: {pro_id: "@pro_id"}}
+  })
+}])
+
 
 /*=========================================USACSIA====================================*/
 

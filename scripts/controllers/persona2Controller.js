@@ -207,10 +207,10 @@ $scope.zon=false;
       $scope.persona = data.persona;
       console.log("PERSONAS");
       if ($scope.persona.persona.per_genero=='F' || $scope.persona.persona.per_genero=='f'){
-        $scope.persona.persona.per_genero='Femenino';
+        $scope.persona.persona.per_genero='FEMENINO';
       }
       else if($scope.persona.persona.per_genero=='M' || $scope.persona.persona.per_genero=='m'){
-        $scope.persona.persona.per_genero='Masculino';
+        $scope.persona.persona.per_genero='MASCULINO';
       }
       $scope.loading = false;
       $scope.msg = data.mensaje;
