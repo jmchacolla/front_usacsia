@@ -860,6 +860,10 @@ angular.module("adminApp")
 .factory('PagoPendiente', ['$resource', 'CONFIG', function ($resource, CONFIG) {
   return $resource(CONFIG.DOMINIO_SERVICIOS+"/pago_pendiente/:pp_id", {pp_id:"@_pp_id"},{ update:{method:"PUT", params:{pp_id:"@pp_id"}}})
 }])
+/*jhon-----retorna la lista de pagos pendientes por trámite*/
+.factory('PagoPendienteTramite', ['$resource', 'CONFIG', function ($resource, CONFIG) {
+  return $resource(CONFIG.DOMINIO_SERVICIOS+"/ppportramite/:et_id", {et_id:"@_et_id"},{ update:{method:"PUT", params:{et_id:"@et_id"}}})
+}])
 
 .factory('EmpresaTramite', ['$resource', 'CONFIG', function ($resource, CONFIG) {
   return $resource(CONFIG.DOMINIO_SERVICIOS+"/empresa_tramite/:et_id", {et_id:"@_et_id"},{ update:{method:"PUT", params:{et_id:"@et_id"}}})

@@ -190,7 +190,7 @@ angular.module("adminApp")
     }
 }])
 
-.controller('BoletaCesCtrl', ['$scope', '$http', 'EstabSols', 'Tramite','PagoPendiente', '$route', '$resource', '$routeParams', 'toastr', '$location', '$timeout', 'CONFIG', function ($scope, $http,EstabSols, Tramite, PagoPendiente, $route, $resource,$routeParams, toastr, $location, $timeout,CONFIG) {
+.controller('BoletaCesCtrl', ['$scope', '$http', 'EmpTra', 'Tramite','PagoPendienteTramite', 'PagoPendiente', 'EmpresaTramite', '$route', '$resource', '$routeParams', 'toastr', '$location', '$timeout', 'CONFIG', function ($scope, $http,EmpTra, Tramite, PagoPendienteTramite, PagoPendiente, EmpresaTramite, $route, $resource,$routeParams, toastr, $location, $timeout,CONFIG) {
   $scope.ajustes = {
     menu:{
       titulo: 'Búsqueda de Establecimiento',
@@ -204,8 +204,9 @@ angular.module("adminApp")
     }
   }
 
-  var ess_id=$routeParams.ess_id;
-  EstabSols.get({ess_id:ess_id}, function (argument) {
+  var et_id=$routeParams.et_id;
+
+  EmpTra.get({et_id:et_id}, function (argument) {
     console.log('argument-------', argument);
     $scope.establecimiento=argument.establecimiento;
   })
@@ -216,11 +217,54 @@ angular.module("adminApp")
         $scope.persona_tramite.pt_monto=costo;  
     }
   })
-  $scope.verpagos=function (et_id) {
-    PagoPendiente.get({et_id:et_id}, function (argument) {
-    console.log('argument-------', argument);
-    $scope.pagop=argument.pagop;
-  })
+  $scope.verpagos=function (tra_id) {
+    if (tra_id==2) {
+        
+        $scope.verdeudas=true;
+        PagoPendienteTramite.get({et_id:et_id}, function (argument) {
+          console.log('argument-------', argument);
+          if (argument.pagop.length<=0) {
+            $scope.verdeudas=false;
+          }
+          else{
+            $scope.pagop=argument.pagop;
+          }
+        })
+    }
+    
+  }
+  $scope.save=function (pp_id) {
+    var today=moment().format('DD-MM-YYYY');
+    var ppendiente={
+            fun_id:1,/*-------debe recoger de la sesion*/
+            pp_estado_pago:'CANCELADO',
+            pp_fecha_pagado: today,
+        };
+
+    PagoPendiente.update(ppendiente,{pp_id:pp_id}, function (argument) {
+/*      if(argument.mesaje){
+      }else{
+        toastr.error('Error al registrar pago');
+      }*/
+        toastr.success('Pago registrado exitosamente');
+      console.log('pagop', argument);
+    })
+
+    var emptramite={
+      fun_id:1,/*----------------debe recoger de la sesion*/
+      et_estado_pago:'PAGADO',
+      et_estado_tramite:'INICIADO',
+    };
+    EmpresaTramite.update(emptramite, {et_id:et_id}, function (data) {
+      /*if(data.mesaje){
+      }else{
+        toastr.error('Error al registrar pago');
+      }*/
+        toastr.success('Pago registrado exitosamente');
+      console.log('empt', data);
+    })
+
+
   }
 
 
