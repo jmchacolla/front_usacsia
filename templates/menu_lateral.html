@@ -1,8 +1,9 @@
 <br>
 <div class="header" ng-controller="MenuLateralCtrl as menu">
-  <div class="col-md-2 col-md-offset-1 col-sm-2 col-sm-offset-1" style="border:1px solid #00796B; border-radius:5px;">
+  <div class="col-md-2 col-md-offset-1 col-sm-2 col-sm-offset-1" style="border:1px solid #CC0000; border-radius:5px;">
     <div class="text-center img-perfil">
-      <img ng-src="{{menu.persona.imagen[0].ima_enlace}}/{{menu.persona.imagen[0].ima_nombre}}" alt="{{menu.user.usu_nick | uppercase}}" class="img-thumbnail img-perfil ">
+    <!-- ng-src="{{menu.persona.imagen[0].ima_enlace}}/{{menu.persona.imagen[0].ima_nombre}}" -->
+      <img ng-src="{{menu.persona.imagen.ima_enlace}}/{{menu.persona.imagen.ima_nombre}}" alt="{{menu.user.usu_nick | uppercase}}" class="img-thumbnail img-perfil ">
       <h4 class="text-primary">{{menu.persona.persona.per_nombres | uppercase}}<br>
       <small class="texto">{{menu.roles | capitalize}}</small>
       </h4>

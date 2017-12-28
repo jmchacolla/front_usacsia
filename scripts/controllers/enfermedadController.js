@@ -7,8 +7,12 @@ $scope.ajustes = {
     menu:{
       titulo: 'Gestión de Enfermedades',
       items:[
-        {nombre:'Crear Enfermedad', enlace:'#/createenfermedad', estilo:''},
-        {nombre:'Enfermedades', enlace:'#/homeenfermedad', estilo:'active'}]
+       {nombre:'Gestión de Parasitos', enlace:'#/parasito', estilo:''},
+        {nombre:'Gestión de Tratamientos', enlace:'#/tratamiento', estilo:''},
+        {nombre:'Gestión de Enferemdades', enlace:'#/homeenfermedad', estilo:'active'},
+         {nombre:'Paises', enlace:'#/homepais', estilo:''},
+        {nombre:'Departamentos', enlace:'#/homedepartamento'}
+       ]
         
     },
     pagina:{

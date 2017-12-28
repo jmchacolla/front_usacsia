@@ -18,142 +18,116 @@
 			  <ul class="nav navbar-nav">
 				<li><a href="#/">
 					<span class="glyphicon glyphicon-home" aria-hidden="true"></span>
-					Inicio</a></li>
+					Inicio</a>
+				</li>
 				<li class="dropdown">
-				  <a href="" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">
+				  	<a href="" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">
 					<span class="glyphicon glyphicon-th" aria-hidden="true"></span>
 					Gestionar recursos<span class="caret"></span></a>
-				  <ul class="dropdown-menu">
-					<li ng-show="menu.CONFIG.ROL_CURRENT_USER == 1 || menu.CONFIG.ROL_CURRENT_USER == 9">
-
-						<a href="#/atencion" >
-						<span class="glyphicon glyphicon-asterisk" aria-hidden="true"></span>
-						Pacientes</a>
-						
-					</li>
-				
-					<li ng-show="menu.CONFIG.ROL_CURRENT_USER == 1" ><a href="#/personas" >
-						<span class="glyphicon glyphicon-asterisk" aria-hidden="true"></span>
-						Personas</a></li>
-					<li>
-
+				  	<ul class="dropdown-menu">
+				  		<li ng-show="menu.CONFIG.ROL_CURRENT_USER == 1 || menu.CONFIG.ROL_CURRENT_USER == 3">	 <a href="#/tramite/crear">
+							<span class="glyphicon glyphicon-asterisk" aria-hidden="true"></span>
+							Registrar pago</a>
+						</li>
+						<li>
+							<a href="#/tramites-car" ng-show="menu.CONFIG.ROL_CURRENT_USER == 1 || menu.CONFIG.ROL_CURRENT_USER == 7" >
+							<span class="glyphicon glyphicon-asterisk" aria-hidden="true"></span>
+							Tramites de Carné Sanitario</a>
+						</li>
+				  		<li>
+							<a href="#/numero-muestra/crear" ng-show="menu.CONFIG.ROL_CURRENT_USER == 1 ||menu.CONFIG.ROL_CURRENT_USER == 12" >
+							<span class="glyphicon glyphicon-asterisk" aria-hidden="true"></span>
+								Asignar Numero de muesra</a>
+						</li>
+						<li ng-show="menu.CONFIG.ROL_CURRENT_USER == 1 || menu.CONFIG.ROL_CURRENT_USER == 13">
+							<a href="#/buscar-numero-muestra">
+							<span class="glyphicon glyphicon-asterisk" aria-hidden="true"></span>
+							Realizar prueba de laboratorio </a>
+						</li>
+						<li ng-show="menu.CONFIG.ROL_CURRENT_USER == 1 || menu.CONFIG.ROL_CURRENT_USER == 8">	 <a href="#/numero-ficha/crear">
+							<span class="glyphicon glyphicon-asterisk" aria-hidden="true"></span>
+							Asignar numero de ficha</a>
+						</li>
+						<li ng-show="menu.CONFIG.ROL_CURRENT_USER == 1 || menu.CONFIG.ROL_CURRENT_USER == 9">
+							<a href="#/atencion" >
+							<span class="glyphicon glyphicon-asterisk" aria-hidden="true"></span>
+							Atención de Pacientes</a>				
+						</li>
+						<li ng-show="menu.CONFIG.ROL_CURRENT_USER == 1" ><a href="#/personas" >
+							<span class="glyphicon glyphicon-asterisk" aria-hidden="true"></span>
+							Ciudadanos registrados</a>
+						</li>
 						<li ng-show="menu.CONFIG.ROL_CURRENT_USER == 1 || menu.CONFIG.ROL_CURRENT_USER == 7">
 							<a href="#/funcionarios"  >
 							<span class="glyphicon glyphicon-asterisk" aria-hidden="true"></span>
 							Funcionarios de USACSIA</a>
 						</li>
-					
-					</li>
-					<li ng-show="menu.CONFIG.ROL_CURRENT_USER == 1 || menu.CONFIG.ROL_CURRENT_USER == 7" ><a href="#/consultorios" >
-						<span class="glyphicon glyphicon-asterisk" aria-hidden="true"></span>
-						Consultorios</a>
-					</li>
-						<li ng-show="menu.CONFIG.ROL_CURRENT_USER == 1 || menu.CONFIG.ROL_CURRENT_USER == 7"><a href="#/laboratorios" >
-						<span class="glyphicon glyphicon-asterisk" aria-hidden="true"></span>
-						Laboratorios</a>
-					</li>
-					<li ng-show="menu.CONFIG.ROL_CURRENT_USER == 1 || menu.CONFIG.ROL_CURRENT_USER == 7"><a href="#/establecimientos" >
-			            <span class="glyphicon glyphicon-asterisk" aria-hidden="true"></span>
-			            Establecimiento USACSIA</a></li>
-			        <li ng-show="menu.CONFIG.ROL_CURRENT_USER == 1 || menu.CONFIG.ROL_CURRENT_USER == 7">
-						<a href="#/establecimientossol">
-						<span class="glyphicon glyphicon-asterisk" aria-hidden="true"></span>
-						Establecimientos Solicitantes</a>
-					</li>
-					<li ng-show="menu.CONFIG.ROL_CURRENT_USER == 1 || menu.CONFIG.ROL_CURRENT_USER == 7">
-						<a href="#/tramites_concluidos">
-						<span class="glyphicon glyphicon-asterisk" aria-hidden="true"></span>
-						Tramites concluidos</a></li>
-					<li ng-show="menu.CONFIG.ROL_CURRENT_USER == 1 || menu.CONFIG.ROL_CURRENT_USER == 13">
-					<!-- a
-					 ng-show="menu.CONFIG.ROL_CURRENT_USER == 2 || menu.CONFIG.ROL_CURRENT_USER == 3 || menu.CONFIG.ROL_CURRENT_USER == 4 || menu.CONFIG.ROL_CURRENT_USER == 6 || menu.CONFIG.ROL_CURRENT_USER == 9 || menu.CONFIG.ROL_CURRENT_USER == 10"-->
-						<a href="#/buscar-numero-muestra">
-						<span class="glyphicon glyphicon-asterisk" aria-hidden="true"></span>
-						Realizar prueba de laboratorio </a>
-					</li>
-					<li >
-						<a href="#/prueba-laboratorio" ng-show="menu.CONFIG.ROL_CURRENT_USER == 1 || menu.CONFIG.ROL_CURRENT_USER == 13"><span class="glyphicon glyphicon-asterisk" aria-hidden="true"></span> Lista de prueba laboratorio</a>
-						<!--a
-						ng-show="menu.CONFIG.ROL_CURRENT_USER == 2 || menu.CONFIG.ROL_CURRENT_USER == 3 || menu.CONFIG.ROL_CURRENT_USER == 6 ||  menu.CONFIG.ROL_CURRENT_USER == 10 "  -->
-						<a href="#/numero-muestra/crear" ng-show="menu.CONFIG.ROL_CURRENT_USER == 1 ||menu.CONFIG.ROL_CURRENT_USER == 12" >
+						<li ng-show="menu.CONFIG.ROL_CURRENT_USER == 1 || menu.CONFIG.ROL_CURRENT_USER == 7" >
+							<a href="#/consultorios" >
 							<span class="glyphicon glyphicon-asterisk" aria-hidden="true"></span>
-							Asignar Numero de muesra</a>
-					</li>
-						<li  >
-						<!-- ng-show="menu.CONFIG.ROL_CURRENT_USER == 1 || menu.CONFIG.ROL_CURRENT_USER == 13"
-						 ng-show="menu.CONFIG.ROL_CURRENT_USER == 4 || menu.CONFIG.ROL_CURRENT_USER == 9"-->
-						<a href="#/numero-muestra" >
-							<span class="glyphicon glyphicon-asterisk" aria-hidden="true"></span>
-							Lista de numeros de muestra</a>
+							Consultorios</a>
 						</li>
-					</li>
-					<!-- li
-					ng-show="menu.CONFIG.ROL_CURRENT_USER == 1" -->
-					<li ng-show="menu.CONFIG.ROL_CURRENT_USER == 1 || menu.CONFIG.ROL_CURRENT_USER == 8"><a href="#/numero-ficha/crear">
-						<span class="glyphicon glyphicon-asterisk" aria-hidden="true"></span>
-						Asignar numero de ficha</a></li>
-						<!-- li
-						ng-show="menu.CONFIG.ROL_CURRENT_USER == 1" -->
-					<li ng-show="menu.CONFIG.ROL_CURRENT_USER == 1 || menu.CONFIG.ROL_CURRENT_USER == 3"><a href="#/tramite/crear">
-						<span class="glyphicon glyphicon-asterisk" aria-hidden="true"></span>
-						Busqueda de personas para pago</a></li>
-						<!-- li
-						ng-show="menu.CONFIG.ROL_CURRENT_USER == 1" -->
-<!-- 					<li ><a href="#/homeenfermedad">
-						<span class="glyphicon glyphicon-asterisk" aria-hidden="true"></span>
-						Enfermedades</a></li>-->
-				<!-- 	<li>  -->
-					<!-- a
-					 ng-show="menu.CONFIG.ROL_CURRENT_USER == 1"-->
-				<!-- 		<a href="#/seguimiento-tramite" >
-						<span class="glyphicon glyphicon-asterisk" aria-hidden="true"></span>
-						Seguimiento a trámite</a>
-					</li> -->
-					<li>
-					<!-- a
-					 ng-show="menu.CONFIG.ROL_CURRENT_USER == 3 || menu.CONFIG.ROL_CURRENT_USER == 4 || menu.CONFIG.ROL_CURRENT_USER == 5 || menu.CONFIG.ROL_CURRENT_USER == 6 || menu.CONFIG.ROL_CURRENT_USER == 10"-->
-						<a href="#/tramites" ng-show="menu.CONFIG.ROL_CURRENT_USER == 1 || menu.CONFIG.ROL_CURRENT_USER == 7" >
-						<span class="glyphicon glyphicon-asterisk" aria-hidden="true"></span>
-						Personas que ya tienen tramite</a>
-					</li>
-					<!-- li
-					 ng-show="menu.CONFIG.ROL_CURRENT_USER == 6"-->
-					<li ng-show="menu.CONFIG.ROL_CURRENT_USER == 1 || menu.CONFIG.ROL_CURRENT_USER == 7"><a href="#/parasito">
-			            <span class="glyphicon glyphicon-asterisk" aria-hidden="true"></span>
-			            Tablas administrativas</a>
-			        </li>
-		            <li ng-show="menu.CONFIG.ROL_CURRENT_USER == 1 " ><a href="#/usuario/create">
-		            <span class="glyphicon glyphicon-asterisk" aria-hidden="true"></span>
-		            Usuarios</a>
-		            </li>
-			    </ul>
+						<li ng-show="menu.CONFIG.ROL_CURRENT_USER == 1 || menu.CONFIG.ROL_CURRENT_USER == 7">
+							<a href="#/laboratorios" >
+							<span class="glyphicon glyphicon-asterisk" aria-hidden="true"></span>
+							Laboratorios</a>
+						</li>
+						<li ng-show="menu.CONFIG.ROL_CURRENT_USER == 1 || menu.CONFIG.ROL_CURRENT_USER == 7">	
+							<a href="#/establecimientos" >
+				            <span class="glyphicon glyphicon-asterisk" aria-hidden="true"></span>
+				            Establecimiento USACSIA</a>
+			           	</li>
+				        <li ng-show="menu.CONFIG.ROL_CURRENT_USER == 1 || menu.CONFIG.ROL_CURRENT_USER == 7">
+							<a href="#/establecimientossol">
+							<span class="glyphicon glyphicon-asterisk" aria-hidden="true"></span>
+							Establecimientos Solicitantes</a>
+						</li>
+						<li ng-show="menu.CONFIG.ROL_CURRENT_USER == 1 || menu.CONFIG.ROL_CURRENT_USER == 7">
+							<a href="#/tramites_concluidos">
+							<span class="glyphicon glyphicon-asterisk" aria-hidden="true"></span>
+							Tramites concluidos</a>
+						</li>
+						<li >
+							<a href="#/prueba-laboratorio" ng-show="menu.CONFIG.ROL_CURRENT_USER == 1 || menu.CONFIG.ROL_CURRENT_USER == 13"><span class="glyphicon glyphicon-asterisk" aria-hidden="true"></span> Lista de pruebas de laboratorio</a>
+						</li>
+
+						<li>
+							<a href="#/numero-muestra" >
+							<span class="glyphicon glyphicon-asterisk" aria-hidden="true"></span>
+								Numeros de muestra asignados</a>
+						</li>
+						<li ng-show="menu.CONFIG.ROL_CURRENT_USER == 1 || menu.CONFIG.ROL_CURRENT_USER == 7">	 <a href="#/homepais">
+				            <span class="glyphicon glyphicon-asterisk" aria-hidden="true"></span>
+				            Tablas administrativas</a>
+				        </li>
+			            <li ng-show="menu.CONFIG.ROL_CURRENT_USER == 1 " >
+			            	<a href="#/usuario/create">
+			            	<span class="glyphicon glyphicon-asterisk" aria-hidden="true"></span>
+			           		Usuarios</a>
+			            </li>
+			    	</ul>
 				</li>
 				<li class="dropdown">
-				  <a href="" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">
+				  	<a href="" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">
 					<span class="glyphicon glyphicon-th" aria-hidden="true"></span>
 					Manuales disponibles<span class="caret"></span></a>
-				  <ul class="dropdown-menu">
-				  <!-- li
-				   ng-show="menu.CONFIG.ROL_CURRENT_USER == 1"-->
-					<li ><a href="">
-						<span class="glyphicon glyphicon-asterisk" aria-hidden="true"></span>
-						Manual de administrador de SESAR</a></li>
-						<!-- li
-						ng-show="menu.CONFIG.ROL_CURRENT_USER == 1 || menu.CONFIG.ROL_CURRENT_USER == 2 || menu.CONFIG.ROL_CURRENT_USER == 9" -->
-					<li ><a href="">
-						<span class="glyphicon glyphicon-asterisk" aria-hidden="true"></span>
-						Manual de administrador de USACSIA </a></li>
-						<!-- li
-						 ng-show="menu.CONFIG.ROL_CURRENT_USER == 1 || menu.CONFIG.ROL_CURRENT_USER == 2 || menu.CONFIG.ROL_CURRENT_USER == 9 || menu.CONFIG.ROL_CURRENT_USER == 4"-->
-					<li ><a href="">
-						<span class="glyphicon glyphicon-asterisk" aria-hidden="true"></span>
-						Manual de Medico</a></li>
-						<!-- li
-						ng-show="menu.CONFIG.ROL_CURRENT_USER == 1 || menu.CONFIG.ROL_CURRENT_USER == 2 || menu.CONFIG.ROL_CURRENT_USER == 9 || menu.CONFIG.ROL_CURRENT_USER == 6" -->
-					<li ><a href="">
-						<span class="glyphicon glyphicon-asterisk" aria-hidden="true"></span>
-						Manual de laboratorio</a></li>
-				  </ul>
+				  	<ul class="dropdown-menu">
+				 		<li ><a href=""> <!-- li  ng-show="menu.CONFIG.ROL_CURRENT_USER == 1"-->
+							<span class="glyphicon glyphicon-asterisk" aria-hidden="true"></span>
+							Manual de administrador de SESAR</a></li>
+						<li ><a href=""><!-- li
+							ng-show="menu.CONFIG.ROL_CURRENT_USER == 1 || menu.CONFIG.ROL_CURRENT_USER == 2 || menu.CONFIG.ROL_CURRENT_USER == 9" -->
+							<span class="glyphicon glyphicon-asterisk" aria-hidden="true"></span>
+							Manual de administrador de USACSIA </a></li>
+						<li ><a href=""><!-- li
+							 ng-show="menu.CONFIG.ROL_CURRENT_USER == 1 || menu.CONFIG.ROL_CURRENT_USER == 2 || menu.CONFIG.ROL_CURRENT_USER == 9 || menu.CONFIG.ROL_CURRENT_USER == 4"-->
+							<span class="glyphicon glyphicon-asterisk" aria-hidden="true"></span>
+							Manual de Medico</a></li>
+						<li ><a href=""><!-- li
+							ng-show="menu.CONFIG.ROL_CURRENT_USER == 1 || menu.CONFIG.ROL_CURRENT_USER == 2 || menu.CONFIG.ROL_CURRENT_USER == 9 || menu.CONFIG.ROL_CURRENT_USER == 6" -->
+							<span class="glyphicon glyphicon-asterisk" aria-hidden="true"></span>
+							Manual de laboratorio</a></li>
+				  	</ul>
 				</li>
 			  </ul>
 			  <ul class="nav navbar-nav navbar-right">

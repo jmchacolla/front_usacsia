@@ -3,12 +3,12 @@ angular.module("adminApp")
 .controller('PruebaLaboratorioCtrl', ['$scope', 'PruebaLaboratorioService', '$route', 'toastr', function ($scope, PruebaLaboratorioService, $route, toastr){
   $scope.ajustes = {
     menu:{
-      titulo: 'Gestión de Ciudadanos',
+      titulo: 'Gestión de Pruebas de Laboratorio',
       items:[
-        {nombre:'Ciudadanos Registrados', enlace:'#/persona-usacsia', estilo:'active'}]
+        {nombre:'Pruebas de Laboratorio', enlace:'#/prueba-laboratorio', estilo:'active'}]
     },
     pagina:{
-      titulo:'Ciudadanos Registrados'
+      titulo:'Lista de Pruebas de Laboratorio'
     }
   }
   
@@ -53,9 +53,10 @@ angular.module("adminApp")
   function ($scope,$routeParams,ParasitosPrueba,Parasito,ParasitosNoPrueba,PruebaLaboratorioService,PruebaPar,ParasitosPrueba,Muestra, $route, toastr,$location,$timeout){
   $scope.ajustes = {
     menu:{
-      titulo: 'Gestión de Ciudadanos',
+      titulo: 'Gestión de Pruebas de Laboratorio',
       items:[
-        {nombre:'Ciudadanos Registrados', enlace:'#/persona-usacsia', estilo:'active'}]
+        {nombre:'Buscar número de muestra', enlace:'#/buscar-numero-muestra', estilo:'active'}
+        ]
     },
     pagina:{
       titulo:'Busca Número de Muestra'
@@ -141,14 +142,16 @@ angular.module("adminApp")
   }
 }])
 
-
+//crear prueba laboratorio parasitos y otros
 .controller('EditarPruebaLaboratorioCtrl', ['$http','CONFIG','$scope', '$routeParams','ParasitosPrueba','Parasito','ParasitosNoPrueba','PruebaLaboratorioService','PruebaPar','ParasitosPrueba', 'Muestra','$route', 'toastr','$location','$timeout',
   function ($http,CONFIG,$scope,$routeParams,ParasitosPrueba,Parasito,ParasitosNoPrueba,PruebaLaboratorioService,PruebaPar,ParasitosPrueba,Muestra, $route, toastr,$location,$timeout){
+
+    var pl_id=$routeParams.pl_id;
     $scope.ajustes = {
     menu:{
-      titulo: 'Gestión de Ciudadanos',
+      titulo: 'Gestión de Pruebas de Laboratorio',
       items:[
-        {nombre:'Ciudadanos Registrados', enlace:'#/persona-usacsia', estilo:'active'}]
+       {nombre:'Crear Prueba de laboratorio', enlace:'#/prueba-laboratorio/crear/'+pl_id, estilo:'active'}]
     },
     pagina:{
       titulo:'Prueba de laboratorio:'
@@ -177,7 +180,7 @@ angular.module("adminApp")
   $scope.sortReverse  = true;  // set the default sort order
   var fun_id=1;//remplaar con la sesion
   $scope.CurrentDate=new Date();
-  var pl_id=$routeParams.pl_id;
+  
 
   /*para ver el numero de muestra*/
   PruebaLaboratorioService.get({pl_id:pl_id},function(data){
@@ -311,14 +314,16 @@ $scope.sangre=function(){
 
 .controller('VerPruebaLaboratorioCtrl', ['$http','CONFIG','$scope', '$routeParams','ParasitosPrueba','Parasito','ParasitosNoPrueba','PruebaLaboratorioService','PruebaPar','ParasitosPrueba', 'Muestra','$route', 'toastr','$location','$timeout',
   function ($http,CONFIG,$scope,$routeParams,ParasitosPrueba,Parasito,ParasitosNoPrueba,PruebaLaboratorioService,PruebaPar,ParasitosPrueba,Muestra, $route, toastr,$location,$timeout){
+     var pl_id=$routeParams.pl_id;
   $scope.ajustes = {
     menu:{
-      titulo: 'Gestión de Ciudadanos',
+      titulo: 'Gestión de Pruebas de Laboratorio',
       items:[
-        {nombre:'Ciudadanos Registrados', enlace:'#/persona-usacsia', estilo:'active'}]
+        {nombre:'Detalle de Prueba de Laboratorio', enlace:'#/prueba-laboratorio/ver/'+pl_id, estilo:'active'},
+        {nombre:'Pruebas de Laboratorio', enlace:'#/prueba-laboratorio', estilo:''}]
     },
     pagina:{
-      titulo:'Crea Prueba Laboratorio'
+      titulo:'Detalle de Prueba Laboratorio'
     }
   }
   
@@ -326,7 +331,7 @@ $scope.sangre=function(){
   $scope.sortReverse  = true;  // set the default sort order
   var fun_id=1;//remplaar con la sesion
   $scope.CurrentDate=new Date();
-  var pl_id=$routeParams.pl_id;
+ 
 
   /*para ver el numero de muestra*/
   PruebaLaboratorioService.get({pl_id:pl_id},function(data){
