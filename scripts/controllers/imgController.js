@@ -25,9 +25,9 @@ angular.module("adminApp")
                     console.log("IMAGENNN",$scope.persona.ima_nombre);
                    $scope.persona.imagen/*[0]*/.ima_nombre=file.name;//para editar
                     console.log("IMAGENNN para editar",$scope.persona.imagen/*[0]*/.ima_nombre);
-                     /*$scope.persona.imagen[0].ima_nombre=file.name;
-                    $scope.persona.imagen[0].ima_nombre=file.name;
-                     console.log("IMAGENNN corregido",$scope.personas.imagen[0].ima_nombre);*/
+                     $scope.persona.imagen/*[0]*/.ima_nombre=file.name;
+                    $scope.persona.imagen/*[0]*/.ima_nombre=file.name;
+                     console.log("IMAGENNN corregido",$scope.personas.imagen/*[0]*/.ima_nombre);
                 });
             }
         }

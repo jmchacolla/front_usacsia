@@ -30,20 +30,13 @@ angular.module("adminApp")
     per_numero_celular: null,
     per_clave_publica: "",
     per_avenida_calle: "",
-    per_numero:0,
+    per_numero:null,
     per_ocupacion:"",
     per_tipo_permanencia: "",
-    
-   
+
     ima_nombre: "perfil.jpg",
     ima_enlace: "./img-per",
     ima_tipo: ""
-   /* dir_zona_comunidad: null,
-    dir_avenida_calle: "",
-    dir_numero: 0,
-    mun_id: null,
-    dir_tipo: "DOMICILIO",*/
-    
     
   };
 
@@ -214,10 +207,10 @@ $scope.zon=false;
       $scope.persona = data.persona;
       console.log("PERSONAS");
       if ($scope.persona.persona.per_genero=='F' || $scope.persona.persona.per_genero=='f'){
-        $scope.persona.persona.per_genero='Femenino';
+        $scope.persona.persona.per_genero='FEMENINO';
       }
       else if($scope.persona.persona.per_genero=='M' || $scope.persona.persona.per_genero=='m'){
-        $scope.persona.persona.per_genero='Masculino';
+        $scope.persona.persona.per_genero='MASCULINO';
       }
       $scope.loading = false;
       $scope.msg = data.mensaje;

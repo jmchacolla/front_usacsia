@@ -431,7 +431,7 @@ $scope.zon=false;
   }*/
 }])
 
-
+//crear solo funcionario
 .controller('CreateFuCtrl',[/*'authUser',*/ '$scope', 'Funcionarios', '$routeParams', '$location', '$timeout', 'toastr', 'CONFIG', '$resource','Personas',
 function (/*authUser,*/$scope, Funcionarios, $routeParams, $location, $timeout, toastr, CONFIG, $resource,Personas)
 {
@@ -485,6 +485,7 @@ function (/*authUser,*/$scope, Funcionarios, $routeParams, $location, $timeout, 
 
     $scope.submit = function(b, per_id)
     {
+      console.log("llego al submit para guardar solo funcionario",per_id);
       $scope.funcionarios.per_id = per_id;
 
         var FunG = localStorage.getItem("Funcionario");
@@ -638,7 +639,7 @@ function (/*authUser,*/$scope, Funcionarios, $routeParams, $location, $timeout, 
         //$location.path('/servicios_ciudadanos/preregistro/ver/'+data.persona.personas.per_id);
         console.log(fun_id);
         console.log(fe_id);
-        localStorage.setItem("aux_es_id",$scope.es_id);
+        localStorage.setItem("aux_es_id",per_id);
         if (fun_id != null) {
          /* if (fe_id!=null){
             $location.path('/funcionarios/habilitar/'+fe_id+'/1');
@@ -960,7 +961,7 @@ function controladorPrincipal_fun($http, $scope, CONFIG){
       $scope.tamanio="Cargando... ";//////CAMBIADO
       $http.get(CONFIG.DOMINIO_SERVICIOS+'/personas_ci/'+$scope.per_ci).success(function(respuesta){
      
-          $scope.personas = respuesta.persona;
+          $scope.personas = respuesta.persona.persona;
           console.log($scope.persona);
           $scope.tamanio=$scope.personas.length;
           console.log($scope.personas,"PERSONAS",$scope.tamanio);

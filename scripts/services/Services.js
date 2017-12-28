@@ -2,6 +2,7 @@
 angular.module("adminApp")
 //30-11-2017   ***********************    WENDY   *****************************************
 //*************************P E R S O N A S***************************
+//crear persona
 .factory('PersonasC', ['$resource', 'CONFIG', function ($resource, CONFIG){
   return $resource(CONFIG.DOMINIO_SERVICIOS+"/persona", {}, {
     update: {method: "PUT", params: {}}
@@ -267,6 +268,18 @@ angular.module("adminApp")
 .factory('DocumentoTramite', ['$resource', 'CONFIG', function ($resource, CONFIG){
   return $resource(CONFIG.DOMINIO_SERVICIOS+"/documento_tramite/:dt_id", {dt_id:"@_dt_id"}, {
     update: {method: "PUT", params: {dt_id: "@dt_id"}}
+  })
+}])
+
+.factory('Subclacificacion', ['$resource', 'CONFIG', function ($resource, CONFIG){
+  return $resource(CONFIG.DOMINIO_SERVICIOS+"/subclasificacion/:sub_id", {sub_id:"@_sub_id"}, {
+    update: {method: "PUT", params: {sub_id: "@sub_id"}}
+  })
+}])
+
+.factory('Propietario', ['$resource', 'CONFIG', function ($resource, CONFIG){
+  return $resource(CONFIG.DOMINIO_SERVICIOS+"/propietario/:pro_id", {pro_id:"@_pro_id"}, {
+    update: {method: "PUT", params: {pro_id: "@pro_id"}}
   })
 }])
 
