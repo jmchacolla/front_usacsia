@@ -43,6 +43,12 @@ angular.module("adminApp")
     update: {method: "PUT", params: {fun_id: "@fun_id"}}
   })
 }])
+//Nuevo (para crear un funcionario cuando la persona ya esta registrada y las demas peticiones)
+.factory('Inspectores', ['$resource', 'CONFIG', function ($resource, CONFIG){
+  return $resource(CONFIG.DOMINIO_SERVICIOS+"/inspectores", {}, {
+    update: {method: "PUT", params: {}}
+  })
+}])
 //Nuevo(Para crear funcionario con persona)
 .factory('FuncionarioPersona', ['$resource', 'CONFIG', function ($resource, CONFIG){
   return $resource(CONFIG.DOMINIO_SERVICIOS+"/funcionario_persona/", {}, {
@@ -175,6 +181,35 @@ angular.module("adminApp")
 .factory('EmpTra', ['$resource', 'CONFIG', function ($resource, CONFIG) {
   return $resource(CONFIG.DOMINIO_SERVICIOS+"/empresa_tramite/:et_id", {et_id:"@_et_id"}, {
     update: {method: "PUT", params: {et_id:"@et_id"}}
+  })
+}])
+//------------------------            ASIGNACION DE ZONAS             ----------------------------
+.factory('ZonIn', ['$resource', 'CONFIG', function ($resource, CONFIG) {
+  return $resource(CONFIG.DOMINIO_SERVICIOS+"/zon_ins/:zi_id", {zi_id:"@_zi_id"}, {
+    update: {method: "PUT", params: {zi_id:"@zi_id"}}
+  })
+}])
+//------------------------             LISTA DISTRITO                ----------------------------
+.factory('ListZon', ['$resource', 'CONFIG', function ($resource, CONFIG) {
+  return $resource(CONFIG.DOMINIO_SERVICIOS+"/zonas", {}, {
+    update: {method: "PUT", params: {}}
+  })
+}])
+//------------------------           ZONAS POR DISTRITO               ----------------------------
+.factory('Distritos', ['$resource', 'CONFIG', function ($resource, CONFIG) {
+  return $resource(CONFIG.DOMINIO_SERVICIOS+"/distritos", {}, {
+    update: {method: "PUT", params: {}}
+  })
+}])
+//------------------------           EMPRESA TRAMITE               ----------------------------
+.factory('ListN', ['$resource', 'CONFIG', function ($resource, CONFIG) {
+  return $resource(CONFIG.DOMINIO_SERVICIOS+"/list_cert_nat", {}, {
+    update: {method: "PUT", params: {}}
+  })
+}])
+.factory('ListJ', ['$resource', 'CONFIG', function ($resource, CONFIG) {
+  return $resource(CONFIG.DOMINIO_SERVICIOS+"/list_cert_ju", {}, {
+    update: {method: "PUT", params: {}}
   })
 }])
 

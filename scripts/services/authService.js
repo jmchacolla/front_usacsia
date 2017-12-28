@@ -88,7 +88,7 @@ angular.module('authService', [])
 					//mientras no corre el servicio de roles
 					localStorage.setItem("ROL_CURRENT_USER_NAME", response.data.rol.rol_nombre);//para
 					//para saber que persona es
-				/*	if(response.data.user.rol_id !=1)
+					/*if(response.data.user.rol_id !=1)
 					{*/
 						FuncionarioPer.get({per_id:response.data.user.usu_identificador}, function(data)
 						{
