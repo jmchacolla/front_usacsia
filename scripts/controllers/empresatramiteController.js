@@ -7,7 +7,7 @@ angular.module("adminApp")
     menu:{
       titulo: 'Gestión de Trámites',
       items:[
-        {nombre:'Funcionarios', enlace:'#/funcionarios', estilo:'active'},
+        {nombre:'Tramites Certificado', enlace:'#/tramites-cer', estilo:'active'},
         {nombre:'Registrar funcionario', enlace:'#/funcionarios/createFun', estilo:''},
         {nombre:'Buscar Persona', enlace:'#/funcionarios/createfo', estilo:''}]
     },
@@ -190,6 +190,144 @@ angular.module("adminApp")
     }
 }])
 
+
+/*$scope.buscaPersona = function(){
+    console.log('esta buscando persona');
+      $scope.resultado="Cargando...";
+      $http.get(CONFIG.DOMINIO_SERVICIOS+'/personas_ci/'+$scope.per_ci).success(function(respuesta){
+          $scope.persona = respuesta.persona;
+          if(!respuesta.persona){
+              $scope.ver=false;
+              $scope.resultado=" La persona no se encuentra registrada";              
+          } else if(respuesta.persona){
+              $scope.ver=true;
+              $scope.resultado='';
+          }  
+      });
+  }*/
+
+  //lista tramites propietarios naturales
+.controller('ListNatCtrl', ['$scope', 'ListN', '$route', 'toastr', '$location', function ($scope, ListN, $route, toastr,$location)
+{
+  $scope.ajustes = {
+    menu:{
+      titulo: 'Gestión de tramites de Certificado Sanitario',
+      items:[
+        {nombre:'Solicitudes de Propietarios Naturales', enlace:'#/tramites-car', estilo:'active'},
+        {nombre:'Solicitudes de Propietarios Juridicos', enlace:'#/tramites-car', estilo:''},
+        {nombre:'Busqueda de personas registradas', enlace:'#/tramite/crear', estilo:''}]
+    },
+    pagina:{
+      titulo:'Tramites de Certificado Sanitario'
+    }
+  }
+
+
+  
+  $scope.sortType = 'per_id'; // set the default sort type
+  $scope.sortReverse  = true;  // set the default sort order
+  $scope.Personas = [];
+
+  
+  $scope.loading=true;//para hacer un loading
+  var tra_id = 1;
+  ListN.get( function(data){
+    console.log('*******empresa_tramite ---------', data);
+    $scope.empresa_tramite = data.empresa_tramite;
+ 
+    if(data.empresa_tramite.length>0){
+      $scope.loading = false;
+      $scope.msg = true;
+    }
+    else{
+      $scope.loading = false;
+      $scope.msg = false;
+    }
+    
+  },function () {
+      toastr.error("ERROR INESPERADO, por favor actualize la página");
+      $scope.loading = false;
+      $scope.msg = false;
+    }); 
+
+  var id=0;
+  $scope.nombre_completo = "";
+  $scope.get_per_id = function(per_id, per_apellido_primero, per_apellido_segundo, per_nombres){
+    id = per_id;
+    $scope.nombre_completo = per_apellido_primero + " " + per_apellido_segundo + " " + per_nombres;
+  }
+
+  $scope.remove = function(per_id){
+    Personas.delete({per_id:id}).$promise.then(function(data){
+      if(data.mensaje){
+        toastr.success('Eliminado correctamente');
+        $route.reload();
+      }
+    })
+  }
+}])
+
+ //lista tramites propietarios naturales
+.controller('ListJurCtrl', ['$scope', 'ListJ', '$route', 'toastr', '$location', function ($scope, ListJ, $route, toastr,$location)
+{
+  $scope.ajustes = {
+    menu:{
+      titulo: 'Gestión de tramites de Certificado Sanitario',
+      items:[
+        {nombre:'Solicitudes de Propietarios Naturales', enlace:'#/tramites-car', estilo:'active'},
+        {nombre:'Solicitudes de Propietarios Juridicos', enlace:'#/tramites-car', estilo:''},
+        {nombre:'Busqueda de personas registradas', enlace:'#/tramite/crear', estilo:''}]
+    },
+    pagina:{
+      titulo:'Tramites de Certificado Sanitario'
+    }
+  }
+
+
+  
+  $scope.sortType = 'et_id'; // set the default sort type
+  $scope.sortReverse  = true;  // set the default sort order
+  $scope.Personas = [];
+
+  
+  $scope.loading=true;//para hacer un loading
+  var tra_id = 1;
+  ListJ.get( function(data){
+    console.log('*******empresa_tramite ---------', data);
+    $scope.empresa_tramite = data.empresa_tramite;
+ 
+    if(data.empresa_tramite.length>0){
+      $scope.loading = false;
+      $scope.msg = true;
+    }
+    else{
+      $scope.loading = false;
+      $scope.msg = false;
+    }
+    
+  },function () {
+      toastr.error("ERROR INESPERADO, por favor actualize la página");
+      $scope.loading = false;
+      $scope.msg = false;
+    }); 
+
+  var id=0;
+  $scope.nombre_completo = "";
+  $scope.get_per_id = function(per_id, per_apellido_primero, per_apellido_segundo, per_nombres){
+    id = per_id;
+    $scope.nombre_completo = per_apellido_primero + " " + per_apellido_segundo + " " + per_nombres;
+  }
+
+  $scope.remove = function(per_id){
+    Personas.delete({per_id:id}).$promise.then(function(data){
+      if(data.mensaje){
+        toastr.success('Eliminado correctamente');
+        $route.reload();
+      }
+    })
+  }
+}])
+
 .controller('BoletaCesCtrl', ['$scope', '$http', 'EmpTra', 'Tramite','PagoPendienteTramite', 'PagoPendiente', 'EmpresaTramite', '$route', '$resource', '$routeParams', 'toastr', '$location', '$timeout', 'CONFIG', function ($scope, $http,EmpTra, Tramite, PagoPendienteTramite, PagoPendiente, EmpresaTramite, $route, $resource,$routeParams, toastr, $location, $timeout,CONFIG) {
   $scope.ajustes = {
     menu:{
@@ -269,3 +407,4 @@ angular.module("adminApp")
 
 
 }])
+
