@@ -70,7 +70,7 @@ angular.module("adminApp", ["authService", "ngRoute", "ngResource", "satellizer"
   .when('/inicio', {
     templateUrl: 'templates/publico/index.html'
   })
-
+//no existe esta ruta
   .when('/inicio2', {
     templateUrl: 'templates/publico/index2.html'
   })
@@ -312,10 +312,32 @@ angular.module("adminApp", ["authService", "ngRoute", "ngResource", "satellizer"
       authorized: [ROLES.ADMIN_USACSIA.ROL]
     }
   })
-    //==========================DEPARTAMENTO===================================================================
+    //==========================           DEPARTAMENTO                   =====================================
   .when('/homedepartamento',{
    templateUrl:'templates/departamento/list.html',
    controller: 'HomeCtrlDep'/*,
+    data: {
+      authorized: [ROLES.ADMIN_SEDES.ROL]
+    }*/
+  })
+//=========================         FICHAS DE INSPECCION     =======================================
+  .when('/inspeccion/fichas',{
+   templateUrl:'templates/ficha_inspeccion/fichas_inspeccion.html',
+  /* controller: 'FichaICtrl',
+    data: {
+      authorized: [ROLES.ADMIN_SEDES.ROL]
+    }*/
+  })
+   .when('/inspeccion/fichas/crear1',{
+   templateUrl:'templates/ficha_inspeccion1/crear.html',
+   controller: 'CrearFicha1Ctrl'/*,
+    data: {
+      authorized: [ROLES.ADMIN_SEDES.ROL]
+    }*/
+  })
+  .when('/inspeccion/fichas/crear2',{
+   templateUrl:'templates/ficha_inspeccion2/crear.html',
+   controller: 'CrearFicha2Ctrl'/*,
     data: {
       authorized: [ROLES.ADMIN_SEDES.ROL]
     }*/
