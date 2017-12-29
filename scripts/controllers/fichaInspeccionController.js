@@ -22,7 +22,7 @@ var et_id=1;
   var FunG = JSON.parse(FunG);
   var fun_id = FunG.fun_id;
   console.log("__HORA__",fecha);
-
+$scope.checked=true;
 
   $scope.propietario='';
 
