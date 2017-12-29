@@ -27,13 +27,13 @@ angular.module("adminApp")
   $scope.firma={
     fun_id:fun_id,
     fir_url:"./img-firma/",
-    fir_nombre:""
+    fir_name:""
   }
 
   $scope.submitf=function(){
-    $scope.firma.fir_nombre=$scope.firma.fir_nombre;
+    $scope.firma.fir_name=$scope.firma.fir_nombre;
     console.log('lo que va a crear', $scope.firma);
-      Firma.save($scope.pjur).$promise.then(function(data){
+      Firma.save($scope.firma).$promise.then(function(data){
         if(data.status){
           $scope.ajustes.pagina.success = "Firma cargada correctamente";
           toastr.success('Firma cargada correctamente');

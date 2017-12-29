@@ -495,21 +495,20 @@ angular.module("adminApp")
         vm.enviar=function() {
         //Asignamos el file-model a la variable file, gracias a la directiva de mas arriba.
         var file = vm.ima_nombre;
-
+        console.log('llego al img controller');
         var fd = new FormData();
         fd.append('file', file); //Agregamos data al "formulario" que vamos a enviar
-
+        // console.log('a un paso del post');
         $http.post('firma.php', fd, {
             transformRequest: angular.identity, //Le decimos a angular que no serialize el envio
             headers: {'Content-Type': undefined}
             })
+            // console.log('llego al post');
             .success(function(response){
-                //Guardamos la url de la imagen y hacemos que la muestre.
                 vm.ima_nombre=response;
                 vm.img=true;
             })
             .error(function(response){
-
         });
         $scope.msg="Imagen cargada correctamente";
     };
