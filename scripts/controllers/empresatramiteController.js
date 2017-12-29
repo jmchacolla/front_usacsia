@@ -106,9 +106,9 @@ angular.module("adminApp")
       menu:{
         titulo: 'Búsqueda de Establecimiento',
         items:[
-          {nombre:'Funcionarios', enlace:'#/funcionarios', estilo:'active'},
-          {nombre:'Registrar funcionario', enlace:'#/funcionarios/createFun', estilo:''},
-          {nombre:'Buscar Persona', enlace:'#/funcionarios/createfo', estilo:''}]
+          {nombre:'Buscar empresa solicitante', enlace:'#/buscar-propietario', estilo:'active'},
+          // {nombre:'Registrar pago', enlace:'#/boleta-ces/'+et_id, estilo:''},
+          {nombre:'Lista de pagos', enlace:'#/', estilo:''}]
       },
       pagina:{
         titulo:'Búsqueda de Establecimiento'
@@ -283,8 +283,6 @@ angular.module("adminApp")
     }
   }
 
-
-  
   $scope.sortType = 'et_id'; // set the default sort type
   $scope.sortReverse  = true;  // set the default sort order
   $scope.Personas = [];
@@ -328,83 +326,4 @@ angular.module("adminApp")
   }
 }])
 
-.controller('BoletaCesCtrl', ['$scope', '$http', 'EmpTra', 'Tramite','PagoPendienteTramite', 'PagoPendiente', 'EmpresaTramite', '$route', '$resource', '$routeParams', 'toastr', '$location', '$timeout', 'CONFIG', function ($scope, $http,EmpTra, Tramite, PagoPendienteTramite, PagoPendiente, EmpresaTramite, $route, $resource,$routeParams, toastr, $location, $timeout,CONFIG) {
-  $scope.ajustes = {
-    menu:{
-      titulo: 'Búsqueda de Establecimiento',
-      items:[
-        {nombre:'Funcionarios', enlace:'#/funcionarios', estilo:'active'},
-        {nombre:'Registrar funcionario', enlace:'#/funcionarios/createFun', estilo:''},
-        {nombre:'Buscar Persona', enlace:'#/funcionarios/createfo', estilo:''}]
-    },
-    pagina:{
-      titulo:'Boleta de pago Formulario N° 1'
-    }
-  }
-
-  var et_id=$routeParams.et_id;
-
-  EmpTra.get({et_id:et_id}, function (argument) {
-    console.log('argument-------', argument);
-    $scope.establecimiento=argument.establecimiento;
-  })
-  Tramite.get(function(data){
-  $scope.tramite = data.tramites;
-  console.log("tramite del get",$scope.tramite);
-    $scope.monto = function(costo){
-        $scope.persona_tramite.pt_monto=costo;  
-    }
-  })
-  $scope.verpagos=function (tra_id) {
-    if (tra_id==2) {
-        
-        $scope.verdeudas=true;
-        PagoPendienteTramite.get({et_id:et_id}, function (argument) {
-          console.log('argument-------', argument);
-          if (argument.pagop.length<=0) {
-            $scope.verdeudas=false;
-          }
-          else{
-            $scope.pagop=argument.pagop;
-          }
-        })
-    }
-    
-  }
-  $scope.save=function (pp_id) {
-    var today=moment().format('DD-MM-YYYY');
-    var ppendiente={
-            fun_id:1,/*-------debe recoger de la sesion*/
-            pp_estado_pago:'CANCELADO',
-            pp_fecha_pagado: today,
-        };
-
-    PagoPendiente.update(ppendiente,{pp_id:pp_id}, function (argument) {
-/*      if(argument.mesaje){
-      }else{
-        toastr.error('Error al registrar pago');
-      }*/
-        toastr.success('Pago registrado exitosamente');
-      console.log('pagop', argument);
-    })
-
-    var emptramite={
-      fun_id:1,/*----------------debe recoger de la sesion*/
-      et_estado_pago:'PAGADO',
-      et_estado_tramite:'INICIADO',
-    };
-    EmpresaTramite.update(emptramite, {et_id:et_id}, function (data) {
-      /*if(data.mesaje){
-      }else{
-        toastr.error('Error al registrar pago');
-      }*/
-        toastr.success('Pago registrado exitosamente');
-      console.log('empt', data);
-    })
-
-
-  }
-
-
-}])
 

@@ -44,7 +44,7 @@ angular.module('adminApp')
     PersonaTramite.get({pt_id:pt_id},function (data) {
       console.log('data-------', data);
       $scope.pertramite=data.pertramite;
-      console.log('data-------', $scope.persona);
+      // console.log('data-------', $scope.persona);
       $scope.ajustes.pagina.titulo='Trámite Nro:'+$scope.pertramite.persona_tramite.pt_numero_tramite
     });
     UltimaFichaAtendida.get({pt_id:pt_id}, function (argument) {
