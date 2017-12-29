@@ -1,9 +1,10 @@
 'use-strict';
 angular.module("adminApp")
 
-.controller('PruebaEnfermedadCtrl', ['$scope', '$scope', 'PruebaMedica', 'UltimaPL','PruebaEnfermedad', '$route', '$resource', '$routeParams', 'toastr', '$location', '$timeout', '$http', 'PruebaLaboratorioService', 'PersonaTramite', 'CONFIG', 'Tratamiento', 'Receta', function ($scope,$scope, PruebaMedica, UltimaPL, PruebaEnfermedad, $route, $resource,$routeParams, toastr, $location, $timeout, $http, PruebaLaboratorioService, PersonaTramite,  CONFIG, Tratamiento,Receta) {
+.controller('PruebaEnfermedadCtrl', ['$scope', '$scope', 'PruebaMedica', 'UltimaPL','PruebaEnfermedad', '$route', '$resource', '$routeParams', 'toastr', '$location', '$timeout', '$http', 'PruebaLaboratorioService', 'PersonaTramite', 'CONFIG', 'Tratamiento', 'Receta',
+function ($scope,$scope, PruebaMedica, UltimaPL, PruebaEnfermedad, $route, $resource,$routeParams, toastr, $location, $timeout, $http, PruebaLaboratorioService, PersonaTramite,  CONFIG, Tratamiento,Receta) {
 
-
+var pm_id=$routeParams.pm_id;
     $scope.ajustes = {
       menu:{
         titulo: 'Gestion de Pruebas Medicas',
