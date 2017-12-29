@@ -184,7 +184,7 @@ angular.module("adminApp", ["authService", "ngRoute", "ngResource", "satellizer"
     }
   })
   /************************************CONSULTORIOS***********************************/
-  .when('/consultorios', {//arreglar la ruta con establecimientos
+  .when('/consultorios', {
     templateUrl: 'templates/consultorio/consultorios.html',
     controller: 'ListaConsultorioCtrl',
     data: {
@@ -192,7 +192,7 @@ angular.module("adminApp", ["authService", "ngRoute", "ngResource", "satellizer"
     }
   })
 
-    .when('/consultorios/ver/:amb_id', {//FALTA PROTEGER ESTA RUTA
+    .when('/consultorios/ver/:amb_id', {
     templateUrl: 'templates/consultorio/ver.html',
     controller: 'VerConsultorioCtrl',
     data: {
@@ -282,7 +282,7 @@ angular.module("adminApp", ["authService", "ngRoute", "ngResource", "satellizer"
 
 
 
-//****************===========TRAMITES CONCLUIDOS=================================================
+//****************===========         TRAMITES CONCLUIDOS      ===========================
     .when('/tramites_concluidos', { 
     templateUrl: 'templates/personatramite/final2.html',
     controller: 'ListaFinalCtrl',
@@ -320,13 +320,27 @@ angular.module("adminApp", ["authService", "ngRoute", "ngResource", "satellizer"
       authorized: [ROLES.ADMIN_SEDES.ROL]
     }*/
   })
-//=========================         FICHAS DE INSPECCION     =======================================
+//=========================         FICHAS DE INSPECCION     =============================
   .when('/inspeccion/fichas',{
    templateUrl:'templates/ficha_inspeccion/fichas_inspeccion.html',
   /* controller: 'FichaICtrl',
     data: {
       authorized: [ROLES.ADMIN_SEDES.ROL]
     }*/
+  })
+    .when('/inspeccion/fichas/crear/:et_id',{
+   templateUrl:'templates/ficha_inspeccion/crear.html',
+   controller: 'CrearFichaInsCtrl',
+    data: {
+      authorized: [ROLES.ADMIN_USACSIA.ROL,ROLES.INSPECTOR.ROL]
+    }
+  })
+   .when('/inspeccion/categoria/crear/:fi_id',{
+   templateUrl:'templates/ficha_inspeccion/asignar.html',
+   controller: 'CrearCateCtrl',
+    data: {
+      authorized: [ROLES.ADMIN_USACSIA.ROL,ROLES.INSPECTOR.ROL]
+    }
   })
    .when('/inspeccion/fichas/crear1',{
    templateUrl:'templates/ficha_inspeccion1/crear.html',
@@ -342,7 +356,7 @@ angular.module("adminApp", ["authService", "ngRoute", "ngResource", "satellizer"
       authorized: [ROLES.ADMIN_SEDES.ROL]
     }*/
   })
-  //=========================         ASIGNACION DE ZONAS     =======================================
+  //=========================         ASIGNACION DE ZONAS     ==============================
 
   .when('/asignacion_zonas/crear',{
    templateUrl:'templates/asignacion_zonas/crear.html',
@@ -367,7 +381,11 @@ angular.module("adminApp", ["authService", "ngRoute", "ngResource", "satellizer"
       authorized: [ROLES.ADMIN_SEDES.ROL]
     }*/
   })
-  
+  //+++++++++++++++++++++++++++++++++TRAMITES CERTIFICADO
+/*  .when('/tramites-cer', {
+    templateUrl: 'templates/empresatramite/list.html',
+    controller: 'EmpresaTramiteCtrl'
+  })*/
 
   
 
@@ -536,11 +554,7 @@ angular.module("adminApp", ["authService", "ngRoute", "ngResource", "satellizer"
       authorized: [ROLES.ADMIN_USACSIA.ROL, ROLES.CAJERO.ROL]
     }
   })
-//+++++++++++++++++++++++++++++++++TRAMITES CERTIFICADO
-  .when('/tramites-cer', {
-    templateUrl: 'templates/empresatramite/list.html',
-    controller: 'EmpresaTramiteCtrl'
-  })
+
   /*--------------------------------------------------------------------------------------------*/
 
 
@@ -669,7 +683,7 @@ angular.module("adminApp", ["authService", "ngRoute", "ngResource", "satellizer"
 .run(function($rootScope, $location, authUser, toastr, sessionControl, Personas){
   var rutasPrivadas = 
 
-  ['/','/atencion','/prueba-medica/:pt_id','/prueba-medica/prueba/:pm_id','/prueba-medica/ver/:pm_id','/ficha-clinica/:per_ci','/perfil', '/usuario/edit','/usuario/create','/persona/create','/personas','/personas/ver/:per_id','/personas/edit/:per_id', '/funcionarios','/funcionarios/ver/:fun_id', '/funcionarios/createFun','/funcionarios/edit/:fun_id', '/consultorios','/consultorios/ver/:amb_id', '/consultorios/create','/consultorios/edit/:amb_id','/laboratorios','/laboratorios/ver/:amb_id', '/laboratorios/create','/laboratorios/edit/:amb_id',  '/establecimientos','/establecimientos/ver/:usa_id','/establecimientossol','/establecimientos/crear','/establecimientosol/crear','/tramites_concluidos',  '/tramites_concluidos/ver/:pt_id', '/homepais','/pais/create','/buscar-numero-muestra','/prueba-laboratorio/crear/:pl_id','/prueba-laboratorio/ver/:pl_id', '/prueba-laboratorio','/numero-muestra/crear','/numero-muestra','/numero-ficha/crear','/tramite/crear','/tramites-car','/boleta-pago/:pt_id','/parasito/crear', '/parasito','/parasito/editar/:par_id','/parasito/ver/:par_id','/tratamiento/crear', '/tratamiento','/homedepartamento',];
+  ['/','/atencion','/prueba-medica/:pt_id','/prueba-medica/prueba/:pm_id','/prueba-medica/ver/:pm_id','/ficha-clinica/:per_ci','/perfil', '/usuario/edit','/usuario/create','/persona/create','/personas','/personas/ver/:per_id','/personas/edit/:per_id', '/funcionarios','/funcionarios/ver/:fun_id', '/funcionarios/createFun','/funcionarios/edit/:fun_id', '/consultorios','/consultorios/ver/:amb_id', '/consultorios/create','/consultorios/edit/:amb_id','/laboratorios','/laboratorios/ver/:amb_id', '/laboratorios/create','/laboratorios/edit/:amb_id',  '/establecimientos','/establecimientos/ver/:usa_id','/establecimientossol','/establecimientos/crear','/establecimientosol/crear','/tramites_concluidos',  '/tramites_concluidos/ver/:pt_id', '/homepais','/pais/create','/buscar-numero-muestra','/prueba-laboratorio/crear/:pl_id','/prueba-laboratorio/ver/:pl_id', '/prueba-laboratorio','/numero-muestra/crear','/numero-muestra','/numero-ficha/crear','/tramite/crear','/tramites-car','/boleta-pago/:pt_id','/parasito/crear', '/parasito','/parasito/editar/:par_id','/parasito/ver/:par_id','/tratamiento/crear', '/tratamiento','/homedepartamento','/establecimientosol/crear/:per_id',];
 
   
   $rootScope.$on('$routeChangeStart', function(){

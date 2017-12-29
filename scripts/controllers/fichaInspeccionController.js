@@ -1,5 +1,227 @@
 'use-strict';
 angular.module("adminApp")
+.controller('CrearFichaInsCtrl', ['$http','CONFIG','$scope','FichaIn', '$route', 'toastr','EmpTra','Funcionarios','$timeout','$location', function ($http,CONFIG,$scope,FichaIn, $route, toastr,EmpTra,Funcionarios,$timeout,$location){
+  $scope.ajustes = {
+    menu:{
+      titulo: 'Gestión de Fichas de Inspección',
+      items:[
+        {nombre:'Crear Ficha', enlace:'#/numero-ficha/crear', estilo:'active'}]
+    },
+    pagina:{
+      titulo:'Crear Ficha'
+    }
+  }
+ var et_id=$routeParams;
+ $scope.CurrentDate = new Date();
+ var mes=$scope.CurrentDate.getMonth()+1;
+ 
+ 
+ var fecha=$scope.CurrentDate.getDate()+"-"+mes+"-"+$scope.CurrentDate.getFullYear();
+
+  var FunG = localStorage.getItem("Funcionario");
+  var FunG = JSON.parse(FunG);
+  var fun_id = FunG.fun_id;
+  console.log("__HORA__",fecha);
+
+
+  $scope.propietario='';
+
+  EmpTra.get({et_id:et_id},function(data){
+    $scope.emp_tra=data.establecimiento;
+
+    if (Object.keys($scope.emp_tra.propietario).length==7) {
+      $scope.propietario=$scope.emp_tra.propietario.pjur_razon_social;
+    }
+    if (Object.keys($scope.emp_tra.propietario).length==22) {
+      $scope.propietario=$scope.emp_tra.propietario.per_nombres+' '+$scope.emp_tra.propietario.per_apellido_primero+' '+$scope.emp_tra.propietario.per_apellido_segundo;
+    }
+    $scope.direccion=$scope.emp_tra.establecimiento_sol.ess_avenida_calle+' #'+$scope.emp_tra.establecimiento_sol.ess_numero+' '+$scope.emp_tra.establecimiento_sol.ess_stand
+   
+  });
+ Funcionarios.get({fun_id:fun_id},function(data){
+    $scope.funcionarios=data.funcionario;
+    $scope.nombre=$scope.funcionarios.persona.per_nombres+' '+$scope.funcionarios.persona.per_apellido_primero+' '+$scope.funcionarios.persona.per_apellido_segundo;
+
+  });
+
+  $scope.ficha = {
+
+      et_id :null,
+      fun_id :null,
+      fi_fecha_asignacion:fecha,
+      fi_fecha_realizacion:fecha,
+      fi_observacion:'',
+      fi_estado:'',
+      fi_foco_insalubridad:false,
+      fi_exibe_certificado:false,
+      fi_exibe_carne:false,
+      fi_extinguidor:false,
+      fi_botiquin:false
+    
+    
+    };
+
+    $scope.patternCadena = /^[a-zA-ZñÑáéíóúÁÉÍÓÚ ]*$/;
+    $scope.patternCadenaNumero = /^[a-zA-ZñÑáéíóúÁÉÍÓÚ 0-9.]*$/;
+    
+    $scope.submit = function(b)
+    {
+        $scope.ficha.fun_id=fun_id;
+        $scope.ficha.et_id=et_id;
+        $scope.ficha.fi_estado='INSPECCIONADO';
+     
+
+       
+     console.log("_______GURDANDO_______",$scope.ficha);
+    
+      FichaIn.save($scope.ficha).$promise.then(function(data)
+      {
+        console.log("------GUARDADO.---------",data);
+        if(data.msg)
+        {
+          console.log("data",data);
+          angular.copy({}, $scope.ficha1);
+          $scope.ajustes.pagina.success = "FICHA REGISTRADA CORRECTAMENTE";
+          toastr.success('FICHA REGISTRADA CORRECTAMENTE');
+          /*$route.reload();*/
+           $timeout(function() {
+            $location.path('/inspeccion/categoria/crear/'+data.ficha_inspeccion.fi_id);
+          },10);
+
+  
+        }
+      },function () {
+        toastr.error("Error inesperado");
+      })
+    }
+    $scope.reset = function(form) {
+      $scope.ficha1 = {};
+      if (form) {
+        form.$setPristine();
+        form.$setUntouched();
+      }
+    };
+
+
+
+
+/*  $scope.recarga=function(){
+    $route.reload();
+  }*/
+
+}])
+
+.controller('CrearCateCtrl', ['$scope','$routeParams','EmpTra','Categoria','FichaCat','Zonas',  '$location', '$timeout', 'toastr',
+ function ($scope,$routeParams, EmpTra,Categoria,FichaCat,Zonas,  $location, $timeout, toastr){
+
+ $scope.ajustes = {
+    //Configuraciones del menu:
+    menu:{
+      titulo: 'Gestión de Fichas de Inspección',
+      items:[
+        /*{nombre:'Establecimientos', enlace:'#/establecimientossol', estilo:''},*/
+        {nombre:'Asignar categoria', enlace:'#/inspeccion/categoria/crear', estilo:'active'}]
+    },
+    //Configuraciones de la página
+    pagina:{
+      titulo:'Registrar Categoria',
+      action: "CREAR"
+    }
+  }
+var et_id=32;
+  var fi_id=$routeParams.fi_id;
+  console.log("_______llego al controlador asignar________",fi_id)
+EmpTra.get({et_id:et_id},function(data){
+    $scope.emp_tra=data.establecimiento;
+
+    if (Object.keys($scope.emp_tra.propietario).length==7) {
+      $scope.propietario=$scope.emp_tra.propietario.pjur_razon_social;
+    }
+    if (Object.keys($scope.emp_tra.propietario).length==22) {
+      $scope.propietario=$scope.emp_tra.propietario.per_nombres+' '+$scope.emp_tra.propietario.per_apellido_primero+' '+$scope.emp_tra.propietario.per_apellido_segundo;
+    }
+    $scope.direccion=$scope.emp_tra.establecimiento_sol.ess_avenida_calle+' #'+$scope.emp_tra.establecimiento_sol.ess_numero+' '+$scope.emp_tra.establecimiento_sol.ess_stand
+   
+  });
+
+  $scope.CurrentDate=new Date();
+
+  $scope.items = [];
+  Categoria.get(function(data){
+      $scope.subcla=data.categoria;
+      console.log($scope.subcla);
+
+/*agregar categorias a la empresa*/
+    var aux=null;
+    
+    $scope.agregar = function (sub_id,sub_nombre, item) {
+
+      //console.log("______este es el cat_id____",sub_id);
+      if (item){
+        $scope.items.push(item);
+
+        for (var i = $scope.subcla.length - 1; i >= 0; i--) {
+
+         // console.log("______antes del segundo if____",$scope.subcla[i].cat_id);
+          if($scope.subcla[i].cat_id==sub_id){
+
+            aux=$scope.subcla[i];
+            $scope.subcla.splice(i,1);
+           console.log("______agregando categoria______",aux);
+          }
+        };
+        // console.log('este es el vector reducido', $scope.subcla);
+        // console.log('este es el vector de items', $scope.items);
+      }
+    };
+
+/*quitar rubros en la empresa*/
+    $scope.quitar = function (sub_id,item) {
+      if (sub_id){
+        $scope.subcla.push(item);
+        for (var i = $scope.items.length - 1; i >= 0; i--) {
+          if($scope.items[i].cat_id==sub_id){
+            aux=$scope.items[i];
+            $scope.items.splice(i,1);
+          }
+        };
+      }
+    };
+  });
+
+    $scope.todo1={
+      fi_id:fi_id,
+      vector:$scope.items
+    };
+
+    $scope.todo=JSON.stringify($scope.todo1);
+  
+
+  //VALIDAR NUMEROS !!!!!!
+  $scope.submit = function(){
+    console.log('EL OBJETO QUE S VA A CREAR', $scope.todo1);
+    FichaCat.save($scope.todo1).$promise.then(function(data){
+      if(data.status) {
+        angular.copy({}, $scope.todo1);
+        $scope.ajustes.pagina.success = "Categoria añadida correctamente";
+        toastr.success('Categoria añadida correctamente');
+         $timeout(function() {
+            $location.path('/tramites_certi');
+          },10);
+      }
+    });
+  };
+
+  $scope.reset = function(form) {
+    $scope.todo1 = {};
+    if (form) {
+      //console.log(form);
+      form.$setPristine();
+      form.$setUntouched();
+    }
+  };
+}])
+
 .controller('CrearFicha1Ctrl', ['$http','CONFIG','$scope','Ficha1', '$route', 'toastr','EmpTra', function ($http,CONFIG,$scope,Ficha1, $route, toastr,EmpTra){
   $scope.ajustes = {
     menu:{
