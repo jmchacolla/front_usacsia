@@ -1,7 +1,7 @@
  'use strict';
 angular.module("adminApp")
 
-.controller('CrearPersona2Ctrl', ['$scope', 'PersonasC', '$location', '$timeout', 'toastr','Zonas',function ($scope, PersonasC, $location, $timeout, toastr,Zonas){
+.controller('CrearPersona2Ctrl', ['$scope', 'PersonasC',  'PNatural','$location','$timeout', 'toastr','Zonas',function ($scope, PersonasC, PNatural, $location, $timeout, toastr,Zonas){
   $scope.ajustes = {
     menu:{
       titulo: 'Gestión de Personas',
@@ -117,8 +117,12 @@ $scope.zon=false;
             if(!$scope.crear_desde_establecimiento){
                 $location.path('/personas');
             }else{
-                console.log('aqui me llevaria', data.persona.persona.per_id, );
-                console.log('objeto completo', data);
+                  $scope.per_id_para_persona_natural={
+                    per_id:data.persona.persona.per_id
+                  }
+                 PNatural.save($scope.per_id_para_persona_natural).$promise.then(function(data2){
+                    console.log('persona natural creada', data2);
+                 });
                 $location.path('/establecimientosol/persona/ver/'+data.persona.persona.per_id);
             }    
           },0);  

@@ -100,8 +100,8 @@ angular.module("adminApp")
 }])
 
 
-.controller('CrearEstablecimientoSolicitanteCtrl', ['$scope','$routeParams','Personas','Subclacificacion','EstabSols','Zonas',  '$location', '$timeout', 'toastr',
- function ($scope,$routeParams, Personas,Subclacificacion,EstabSols,Zonas,  $location, $timeout, toastr){
+.controller('CrearEstablecimientoSolicitanteCtrl', ['$scope','$routeParams','PNaturalPJuridicaPro_id','Subclacificacion','EstabSols','Zonas',  '$location', '$timeout', 'toastr',
+ function ($scope,$routeParams, PNaturalPJuridicaPro_id,Subclacificacion,EstabSols,Zonas,  $location, $timeout, toastr){
 
  $scope.ajustes = {
     //Configuraciones del menu:
@@ -118,10 +118,18 @@ angular.module("adminApp")
     }
   }
 
-  var per_id=$routeParams.per_id;
-    Personas.get({per_id:per_id},function(data){
-      $scope.persona=data.persona.persona;
-  });
+    var pro_id=$routeParams.pro_id;
+    PNaturalPJuridicaPro_id.get({pro_id:pro_id},function(data2){
+      if(!data2.pjuridica){
+        $scope.persona=data2.pnatural;
+        console.log('persona natural dentro del ver persona', $scope.persona);
+      }else{
+        $scope.pjuridica=data2.pjuridica;
+        console.log('persona juridica dentro del ver persona', $scope.pjuridica);
+      }
+
+        
+      });
 
   $scope.CurrentDate=new Date();
 
@@ -245,15 +253,13 @@ $scope.initMap = function(){
     emp_nit:"",
     emp_url_nit:"",
     emp_url_licencia:"",
-    pro_tipo:"N",
-    per_id:per_id,
+    pro_id:pro_id,
     tra_id:2
   };
 
   /*
   FALTA LLENAR EMP_NIT
   URL_LICENCIA
-  PROTIPO
   TRA_ID
   */
 
@@ -277,12 +283,13 @@ $scope.initMap = function(){
     console.log('EL OBJETO QUE S VA A CREAR', $scope.todo);
     EstabSols.save($scope.todo1).$promise.then(function(data){
       if(data.status) {
-        angular.copy({}, $scope.todo);
+        console.log("data. status", data.status);
         $scope.ajustes.pagina.success = "Establecimiento añadido correctamente";
         toastr.success('Establecimiento añadido correctamente');
       }
     });
   };
+
 
   $scope.reset = function(form) {
     $scope.establecimiento = {};
@@ -295,8 +302,8 @@ $scope.initMap = function(){
 }])
 
 
-.controller('BuscarCrearPersonaCtrl', ['$scope','EstabSols', '$route', 'toastr',
-  function ($scope, EstabSols, $route, toastr){
+.controller('BuscarCrearPersonaCtrl', ['$scope','EstabSols', '$route', 'toastr','$location',
+  function ($scope, EstabSols, $route, toastr,$location){
   $scope.ajustes = {
     //Configuraciones del menu:
     menu:{
@@ -310,14 +317,51 @@ $scope.initMap = function(){
       titulo:'Buscar propietario registrado'
     }
   }
-  $scope.var='P';
-
+  
+  $scope.pag_buscar_empresa=function(){
+      $location.path('/establecimientosol/empresa');
+    }
+   $scope.pag_buscar_persona=function(){
+      $location.path('/establecimientosol/persona');
+    }
   $scope.crear_desde_establecimiento=true;
 
-      $scope.formcrear=false;
+
+    $scope.formcrear=false;
     $scope.vercrear=function(){
       $scope.formcrear=true;
     }
+
+    $scope.recarga=function(){
+      $route.reload();
+    }
+}])
+
+.controller('VerPersonaEstablecimientoSolicitanteCtrl', ['$scope','PersonasC', 'PNatural','$routeParams','$route', 'toastr','$location',
+  function ($scope, PersonasC,PNatural,$routeParams, $route, toastr,$location){
+  $scope.ajustes = {
+    //Configuraciones del menu:
+    menu:{
+      titulo: 'Gestión de Establecimientos Solicitantes, Persona registrada',
+      items:[
+        {nombre:'Establecimientos', enlace:'#/establecimientossol', estilo:''},
+        {nombre:'Nuevo establecimiento', enlace:'#/establecimientosol/persona', estilo:'active'}]
+    },
+    //Configuraciones de la página
+    pagina:{
+      titulo:'Gestión de Establecimientos Solicitantes, Persona registrada'
+    }
+  }
+  var per_id=$routeParams.per_id;
+  PersonasC.get({per_id:per_id}, function(data)
+    { 
+      $scope.persona = data.persona;
+      var fecha_naci = new Date($scope.persona.per_fecha_nacimiento);
+      PNatural.get({per_id:per_id},function(data2){
+        $scope.pnatural=data2.pnatural;
+        console.log('persona natural dentro del ver persona', $scope.pnatural);
+      });
+    });
 }])
 
 
@@ -361,6 +405,7 @@ function buscaPJuridicaRegistradaController($http, $scope, CONFIG){
           } else if(respuesta.pjuridica){
               $scope.veremp=true;
               $scope.resultadoemp='';
+              $scope.pjuridica=respuesta.pjuridica;
           }  
       });
   }

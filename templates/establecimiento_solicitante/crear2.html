@@ -55,14 +55,20 @@
                                                     <div class="col-md-8">
                                                         <label ng-show="persona.per_genero=='M'" for="nombre" class="control-label">Propietario:</label>
                                                         <label ng-show="persona.per_genero=='F'" for="nombre" class="control-label">Propietaria:</label>
+                                                        <label ng-show="pjuridica!=null" for="nombre" class="control-label">Empresa Propietaria:</label>
                                                         <p>
                                                             {{persona.per_nombres+" "+persona.per_apellido_primero+" "+persona.per_apellido_segundo}}
                                                         </p>
+                                                        <p>
+                                                            {{pjuridica.pjur_razon_social}}
+                                                        </p>
                                                     </div>
                                                     <div class="col-md-4">
-                                                        <label for="nombre" class="control-label">C.I.:</label>
+                                                        <label ng-show="persona!=null" for="nombre" class="control-label">C.I.:</label>
+                                                        <label ng-show="pjuridica!=null" for="nombre" class="control-label">NIT</label>
                                                         <p>
                                                             {{persona.per_ci+" "+persona.per_ci_expedido}}
+                                                            {{pjuridica.pjur_nit}}
                                                         </p>
                                                     </div>
                                                 </div>
