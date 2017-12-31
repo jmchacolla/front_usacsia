@@ -630,6 +630,12 @@ angular.module("adminApp", ["authService", "ngRoute", "ngResource", "satellizer"
     templateUrl: 'templates/empresatramite/boleta-ces.html',
     controller: 'BoletaCesCtrl'
   })
+
+
+  .when('/pago-pendiente/:pp_id', {
+    templateUrl: 'templates/pagopendiente/ver.html',
+    controller: 'BoletaCesVerCtrl'
+  })
   /*========================== /empresa tramite =======================================*/
 /*-------------------------------------- documentos -----------------------------------------*/
     

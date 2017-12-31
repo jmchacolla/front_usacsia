@@ -1,7 +1,8 @@
 <!-- TOP-MENU inicio -->
 <div ng-include="'./templates/menu_inicio.html'"></div>
 <!-- CONTEXT-MENU -->
-<div ng-include="'./templates/menu_lateral.html'"></div>
+<!-- <div ng-include="'./templates/menu_lateral.html'"></div> -->
+<div class="col-md-2"></div>
 <!-- CONTENIDO MODULO inicio -->
 <div class="col-md-8 col-sm-8">
   <div class="row">
@@ -111,7 +112,7 @@
           </div>
           <div class="col-md-12 col-sm-12 ">
           <hr >
-              <div  ng-show="pertramite.persona_tramite.pt_estado_tramite=='APROBADO'">
+              <div  ng-if="pertramite.persona_tramite.pt_estado_tramite ==='APROBADO'">
                   <div ng-controller="pdf_carneCtrl"  align="center">
                      <button type="button" class="btn btn-default" ng-click="openPdf()" >IMPRIMIR CARNÉ  <span class="glyphicon glyphicon-open-file"></span></button>
                      <button type="button"  class="btn btn-default" ng-click="downloadPdf()">Descargar PDF   <span class="glyphicon glyphicon-download-alt"></span></button>
