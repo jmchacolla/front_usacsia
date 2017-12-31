@@ -50,8 +50,8 @@
               <span ng-show="sortType == 'per_nombres' && !sortReverse" class="glyphicon glyphicon-chevron-up"></span>
               <span ng-show="sortType == 'per_nombres' && sortReverse" class="glyphicon glyphicon-chevron-down"></span></a>
             </th>
-            <th >Establecimiento</th>
-            <th >Ver</th>
+            <th>Establecimiento</th>
+            <th>Ver</th>
             <th>Editar</th>
             <th>Dar de baja</th>
           </thead>
@@ -62,10 +62,10 @@
               <td>{{et.per_nombres}} </td>  
               <td>{{et.ess_razon_social}}</td>
               <td class="text-center">
-                <a href="#/funcionarios/ver/{{funcionario.fun_id}}" class="btn btn-success" title="VER DATOS DEL FUNCIONARIO"><span class="glyphicon glyphicon-file"></span></a>
+                <a href="#/tramites/ver/{{et.et_id}}" class="btn btn-success" title="VER TRAMITE"><span class="glyphicon glyphicon-file"></span></a>
               </td>
               <td>
-                <a href="#/funcionarios/edit/{{funcionario.fun_id}}" class="btn btn-primary" title="EDITAR A FUNCIONARIO"><span class="glyphicon glyphicon-pencil"></span></a>
+                <a href="#/inspeccion/fichas/crear/{{et.et_id}}" class="btn btn-info" title="FICHA DE INSPECCIÓN"><span >FICHA</span></a>
               </td>
               <td>
               <!-- funcionario.fe_inicio_trabajo, fucionario.fe_fin_trabajo, funcionario.fe_memorandum, -->

@@ -213,8 +213,8 @@ angular.module("adminApp")
     menu:{
       titulo: 'Gestión de tramites de Certificado Sanitario',
       items:[
-        {nombre:'Solicitudes de Propietarios Naturales', enlace:'#/tramites-car', estilo:'active'},
-        {nombre:'Solicitudes de Propietarios Juridicos', enlace:'#/tramites-car', estilo:''},
+        {nombre:'Solicitudes de Propietarios Naturales', enlace:'#/tramites_certi', estilo:'active'},
+        {nombre:'Solicitudes de Propietarios Juridicos', enlace:'#/tramites_certiJ', estilo:''},
         {nombre:'Busqueda de personas registradas', enlace:'#/tramite/crear', estilo:''}]
     },
     pagina:{

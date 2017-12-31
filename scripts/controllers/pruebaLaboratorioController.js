@@ -104,6 +104,7 @@ angular.module("adminApp")
         $scope.pruebapar.pl_id=data.prueba_laboratorio.pl_id;
         console.log("id_ de la prueba labortorio creada" , $scope.pruebapar.pl_id);
         toastr.success('Muestra Negativa');
+        
       }
     })
   }

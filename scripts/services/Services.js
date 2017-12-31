@@ -165,6 +165,18 @@ angular.module("adminApp")
     update: {method: "PUT", params: {fun_id: "@fun_id"}}
   })
 }])
+//------------------------CREAR FICHA DE INSPECCION----------------------------
+.factory('FichaIn', ['$resource', 'CONFIG', function ($resource, CONFIG) {
+  return $resource(CONFIG.DOMINIO_SERVICIOS+"/ficha_inspeccion", {}, {
+    update: {method: "PUT", params: {}}
+  })
+}])
+//------------------------CREAR FICHA_CATEGORIA----------------------------
+.factory('FichaCat', ['$resource', 'CONFIG', function ($resource, CONFIG) {
+  return $resource(CONFIG.DOMINIO_SERVICIOS+"/ficha_categoria", {}, {
+    update: {method: "PUT", params: {}}
+  })
+}])
 //------------------------CREAR FICHA 1----------------------------
 .factory('Ficha1', ['$resource', 'CONFIG', function ($resource, CONFIG) {
   return $resource(CONFIG.DOMINIO_SERVICIOS+"/ficha1", {}, {

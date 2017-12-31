@@ -153,7 +153,7 @@ angular.module("adminApp")
                                   height: 40
                                 },
                                 {
-                                  text: "\n GOBIERNO AUTONOMO DEPARTAMENTAL DE LA PAZ \n SERVICIO DEPARTAMENTAL DE SALUD \n UNIDAD DE SALUD AMBIENTAL \n CONTROL SANITARIO E INOCUIDAD ALIMENTARIA \n CAJA RECAUDADORA DE USACSIA",
+                                  text: "\n GOBIERNO AUTONOMO DEPARTAMENTAL DE LA PAZ \n SERVICIO DEPARTAMENTAL DE SALUD \n UNIDAD DE SALUD AMBIENTAL \n CONTROL SANITARIO E INOCUIDAD ALIMENTARIA ",
                                   alignment: 'center',
                                   style: 'header' 
                                 },
@@ -182,7 +182,7 @@ angular.module("adminApp")
                                                text: 'CARNÉ SANITARIO', fontSize: 9, alignment: 'center'
                                             },
                                             {
-                                                text:'    Bs.', fontSize:9, alignment:'right'
+                                                text:' 25 Bs.', fontSize:9, alignment:'right'
                                             }
                                         ],
                                 ],
@@ -226,6 +226,12 @@ angular.module("adminApp")
                                                     },
                                                     {
                                                         text: $scope.persona.persona_tramite.pt_numero_tramite, bold:true, fontSize:5
+                                                    },
+                                                    {
+                                                      image: ifirma,
+                                                      width: 50,
+                                                      height: 40,
+                                                      align:'center'
                                                     }
 
 
@@ -240,27 +246,27 @@ angular.module("adminApp")
                             },
                             layout: 'noBorders',
                             border: [false, false, false, false]
-                        },
+                        }/*,
                         {
                           table:{
-                            /*widths:[50,75,50],*/
+                         
                             body:[
                                 [
-                                  /*  {},*/
+                          
                                       {
                                         image: ifirma,
                                         width: 80,
                                         height: 40,
                                         align:'center'
                                       },
-                                    /*{}*/
+                                  
                                 
                                 ]
                             ]
                           },
                           layout: 'noBorders',
                             border: [false, false, false, false]
-                        }
+                        }*/
 
                    
                   
