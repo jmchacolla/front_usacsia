@@ -31,10 +31,10 @@
           <form name="busqForm" novalidate>
            <div class="row">
              <div class="col-md-6 col-md-offset-2">
-                <input name="nummuestra" class="form-control input-lg" ng-model="numero_muestra" type="text" placeholder="Escriba el Nro. de Muestra" required autofocus>
+                <input ng-disabled='negcreado' name="nummuestra" class="form-control input-lg" ng-model="numero_muestra" type="text" placeholder="Escriba el Nro. de Muestra" required autofocus>
              </div>
              <div class="col-md-4">
-             <button class="btn btn-primary btn-lg" ng-disabled="busqForm.$invalid" ng-click="buscaNumeroMuestra()"><span class="glyphicon glyphicon-search"></span><strong> BUSCAR</strong></button>
+             <button ng-disabled="negcreado" class="btn btn-primary btn-lg" ng-disabled="busqForm.$invalid" ng-click="buscaNumeroMuestra()"><span class="glyphicon glyphicon-search"></span><strong> BUSCAR</strong></button>
              </div>
            </div>  
           </form>
@@ -71,9 +71,9 @@
                         </div>
                       </div>
                       <center>
-                      <button type="submit" class="btn btn-success" ng-click="saveplnegativo(muestra.mue_id)"><span class="glyphicon glyphicon-minus"></span> NEGATIVO</button>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-
-                          <button type="submit" ng-click="savepl(muestra.mue_id)" class="btn btn-danger"><span class="glyphicon glyphicon-plus"></span> POSITIVO</button>
+                        <button ng-if="!negcreado" type="submit" class="btn btn-success" ng-click="saveplnegativo(muestra.mue_id)"><span class="glyphicon glyphicon-minus"></span> NEGATIVO</button>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                          <button ng-if="!negcreado" type="submit" ng-click="savepl(muestra.mue_id)" class="btn btn-danger"><span class="glyphicon glyphicon-plus"></span> POSITIVO</button>
+                        <button ng-if="negcreado" type="submit" class="btn btn-danger" ng-click="recarga()"><span class="glyphicon glyphicon-ok"></span>VOLVER A BUSCAR</button>
                     </center>
                     </div>
                   </div>

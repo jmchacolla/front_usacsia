@@ -33,19 +33,6 @@ angular.module("adminApp")
       $scope.loading = false;
       $scope.msg = false;
     }); 
-
-  // $scope.prueba_laboratorio={
-
-  // }
-
-  // $scope.submit = function(){
-  //   Personas.delete({per_id:id}).$promise.then(function(data){
-  //     if(data.mensaje){
-  //       toastr.success('Eliminado correctamente');
-  //       $route.reload();
-  //     }
-  //   })
-  // }
 }])
 
 
@@ -78,9 +65,6 @@ angular.module("adminApp")
 
 
   $scope.ver=false;
-
-
-
   $scope.loading=true;//para hacer un loading
   PruebaLaboratorioService.get(function(data){
     console.log(data);
@@ -108,7 +92,7 @@ angular.module("adminApp")
     }
   
 
-
+  $scope.negcreado=false;
   $scope.saveplnegativo=function(mue_id){
     $scope.pruebalaboratorio.mue_id=mue_id;
     $scope.pruebalaboratorio.fun_id=fun_id;
@@ -116,11 +100,16 @@ angular.module("adminApp")
     PruebaLaboratorioService.save($scope.pruebalaboratorio).$promise.then(function(data)
     {
       if(data.status){
+        $scope.negcreado=true;
         $scope.pruebapar.pl_id=data.prueba_laboratorio.pl_id;
         console.log("id_ de la prueba labortorio creada" , $scope.pruebapar.pl_id);
         toastr.success('Muestra Negativa');
       }
     })
+  }
+
+   $scope.recarga=function(){
+    $route.reload();
   }
 
 
