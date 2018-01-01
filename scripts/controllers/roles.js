@@ -34,19 +34,16 @@ angular.module('adminApp')
 
 //wendy
 
- // DOMINIO_SERVICIOS: "http://localhost:8080/api_usacsia/public"
-//dominio servidor
+DOMINIO_SERVICIOS: "http://localhost:8080/api_usacsia_v1_0/public"
 
- // DOMINIO_SERVICIOS: "http://localhost:8080/api_usacsia_v1_0/public"
 
-  // DOMINIO_SERVICIOS: "http://localhost:8080/api_usacsia_v1/public"
 
 
 //vero
 // DOMINIO_SERVICIOS: "http://localhost:8080/api_usacsia/public"
 // DOMINIO_SERVICIOS: "http://localhost:8000"
 
-DOMINIO_SERVICIOS: "http://localhost/usacsia_php_5.6/solo_api_dorys_git/api_usacsia_v1_0/public"
+ //DOMINIO_SERVICIOS: "http://localhost/usacsia_php_5.6/solo_api_dorys_git/api_usacsia_v1_0/public"
 
 // DOMINIO_SERVICIOS: "http://10.0.25.104/api_usacsia/public"
 })
@@ -131,7 +128,7 @@ DOMINIO_SERVICIOS: "http://localhost/usacsia_php_5.6/solo_api_dorys_git/api_usac
 .run(["$rootScope", "$location", "CONFIG", "ROLES",   function($rootScope, $location, CONFIG, ROLES){
   $rootScope.$on('$routeChangeStart', function (event, next)
   { 
-    console.log(next.data);
+    /*console.log(next.data);*/
     if(next.data !== undefined)
     { 
       if(next.data.authorized.indexOf(CONFIG.ROL_CURRENT_USER) !== -1)

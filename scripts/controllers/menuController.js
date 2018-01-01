@@ -1,8 +1,8 @@
 'use strict';
 
 angular.module('adminApp')
-	.controller('MenuCtrl', ['$auth','authUser', '$location', '$scope', 'sessionControl', 'ROLES', 'CONFIG', '$routeParams', 'ReservasDia', 'CitasMedicos',
-		function ($auth,authUser, $location, $scope, sessionControl, ROLES, CONFIG, $routeParams,ReservasDia,CitasMedicos){
+	.controller('MenuCtrl', ['$auth','authUser', '$location', '$scope', 'sessionControl', 'ROLES', 'CONFIG', '$routeParams', /*'ReservasDia', 'CitasMedicos',*/
+		function ($auth,authUser, $location, $scope, sessionControl, ROLES, CONFIG, $routeParams/*,ReservasDia,CitasMedicos*/){
 		var vm = this;
 		vm.isLogin = authUser.isLoggedIn();
 
@@ -70,72 +70,7 @@ angular.module('adminApp')
 		var FunG = JSON.parse(FunG);
 		console.log("MENUCONTROLLER DATOS FUNCIONARIO", FunG);
 		
-		/*$scope.muestranotireferencia = 0;// para que solo muestre las referencias recibidas a establecimientos que reciben referencias
-		if (CONFIG.ROL_CURRENT_USER==4 || CONFIG.ROL_CURRENT_USER == 6 || CONFIG.ROL_CURRENT_USER == 9 || CONFIG.ROL_CURRENT_USER == 10) {
-			if ((localStorage.getItem("nivelEst")!='PRIMER NIVEL') || ((parseInt(localStorage.getItem("tipoEst"), 10)==5) && (localStorage.getItem("nivelEst")=='PRIMER NIVEL')))
-			{
-				$scope.muestranotireferencia = 1;
-				ReferenciasEstablecimientoDestino.get({es_id:FunG.es_id},function(data, headers){
-					//console.log("cabeceras de la respuesta");
-					//console.log(headers);
-					$scope.valor1=0;
-					for(var i=0; i < data.referencia.length; i++){
-						if(data.referencia[i].br_estado_referencia==false){
-							$scope.valor1=$scope.valor1+1;
-						}
-					}
-				});
-			}
-				
-			if (CONFIG.ROL_CURRENT_USER==6 || CONFIG.ROL_CURRENT_USER==10){
-				ContrareferenciasEstablecimientoOrigen.get({es_id:FunG.es_id},function(data){
-					$scope.valor2=0;
-					for(var i=0; i < data.contrareferencia.length; i++){
-						if(data.contrareferencia[i].bc_estado_contrareferencia==false){
-							$scope.valor2=$scope.valor2+1;
-						}
-					}
-				});
-			}
 
-			//HACIENDO UN INTERVALO PARA QUE DETECTE CAMBIOS EN LAS REFERENCIAS
-			var timer = null;
-			timer = setInterval(function () {
-				// El método $apply sirve para notificar de cambios realizados asíncronamente a interacciones con la UI.
-				if(authUser.isLoggedIn() && (CONFIG.ROL_CURRENT_USER==4 || CONFIG.ROL_CURRENT_USER == 6 || CONFIG.ROL_CURRENT_USER == 9 || CONFIG.ROL_CURRENT_USER == 10)){
-					if ((localStorage.getItem("nivelEst")!='PRIMER NIVEL') || ((parseInt(localStorage.getItem("tipoEst"), 10)==5) && (localStorage.getItem("nivelEst")=='PRIMER NIVEL')))
-					{
-						ReferenciasEstablecimientoDestino.get({es_id:FunG.es_id},function(data){
-							$scope.valor1=0;
-							for(var i=0; i < data.referencia.length; i++){
-								if(data.referencia[i].br_estado_referencia==false){
-									$scope.valor1=$scope.valor1+1;
-								}
-							}
-							localStorage.setItem("valor1", $scope.valor1);
-						});
-					}
-					if (CONFIG.ROL_CURRENT_USER==6 || CONFIG.ROL_CURRENT_USER==10){
-						ContrareferenciasEstablecimientoOrigen.get({es_id:FunG.es_id},function(data){
-							$scope.valor2=0;
-							for(var i=0; i < data.contrareferencia.length; i++){
-								if(data.contrareferencia[i].bc_estado_contrareferencia==false){
-									$scope.valor2=$scope.valor2+1;
-								}
-							}
-							localStorage.setItem("valor2", $scope.valor2);
-						});	
-					}
-					$scope.$apply();
-				} else{
-					clearInterval(timer);
-					timer = null;
-					$scope.muestranotireferencia = 0;
-					$scope.$apply();
-					CONFIG.ROL_CURRENT_USER == 0;
-				}
-			}, 60000);
-		}*/
 
 		//PARA LAS NOTIFICACIONES DE RESERVAS/////////////////////////////////////////////////////////
 		//NOTIFICACIONES PARA EL MEDICO Y ADMINISTRADOR MEDICO
@@ -174,41 +109,7 @@ angular.module('adminApp')
 				}
 			}, 120000);
 		}*/
-		//NOTIFICACIONES PARA EL ADMISIONISTA O ADMISIONISTA-ESTADISTICO-ENFERMERO
-	/*	if((CONFIG.ROL_CURRENT_USER == 6 || CONFIG.ROL_CURRENT_USER == 10) && FunG)
-		{
-			$scope.nro=0;
-			ReservasDia.get({es_id:FunG.es_id},function(data){
-				for(var i=0; i < data.cita.length; i++){
-					if(data.cita[i].cit_estado_pago==false || data.cita[i].cit_estado_pago==null){
-						$scope.nro=$scope.nro+1;
-					}
-				}
-			});
-			var timer = null;
-			timer =	setInterval(function () {
-				var FunG = localStorage.getItem("Funcionario");
-				var FunG = JSON.parse(FunG);
-				if(authUser.isLoggedIn()&&FunG!=null){
-					ReservasDia.get({es_id:FunG.es_id},function(data){
-						$scope.nro=0;
-						for(var i=0; i < data.cita.length; i++){
-							if(data.cita[i].cit_estado_pago==false || data.cita[i].cit_estado_pago==null){
-								$scope.nro=$scope.nro+1;
-							}
-						}
-					});
-					$scope.$apply();
-				}
-				else {
-					clearInterval(timer);
-					timer = null;
-					$scope.$apply();
-					CONFIG.ROL_CURRENT_USER == 0;
-					FunG = null;
-				}
-			}, 120000);
-		}*/
+	
 	}])
 
 	.controller('MenuLateralCtrl', ['$scope', 'CONFIG', function ($scope, CONFIG) {

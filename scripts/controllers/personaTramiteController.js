@@ -72,7 +72,7 @@ angular.module("adminApp")
 
 
 
-/*CRAEAR PERSONA TRAMITE---- BUSQUEDA POR CI*/
+/*CREAR PERSONA TRAMITE---- BUSQUEDA POR CI*/
 .controller('CrearPersonaTramiteCtrl', ['$scope', '$route','PersonaTramite','Tramite' ,'toastr', '$location', function ($scope, $route, PersonaTramite,Tramite,toastr, $location){
   $scope.ajustes = {
     menu:{
@@ -103,6 +103,10 @@ angular.module("adminApp")
           $scope.persona_tramite.pt_monto=costo;  
       }
     })
+
+    var FunG = localStorage.getItem("Funcionario");
+  var FunG = JSON.parse(FunG);
+ var fun_id = FunG.fun_id;
 
     /**/
       $scope.tramiteselect={
