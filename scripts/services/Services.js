@@ -354,11 +354,22 @@ angular.module("adminApp")
   })
 }])
 
-.factory('Propietario', ['$resource', 'CONFIG', function ($resource, CONFIG){
-  return $resource(CONFIG.DOMINIO_SERVICIOS+"/propietario/:pro_id", {pro_id:"@_pro_id"}, {
-    update: {method: "PUT", params: {pro_id: "@pro_id"}}
+.factory('PJuridica', ['$resource', 'CONFIG', function ($resource, CONFIG){
+  return $resource(CONFIG.DOMINIO_SERVICIOS+"/pjuridica/:pjur_nit", {pjur_nit:"@_pjur_nit"}, {
+    update: {method: "PUT", params: {pjur_nit: "@pjur_nit"}}
   })
 }])
+
+.factory('PNatural', ['$resource', 'CONFIG', function ($resource, CONFIG){
+  return $resource(CONFIG.DOMINIO_SERVICIOS+"/pnatural/:per_id", {per_id:"@_per_id"})
+}])
+
+.factory('PNaturalPJuridicaPro_id', ['$resource', 'CONFIG', function ($resource, CONFIG){
+  return $resource(CONFIG.DOMINIO_SERVICIOS+"/pro_id_pjuridica_pnatural/:pro_id", {pro_id:"@_pro_id"})
+}])
+
+
+
 
 
 /*=========================================USACSIA====================================*/

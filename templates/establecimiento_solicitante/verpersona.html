@@ -30,10 +30,10 @@
            <div class="row">
             <form name="busqForm" novalidate>
              <div class="col-md-6 col-md-offset-2">
-                <input name="perci" class="form-control input-lg" ng-model="per_ci" type="text" placeholder="Escriba el Nro. de C.I." required autofocus>
+                <input ng-disabled="persona!=null" name="perci" class="form-control input-lg" ng-model="per_ci" type="text" placeholder="Escriba el Nro. de C.I." required autofocus>
              </div>
              <div class="col-md-4">
-                <button class="btn btn-primary btn-lg" ng-click="buscaPersona()"><span class="glyphicon glyphicon-search"></span><strong> BUSCAR</strong></button>
+                <button ng-disabled="persona!=null" class="btn btn-primary btn-lg" ng-click="buscaPersona()"><span class="glyphicon glyphicon-search"></span><strong> BUSCAR</strong></button>
              </div>
             </form>
            </div>  
@@ -119,12 +119,10 @@
                   </div> 
                 </div>
                 <center>
-                  <a href="#/establecimientosol/crear/{{per_id}}"><button class="btn btn-success btn-lg glyphicon glyphicon-book" > REGISTRAR ESTABLECIMIENTO</button></a>    
-                </div>
+                  <a href="#/establecimientosol/persona"><button class="btn btn-success btn-lg glyphicon glyphicon-book" > VOLVER A BUSCAR</button></a>    
+                  <a href="#/establecimientosol/crear/{{pnatural.pro_id}}"><button class="btn btn-success btn-lg glyphicon glyphicon-book" > REGISTRAR ESTABLECIMIENTO</button></a>    
                 </center>
-                
-                
-            </div>
+          </div>
         </div>  
           <!-- FIN -->
 
