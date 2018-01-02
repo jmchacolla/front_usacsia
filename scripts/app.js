@@ -3,11 +3,10 @@ angular.module("adminApp", ["authService", "ngRoute", "ngResource", "satellizer"
 
 .config(['$routeProvider', '$authProvider', 'CONFIG', 'ROLES', function ($routeProvider, $authProvider, CONFIG, ROLES){
   $authProvider.loginUrl = CONFIG.DOMINIO_SERVICIOS+'/login';
-//$authProvider.signupUrl = CONFIG.DOMINIO_SERVICIOS+'/usuarios';
 
   $routeProvider
   // ======================================jhon===========================================================================
- 
+// ==========================    ATENCION DE PACIENTES         =================================
 //persona_tramite lista para atender pacientes
 
 .when('/atencion', {//--------medico
@@ -242,7 +241,7 @@ angular.module("adminApp", ["authService", "ngRoute", "ngResource", "satellizer"
   })
 
 
-  //***************************E S T A B L E C I M I E N T O S**********************
+  //***************************E S T A B L E C I M I E N T O S USACSIA          **********************
   .when('/establecimientos', {
     title: 'Establecimientos',
     templateUrl: 'templates/establecimiento/index.html',
@@ -258,6 +257,7 @@ angular.module("adminApp", ["authService", "ngRoute", "ngResource", "satellizer"
       authorized: [ROLES.ADMIN_USACSIA.ROL]
     }
   })
+ //***************************       ESTABLECIMIENTOS SOLICITANTES          **********************
   .when('/establecimientossol', {
     title: 'Establecimientos Solicitantes',
     templateUrl: 'templates/establecimiento_solicitante/establecimientos.html',
@@ -266,7 +266,6 @@ angular.module("adminApp", ["authService", "ngRoute", "ngResource", "satellizer"
       authorized: [ROLES.ADMIN_USACSIA.ROL]
     }
   })
-
 
   .when('/establecimientosol/crear/:pro_id', { 
     templateUrl: 'templates/establecimiento_solicitante/crear2.html',
@@ -632,7 +631,7 @@ angular.module("adminApp", ["authService", "ngRoute", "ngResource", "satellizer"
       authorized: [ROLES.ADMIN_USACSIA.ROL, ROLES.ADMIN_CARNET.ROL]
     }
   })
-
+//subir documento
   .when('/documento-tramite/crear/:et_id', {
     templateUrl: 'templates/documento_tramite/crear.html',
     controller: 'CrearDocumentoTramiteCtrl'

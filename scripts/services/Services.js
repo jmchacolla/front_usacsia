@@ -236,7 +236,44 @@ angular.module("adminApp")
     update: {method: "PUT", params: {fun_id:"@fun_id"}}
   })
 }])
-
+//-------------------------CAMBIAR ESTADO DE EMPRESA TRAMITE 1----------------------------
+.factory('Aprob1', ['$resource', 'CONFIG', function ($resource, CONFIG) {
+  return $resource(CONFIG.DOMINIO_SERVICIOS+"/aprobacion1/:et_id", {pt_id:"@_et_id"}, {
+    update: {method: "PUT", params: {pt_id: "@et_id"}}
+  })
+}])
+.factory('Aprob2', ['$resource', 'CONFIG', function ($resource, CONFIG) {
+  return $resource(CONFIG.DOMINIO_SERVICIOS+"/aprobacion2/:et_id", {pt_id:"@_et_id"}, {
+    update: {method: "PUT", params: {pt_id: "@et_id"}}
+  })
+}])
+.factory('Aprob3', ['$resource', 'CONFIG', function ($resource, CONFIG) {
+  return $resource(CONFIG.DOMINIO_SERVICIOS+"/aprobacion3/:et_id", {pt_id:"@_et_id"}, {
+    update: {method: "PUT", params: {pt_id: "@et_id"}}
+  })
+}])
+//--------------------------CREAR CERTIFICADO SANITARIO----------------------------
+.factory('CertificadoSanitario', ['$resource', 'CONFIG', function ($resource, CONFIG) {
+  return $resource(CONFIG.DOMINIO_SERVICIOS+"/certificado_sanitario/:ces_id", {ces_id:"@_ces_id"}, {
+    update: {method: "PUT", params: {ces_id: "@ces_id"}}
+  })
+}])
+.factory('Firm2', ['$resource', 'CONFIG', function ($resource, CONFIG) {
+  return $resource(CONFIG.DOMINIO_SERVICIOS+"/aprob2/:ces_id", {ces_id:"@_ces_id"}, {
+    update: {method: "PUT", params: {ces_id: "@ces_id"}}
+  })
+}])
+.factory('Firm3', ['$resource', 'CONFIG', function ($resource, CONFIG) {
+  return $resource(CONFIG.DOMINIO_SERVICIOS+"/aprob3/:ces_id", {ces_id:"@_ces_id"}, {
+    update: {method: "PUT", params: {ces_id: "@ces_id"}}
+  })
+}])
+//buscar certificado sanitario segun et_id
+.factory('BusCert', ['$resource', 'CONFIG', function ($resource, CONFIG) {
+  return $resource(CONFIG.DOMINIO_SERVICIOS+"/busca_cert/:et_id", {et_id:"@_et_id"}, {
+    update: {method: "PUT", params: {et_id: "@et_id"}}
+  })
+}])
 
 
 

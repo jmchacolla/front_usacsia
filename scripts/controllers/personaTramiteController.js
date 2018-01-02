@@ -85,10 +85,12 @@ angular.module("adminApp")
       titulo:'Registrar Pago'
     }
   }
+
  
     $scope.persona_tramite={
       tra_id:null, 
       per_id:null,
+      fun_id:null,
       // pt_fecha_ini :"",
       pt_monto:null,
       pt_tipo_tramite:""
@@ -119,6 +121,7 @@ angular.module("adminApp")
     $scope.persona_tramite.per_id=per_id;
     $scope.persona_tramite.tra_id=tra_id;
     $scope.persona_tramite.pt_monto=tra_costo;
+    $scope.persona_tramite.fun_id=fun_id;
     console.log('la persona-tramite que se va a cerar', $scope.persona_tramite);
     PersonaTramite.save($scope.persona_tramite).$promise.then(function(data)
     {
@@ -286,8 +289,17 @@ angular.module("adminApp")
   var FunG = JSON.parse(FunG);
   var fun_id=FunG.fun_id;//remplaar con la sesion
 
+  $scope.CurrentDate = new Date();
+  var mes=$scope.CurrentDate.getMonth()+1;
+  var fecha=$scope.CurrentDate.getDate()+"-"+mes+"-"+$scope.CurrentDate.getFullYear();
+  
+  var anio2=$scope.CurrentDate.getFullYear()+1;
+  var fecha2=$scope.CurrentDate.getDate()+"-"+mes+"-"+anio2;
+  console.log("__para la fecha CADUCIDAD__",fecha2);
+
  console.log("esta en el controlador"); 
     var id = 0;
+    var ci=0;
    $scope.rec=function(pt_id, per_id){
     console.log("LLEGA A LA FUNCION",pt_id);
     id=pt_id;
@@ -295,6 +307,7 @@ angular.module("adminApp")
       {
         $scope.persona = data.persona;
         $scope.nombre=$scope.persona.persona.per_nombres+' '+$scope.persona.persona.per_apellido_primero+' '+$scope.persona.persona.per_apellido_segundo;
+        ci=$scope.persona.persona.per_ci;
 
       });
     
@@ -319,12 +332,12 @@ angular.module("adminApp")
           {
             $scope.firmas=data.firma;
             console.log("obteniendo la firma del fucnionario loguaado", $scope.firmas);
-            
+            console.log("__el ci de la persona__",ci);
             $scope.carnet={
                 pt_id:id,
-                cas_numero:1234567,
-                cas_fecha_inicio:'23-12-2017',
-                cas_fecha_fin:'23-12-2018',
+                cas_numero:ci,
+                cas_fecha_inicio:fecha,
+                cas_fecha_fin:fecha2,
                 cas_url:$scope.firmas.firma.fir_url,
                 cas_nombre:$scope.firmas.firma.fir_name
             }

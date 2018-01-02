@@ -29,13 +29,17 @@
       </p>
       <div class="well well-sm">
        <form name="busqForm" novalidate>
-        <div class="row">
+        <div class="row"><!--  -->
           <div class="col-md-6 col-md-offset-2">
              <input name="nummuestra" class="form-control input-lg" ng-model="datos.per_ci" type="text" placeholder="Número de C.I." required autofocus>
           </div>
+          <br>
+            <br>
           <div class="col-md-6 col-md-offset-2">
              <input name="nummuestra" type="number" class="form-control input-lg" ng-model="datos.pt_numero_tramite" type="text" placeholder="Número de de su trámite."  required autofocus>
           </div>
+          <br>
+            <br>
           <div class="col-md-6 text-center">
           <button class="btn btn-primary btn-lg" ng-disabled="busqForm.$invalid" ng-click="buscaTramite()"><span class="glyphicon glyphicon-search"></span><strong> BUSCAR</strong></button>
           </div>

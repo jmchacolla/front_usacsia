@@ -113,7 +113,7 @@ angular.module("adminApp")
   }*/
 
   //lista tramites propietarios naturales
-.controller('ListNatCtrl', ['$scope', 'ListN', '$route', 'toastr', '$location', function ($scope, ListN, $route, toastr,$location)
+.controller('ListNatCtrl', ['$scope','CONFIG', 'ListN', '$route', 'toastr', '$location','Personas','Aprob1','Aprob2','Aprob3','FirmaFun','EmpTra','CertificadoSanitario','Firm2','Firm3','BusCert', function ($scope,CONFIG, ListN, $route, toastr,$location,Personas,Aprob1,Aprob2,Aprob3,FirmaFun,EmpTra,CertificadoSanitario,Firm2,Firm3,BusCert)
 {
   $scope.ajustes = {
     menu:{
@@ -127,9 +127,21 @@ angular.module("adminApp")
       titulo:'Tramites de Certificado Sanitario'
     }
   }
+  $scope.user = {
+    rol_id: CONFIG.ROL_CURRENT_USER
+  }
 
+  var FunG = localStorage.getItem("Funcionario");
+  var FunG = JSON.parse(FunG);
+  var fun_id = FunG.fun_id;
 
-  
+  $scope.CurrentDate = new Date();
+  var mes=$scope.CurrentDate.getMonth()+1;
+  var fecha=$scope.CurrentDate.getDate()+"-"+mes+"-"+$scope.CurrentDate.getFullYear();
+  var anio2=$scope.CurrentDate.getFullYear()+1;
+  var fecha2=$scope.CurrentDate.getDate()+"-"+mes+"-"+anio2;
+  console.log("__para la fecha CADUCIDAD__",fecha2);
+
   $scope.sortType = 'per_id'; // set the default sort type
   $scope.sortReverse  = true;  // set the default sort order
   $scope.Personas = [];
@@ -149,17 +161,217 @@ angular.module("adminApp")
       $scope.loading = false;
       $scope.msg = false;
     }
+    var id = 0;
+    var ci=0;
+    $scope.rec=function(et_id, per_id){
+    console.log("LLEGA A LA FUNCION",et_id);
+    id=et_id;
+    Personas.get({per_id:per_id}, function(data)
+      {
+        $scope.persona = data.persona;
+        $scope.nombre=$scope.persona.persona.per_nombres+' '+$scope.persona.persona.per_apellido_primero+' '+$scope.persona.persona.per_apellido_segundo;
+        ci=$scope.persona.persona.per_ci;
+      });
     
-  },function () {
+  }; 
+
+  $scope.recepcionar1=function(){
+    $scope.estado1={
+      et_aprobacion1:'APROBADO'
+    }
+    console.log('el et_id para cambiar estado',id);
+    Aprob1.update({et_id:id}, $scope.estado1).$promise.then(function(data)
+    {
+      console.log("entra a update")
+      if(data.status)
+      {
+          console.log("lo logro...",data);
+          toastr.success('Aprobacion correcta');
+        
+          FirmaFun.get({fun_id:fun_id}, function(data)
+          {
+            $scope.firmas=data.firma;
+            $scope.fir=data.firma;
+            console.log("obteniendo la firma del fucnionario logueado", $scope.firmas);
+            console.log("__el ci de la persona__",ci);
+            $scope.certificado={
+                et_id:id,
+                ces_numero:1234567,
+                ces_fecha_inicio:'2-1-2018',
+                ces_fecha_fin:'2-1-2019',
+                ces_fir_url1:$scope.firmas.firma.fir_url,
+                ces_fir_nombre1:$scope.firmas.firma.fir_name
+            }
+            console.log("PARA GUARDAR EL certificado",$scope.certificado);
+            CertificadoSanitario.save($scope.certificado).$promise.then(function(data)
+            {
+               if(data.msg){
+                angular.copy({}, $scope.certificado);
+                console.log("Se registro certificado correctamente",data);
+              
+              }
+
+            });//fin carnetsanitario
+            $scope.fir=$scope.firmas;
+            console.log("__FIRMA__dentro",$scope.fir);    
+          } );//FIN DE FIRMAFUNCIONARIO
+          $route.reload();
+      }
+
+    });//FIN TRAMITE ESTADO
+    console.log($scope.estado1);
+    console.log("__FIRMA__Fuera",$scope.fir); 
+  };
+
+    $scope.recepcionar2=function(){
+
+    EmpTra.get({et_id:id}, function(data){
+    console.log('*******empresa_tramite___recep 2 ---------', data);
+
+    $scope.emp_tra = data.establecimiento;
+    console.log('*******PARA VER EMPTRA---------', $scope.emp_tra);
+      if ($scope.emp_tra.empresa_tramite.et_aprobacion1=='APROBADO') {
+         $scope.estado2={
+            et_aprobacion2:'APROBADO'
+          }
+          BusCert.get({et_id:id}, function(data){
+          console.log('__BUSCAR CERTIFICADO__', data);
+          $scope.certificado = data.certificado;
+
+          console.log('el et_id para cambiar estado',id);
+          Aprob2.update({et_id:id}, $scope.estado2).$promise.then(function(data)
+          {
+            console.log("entra a update")
+            if(data.status)
+            {
+                console.log("lo logro...");
+                toastr.success('Aprobacion correcta');
+                //tengo que obtener la firma del funcionario que se logueo y guardar en carnet recien
+                console.log("PARA VER LA FIRMA", fun_id);
+                FirmaFun.get({fun_id:fun_id}, function(data)
+                {
+                  $scope.firmas=data.firma;
+                  $scope.fir=data.firma;
+                  console.log("obteniendo la firma del fucnionario loguaado", $scope.firmas);
+                  $scope.certificado2={
+                      ces_fir_url2:$scope.firmas.firma.fir_url,
+                      ces_fir_nombre2:$scope.firmas.firma.fir_name
+                  }
+                  console.log("__DATOS DEL certificado",$scope.certificado2);
+                  console.log("__PARA EDITAR EL CERTIFICADO_",$scope.certificado.ces_id);
+                  Firm2.update({ces_id:$scope.certificado.ces_id},$scope.certificado2).$promise.then(function(data)
+                  {
+                     if(data.msg){
+                      angular.copy({}, $scope.certificado2);
+                      console.log("Se registro certificado correctamente",data);
+                      }
+
+                  });//fin carnetsanitario
+                     
+                } );//FIN DE FIRMAFUNCIONARIO
+                $route.reload();
+            }
+          });//FIN TRAMITE ESTADO
+      //fin de busca certificado
+        },function () {
       toastr.error("ERROR INESPERADO, por favor actualize la página");
       $scope.loading = false;
       $scope.msg = false;
-    }); 
+    });//fin de busca certificado
+      
+//FIN DEL IF
+    } else {
+      toastr.error('ANTES DEBE APROBAR EL RESPONSABLE DE AREA');
+    }
+//fin de emptra 
+        },function () {
+      toastr.error("ERROR INESPERADO, por favor actualize la página");
+      $scope.loading = false;
+      $scope.msg = false;
+    });//fin emptra 
+  };
+    $scope.recepcionar3=function(){
 
-  var id=0;
+    EmpTra.get({et_id:id}, function(data){
+    console.log('*******empresa_tramite ---------', data);
+
+    $scope.emp_tra = data.establecimiento;
+    console.log('*******PARA VER EMPTRA---------', $scope.emp_tra);
+    if ($scope.emp_tra.empresa_tramite.et_aprobacion2=='APROBADO') {
+    $scope.estado3={
+      et_aprobacion3:'APROBADO'
+    }
+    BusCert.get({et_id:id}, function(data){
+          console.log('__BUSCAR CERTIFICADO__', data);
+          $scope.certificadoFI = data.certificado;
+
+    console.log('el et_id para cambiar estado',id);
+    Aprob3.update({et_id:id}, $scope.estado3).$promise.then(function(data)
+    {
+      console.log("entra a update")
+      if(data.status)
+      {
+          console.log("lo logro...");
+          toastr.success('Aprobacion correcta');
+          console.log("PARA VER LA FIRMA", fun_id);
+          FirmaFun.get({fun_id:fun_id}, function(data)
+          {
+            $scope.firmas=data.firma;
+            $scope.fir=data.firma;
+            console.log("obteniendo la firma del fucnionario loguaado", $scope.firmas);
+            
+             $scope.certificado3={
+                ces_fir_url3:$scope.firmas.firma.fir_url,
+                ces_fir_nombre3:$scope.firmas.firma.fir_name
+              }
+              console.log("PARA GUARDAR EL certificado",$scope.certificado3);
+              console.log("__PARA EDITAR EL CERTIFICADO_",$scope.certificadoFI.ces_id);
+              Firm3.update({ces_id:$scope.certificadoFI.ces_id},$scope.certificado3).$promise.then(function(data)
+              {
+                 if(data.msg){
+                  angular.copy({}, $scope.certificado3);
+                  console.log("Se registro certificado correctamente",data);
+                  }
+
+              });//fin carnetsanitario
+   
+          } );//FIN DE FIRMAFUNCIONARIO
+          $route.reload();
+      }
+
+    });//FIN TRAMITE ESTADO
+//fin de busca certificado
+        },function () {
+      toastr.error("ERROR INESPERADO, por favor actualize la página");
+      $scope.loading = false;
+      $scope.msg = false;
+    });//fin de busca certificado
+
+//FIN DEL IF
+    } else {
+      toastr.error('ANTES DEBE APROBAR EL JEFE DE UNIDAD');
+    }
+//fin de emptra 
+        },function () {
+      toastr.error("ERROR INESPERADO, por favor actualize la página");
+      $scope.loading = false;
+      $scope.msg = false;
+    });//fin emptra 
+
+  };
+
+//hasta aqui la lista de empresa tramite naturales
+    },function () {
+      toastr.error("ERROR INESPERADO, por favor actualize la página");
+      $scope.loading = false;
+      $scope.msg = false;
+    });//fin de la lista de emptra
+  
+
+  var idd=0;
   $scope.nombre_completo = "";
   $scope.get_per_id = function(per_id, per_apellido_primero, per_apellido_segundo, per_nombres){
-    id = per_id;
+    idd = per_id;
     $scope.nombre_completo = per_apellido_primero + " " + per_apellido_segundo + " " + per_nombres;
   }
 
