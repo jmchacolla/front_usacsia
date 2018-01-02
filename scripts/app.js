@@ -674,6 +674,11 @@ angular.module("adminApp", ["authService", "ngRoute", "ngResource", "satellizer"
     templateUrl: 'templates/pagopendiente/ver.html',
     controller: 'BoletaCesVerCtrl'
   })
+
+  .when('/seguimiento-tramite-ces/:et_id', {
+    templateUrl: 'templates/certificado/ver.html',
+    controller: 'CertificadoCtrl'
+  })
   /*========================== /empresa tramite =======================================*/
 /*-------------------------------------- documentos -----------------------------------------*/
     

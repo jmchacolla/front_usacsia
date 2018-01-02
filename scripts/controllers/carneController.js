@@ -115,8 +115,6 @@ angular.module("adminApp")
         var imagenfirma=$scope.firmas.firma/*[0]*/.fir_url+'/'+$scope.firmas.firma.fir_name;
         console.log('imagen firma-----------', imagenfirma);
 
-      
-
 
       var img1 =convertImgToDataURLviaCanvas( imagenpersona, function(base64Img) {
         ipersona =base64Img;
@@ -130,18 +128,21 @@ angular.module("adminApp")
 
             var tituloqr= 'Nro. Trámite: '+$scope.persona.persona_tramite.pt_numero_tramite;
             var textoqr= 'USACSIA-CARNÉ-SANITARIO-'+$scope.persona.persona.per_nombres+" "+$scope.persona.persona.per_apellido_primero+" "+$scope.persona.persona.per_apellido_segundo+'-'+$scope.persona.persona.per_ci+'-'+$scope.persona.persona.per_ci_expedido+'/'+$scope.persona.persona_tramite.pt_numero_tramite;
-            //estilo, encabezado de QR
-            // function header(text) {
-            //   return {text: text, margins: [0, 0, 0, 8],alignment: 'right'};
-            // }
+
             var docDefinition = {
                 
                 pageOrientation: 'landscape',
                 pageSize: 'A8',
                 pageMargins: [ 5, 5, 5, 5 ],
-
+                info: {/*Metadatos*/
+                  title: textoqr,
+                  author: 'USACSIA-SEDES LA PAZ',
+                  subject: 'carne sanitario'+tituloqr,
+                  keywords: 'carne sanitario',
+                  creator: 'USACSIA',
+                  producer: 'USACSIA',
+                  },
                 content: [
-
                         {
                           table: {
                             widths: [30, 125, 30],
@@ -155,7 +156,8 @@ angular.module("adminApp")
                                 {
                                   text: "\n GOBIERNO AUTONOMO DEPARTAMENTAL DE LA PAZ \n SERVICIO DEPARTAMENTAL DE SALUD \n UNIDAD DE SALUD AMBIENTAL \n CONTROL SANITARIO E INOCUIDAD ALIMENTARIA ",
                                   alignment: 'center',
-                                  style: 'header' 
+                                  style: 'header',
+                                  color:'#0B8300' 
                                 },
                                 {
                                   image: sedes,
@@ -172,17 +174,17 @@ angular.module("adminApp")
                         },
                         {
                             table:{
-                                widths:[25, 125, 25],
+                                widths:[25, 110, 40],
                                 body:[
                                         [
                                             {
                                                 text:''
                                             },
                                             {
-                                               text: 'CARNÉ SANITARIO', fontSize: 9, alignment: 'center'
+                                               text: '      CARNÉ SANITARIO', fontSize: 9, alignment: 'center', color:'#BA0000'
                                             },
                                             {
-                                                text:' 25 Bs.', fontSize:9, alignment:'right'
+                                                text:'Bs. 25,00', fontSize:9, alignment:'right', color:'#BA0000'
                                             }
                                         ],
                                 ],
@@ -193,83 +195,71 @@ angular.module("adminApp")
 
                         {
                             table:{
-                                widths:[50, 75, 50],
+                                widths:[60, 75, 35],
+                                heights: [20, 100],
                                 body:[
                                     [
                                         {
+                                          rowSpan:2,
                                           image: ipersona,
                                           width: 50,
                                           height: 60
                                         },
                                         {
-                                            text:[
-                                                    {
-                                                        text:'Nombre: ', bold:true, fontSize:6
-                                                    },
-                                                    {
-                                                        text:$scope.persona.persona.per_nombres+" "+$scope.persona.persona.per_apellido_primero+" "+$scope.persona.persona.per_apellido_segundo+'\n ', fontSize:6
-                                                    },
-                                                    {
-                                                        text:'C.I.: ', bold:true, fontSize:6
-                                                    },
-                                                    {
-                                                       text: $scope.persona.persona.per_ci+'  '+$scope.persona.persona.per_ci_expedido+'\n', fontSize: 6
-                                                    },
-                                                    {
-                                                        text:'Nacimiento: ', bold:true, fontSize:6
-                                                    },
-                                                    {
-                                                       text: $scope.persona.persona.per_fecha_nacimiento, fontSize: 6
-                                                    },
-                                                    {
-                                                        text:'Trámite N°:  ', bold:true, fontSize:6
-                                                    },
-                                                    {
-                                                        text: $scope.persona.persona_tramite.pt_numero_tramite, bold:true, fontSize:5
-                                                    },
-                                                    {
-                                                      image: ifirma,
-                                                      width: 50,
-                                                      height: 40,
-                                                      align:'center'
-                                                    }
-
-
-                                            ],
-                                        
+                                          text:[
+                                                  {
+                                                      text:'Nombre: ', bold:true, fontSize:6
+                                                  },
+                                                  {
+                                                      text:$scope.persona.persona.per_nombres+" "+$scope.persona.persona.per_apellido_primero+" "+$scope.persona.persona.per_apellido_segundo+'\n ', fontSize:6
+                                                  },
+                                                  {
+                                                      text:'C.I.: ', bold:true, fontSize:6
+                                                  },
+                                                  {
+                                                     text: $scope.persona.persona.per_ci+'  '+$scope.persona.persona.per_ci_expedido+'\n', fontSize: 6
+                                                  },
+                                                  {
+                                                      text:'Nacimiento: ', bold:true, fontSize:6
+                                                  },
+                                                  {
+                                                     text: $scope.persona.persona.per_fecha_nacimiento, fontSize: 6
+                                                  },
+                                                  {
+                                                      text:'Trámite N°:  ', bold:true, fontSize:6
+                                                  },
+                                                  {
+                                                      text: $scope.persona.persona_tramite.pt_numero_tramite, bold:true, fontSize:5
+                                                  },
+                                          ]
                                         },
                                         {
-                                            qr: textoqr, fit:65, alignment: 'right'
+                                            rowSpan:2,
+                                            qr: textoqr, fit:65,
+                                            alignment: 'right'
                                         },
+                                    ],
+                                    [ '',
+                                      {
+                                        image: ifirma,
+                                        width: 60,
+                                        height: 30,
+                                        align:'center'/*,
+                                        absolutePosition: {x: 85, y: 110}*/
+                                      }
+                                      
                                     ],
                                 ],
                             },
                             layout: 'noBorders',
                             border: [false, false, false, false]
-                        }/*,
+                        },
                         {
-                          table:{
-                         
-                            body:[
-                                [
-                          
-                                      {
-                                        image: ifirma,
-                                        width: 80,
-                                        height: 40,
-                                        align:'center'
-                                      },
-                                  
-                                
-                                ]
-                            ]
-                          },
-                          layout: 'noBorders',
-                            border: [false, false, false, false]
-                        }*/
-
-                   
-                  
+                          text:'Firma Jefe Unidad',
+                          align:' center',
+                          absolutePosition:{x:100, y:135},
+                          fontSize: 3
+                        }
                 ],
                 styles: {
                   header: {
