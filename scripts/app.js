@@ -272,7 +272,7 @@ angular.module("adminApp", ["authService", "ngRoute", "ngResource", "satellizer"
   })
 
 
-  .when('/establecimientosol/crear/:per_id', { 
+  .when('/establecimientosol/crear/:pro_id', { 
     templateUrl: 'templates/establecimiento_solicitante/crear2.html',
     controller: 'CrearEstablecimientoSolicitanteCtrl',
       data: {
@@ -429,9 +429,17 @@ angular.module("adminApp", ["authService", "ngRoute", "ngResource", "satellizer"
 
 
 /*===================================VERONICA================================================*/
-/*para el estabecimiento y su propietario*/
+/*buscar persona registrada, para luego registrar su establecimiento*/
   .when('/establecimientosol/persona', { 
     templateUrl: 'templates/establecimiento_solicitante/buscar_persona_registrada.html',
+    controller: 'BuscarCrearPersonaCtrl',
+    data: {
+      authorized: [ROLES.ADMIN_USACSIA.ROL]
+    }
+  })
+/*buscar empresa registrada, para luego registrar su establecimiento*/
+  .when('/establecimientosol/empresa', { 
+    templateUrl: 'templates/establecimiento_solicitante/buscar_empresa_registrada.html',
     controller: 'BuscarCrearPersonaCtrl',
     data: {
       authorized: [ROLES.ADMIN_USACSIA.ROL]
@@ -440,12 +448,19 @@ angular.module("adminApp", ["authService", "ngRoute", "ngResource", "satellizer"
 
     .when('/establecimientosol/persona/ver/:per_id', { 
     templateUrl: 'templates/establecimiento_solicitante/verpersona.html',
-    controller: 'BuscarCrearPersonaCtrl',
+    controller: 'VerPersonaEstablecimientoSolicitanteCtrl',
     data: {
       authorized: [ROLES.ADMIN_USACSIA.ROL]
     }
   })
 
+  .when('/establecimientosol/empresa/ver/:pjur_nit', { 
+    templateUrl: 'templates/establecimiento_solicitante/verempresa.html',
+    controller: 'VerPJuridicaCtrl',
+    data: {
+      authorized: [ROLES.ADMIN_USACSIA.ROL]
+    }
+  })
 
 /*-----------------------------laboratorista---------------------------------*/
 
