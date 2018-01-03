@@ -195,7 +195,7 @@ angular.module("adminApp")
 
                         {
                             table:{
-                                widths:[60, 75, 35],
+                                widths:[50, 85, 35],
                                 heights: [20, 100],
                                 body:[
                                     [
@@ -208,7 +208,7 @@ angular.module("adminApp")
                                         {
                                           text:[
                                                   {
-                                                      text:'Nombre: ', bold:true, fontSize:6
+                                                      text:'Nombres: ', bold:true, fontSize:6
                                                   },
                                                   {
                                                       text:$scope.persona.persona.per_nombres+" "+$scope.persona.persona.per_apellido_primero+" "+$scope.persona.persona.per_apellido_segundo+'\n ', fontSize:6
@@ -223,7 +223,7 @@ angular.module("adminApp")
                                                       text:'Nacimiento: ', bold:true, fontSize:6
                                                   },
                                                   {
-                                                     text: $scope.persona.persona.per_fecha_nacimiento, fontSize: 6
+                                                     text: $scope.persona.persona.per_fecha_nacimiento+'\n', fontSize: 6
                                                   },
                                                   {
                                                       text:'Trámite N°:  ', bold:true, fontSize:6
@@ -244,8 +244,8 @@ angular.module("adminApp")
                                         image: ifirma,
                                         width: 60,
                                         height: 30,
-                                        align:'center'/*,
-                                        absolutePosition: {x: 85, y: 110}*/
+                                        align:'center',
+                                        absolutePosition: {x: 85, y: 110}
                                       }
                                       
                                     ],
