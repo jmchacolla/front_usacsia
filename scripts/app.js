@@ -622,10 +622,12 @@ angular.module("adminApp", ["authService", "ngRoute", "ngResource", "satellizer"
     }
   })
 
-    .when('/documento-tramite/crear/:et_id', {
+  
+  .when('/documento-tramite/crear/:et_id', {
     templateUrl: 'templates/documento_tramite/crear.html',
     controller: 'CrearDocumentoTramiteCtrl'
   })
+
     /*jhon- arancel categoria*/
     .when('/categoria', {
       templateUrl: 'templates/arancel/categoria-lista.html',
@@ -659,7 +661,6 @@ angular.module("adminApp", ["authService", "ngRoute", "ngResource", "satellizer"
     templateUrl: 'templates/empresatramite/boleta-ces.html',
     controller: 'BoletaCesCtrl'
   })
-
 
   .when('/pago-pendiente/:pp_id', {
     templateUrl: 'templates/pagopendiente/ver.html',

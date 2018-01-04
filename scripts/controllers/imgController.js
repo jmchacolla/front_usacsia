@@ -228,38 +228,29 @@ angular.module("adminApp")
 
         var vm = this;
         vm.img=false;
-    //Probando los estados http
-        function a(){
-            return $http({
-                method: 'POST',
-                url: 'prueba.php',
-                })
-        };
-        vm.b=a().then(function (alguien) {
-            vm.alguien=alguien;
-        });
-
-
         vm.enviar=function() {
-        //Asignamos el file-model a la variable file, gracias a la directiva de mas arriba.
-        var file = vm.ie_nombre;
+            if(vm.ie_nombre){
+                //Asignamos el file-model a la variable file, gracias a la directiva de mas arriba.
+                var file = vm.ie_nombre;
 
-        var fd = new FormData();
-        fd.append('file', file); //Agregamos data al "formulario" que vamos a enviar
+                var fd = new FormData();
+                fd.append('file', file); //Agregamos data al "formulario" que vamos a enviar
 
-        $http.post('est.php', fd, {
-            transformRequest: angular.identity, //Le decimos a angular que no serialize el envio
-            headers: {'Content-Type': undefined}
-            })
-            .success(function(response){
-                //Guardamos la url de la imagen y hacemos que la muestre.
-                vm.ie_nombre=response;
-                vm.img=true;
-            })
-            .error(function(response){
+                $http.post('est.php', fd, {
+                    transformRequest: angular.identity, //Le decimos a angular que no serialize el envio
+                    headers: {'Content-Type': undefined}
+                    })
+                    .success(function(response){
+                        //Guardamos la url de la imagen y hacemos que la muestre.
+                        vm.ie_nombre=response;
+                        vm.img=true;
+                    })
+                    .error(function(response){
 
-        });
-             $scope.msg="Imagen cargada correctamente";
+                });
+                 $scope.msg="Imagen cargada correctamente";
+            }
+        
         
     };
 }])
@@ -292,18 +283,6 @@ angular.module("adminApp")
 
         var vm = this;
         vm.img=false;
-        //Probando los estados http
-        function a(){
-            return $http({
-                method: 'POST',
-                url: 'prueba.php',
-                })
-        };
-        vm.b=a().then(function (alguien) {
-            vm.alguien=alguien;
-        });
-
-
         vm.enviar=function() {
         //Asignamos el file-model a la variable file, gracias a la directiva de mas arriba.
         var file = vm.ima_nombre;
@@ -355,17 +334,6 @@ angular.module("adminApp")
 
         var vm = this;
         vm.img=false;
-        //Probando los estados http
-        function a(){
-            return $http({
-                method: 'POST',
-                url: 'prueba.php',
-                })
-        };
-        vm.b=a().then(function (alguien) {
-            vm.alguien=alguien;
-        });
-
 
         vm.enviar=function() {
         //Asignamos el file-model a la variable file, gracias a la directiva de mas arriba.
@@ -418,18 +386,7 @@ angular.module("adminApp")
 
         var vm = this;
         vm.img=false;
-        //Probando los estados http
-        function a(){
-            return $http({
-                method: 'POST',
-                url: 'prueba.php',
-                })
-        };
-        vm.b=a().then(function (alguien) {
-            vm.alguien=alguien;
-        });
-
-
+        
         vm.enviar=function() {
         //Asignamos el file-model a la variable file, gracias a la directiva de mas arriba.
         var file = vm.ima_nombre;

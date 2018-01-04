@@ -8,7 +8,7 @@ function ($scope, DocumentoTramite, $route,$routeParams,toastr,$location)
     menu:{
       titulo: 'Gestión de tramites de Carné Sanitario',
       items:[
-        {nombre:'Solicitudes de Carné Sanitario', enlace:'#/persona-usacsia', estilo:'active'}]
+        {nombre:'Requisitos para el tramite de Certificado sanitario', enlace:'#/persona-usacsia', estilo:'active'}]
     },
     pagina:{
       titulo:'Documentos requeridos para el registro del establecimiento'
