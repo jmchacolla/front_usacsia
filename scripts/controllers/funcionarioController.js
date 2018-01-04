@@ -974,17 +974,21 @@ function controladorPrincipal_fun($http, $scope, CONFIG){
 
 function controladorPrincipal_Pre($http, $scope, CONFIG, toastr){
   var vm=this;
+  console.log("___LLEGO ABUSQUEDA__");
   $scope.ss="dcs";
   //$scope.tamanio=0;
   $scope.pre_reg=false;
   vm.buscaPersona = function(){
-      $scope.tamanio="Cargando...";//////CAMBIADO
+      $scope.tamanio="Cargando...";
+
       $http.get(CONFIG.DOMINIO_SERVICIOS+'/personasb/'+vm.per_ci).success(function(respuesta){
           if(respuesta.personas.length != 0){
               $scope.pre_reg=true;
+              console.log("__pre_reg true__",$scope.pre_reg);
               toastr.warning('EL CI INTRODUCIDO YA EXISTE');
           } else if (respuesta.personas.length == 0){
               $scope.pre_reg=false;
+              console.log("__pre_reg__",$scope.pre_reg);
           }  
       });
   }

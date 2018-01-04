@@ -48,13 +48,15 @@
                 <br>
                 <div class="row">
                     <div class="col-md-6" >
-                      <label class="control-label ">Número identificador: <strong class="fg_red">*</strong></label>
+                      <label class="control-label ">Número de documento: <strong class="fg_red">*</strong></label>
+                      <label ng-show="nac">E-</label> 
                       <input type="number" class="form-control" name="ci" placeholder="Ej. 9999988" ng-model="persona.per_ci" ng-model-options="{ updateOn: 'blur' }"  min="100000" ng-required="required" ng-disabled="disabled">
                       <span class="messages" ng-show="addPersona.$submitted || addPersona.ci.$touched">
                         <span ng-show="addPersona.ci.$error.required">El campo es obligatorio.</span>
                         <span ng-show="addPersona.ci.$error.min">Número de CI incorrecto.</span>
                       </span>
-                    </div> 
+                    </div>
+                 
                     <div class="col-md-6" ng-show="exp">
                       <label class="control-label ">Expedido: <strong class="fg_red">*</strong></label>
                       <select class="form-control" name="ci_expedido" ng-model="persona.per_ci_expedido" ng-model-options="{ updateOn: 'blur' }" required>
@@ -141,12 +143,13 @@
                               </select>
                                <input my-valid-date ng-model="fechaNacimiento" name="myDateInput" placeholder="dd-mm-aaaa" type="hidden" class="form-control" ng-model-options="{ updateOn: 'blur' }" ng-pattern="patternFecha" readonly>
                                <input type="hidden" ng-model="d">
+
                             </div>  
                         </div> 
                         <span class="messages" ng-show="addPersona.myDateInput">
                             <span ng-show="addPersona.myDateInput.$error.pattern">La Fecha no es valida  :(.
                             </span>
-                            <div ng-if=" var == 'cero'">
+                            <div ng-show=" var == 'cero'">
                               <span ng-show="addPersona.myDateInput.$error">No es una fecha correcta :(.  
                               </span>
                             </div>                  

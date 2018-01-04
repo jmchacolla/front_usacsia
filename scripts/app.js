@@ -70,7 +70,11 @@ angular.module("adminApp", ["authService", "ngRoute", "ngResource", "satellizer"
   .when('/inicio2', {
     templateUrl: 'templates/publico/index2.html'
   })
-
+// ========================= PREREGISTRO =================================================== templates/publico/servicios_ciudadanos/preregistro/crear.html     templates/publico/servicios_ciudadanos/preregistro/crear_persona.html
+  .when('/servicios_ciudadanos/preregistro', {
+    templateUrl: 'templates/publico/servicios_ciudadanos/preregistro/crear.html',
+    controller: 'PreregistroCtrl'
+  })
 
 //30-11-2017*****************WENDY*******************************
 
@@ -685,10 +689,6 @@ angular.module("adminApp", ["authService", "ngRoute", "ngResource", "satellizer"
   /*--------PENDIENTE------*/
 
   /*===================================VERONICA================================================*/
-
-
-
-
 
 
 
