@@ -95,7 +95,7 @@ angular.module("adminApp")
 
 
 }])
-.controller('FichaClinicaCtrl', ['$scope', 'PersonaporCI', 'FichaClinica', '$route', '$resource', '$routeParams', 'toastr', '$location', '$timeout', 'CONFIG', function ($scope, PersonaporCI,FichaClinica, $route, $resource,$routeParams, toastr, $location, $timeout, CONFIG) {
+.controller('FichaClinicaCtrl', ['$scope', 'PersonaporCI', 'FichaClinica', 'UltimaPL', '$route', '$resource', '$routeParams', 'toastr', '$location', '$timeout', 'CONFIG', function ($scope, PersonaporCI,FichaClinica, UltimaPL, $route, $resource,$routeParams, toastr, $location, $timeout, CONFIG) {
     $scope.ajustes = {
       menu:{
         titulo: 'Gestion de Consultas',
@@ -106,23 +106,21 @@ angular.module("adminApp")
         titulo:'Ficha Clínica'
       }
     }
-    var per_ci=$routeParams.per_ci;
-    PersonaporCI.get({per_ci:per_ci},function (data) {
-      console.log('data-------', data);
-      $scope.persona=data.persona;
-      console.log('data-------', $scope.persona);
-    });
-    FichaClinica.get({per_ci:per_ci},function (data) {
-      console.log('data-------', data);
+    var per_id=$routeParams.per_id;
+    console.log('routeParams', per_id);
+
+    FichaClinica.get({per_id:per_id},function (data) {
       $scope.pruebas=data.pruebas;
-      console.log('data-------', $scope.pruebas);
-      if ($scope.pertramite.persona.per_genero=='F' || $scope.pertramite.persona.per_genero=='f'){
-       $scope.pertramite.persona.per_genero='FEMENINO';
-     }
-     else if($scope.pertramite.persona.per_genero=='M' || $scope.pertramite.persona.per_genero=='m'){
-       $scope.pertramite.persona.per_genero='MASCULINO';
-     }
+      $scope.persona=data.persona;
+      $scope.persona.per_fecha_nacimiento=moment($scope.persona.per_fecha_nacimiento,"YYYY-MM-DD").format("DD-MM-YYYY");
+      console.log('data2p------', $scope.pruebas);
+      angular.forEach($scope.pruebas, function(value, key){
+            console.log( 'fecha:',value.pm_fecha);
+            value.pm_fecha=moment(value.pm_fecha,"YYYY-MM-DD").format("DD-MM-YYYY");
+
+         });
     });
+    // UltimaPL.get()
 
 }])
 /*--ver prueba medica por pm_id*/
@@ -140,8 +138,10 @@ angular.module("adminApp")
       }
       var pm_id=$routeParams.pm_id;
       PruebaMedica.get({pm_id:pm_id},function (data) {
-        console.log('data-------', data);
         $scope.prueba_medica=data.prueba_medica;
+        console.log('data-------', $scope.prueba_medica);
+        $scope.prueba_medica.paciente.per_fecha_nacimiento=moment($scope.prueba_medica.paciente.per_fecha_nacimiento,"YYYY-MM-DD").format("DD-MM-YYYY");
+        $scope.prueba_medica.prueba_medica.pm_fecha=moment($scope.prueba_medica.prueba_medica.pm_fecha,"YYYY-MM-DD").format("DD-MM-YYYY");
         
       });
 

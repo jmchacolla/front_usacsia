@@ -5,24 +5,27 @@ angular.module("adminApp")
 function ($scope,$scope, PruebaMedica, UltimaPL, PruebaEnfermedad, $route, $resource,$routeParams, toastr, $location, $timeout, $http, PruebaLaboratorioService, PersonaTramite,  CONFIG, Tratamiento,Receta) {
 
 var pm_id=$routeParams.pm_id;
-    $scope.ajustes = {
-      menu:{
-        titulo: 'Gestion de Pruebas Medicas',
-        items:[
-          {nombre:'Crear prueba medica', enlace:'#/prueba-medica/prueba/'+pm_id, estilo:'active'}]
-      },
-      pagina:{
-        titulo:'Prueba Clínica'
-      }
-    }
     $scope.vertr=false;
-    // ver datos persona y prueba medica
-    
-    // console.log(pm_id);
+
+    // ver datos persona y prueba medica-----------
     PruebaMedica.get({pm_id:pm_id}, function(data)
     {
       $scope.prueba_medica = data.prueba_medica;
-      console.log('la data',data);
+      // console.log('la data',data);
+        $scope.ajustes = {
+          menu:{
+            titulo: 'Gestion de Pruebas Medicas',
+            items:[
+              {nombre:'Crear prueba medica', enlace:'#/prueba-medica/prueba/'+pm_id, estilo:'active'},
+              {nombre:'Ver historial clínico del paciente', enlace:'#/ficha-clinica/'+$scope.prueba_medica.paciente.per_id}
+              ]
+          },
+          pagina:{
+            titulo:'Prueba Clínica'
+          }
+        }
+
+      $scope.prueba_medica.paciente.per_fecha_nacimiento=moment($scope.prueba_medica.paciente.per_fecha_nacimiento,"YYYY-MM-DD").format("DD-MM-YYYY");
 
       pt_id=$scope.prueba_medica.persona_tra.pt_id;
 
@@ -35,22 +38,8 @@ var pm_id=$routeParams.pm_id;
       });
 
     });
-    $scope.cambiartrue=function (enfe_id, enf_nombre, pre_id) {
-      $scope.pruebaenfermedad={
-        enfe_id:enfe_id,
-        pm_id: pm_id,
-        pre_resultado:true,
-      };
-      $nombre=enf_nombre;
-      PruebaEnfermedad.update($scope.pruebaenfermedad, {pre_id:pre_id}).$promise.then(function (data) {
-        console.log('prueba enfermedad ---------', data);
-          if(data.mensaje){
-          toastr.error('Registro positivo para:  '+$nombre+' realizado correctamente');
-        }
-      })
-      
-    }
-    $scope.vertramite=function () {
+
+    $scope.vertratamiento=function () {
             $scope.vertr=!$scope.vertr;
             console.log('$scope.vertr', $scope.vertr);
     }
@@ -68,20 +57,49 @@ var pm_id=$routeParams.pm_id;
       })
 
     }
-    $scope.cambiarfalse=function (enfe_id, enf_nombre, pre_id) {
-      $scope.pruebaenfermedad={
-        enfe_id:enfe_id,
-        pm_id: pm_id,
-        pre_resultado:false,
+      $scope.items = [];
+      $scope.seleccionados = ['NINGUNO'];
+      $scope.diag= $scope.seleccionados.toString();
+    $scope.cambiar=function (argument, enfe_nombre) {
+      var penf={
+         pm_id:argument.pm_id,
+         enfe_id:argument.enfe_id,
+         pre_resultado:argument.pre_resultado
       };
-      $nombre=enf_nombre;
-      PruebaEnfermedad.update($scope.pruebaenfermedad, {pre_id:pre_id}).$promise.then(function (data) {
-        console.log('prueba enfermedad ---------', data);
-          if(data.mensaje){
-          toastr.success('Registro negativo para:  '+$nombre+' realizado correctamente');
-        }
+      var pre_id=argument.pre_id;
+      PruebaEnfermedad.update(penf, {pre_id:pre_id}).$promise.then(function (data) {
+          if(data.prueba_enfermedad.pre_resultado){
+                busca(enfe_nombre);
+          }
       })
     }
+
+    function busca(item) {
+      console.log('item-----',item);
+        var idx = $scope.seleccionados.indexOf(item);
+        if (idx >-1)
+            $scope.seleccionados.splice(idx, 1);
+        else{
+          if ($scope.seleccionados.indexOf('NINGUNO')>-1)
+          {
+            $scope.seleccionados.splice('NINGUNO', 1);
+          } 
+           $scope.seleccionados.push(item);
+        }
+        if ($scope.seleccionados.length==0)
+          {
+            $scope.seleccionados = ['NINGUNO'];
+          }
+        $scope.diag= $scope.seleccionados.toString();
+    };
+    // $scope.existe = function (item) {
+    //     return $scope.seleccionados.indexOf(item) > -1;
+    // };
+
+    $scope.clinica=function () {
+      busca('CLÍNICAMENTE SANO');
+    }
+
 
     Tratamiento.get(function(data){
         $scope.tratamientos=data;
@@ -139,7 +157,7 @@ var pm_id=$routeParams.pm_id;
         }
       });
       $timeout(function() {
-         $location.path('/atencion');
+         $location.path('/prueba-medica/ver/'+pm_id);
           },1000);
     }
     

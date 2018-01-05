@@ -18,23 +18,23 @@
       <div class="well well-sm" style="background-color:#fff;">
 
         <div class="row">
-            <div class="col-md-3 col-sm-6">
+            <div class="col-md-4 col-sm-6">
               <label class="text-primary">Nombre:</label><br>
               {{persona.per_nombres}}
             </div>
-            <div class="col-md-3 col-sm-6">
+            <div class="col-md-4 col-sm-6">
               <label class="text-primary">Apellido paterno:</label><br>
               {{persona.per_apellido_primero}}
             </div>
-            <div class="col-md-3 col-sm-6">
+            <div class="col-md-4 col-sm-6">
               <label class="text-primary">Apellido materno:</label><br>
               {{persona.per_apellido_segundo}}
             </div>
-            <div class="col-md-3 col-sm-6">
+            <div class="col-md-4 col-sm-6">
               <label class="text-primary">CI:</label><br>
-              {{persona.per_ci + " "}} {{pertramite.persona.per_ci_expedido | uppercase}}
+              {{persona.per_ci + " "}} {{persona.per_ci_expedido | uppercase}}
             </div>
-            <div class="col-md-3 col-sm-6">
+            <div class="col-md-4 col-sm-6">
               <label class="text-primary">Fecha de Nacimiento:</label><br>
               {{persona.per_fecha_nacimiento}}
             </div>
@@ -48,16 +48,16 @@
             <div class="table-responsive">
                 <table class="table table-hovertable table-bordered table-striped table-hover"  id="tablaES">
                      <thead>
-                        <th >Fecha</th>
-                        <th >Diagnóstico</th>
-                        <th >Ver detalle</th> 
+                        <th class="text-primary text-center">Fecha</th>
+                        <th class="text-primary text-center">Diagnóstico</th>
+                        <th class="text-primary text-center">Ver detalle</th> 
                     </thead>
                     <tbody ng-repeat="prueba in pruebas | orderBy:sortType:sortReverse">
                       <tr>
                         <td>{{prueba.pm_fecha | uppercase}}</td>
                         <td>{{prueba.pm_diagnostico}}</td>
-                        <td>
-                            <a class="btn btn-primary" href="#/prueba-medica/ver/{{prueba.pm_id}}">
+                        <td class="text-center">
+                            <a class="btn btn-success" href="#/prueba-medica/ver/{{prueba.pm_id}}">
                             <span class="glyphicon glyphicon-file"></span></a>
                         </td>
                       </tr>

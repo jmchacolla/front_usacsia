@@ -50,7 +50,7 @@ angular.module("adminApp", ["authService", "ngRoute", "ngResource", "satellizer"
   }
 })
 //historial clinico por ci
-.when('/ficha-clinica/:per_ci', {
+.when('/ficha-clinica/:per_id', {
   templateUrl: 'templates/pruebamedica/ficha-clinica.html',
   controller: 'FichaClinicaCtrl',
   data: {
@@ -669,6 +669,10 @@ angular.module("adminApp", ["authService", "ngRoute", "ngResource", "satellizer"
   .when('/seguimiento-tramite-ces/:et_id', {
     templateUrl: 'templates/certificado/ver.html',
     controller: 'CertificadoCtrl'
+  })
+  .when('/lista-inspeccionados', {
+    templateUrl: 'templates/empresatramite/lista-inspeccionados.html',
+    controller: 'ListaInspeccionadosCtrl'
   })
   /*========================== /empresa tramite =======================================*/
 /*-------------------------------------- documentos -----------------------------------------*/
