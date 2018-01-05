@@ -1,4 +1,4 @@
- 'use strict';
+'use strict';
 angular.module("adminApp")
 
 .controller('CrearPersona2Ctrl', ['$scope', 'PersonasC',  'PNatural','$location','$timeout', 'toastr','Zonas',function ($scope, PersonasC, PNatural, $location, $timeout, toastr,Zonas){
@@ -100,6 +100,7 @@ $scope.zon=false;
 
     if($scope.persona.per_tipo_documento=="PASAPORTE"){
       $scope.persona.per_ci_expedido="EXTRANJERO";
+      $scope.persona.per_ci='E-'+$scope.persona.per_ci;
     }
 
     if($scope.persona.per_tipo_documento=="SIN DOCUMENTO"){
@@ -460,7 +461,9 @@ $scope.zon=false;
   $scope.mes=('0' + (date.getMonth() + 1)).slice(-2);
   $scope.anio=date.getFullYear() + 1;
 
+
   $scope.d=null;
+  $scope.var='';
   // etc... 
   // These values will be updated when the user types in the input boxes
   //$scope.funcionarios.per_fecha_nacimiento=$scope.fecha.dia + "-" + $scope.fecha.mes + "-"+ $scope.fecha.anio;
@@ -470,15 +473,27 @@ $scope.zon=false;
   //return $scope.fecha.dia + "-" + $scope.fecha.mes + "-"+ $scope.fecha.anio;
     $scope.fechaNacimiento=$scope.fechaNac.diac + "-" + $scope.fechaNac.mesc + "-"+ $scope.fechaNac.anioc;
     $scope.d = $scope.fechaNac.anioc + "-" +$scope.fechaNac.mesc + "-"+ $scope.fechaNac.diac;
+   
+    console.log("___ESTE ES EL D__",$scope.d);
+    console.log("___DIA SELECCIONADO__",$scope.fechaNac.diac);
+    console.log("MES SELECCIONADO__",$scope.fechaNac.mesc);
+    console.log("___AÑO SELECCIONADO__",$scope.fechaNac.anioc);
     var a1 = new Date($scope.d);
     var a2 = new Date($scope.FromDate1);
     $scope.ar=a1;    
+    console.log("___w__", $scope.w);
     $scope.cr = moment($scope.ar,"DD-MM-YYYY").format("YYYY-MM-DD");
+    console.log("__ESTE E EL CR__",$scope.cr);
     $scope.br=a2;
+  
     $scope.dr = moment($scope.br,"DD-MM-YYYY").format("YYYY-MM-DD");
+    console.log("__ESTE E EL DR__",$scope.dr);
+
     if($scope.cr <= $scope.dr){
+      console.log("___VR posi___",$scope.var);
         $scope.var="uno";
     }else{
+      console.log("___VR nega___",$scope.var);
         $scope.var="cero";
     }
   };
@@ -493,6 +508,7 @@ $scope.zon=false;
     var a2 = new Date($scope.FromDate1);
     $scope.ar=a1;    
     $scope.cr = moment($scope.ar,"DD-MM-YYYY").format("YYYY-MM-DD");
+    console.log($scope.cr);
     $scope.br=a2;
     $scope.dr = moment($scope.br,"DD-MM-YYYY").format("YYYY-MM-DD");
     if($scope.cr <= $scope.dr){
@@ -571,7 +587,8 @@ $scope.zon=false;
     }
   };
 }]) 
- .directive("myValidDate", function () {
+
+.directive("myValidDate", function () {
   return {
     require: "ngModel",
     restrict: "A", // Attributes only
@@ -585,5 +602,4 @@ $scope.zon=false;
     }
 }
 })
-
 ;

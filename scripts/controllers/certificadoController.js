@@ -3,7 +3,7 @@ angular.module("adminApp")
 
 .controller('CertificadoCtrl', ['CONFIG', /*'authUser',*/ '$scope', 'EmpTra', '$route', '$routeParams', 'toastr', '$location', function (CONFIG,/*authUser,*/$scope,EmpTra,$route,$routeParams,toastr,$location) {
     
-
+  console.log("___LLEGO AL CONTROLADOR CERTIFICADO____")
     var et_id = $routeParams.et_id;
     EmpTra.get({et_id:et_id}, function(data)
     {
@@ -14,7 +14,7 @@ angular.module("adminApp")
           menu:{
             titulo: 'Impresión de certificado sanitario',
             items:[
-              {nombre:'Ciudadanos Registrados', enlace:'#/persona-usacsia', estilo:'active'}]
+              {nombre:'Ciudadanos Registrados', enlace:'#/persona-usacsia', estilo:''}]
           },
           pagina:{
             titulo:'Registro de Certificado Sanitario trámite N°: '+$scope.empresatramite.empresa_tramite.et_numero_tramite

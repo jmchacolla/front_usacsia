@@ -76,21 +76,21 @@
                       <hr class="bg-red"> 
               </div>
               <div class="row"><!-- akiiii -->
-                <div class="col-md-3 col-sm-6">
+                <div class="col-md-2">
                   <label class="text-primary">Fecha:</label><br>
                   {{prueba_laboratorio.pl_fecha_recepcion}}
                 </div>
-                <div class="col-md-3 col-sm-6">
+                <div class="col-md-6">
+                  <label class="text-primary">Responsable:</label><br>
+                  {{fun.fun_cargo}} - {{per.per_nombres}} {{per.per_apellido_primero}} {{per.per_apellido_segundo}} 
+                </div>
+                <div ng-show="prueba_laboratorio.pl_color!=null" class="col-md-6">
                   <label class="text-primary">Color:</label><br>
                   {{prueba_laboratorio.pl_color}}
                 </div>
-                <div class="col-md-3 col-sm-6">
+                <div ng-show="prueba_laboratorio.pl_aspecto!=null" class="col-md-6">
                   <label class="text-primary">Aspecto:</label><br>
                   {{prueba_laboratorio.pl_aspecto}}
-                </div>
-                <div class="col-md-3 col-sm-6">
-                  <label class="text-primary">Responsable:</label><br>
-                  {{fun.fun_cargo}} {{per.per_nombres}} {{per.per_apellido_primero}} {{per.per_apellido_segundo}} 
                 </div>
                 <hr>
               </div>
@@ -107,9 +107,7 @@
                   </button>
                   <hr>
                 </div>
-                <div>
-                  
-                </div>
+                
               </div>
               <div class="row">
                   <h4 class="text-center text-primary">TRATAMIENTO</h4>

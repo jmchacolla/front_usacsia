@@ -42,7 +42,7 @@
         col.splice(4,4);
         pdf.autoTable(col, res.data, {
           addPageContent: pageContent,
-          theme: 'grid',
+          theme: 'striped',
           //startY: pdf.autoTableEndPosY() + 30,
           startY: 60,
           styles: {
@@ -94,7 +94,7 @@
         col.splice(6,7);
         pdf.autoTable(col, res.data, {
           addPageContent: pageContent,
-          theme: 'grid',
+          theme: 'striped',
           //startY: pdf.autoTableEndPosY() + 30,
           startY: 60,
           styles: {
@@ -154,7 +154,7 @@
         col.splice(3,4);
         pdf.autoTable(col, res.data, {
           addPageContent: pageContent,
-          theme: 'grid',
+          theme: 'striped',
           //startY: pdf.autoTableEndPosY() + 30,
           startY: 60,
           styles: {
@@ -190,7 +190,7 @@ function generateFUN_AE() {
 
 
         pdf.setProperties({
-          title: 'Lista de personal de salud'
+          title: 'Lista de personal'
         });
 
         var totalPagesExp = "{total_pages_count_string}";
@@ -215,7 +215,7 @@ function generateFUN_AE() {
         col.splice(4,5);
         pdf.autoTable(col, res.data, {
           addPageContent: pageContent,
-          theme: 'grid',
+          theme: 'striped',
           //startY: pdf.autoTableEndPosY() + 30,
           startY: 60,
           styles: {
@@ -276,7 +276,7 @@ function generateCON() {
         col.splice(4,5);
         pdf.autoTable(col, res.data, {
           addPageContent: pageContent,
-          theme: 'grid',
+          theme: 'striped',
           //startY: pdf.autoTableEndPosY() + 30,
           startY: 60,
           styles: {
@@ -333,7 +333,7 @@ function generateCon_usa() {
         col.splice(3,5);
         pdf.autoTable(col, res.data, {
           addPageContent: pageContent,
-          theme: 'grid',
+          theme: 'striped',
           //startY: pdf.autoTableEndPosY() + 30,
           startY: 60,
           styles: {
@@ -388,7 +388,7 @@ function generatePe() {
         col.splice(4,5);
         pdf.autoTable(col, res.data, {
           addPageContent: pageContent,
-          theme: 'grid',
+          theme: 'striped',
           //startY: pdf.autoTableEndPosY() + 30,
           startY: 60,
           styles: {
@@ -448,7 +448,7 @@ function generateSER_AE() {
         col.splice(3,5);
         pdf.autoTable(col, res.data, {
           addPageContent: pageContent,
-          theme: 'grid',
+          theme: 'striped',
           //startY: pdf.autoTableEndPosY() + 30,
           startY: 60,
           styles: {
@@ -506,7 +506,7 @@ function generatePAC_AE() {
         col.splice(5,6);
         pdf.autoTable(col, res.data, {
           addPageContent: pageContent,
-          theme: 'grid',
+          theme: 'striped',
           //startY: pdf.autoTableEndPosY() + 30,
           startY: 60,
           styles: {
@@ -561,7 +561,7 @@ function generateREF_AE() {
         col.splice(7,8);
         pdf.autoTable(col, res.data, {
           addPageContent: pageContent,
-          theme: 'grid',
+          theme: 'striped',
           //startY: pdf.autoTableEndPosY() + 30,
           startY: 60,
           styles: {
@@ -619,7 +619,7 @@ function generateCON_AE() {
         col.splice(5,6);
         pdf.autoTable(col, res.data, {
           addPageContent: pageContent,
-          theme: 'grid',
+          theme: 'striped',
           //startY: pdf.autoTableEndPosY() + 30,
           startY: 60,
           styles: {

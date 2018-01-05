@@ -36,7 +36,7 @@ var pm_id=$routeParams.pm_id;
         $scope.per=argument.per;
         console.log('argument-------', argument);
       });
-
+/*console.log('___PARA VER EL ESTADO__', $scope.prueba_laboratorio.pl_estado);*/
     });
 
     $scope.vertratamiento=function () {

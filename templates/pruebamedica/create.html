@@ -1,7 +1,5 @@
 <div ng-include="'./templates/menu_inicio.html'"></div>
 
-
-
 <!-- CONTEXT-MENU  -->
   <div ng-include="'./templates/menu_lateral.html'"></div>
 <!-- CONTENIDO MODULO inicio -->
@@ -16,15 +14,18 @@
           </div>
        </div>
       <label class="control-label">Los campos marcados con asterisco (<strong class="fg_red">*</strong>) son obligatorios</label>
+      <div class="well well-sm" style="background-color:#fff;">
       <div class="row">
           <div class="col-md-12" >
           <!-- AQUI VAN LAS TABLAS O FORMULARIOS incrustados ng-controller="apiApppCtrl as vm" -->
           <!-- INICIO -->
           <form name="userForm" novalidate>
-             <div class="row">
+          
+             <!-- <div class="row"> -->
                 <h4 class="text-center text-primary">I. FICHA DE IDENTIFICACIÓN</h4>
                     <hr class="bg-red"> 
-            </div>   
+                    <br>
+           <!--  </div>  -->  
             <div class="row" >
                   <div class="col-md-4" >
                       <label for="nit" class="control-label">Nombres del paciente: </label>
@@ -69,10 +70,10 @@
               </div>
           </div> 
 
-             <div class="row">
+             <!-- <div class="row"> -->
                 <h4 class="text-center text-primary">II. DATOS CLÍNICOS</h4>
                     <hr class="bg-red"> 
-            </div>   
+           <!--  </div>   --> 
           <div class="row">
               <div class="col-md-2">
                   <label for="fc" class="control-label ">F.C.(lpm):<strong class="fg_red">*</strong></label>
@@ -162,6 +163,7 @@
       <!-- FIN -->
       <!-- AQUI VAN LOS TABLAS O FORMULARIOS incrustados -->
      </form>
+ </div>
  </div>
 <!-- fin cuerpo -->
       </div>

@@ -20,9 +20,10 @@
 			  <!-- AQUI VAN LAS TABLAS O FORMULARIOS incrustados -->
 			  <!-- INICIO -->
         <div class="well well-sm" style="background-color:#fff;">
-          <div class="row">
-            <h4 class="text-primary text-center">DESCRIPCIÓN DEL LABORATORIO </h4>
+        <h4 class="text-primary text-center">DESCRIPCIÓN DEL LABORATORIO </h4>
             <hr class="bg-red">
+          <div class="row">
+            
             <div class="col-md-6">
               <label class="text-primary">Nombre del laboratorio:</label><br>
               {{laboratorios.ambientes.amb_nombre}}
@@ -40,9 +41,10 @@
               {{laboratorios.ambientes.amb_descripcion}}
             </div>  
           </div>
-         <div class="row">
-            <h4 class="text-primary text-center">RESPONSABLE </h4>
+           <h4 class="text-primary text-center">RESPONSABLE </h4>
             <hr class="bg-red">
+         <div class="row">
+           
             <div class="col-md-6">
               <label class="text-primary">Nombre del funcionario:</label><br>
               {{laboratorios.persona.per_nombres +' '+ laboratorios.persona.per_apellido_primero +' '+ laboratorios.persona.per_apellido_segundo }}

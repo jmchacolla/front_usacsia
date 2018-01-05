@@ -65,7 +65,7 @@
                           <label class="control-label text-primary">Número de Ficha:</label>
                           <div class="well well-sm">
                             <center>
-                              <h1 ng-if="num_ficha_traido_del_crear!=0" class="h1">{{num_ficha_traido_del_crear}}</h1>
+                              <h1 ng-if="num_ficha_traido_del_crear!=0" class="h1">{{"C"+num_con_traido_del_crear+"-"+ num_ficha_traido_del_crear}}</h1>
                               <h1 ng-if="num_ficha_traido_del_crear==0">{{"--"}}</h1>
                             </center>
                           </div>
@@ -82,6 +82,7 @@
           </div> <!-- div del message -->
          <!--  <div class="row panel-group tabla-cuerpo">  -->
       </div>  
+      <button ng-if="num_ficha_traido_del_crear==0" type="submit" class="btn btn-success"  ng-click="savef(1)"><span class="glyphicon glyphicon-ok"></span> ASIGNAR NÚMERO DE FICHA</button>
      <!-- fin ng-show -->
       <!-- fin datos del funcionario -->
     </div>  

@@ -14,7 +14,7 @@ angular.module('authService', [])
 		};
 	})
 
-	.factory('authUser', function ($auth, sessionControl, toastr, $location, $rootScope, FuncionarioPer, CONFIG,/* Establecimientos,*/$route,$timeout,RolResource,Personas,Paises,/*PacientePersona,*/UsuariosEstab) {
+	.factory('authUser', function ($auth, sessionControl, toastr, $location, $rootScope, FuncionarioPer, CONFIG,/* Establecimientos,*/$route,$timeout,/*RolResource,*/Personas,Paises,/*PacientePersona,*/) {
 		var cacheSession = function(usu_nick, rol_id, usu_identificador, id){
 			//Asigna variables de sesion
 			sessionControl.set('userIsLogin',true);
@@ -43,7 +43,7 @@ angular.module('authService', [])
 					}
 					cacheSession(response.data.user.usu_nick, response.data.user.rol_id, /*response.data.user.per_id,*/ response.data.user.id);
 					toastr.success('Sesion iniciada con exito.', 'Mensaje');
-					console.log(response,"RESPONSE");
+					/*console.log(response,"RESPONSE");*/
 					//Guardando los datos de la sesión en una variable para localStorage
 					var datosSesion = {//datos de la sesion
 						usu_nick: response.data.user.usu_nick,
@@ -57,14 +57,14 @@ angular.module('authService', [])
 					});*/
 					//guardando en localStorage los datos de la sesion
 					var Sesion = JSON.stringify(datosSesion);
-					console.log("datos sesion", Sesion);
+			
 					localStorage.setItem("Sesion", Sesion);
-					console.log("GUARDO DATOS DE LA SESION");
+			
 
 					//para almacenar en localStorage los datos de la persona logueada
 					//convirtiendo text a int
 					var per_id= parseInt(response.data.user.usu_identificador, 10);
-					console.log("CONVIRTIENDO TEXT EN INT",per_id);
+					
 					Personas.get({per_id:per_id}, function(data){
 						var persona = data.persona;
 						//console.log("GUARDANDO DATOS DE PERSONA EN LOCALSTORAGE",persona)
@@ -90,23 +90,39 @@ angular.module('authService', [])
 					//para saber que persona es
 					/*if(response.data.user.rol_id !=1)
 					{*/
-						FuncionarioPer.get({per_id:response.data.user.usu_identificador}, function(data)
-						{
-							var funcionario = data.funcionario;
-							console.log("GUARDANDO DATOS DE FUNCIONARIO EN LOCALSTORAGE",funcionario)
+				/*	FuncionarioPer.get({per_id:response.data.user.usu_identificador}, function(data)
+					{
+						var funcionario = data.funcionario;
+						console.log("GUARDANDO DATOS DE FUNCIONARIO EN LOCALSTORAGE",funcionario)
+						funcionario = JSON.stringify(funcionario);
+						localStorage.setItem("Funcionario", funcionario);
+				  		//Guarda los datos del funcionario en LocalStorage, se guarda el establecimiento del rol que seleccionó
+					  		var datosFun = {
+						   		fun_id: funcionario.fun_id,//data.funcionario.funcionario.fun_id,
+						  	}
+						  	var datosFunG = JSON.stringify(datosFun);
+						  	localStorage.setItem("Funcionario", datosFunG);
+					});*/
+					/*}*/
+					
+					FuncionarioPer.get({per_id:response.data.user.usu_identificador}, function(data)
+					{
+						var funcionario = data.funcionario;
+						if (data.funcionario.fun_estado=='ACTIVO') {
+						  				
+					         /* es_id: funcionario.funcionario_establecimiento[i].es_id,*/
+					          fun_id: funcionario.fun_id;
+					          console.log("GUARDANDO DATOS DE FUNCIONARIO EN LOCALSTORAGE",funcionario)
 							funcionario = JSON.stringify(funcionario);
 							localStorage.setItem("Funcionario", funcionario);
-					  		//Guarda los datos del funcionario en LocalStorage, se guarda el establecimiento del rol que seleccionó
-						  		/*var datosFun = {
-							   		fun_id: funcionario.fun_id,//data.funcionario.funcionario.fun_id,
-							  	}
-							  	var datosFunG = JSON.stringify(datosFun);
-							  	localStorage.setItem("Funcionario", datosFunG);*/
-						});
-					/*}*/
+					        
+
+						}
+					});
 					$timeout(function() {
 						              $location.path('/');
 						          	},1500);
+
 										
 					//PARA ROLES
 		/*			if (datosSesion.roles.length>1){//Cuando el usuario tiene más roles
@@ -119,55 +135,7 @@ angular.module('authService', [])
   						CONFIG.ROL_CURRENT_USER_NAME = response.data.roles[0].rol_nombre;
 						localStorage.setItem("ROL_CURRENT_USER", parseInt(response.data.roles[0].rol_id, 10));//para obtener el rol_id
 						localStorage.setItem("ROL_CURRENT_USER_NAME", response.data.roles[0].rol_nombre);//para obtener el rol_id
-*/
-						//Para almacenar los datos de un funcionario de un establecimiento en localStorage
-						/*if((response.data.roles[0].rol_id !=1) && (response.data.roles[0].rol_id !=7))
-						{	
-							var es_id=0;
-							var nombres_establecimientos = [];
-							var cont_act = 0;
-							FuncionarioPer.get({per_id:response.data.user.per_id}, function(data)
-						  	{
-						  		var funcionario = data.funcionario;
-						  		for (var i = 0; i < data.funcionario.funcionario_establecimiento.length; i++) {
-						  			if (data.funcionario.funcionario_establecimiento[i].fe_estado=='ACTIVO') {
-						  				nombres_establecimientos[cont_act] = {
-								          es_id: funcionario.funcionario_establecimiento[i].es_id,
-								          fe_id: funcionario.funcionario_establecimiento[i].fe_id,
-								          fun_id: funcionario.funcionario.fun_id,
-								          es_nombre: funcionario.funcionario_establecimiento[i].es_nombre,
-								        }
-								        cont_act++;
-						  			}
-							    };
-						  		if(cont_act>1) {//Si está activo en más de un establecimiento pero solo tiene un rol
-						  			localStorage.setItem("DOS_ESTAB", 2);
-						  			$timeout(function() {
-						              	$location.path('/rol/usuario');
-						          	},0);
-						  		}
-						  		else {//Cuando tiene un rol y está activo un establecimiento
-						  			es_id = nombres_establecimientos[0].es_id;
-							  		//Guarda los datos del establecimiento en localStorage
-							  		Establecimientos.get({es_id:es_id}, function(data){
-							  			var datosEst = JSON.stringify(data.establecimiento);
-							  			localStorage.setItem("DatosEstablecimiento", datosEst);
-									});
-							  		//Guarda los datos del funcionario en LocalStorage, se guarda el establecimiento del rol que seleccionó
-							  		var datosFun = {
-								  		es_id: es_id,
-								  		fun_id: nombres_establecimientos[0].fun_id,//data.funcionario.funcionario.fun_id,
-								  		fe_id: nombres_establecimientos[0].fe_id,//data.funcionario.funcionario_establecimiento[0].fe_id,
-								  	}
-								  	var datosFunG = JSON.stringify(datosFun);
-								  	localStorage.setItem("Funcionario", datosFunG);
-								  	$timeout(function() {
-						              $location.path('/');
-						          	},1500);
-						  		}
-						  		
-							});
-						}*/
+
 						//Para almacenar el pac_id del paciente
 					/*	if((response.data.roles[0].rol_id == 7)) {
 							var pac_id=0;

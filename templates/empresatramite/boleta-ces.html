@@ -74,8 +74,10 @@
           <div class="col-md-12">
               <div class="col-md-6 col-sm-6">
                 <label for="tra" class="control-label text-primary">Trámite:</label><strong class="fg_red">*</strong>
-                 <select  name="tra" class="form-control" ng-change="verpagos(tramiteselect.tra_id)" ng-model="tramiteselect" ng-options="tramite as tramite.tra_nombre  for tramite in tramite" required>
+                 <select  name="tra" class="form-control" ng-change="verpagos(tramiteselect.tra_id)" ng-model="tramiteselect" ng-options="tramite as tramite.tra_nombre  for tramite in tramite" ><!-- required -->
+                 <option>--Elige una opcion--</option>
                   </select>
+
                   <span ng-if="userForm.tra.$touched && tramiteselect.tra_id==null" class="messages">El campo es obligatorio</span> 
               </div>
               <div class="col-md-6 col-sm-6">

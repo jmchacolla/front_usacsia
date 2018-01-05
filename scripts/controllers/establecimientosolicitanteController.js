@@ -141,7 +141,7 @@ angular.module("adminApp")
 /*agregar rubros en la empresa*/
     var aux=null;
     
-    $scope.agregar = function (sub_id,sub_nombre, item) {
+    $scope.agregar = function (sub_id, item) {
       if (item){
         $scope.items.push(item);
         for (var i = $scope.subcla.length - 1; i >= 0; i--) {
@@ -167,6 +167,7 @@ angular.module("adminApp")
         };
       }
     };
+
   });
 /*------------------------------------------------*/
     
@@ -188,52 +189,60 @@ $scope.latitud=null;
  $scope.longitud=null;
  var lat,long;
 
-$scope.initMap = function(){  
-    var infowindow = new google.maps.InfoWindow();
-    var marker, i;
-    navigator.geolocation.getCurrentPosition(function(pos) {
-    $scope.position = new google.maps.LatLng(pos.coords.latitude, pos.coords.longitude);
-//              console.log(JSON.stringify($scope.position));
-      // Creamos un objeto mapa y lo situamos en coordenadas actuales
-    /* */   var map = new google.maps.Map(document.getElementById('mapa'),{
-        center: {lat: pos.coords.latitude, lng: pos.coords.longitude},
-        scrollwheel: false,
-        zoom: 16
-        });
-        
-        //marcador solito
-        var marker = new google.maps.Marker({
-          position: new google.maps.LatLng(pos.coords.latitude, pos.coords.longitude),
-          map: map,
-          draggable: true,
-//        animation: google.maps.Animation.BOUNCE,
-        title: ''
-        });   
-        
-        var markerLatLng = marker.getPosition();
-        $scope.markerLatLng=markerLatLng;
-        $scope.latitud=markerLatLng.lat();
-        $scope.longitud=markerLatLng.lng();
-        console.log("el objeto con la posicion completa",$scope.markerLatLng);
-        console.log("latitud por defecto",$scope.latitud);
-        console.log("longitud por defecto",$scope.longitud);
-        //console.log("POSITIONmmmmm",marker.position.lat.[[Scopes]].0.a);  
-        infowindow.setContent('<h4 class="text-primary">Tú estas aquí <br><small>Esta es tu ubicación aproximada</small></h4>');
-        infowindow.open(map, marker);
-
-        google.maps.event.addListener(marker, 'click', (function(marker) {
-            return function() {
-            var markerLatLng1 = marker.getPosition();
-             document.getElementById("establecimientolatitud").value=markerLatLng1.lat();
-             document.getElementById("establecimientolongitud").value=markerLatLng1.lng();
-            console.log("latitud del click", $scope.latitud);
-            console.log("longitud del click", $scope.longitud);  
-
+$scope.ver_mapita=false;
+$scope.initMap = function(){
+  if(!$scope.ver_mapita){
+    $scope.ver_mapita=true;
+        var infowindow = new google.maps.InfoWindow();
+        var marker, i;
+        navigator.geolocation.getCurrentPosition(function(pos) {
+        $scope.position = new google.maps.LatLng(pos.coords.latitude, pos.coords.longitude);
+          // console.log(JSON.stringify($scope.position));
+          // Creamos un objeto mapa y lo situamos en coordenadas actuales
+        /* */   var map = new google.maps.Map(document.getElementById('mapa'),{
+            center: {lat: pos.coords.latitude, lng: pos.coords.longitude},
+            scrollwheel: false,
+            zoom: 16
+            });
+            
+            //marcador solito
+            var marker = new google.maps.Marker({
+              position: new google.maps.LatLng(pos.coords.latitude, pos.coords.longitude),
+              map: map,
+              draggable: true,
+    //        animation: google.maps.Animation.BOUNCE,
+            title: ''
+            });   
+            
+            var markerLatLng = marker.getPosition();
+            $scope.markerLatLng=markerLatLng;
+            $scope.latitud=markerLatLng.lat();
+            $scope.longitud=markerLatLng.lng();
+            console.log("el objeto con la posicion completa",$scope.markerLatLng);
+            console.log("latitud por defecto",$scope.latitud);
+            console.log("longitud por defecto",$scope.longitud);
+            //console.log("POSITIONmmmmm",marker.position.lat.[[Scopes]].0.a);  
+            infowindow.setContent('<h4 class="text-primary">Tú estas aquí <br><small>Esta es tu ubicación aproximada</small></h4>');
             infowindow.open(map, marker);
-            }
-        })(marker));
-     })   
-  };
+
+            google.maps.event.addListener(marker, 'click', (function(marker) {
+                return function() {
+                var markerLatLng1 = marker.getPosition();
+                document.getElementById("establecimientolatitud").value=markerLatLng1.lat();
+                document.getElementById("establecimientolongitud").value=markerLatLng1.lng();
+                infowindow.open(map, marker);
+                }
+            })(marker));
+
+         })   
+      }else{
+        $scope.ver_mapita=false;
+        document.getElementById("establecimientolatitud").value=0;
+        document.getElementById("establecimientolongitud").value=0;
+      };
+  }
+
+       
 
   $scope.establecimiento = {
     zon_id:null,
@@ -262,16 +271,7 @@ $scope.initMap = function(){
   URL_LICENCIA
   TRA_ID
   */
-
-
-    $scope.todo1={
-      establecimiento:$scope.establecimiento,
-      vector:$scope.items
-    };
-
-    $scope.todo=JSON.stringify($scope.todo1);
-  
-
+    
   $scope.patternCadena = /^[a-zA-ZñÑáéíóúÁÉÍÓÚ .]*$/;
   $scope.patternNumero = /^[0-9]*$/;
   $scope.patternNombreEstab = /^[a-zA-ZñÑáéíóúÁÉÍÓÚ. 0-9()-º]*$/;
@@ -280,25 +280,32 @@ $scope.initMap = function(){
   $scope.patternHora = /^[0-9:]*$/;
   //VALIDAR NUMEROS !!!!!!
   $scope.submit = function(){
+    $scope.establecimiento.ess_latitud=document.getElementById("establecimientolatitud").value;
+    $scope.establecimiento.ess_longitud=document.getElementById("establecimientolongitud").value;
+    $scope.todo={
+      establecimiento:$scope.establecimiento,
+      vector:$scope.items
+    };
     console.log('EL OBJETO QUE S VA A CREAR', $scope.todo);
-    EstabSols.save($scope.todo1).$promise.then(function(data){
-      if(data.status) {
-        console.log("data. status", data.status);
-        $scope.ajustes.pagina.success = "Establecimiento añadido correctamente";
-        toastr.success('Establecimiento añadido correctamente');
-      }
-    });
+      EstabSols.save($scope.todo).$promise.then(function(data){
+        if(data.status) {
+          $scope.ajustes.pagina.success = "Establecimiento añadido correctamente";
+          toastr.success('Establecimiento añadido correctamente');
+          $timeout(function() {
+            $location.path('/establecimientossol');
+        },100);
+        }
+      });
   };
 
 
   $scope.reset = function(form) {
-    $scope.establecimiento = {};
     if (form) {
-      //console.log(form);
       form.$setPristine();
       form.$setUntouched();
     }
   };
+
 }])
 
 

@@ -1,16 +1,12 @@
 'use strict';
 angular.module("adminApp", ["authService", "ngRoute", "ngResource", "satellizer", "toastr", "platypus.tabs", 'ngMap', 'vcRecaptcha','angular.filter', 'angularMoment'])
-/*.config(function ($httpProvider) {
-  $httpProvider.interceptors.push('authInterceptor');
-  console.log($httpProvider.interceptors);
-})*/
+
 .config(['$routeProvider', '$authProvider', 'CONFIG', 'ROLES', function ($routeProvider, $authProvider, CONFIG, ROLES){
   $authProvider.loginUrl = CONFIG.DOMINIO_SERVICIOS+'/login';
-//$authProvider.signupUrl = CONFIG.DOMINIO_SERVICIOS+'/usuarios';
 
   $routeProvider
   // ======================================jhon===========================================================================
- 
+// ==========================    ATENCION DE PACIENTES         =================================
 //persona_tramite lista para atender pacientes
 
 .when('/atencion', {//--------medico
@@ -65,16 +61,20 @@ angular.module("adminApp", ["authService", "ngRoute", "ngResource", "satellizer"
 
 
 
-    // ========================= PAGINA PUBLICA  ============================================================================
+// ========================= PAGINA PUBLICA  =================================================
   //pagina inicial de la aplicacion
   .when('/inicio', {
     templateUrl: 'templates/publico/index.html'
   })
-//no existe esta ruta
+//no existe esta ruta --eliminar 1/1/2018
   .when('/inicio2', {
     templateUrl: 'templates/publico/index2.html'
   })
-
+// ========================= PREREGISTRO =================================================== templates/publico/servicios_ciudadanos/preregistro/crear.html     templates/publico/servicios_ciudadanos/preregistro/crear_persona.html
+  .when('/servicios_ciudadanos/preregistro', {
+    templateUrl: 'templates/publico/servicios_ciudadanos/preregistro/crear.html',
+    controller: 'PreregistroCtrl'
+  })
 
 //30-11-2017*****************WENDY*******************************
 
@@ -107,8 +107,7 @@ angular.module("adminApp", ["authService", "ngRoute", "ngResource", "satellizer"
       authorized: [ROLES.ADMIN_USACSIA.ROL]
     }
   })
-
-  /************************************************PERSONA****************************************/
+/************************************************PERSONA****************************************/
     .when('/persona/create', {
     templateUrl: 'templates/persona/crear.html',
     controller: 'CrearPersona2Ctrl',
@@ -139,7 +138,7 @@ angular.module("adminApp", ["authService", "ngRoute", "ngResource", "satellizer"
     }
   })
 /******************************************funcionario**********************************/
-    .when('/funcionarios', {  //lista a los funcionarios de un establecimiento
+    .when('/funcionarios', {  //lista a los funcionarios de USACSIA
     templateUrl: 'templates/funcionario/funcionarios.html',
     controller: 'FuncionarioCtrl',
     data: {
@@ -169,7 +168,7 @@ angular.module("adminApp", ["authService", "ngRoute", "ngResource", "satellizer"
       authorized: [ROLES.ADMIN_USACSIA.ROL, ROLES.ADMIN_CARNET.ROL, ROLES.ADMIN_CERTIFICADO.ROL]
     }
   })
-    //añadido 20-12-2017
+    //añadido 20-12-2017 -- CREAR FUNCIONARIO CUNDO EXISTE LA PERSONA
     .when('/funcionarios/create_fun/:per_id', {
     templateUrl: 'templates/funcionario/create_fun.html',
     controller: 'CreateFuCtrl',
@@ -246,7 +245,7 @@ angular.module("adminApp", ["authService", "ngRoute", "ngResource", "satellizer"
   })
 
 
-  //***************************E S T A B L E C I M I E N T O S**********************
+  //***************************E S T A B L E C I M I E N T O S USACSIA          **********************
   .when('/establecimientos', {
     title: 'Establecimientos',
     templateUrl: 'templates/establecimiento/index.html',
@@ -262,6 +261,7 @@ angular.module("adminApp", ["authService", "ngRoute", "ngResource", "satellizer"
       authorized: [ROLES.ADMIN_USACSIA.ROL]
     }
   })
+ //***************************       ESTABLECIMIENTOS SOLICITANTES          **********************
   .when('/establecimientossol', {
     title: 'Establecimientos Solicitantes',
     templateUrl: 'templates/establecimiento_solicitante/establecimientos.html',
@@ -270,7 +270,6 @@ angular.module("adminApp", ["authService", "ngRoute", "ngResource", "satellizer"
       authorized: [ROLES.ADMIN_USACSIA.ROL]
     }
   })
-
 
   .when('/establecimientosol/crear/:pro_id', { 
     templateUrl: 'templates/establecimiento_solicitante/crear2.html',
@@ -312,7 +311,7 @@ angular.module("adminApp", ["authService", "ngRoute", "ngResource", "satellizer"
       authorized: [ROLES.ADMIN_USACSIA.ROL]
     }
   })
-    //==========================           DEPARTAMENTO                   =====================================
+//==========================           DEPARTAMENTO              ==============================
   .when('/homedepartamento',{
    templateUrl:'templates/departamento/list.html',
    controller: 'HomeCtrlDep'/*,
@@ -321,6 +320,7 @@ angular.module("adminApp", ["authService", "ngRoute", "ngResource", "satellizer"
     }*/
   })
 //=========================         FICHAS DE INSPECCION     =============================
+//LISTA DE 6 FICHAS
   .when('/inspeccion/fichas',{
    templateUrl:'templates/ficha_inspeccion/fichas_inspeccion.html',
   /* controller: 'FichaICtrl',
@@ -328,27 +328,30 @@ angular.module("adminApp", ["authService", "ngRoute", "ngResource", "satellizer"
       authorized: [ROLES.ADMIN_SEDES.ROL]
     }*/
   })
-    .when('/inspeccion/fichas/crear/:et_id',{
+  .when('/inspeccion/fichas/crear/:et_id',{
    templateUrl:'templates/ficha_inspeccion/crear.html',
    controller: 'CrearFichaInsCtrl',
     data: {
       authorized: [ROLES.ADMIN_USACSIA.ROL,ROLES.INSPECTOR.ROL]
     }
   })
-   .when('/inspeccion/categoria/crear/:fi_id',{
+  //ASIGNAR CATEGORIA
+  .when('/inspeccion/categoria/crear/:fi_id',{
    templateUrl:'templates/ficha_inspeccion/asignar.html',
    controller: 'CrearCateCtrl',
     data: {
       authorized: [ROLES.ADMIN_USACSIA.ROL,ROLES.INSPECTOR.ROL]
     }
   })
-   .when('/inspeccion/fichas/crear1',{
+  //CREAR FICHA 1
+  .when('/inspeccion/fichas/crear1',{
    templateUrl:'templates/ficha_inspeccion1/crear.html',
    controller: 'CrearFicha1Ctrl'/*,
     data: {
       authorized: [ROLES.ADMIN_SEDES.ROL]
     }*/
   })
+  //CREAR FICHA 2
   .when('/inspeccion/fichas/crear2',{
    templateUrl:'templates/ficha_inspeccion2/crear.html',
    controller: 'CrearFicha2Ctrl'/*,
@@ -360,19 +363,19 @@ angular.module("adminApp", ["authService", "ngRoute", "ngResource", "satellizer"
 
   .when('/asignacion_zonas/crear',{
    templateUrl:'templates/asignacion_zonas/crear.html',
-   controller: 'CrearAsignacionCtrl'/*,
+   controller: 'CrearAsignacionCtrl',
     data: {
-      authorized: [ROLES.ADMIN_SEDES.ROL]
-    }*/
+      authorized: [ROLES.ADMIN_USACSIA.ROL,ROLES.ADMIN_CARNET.ROL]
+    }
   })
-    //=========================         EMPRESA TRAMITE     =======================================
+//=========================         EMPRESA TRAMITE     =======================================
 
   .when('/tramites_certi',{
    templateUrl:'templates/empresatramite/list.html',
-   controller: 'ListNatCtrl'/*,
+   controller: 'ListNatCtrl',
     data: {
-      authorized: [ROLES.ADMIN_SEDES.ROL]
-    }*/
+      authorized: [ROLES.ADMIN_USACSIA.ROL,ROLES.CAJERO.ROL,ROLES.ADMIN_CERTIFICADO.ROL]
+    }
   })
     .when('/tramites_certiJ',{
    templateUrl:'templates/empresatramite/listJ.html',
@@ -381,11 +384,23 @@ angular.module("adminApp", ["authService", "ngRoute", "ngResource", "satellizer"
       authorized: [ROLES.ADMIN_SEDES.ROL]
     }*/
   })
-  //+++++++++++++++++++++++++++++++++TRAMITES CERTIFICADO
-/*  .when('/tramites-cer', {
-    templateUrl: 'templates/empresatramite/list.html',
-    controller: 'EmpresaTramiteCtrl'
-  })*/
+    //lista para inspectores prop naturales
+  .when('/tramites_nat',{
+   templateUrl:'templates/empresatramite/listaNat.html',
+   controller: 'NatInsCtrl',
+    data: {
+      authorized: [/*ROLES.ADMIN_USACSIA.ROL,*/ROLES.INSPECTOR.ROL]
+    }
+  })
+      //lista para inspectores prop juridicos
+  .when('/tramites_jur',{
+   templateUrl:'templates/empresatramite/listaJur.html',
+   controller: 'JurInsCtrl',
+    data: {
+      authorized: [/*ROLES.ADMIN_USACSIA.ROL,*/ROLES.INSPECTOR.ROL]
+    }
+  })
+
 
   
 
@@ -488,7 +503,6 @@ angular.module("adminApp", ["authService", "ngRoute", "ngResource", "satellizer"
     }
   })
 
-
 //LISTA DE PRUEBAS DE LABORATORIO *****+MEJORAR--20-12-17
   .when('/prueba-laboratorio', {
     templateUrl: 'templates/pruebalaboratorio/index.html',
@@ -510,7 +524,7 @@ angular.module("adminApp", ["authService", "ngRoute", "ngResource", "satellizer"
     templateUrl: 'templates/muestra/create.html',
     controller: 'NumeroMuestraController',
     data: {
-      authorized: [ROLES.ADMIN_USACSIA.ROL, ROLES.RECEP_LAB.ROL, ROLES.RECEPCIONISTA.ROL]
+      authorized: [ROLES.ADMIN_USACSIA.ROL, ROLES.RECEP_LAB.ROL]
     }
   })
 //LISTA DE NUMERO DE MUESTRAS ASIGNADOS
@@ -518,7 +532,7 @@ angular.module("adminApp", ["authService", "ngRoute", "ngResource", "satellizer"
     templateUrl: 'templates/muestra/index.html',
     controller: 'ListarMuestraController',
     data: {
-      authorized: [ROLES.ADMIN_USACSIA.ROL, ROLES.RECEP_LAB.ROL, ROLES.RECEPCIONISTA.ROL]
+      authorized: [ROLES.ADMIN_USACSIA.ROL, ROLES.RECEP_LAB.ROL]
     }
   })
   /*-----------------------------------Número de ficha crear------------------------------------*/
@@ -526,12 +540,12 @@ angular.module("adminApp", ["authService", "ngRoute", "ngResource", "satellizer"
     templateUrl: 'templates/ficha/crear.html',
     controller: 'NumeroFichaController',
     data: {
-      authorized: [ROLES.ADMIN_USACSIA.ROL, ROLES.RECEP_LAB.ROL, ROLES.RECEPCIONISTA.ROL]
+      authorized: [ROLES.ADMIN_USACSIA.ROL, ROLES.RECEPCIONISTA.ROL]
     }
   })
 
 //****************===========PAGOS=================================================
-  /*---------------------------busqueda de personas preregistradas para pago de tramite------------------------------*/
+/*----------------busqueda de personas preregistradas para pago de tramite----------------------*/
   .when('/tramite/crear', {
     templateUrl: 'templates/personatramite/create.html',
     controller: 'CrearPersonaTramiteCtrl',
@@ -554,7 +568,7 @@ angular.module("adminApp", ["authService", "ngRoute", "ngResource", "satellizer"
   })
 
   /*-----------------------------tramites---------------------------------*/
-
+//LISTA DE PERSONAS QUE PAGARON E INICIARON EL TRAMITE
   .when('/tramites-car', {
     templateUrl: 'templates/personatramite/index.html',
     controller: 'PersonaTramiteController',
@@ -562,6 +576,7 @@ angular.module("adminApp", ["authService", "ngRoute", "ngResource", "satellizer"
       authorized: [ROLES.ADMIN_USACSIA.ROL, ROLES.CAJERO.ROL,ROLES.ADMIN_CARNET.ROL]
     }
   })
+//VER LA BOLETA DE PAGO
   .when('/boleta-pago/:pt_id', {
     templateUrl: 'templates/personatramite/boleta.html',
     controller: 'BoletaCtrl',
@@ -570,8 +585,7 @@ angular.module("adminApp", ["authService", "ngRoute", "ngResource", "satellizer"
     }
   })
 
-  /*--------------------------------------------------------------------------------------------*/
-
+/*--------------------------------------------------------------------------------------------*/
 
   .when('/parasito/crear', {
     templateUrl: 'templates/parasito/crear.html',
@@ -622,33 +636,54 @@ angular.module("adminApp", ["authService", "ngRoute", "ngResource", "satellizer"
     }
   })
 
-    .when('/documento-tramite/crear/:et_id', {
+//subir documento
+  .when('/documento-tramite/crear/:et_id', {
     templateUrl: 'templates/documento_tramite/crear.html',
     controller: 'CrearDocumentoTramiteCtrl'
   })
+
+  .when('/documento-tramite/crear2/:et_id', {
+    templateUrl: 'templates/documento_tramite/crear2.html',
+    controller: 'Crear2DocumentoTramiteCtrl'
+  })
+
+  .when('/documento-tramite/crear2/#:doc', {
+    templateUrl: 'templates/documento_tramite/crear2.html',
+    controller: 'Crear2DocumentoTramiteCtrl'
+  })
+
+  .when('/documento', {
+    templateUrl: 'templates/documento/index.html',
+    controller: 'ListarDocumentoCtrl'
+  })
+
+  .when('/documento/crear', {
+    templateUrl: 'templates/documento/crear.html',
+    controller: 'CrearDocumentoCtrl'
+  })
+
     /*jhon- arancel categoria*/
-    .when('/categoria', {
-      templateUrl: 'templates/arancel/categoria-lista.html',
-      controller: 'CategoriaCtrl'
-    })
+  .when('/categoria', {
+    templateUrl: 'templates/arancel/categoria-lista.html',
+    controller: 'CategoriaCtrl'
+  })
 
-
-    .when('/firma/crear', {
+  .when('/firma/crear', {
     templateUrl: 'templates/firma/crear.html',
     controller: 'FirmaCrearCtrl'
   })
-    .when('/firma/editar', {
+  .when('/firma/editar', {
     templateUrl: 'templates/firma/editar.html',
     controller: 'CrearDocumentoTramiteCtrl'
   })
 
-/*#######################################CERTIFICADO SANITARIO#######################################*/
+/*########################CERTIFICADO SANITARIO#######################################*/
 /*========================== empresa tramite==========================================*/
-    /*busca establecimiento_solictante por ci o por razon social*/
-    .when('/buscarpropietario', {
-      templateUrl: 'buscarpropietario.html',
-      controller: 'BuscarpropietarioCtrl'
-    })
+    /*busca establecimiento_solictante por ci o por razon social*/ //NO FUNCIONA 1-1-2018
+  .when('/buscarpropietario', {
+    templateUrl: 'buscarpropietario.html',
+    controller: 'BuscarpropietarioCtrl'
+  })//NO FUNCIONA
 /*jhon busca un establecimiento por ci de propietario o razon social*/
   .when('/buscar-propietario', {
     templateUrl: 'templates/empresatramite/buscar.html',
@@ -659,7 +694,6 @@ angular.module("adminApp", ["authService", "ngRoute", "ngResource", "satellizer"
     templateUrl: 'templates/empresatramite/boleta-ces.html',
     controller: 'BoletaCesCtrl'
   })
-
 
   .when('/pago-pendiente/:pp_id', {
     templateUrl: 'templates/pagopendiente/ver.html',
@@ -680,10 +714,6 @@ angular.module("adminApp", ["authService", "ngRoute", "ngResource", "satellizer"
   /*--------PENDIENTE------*/
 
   /*===================================VERONICA================================================*/
-
-
-
-
 
 
 

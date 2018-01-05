@@ -1,17 +1,19 @@
 'use-strict';
 angular.module("adminApp")
-.controller('CrearFichaInsCtrl', ['$http','CONFIG','$scope','FichaIn', '$route', 'toastr','EmpTra','Funcionarios','$timeout','$location', function ($http,CONFIG,$scope,FichaIn, $route, toastr,EmpTra,Funcionarios,$timeout,$location){
+.controller('CrearFichaInsCtrl', ['$http','CONFIG','$scope','FichaIn', '$route', 'toastr','EmpTra','Funcionarios','$timeout','$location','$routeParams', function ($http,CONFIG,$scope,FichaIn, $route, toastr,EmpTra,Funcionarios,$timeout,$location,$routeParams){
   $scope.ajustes = {
     menu:{
       titulo: 'Gestión de Fichas de Inspección',
       items:[
+      {nombre:'Propietarios Naturales', enlace:'#/tramites_nat', estilo:''},
+        {nombre:'Propietarios Juridicos', enlace:'#/tramites_jur', estilo:''},
         {nombre:'Crear Ficha', enlace:'#/numero-ficha/crear', estilo:'active'}]
     },
     pagina:{
       titulo:'Crear Ficha'
     }
   }
- var et_id=$routeParams;
+ var et_id=$routeParams.et_id;
  $scope.CurrentDate = new Date();
  var mes=$scope.CurrentDate.getMonth()+1;
  
@@ -120,6 +122,8 @@ angular.module("adminApp")
       titulo: 'Gestión de Fichas de Inspección',
       items:[
         /*{nombre:'Establecimientos', enlace:'#/establecimientossol', estilo:''},*/
+        {nombre:'Propietarios Naturales', enlace:'#/tramites_nat', estilo:''},
+        {nombre:'Propietarios Juridicos', enlace:'#/tramites_jur', estilo:''},
         {nombre:'Asignar categoria', enlace:'#/inspeccion/categoria/crear', estilo:'active'}]
     },
     //Configuraciones de la página
