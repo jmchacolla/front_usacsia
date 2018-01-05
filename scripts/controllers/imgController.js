@@ -232,38 +232,29 @@ $scope.persona.ima_nombre=file.name;
 
         var vm = this;
         vm.img=false;
-    //Probando los estados http
-        function a(){
-            return $http({
-                method: 'POST',
-                url: 'prueba.php',
-                })
-        };
-        vm.b=a().then(function (alguien) {
-            vm.alguien=alguien;
-        });
-
-
         vm.enviar=function() {
-        //Asignamos el file-model a la variable file, gracias a la directiva de mas arriba.
-        var file = vm.ie_nombre;
+            if(vm.ie_nombre){
+                //Asignamos el file-model a la variable file, gracias a la directiva de mas arriba.
+                var file = vm.ie_nombre;
 
-        var fd = new FormData();
-        fd.append('file', file); //Agregamos data al "formulario" que vamos a enviar
+                var fd = new FormData();
+                fd.append('file', file); //Agregamos data al "formulario" que vamos a enviar
 
-        $http.post('est.php', fd, {
-            transformRequest: angular.identity, //Le decimos a angular que no serialize el envio
-            headers: {'Content-Type': undefined}
-            })
-            .success(function(response){
-                //Guardamos la url de la imagen y hacemos que la muestre.
-                vm.ie_nombre=response;
-                vm.img=true;
-            })
-            .error(function(response){
+                $http.post('est.php', fd, {
+                    transformRequest: angular.identity, //Le decimos a angular que no serialize el envio
+                    headers: {'Content-Type': undefined}
+                    })
+                    .success(function(response){
+                        //Guardamos la url de la imagen y hacemos que la muestre.
+                        vm.ie_nombre=response;
+                        vm.img=true;
+                    })
+                    .error(function(response){
 
-        });
-             $scope.msg="Imagen cargada correctamente";
+                });
+                 $scope.msg="Imagen cargada correctamente";
+            }
+        
         
     };
 }])
@@ -296,18 +287,6 @@ $scope.persona.ima_nombre=file.name;
 
         var vm = this;
         vm.img=false;
-        //Probando los estados http
-        function a(){
-            return $http({
-                method: 'POST',
-                url: 'prueba.php',
-                })
-        };
-        vm.b=a().then(function (alguien) {
-            vm.alguien=alguien;
-        });
-
-
         vm.enviar=function() {
         //Asignamos el file-model a la variable file, gracias a la directiva de mas arriba.
         var file = vm.ima_nombre;
@@ -359,17 +338,6 @@ $scope.persona.ima_nombre=file.name;
 
         var vm = this;
         vm.img=false;
-        //Probando los estados http
-        function a(){
-            return $http({
-                method: 'POST',
-                url: 'prueba.php',
-                })
-        };
-        vm.b=a().then(function (alguien) {
-            vm.alguien=alguien;
-        });
-
 
         vm.enviar=function() {
         //Asignamos el file-model a la variable file, gracias a la directiva de mas arriba.
@@ -422,18 +390,7 @@ $scope.persona.ima_nombre=file.name;
 
         var vm = this;
         vm.img=false;
-        //Probando los estados http
-        function a(){
-            return $http({
-                method: 'POST',
-                url: 'prueba.php',
-                })
-        };
-        vm.b=a().then(function (alguien) {
-            vm.alguien=alguien;
-        });
-
-
+        
         vm.enviar=function() {
         //Asignamos el file-model a la variable file, gracias a la directiva de mas arriba.
         var file = vm.ima_nombre;
@@ -454,6 +411,62 @@ $scope.persona.ima_nombre=file.name;
 
         });
         $scope.msg="Imagen cargada correctamente";
+    };
+}])
+
+
+.controller('UploadDocCtrl', ['$scope', '$timeout','$http',function($scope, $timeout, $http){
+    
+        $scope.thumbnail = {
+            // window['dataUrl'+$scope.documentoTramite.doc_id]=
+            dataUrl: '' 
+        };
+
+        $scope.fileReaderSupported = window.FileReader != null;
+            $scope.photoChanged = function(files){
+                if (files != null) {
+                    var file = files[0];
+                if ($scope.fileReaderSupported && file.type.indexOf('image') > -1) {
+                    $timeout(function() {
+                        var fileReader = new FileReader();
+                        fileReader.readAsDataURL(file);
+                        fileReader.onload = function(e) {
+                            $timeout(function(){
+                                $scope.thumbnail.dataUrl = e.target.result;
+                            });
+                        }
+                        $scope.establecimiento.ie_nombre=file.name;  //obtenemos el nombre de la imagen :)
+                        $scope.establecimiento.imagenes.ie_nombre=file.name; 
+                    });
+                }
+            }
+        };
+
+
+        var vm = this;
+        vm.img=false;
+        vm.enviar=function() {
+            if(vm.ie_nombre){
+                //Asignamos el file-model a la variable file, gracias a la directiva de mas arriba.
+                var file = vm.ie_nombre;
+
+                var fd = new FormData();
+                fd.append('file', file); //Agregamos data al "formulario" que vamos a enviar
+
+                $http.post('est.php', fd, {
+                    transformRequest: angular.identity, //Le decimos a angular que no serialize el envio
+                    headers: {'Content-Type': undefined}
+                    })
+                    .success(function(response){
+                        //Guardamos la url de la imagen y hacemos que la muestre.
+                        vm.ie_nombre=response;
+                        vm.img=true;
+                    })
+                    .error(function(response){
+
+                });
+                 $scope.msg="Imagen cargada correctamente";
+            }
     };
 }])
 

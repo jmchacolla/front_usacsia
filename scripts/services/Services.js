@@ -401,6 +401,12 @@ angular.module("adminApp")
   })
 }])
 
+.factory('Documento', ['$resource', 'CONFIG', function ($resource, CONFIG){
+  return $resource(CONFIG.DOMINIO_SERVICIOS+"/documento/:doc_id", {doc_id:"@_doc_id"}, {
+    update: {method: "PUT", params: {doc_id: "@doc_id"}}
+  })
+}])
+
 .factory('Subclacificacion', ['$resource', 'CONFIG', function ($resource, CONFIG){
   return $resource(CONFIG.DOMINIO_SERVICIOS+"/subclasificacion/:sub_id", {sub_id:"@_sub_id"}, {
     update: {method: "PUT", params: {sub_id: "@sub_id"}}
@@ -421,7 +427,10 @@ angular.module("adminApp")
   return $resource(CONFIG.DOMINIO_SERVICIOS+"/pro_id_pjuridica_pnatural/:pro_id", {pro_id:"@_pro_id"})
 }])
 
+.factory('ConsultoriosLista', ['$resource', 'CONFIG', function ($resource, CONFIG){
+  return $resource(CONFIG.DOMINIO_SERVICIOS+"/update_lista_consultorios")
 
+}])
 
 
 

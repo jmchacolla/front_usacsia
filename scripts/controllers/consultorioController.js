@@ -1,8 +1,8 @@
 'use strict';
 angular.module("adminApp")
 
-.controller('ListaConsultorioCtrl',['CONFIG', /*'authUser',*/'$scope', '$routeParams','Consultorios', /*'Cons',*/ 'toastr', '$route',
-function (CONFIG,/*authUser,*/ $scope, $routeParams, Consultorios, /*Cons,*/ toastr, $route){
+.controller('ListaConsultorioCtrl',['CONFIG', /*'authUser',*/'$scope', '$routeParams','Consultorios','ConsultoriosLista', /*'Cons',*/ 'toastr', '$route',
+function (CONFIG,/*authUser,*/ $scope, $routeParams, Consultorios,ConsultoriosLista, /*Cons,*/ toastr, $route){
 	$scope.ajustes = {
 	    menu:{
 	      titulo: 'Gestión de Consultorios',
@@ -18,6 +18,13 @@ function (CONFIG,/*authUser,*/ $scope, $routeParams, Consultorios, /*Cons,*/ toa
   	$scope.sortType = 'con_id'; // set the default sort type
   	$scope.sortReverse  = true;  // set the default sort order
   	
+  	$scope.btn_hab=true;
+  	$scope.cambio_hab=function(){
+  		if($scope.btn_hab)
+  			$scope.btn_hab=false;
+  		else
+  			$scope.btn_hab=true;
+  	}
   	/*if (authUser.isLoggedIn()) {*/
   		if(CONFIG.ROL_CURRENT_USER == 1){//Si es administrador del SEDES
 			//var es_id = $routeParams.es_id;
@@ -52,6 +59,35 @@ function (CONFIG,/*authUser,*/ $scope, $routeParams, Consultorios, /*Cons,*/ toa
 	$scope.get_con_id = function(con_id, con_nombre){
 	    id=con_id;
 	    $scope.nombre = con_nombre;
+	}
+
+	/*habilitar consultorios*/
+	$scope.ids = [];
+	$scope.estados = [];
+    $scope.editado = function (con_id,con_estado) {
+        var idx = $scope.ids.indexOf(con_id);
+        if (idx > -1){
+        	$scope.estados[idx]=con_estado;
+        }
+        else{
+        	$scope.ids.push(con_id);
+        	$scope.estados.push(con_estado);
+        }
+        $scope.final= $scope.ids.toString();
+        $scope.final2= $scope.estados.toString();
+    };
+
+    $scope.update_lista = function(a){
+    	$scope.id_estado={
+			ids:$scope.ids,
+			estados:$scope.estados
+    	};
+		ConsultoriosLista.save($scope.id_estado).$promise.then(function(data){
+			if(data.status) {
+				$scope.ajustes.pagina.success = "CONFIGURACION GUARDADA";
+	        	toastr.success('CONFIGURACIÓN GUARDADA');
+			}
+		})
 	}
 
 	$scope.remove = function(){

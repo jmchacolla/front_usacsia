@@ -641,11 +641,33 @@ angular.module("adminApp", ["authService", "ngRoute", "ngResource", "satellizer"
       authorized: [ROLES.ADMIN_USACSIA.ROL, ROLES.ADMIN_CARNET.ROL]
     }
   })
+
 //subir documento
   .when('/documento-tramite/crear/:et_id', {
     templateUrl: 'templates/documento_tramite/crear.html',
     controller: 'CrearDocumentoTramiteCtrl'
   })
+
+  .when('/documento-tramite/crear2/:et_id', {
+    templateUrl: 'templates/documento_tramite/crear2.html',
+    controller: 'Crear2DocumentoTramiteCtrl'
+  })
+
+  .when('/documento-tramite/crear2/#:doc', {
+    templateUrl: 'templates/documento_tramite/crear2.html',
+    controller: 'Crear2DocumentoTramiteCtrl'
+  })
+
+  .when('/documento', {
+    templateUrl: 'templates/documento/index.html',
+    controller: 'ListarDocumentoCtrl'
+  })
+
+  .when('/documento/crear', {
+    templateUrl: 'templates/documento/crear.html',
+    controller: 'CrearDocumentoCtrl'
+  })
+
     /*jhon- arancel categoria*/
   .when('/categoria', {
     templateUrl: 'templates/arancel/categoria-lista.html',
@@ -678,7 +700,6 @@ angular.module("adminApp", ["authService", "ngRoute", "ngResource", "satellizer"
     templateUrl: 'templates/empresatramite/boleta-ces.html',
     controller: 'BoletaCesCtrl'
   })
-
 
   .when('/pago-pendiente/:pp_id', {
     templateUrl: 'templates/pagopendiente/ver.html',

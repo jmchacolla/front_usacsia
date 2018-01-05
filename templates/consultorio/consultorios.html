@@ -27,12 +27,20 @@
     </div>
   </div>
   <div class="row">
+      <div class="col-md-12">
+             <button class="btn btn-primary" ng-click="cambio_hab()" ng-if="btn_hab"><span class="glyphicon glyphicon-ok"></span> HABILITAR CONSULTORIOS</button>
+             <button class="btn btn-primary" ng-click="cambio_hab();update_lista()" ng-if="!btn_hab"><span class="glyphicon glyphicon-save"></span> GUARDAR CONFIGURACIÓN</a>
+      </div>
+  </div>
+  <div class="row">
     <div class="col-md-12 ">
       <!-- AQUI VAN LAS TABLAS O FORMULARIOS incrustados -->
       <!-- INICIO -->
       <div class="text-center" ng-show="loading"><br><img ng-src="./images/image.gif" class="loader-img"></div>
       <div ng-show="!loading && !msg">No se encontraron resultados</div>
       <div class="table-responsive">
+        {{final}}<br/>
+        {{final2}}
         <table class="table table-bordered table-striped table-hover" ng-show="!loading && msg" id="table">
           <thead >
             <th >
@@ -50,7 +58,7 @@
               <span ng-show="sortType == 'amb_descripcion' && !sortReverse" class="glyphicon glyphicon-chevron-up"></span>
               <span ng-show="sortType == 'amb_descripcion' && sortReverse" class="glyphicon glyphicon-chevron-down"></span></a>
             </th>
-          
+            <th>Habilitar</th>
             <th >Ver</th>
             <th>Editar</th>
             <th>Eliminar</th>
@@ -60,8 +68,9 @@
               <td>{{consultorio.con_cod}}</td>
               <td>{{consultorio.amb_nombre}}</td>
               <td>{{consultorio.amb_descripcion}} </td>  
-            
-              
+              <td>
+                  <input type="checkbox" name="" ng-disabled="btn_hab" ng-checked="consultorio.con_estado" ng-model="consultorio.con_estado" ng-click="editado(consultorio.amb_id,consultorio.con_estado,consultorio)"> 
+              </td>  
               <td class="text-center">
                 <a href="#/consultorios/ver/{{consultorio.amb_id}}" class="btn btn-success" title="VER DATOS DEL CONSULTORIO"><span class="glyphicon glyphicon-file"></span></a>
               </td>
