@@ -212,6 +212,11 @@ angular.module("adminApp")
   return $resource(CONFIG.DOMINIO_SERVICIOS+"/distritos", {}, {
     update: {method: "PUT", params: {}}
   })
+}])//comentar esto 4-1-2018
+.factory('MDistritos', ['$resource', 'CONFIG', function ($resource, CONFIG) {
+  return $resource(CONFIG.DOMINIO_SERVICIOS+"/mdistritos", {}, {
+    update: {method: "PUT", params: {}}
+  })
 }])
 //------------------------           EMPRESA TRAMITE               ----------------------------
 .factory('ListN', ['$resource', 'CONFIG', function ($resource, CONFIG) {
@@ -225,8 +230,13 @@ angular.module("adminApp")
   })
 }])
 //listar empresa tramite segun inspector
-.factory('NatI', ['$resource', 'CONFIG', function ($resource, CONFIG) {
+/*.factory('NatI', ['$resource', 'CONFIG', function ($resource, CONFIG) {
   return $resource(CONFIG.DOMINIO_SERVICIOS+"/list_insN/:fun_id", {fun_id:"@_fun_id"}, {
+    update: {method: "PUT", params: {fun_id:"@fun_id"}}
+  })
+}])*/
+.factory('NatI', ['$resource', 'CONFIG', function ($resource, CONFIG) {
+  return $resource(CONFIG.DOMINIO_SERVICIOS+"/inspN/:fun_id", {fun_id:"@_fun_id"}, {
     update: {method: "PUT", params: {fun_id:"@fun_id"}}
   })
 }])
@@ -236,8 +246,14 @@ angular.module("adminApp")
     update: {method: "PUT", params: {fun_id:"@fun_id"}}
   })
 }])
-//-------------------------CAMBIAR ESTADO DE EMPRESA TRAMITE 1----------------------------
-.factory('Aprob1', ['$resource', 'CONFIG', function ($resource, CONFIG) {
+//Ver rubro
+.factory('Rubro', ['$resource', 'CONFIG', function ($resource, CONFIG) {
+  return $resource(CONFIG.DOMINIO_SERVICIOS+"/rubro/:emp_id", {emp_id:"@_emp_id"}, {
+    update: {method: "PUT", params: {emp_id:"@emp_id"}}
+  })
+}])
+//-------------------------CAMBIAR ESTADO DE EMPRESA TRAMITE 1 eliminado 4-1-2018--------------------
+/*.factory('Aprob1', ['$resource', 'CONFIG', function ($resource, CONFIG) {
   return $resource(CONFIG.DOMINIO_SERVICIOS+"/aprobacion1/:et_id", {pt_id:"@_et_id"}, {
     update: {method: "PUT", params: {pt_id: "@et_id"}}
   })
@@ -251,7 +267,7 @@ angular.module("adminApp")
   return $resource(CONFIG.DOMINIO_SERVICIOS+"/aprobacion3/:et_id", {pt_id:"@_et_id"}, {
     update: {method: "PUT", params: {pt_id: "@et_id"}}
   })
-}])
+}])*/
 //--------------------------CREAR CERTIFICADO SANITARIO----------------------------
 .factory('CertificadoSanitario', ['$resource', 'CONFIG', function ($resource, CONFIG) {
   return $resource(CONFIG.DOMINIO_SERVICIOS+"/certificado_sanitario/:ces_id", {ces_id:"@_ces_id"}, {

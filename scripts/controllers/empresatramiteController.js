@@ -113,7 +113,7 @@ angular.module("adminApp")
   }*/
 
   //lista tramites propietarios naturales
-.controller('ListNatCtrl', ['$scope','CONFIG', 'ListN', '$route', 'toastr', '$location','Personas','Aprob1','Aprob2','Aprob3','FirmaFun','EmpTra','CertificadoSanitario','Firm2','Firm3','BusCert', function ($scope,CONFIG, ListN, $route, toastr,$location,Personas,Aprob1,Aprob2,Aprob3,FirmaFun,EmpTra,CertificadoSanitario,Firm2,Firm3,BusCert)
+.controller('ListNatCtrl', ['$scope','CONFIG', 'ListN', '$route', 'toastr', '$location','Personas',/*'Aprob1','Aprob2','Aprob3',*/'FirmaFun','EmpTra','CertificadoSanitario','Firm2','Firm3','BusCert', function ($scope,CONFIG, ListN, $route, toastr,$location,Personas,/*Aprob1,Aprob2,Aprob3,*/FirmaFun,EmpTra,CertificadoSanitario,Firm2,Firm3,BusCert)
 {
   $scope.ajustes = {
     menu:{
@@ -180,7 +180,7 @@ angular.module("adminApp")
       et_aprobacion1:'APROBADO'
     }
     console.log('el et_id para cambiar estado',id);
-    Aprob1.update({et_id:id}, $scope.estado1).$promise.then(function(data)
+  /*  Aprob1.update({et_id:id}, $scope.estado1).$promise.then(function(data)
     {
       console.log("entra a update")
       if(data.status)
@@ -220,7 +220,7 @@ angular.module("adminApp")
 
     });//FIN TRAMITE ESTADO
     console.log($scope.estado1);
-    console.log("__FIRMA__Fuera",$scope.fir); 
+    console.log("__FIRMA__Fuera",$scope.fir);*/ 
   };
 
     $scope.recepcionar2=function(){
@@ -239,7 +239,7 @@ angular.module("adminApp")
           $scope.certificado = data.certificado;
 
           console.log('el et_id para cambiar estado',id);
-          Aprob2.update({et_id:id}, $scope.estado2).$promise.then(function(data)
+         /* Aprob2.update({et_id:id}, $scope.estado2).$promise.then(function(data)
           {
             console.log("entra a update")
             if(data.status)
@@ -271,7 +271,7 @@ angular.module("adminApp")
                 } );//FIN DE FIRMAFUNCIONARIO
                 $route.reload();
             }
-          });//FIN TRAMITE ESTADO
+          });//FIN TRAMITE ESTADO*/
       //fin de busca certificado
         },function () {
       toastr.error("ERROR INESPERADO, por favor actualize la página");
@@ -306,7 +306,7 @@ angular.module("adminApp")
           $scope.certificadoFI = data.certificado;
 
     console.log('el et_id para cambiar estado',id);
-    Aprob3.update({et_id:id}, $scope.estado3).$promise.then(function(data)
+/*    Aprob3.update({et_id:id}, $scope.estado3).$promise.then(function(data)
     {
       console.log("entra a update")
       if(data.status)
@@ -339,7 +339,7 @@ angular.module("adminApp")
           $route.reload();
       }
 
-    });//FIN TRAMITE ESTADO
+    });//FIN TRAMITE ESTADO*/
 //fin de busca certificado
         },function () {
       toastr.error("ERROR INESPERADO, por favor actualize la página");

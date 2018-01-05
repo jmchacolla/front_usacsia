@@ -174,7 +174,13 @@ angular.module("adminApp", ["authService", "ngRoute", "ngResource", "satellizer"
     controller: 'CreateFuCtrl',
 
   })
-
+ .when('/funcionarios/habilitar/:fun_id/:fun_estado', {
+    templateUrl: 'templates/funcionario/edit.html',
+    controller: 'EditFuncionarioCtrl',
+    data: {
+      authorized: [ROLES.ADMIN_USACSIA.ROL, ROLES.ADMIN_CARNET.ROL, ROLES.ADMIN_CERTIFICADO.ROL]
+    }
+  })
   .when('/funcionarios/edit/:fun_id', {
     templateUrl: 'templates/funcionario/edit.html',
     controller: 'EditFuncionarioCtrl',
@@ -336,7 +342,7 @@ angular.module("adminApp", ["authService", "ngRoute", "ngResource", "satellizer"
     }
   })
   //ASIGNAR CATEGORIA
-  .when('/inspeccion/categoria/crear/:fi_id',{
+  .when('/inspeccion/categoria/crear/:fi_id/:et_id',{
    templateUrl:'templates/ficha_inspeccion/asignar.html',
    controller: 'CrearCateCtrl',
     data: {

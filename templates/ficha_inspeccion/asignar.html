@@ -61,11 +61,15 @@
                                   </span>
                               </div>
                         </div>
+                         <div class="col-md-4">
+                            <label for="resolucion" class="control-label">Rubro:</label>
+                            <input disabled class="form-control" id="red" type="Text" ng-model="rubro.re_nombre" >          
+                        </div> 
                     </div> 
                     <div class="row">
                         <div class="col-md-4">
                              <label for="sc" class="control-label">Categorias: <strong class="fg_red">*</strong></label>
-                            <select class="form-control " name="sc" ng-change="agregar(categoria.cat_id,categoria.cat_descripcion,categoria)" ng-model="categoria" ng-options="cat as cat.cat_descripcion for cat in subcla" required>
+                            <select class="form-control " name="sc" ng-change="agregar(categoria.cat_id,categoria.cat_descripcion,categoria)" ng-model="categoria" ng-options="cat as cat.cat_descripcion+'   -'+cat.cat_area+''+cat.cat_categoria for cat in subcla" required>
                             <option value="">--Elige opcion--</option>
                             </select>
                         </div>
