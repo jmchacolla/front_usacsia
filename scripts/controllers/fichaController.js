@@ -37,6 +37,7 @@ angular.module("adminApp")
   function verNumeroFicha(fic_id){
       $http.get(CONFIG.DOMINIO_SERVICIOS+'/ficha/'+fic_id).success(function(respuesta){
           $scope.num_ficha_traido_del_crear = respuesta.ficha.fic_numero;
+          $scope.num_con_traido_del_crear = respuesta.ficha.con_id;
           console.log('llamo a la funcion', $scope.num_ficha_traido_del_crear);
       });
   }

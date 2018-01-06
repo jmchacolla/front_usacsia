@@ -48,8 +48,8 @@
             </th>
           
             <th >Ver</th>
-            <!-- <th>Editar</th>
-            <th>Dar de baja</th> -->
+            <th>Ficha</th>
+           <!--  <th>Dar de baja</th> -->
           </thead>
           <tbody>
             <tr  ng-repeat="et in empresa_tramite  | orderBy:sortType:sortReverse | filter:per_ci">
@@ -57,11 +57,11 @@
               <td>{{et.pjur_razon_social}}</td>
               <td>{{et.ess_razon_social}}</td>
               <td class="text-center">
-                <a href="#/funcionarios/ver/{{et.et_id}}" class="btn btn-success" title="VER DATOS DEL TRAMITE"><span class="glyphicon glyphicon-file"></span></a>
+                <a href="#/funcionarios/ver/{{et.et_id}}" class="btn btn-success" title="VER"><span class="glyphicon glyphicon-file"></span></a>
               </td>
-             <!--  <td>
-                <a href="#/funcionarios/edit/{{funcionario.fun_id}}" class="btn btn-primary" title="EDITAR A FUNCIONARIO"><span class="glyphicon glyphicon-pencil"></span></a>
-              </td> -->
+              <td>
+                <a href="#/inspeccion/fichas/crear/{{et.et_id}}" class="btn btn-info" title="FICHA DE INSPECCIÓN"><span >FICHA</span></a>
+              </td>
              <!--  <td>
                 <button ng-click="get_fe_id(funcionario.fun_id, funcionario.per_apellido_primero, funcionario.per_apellido_segundo, funcionario.per_nombres, funcionario.fun_cargo, funcionario.fun_profesion, funcionario.fun_estado)" title="DAR DE BAJA A FUNCIONARIO DEL ESTABLECIMIENTO" class="btn btn-danger" data-toggle="modal" data-target="#miCuadroModal1" ><span class="glyphicon glyphicon-trash"></span></button>
                 <div id="miCuadroModal1" class="modal fade" role="dialog" tabindex="-1">

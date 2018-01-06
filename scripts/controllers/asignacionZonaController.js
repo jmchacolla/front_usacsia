@@ -1,6 +1,6 @@
 'use-strict';
 angular.module("adminApp")
-.controller('CrearAsignacionCtrl', ['$http','CONFIG','$scope','ZonIn','ListZon','Distritos','Inspectores', '$route', 'toastr', function ($http,CONFIG,$scope,ZonIn,ListZon,Distritos,Inspectores, $route, toastr){
+.controller('CrearAsignacionCtrl', ['$http','CONFIG','$scope','ZonIn','ListZon','MDistritos','Inspectores', '$route', 'toastr', function ($http,CONFIG,$scope,ZonIn,ListZon,MDistritos,Inspectores, $route, toastr){
   $scope.ajustes = {
     menu:{
       titulo: 'Gestión de Asignación de zonas a inspectores',
@@ -17,8 +17,8 @@ angular.module("adminApp")
   var fun_id = FunG.fun_id;
 
 
-    Distritos.get(function(data){
-    $scope.distritos=data.distrito;
+    MDistritos.get(function(data){
+    $scope.distritos=data.macro_distrito;
     console.log("_________DISTRITOS LISTA_",$scope.distritos);
    
   },function () {
@@ -47,7 +47,7 @@ angular.module("adminApp")
   $scope.zon=false;
   $scope.ver_zonas=function(dist){
     $scope.distri={
-      distrito:dist.zon_distrito
+      zon_macrodistrito:dist.zon_macrodistrito
     }
       console.log($scope.distri.distrito+"_________DISTRITO");
       $scope.zon=false;

@@ -9,7 +9,7 @@
 				<span class="glyphicon glyphicon-calendar" aria-hidden="true"></span>
 				{{ajustes.pagina.titulo}}
 			</h2>
-			<hr class="bg-green">
+			<hr class="bg-red">
 		</div>
 	</div>
 	<div class="row">
@@ -29,7 +29,7 @@
 				          </div>
 				          <div class="col-md-4" >
 				              <label class="control-label">2) Seleccione un distrito: <strong class="fg_red">*</strong></label>
-				              	<select class="form-control" name="dist" ng-model="distrito.zon_distrito"  ng-options="distrito.zon_distrito for distrito in distritos" ng-change="ver_zonas(distrito.zon_distrito)" required>
+				              	<select class="form-control" name="dist" ng-model="distrito.zon_macrodistrito"  ng-options="distrito.zon_macrodistrito for distrito in distritos" ng-change="ver_zonas(distrito.zon_macrodistrito)" required>
 		           				</select>
 				                <span class="messages" ng-show="addPersona.$submitted || addPersona.dist.$touched">
 				                  <span ng-show="addPersona.dist.$error.required">El campo es obligatorio.</span>

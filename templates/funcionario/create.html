@@ -81,13 +81,13 @@
              <div id="miCuadroModal" class="modal fade" role="dialog" tabindex="-1">
                 <div class="modal-dialog">
                   <div class="modal-content">
-                    <div class="modal-header bg-green">
+                    <div class="modal-header bg-red">
                       <button type="button" class="close" data-dismiss="modal">×</button>
                       <h3 class="modal-title fg-white">REGISTRAR FUNCIONARIO NUEVO</h3>
                     </div>
                     <form role="form" name="addCod" novalidate>
                     <div class="modal-body"><!--  -->
-                      <div ng-if="valor == '0' && !fe_estado">
+                      <div ng-show="valor == '0' && !fe_estado">
                         <div class="well well-sm">
                           <strong>REGISTRAR A:</strong> 
                           <span>{{nom+" "+ap1+"  "+ap2}}</span>
@@ -95,26 +95,26 @@
                           <span>{{ci}}</span><br>
                         </div>
                       </div> 
-<!--                        <div ng-if="fun_estado">
+                       <div ng-show="fe_estado">
                         <div class="well well-sm">
                           <strong>HABILITAR A:</strong> 
                           <span>{{nom+" "+ap1+"  "+ap2}}</span>
                           <strong>CON NÚMERO DE C.I.:</strong>
                           <span>{{ci}}</span><br>
                         </div>
-                      </div> ng-if="valor == '0' && !fun_estado"  -->
+                      </div> 
                     </div>
-                    <div class="modal-footer">
+                    <div class="modal-footer" ng-show="valor == '0' && !fe_estado" >
                       <button type="button" class="btn btn-primary" data-dismiss="modal" ng-click="reg(personas.per_id,fun_id,null)"><span class="glyphicon glyphicon-ok"></span> REGISTRAR</button>
                       <button type="button" class="btn btn-danger" data-dismiss="modal"><span class="glyphicon glyphicon-remove"></span> CANCELAR</button>
-<!-- ng-click="reg(personas.per_id,fun_id,null)" -->
+
                       
                     </div>
-                   <!--  <div ng-if="fun_estado" class="modal-footer">
+                    <div ng-show="fe_estado" class="modal-footer">
                       <button type="button" class="btn btn-success" data-dismiss="modal" ng-click="reg(persona.per_id,fun_id,fe_id)"><span class="glyphicon glyphicon-ok"></span> HABILITAR</button>
                       <button type="button" class="btn btn-danger" data-dismiss="modal"><span class="glyphicon glyphicon-remove"></span> CANCELAR</button>
                     </div>
-                  -->
+                 
                     </form>
                   </div>
                 </div>

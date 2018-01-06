@@ -1,17 +1,19 @@
 'use-strict';
 angular.module("adminApp")
-.controller('CrearFichaInsCtrl', ['$http','CONFIG','$scope','FichaIn', '$route', 'toastr','EmpTra','Funcionarios','$timeout','$location', function ($http,CONFIG,$scope,FichaIn, $route, toastr,EmpTra,Funcionarios,$timeout,$location){
+.controller('CrearFichaInsCtrl', ['$http','CONFIG','$scope','FichaIn', '$route', 'toastr','EmpTra','Funcionarios','$timeout','$location','$routeParams', function ($http,CONFIG,$scope,FichaIn, $route, toastr,EmpTra,Funcionarios,$timeout,$location,$routeParams){
   $scope.ajustes = {
     menu:{
       titulo: 'Gestión de Fichas de Inspección',
       items:[
+      {nombre:'Propietarios Naturales', enlace:'#/tramites_nat', estilo:''},
+        {nombre:'Propietarios Juridicos', enlace:'#/tramites_jur', estilo:''},
         {nombre:'Crear Ficha', enlace:'#/numero-ficha/crear', estilo:'active'}]
     },
     pagina:{
       titulo:'Crear Ficha'
     }
   }
- var et_id=$routeParams;
+ var et_id=$routeParams.et_id;
  $scope.CurrentDate = new Date();
  var mes=$scope.CurrentDate.getMonth()+1;
  
@@ -85,7 +87,7 @@ angular.module("adminApp")
           toastr.success('FICHA REGISTRADA CORRECTAMENTE');
           /*$route.reload();*/
            $timeout(function() {
-            $location.path('/inspeccion/categoria/crear/'+data.ficha_inspeccion.fi_id);
+            $location.path('/inspeccion/categoria/crear/'+data.ficha_inspeccion.fi_id+'/'+et_id);
           },10);
 
   
@@ -111,8 +113,8 @@ angular.module("adminApp")
 
 }])
 
-.controller('CrearCateCtrl', ['$scope','$routeParams','EmpTra','Categoria','FichaCat','Zonas',  '$location', '$timeout', 'toastr',
- function ($scope,$routeParams, EmpTra,Categoria,FichaCat,Zonas,  $location, $timeout, toastr){
+.controller('CrearCateCtrl', ['$scope','$routeParams','EmpTra','Categoria','FichaCat','Zonas',  '$location', '$timeout', 'toastr','Rubro',
+ function ($scope,$routeParams, EmpTra,Categoria,FichaCat,Zonas,  $location, $timeout, toastr,Rubro){
 
  $scope.ajustes = {
     //Configuraciones del menu:
@@ -120,6 +122,8 @@ angular.module("adminApp")
       titulo: 'Gestión de Fichas de Inspección',
       items:[
         /*{nombre:'Establecimientos', enlace:'#/establecimientossol', estilo:''},*/
+        {nombre:'Propietarios Naturales', enlace:'#/tramites_nat', estilo:''},
+        {nombre:'Propietarios Juridicos', enlace:'#/tramites_jur', estilo:''},
         {nombre:'Asignar categoria', enlace:'#/inspeccion/categoria/crear', estilo:'active'}]
     },
     //Configuraciones de la página
@@ -128,7 +132,7 @@ angular.module("adminApp")
       action: "CREAR"
     }
   }
-var et_id=32;
+ var et_id=$routeParams.et_id;
   var fi_id=$routeParams.fi_id;
   console.log("_______llego al controlador asignar________",fi_id)
 EmpTra.get({et_id:et_id},function(data){
@@ -141,7 +145,9 @@ EmpTra.get({et_id:et_id},function(data){
       $scope.propietario=$scope.emp_tra.propietario.per_nombres+' '+$scope.emp_tra.propietario.per_apellido_primero+' '+$scope.emp_tra.propietario.per_apellido_segundo;
     }
     $scope.direccion=$scope.emp_tra.establecimiento_sol.ess_avenida_calle+' #'+$scope.emp_tra.establecimiento_sol.ess_numero+' '+$scope.emp_tra.establecimiento_sol.ess_stand
-   
+    Rubro.get({emp_id:$scope.emp_tra.empresa.emp_id},function(data){
+        $scope.rubro=data.rubro;
+    });
   });
 
   $scope.CurrentDate=new Date();

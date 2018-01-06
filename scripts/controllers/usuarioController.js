@@ -417,7 +417,7 @@ angular.module('adminApp')
 }])
 
 
-.controller('UsuariosFunCtrl', ['CONFIG', '$scope', 'UsuariosF', '$routeParams', 'toastr', '$route', 'RolesUsuarios', 'Usuarios', function (CONFIG,$scope,UsuariosF,$routeParams,toastr,$route,RolesUsuarios,Usuarios) {
+.controller('UsuariosFunCtrl', ['CONFIG', '$scope', 'UsuariosF', '$routeParams', 'toastr', '$route', /*'RolesUsuarios',*/ 'Usuarios', function (CONFIG,$scope,UsuariosF,$routeParams,toastr,$route,/*RolesUsuarios,*/Usuarios) {
   $scope.ajustes = {
     menu:{
       titulo: 'Gestión de usuarios',
@@ -487,7 +487,7 @@ angular.module('adminApp')
     ru_estado: "ACTIVO"
   };
 
-  $scope.cambiar_rol = function(rol_nuevo){
+/*  $scope.cambiar_rol = function(rol_nuevo){
     console.log($scope.usu);
     RolesUsuarios.update({ru_id:$scope.ru_id}, $scope.usu).$promise.then(function(data){
       if(data.status){
@@ -495,7 +495,7 @@ angular.module('adminApp')
         $route.reload();
       }
     })
-  }
+  }*/
 
   $scope.restablecer_contrasenia = function(usu_id,per_id){
     Usuarios.update({usu_id:usu_id, per_id:per_id}).$promise.then(function(data){
@@ -507,7 +507,7 @@ angular.module('adminApp')
     })
   }
 
-  $scope.remove = function(usu_id)
+/*  $scope.remove = function(usu_id)
   {
     RolesUsuarios.update({ru_id:id, rol_id:$scope.rol_id, ru_estado:"INACTIVO"}).$promise.then(function(data)
     {
@@ -517,10 +517,10 @@ angular.module('adminApp')
         $route.reload();
       }
     })
-  }
+  }*/
 }])
 
-.controller('UsuariosEstabCtrl', ['CONFIG', '$scope', 'UsuariosEstab', '$routeParams', 'toastr', '$route', 'RolesUsuarios', 'Usuarios', function (CONFIG,$scope,UsuariosEstab,$routeParams,toastr,$route,RolesUsuarios,Usuarios) {
+.controller('UsuariosEstabCtrl', ['CONFIG', '$scope', 'UsuariosEstab', '$routeParams', 'toastr', '$route', /*'RolesUsuarios',*/ 'Usuarios', function (CONFIG,$scope,UsuariosEstab,$routeParams,toastr,$route,/*RolesUsuarios,*/Usuarios) {
   $scope.ajustes = {
     menu:{
       titulo: 'Gestión de usuarios',
@@ -594,7 +594,7 @@ angular.module('adminApp')
     ru_estado: "ACTIVO"
   };
 
-  $scope.cambiar_rol = function(rol_nuevo){
+/*  $scope.cambiar_rol = function(rol_nuevo){
     console.log($scope.usu);
     RolesUsuarios.update({ru_id:$scope.ru_id}, $scope.usu).$promise.then(function(data){
       if(data.status){
@@ -602,7 +602,7 @@ angular.module('adminApp')
         $route.reload();
       }
     })
-  }
+  }*/
 
   $scope.restablecer_contrasenia = function(usu_id,per_id){
     Usuarios.update({usu_id:usu_id, per_id:per_id}).$promise.then(function(data){
@@ -614,7 +614,7 @@ angular.module('adminApp')
     })
   }
 
-  $scope.remove = function(usu_id)
+/*  $scope.remove = function(usu_id)
   {
     RolesUsuarios.update({ru_id:id, rol_id:$scope.rol_id, ru_estado:"INACTIVO"}).$promise.then(function(data)
     {
@@ -624,7 +624,7 @@ angular.module('adminApp')
         $route.reload();
       }
     })
-  }
+  }*/
 }])
 
 

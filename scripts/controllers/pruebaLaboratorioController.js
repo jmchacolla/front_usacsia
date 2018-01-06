@@ -12,7 +12,7 @@ angular.module("adminApp")
     }
   }
   
-  $scope.sortType = 'per_id'; // set the default sort type
+  $scope.sortType = 'pl_id'; // set the default sort type
   $scope.sortReverse  = true;  // set the default sort order
   $scope.Personas = [];
 

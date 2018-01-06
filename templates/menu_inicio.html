@@ -77,12 +77,7 @@
 				            <span class="glyphicon glyphicon-asterisk" aria-hidden="true"></span>
 				            Establecimiento USACSIA</a>
 			           	</li>
-				        <li ng-show="menu.CONFIG.ROL_CURRENT_USER == 1 || menu.CONFIG.ROL_CURRENT_USER == 7">
-							<a href="#/establecimientossol">
-							<span class="glyphicon glyphicon-asterisk" aria-hidden="true"></span>
-							Establecimientos Solicitantes</a>
-						</li>
-						<li ng-show="menu.CONFIG.ROL_CURRENT_USER == 1 || menu.CONFIG.ROL_CURRENT_USER == 7 || menu.CONFIG.ROL_CURRENT_USER == 2">
+				        <li ng-show="menu.CONFIG.ROL_CURRENT_USER == 1 || menu.CONFIG.ROL_CURRENT_USER == 7 || menu.CONFIG.ROL_CURRENT_USER == 2">
 							<a href="#/tramites_concluidos">
 							<span class="glyphicon glyphicon-asterisk" aria-hidden="true"></span>
 							Tramites concluidos</a>
@@ -96,11 +91,36 @@
 							<span class="glyphicon glyphicon-asterisk" aria-hidden="true"></span>
 								Numeros de muestra asignados</a>
 						</li>
+						<li ng-show="menu.CONFIG.ROL_CURRENT_USER == 1 || menu.CONFIG.ROL_CURRENT_USER == 7">
+							<a href="#/establecimientossol">
+							<span class="glyphicon glyphicon-asterisk" aria-hidden="true"></span>
+							Establecimientos Solicitantes</a>
+						</li>
 						<li ng-show="menu.CONFIG.ROL_CURRENT_USER == 1 || menu.CONFIG.ROL_CURRENT_USER == 14">
 							<a href="#/asignacion_zonas/crear" >
 							<span class="glyphicon glyphicon-asterisk" aria-hidden="true"></span>
 								Asignacion de zonas a inspectores</a>
 						</li>
+						<li ng-show="menu.CONFIG.ROL_CURRENT_USER == 1 || menu.CONFIG.ROL_CURRENT_USER == 3" >
+			            	<a href="#/tramites_certi">
+			            	<span class="glyphicon glyphicon-asterisk" aria-hidden="true"></span>
+			           		Tramites certificado propietarios naturales</a>
+			            </li>
+			             <li ng-show="menu.CONFIG.ROL_CURRENT_USER == 1 || menu.CONFIG.ROL_CURRENT_USER == 3" >
+			            	<a href="#/tramites_certiJ">
+			            	<span class="glyphicon glyphicon-asterisk" aria-hidden="true"></span>
+			           		Tramites certificado propietarios juridicos</a>
+			            </li>
+			            <li ng-show="menu.CONFIG.ROL_CURRENT_USER == 1 || menu.CONFIG.ROL_CURRENT_USER == 16" >
+			            	<a href="#/tramites_nat">
+			            	<span class="glyphicon glyphicon-asterisk" aria-hidden="true"></span>
+			           		Propietarios Naturales</a>
+			            </li>
+			            <li ng-show="menu.CONFIG.ROL_CURRENT_USER == 1 || menu.CONFIG.ROL_CURRENT_USER == 16" >
+			            	<a href="#/tramites_jur">
+			            	<span class="glyphicon glyphicon-asterisk" aria-hidden="true"></span>
+			           		Propietarios Juridicos</a>
+			            </li>
 						<li ng-show="menu.CONFIG.ROL_CURRENT_USER == 1 || menu.CONFIG.ROL_CURRENT_USER == 7">	 <a href="#/homepais">
 				            <span class="glyphicon glyphicon-asterisk" aria-hidden="true"></span>
 				            Tablas administrativas</a>
@@ -110,6 +130,7 @@
 			            	<span class="glyphicon glyphicon-asterisk" aria-hidden="true"></span>
 			           		Usuarios</a>
 			            </li>
+			            
 			    	</ul>
 				</li>
 				<li class="dropdown">

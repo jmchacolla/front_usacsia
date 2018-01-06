@@ -21,7 +21,7 @@
         <div class="row">
           <div class="col-md-12">
             <h3 class="text-center text-primary">
-             I. DASTOS PERSONALES
+             I. DATOS PERSONALES
             </h3>
             <hr class="bg-red">
           </div>
@@ -45,10 +45,10 @@
             <label class="text-primary">Fecha de Nacimiento:</label><br>
             {{pertramite.persona.per_fecha_nacimiento}}
           </div>
-          <div class="col-md-3 col-sm-6">
+          <!-- <div class="col-md-3 col-sm-6">
             <label class="text-primary">Genero:</label><br>
             {{pertramite.persona.per_genero}}
-          </div>
+          </div> -->
         </div>
 
         <div class="row">
@@ -106,7 +106,7 @@
             </div>
             <div class="col-md-12 col-sm-12" ng-show="receta">
               <label class="text-primary">Tratamiento:</label><br>
-              <textarea class="col-md-12 col-sm-12" rows="10">{{receta.rec_texto}}</textarea>
+              <textarea disabled class="col-md-12 col-sm-12" rows="10">{{receta.rec_texto}}</textarea>
             </div>
 
           </div>

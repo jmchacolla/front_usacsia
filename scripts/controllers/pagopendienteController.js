@@ -7,18 +7,17 @@ angular.module("adminApp")
         menu:{
           titulo: 'Búsqueda de Establecimiento',
           items:[
-            {nombre:'Buscar empresa solicitante', enlace:'#/buscar-propietario', estilo:''},
-            {nombre:'Registrar pago', enlace:'#/boleta-ces/'+et_id, estilo:'active'},
-            {nombre:'Lista de pagos', enlace:'#/', estilo:''}
-            /*{nombre:'Imprimir boleta de pago', enlace:'#/pago-pendiente', estilo:''}*/]
+            {nombre:'Solicitudes de Propietarios Naturales', enlace:'#/tramites_certi', estilo:''},
+            {nombre:'Solicitudes de Propietarios Juridicos', enlace:'#/tramites_certiJ', estilo:''},
+            {nombre:'Buscar empresa solicitante', enlace:'#/buscar-propietario', estilo:''}/*,
+            {nombre:'Registrar pago', enlace:'#/boleta-ces/'+et_id, estilo:'active'}*/
+           ]
         },
         pagina:{
           titulo:'Boleta de pago Formulario N° 1'
         }
       }
-
-
-    EmpTra.get({et_id:et_id}, function (argument) {
+EmpTra.get({et_id:et_id}, function (argument) {
       console.log('argument-------', argument);
       $scope.establecimiento=argument.establecimiento;
     })
