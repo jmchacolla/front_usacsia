@@ -53,7 +53,10 @@ angular.module("adminApp", ["authService", "ngRoute", "ngResource", "satellizer"
     authorized: [ROLES.ADMIN_USACSIA.ROL, ROLES.MEDICO.ROL]
   }
 })
-
+.when('/plantillaPDF', {
+  templateUrl: 'templates/plantillaPDF.html',
+  controller: 'PlantillaPDFCtrl'
+})
 //jhon==========================================================================
 
 

@@ -426,6 +426,11 @@ angular.module("adminApp")
   })
 }])
 
+.factory('FuncionarioPer', ['$resource', 'CONFIG', function ($resource, CONFIG){
+  return $resource(CONFIG.DOMINIO_SERVICIOS+"/funcionarios_per/:per_id", {per_id:"@per_id"}, {
+    update: {method: "PUT", params: {per_id: "@per_id"}}
+  })
+}])
 
 
 
