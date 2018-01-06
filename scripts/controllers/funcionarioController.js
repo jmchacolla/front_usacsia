@@ -1,8 +1,8 @@
 'use strict';
 angular.module("adminApp")
 
-.controller('FuncionarioCtrl', ['CONFIG',/*'authUser',*/'$scope','Funcionarios','$route','$routeParams','toastr','$location',
-  function (CONFIG,/*authUser,*/$scope,Funcionarios,$route,$routeParams,toastr,$location){
+.controller('FuncionarioCtrl', ['CONFIG',/*'authUser',*/'$scope','Funcionarios','$route','$routeParams','toastr','$location','Func',
+  function (CONFIG,/*authUser,*/$scope,Funcionarios,$route,$routeParams,toastr,$location,Func){
   $scope.ajustes = {
     menu:{
       titulo: 'Gestión de Funcionarios de USACSIA',
@@ -26,6 +26,7 @@ angular.module("adminApp")
       
     }
     else{*/
+    
       var FunG = localStorage.getItem("Funcionario");
       var FunG = JSON.parse(FunG);
   
@@ -53,51 +54,41 @@ angular.module("adminApp")
   });
 
   var id = 0;
+  var per_id = 0;
   $scope.nombre_completo = "";
   $scope.funcionarioPer = {
-    fe_cargo : "",
-   fe_profesion:"",
-   /* fe_memorandum : "",*/
-    fe_estado : "INACTIVO"
+    per_id:null,
+    fun_cargo : "",
+    fun_profesion:"",
+    fun_estado : "INACTIVO"
   };
 
+
+ 
   $scope.get_fe_id = function(fun_id, fe_paterno, fe_materno, fe_nombre, fe_cargo,fun_profesion/*, fe_estado_laboral, fe_inicio_trabajo,fe_fin_trabajo,fe_memorandum*/) {
     id = fun_id;
+
+    console.log('________datos recuperados____',fe_paterno-fe_materno);
     $scope.nombre_completo = fe_paterno + " " + fe_materno + " " + fe_nombre;
-    $scope.funcionarioPer.fe_cargo = fe_cargo;
-    $scope.funcionarioPer.fe_profesion = fun_profesion;
-    /* $scope.funcionarioPer.fe_estado_laboral = fe_estado_laboral;
-   $scope.funcionarioPer.fe_inicio_trabajo = fe_inicio_trabajo;
-    $scope.funcionarioPer.fe_fin_trabajo = fe_fin_trabajo;
-    $scope.funcionarioPer.fe_memorandum = fe_memorandum;*/
+    $scope.funcionarioPer.fun_cargo = fe_cargo;
+    $scope.funcionarioPer.fun_profesion = fun_profesion;
+/*    $scope.funcionarioPer.per_id = per_id;*/
     $scope.funcionarioPer.fun_estado = "INACTIVO";
     console.log($scope.funcionarioPer,id);
   }
 
-  $scope.remove = function(fun_id)
+   $scope.remove = function(fe_id)
   {
-    /*if($scope.funcionarios.fe_estado_laboral == "POR CONTRATAR"){
-      $scope.funcionarioPer.fe_memorandum = null;
-    } 
+    console.log("____para editar_", $scope.funcionarioPer);
 
-    ///MIENTRAS NO SE USEN LAS FECHAS
-    if($scope.funcionarioPer.fe_inicio_trabajo == null){
-       $scope.funcionarioPer.fe_inicio_trabajo="01-01-2001";
-    }
-    if($scope.funcionarioPer.fe_fin_trabajo == null){
-       $scope.funcionarioPer.fe_fin_trabajo="01-01-2001";
-    }*/
-      
-    Funcionarios.delete({fun_id:id}, $scope.funcionarioPer).$promise.then(function(data){
+    Func.update({fun_id:id}, $scope.funcionarioPer).$promise.then(function(data){
       if(data.status){
         toastr.success('ELIMINADO CORRECTAMENTE');
-         $timeout(function() {
-          $route.reload();
-           /*$location.path('/funcionarios');*/
-        },1000);
+        $route.reload();
       }
     })
   } 
+ 
 }])
 
 
@@ -962,7 +953,7 @@ function controladorPrincipal_fun($http, $scope, CONFIG){
       $http.get(CONFIG.DOMINIO_SERVICIOS+'/personas_ci/'+$scope.per_ci).success(function(respuesta){
      
           $scope.personas = respuesta.persona.persona;
-          console.log($scope.persona);
+          console.log($scope.personas);
           $scope.tamanio=$scope.personas.length;
           console.log($scope.personas,"PERSONAS",$scope.tamanio);
           if(respuesta.persona){
@@ -983,17 +974,21 @@ function controladorPrincipal_fun($http, $scope, CONFIG){
 
 function controladorPrincipal_Pre($http, $scope, CONFIG, toastr){
   var vm=this;
+  console.log("___LLEGO ABUSQUEDA__");
   $scope.ss="dcs";
   //$scope.tamanio=0;
   $scope.pre_reg=false;
   vm.buscaPersona = function(){
-      $scope.tamanio="Cargando...";//////CAMBIADO
+      $scope.tamanio="Cargando...";
+
       $http.get(CONFIG.DOMINIO_SERVICIOS+'/personasb/'+vm.per_ci).success(function(respuesta){
           if(respuesta.personas.length != 0){
               $scope.pre_reg=true;
+              console.log("__pre_reg true__",$scope.pre_reg);
               toastr.warning('EL CI INTRODUCIDO YA EXISTE');
           } else if (respuesta.personas.length == 0){
               $scope.pre_reg=false;
+              console.log("__pre_reg__",$scope.pre_reg);
           }  
       });
   }

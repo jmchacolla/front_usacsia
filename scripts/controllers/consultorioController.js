@@ -187,7 +187,7 @@ function (CONFIG,/*authUser,*/ $scope, $routeParams, Consultorios,ConsultoriosLi
 	$scope.consultorios ={
 		usa_id:1,
 		amb_nombre:"",
-		amb_tipo:"",
+		amb_tipo:"CONSULTORIO",
 		amb_descripcion:"",
 		con_cod:"",
 		con_tipo:null,
@@ -204,6 +204,7 @@ function (CONFIG,/*authUser,*/ $scope, $routeParams, Consultorios,ConsultoriosLi
   
 	$scope.submit =function()
 	{
+		$scope.consultorios.amb_tipo="CONSULTORIO";
 		Cons.save($scope.consultorios).$promise.then(function(data)
 		{
 			if(data.msg)

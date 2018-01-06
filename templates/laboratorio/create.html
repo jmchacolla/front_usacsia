@@ -52,20 +52,18 @@
             </div>
           </div>
           <div class="row">
-            <div class="col-md-6">
+           <!--  <div class="col-md-6">
               <label for="tipolab" class="control-label">Tipo: <strong class="fg_red">*</strong></label>
               <select class="form-control" name="tipolab" ng-model="laboratorios.amb_tipo" ng-model-options="{ updateOn: 'blur' }" required >
                 <option>CONSULTORIO</option>
                 <option>LABORATORIO</option>
-                <!-- <option>SALA</option>
-                <option>ENFERMERÍA</option>
-                <option>OTRO</option> -->
+              
               </select>
               <span class="messages" ng-show="addLaboratorio.tipolab.$touched">
                 <span ng-show="addLaboratorio.tipolab.$error.required">El campo es obligatorio.</span>
                 <span ng-show="addLaboratorio.tipolab.$error.pattern">No se admiten símbolos especiales o números.</span>
               </span>
-            </div> 
+            </div>  -->
             <div class="col-md-6">
               <label for="comentarios" class="control-label">Descripción: <strong class="fg_red">*</strong></label>
               <textarea class="form-control" name="comentarios" rows="6" cols="35" placeholder="Descripción" style="resize: vertical;min-height:70px;max-height: 150px;" ng-model="laboratorios.amb_descripcion" ng-model-options="{ updateOn: 'blur' }" required ng-pattern="patternCadenaNumero" ></textarea>

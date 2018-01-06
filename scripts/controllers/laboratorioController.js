@@ -141,6 +141,7 @@ function (CONFIG,/*authUser,*/ $scope, $routeParams, Laboratorios, /*Cons,*/ toa
 
 	$scope.submit =function()
 	{
+		$scope.laboratorios.amb_tipo="LABORATORIO";
 		Labs.save($scope.laboratorios).$promise.then(function(data)
 		{
 			if(data.msg)

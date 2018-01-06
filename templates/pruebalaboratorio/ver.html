@@ -16,11 +16,11 @@
   <div class="col-md-12">
 <!--  -->
           <form name="userForm" novalidate>
-            <h1 class="h1">{{prueba_laboratorio.mue_num_muestra}}</h1>
+           <!--  <h1 class="h1">{{prueba_laboratorio.mue_num_muestra}}</h1> -->
             <div class="well well-sm">
                       <div class="panel">
                         <h4 class="text-center text-primary">I. DATOS GENERALES DE LA PERSONA</h4>
-                        <hr class="bg-green">
+                        <hr class="bg-red">
                         <div class="panel-body">
                           <div class="row">
                               <div class="col-md-6 col-sm-6 col-xs-12">
@@ -45,7 +45,7 @@
 
                     <div class="panel">
                         <h4 class="text-center text-primary">II. EXAMEN MICROSCÓPICO</h4>
-                        <hr class="bg-green">
+                        <hr class="bg-red">
                         <div class="panel-body">
                           <div class="row">
                               <div class="col-md-4 col-sm-6 col-xs-12">
@@ -80,6 +80,7 @@
                             <!-- comienzan las tablas -->
                             <div class="panel">
                                <h4 class="text-center text-primary">PARÁSITOS ENCONTRADOS</h4>
+<hr class="bg-red">
 
                                 <div class="panel-body">
                                   <span class="messages" ng-show="tam==0">Debe haber por lo menos un parásito encontrado.</span>

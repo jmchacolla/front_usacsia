@@ -1,7 +1,7 @@
 'use strict';
 angular.module("adminApp")
-.controller('PreregistroCtrl', ['$scope', '$route','PersonasTemporal','toastr','$location', '$timeout', 'vcRecaptchaService','$http','CONFIG','Zonas',
- function ($scope, $route, PersonasTemporal, toastr, $location, $timeout, vcRecaptchaService, $http, CONFIG,Zonas){
+.controller('PreregistroCtrl', ['$scope', '$route','PersonasC','toastr','$location', '$timeout', 'vcRecaptchaService','$http','CONFIG','Zonas',
+ function ($scope, $route, PersonasC, toastr, $location, $timeout, vcRecaptchaService, $http, CONFIG,Zonas){
 	//$scope.ajustes es un objeto de configuracion de las paginas y menus
 	$scope.ajustes = {
 	  menu:{
@@ -21,7 +21,7 @@ angular.module("adminApp")
     $scope.pase=true;
 	};
 
-	$scope.persona = {
+/*	$scope.persona = {
     per_ci: null,
     per_ci_expedido: null,
     per_nombres: null,
@@ -39,9 +39,36 @@ angular.module("adminApp")
     mun_id: null,
     per_tipo: "DOMICILIO",
     per_nacion: null,
-    per_tipo_documento: ""
-  };
+    per_tipo_documento: "",
 
+    ima_nombre: "perfil.jpg",
+    ima_enlace: "./img-per",
+    ima_tipo: ""
+  };*/
+ $scope.persona = {
+    zon_id:null,
+    per_ci: null,
+    per_tipo_documento: "",
+    per_pais: null,
+    per_ci_expedido: "",
+    per_nombres: null,
+    per_apellido_primero: null,
+    per_apellido_segundo: null,
+    per_fecha_nacimiento: null,
+    per_genero: null,
+    per_email: null,
+    per_numero_celular: null,
+    per_clave_publica: "",
+    per_avenida_calle: "",
+    per_numero:null,
+    per_ocupacion:"",
+    per_tipo_permanencia: "",
+    per_nacion: null,
+    ima_nombre: "perfil.jpg",
+    ima_enlace: "./img-per",
+    ima_tipo: ""
+    
+  };
   $scope.patternCadena = /^[a-zA-ZñÑáéíóúÁÉÍÓÚ ]*$/;
   $scope.patternCadenaNumero = /^[a-zA-ZñÑáéíóúÁÉÍÓÚ 0-9.-]*$/;
 
@@ -83,7 +110,7 @@ angular.module("adminApp")
   };
 
   $scope.zon=false;
-
+$scope.zon_selec="";
   $scope.ver_zonas=function(mun_id){
       console.log(mun_id+"<<< MUN_ID");
       $scope.zon=false;
@@ -97,11 +124,20 @@ angular.module("adminApp")
       })
   };
 
-  $scope.ver_estab=function(){
+/*  $scope.ver_estab=function(){
     var zona=$scope.persona.per_zona_comunidad.zon_id;
     $http.get(CONFIG.DOMINIO_SERVICIOS+'/establecimientos_por_zona/'+zona).success(function(respuesta){
        $scope.establecimientos=respuesta.zona;
         console.log($scope.establecimientos+"VALOR");
+    });
+  };*/
+
+    $scope.ver_selec=function(zon_id){
+   console.log(zon_id+"<<< ZON_ID");
+    $http.get(CONFIG.DOMINIO_SERVICIOS+'/zonass/'+zon_id).success(function(respuesta){
+       $scope.wen=respuesta.zona;
+        console.log($scope.wen.zon_nombre+"__ZONAS__wendy");
+        console.log(respuesta.zona+"__respuesta__wendy");
     });
   };
 
@@ -157,7 +193,7 @@ angular.module("adminApp")
         if($scope.persona.per_tipo_documento=="PASAPORTE"){
           $scope.persona.per_ci_expedido="EXTRANJERO";
         }
-        PersonasTemporal.save($scope.persona).$promise.then(function(data)
+        PersonasC.save($scope.persona).$promise.then(function(data)
         {
             if(data.msg)
             {
@@ -186,7 +222,7 @@ angular.module("adminApp")
    
     $timeout(function() {
       if(valor!=false)
-      { //console.log("entro a la functionnnnnn "+valor);
+      { console.log("entro a la functionnnnnn "+valor);
         $route.reload();
       } else
       {

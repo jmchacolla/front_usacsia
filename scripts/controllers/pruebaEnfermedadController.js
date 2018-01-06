@@ -33,7 +33,7 @@ var pm_id=$routeParams.pm_id;
         $scope.per=argument.per;
         console.log('argument-------', argument);
       });
-
+/*console.log('___PARA VER EL ESTADO__', $scope.prueba_laboratorio.pl_estado);*/
     });
     $scope.cambiartrue=function (enfe_id, enf_nombre, pre_id) {
       $scope.pruebaenfermedad={

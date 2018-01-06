@@ -7,7 +7,7 @@ angular.module("adminApp")
         dataUrl: ''
     };
     $scope.fileReaderSupported = window.FileReader != null;
-    console.log("que rayos es filesreadersupported",$scope.fileReaderSupported);
+  
         $scope.photoChanged = function(files){
             if (files != null) {
                 console.log("que rayos es files",files);
@@ -22,7 +22,8 @@ angular.module("adminApp")
                         });
                     }
                     $scope.persona.ima_nombre=file.name;  //obtenemos el nombre de la imagen :)
-                    console.log("IMAGENNN",$scope.persona.ima_nombre);
+                    console.log("IMAGENNN 1",$scope.persona.ima_nombre);
+$scope.persona.ima_nombre=file.name; 
                    $scope.persona.imagen/*[0]*/.ima_nombre=file.name;//para editar
                     console.log("IMAGENNN para editar",$scope.persona.imagen/*[0]*/.ima_nombre);
                      $scope.persona.imagen/*[0]*/.ima_nombre=file.name;
@@ -49,9 +50,10 @@ angular.module("adminApp")
 
 
     vm.enviar=function() {
+        if (vm.ima_nombre) {
         //Asignamos el file-model a la variable file, gracias a la directiva de mas arriba.
         var file = vm.ima_nombre;
-        console.log("funcion enviar agarra nombre",file);
+        console.log("funcion enviar agarra nombre",vm.ima_nombre);
         var fd = new FormData();
         fd.append('file', file); //Agregamos data al "formulario" que vamos a enviar
 
@@ -68,7 +70,7 @@ angular.module("adminApp")
 
         });
              $scope.msg="Imagen cargada correctamente";
-        
+        } 
     };
 }])
 
