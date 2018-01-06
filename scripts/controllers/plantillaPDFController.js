@@ -1,35 +1,20 @@
 'use strict';
 angular.module("adminApp")
 
-.controller('CertificadoCtrl', ['CONFIG', /*'authUser',*/ '$scope', 'EmpTra', '$route', '$routeParams', 'toastr', '$location', function (CONFIG,/*authUser,*/$scope,EmpTra,$route,$routeParams,toastr,$location) {
-    
-    var et_id = $routeParams.et_id;
-    EmpTra.get({et_id:et_id}, function(data)
-    {
-        console.log('la data-------',data);
-        $scope.empresatramite=data.establecimiento;
-
-        $scope.ajustes = {
-          menu:{
-            titulo: 'Impresión de certificado sanitario',
-            items:[
-              {nombre:'Establecimientos inspeccionados', enlace:'#/lista-inspeccionados', estilo:''},
-              {nombre:'Detalle de trámite', enlace:'', estilo:'active'}
-              ]
-          },
-          pagina:{
-            titulo:'Certificado Sanitario trámite N°: '+$scope.empresatramite.empresa_tramite.et_numero_tramite
-          }
-        }
-
-    })
+.controller('PlantillaPDFCtrl', ['CONFIG', /*'authUser',*/ '$scope', 'EmpTra', '$route', '$routeParams', 'toastr', '$location', function (CONFIG,/*authUser,*/$scope,EmpTra,$route,$routeParams,toastr,$location) {
 
 
-}])
 
-.controller('PdfCertificadoCtrl', ['CONFIG', /*'authUser',*/ '$scope', 'EmpTra', '$route', '$routeParams', 'toastr', '$location', function (CONFIG,/*authUser,*/$scope,EmpTra,$route,$routeParams,toastr,$location) {
-
-
+$scope.ajustes = {
+      menu:{
+        titulo: 'Gestion de Pruebas Medicas',
+        items:[
+          {nombre:'Ver tutorial', enlace:'http://pdfmake.org/playground.html'}]
+      },
+      pagina:{
+        titulo:'http://pdfmake.org/playground.html'
+      }
+    }
   var et_id = $routeParams.et_id;
   var FunG = localStorage.getItem("Funcionario");
   var FunG = JSON.parse(FunG);
@@ -58,6 +43,10 @@ angular.module("adminApp")
         var nroregistro='';
         var kardex='';
 
+        var autor='';
+        var fecha='';
+        var periodo='';
+
 
         var img2 =convertImgToDataURLviaCanvas("./scripts/escudo-gober.png", function(base64Img) {
           gober =base64Img;
@@ -83,89 +72,108 @@ angular.module("adminApp")
                   },
                   content:[
                     {
-                      image:gober, width:125, height:125, absolutePosition:{x:30, y:50}
+                      image:gober, width:50,/* height:125,*/ absolutePosition:{x:30, y:30}
                     },
                     {
-                      image:sedes, width:80, height:125, absolutePosition:{x:480, y:50}
+                      image:sedes, width:30, /*height:125,*/ absolutePosition:{x:550, y:30}
                     },
                     {
                       image: watermark, width: 300, height:500, absolutePosition:{x:150, y: 200}
                     },
                     {
-                      text:'GOBIERNO AUTÓNOMO DEPARTAMENTAL DE LA PAZ', fontSize: 22, alignment: 'center', color:'#BA0000', bold: true,
+                      text:'GOBIERNO AUTÓNOMO DEPARTAMENTAL DE LA PAZ', fontSize: 12, alignment: 'center', color:'#BA0000', bold: true,
                     },
                     {
-                      text:'SERVICIO DEPARTAMENTAL DE SALUD', fontSize: 18, alignment: 'center', color:'#BA0000', margin:[0,20,0,0], bold: true,
+                      text:'SERVICIO DEPARTAMENTAL DE SALUD', fontSize: 12, alignment: 'center', color:'#BA0000', margin:[0,0,0,0], bold: true,
                     },
                     {
-                      text:'UNIDAD DE SALUD AMBIENTAL, CONTROL SANITARIO\n E INOCUIDAD ALIMENTARIA ', fontSize: 13, alignment: 'center', color:'#BA0000', margin:[0,20,0,0]
+                      text:'UNIDAD DE SALUD AMBIENTAL, CONTROL SANITARIO E INOCUIDAD ALIMENTARIA ', fontSize: 12, alignment: 'center', color:'#BA0000', margin:[0,0,0,0]
                     },
                     {
-                      text:'CERTIFICADO SANITARIO ', fontSize: 45, bold:true, alignment: 'center', color:'#007E31', margin:[0,30,0,0]
+                      text:'ÁREA DE CERTIFICADO SANITARIO ', fontSize: 12, bold:true, alignment: 'center', color:'#007E31', margin:[0,0,0,0]
                     },
                     {
-                      text: 'Que de conformidad a alos Art. 57 al 70 Capítulo V, del Control Sanitario de Establecimientos Públicos y de alimentos en actual vigencia, El Servicio Departamental de Salud, Autoriza el Funcionamiento de:', fontSize:10, alignment:'center', bold:true, margin:[40,0,40,0]
+                      table:{
+                        widths:[120, 120, 120, 120],
+                        body:[
+                                [
+                                  {text:'Nombre:'},
+                                  {text:'autor'},
+                                  {text:'Fecha:'},
+                                  {text:'fecha'}
+                                ],
+                                [
+                                  {text:'Periodo:'},
+                                  {text:'periodo'},
+                                  {text:''},
+                                  {text:''}
+                                ],
+                        ]
+                      },
+                      margin:[20, 30, 10, 0],
+                      layout: 'noBorders',
+                      border: [false, false, false, false]
                     },
                     {
                       table:{
                         
-                        widths:[120, 120, 120, 120],
+                        widths:[120, 120, 120, 120],//------anchode las columnas
                         body:[
                               [
-                                {text:'RAZON SOCIAL RAZON SOCIAL RAZON SOCIAL', colSpan:3, alignment:'right', fontSize:34, bold:true,italics: true},
-                                {},
-                                {},
-                                {qr: 'textoqr', fit:100, alignment: 'right'}
+                                {text:'RAZON SOCIAL RAZON SOCIAL RAZON SOCIAL', alignment:'right', fontSize:12, bold:true,italics: true},
+                                {text:'text'},
+                                {text:'text'},
+                                {text:'right'}
                               ],
                               [
-                                {text:'DENOMINACIÓN', colSpan:4, alignment:'center', fontSize:13, bold:true},
-                                {},
-                                {},
-                                {}
+                                {text:'DENOMINACIÓN', colSpan:4, alignment:'center', fontSize:12, bold:true},
+                                {text:'text'},
+                                {text:'text'},
+                                {text:'text'}
                               ],
                               [
-                                {text:'CLASIFICACIÓN: ', alignment:'left', bold:true, fontSize:13},
-                                {text:'clasificacion', alignment:'center', bold:true, fontSize:15},
-                                {text:'DERECHO DE: ', alignment:'left', bold:true, fontSize:13},
-                                {text:'tipotramite', alignment:'center', bold:true, fontSize:15},
+                                {text:'CLASIFICACIÓN: ', alignment:'left', bold:true, fontSize:12},
+                                {text:'clasificacion', alignment:'center', bold:true, fontSize:12},
+                                {text:'DERECHO DE: ', alignment:'left', bold:true, fontSize:12},
+                                {text:'tipotramite', alignment:'center', bold:true, fontSize:12},
                               ],
                               [
-                                {text:'ITEM: ',alignment:'left', bold:true, fontSize:13},
-                                {text:'item', alignment:'center', bold:true, colSpan:3, fontSize:15},
-                                {},
-                                {},
-                              ],
-                              [
-                                {text:'PROPIETARIO: ',alignment:'left', bold:true, fontSize:13},
-                                {text:'propietario', alignment:'center', bold:true, colSpan:3, fontSize:15},
+                                {text:'ITEM: ',alignment:'left', bold:true, fontSize:12},
+                                {text:'item', alignment:'center', bold:true, colSpan:3, fontSize:12},
                                 {},
                                 {},
                               ],
                               [
-                                {text:'DIRECCIÓN: ',alignment:'left', bold:true, fontSize:13},
-                                {text:'direccion', alignment:'center', bold:true, colSpan:3, fontSize:15},
+                                {text:'PROPIETARIO: ',alignment:'left', bold:true, fontSize:12},
+                                {text:'propietario', alignment:'center', bold:true, colSpan:3, fontSize:12},
                                 {},
                                 {},
                               ],
                               [
-                                {text:'GESTIÓN: ',alignment:'left', bold:true, fontSize:13},
-                                {text:'gestion', alignment:'center', bold:true, fontSize:15},
-                                {text:'VENCIMIENTO: ',alignment:'left', bold:true, fontSize:13},
-                                {text:'vencimiento', alignment:'center', bold:true, fontSize:15},
+                                {text:'DIRECCIÓN: ',alignment:'left', bold:true, fontSize:12},
+                                {text:'direccion', alignment:'center', bold:true, colSpan:3, fontSize:12},
+                                {},
+                                {},
                               ],
                               [
-                                {text:'N° DE REGISTRO: ',alignment:'left', bold:true, fontSize:13},
-                                {text:'nroregistro', alignment:'center', bold:true, fontSize:15},
-                                {text:'KARDEX: ',alignment:'left', bold:true, fontSize:13},
-                                {text:'kardex', alignment:'center', bold:true, fontSize:15},
+                                {text:'GESTIÓN: ',alignment:'left', bold:true, fontSize:12},
+                                {text:'gestion', alignment:'center', bold:true, fontSize:12},
+                                {text:'VENCIMIENTO: ',alignment:'left', bold:true, fontSize:12},
+                                {text:'vencimiento', alignment:'center', bold:true, fontSize:12},
+                              ],
+                              [
+                                {text:'N° DE REGISTRO: ',alignment:'left', bold:true, fontSize:12},
+                                {text:'nroregistro', alignment:'center', bold:true, fontSize:12},
+                                {text:'KARDEX: ',alignment:'left', bold:true, fontSize:12},
+                                {text:'kardex', alignment:'center', bold:true, fontSize:12},
                               ],
 
                         ]
                       },
                       margin:[20, 30, 10, 0],
-                      layout: 'noBorders',
+                      // layout: 'noBorders',
                       // layout: 'lightHorizontalLines',
-                      border: [false, false, false, false]
+                      // border: [false, false, false, false]
                     },
                     {
                       table:{
@@ -201,11 +209,11 @@ angular.module("adminApp")
 
                 }
 
-                $scope.openPdfCES = function() {
+                $scope.openPlantillapdf = function() {
                   pdfMake.createPdf(docDefinition).open();
                 };
 
-                $scope.downloadPdfCES = function() {
+                $scope.dowPlantillapdf = function() {
                   pdfMake.createPdf(docDefinition).download();
                 };
 

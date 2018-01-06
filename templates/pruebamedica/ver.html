@@ -71,48 +71,50 @@
           <h3 class="text-center text-primary">III. DATOS DE PRUEBA CLÍNICA</h3>
           <hr class="bg-red">
           <div class="row">
-            <div class="col-md-4 col-sm-4">
-              <label class="text-primary">Diagnóstico:</label><br>
-              {{prueba_medica.prueba_medica.pm_diagnostico}}
+            <div class="col-md-12 col-sm-12 ">
+              <label class="text-primary">Diagnóstico:</label>
+              <div class="well">
+                {{prueba_medica.prueba_medica.pm_diagnostico}}
+              </div>
             </div>
             <div class="col-md-4 col-sm-4">
-              <label class="text-primary">Fecha:</label><br>
+              <label class="text-primary">Fecha:</label>
               {{prueba_medica.prueba_medica.pm_fecha}}
             </div>
             <div class="col-md-4 col-sm-4">
-              <label class="text-primary">F.C.(lpm):</label><br>
+              <label class="text-primary">F.C.(lpm):</label>
               {{prueba_medica.prueba_medica.pm_fc}}
             </div>
             <div class="col-md-4 col-sm-4">
-              <label for="fc" class="text-primary">F.C.(lpm):</label><br>
+              <label for="fc" class="text-primary">F.C.(lpm):</label>
               <span>{{prueba_medica.prueba_medica.pm_fc}}</span>
             </div>
             <div class="col-md-4 col-sm-4">
-              <label for="fr" class="text-primary">F.R.(rpm): </label><br>
+              <label for="fr" class="text-primary">F.R.(rpm): </label>
               <span>{{prueba_medica.prueba_medica.pm_fr}}</span>
             </div>
             <div class="col-md-4 col-sm-4">
-              <label for="pa1" class="text-primary">P.A.S(mmHg): </label><br>
+              <label for="pa1" class="text-primary">P.A.S(mmHg): </label>
               <span>{{prueba_medica.prueba_medica.pm_pa_sistolica}}</span>
             </div>
             <div class="col-md-4 col-sm-4">
-              <label for="pa" class="text-primary">P.A.D(mmHg): </label><br>
+              <label for="pa" class="text-primary">P.A.D(mmHg): </label>
               <span>{{prueba_medica.prueba_medica.pm_pa_diastolica}}</span>
             </div>
             <div class="col-md-4 col-sm-4">
-              <label for="temp" class="text-primary">TEMP(°C):</label><br>
+              <label for="temp" class="text-primary">TEMP(°C):</label>
               <span>{{prueba_medica.prueba_medica.pm_temperatura}}</span>
             </div>
             <div class="col-md-4 col-sm-4">
-              <label for="peso" class="text-primary">PESO(kg):</label><br>
+              <label for="peso" class="text-primary">PESO(kg):</label>
               <span>{{prueba_medica.prueba_medica.pm_peso}}</span>
             </div>
             <div class="col-md-4 col-sm-4">
-              <label for="talla" class="text-primary">TALLA(m):</label><br>
+              <label for="talla" class="text-primary">TALLA(m):</label>
               <span>{{prueba_medica.prueba_medica.pm_talla}}</span>
             </div>
             <div class="col-md-4 col-sm-4">
-              <label for="imc" class="text-primary">IMC(kg/m<sup>2</sup>):</label><br>
+              <label for="imc" class="text-primary">IMC(kg/m<sup>2</sup>):</label>
               <span>{{prueba_medica.prueba_medica.pm_imc}}</span>
             </div>
           </div>

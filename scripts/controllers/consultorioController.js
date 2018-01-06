@@ -259,7 +259,8 @@ function (CONFIG,/*authUser,*/ $scope, $routeParams, Consultorios,ConsultoriosLi
 			con_cod:$scope.consultorio.consultorios.con_cod,
 		};
 	});
-console.log($scope.consultorios,"CONSULTORIOS");
+    
+    console.log($scope.consultorios,"CONSULTORIOS");
 	$scope.submit = function(a){
 		console.log($scope.consultorios,"CONSULTORIOS 22222222");
 		Consultorios.update({amb_id:amb_id}, $scope.consultorios).$promise.then(function(data){

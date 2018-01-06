@@ -26,7 +26,7 @@
                   <label for="E">Empresa</label>
             </li>
             <!-- INSTRUCCIONES PERSONA -->
-            <li>Debe ingresar en el buscador; el n&uacute;mero de carnet del usuario que solicita el registro de su establecimiento.</li>
+            <li>Debe ingresar en el buscador el n&uacute;mero de carnet del usuario que solicita el registro de su establecimiento.</li>
             <li>Luego pulse en <b>Buscar</b></li>
           </ul>
             </p>
@@ -38,13 +38,13 @@
                 <input ng-disabled="persona!=null" name="perci" class="form-control input-lg" ng-model="per_ci" type="text" placeholder="Escriba el Nro. de C.I."  required autofocus>
              </div>
              <div class="col-md-4">
-                <button ng-disabled="persona!=null" class="btn btn-primary btn-lg" ng-click="buscaPersona()"><span class="glyphicon glyphicon-search"></span><strong> BUSCAR</strong></button>
+                <a ng-disabled="persona!=null" class="btn btn-primary btn-lg" ng-click="buscaPersona()"><span class="glyphicon glyphicon-search"></span> BUSCAR</a>
              </div>
             </form>
            </div>  
          </div>
         
-          &nbsp;&nbsp;
+
           <!-- PROPIETARIO PERSONA -->
             <div ng-show="!formcrear"><center><h3>RESULTADOS<span class="text-primary"> {{ resultado }} </span></h3></center></div>
             <!-- SI NO EXISTE LA PERSONA -->
@@ -141,8 +141,8 @@
               </div>    
               </div>
               <div class="text-center">
-                  <button ng-click="recarga()" class="btn btn-primary btn-lg glyphicon glyphicon-search" > VOLVER A BUSCAR</button>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;   
-                  <a href="#/establecimientosol/crear/{{persona.per_id}}"><button class="btn btn-primary btn-lg glyphicon glyphicon-book" > REGISTRAR ESTABLECIMIENTO</button></a>
+                  <a ng-click="recarga()" class="btn btn-primary" ><span class="glyphicon glyphicon-search"></span>  VOLVER A BUSCAR</a>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;   
+                  <a class="btn btn-primary" href="#/establecimientosol/crear/{{persona.per_id}}"><span class="glyphicon glyphicon-book"></span> REGISTRAR ESTABLECIMIENTO</a>
                   
               </div>
             </div>

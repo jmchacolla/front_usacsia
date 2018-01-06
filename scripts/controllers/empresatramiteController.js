@@ -568,3 +568,51 @@ var FunG = localStorage.getItem("Funcionario");
 }])
 
 
+.controller('ListaInspeccionadosCtrl', ['$scope', '$http', 'moment', 'ListaEmpTraEtapaEstado', 'EmpresaTramite', '$route', '$resource','$routeParams', 'toastr', '$location', '$timeout','CONFIG', function ($scope, $http, moment, ListaEmpTraEtapaEstado, EmpresaTramite, $route, $resource,$routeParams, toastr, $location, $timeout,CONFIG) {
+  $scope.ajustes = {
+    menu:{
+      titulo: 'Gestión de trámites Certificado Sanitario',
+      items:[
+        {nombre:'Establecimientos inspeccionados', enlace:'#/lista-inspeccionados', estilo:'active'},
+        {nombre:'Solicitudes de Propietarios Juridicos', enlace:'#/tramites-car', estilo:''},
+        {nombre:'Busqueda de personas registradas', enlace:'#/tramite/crear', estilo:''}]
+    },
+    pagina:{
+      titulo:'Establecimientos inspeccionados'
+    }
+  }
+
+    $scope.sortType = 'te_fecha'; // ESTABLECIENDO EL TIPO DE ORDENAMIENTO
+    $scope.sortReverse  = true;  // PARA ORDENAR ASCENDENTEMENTO O DESCENDENTEMENTE
+    $scope.loading=true;//PARA HACER UN LOADING EN EL TEMPLATE
+    var condiciones={
+      eta_id:1,
+      te_estado:'PENDIENTE'
+
+    }
+  ListaEmpTraEtapaEstado.get(condiciones, function (argument) {
+      $scope.establecimientos = argument.empresa_tramite;
+      console.log('establecimientos', $scope.establecimientos);
+      angular.forEach($scope.establecimientos, function(value, key){
+            console.log( 'fecha:',value.te_fecha);
+            value.te_fecha=moment(value.te_fecha,"YYYY-MM-DD").format("DD-MM-YYYY");
+         });
+    //PARA HACER UN LOADING EN EL TEMPLATE  
+    if(argument.status){
+        $scope.loading = false;
+        $scope.msg = argument.status;
+      }
+    }); 
+  
+
+  // $scope.remove = function(dep_id) {
+  //   ListaEmpTraEtapaEstado.delete({dep_id:dep_id}).$promise.then(function(data){
+  //     if(data.msg){
+  //       $route.reload();
+  //     }
+  //   })
+  // }
+
+
+
+}])
