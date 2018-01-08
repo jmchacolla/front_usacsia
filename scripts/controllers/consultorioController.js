@@ -89,7 +89,9 @@ function (CONFIG,/*authUser,*/ $scope, $routeParams, Consultorios,ConsultoriosLi
 			}
 		})
 	}
+	/*----------------------*/
 
+	
 	$scope.remove = function(){
 	    Consultorios.delete({amb_id:id}).$promise.then(function(data){
 	      if(data.mensaje) {

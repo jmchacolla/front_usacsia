@@ -456,6 +456,11 @@ angular.module("adminApp")
     update: {method: "PUT", params: {dt_id: "@dt_id"}}
   })
 }])
+/*lista los documentos ue registro un tramite en certificado sanitario*/
+.factory('DocumentoTramite2', ['$resource', 'CONFIG', function ($resource, CONFIG){
+  return $resource(CONFIG.DOMINIO_SERVICIOS+"/lista_documentos_x_tramite/:et_id", {et_id:"@_et_id"})
+}])
+
 
 .factory('Documento', ['$resource', 'CONFIG', function ($resource, CONFIG){
   return $resource(CONFIG.DOMINIO_SERVICIOS+"/documento/:doc_id", {doc_id:"@_doc_id"}, {
@@ -488,6 +493,11 @@ angular.module("adminApp")
 
 }])
 
+.factory('PersonasEstablecimiento', ['$resource', 'CONFIG', function ($resource, CONFIG){
+  return $resource(CONFIG.DOMINIO_SERVICIOS+"/personas_x_establecimiento/:ess_id",{ess_id:'@_ess_id'})
+}])
+
+/* /VEROOOO*/
 
 
 /*=========================================USACSIA====================================*/
