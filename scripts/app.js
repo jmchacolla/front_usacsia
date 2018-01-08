@@ -749,6 +749,10 @@ angular.module("adminApp", ["authService", "ngRoute", "ngResource", "satellizer"
     templateUrl: 'templates/empresatramite/boleta-ces-f1.html',
     controller: 'BoletaF1Ctrl'
   })
+   .when('/boleta-ces/:et_id', {
+    templateUrl: 'templates/empresatramite/boleta-ces.html',
+    controller: 'BoletaCesCtrl'
+  })
 
   .when('/pago-pendiente/:pp_id', {
     templateUrl: 'templates/pagopendiente/ver.html',
