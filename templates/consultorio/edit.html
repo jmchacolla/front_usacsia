@@ -27,7 +27,7 @@
           <div class="row">
             <div class="col-md-6">
 				<div class="form-group">
-				  <label for="nombrecons" class="control-label">Nombre del consultorio: <strong class="fg_red">*</strong></label>
+				  <label for="nombrecons" class="control-label text-primary">Nombre del consultorio: <strong class="fg_red">*</strong></label>
 				  <input class="form-control" name="nombrecons" type="text" placeholder="Nombre del consultorio" ng-model="consultorios.amb_nombre" ng-model-options="{ updateOn: 'blur' }" required ng-pattern="patternCadenaNumero" autofocus>
 				  <span class="messages" ng-show="editConsultorio.nombrecons.$touched">
 					<span ng-show="editConsultorio.nombrecons.$error.required">El campo es obligatorio.</span>
@@ -37,7 +37,7 @@
             </div>    
             <div class="col-md-6">
 				<div class="form-group">
-				  <label for="codigo" class="control-label">Código: <strong class="fg_red">*</strong></label>
+				  <label for="codigo" class="control-label text-primary">Código: <strong class="fg_red">*</strong></label>
 				  <input type="" class="form-control" name="codigo" placeholder="Código" ng-model="consultorios.con_cod" ng-model-options="{ updateOn: 'blur' }" required ng-pattern="patternCadenaNumero" >
 				  <span class="messages" ng-show="editConsultorio.codigo.$touched">
 					<span ng-show="editConsultorio.codigo.$error.required">El campo es obligatorio.</span>
@@ -48,7 +48,7 @@
           </div>
           <div class="row">
             <div class="col-md-6">
-              <label for="tipocons" class="control-label">Tipo: <strong class="fg_red">*</strong></label>
+              <label for="tipocons" class="control-label text-primary">Tipo: <strong class="fg_red">*</strong></label>
               <select class="form-control" name="tipocons" ng-model="consultorios.amb_tipo" ng-model-options="{ updateOn: 'blur' }" required >
                 <option>CONSULTORIO</option>
                 <option>LABORATORIO</option>
@@ -71,7 +71,7 @@
             </div>
  -->
             <div class="col-md-6">
-              <label for="nombrecons" class="control-label">Descripción: <strong class="fg_red">*</strong></label>
+              <label for="nombrecons" class="control-label text-primary">Descripción: <strong class="fg_red">*</strong></label>
               <textarea class="form-control" name="comentarios" rows="6" cols="35" placeholder="Descripción" style="resize: vertical;min-height:70px;max-height: 150px;" ng-model="consultorios.amb_descripcion" ng-model-options="{ updateOn: 'blur' }" required ng-pattern="patternCadenaNumero" ></textarea>
               <span class="messages" ng-show="editConsultorio.comentarios.$touched"><br>
                 <span ng-show="editConsultorio.comentarios.$error.required">El campo es obligatorio.</span>
@@ -79,6 +79,23 @@
               </span>
             </div>  
           </div> 
+          <hr>
+          <h4 class="text-primary text-center">ASIGNAR PERSONAL</h4>
+          <hr class="bg-red">
+          <div class="row">
+            <div class="col-md-6">
+              <label class="text-primary">Seleccione un Médico:</label><br>
+              <select class="form-control" name="medico" ng-model="horario.fun_id"  ng-options="medico.fun_id as (medico.fun_cargo+' '+medico.per_nombres+' '+medico.per_apellido_primero) for medico in medicos" required>
+              <option value="">--Elige opcion--</option>
+              </select>
+            </div>
+            <div class="col-md-6">
+              <label class="text-primary">Seleccione personal de enfermería:</label><br>
+              <select class="form-control" name="enfermera" ng-model="horario2.fun_id"  ng-options="enfermera.fun_id as (enfermera.fun_cargo+' '+enfermera.per_nombres+' '+enfermera.per_apellido_primero) for enfermera in enfermeras" required>
+              <option value="">--Elige opcion--</option>
+              </select>
+            </div>
+          </div>
           <hr>
           <div class="row">
             <div class="col-md-6 col-md-offset-3 text-center">

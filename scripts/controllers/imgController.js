@@ -115,6 +115,7 @@ $scope.persona.ima_nombre=file.name;
 
 
         vm.enviar=function() {
+            if (vm.ima_nombre) {
         //Asignamos el file-model a la variable file, gracias a la directiva de mas arriba.
         var file = vm.ima_nombre;
 
@@ -134,6 +135,7 @@ $scope.persona.ima_nombre=file.name;
 
         });
         $scope.msg="Imagen cargada correctamente";
+        }
     };
 }])
 

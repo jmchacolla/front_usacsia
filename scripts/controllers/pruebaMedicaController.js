@@ -1,13 +1,14 @@
 'use-strict';
 angular.module("adminApp")
 
-.controller('PruebaMedicaCtrl', ['$scope', 'PruebaMedica', 'PersonaTramite', '$route', '$resource','$routeParams', 'toastr','$location', '$timeout', 'UltimaFichaAtendida', function ($scope, PruebaMedica, PersonaTramite, $route, $resource,$routeParams, toastr, $location, $timeout, UltimaFichaAtendida){
+.controller('PruebaMedicaCtrl', ['$scope', 'PruebaMedica', 'PersonaTramite','Ficha', '$route', '$resource','$routeParams', 'toastr','$location', '$timeout', 'UltimaFichaAtendida', function ($scope, PruebaMedica, PersonaTramite, Ficha, $route, $resource,$routeParams, toastr, $location, $timeout, UltimaFichaAtendida){
   var pt_id = $routeParams.pt_id;  
   $scope.ajustes = {
       menu:{
         titulo: 'Gestion de Pruebas Medicas',
         items:[
-          {nombre:'Crear prueba medica', enlace:'#/prueba-medica/'+pt_id, estilo:'active'}]
+          {nombre:'Crear prueba medica', enlace:'#/prueba-medica/'+pt_id, estilo:'active'}
+          ]
       },
       pagina:{
         titulo:'Ficha Clínica'
@@ -39,10 +40,14 @@ angular.module("adminApp")
        $scope.pertramite.persona.per_genero='MASCULINO';
      }
    });
+   var FunG = localStorage.getItem("Funcionario");
+   var FunG = JSON.parse(FunG);
+   // console.log("MENUCONTROLLER DATOS FUNCIONARIO jajjajaj", FunG);
+
    $scope.pruebamed={
       pt_id:pt_id,
       ser_id:1,//---------medicina general
-      fun_id:$scope.fun_id,//----------debe ser de sesion
+      fun_id:FunG.fun_id,//----------debe ser de sesion
       fic_id:null,
       pm_fc:"",
       pm_fr:"",
@@ -52,9 +57,8 @@ angular.module("adminApp")
       pm_peso:null,
       pm_talla:null,
       pm_imc:null,
-
-      // pm_fecha:"",
-      // pm_diagnostico:"",
+      pm_una_larga:false,
+      pm_colabora:false
    };
    //calculando IMC
    var peso=0;
@@ -82,12 +86,17 @@ angular.module("adminApp")
     $scope.save = function(){
         console.log('prueba medica ---------', $scope.pruebamed);
       PruebaMedica.save($scope.pruebamed).$promise.then(function(data)
-      {
+      {   var ficha={fic_estado:'ENFERMERIA'};
+          Ficha.update(ficha, {fic_id:$scope.pruebamed.fic_id}).$promise.then(function (data) {
+            if(data.status){
+                    toastr.success('Registrando paciente');
+                  }
+          })
           console.log('prueba medica ---------', data);
             if(data.mensaje){
             toastr.success('Registro realizado correctamente');
             $timeout(function() {
-               $location.path('/prueba-medica/prueba/'+data.prueba_medica.prueba_medica.pm_id);
+               $location.path('/atencion');
                 },1000);
           }
       })
@@ -95,34 +104,34 @@ angular.module("adminApp")
 
 
 }])
-.controller('FichaClinicaCtrl', ['$scope', 'PersonaporCI', 'FichaClinica', '$route', '$resource', '$routeParams', 'toastr', '$location', '$timeout', 'CONFIG', function ($scope, PersonaporCI,FichaClinica, $route, $resource,$routeParams, toastr, $location, $timeout, CONFIG) {
+.controller('FichaClinicaCtrl', ['$scope', 'PersonaporCI', 'FichaClinica', 'UltimaPL', '$route', '$resource', '$routeParams', 'toastr', '$location', '$timeout', 'CONFIG', function ($scope, PersonaporCI,FichaClinica, UltimaPL, $route, $resource,$routeParams, toastr, $location, $timeout, CONFIG) {
     $scope.ajustes = {
       menu:{
         titulo: 'Gestion de Consultas',
         items:[
-          {nombre:'Ciudadanos Registrados', enlace:'#/persona-usacsia', estilo:'active'}]
+          {nombre:'Fichas de atención', enlace:'#/atencion', estilo:''},
+          {nombre:'Atención consulta', enlace:'#/atencion-consulta', estilo:'active'}
+          ]
       },
       pagina:{
         titulo:'Ficha Clínica'
       }
     }
-    var per_ci=$routeParams.per_ci;
-    PersonaporCI.get({per_ci:per_ci},function (data) {
-      console.log('data-------', data);
-      $scope.persona=data.persona;
-      console.log('data-------', $scope.persona);
-    });
-    FichaClinica.get({per_ci:per_ci},function (data) {
-      console.log('data-------', data);
+    var per_id=$routeParams.per_id;
+    console.log('routeParams', per_id);
+
+    FichaClinica.get({per_id:per_id},function (data) {
       $scope.pruebas=data.pruebas;
-      console.log('data-------', $scope.pruebas);
-      if ($scope.pertramite.persona.per_genero=='F' || $scope.pertramite.persona.per_genero=='f'){
-       $scope.pertramite.persona.per_genero='FEMENINO';
-     }
-     else if($scope.pertramite.persona.per_genero=='M' || $scope.pertramite.persona.per_genero=='m'){
-       $scope.pertramite.persona.per_genero='MASCULINO';
-     }
+      $scope.persona=data.persona;
+      $scope.persona.per_fecha_nacimiento=moment($scope.persona.per_fecha_nacimiento,"YYYY-MM-DD").format("DD-MM-YYYY");
+      console.log('data2p------', $scope.pruebas);
+      angular.forEach($scope.pruebas, function(value, key){
+            console.log( 'fecha:',value.pm_fecha);
+            value.pm_fecha=moment(value.pm_fecha,"YYYY-MM-DD").format("DD-MM-YYYY");
+
+         });
     });
+    // UltimaPL.get()
 
 }])
 /*--ver prueba medica por pm_id*/
@@ -132,7 +141,10 @@ angular.module("adminApp")
         menu:{
           titulo: 'Gestion de Consultas',
           items:[
-            {nombre:'Ciudadanos Registrados', enlace:'#/persona-usacsia', estilo:'active'}]
+            {nombre:'Fichas de atención', enlace:'#/atencion', estilo:''},
+            {nombre:'Atención consulta', enlace:'#/atencion-consulta', estilo:'active'}
+
+            ]
         },
         pagina:{
           titulo:'Resultados de prueba medica'
@@ -140,8 +152,10 @@ angular.module("adminApp")
       }
       var pm_id=$routeParams.pm_id;
       PruebaMedica.get({pm_id:pm_id},function (data) {
-        console.log('data-------', data);
         $scope.prueba_medica=data.prueba_medica;
+        console.log('data-------', $scope.prueba_medica);
+        $scope.prueba_medica.paciente.per_fecha_nacimiento=moment($scope.prueba_medica.paciente.per_fecha_nacimiento,"YYYY-MM-DD").format("DD-MM-YYYY");
+        $scope.prueba_medica.prueba_medica.pm_fecha=moment($scope.prueba_medica.prueba_medica.pm_fecha,"YYYY-MM-DD").format("DD-MM-YYYY");
         
       });
 

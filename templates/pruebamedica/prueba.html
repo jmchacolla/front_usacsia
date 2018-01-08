@@ -2,7 +2,7 @@
 <!-- CONTEXT-MENU  -->
   <div ng-include="'./templates/menu_lateral.html'"></div>
 <!-- CONTENIDO MODULO inicio -->
-<!-- CONTENIDO MODULO inicio -->
+
     <div class="col-md-8 col-sm-8">
        <div class="row">
           <div class="col-md-12">
@@ -55,27 +55,30 @@
               </div> 
               <div class="row">
                   <h4 class="text-center text-primary">II. DATOS DE PRUEBA CLÍNICA</h4>
-                      <hr class="bg-red"> 
+                  <hr class="bg-red"> 
               </div>   
               <div class="row">
-                      <div class="col-md-6" ng-repeat='prueba in prueba_medica.pruebas'>
-                          <div class="formulario">
-                                <button type="button" class="btn btn-danger btn-xs"  ng-click="cambiartrue(prueba.enfe_id, prueba.enfe_nombre,prueba.pre_id)" title="Positivo">
-                                  <span class="glyphicon glyphicon-plus"></span>
-                                </button>
-                                <button type="button" class="btn btn-success btn-xs" ng-click="cambiarfalse(prueba.enfe_id, prueba.enfe_nombre,prueba.pre_id)" title="Negativo">
-                                  <span class="glyphicon glyphicon-minus"></span>
-                                </button>
-                                 <label>{{prueba.enfe_nombre}}</label>
-                            <hr>
-                          </div>
+              <!--<div class="col-md-12" align="center">
+                  <a href="" class="btn btn-success"><span class="glyphicon glyphicon-play"></span>VER HISTORIAL CLÍNICO DEL PACIENTE</a>
+                  <hr>
+                </div> -->
+                  <div class="col-md-4 col-sm-6" ng-repeat='prueba in prueba_medica.pruebas'>
+                      <div class="formulario">
+                        <div class="checkbox">
+                         <input type="checkbox" ng-model="prueba.pre_resultado" ng-checked="prueba.pre_resultado" name="n{{$index + 1}}" id="id{{$index + 1}}" ng-click="cambiar(prueba, prueba.enfe_nombre)" >
+                          <label for="id{{$index + 1}}">{{prueba.enfe_nombre}}</label>
+                        </div>
                       </div>
+                  </div>
               </div>
               <div class="row">
                   <h4 class="text-center text-primary">III. RESULTADOS DE LABORATORIO</h4>
                       <hr class="bg-red"> 
               </div>
-              <div class="row"><!-- akiiii -->
+              <div class="row" ng-show="!prueba_laboratorio.pl_id">
+               <h4> <span class="glyphicon glyphicon-alert text-primary"> </span> No se encuentra resulatdos de pruebas de laboratorio.</h4> 
+              </div>
+              <div class="row" ng-show="prueba_laboratorio.pl_id"><!-- akiiii -->
                 <div class="col-md-2">
                   <label class="text-primary">Fecha:</label><br>
                   {{prueba_laboratorio.pl_fecha_recepcion}}
@@ -94,7 +97,7 @@
                 </div>
                 <hr>
               </div>
-              <div class="row">
+              <div class="row" ng-show="prueba_laboratorio.pl_id">
                 <div class="col-md-12">
                   <label class="text-primary">Resultados de prueba:</label>
                   <br>
@@ -114,7 +117,7 @@
                   <hr class="bg-red">
               </div>
               <div ng-show="!vertr">
-                <button type="submit" data-toggle="modal"  class="btn btn-primary" ng-click="vertramite()"><span class="glyphicon glyphicon-pencil"></span> ASIGNAR TRATAMIENTO</button>
+                <button type="submit" data-toggle="modal"  class="btn btn-primary" ng-click="vertratamiento()"><span class="glyphicon glyphicon-pencil"></span> ASIGNAR TRATAMIENTO</button>
               </div>
               <div ng-show="vertr">
                 <div class="row">
@@ -132,14 +135,13 @@
                     <label class="control-label">Detalle de la receta médica: </label><br>
                   </div>
                   <div class="col-md-12">
-                    <textarea ng-model='rec_texto' class="col-md-12 col-sm-12" heigth="100">
-                      
-                    </textarea>
+                    <textarea ng-model='rec_texto' class="col-md-12 col-sm-12" heigth="300"></textarea>
                   </div>
                   <div class="col-md-12">
                     <center>
+                      <br>
                       <button type="submit" data-toggle="modal"  class="btn btn-primary" ng-disabled="userForm.$invalid" ng-click="savetratamiento()"><span class="glyphicon glyphicon-save"></span> GUARDAR TRATAMIENTO</button>
-                      <button class="btn btn-danger"  ng-click="vertramite()"><span class="glyphicon glyphicon-remove"></span> CANCELAR</button>
+                      <button class="btn btn-danger"  ng-click="vertratamiento()"><span class="glyphicon glyphicon-remove"></span> CANCELAR</button>
                     </center>
                   </div>
                 </div>
@@ -149,14 +151,16 @@
                   <h4 class="text-center text-primary">IV. DIAGNÓSTICO</h4>
                   <hr class="bg-red">
               </div>
-              <div class="col-md-12">
-                  <textarea ng-model=prueba_medica.prueba_medica.pm_diagnostico class="col-md-12 col-sm-12" rows="10"></textarea>
+              <span class="btn btn-success" ng-click="clinica()"><span class="glyphicon glyphicon-ok"></span>CLÍNICAMENTE SANO</span>
+              <div class="col-md-12 well">
+                  {{diag}}
               </div>
+
               <br>
               <div class="row">
                   <p ng-show="$parent.ajustes.pagina.success" class="alert alert-success">{{$parent.ajustes.pagina.success}}</p>
                     <center>
-                      <button type="submit" data-toggle="modal"  class="btn btn-primary" ng-disabled="userForm.$invalid" ng-click="diagnostico(prueba_medica.prueba_medica.pm_diagnostico)"><span class="glyphicon glyphicon-save"></span> GUARDAR Y TERMINAR</button>
+                      <button type="submit" data-toggle="modal"  class="btn btn-primary" ng-disabled="userForm.$invalid" ng-click="diagnostico(diag)"><span class="glyphicon glyphicon-save"></span> GUARDAR Y TERMINAR</button>
                       <a href="#/atencion">
                       <button type="submit" data-toggle="modal"  class="btn btn-danger"  ><span class="glyphicon glyphicon-remove"></span> CANCELAR</button>
                       </a>
@@ -168,7 +172,7 @@
           </div>
         </div><!-- fin formulario -->
       </div>
-<!-- fin cuerpo -->
+        <!-- fin cuerpo -->
     </div>
 <!--       </div>
     </div> -->

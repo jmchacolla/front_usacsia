@@ -7,7 +7,7 @@ angular.module("adminApp", ["authService", "ngRoute", "ngResource", "satellizer"
   $routeProvider
   // ======================================jhon===========================================================================
 // ==========================    ATENCION DE PACIENTES         =================================
-//persona_tramite lista para atender pacientes
+//persona_tramite lista para atender pacientes para enfermeria
 
 .when('/atencion', {//--------medico
   templateUrl: 'templates/personatramite/atencion.html',
@@ -15,6 +15,11 @@ angular.module("adminApp", ["authService", "ngRoute", "ngResource", "satellizer"
   data: {
     authorized: [ROLES.ADMIN_USACSIA.ROL, ROLES.MEDICO.ROL]
   }
+})
+//persona_tramite lista para atender pacientes para medico
+.when('/atencion-consulta', {
+  templateUrl: 'templates/personatramite/atencionconsulta.html',
+  controller: 'AtencionConsultaCtrl'
 })
 //---ver carne sanitario ver por pt_id
 .when('/carne-sanitario/:pt_id', {
@@ -46,14 +51,17 @@ angular.module("adminApp", ["authService", "ngRoute", "ngResource", "satellizer"
   }
 })
 //historial clinico por ci
-.when('/ficha-clinica/:per_ci', {
+.when('/ficha-clinica/:per_id', {
   templateUrl: 'templates/pruebamedica/ficha-clinica.html',
   controller: 'FichaClinicaCtrl',
   data: {
     authorized: [ROLES.ADMIN_USACSIA.ROL, ROLES.MEDICO.ROL]
   }
 })
-
+.when('/plantillaPDF', {
+  templateUrl: 'templates/plantillaPDF.html',
+  controller: 'PlantillaPDFCtrl'
+})
 //jhon==========================================================================
 
 
@@ -70,7 +78,7 @@ angular.module("adminApp", ["authService", "ngRoute", "ngResource", "satellizer"
   .when('/inicio2', {
     templateUrl: 'templates/publico/index2.html'
   })
-// ========================= PREREGISTRO =================================================== templates/publico/servicios_ciudadanos/preregistro/crear.html     templates/publico/servicios_ciudadanos/preregistro/crear_persona.html
+// ========================= PREREGISTRO =================================================== templates
   .when('/servicios_ciudadanos/preregistro', {
     templateUrl: 'templates/publico/servicios_ciudadanos/preregistro/crear.html',
     controller: 'PreregistroCtrl'
@@ -108,7 +116,7 @@ angular.module("adminApp", ["authService", "ngRoute", "ngResource", "satellizer"
     }
   })
 /************************************************PERSONA****************************************/
-    .when('/persona/create', {
+  .when('/persona/create', {
     templateUrl: 'templates/persona/crear.html',
     controller: 'CrearPersona2Ctrl',
     data: {
@@ -172,9 +180,18 @@ angular.module("adminApp", ["authService", "ngRoute", "ngResource", "satellizer"
     .when('/funcionarios/create_fun/:per_id', {
     templateUrl: 'templates/funcionario/create_fun.html',
     controller: 'CreateFuCtrl',
+    data: {
+      authorized: [ROLES.ADMIN_USACSIA.ROL, ROLES.ADMIN_CARNET.ROL, ROLES.ADMIN_CERTIFICADO.ROL]
+    }
 
   })
-
+ .when('/funcionarios/habilitar/:fun_id/:fun_estado', {
+    templateUrl: 'templates/funcionario/edit.html',
+    controller: 'EditFuncionarioCtrl',
+    data: {
+      authorized: [ROLES.ADMIN_USACSIA.ROL, ROLES.ADMIN_CARNET.ROL, ROLES.ADMIN_CERTIFICADO.ROL]
+    }
+  })
   .when('/funcionarios/edit/:fun_id', {
     templateUrl: 'templates/funcionario/edit.html',
     controller: 'EditFuncionarioCtrl',
@@ -320,7 +337,7 @@ angular.module("adminApp", ["authService", "ngRoute", "ngResource", "satellizer"
     }*/
   })
 //=========================         FICHAS DE INSPECCION     =============================
-//LISTA DE 6 FICHAS
+//LISTA DE 6 FICHAS//no esta en rutas privadas
   .when('/inspeccion/fichas',{
    templateUrl:'templates/ficha_inspeccion/fichas_inspeccion.html',
   /* controller: 'FichaICtrl',
@@ -336,14 +353,22 @@ angular.module("adminApp", ["authService", "ngRoute", "ngResource", "satellizer"
     }
   })
   //ASIGNAR CATEGORIA
-  .when('/inspeccion/categoria/crear/:fi_id',{
+  .when('/inspeccion/categoria/crear/:fi_id/:et_id',{
    templateUrl:'templates/ficha_inspeccion/asignar.html',
    controller: 'CrearCateCtrl',
     data: {
       authorized: [ROLES.ADMIN_USACSIA.ROL,ROLES.INSPECTOR.ROL]
     }
   })
-  //CREAR FICHA 1
+  //buscar estado de ci de persona
+    .when('/buscar/estado',{
+   templateUrl:'templates/ficha_inspeccion/buscar.html',
+   /*controller: 'CrearCateCtrl',*/
+    data: {
+      authorized: [ROLES.ADMIN_USACSIA.ROL,ROLES.INSPECTOR.ROL]
+    }
+  })
+  //CREAR FICHA 1 --no esta rutas privadas
   .when('/inspeccion/fichas/crear1',{
    templateUrl:'templates/ficha_inspeccion1/crear.html',
    controller: 'CrearFicha1Ctrl'/*,
@@ -351,10 +376,18 @@ angular.module("adminApp", ["authService", "ngRoute", "ngResource", "satellizer"
       authorized: [ROLES.ADMIN_SEDES.ROL]
     }*/
   })
-  //CREAR FICHA 2
+  //CREAR FICHA 2--no esta rutas privadas
   .when('/inspeccion/fichas/crear2',{
    templateUrl:'templates/ficha_inspeccion2/crear.html',
    controller: 'CrearFicha2Ctrl'/*,
+    data: {
+      authorized: [ROLES.ADMIN_SEDES.ROL]
+    }*/
+  })
+    //VER FICHA INSPECCION -- falta hacer el html 8-1-2018 --falta añadir a rutas privadas
+  .when('/inspeccion/ver/:fi_id',{
+   templateUrl:'templates/ficha_inspeccion/ver.html',
+   controller: 'VerFichaCtrl'/*,
     data: {
       authorized: [ROLES.ADMIN_SEDES.ROL]
     }*/
@@ -726,6 +759,10 @@ angular.module("adminApp", ["authService", "ngRoute", "ngResource", "satellizer"
     templateUrl: 'templates/certificado/ver.html',
     controller: 'CertificadoCtrl'
   })
+  .when('/lista-inspeccionados', {
+    templateUrl: 'templates/empresatramite/lista-inspeccionados.html',
+    controller: 'ListaInspeccionadosCtrl'
+  })
   /*========================== /empresa tramite =======================================*/
 /*-------------------------------------- documentos -----------------------------------------*/
     
@@ -755,7 +792,7 @@ angular.module("adminApp", ["authService", "ngRoute", "ngResource", "satellizer"
 .run(function($rootScope, $location, authUser, toastr, sessionControl, Personas){
   var rutasPrivadas = 
 
-  ['/','/atencion','/prueba-medica/:pt_id','/prueba-medica/prueba/:pm_id','/prueba-medica/ver/:pm_id','/ficha-clinica/:per_ci','/perfil', '/usuario/edit','/usuario/create','/persona/create','/personas','/personas/ver/:per_id','/personas/edit/:per_id', '/funcionarios','/funcionarios/ver/:fun_id', '/funcionarios/createFun','/funcionarios/edit/:fun_id', '/consultorios','/consultorios/ver/:amb_id', '/consultorios/create','/consultorios/edit/:amb_id','/laboratorios','/laboratorios/ver/:amb_id', '/laboratorios/create','/laboratorios/edit/:amb_id',  '/establecimientos','/establecimientos/ver/:usa_id','/establecimientossol','/establecimientos/crear','/establecimientosol/crear','/tramites_concluidos',  '/tramites_concluidos/ver/:pt_id', '/homepais','/pais/create','/buscar-numero-muestra','/prueba-laboratorio/crear/:pl_id','/prueba-laboratorio/ver/:pl_id', '/prueba-laboratorio','/numero-muestra/crear','/numero-muestra','/numero-ficha/crear','/tramite/crear','/tramites-car','/boleta-pago/:pt_id','/parasito/crear', '/parasito','/parasito/editar/:par_id','/parasito/ver/:par_id','/tratamiento/crear', '/tratamiento','/homedepartamento','/establecimientosol/crear/:per_id',];
+  ['/','/atencion','/prueba-medica/:pt_id','/prueba-medica/prueba/:pm_id','/prueba-medica/ver/:pm_id','/ficha-clinica/:per_ci','/perfil', '/usuario/edit','/usuario/create','/persona/create','/personas','/personas/ver/:per_id','/personas/edit/:per_id', '/funcionarios','/funcionarios/ver/:fun_id', '/funcionarios/createFun','/funcionarios/edit/:fun_id', '/consultorios','/consultorios/ver/:amb_id', '/consultorios/create','/consultorios/edit/:amb_id','/laboratorios','/laboratorios/ver/:amb_id', '/laboratorios/create','/laboratorios/edit/:amb_id',  '/establecimientos','/establecimientos/ver/:usa_id','/establecimientossol','/establecimientos/crear','/establecimientosol/crear','/tramites_concluidos',  '/tramites_concluidos/ver/:pt_id', '/homepais','/pais/create','/buscar-numero-muestra','/prueba-laboratorio/crear/:pl_id','/prueba-laboratorio/ver/:pl_id', '/prueba-laboratorio','/numero-muestra/crear','/numero-muestra','/numero-ficha/crear','/tramite/crear','/tramites-car','/boleta-pago/:pt_id','/parasito/crear', '/parasito','/parasito/editar/:par_id','/parasito/ver/:par_id','/tratamiento/crear', '/tratamiento','/homedepartamento','/establecimientosol/crear/:per_id','/asignacion_zonas/crear','/funcionarios/create_fun/:per_id','/funcionarios/habilitar/:fun_id/:fun_estado','/establecimientosol/crear/:pro_id','/inspeccion/fichas/crear/:et_id','/inspeccion/categoria/crear/:fi_id/:et_id','/tramites_certi','/tramites_nat','/tramites_jur','/establecimientosol/persona','/establecimientosol/persona/ver/:per_id','/establecimientosol/empresa/ver/:pjur_nit','/documento','/categoria','/firma/crear','/firma/editar','/buscar-propietario','/boleta-ces/:et_id'];
 
   
   $rootScope.$on('$routeChangeStart', function(){

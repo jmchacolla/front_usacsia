@@ -52,9 +52,10 @@
             </th>
             <th>Establecimiento</th>
             <th>Ver</th>
-            <th ng-if="user.rol_id == '1' || user.rol_id == '14' ">Aprobación 1</th>
-            <th ng-if="user.rol_id == '1' || user.rol_id == '2' ">Aprobación 2</th>
-            <th ng-if="user.rol_id == '1' || user.rol_id == '17' ">Aprobación 3</th>
+            <th ng-if="user.rol_id == '1' || user.rol_id == '14' ">Aprobación</th><!-- resp de area -->
+            <th ng-if="user.rol_id == '1' || user.rol_id == '2' ">Aprobación</th><!-- jefe de unidad -->
+            <th ng-if="user.rol_id == '1' || user.rol_id == '2' ">Aprobación</th><!-- tesoreria -->
+            <th ng-if="user.rol_id == '1' || user.rol_id == '17' ">Aprobación</th><!-- final -->
            <!--  <th>Dar de baja</th> -->
           </thead>
           <tbody>
@@ -66,46 +67,65 @@
               <td class="text-center">
                 <a href="#/tramites/ver/{{et.et_id}}" class="btn btn-success" title="VER TRAMITE"><span class="glyphicon glyphicon-file"></span></a>
               </td>
-              <!-- APROBACION 1 -->
-                <td ng-if="user.rol_id == '1' || user.rol_id == '14'">
+              <!-- APROBACION 1 ng-if="user.rol_id == '6' || user.rol_id == '10' || user.rol_id == '4'"-->
+              <td ng-if="user.rol_id == '1' || user.rol_id == '14' ">
                 <!-- BOTON PARA CUADROS MODALES -->
-                <button ng-disabled="pt.pt_estado_tramite == 'APROBADO'" class="btn btn-xs btn-warning glyphicon glyphicon-check" data-toggle="modal" ng-click="rec(et.et_id,et.per_id)" data-target="#miCuadroModal1" title="Aprobación" >Aprobación</button>
+                <button ng-disabled="refer.br_estado_referencia == true" class="btn btn-xm btn-warning glyphicon glyphicon-check" data-toggle="modal" ng-click="rec(et.et_id,et.per_id)" data-target="#miCuadroModal1" title="Aprobacion de trámite" ></button>
                   <!--CUADRO MODAL-->
-                <div id="miCuadroModal1" class="modal fade" role="dialog" tabindex="-1">
-                    <div class="modal-dialog">
-                        <div class="modal-content">
-                          <div class="modal-header bg-red">
-                            <button type="button" class="close" data-dismiss="modal">×</button>
-                            <h4 class="modal-title fg-white">RECEPCIÓN PACIENTE</h4>
+                  <div id="miCuadroModal1" class="modal fade" role="dialog" tabindex="-1">
+                  <div class="modal-dialog">
+                    <div class="modal-content">
+                     <div class="modal-header bg-red">
+                    <button type="button" class="close" data-dismiss="modal">×</button>
+                    <h4 class="modal-title fg-white">APROBACIÓN DE TRÁMITE</h4>
+                  </div>
+                 <div class="modal-body lead text-center">
+                     Aprobación de la persona:<!--  {{nombre}} -->
+                     <br>
+                 <div class="well well-sm">
+                  <strong>{{nombre | uppercase}}</strong>
+                </div>
+                <div class="row">
+                    <!-- <div class="col-md-4">
+                      <div class="formulario">
+                         <div class="checkbox">
+                                <input class="checkbox" type="checkbox" name="acomp" id="M" value="M" ng-model="checkedI" ng-click="reset_acomp(checkedI)">
+                                <label for="M">Tiene Observación</label>
                           </div>
-                          <div class="modal-body lead text-center">
-                             Aprobación de la persona:
-                             <br>
-                              <div class="well well-sm">
-                                  <strong>{{nombre | uppercase}}</strong>
-                              </div>
-                             
-                          </div>
-                          <div class="modal-footer">
-                            <button type="button" class="btn btn-primary" data-dismiss="modal" ng-click="recepcionar1(et.et_id)"><span class="glyphicon glyphicon-ok"></span> SI</button>
-                            <button type="button" class="btn btn-danger" data-dismiss="modal"><span class="glyphicon glyphicon-remove"></span> NO</button>
-                          </div>
-                        </div>
+                      </div>
+                    </div> --><!--ng-if="checkedI"  -->
+                    <!-- <input type="checkbox" name="checkbox" ng-model="checkedI">ng-if="checkedI" --> 
+                   
+                    
+                        <label for="acomp" class="control-label ">¿Tiene alguna Observación?</label>
+                        <br>
+                        <textarea name="acomp" ng-model-options="{ updateOn: 'blur' }" rows="3" cols="20" style="resize: vertical;min-height:70px;max-height: 150px;" placeholder="Observación" ng-model="datos.te_observacion"></textarea>
+                   
+                   
+                </div>
+                </div>
+                      <div class="modal-footer"><!-- ,checkedI -->
+                        <button type="button" class="btn btn-primary" data-dismiss="modal" ng-click="recepcionar1(datos.te_observacion)"><span class="glyphicon glyphicon-ok"></span> GUARDAR </button>
+                  
+                        <button type="button" class="btn btn-danger" data-dismiss="modal"><span class="glyphicon glyphicon-remove"></span> CANCELAR</button>
+                      </div>
                     </div>
-              </div>
+                  </div>
+                </div>
                 <!--FIN CUADRO MODAL-->
               </td>
+      
               <!-- APROBACIÓN 2 -->
                 <td ng-if="user.rol_id == '1' || user.rol_id == '2'">
                 <!-- BOTON PARA CUADROS MODALES -->
-                <button ng-disabled="pt.pt_estado_tramite == 'APROBADO'" class="btn btn-xs btn-warning glyphicon glyphicon-check" data-toggle="modal" ng-click="rec(et.et_id,et.per_id)" data-target="#miCuadroModal2" title="Recepción" >Aprobación</button>
+                <button ng-disabled="pt.pt_estado_tramite == 'APROBADO'" class="btn btn-xm btn-warning glyphicon glyphicon-check" data-toggle="modal" ng-click="rec(et.et_id,et.per_id)" data-target="#miCuadroModal2" title="Aprobacion de trámite" ></button>
                   <!--CUADRO MODAL-->
                 <div id="miCuadroModal2" class="modal fade" role="dialog" tabindex="-1">
                     <div class="modal-dialog">
                         <div class="modal-content">
                           <div class="modal-header bg-red">
                             <button type="button" class="close" data-dismiss="modal">×</button>
-                            <h4 class="modal-title fg-white">RECEPCIÓN PACIENTE</h4>
+                            <h4 class="modal-title fg-white">APROBACIÓN DE TRÁMITE</h4>
                           </div>
                           <div class="modal-body lead text-center">
                              Aprobación de la persona:
@@ -113,11 +133,48 @@
                               <div class="well well-sm">
                                   <strong>{{nombre | uppercase}}</strong>
                               </div>
-                             
+                              <!-- <div  class=" col-md-8 lead text-center" > -->
+                                <label for="acomp" class="control-label ">¿Tiene alguna Observación?</label>
+                                <br>
+                                <textarea name="acomp" ng-model-options="{ updateOn: 'blur' }" rows="3" cols="20" style="resize: vertical;min-height:70px;max-height: 150px;" placeholder="Observación" ng-model="datos2.te_observacion"></textarea>
+                            <!-- </div> -->
                           </div>
-                          <div class="modal-footer">
-                            <button type="button" class="btn btn-primary" data-dismiss="modal" ng-click="recepcionar2(et.et_id)"><span class="glyphicon glyphicon-ok"></span> SI</button>
-                            <button type="button" class="btn btn-danger" data-dismiss="modal"><span class="glyphicon glyphicon-remove"></span> NO</button>
+                          <div class="modal-footer lead text-center">
+                            <button type="button" class="btn btn-primary" data-dismiss="modal" ng-click="recepcionar2(datos2.te_observacion)"><span class="glyphicon glyphicon-ok"></span> GUARDAR JEFE</button>
+                            <button type="button" class="btn btn-danger" data-dismiss="modal"><span class="glyphicon glyphicon-remove"></span> CANCELAR</button>
+                          </div>
+                        </div>
+                    </div>
+              </div>
+                <!--FIN CUADRO MODAL-->
+              </td>
+               <!-- APROBACIÓN el que no firma-->
+                <td ng-if="user.rol_id == '1' || user.rol_id == '17'">
+                <!-- BOTON PARA CUADROS MODALES -->
+                <button ng-disabled="pt.pt_estado_tramite == 'APROBADO'" class="btn btn-xm btn-warning glyphicon glyphicon-check" data-toggle="modal" ng-click="rec(et.et_id,et.per_id)" data-target="#miCuadroModal4" title="Aprobacion de trámite" ></button>
+                  <!--CUADRO MODAL-->
+                <div id="miCuadroModal4" class="modal fade" role="dialog" tabindex="-1">
+                    <div class="modal-dialog">
+                        <div class="modal-content">
+                          <div class="modal-header bg-red">
+                            <button type="button" class="close" data-dismiss="modal">×</button>
+                            <h4 class="modal-title fg-white">APROBACIÓN DE TRÁMITE</h4>
+                          </div>
+                          <div class="modal-body lead text-center">
+                             Aprobación de la persona:
+                             <br>
+                              <div class="well well-sm">
+                                  <strong>{{nombre | uppercase}}</strong>
+                              </div>
+                              <!-- <div  class=" col-md-8 lead text-center" > -->
+                                <label for="acomp" class="control-label ">¿Tiene alguna Observación?</label>
+                                <br>
+                                <textarea name="acomp" ng-model-options="{ updateOn: 'blur' }" rows="3" cols="20" style="resize: vertical;min-height:70px;max-height: 150px;" placeholder="Observación" ng-model="datos4.te_observacion"></textarea>
+                            <!-- </div> -->
+                          </div>
+                          <div class="modal-footer lead text-center">
+                            <button type="button" class="btn btn-primary" data-dismiss="modal" ng-click="recepcionar4(datos4.te_observacion)"><span class="glyphicon glyphicon-ok"></span> GUARDAR tesoreria</button>
+                            <button type="button" class="btn btn-danger" data-dismiss="modal"><span class="glyphicon glyphicon-remove"></span> CANCELAR</button>
                           </div>
                         </div>
                     </div>
@@ -125,16 +182,16 @@
                 <!--FIN CUADRO MODAL-->
               </td>
               <!-- APROBACION 3 -->
-                <td ng-if="user.rol_id == '1' || user.rol_id == '2'">
+                <td ng-if="user.rol_id == '1' || user.rol_id == '17'">
                 <!-- BOTON PARA CUADROS MODALES -->
-                <button ng-disabled="pt.pt_estado_tramite == 'APROBADO'" class="btn btn-xs btn-warning glyphicon glyphicon-check" data-toggle="modal" ng-click="rec(et.et_id,et.per_id)" data-target="#miCuadroModal3" title="Recepción" >Aprobación</button>
+                <button ng-disabled="pt.pt_estado_tramite == 'APROBADO'" class="btn btn-xm btn-warning glyphicon glyphicon-check" data-toggle="modal" ng-click="rec(et.et_id,et.per_id)" data-target="#miCuadroModal3" title="Recepción" ></button>
                   <!--CUADRO MODAL-->
                 <div id="miCuadroModal3" class="modal fade" role="dialog" tabindex="-1">
                     <div class="modal-dialog">
                         <div class="modal-content">
                           <div class="modal-header bg-red">
                             <button type="button" class="close" data-dismiss="modal">×</button>
-                            <h4 class="modal-title fg-white">RECEPCIÓN PACIENTE</h4>
+                            <h4 class="modal-title fg-white">APROBACIÓN DE TRÁMITE</h4>
                           </div>
                           <div class="modal-body lead text-center">
                              Aprobación de la persona:
@@ -142,11 +199,14 @@
                               <div class="well well-sm">
                                   <strong>{{nombre | uppercase}}</strong>
                               </div>
+                              <label for="acomp" class="control-label ">¿Tiene alguna Observación?</label>
+                                <br>
+                                <textarea name="acomp" ng-model-options="{ updateOn: 'blur' }" rows="3" cols="20" style="resize: vertical;min-height:70px;max-height: 150px;" placeholder="Observación" ng-model="datos3.te_observacion"></textarea>
                              
                           </div>
                           <div class="modal-footer">
-                            <button type="button" class="btn btn-primary" data-dismiss="modal" ng-click="recepcionar3(et.et_id)"><span class="glyphicon glyphicon-ok"></span> SI</button>
-                            <button type="button" class="btn btn-danger" data-dismiss="modal"><span class="glyphicon glyphicon-remove"></span> NO</button>
+                            <button type="button" class="btn btn-primary" data-dismiss="modal" ng-click="recepcionar3(datos3.te_observacion)"><span class="glyphicon glyphicon-ok"></span> GUARDAR</button>
+                            <button type="button" class="btn btn-danger" data-dismiss="modal"><span class="glyphicon glyphicon-remove"></span> CANCELAR</button>
                           </div>
                         </div>
                     </div>
