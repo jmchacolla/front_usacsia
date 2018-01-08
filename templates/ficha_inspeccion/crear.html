@@ -132,11 +132,9 @@
                  -->
                    <div class="row">
                     <div class="col-md-6">
-                            <label for="equi" class="control-label ">OBSERVACIONES :<strong class="fg_red">*</strong></label><br>
-                            <textarea name="equi" ng-model-options="{ updateOn: 'blur' }" rows="6" cols="100" style="resize: vertical;min-height:70px;max-height: 150px;" placeholder="detalle equipo" ng-model="ficha.fi_observacion" required></textarea>
-                            <span class="messages" ng-show="userForm.$submitted || userForm.equi.$touched">
-                            <span ng-show="userForm.equi.$error.required">El campo es obligatorio</span>
-                            </span>
+                            <label for="equi" class="control-label ">RECOMENDACIONES :<strong class="fg_red">*</strong></label><br>
+                            <textarea name="equi" ng-model-options="{ updateOn: 'blur' }" rows="6" cols="100" style="resize: vertical;min-height:70px;max-height: 150px;" placeholder="detalle equipo" ng-model="ficha.fi_observacion"></textarea>
+                           
                      </div>
                    </div>
              

@@ -115,7 +115,7 @@ angular.module("adminApp")
   }*/
 
   //lista tramites propietarios naturales
-.controller('ListNatCtrl', ['$scope','CONFIG', 'ListN', '$route', 'toastr', '$location','Personas',/*'Aprob1','Aprob2','Aprob3',*/'FirmaFun','EmpTra','CertificadoSanitario','Firm2','Firm3','BusCert', function ($scope,CONFIG, ListN, $route, toastr,$location,Personas,/*Aprob1,Aprob2,Aprob3,*/FirmaFun,EmpTra,CertificadoSanitario,Firm2,Firm3,BusCert)
+.controller('ListNatCtrl', ['$scope','CONFIG', 'ListN', '$route', 'toastr', '$location','Personas','FirmaFun','EmpTra','CertificadoSanitario','Firm2','Firm3','BusCert','Prueba','wen','VerEs', function ($scope,CONFIG, ListN, $route, toastr,$location,Personas,FirmaFun,EmpTra,CertificadoSanitario,Firm2,Firm3,BusCert,Prueba,wen,VerEs)
 {
   $scope.ajustes = {
     menu:{
@@ -132,7 +132,7 @@ angular.module("adminApp")
   $scope.user = {
     rol_id: CONFIG.ROL_CURRENT_USER
   }
-
+  
   var FunG = localStorage.getItem("Funcionario");
   var FunG = JSON.parse(FunG);
   var fun_id = FunG.fun_id;
@@ -140,6 +140,7 @@ angular.module("adminApp")
   $scope.CurrentDate = new Date();
   var mes=$scope.CurrentDate.getMonth()+1;
   var fecha=$scope.CurrentDate.getDate()+"-"+mes+"-"+$scope.CurrentDate.getFullYear();
+
   var anio2=$scope.CurrentDate.getFullYear()+1;
   var fecha2=$scope.CurrentDate.getDate()+"-"+mes+"-"+anio2;
   console.log("__para la fecha CADUCIDAD__",fecha2);
@@ -163,6 +164,8 @@ angular.module("adminApp")
       $scope.loading = false;
       $scope.msg = false;
     }
+
+
     var id = 0;
     var ci=0;
     $scope.rec=function(et_id, per_id){
@@ -174,22 +177,85 @@ angular.module("adminApp")
         $scope.nombre=$scope.persona.persona.per_nombres+' '+$scope.persona.persona.per_apellido_primero+' '+$scope.persona.persona.per_apellido_segundo;
         ci=$scope.persona.persona.per_ci;
       });
+  
+    $scope.pruebas={
+      fun_id:1,         
+      te_estado:'ok',
+      te_observacion:'NINGUNA',
+      te_fecha:'8-1-2018'
+    };
+    var q=6;
+    console.log("antes de update__",$scope.pruebas)
+    
+     $scope.datos={
+      fun_id:null,         
+      te_estado:'',
+      te_observacion:'NINGUNA',
+      te_fecha:''
+    };
+    $scope.datos2={
+      fun_id:null,         
+      te_estado:'',
+      te_observacion:'NINGUNA',
+      te_fecha:''
+    };
+    $scope.datos3={
+      fun_id:null,         
+      te_estado:'',
+      te_observacion:'NINGUNA',
+      te_fecha:''
+    };
+    $scope.datos4={
+      fun_id:null,         
+      te_estado:'',
+      te_observacion:'NINGUNA',
+      te_fecha:''
+    };
     
   }; 
 
-  $scope.recepcionar1=function(){
-    $scope.estado1={
-      et_aprobacion1:'APROBADO'
+$scope.checkedI=false;
+  $scope.recepcionar1=function(obs){
+    console.log("__RECEPCIONAR 1__");
+    console.log("__esta es la obs__",obs);
+   
+
+    if (obs!='NINGUNA') {
+      $scope.datos={
+          fun_id:fun_id,
+          te_estado:'OBSERVADO',
+          te_observacion:obs,
+          te_fecha:fecha
+      }
+      console.log("observado",obs);
+    } else {
+        $scope.datos={
+            fun_id:fun_id,
+            te_estado:'APROBADO',
+            te_observacion:'NINGUNA',
+            te_fecha:fecha
+        }
+        console.log("No observado");
     }
+    
     console.log('el et_id para cambiar estado',id);
-  /*  Aprob1.update({et_id:id}, $scope.estado1).$promise.then(function(data)
+    Prueba.update({et_id:id,eta_id:4}, $scope.datos).$promise.then(function(data)
     {
+        console.log("entra a update")
+
+    /*wen.get({et_id:1,eta_id:5}, function(data){
+      $scope.busca =data.tramitecerestado;
+      console.log("hizo el get",$scope.busca);
+      
+    });*/
+    /*Aprob1.update({et_id:id}, $scope.datos).$promise.then(function(data)
+    {*/
       console.log("entra a update")
       if(data.status)
       {
           console.log("lo logro...",data);
-          toastr.success('Aprobacion correcta');
-        
+          toastr.success('Guardado correctamente');
+        if ($scope.datos.te_observacion=='NINGUNA') {
           FirmaFun.get({fun_id:fun_id}, function(data)
           {
             $scope.firmas=data.firma;
@@ -217,32 +283,60 @@ angular.module("adminApp")
             $scope.fir=$scope.firmas;
             console.log("__FIRMA__dentro",$scope.fir);    
           } );//FIN DE FIRMAFUNCIONARIO
-          $route.reload();
+         /* $route.reload();*/
+         }
       }
 
     });//FIN TRAMITE ESTADO
-    console.log($scope.estado1);
-    console.log("__FIRMA__Fuera",$scope.fir);*/ 
+    
   };
 
-    $scope.recepcionar2=function(){
-
+  
+  $scope.recepcionar2=function(obs){
+console.log("__RECEPCIONAR 2__");
     EmpTra.get({et_id:id}, function(data){
-    console.log('*******empresa_tramite___recep 2 ---------', data);
+    /*console.log('*******empresa_tramite___recep 2 ---------', data);*/
 
     $scope.emp_tra = data.establecimiento;
-    console.log('*******PARA VER EMPTRA---------', $scope.emp_tra);
-      if ($scope.emp_tra.empresa_tramite.et_aprobacion1=='APROBADO') {
-         $scope.estado2={
-            et_aprobacion2:'APROBADO'
-          }
+   /* console.log('*******PARA VER EMPTRA---------', $scope.emp_tra);*/
+      
+    var b=4;
+    VerEs.get({et_id:id,eta_id:b}, function(data){
+      $scope.busca =data.tramitecerestado;
+      console.log("hizo el get",$scope.busca.te_estado);
+      if ($scope.busca.te_estado=='APROBADO') {
+          if (obs!='NINGUNA') {
+            $scope.datos2={
+                fun_id:fun_id,
+                te_estado:'OBSERVADO',
+                te_observacion:obs,
+                te_fecha:fecha
+            };
+            console.log("observado",obs);
+          } else {
+              $scope.datos2={
+                  fun_id:fun_id,
+                  te_estado:'APROBADO',
+                  te_observacion:'NINGUNA',
+                  te_fecha:fecha
+              };
+            console.log("No observado");
+            }
           BusCert.get({et_id:id}, function(data){
-          console.log('__BUSCAR CERTIFICADO__', data);
+          /*console.log('__BUSCAR CERTIFICADO__', data);*/
           $scope.certificado = data.certificado;
-
-          console.log('el et_id para cambiar estado',id);
-         /* Aprob2.update({et_id:id}, $scope.estado2).$promise.then(function(data)
+         /* console.log('el et_id para cambiar estado',id);*/
+          Prueba.update({et_id:id,eta_id:5}, $scope.datos2).$promise.then(function(data)
           {
+              console.log("entra a update")
+
+          /*wen.get({et_id:1,eta_id:5}, function(data){
+            $scope.busca =data.tramitecerestado;
+            console.log("hizo el get",$scope.busca);
+            
+          });*/
+          /*Aprob2.update({et_id:id}, $scope.datos2).$promise.then(function(data)
+          {*/
             console.log("entra a update")
             if(data.status)
             {
@@ -250,6 +344,7 @@ angular.module("adminApp")
                 toastr.success('Aprobacion correcta');
                 //tengo que obtener la firma del funcionario que se logueo y guardar en carnet recien
                 console.log("PARA VER LA FIRMA", fun_id);
+                if ($scope.datos2.te_observacion=='NINGUNA') {
                 FirmaFun.get({fun_id:fun_id}, function(data)
                 {
                   $scope.firmas=data.firma;
@@ -271,14 +366,17 @@ angular.module("adminApp")
                   });//fin carnetsanitario
                      
                 } );//FIN DE FIRMAFUNCIONARIO
+              }
                 $route.reload();
             }
-          });//FIN TRAMITE ESTADO*/
+
+          });//FIN TRAMITE ESTADO
       //fin de busca certificado
         },function () {
       toastr.error("ERROR INESPERADO, por favor actualize la página");
       $scope.loading = false;
       $scope.msg = false;
+
     });//fin de busca certificado
       
 //FIN DEL IF
@@ -290,26 +388,112 @@ angular.module("adminApp")
       toastr.error("ERROR INESPERADO, por favor actualize la página");
       $scope.loading = false;
       $scope.msg = false;
+       });
     });//fin emptra 
+
   };
-    $scope.recepcionar3=function(){
 
+
+  $scope.recepcionar4=function(obs){
+console.log("__RECEPCIONAR 4__");
     EmpTra.get({et_id:id}, function(data){
-    console.log('*******empresa_tramite ---------', data);
+    $scope.emp_tra = data.establecimiento;
+    var b=5;
+    VerEs.get({et_id:id,eta_id:b}, function(data){
+      $scope.busca =data.tramitecerestado;
+      console.log("hizo el get de recep 4",$scope.busca.te_estado);
+      if ($scope.busca.te_estado=='APROBADO') {
+          if (obs!='NINGUNA') {
+            $scope.datos4={
+                fun_id:fun_id,
+                te_estado:'OBSERVADO',
+                te_observacion:obs,
+                te_fecha:fecha
+            };
+            console.log("observado",obs);
+          } else {
+              $scope.datos4={
+                  fun_id:fun_id,
+                  te_estado:'APROBADO',
+                  te_observacion:'NINGUNA',
+                  te_fecha:fecha
+              };
+            console.log("No observado");
+            };
+            var d=6;
+          Prueba.update({et_id:id,eta_id:d}, $scope.datos4).$promise.then(function(data)
+          {
+            console.log("entra a update___________________________")
+            if(data.status)
+            {
+                console.log("lo logro...");
+                toastr.success('Aprobacion correcta');
+                //tengo que obtener la firma del funcionario que se logueo y guardar en carnet recien
+                
+                $route.reload();
+            }
 
+          });//FIN TRAMITE ESTADO
+      //fin de busca certificado
+  
+//FIN DEL IF
+    } else {
+      toastr.error('ANTES DEBE APROBAR EL JEFE DE UNIDAD ');
+    }
+//fin de emptra 
+        },function () {
+      toastr.error("ERROR INESPERADO, por favor actualize la página");
+      $scope.loading = false;
+      $scope.msg = false;
+       });
+    });//fin emptra 
+
+  };
+
+
+
+
+
+
+    $scope.recepcionar3=function(obs){
+console.log("__RECEPCIONAR 3__");
+    EmpTra.get({et_id:id}, function(data){
+    /*console.log('*******empresa_tramite ---------', data);*/
     $scope.emp_tra = data.establecimiento;
     console.log('*******PARA VER EMPTRA---------', $scope.emp_tra);
-    if ($scope.emp_tra.empresa_tramite.et_aprobacion2=='APROBADO') {
-    $scope.estado3={
-      et_aprobacion3:'APROBADO'
-    }
-    BusCert.get({et_id:id}, function(data){
-          console.log('__BUSCAR CERTIFICADO__', data);
-          $scope.certificadoFI = data.certificado;
+    var b=5;
+    VerEs.get({et_id:id,eta_id:b}, function(data){
+      $scope.busca =data.tramitecerestado;
+      console.log("hizo el get",$scope.busca.te_estado);
+      if ($scope.busca.te_estado=='APROBADO') {
+          if (obs!='NINGUNA') {
+            $scope.datos3={
+                fun_id:fun_id,
+                te_estado:'OBSERVADO',
+                te_observacion:obs,
+                te_fecha:fecha
+            };
+            console.log("observado",obs);
+          } else {
+              $scope.datos3={
+                  fun_id:fun_id,
+                  te_estado:'APROBADO',
+                  te_observacion:'NINGUNA',
+                  te_fecha:fecha
+              };
+            console.log("No observado");
+            }
+          BusCert.get({et_id:id}, function(data){
+              console.log('__BUSCAR CERTIFICADO__', data);
+              $scope.certificadoFI = data.certificado;
 
-    console.log('el et_id para cambiar estado',id);
-/*    Aprob3.update({et_id:id}, $scope.estado3).$promise.then(function(data)
-    {
+              console.log('el et_id para cambiar estado',id);
+          Prueba.update({et_id:id,eta_id:7}, $scope.datos3).$promise.then(function(data)
+          {
+              console.log("entra a update")
+
+   /* Aprob3.update({et_id:id}, $scope.estado3).$promise.then(function(data)
+    {*/
       console.log("entra a update")
       if(data.status)
       {
@@ -341,7 +525,7 @@ angular.module("adminApp")
           $route.reload();
       }
 
-    });//FIN TRAMITE ESTADO*/
+    });//FIN TRAMITE ESTADO
 //fin de busca certificado
         },function () {
       toastr.error("ERROR INESPERADO, por favor actualize la página");
@@ -353,6 +537,7 @@ angular.module("adminApp")
     } else {
       toastr.error('ANTES DEBE APROBAR EL JEFE DE UNIDAD');
     }
+  });//fin de ver estado
 //fin de emptra 
         },function () {
       toastr.error("ERROR INESPERADO, por favor actualize la página");
