@@ -230,7 +230,7 @@ function (CONFIG,/*authUser,*/ $scope, $routeParams, Consultorios,ConsultoriosLi
   };
 }])
 
-.controller('EditConsultorioCtrl', ['$scope', 'Consultorios', '$routeParams', '$location', '$timeout', 'toastr', function ($scope, Consultorios, $routeParams, $location, $timeout, toastr) {
+.controller('EditConsultorioCtrl', ['$scope', 'Consultorios', 'ListaFunCargo', 'Horario', '$routeParams', '$location', '$timeout', 'toastr', function ($scope, Consultorios, ListaFunCargo, Horario, $routeParams, $location, $timeout, toastr) {
 	$scope.ajustes = {
 	    menu:{
 	      titulo: 'Gestión de Consultorios',
@@ -247,7 +247,8 @@ function (CONFIG,/*authUser,*/ $scope, $routeParams, Consultorios,ConsultoriosLi
 	var FunG = localStorage.getItem("Funcionario");
 	var FunG = JSON.parse(FunG);
 	//var es_id = FunG.es_id;
-	
+	$scope.medico=null;
+    $scope.enfermera=null;
 	var amb_id = $routeParams.amb_id;
 	Consultorios.get({amb_id:amb_id}, function(data)
 	{
@@ -259,8 +260,48 @@ function (CONFIG,/*authUser,*/ $scope, $routeParams, Consultorios,ConsultoriosLi
 			con_cod:$scope.consultorio.consultorios.con_cod,
 		};
 	});
-console.log($scope.consultorios,"CONSULTORIOS");
+    $scope.horario={
+        fun_id:null,
+        amb_id:amb_id,
+        ser_id:1
+    }
+    $scope.horario2={
+        fun_id:null,
+        amb_id:amb_id,
+        ser_id:1
+    }
+
+    $scope.medico={cargo:"MEDICO"};
+
+    ListaFunCargo.get($scope.medico, function (argument) {
+        console.log('medicos---------',argument);
+        $scope.medicos=argument.funcionario;
+    })
+    $scope.enfermera={cargo:"ENFERMERA"};
+    ListaFunCargo.get($scope.enfermera, function (data) {
+        $scope.enfermeras=data.funcionario;
+    })
+
+    
+    // console.log($scope.consultorios,"CONSULTORIOS");
 	$scope.submit = function(a){
+            console.log('entrooooi-------', $scope.medico, $scope.enfermera);
+            console.log('$scope.horario.fun_id--', $scope.horario.fun_id);
+            if($scope.horario.fun_id!=null){
+                Horario.save($scope.horario, function (argument) {
+                    if (argument.status) {
+                        toastr.success('ASIGNACION DE PERSONAL CORRECTA')
+                    }
+                })
+            }
+            console.log('2$scope.horario.fun_id--', $scope.horario2.fun_id);
+            if($scope.horario2.fun_id!=null){
+                Horario.save($scope.horario, function (argument) {
+                    if (argument.status) {
+                        toastr.success('ASIGNACION DE PERSONAL CORRECTA')
+                    }
+                })
+            }
 		console.log($scope.consultorios,"CONSULTORIOS 22222222");
 		Consultorios.update({amb_id:amb_id}, $scope.consultorios).$promise.then(function(data){
 			if(data.status) {

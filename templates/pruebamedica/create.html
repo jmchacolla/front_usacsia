@@ -24,49 +24,44 @@
              <!-- <div class="row"> -->
                 <h4 class="text-center text-primary">I. FICHA DE IDENTIFICACIÓN</h4>
                     <hr class="bg-red"> 
-                    <br>
            <!--  </div>  -->  
             <div class="row" >
-                  <div class="col-md-4" >
-                      <label for="nit" class="control-label">Nombres del paciente: </label>
-                      <input disabled type="text" class="form-control" id="nomp" ng-model="pertramite.persona.per_nombres">
-                  </div>  
-                  <div class="col-md-4" >
-                      <label for="nit" class="control-label">Apellido Paterno: </label>
-                      <input disabled type="text" class="form-control" id="appt" ng-model="pertramite.persona.per_apellido_primero">
-                  </div>  
-                  <div class="col-md-4" >
-                      <label for="nit" class="control-label">Apellido Materno: </label>
-                      <input disabled type="text" class="form-control" id="appm" ng-model="pertramite.persona.per_apellido_segundo">
-                  </div>   
+                  <div class="col-md-6" >
+                      <label for="nit" class="control-label text-primary">Nombre: </label>
+                      {{pertramite.persona.per_nombres}} {{pertramite.persona.per_apellido_primero}} {{pertramite.persona.per_apellido_segundo}}
+                  </div>
+                  <div class="col-md-6" >
+                      <label for="nit" class="control-label text-primary">C.I.: </label>
+                      {{pertramite.persona.per_ci}} {{pertramite.persona.per_ci_expedido}}
+                  </div>
             </div> 
 <!--            <div class="row">
                 <div class="col-md-12">
-                 <label for="resolucion" class="control-label">Domicilio:</label>
+                 <label for="resolucion" class="control-label text-primary">Domicilio:</label>
                 </div>  
           </div>  -->
           <div class="row" ng-repeat="direccion in pacientes.direccion">     
-               <div class="col-md-4" >
-                  <label for="nit" class="control-label">Zona:</label>
-                  <input disabled type="text" class="form-control" id="nit" placeholder="NIT" ng-model="pertramite.zona.zon_nombre">
+               <div class="col-md-6" >
+                  <label for="nit" class="control-label text-primary">Zona:</label>
+                  {{pertramite.zona.zon_nombre}}
               </div>
-              <div class="col-md-4">
-                  <label for="nit" class="control-label">Avenida o Calle:</label>
-                  <input disabled type="text" class="form-control" id="nit" placeholder="NIT" ng-model="pertramite.persona.per_avenida_calle">
+              <div class="col-md-6">
+                  <label for="nit" class="control-label text-primary">Avenida o Calle:</label>
+                  {{pertramite.persona.per_avenida_calle}}
               </div>
-              <div class="col-md-4">
-                  <label for="nit" class="control-label">Número:</label>
-                  <input disabled type="text" class="form-control" id="nit" placeholder="NIT" ng-model="pertramite.per_numero">
+              <div class="col-md-6">
+                  <label for="nit" class="control-label text-primary">Número:</label>
+                  {{pertramite.per_numero}}
               </div>
           </div>
           <div class="row">
-              <div class="col-md-4">
-                  <label for="resolucion" class="control-label">Sexo:</label>
-                  <input disabled type="text" class="form-control" id="gen" ng-model="pertramite.persona.per_genero">
+              <div class="col-md-6">
+                  <label for="resolucion" class="control-label text-primary">Sexo:</label>
+                  {{pertramite.persona.per_genero}}
               </div>
-               <div class="col-md-2">
-                  <label for="resolucion" class="control-label">Edad:</label>
-                  <input disabled type="text" class="form-control" id="gen" ng-model="pertramite.persona.per_fecha_nacimiento">
+               <div class="col-md-6">
+                  <label for="resolucion" class="control-label text-primary">Edad:</label>
+                  {{pertramite.persona.per_fecha_nacimiento}}
               </div>
           </div> 
 
@@ -74,8 +69,23 @@
                 <h4 class="text-center text-primary">II. DATOS CLÍNICOS</h4>
                     <hr class="bg-red"> 
            <!--  </div>   --> 
+          <div class="row text-center">
+            <div class="formulario col-md-6">
+              <div class="checkbox">
+                  <input type="checkbox" name="check1" id="r1" ng-click="unas()" ng-model="pruebamed.pm_una_larga" ng-check="pruebamed.pm_una_larga">
+                  <label for="r1">Uñas largas</label>
+              </div>
+            </div>
+            <div class="formulario col-md-6">
+              <div class="checkbox">
+                  <input type="checkbox" name="check2" id="r2" ng-click="colabora()" ng-model="pruebamed.pm_colabora", ng-check="pruebamed.pm_colabora">
+                  <label for="r2">Colabora con el examen</label>
+              </div>
+            </div>
+            
+          </div>
           <div class="row">
-              <div class="col-md-2">
+              <div class="col-md-2 col-sm-6">
                   <label for="fc" class="control-label ">F.C.(lpm):<strong class="fg_red">*</strong></label>
                   <input name="fc" type="number" ng-model-options="{ updateOn: 'blur' }" class="form-control" id="fc" placeholder="FC" ng-model="pruebamed.pm_fc" min="0" max="400" required>
                   <span class="messages" ng-show="userForm.$submitted || userForm.fc.$touched ">
@@ -84,7 +94,7 @@
                    <span ng-show="userForm.fc.$error.min">La frecuencia no puede ser menor de 0 lpm</span>
                   </span> 
               </div>  
-               <div class="col-md-2">
+               <div class="col-md-2 col-sm-6">
                   <label for="fr" class="control-label ">F.R.(rpm): <strong class="fg_red">*</strong></label>
                   <input name="fr" type="number" ng-model-options="{ updateOn: 'blur' }" class="form-control" id="fr" placeholder="FR" ng-model="pruebamed.pm_fr" min="0" max="150"  required>
                    <span class="messages" ng-show="userForm.$submitted || userForm.fr.$touched">
@@ -93,7 +103,7 @@
                    <span ng-show="userForm.fr.$error.min">La frecuencia no puede ser menor de 0 rpm</span>
                    </span> 
               </div>    
-               <div class="col-md-2">
+               <div class="col-md-2 col-sm-6">
                   <label for="pa1" class="control-label ">P.A.S(mmHg): <strong class="fg_red">*</strong></label>
                   <input name="pa1" type="number" ng-model-options="{ updateOn: 'blur' }" class="form-control" id="pa1" placeholder="PAS" ng-model="pruebamed.pm_pa_sistolica" min="0" max="300" required>
                   <span class="messages" ng-show="userForm.$submitted || userForm.pa1.$touched">
@@ -102,7 +112,7 @@
                      <span ng-show="userForm.pa1.$error.min">La presión no puede ser menor de 0 mmHg</span>
                   </span> 
                </div> 
-               <div class="col-md-2">
+               <div class="col-md-2 col-sm-6">
                     <label for="pa" class="control-label ">P.A.D(mmHg): <strong class="fg_red">*</strong></label>
                     <input name="pa" type="number" ng-model-options="{ updateOn: 'blur' }" class="form-control" id="pa" placeholder="PAD" ng-model="pruebamed.pm_pa_diastolica" min="0" max="300" required>
                       <span class="messages" ng-show="userForm.$submitted || userForm.pa.$touched">
@@ -111,7 +121,7 @@
                        <span ng-show="userForm.pa.$error.min">La presión no puede ser menor de 0 mmHg</span>
                        </span> 
                 </div> 
-                 <div class="col-md-2">
+                 <div class="col-md-2 col-sm-6">
                     <label for="temp" class="control-label">TEMP(°C):<strong class="fg_red">*</strong></label>
                     <input name="temp" type="number" ng-model-options="{ updateOn: 'blur' }" class="form-control" id="temp" placeholder="TEMP" ng-model="pruebamed.pm_temperatura" min="20" max="50" required>
                     <span class="messages" ng-show="userForm.$submitted || userForm.temp.$touched ">
@@ -120,7 +130,7 @@
                      <span ng-show="userForm.temp.$error.min">La temperatura no puede ser menor de 20 °C</span>
                      </span> 
                  </div>  
-                <div class="col-md-2">
+                <div class="col-md-2 col-sm-6">
                    <label for="peso" class="control-label ">PESO(kg):<strong class="fg_red">*</strong></label>
                    <input name="peso" type="number" ng-model-options="{ updateOn: 'blur' }" class="form-control" id="peso" placeholder="PESO" ng-model="pruebamed.pm_peso" min="0.5" max="200" ng-change="calculapeso(pruebamed.pm_peso,pruebamed.pm_talla)" required>
                    <span class="messages" ng-show="userForm.$submitted || userForm.peso.$touched">
@@ -129,7 +139,7 @@
                    <span ng-show="userForm.peso.$error.min">El peso no puede ser menor de 0.5 kg</span>
                    </span>
                 </div>     
-                <div class="col-md-2">
+                <div class="col-md-2 col-sm-6">
                      <label for="talla" class="control-label ">TALLA(m):<strong class="fg_red">*</strong></label>
                      <input name="talla" type="number" ng-model-options="{ updateOn: 'blur' }" class="form-control" id="talla" placeholder="TALLA" ng-model="pruebamed.pm_talla" min="0.1" max="3" ng-change="calculapeso(pruebamed.pm_peso,pruebamed.pm_talla)" required>
                      <span class="messages" ng-show="userForm.$submitted || userForm.talla.$touched">
@@ -138,7 +148,7 @@
                      <span ng-show="userForm.talla.$error.min">La talla no puede ser menor de 0.1 metros</span>
                      </span>
                 </div>     
-                <div class="col-md-2">
+                <div class="col-md-2 col-sm-6">
                      <label for="imc" class="control-label ">IMC(kg/m<sup>2</sup>):</label>
                      <input disabled ng-model="pruebamed.pm_imc" step="0.01" name="pm_imc" placeholder="imc"  class="form-control"  >
                 </div>     

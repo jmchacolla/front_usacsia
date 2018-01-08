@@ -498,6 +498,11 @@ angular.module("adminApp")
   })
 }])
 
+.factory('FuncionarioPer', ['$resource', 'CONFIG', function ($resource, CONFIG){
+  return $resource(CONFIG.DOMINIO_SERVICIOS+"/funcionarios_per/:per_id", {per_id:"@per_id"}, {
+    update: {method: "PUT", params: {per_id: "@per_id"}}
+  })
+}])
 
 
 
@@ -576,8 +581,8 @@ angular.module("adminApp")
   })
 }])
 .factory('FichaClinica', ['$resource', 'CONFIG', function ($resource,CONFIG) {
-  return $resource(CONFIG.DOMINIO_SERVICIOS+"/pruebamedicapersona/:per_ci",{per_ci:"@per_ci"},{
-    update:{method:"PUT",params:{per_ci: "@per_ci"}}
+  return $resource(CONFIG.DOMINIO_SERVICIOS+"/pruebamedicapersona/:per_id",{per_id:"@per_id"},{
+    update:{method:"PUT",params:{per_id: "@per_id"}}
   })
 }])
 
@@ -617,7 +622,9 @@ angular.module("adminApp")
 .factory('EmpresaTramite', ['$resource', 'CONFIG', function ($resource, CONFIG) {
   return $resource(CONFIG.DOMINIO_SERVICIOS+"/empresa_tramite/:et_id", {et_id:"@_et_id"},{ update:{method:"PUT", params:{et_id:"@et_id"}}})
 }])
-
+.factory('ListaEmpTraEtapaEstado', ['$resource', 'CONFIG', function ($resource, CONFIG) {
+  return $resource(CONFIG.DOMINIO_SERVICIOS+"/lista_etapa_estado", {},{ update:{method:"PUT", params:{}}})
+}])
 
 
 
@@ -634,8 +641,15 @@ angular.module("adminApp")
     update: {method: "PUT", params: {per_id: "@per_id"}}
   })
 }])
+.factory('ListaFunCargo', ['$resource', 'CONFIG', function ($resource, CONFIG) {
+  return $resource(CONFIG.DOMINIO_SERVICIOS+"/funcionario_cargo", {},{ update:{method:"PUT", params:{}}})
+}])
 
-
+.factory('Horario', ['$resource', 'CONFIG', function ($resource, CONFIG) {
+  return $resource(CONFIG.DOMINIO_SERVICIOS+"/horario/:fun_id", {fun_id:"@_fun_id"},{ 
+    update:{method:"PUT", params: {fun_id:"@fun_id"}}
+  })
+}])
 
 
 

@@ -7,7 +7,7 @@ angular.module("adminApp", ["authService", "ngRoute", "ngResource", "satellizer"
   $routeProvider
   // ======================================jhon===========================================================================
 // ==========================    ATENCION DE PACIENTES         =================================
-//persona_tramite lista para atender pacientes
+//persona_tramite lista para atender pacientes para enfermeria
 
 .when('/atencion', {//--------medico
   templateUrl: 'templates/personatramite/atencion.html',
@@ -15,6 +15,11 @@ angular.module("adminApp", ["authService", "ngRoute", "ngResource", "satellizer"
   data: {
     authorized: [ROLES.ADMIN_USACSIA.ROL, ROLES.MEDICO.ROL]
   }
+})
+//persona_tramite lista para atender pacientes para medico
+.when('/atencion-consulta', {
+  templateUrl: 'templates/personatramite/atencionconsulta.html',
+  controller: 'AtencionConsultaCtrl'
 })
 //---ver carne sanitario ver por pt_id
 .when('/carne-sanitario/:pt_id', {
@@ -46,14 +51,17 @@ angular.module("adminApp", ["authService", "ngRoute", "ngResource", "satellizer"
   }
 })
 //historial clinico por ci
-.when('/ficha-clinica/:per_ci', {
+.when('/ficha-clinica/:per_id', {
   templateUrl: 'templates/pruebamedica/ficha-clinica.html',
   controller: 'FichaClinicaCtrl',
   data: {
     authorized: [ROLES.ADMIN_USACSIA.ROL, ROLES.MEDICO.ROL]
   }
 })
-
+.when('/plantillaPDF', {
+  templateUrl: 'templates/plantillaPDF.html',
+  controller: 'PlantillaPDFCtrl'
+})
 //jhon==========================================================================
 
 
@@ -728,6 +736,10 @@ angular.module("adminApp", ["authService", "ngRoute", "ngResource", "satellizer"
   .when('/seguimiento-tramite-ces/:et_id', {
     templateUrl: 'templates/certificado/ver.html',
     controller: 'CertificadoCtrl'
+  })
+  .when('/lista-inspeccionados', {
+    templateUrl: 'templates/empresatramite/lista-inspeccionados.html',
+    controller: 'ListaInspeccionadosCtrl'
   })
   /*========================== /empresa tramite =======================================*/
 /*-------------------------------------- documentos -----------------------------------------*/
