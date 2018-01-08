@@ -585,8 +585,15 @@ angular.module("adminApp")
     update: {method: "PUT", params: {per_id: "@per_id"}}
   })
 }])
+.factory('ListaFunCargo', ['$resource', 'CONFIG', function ($resource, CONFIG) {
+  return $resource(CONFIG.DOMINIO_SERVICIOS+"/funcionario_cargo", {},{ update:{method:"PUT", params:{}}})
+}])
 
-
+.factory('Horario', ['$resource', 'CONFIG', function ($resource, CONFIG) {
+  return $resource(CONFIG.DOMINIO_SERVICIOS+"/horario/:fun_id", {fun_id:"@_fun_id"},{ 
+    update:{method:"PUT", params: {fun_id:"@fun_id"}}
+  })
+}])
 
 
 

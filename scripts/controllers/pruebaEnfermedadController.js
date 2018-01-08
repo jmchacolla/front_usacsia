@@ -1,8 +1,8 @@
 'use-strict';
 angular.module("adminApp")
 
-.controller('PruebaEnfermedadCtrl', ['$scope', '$scope', 'PruebaMedica', 'UltimaPL','PruebaEnfermedad', '$route', '$resource', '$routeParams', 'toastr', '$location', '$timeout', '$http', 'PruebaLaboratorioService', 'PersonaTramite', 'CONFIG', 'Tratamiento', 'Receta',
-function ($scope,$scope, PruebaMedica, UltimaPL, PruebaEnfermedad, $route, $resource,$routeParams, toastr, $location, $timeout, $http, PruebaLaboratorioService, PersonaTramite,  CONFIG, Tratamiento,Receta) {
+.controller('PruebaEnfermedadCtrl', ['$scope', '$scope', 'PruebaMedica', 'UltimaPL','PruebaEnfermedad', '$route', '$resource', '$routeParams', 'toastr', '$location', '$timeout', '$http', 'PruebaLaboratorioService', 'PersonaTramite', 'CONFIG', 'Tratamiento', 'Receta', 'Ficha',
+function ($scope,$scope, PruebaMedica, UltimaPL, PruebaEnfermedad, $route, $resource,$routeParams, toastr, $location, $timeout, $http, PruebaLaboratorioService, PersonaTramite,  CONFIG, Tratamiento, Receta, Ficha) {
 
 var pm_id=$routeParams.pm_id;
     $scope.vertr=false;
@@ -11,11 +11,13 @@ var pm_id=$routeParams.pm_id;
     PruebaMedica.get({pm_id:pm_id}, function(data)
     {
       $scope.prueba_medica = data.prueba_medica;
-      // console.log('la data',data);
+      console.log('prueba-medica+++++++',data);
         $scope.ajustes = {
           menu:{
             titulo: 'Gestion de Pruebas Medicas',
             items:[
+              {nombre:'Fichas de atención', enlace:'#/atencion', estilo:''},
+              {nombre:'Atención consulta', enlace:'#/atencion-consulta', estilo:''},
               {nombre:'Crear prueba medica', enlace:'#/prueba-medica/prueba/'+pm_id, estilo:'active'},
               {nombre:'Ver historial clínico del paciente', enlace:'#/ficha-clinica/'+$scope.prueba_medica.paciente.per_id}
               ]
@@ -124,6 +126,14 @@ var pm_id=$routeParams.pm_id;
     $scope.diagnostico = function (pm_diagnostico) {
       $scope.prueba={pm_diagnostico:pm_diagnostico};
       console.log($scope.prueba);
+      var ficha={fic_estado:'ATENDIDO'};
+      console.log('$scope.prueba_medica.fic_id++++++', $scope.prueba_medica.prueba_medica.fic_id);
+      Ficha.update(ficha, {fic_id:$scope.prueba_medica.prueba_medica.fic_id}).$promise.then(function (data) {
+        if(data.status){
+                toastr.success('Registrando paciente');
+              }
+      })
+
       PruebaMedica.update($scope.prueba, {pm_id:pm_id}, function (data) {
         console.log('la data---------', data);
         if (data.mensaje) {

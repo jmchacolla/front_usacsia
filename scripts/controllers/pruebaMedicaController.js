@@ -1,13 +1,14 @@
 'use-strict';
 angular.module("adminApp")
 
-.controller('PruebaMedicaCtrl', ['$scope', 'PruebaMedica', 'PersonaTramite', '$route', '$resource','$routeParams', 'toastr','$location', '$timeout', 'UltimaFichaAtendida', function ($scope, PruebaMedica, PersonaTramite, $route, $resource,$routeParams, toastr, $location, $timeout, UltimaFichaAtendida){
+.controller('PruebaMedicaCtrl', ['$scope', 'PruebaMedica', 'PersonaTramite','Ficha', '$route', '$resource','$routeParams', 'toastr','$location', '$timeout', 'UltimaFichaAtendida', function ($scope, PruebaMedica, PersonaTramite, Ficha, $route, $resource,$routeParams, toastr, $location, $timeout, UltimaFichaAtendida){
   var pt_id = $routeParams.pt_id;  
   $scope.ajustes = {
       menu:{
         titulo: 'Gestion de Pruebas Medicas',
         items:[
-          {nombre:'Crear prueba medica', enlace:'#/prueba-medica/'+pt_id, estilo:'active'}]
+          {nombre:'Crear prueba medica', enlace:'#/prueba-medica/'+pt_id, estilo:'active'}
+          ]
       },
       pagina:{
         titulo:'Ficha Clínica'
@@ -39,10 +40,14 @@ angular.module("adminApp")
        $scope.pertramite.persona.per_genero='MASCULINO';
      }
    });
+   var FunG = localStorage.getItem("Funcionario");
+   var FunG = JSON.parse(FunG);
+   // console.log("MENUCONTROLLER DATOS FUNCIONARIO jajjajaj", FunG);
+
    $scope.pruebamed={
       pt_id:pt_id,
       ser_id:1,//---------medicina general
-      fun_id:$scope.fun_id,//----------debe ser de sesion
+      fun_id:FunG.fun_id,//----------debe ser de sesion
       fic_id:null,
       pm_fc:"",
       pm_fr:"",
@@ -52,9 +57,8 @@ angular.module("adminApp")
       pm_peso:null,
       pm_talla:null,
       pm_imc:null,
-
-      // pm_fecha:"",
-      // pm_diagnostico:"",
+      pm_una_larga:false,
+      pm_colabora:false
    };
    //calculando IMC
    var peso=0;
@@ -82,12 +86,17 @@ angular.module("adminApp")
     $scope.save = function(){
         console.log('prueba medica ---------', $scope.pruebamed);
       PruebaMedica.save($scope.pruebamed).$promise.then(function(data)
-      {
+      {   var ficha={fic_estado:'ENFERMERIA'};
+          Ficha.update(ficha, {fic_id:$scope.pruebamed.fic_id}).$promise.then(function (data) {
+            if(data.status){
+                    toastr.success('Registrando paciente');
+                  }
+          })
           console.log('prueba medica ---------', data);
             if(data.mensaje){
             toastr.success('Registro realizado correctamente');
             $timeout(function() {
-               $location.path('/prueba-medica/prueba/'+data.prueba_medica.prueba_medica.pm_id);
+               $location.path('/atencion');
                 },1000);
           }
       })
@@ -100,7 +109,9 @@ angular.module("adminApp")
       menu:{
         titulo: 'Gestion de Consultas',
         items:[
-          {nombre:'Ciudadanos Registrados', enlace:'#/persona-usacsia', estilo:'active'}]
+          {nombre:'Fichas de atención', enlace:'#/atencion', estilo:''},
+          {nombre:'Atención consulta', enlace:'#/atencion-consulta', estilo:'active'}
+          ]
       },
       pagina:{
         titulo:'Ficha Clínica'
@@ -130,7 +141,10 @@ angular.module("adminApp")
         menu:{
           titulo: 'Gestion de Consultas',
           items:[
-            {nombre:'Ciudadanos Registrados', enlace:'#/persona-usacsia', estilo:'active'}]
+            {nombre:'Fichas de atención', enlace:'#/atencion', estilo:''},
+            {nombre:'Atención consulta', enlace:'#/atencion-consulta', estilo:'active'}
+
+            ]
         },
         pagina:{
           titulo:'Resultados de prueba medica'

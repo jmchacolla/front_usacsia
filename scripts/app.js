@@ -7,7 +7,7 @@ angular.module("adminApp", ["authService", "ngRoute", "ngResource", "satellizer"
   $routeProvider
   // ======================================jhon===========================================================================
 // ==========================    ATENCION DE PACIENTES         =================================
-//persona_tramite lista para atender pacientes
+//persona_tramite lista para atender pacientes para enfermeria
 
 .when('/atencion', {//--------medico
   templateUrl: 'templates/personatramite/atencion.html',
@@ -15,6 +15,11 @@ angular.module("adminApp", ["authService", "ngRoute", "ngResource", "satellizer"
   data: {
     authorized: [ROLES.ADMIN_USACSIA.ROL, ROLES.MEDICO.ROL]
   }
+})
+//persona_tramite lista para atender pacientes para medico
+.when('/atencion-consulta', {
+  templateUrl: 'templates/personatramite/atencionconsulta.html',
+  controller: 'AtencionConsultaCtrl'
 })
 //---ver carne sanitario ver por pt_id
 .when('/carne-sanitario/:pt_id', {

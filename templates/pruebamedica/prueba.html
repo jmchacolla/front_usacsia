@@ -75,7 +75,10 @@
                   <h4 class="text-center text-primary">III. RESULTADOS DE LABORATORIO</h4>
                       <hr class="bg-red"> 
               </div>
-              <div class="row"><!-- akiiii -->
+              <div class="row" ng-show="!prueba_laboratorio.pl_id">
+               <h4> <span class="glyphicon glyphicon-alert text-primary"> </span> No se encuentra resulatdos de pruebas de laboratorio.</h4> 
+              </div>
+              <div class="row" ng-show="prueba_laboratorio.pl_id"><!-- akiiii -->
                 <div class="col-md-2">
                   <label class="text-primary">Fecha:</label><br>
                   {{prueba_laboratorio.pl_fecha_recepcion}}
@@ -94,7 +97,7 @@
                 </div>
                 <hr>
               </div>
-              <div class="row">
+              <div class="row" ng-show="prueba_laboratorio.pl_id">
                 <div class="col-md-12">
                   <label class="text-primary">Resultados de prueba:</label>
                   <br>
@@ -114,7 +117,7 @@
                   <hr class="bg-red">
               </div>
               <div ng-show="!vertr">
-                <button type="submit" data-toggle="modal"  class="btn btn-info" ng-click="vertratamiento()"><span class="glyphicon glyphicon-pencil"></span> ASIGNAR TRATAMIENTO</button>
+                <button type="submit" data-toggle="modal"  class="btn btn-primary" ng-click="vertratamiento()"><span class="glyphicon glyphicon-pencil"></span> ASIGNAR TRATAMIENTO</button>
               </div>
               <div ng-show="vertr">
                 <div class="row">
