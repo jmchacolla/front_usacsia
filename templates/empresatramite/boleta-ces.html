@@ -74,18 +74,17 @@
           <div class="col-md-12">
               <div class="col-md-6 col-sm-6">
                 <label for="tra" class="control-label text-primary">Trámite:</label><strong class="fg_red">*</strong>
-                 <select  name="tra" class="form-control" ng-change="verpagos(tramiteselect.tra_id)" ng-model="tramiteselect" ng-options="tramite as tramite.tra_nombre  for tramite in tramite" ><!-- required -->
+                 <select  name="tra" class="form-control"  ng-model="tramiteselect" ng-options="tramite as tramite.tra_nombre  for tramite in tramite" ><!-- required -->
                  <option>--Elige una opcion--</option>
                   </select>
-
                   <span ng-if="userForm.tra.$touched && tramiteselect.tra_id==null" class="messages">El campo es obligatorio</span> 
               </div>
               <div class="col-md-6 col-sm-6">
                 <label class="text-primary">Unidad de:</label><br>
                 {{tramiteselect.tra_nombre}}
               </div>
-              <hr>
-            <div class="col-md-6 col-sm-6" ng-show="verdeudas" >
+
+            <!-- <div class="col-md-6 col-sm-6" ng-show="verdeudas" >
               <label for="pp" class="control-label text-primary">Selecione concepto de pago:</label><strong class="fg_red">*</strong>
               <select  name="pp" class="form-control" ng-model="pagopselect" ng-options="pagop as pagop.pp_descripcion  for pagop in pagop" required>
               </select>
@@ -93,13 +92,13 @@
             </div>
             <div class="col-md-12" ng-show="!verdeudas">
               <label for="pp" class="control-label text-primary">Aún no se han registrado pagos para este trámite</label>
-            </div>
-            <div class="col-md-6 col-sm-6">
-                <label class="control-label text-primary">Monto a cancelar:</label>
-                <div class="well well-sm">
+            </div> -->
+            <div class="col-md-12 col-sm-12">
+                <div><label class="control-label text-primary">Monto a cancelar:</label></div>
+                <div class="well well-sm col-md-6">
                   <center>
-                    <h3 ng-if="pagopselect.pp_monto_total==null">--</h3>
-                    <h3 ng-if="pagopselect.pp_monto_total!=null">Bs. {{pagopselect.pp_monto_total}}</h3>
+                    <h3 ng-if="tramiteselect.tra_costo==null">--</h3>
+                    <h3 ng-if="tramiteselect.tra_costo!=null">Bs. {{tramiteselect.tra_costo}}</h3>
                   </center>
                 </div>
             </div>
@@ -108,7 +107,7 @@
         <div class="col-md-12">
           <center>
             <div class="col-md-4 col-md-offset-4 text-center" >
-                <button type="submit" class="btn btn-success" ng-click="save(pagopselect.pp_id)" ng-disabled="pagopselect.pp_id==null"><span class="glyphicon glyphicon-plus"></span> REGISTRAR PAGO</button>
+                <button type="submit" class="btn btn-success" ng-click="save(establecimiento.empresa_tramite.et_id, tramiteselect.tra_costo)" ng-disabled="tramiteselect.tra_id==null"><span class="glyphicon glyphicon-plus"></span> REGISTRAR PAGO</button>
             </div>
           </center>
         </div>

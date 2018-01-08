@@ -1,8 +1,7 @@
 'use strict';
 angular.module("adminApp")
 
-.controller('ListaEstabSolCtrl', ['$scope','EstabSols', '$route', 'toastr',
-  function ($scope, EstabSols, $route, toastr){
+.controller('ListaEstabSolCtrl', ['$scope','EstabSols', '$route', 'toastr', 'Establecimientos',  function ($scope, EstabSols, $route, toastr, Establecimientos){
   $scope.ajustes = {
     //Configuraciones del menu:
     menu:{

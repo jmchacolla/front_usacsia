@@ -41,20 +41,20 @@
         <thead >
           <!--<th >Nº</th>-->
           <!-- <th >Código</th> -->
-          <th >
+          <th class="text-primary text-center" >
             <a href="" ng-click="sortType = 'usa_nombre'; sortReverse = !sortReverse">
                     Nombre
                     <span ng-show="sortType == 'usa_nombre' && !sortReverse" class="glyphicon glyphicon-sort-by-alphabet-alt"></span>
                       <span ng-show="sortType == 'usa_nombre' && sortReverse" class="glyphicon glyphicon-sort-by-alphabet"></span>
                       </a>
           </th>
-           <th >Tipo</th>
-          <th >STAND</th>
+          <th class="text-primary text-center" >Tipo</th>
+          <th class="text-primary text-center" >STAND</th>
           <!--<th >Red</th>
-          <th >Municipio</th> -->
-          <th >Ver</th>
-          <th>Editar</th>
-          <th>Borrar</th>
+          <th class="text-primary text-center" >Municipio</th> -->
+          <th class="text-primary text-center" >Ver</th>
+          <!-- <th class="text-primary text-center">Editar</th> -->
+          <!-- <th class="text-primary text-center">Borrar</th> -->
         </thead>
         <tbody ng-repeat="establecimiento in establecimientos | orderBy:sortType:sortReverse | filter:ess_razon_social | startFromGrid: currentPage * pageSize | limitTo: pageSize ">
           <tr>
@@ -69,14 +69,15 @@
           <td><!--Ver Establecimiento-->
             <a class="btn btn-success" href="#/establecimientos/ver/{{establecimiento.usa_id}}" title="Ver Establecimiento" ><span class="glyphicon glyphicon-file "></span></a>
           </td>
-          <td><!--Editar establecimiento-->
+          <!--Editar establecimiento-->
+          <!-- <td>
             <a ng-href="#/establecimientos/edit/{{establecimiento.usa_id}}" class="btn btn-primary" title="Editar Establecimiento" ><span class="glyphicon glyphicon-pencil "></span></a>
-          </td>
-          <td>
-            <!-- BOTON PARA CUADROS MODALES -->
-              <button class="btn btn-danger" title="Eliminar Establecimiento" data-toggle="modal" data-target="#miCuadroModal1" ng-click="get_es_id(establecimiento.usa_id, establecimiento.es_nombre)"><span class="glyphicon glyphicon-trash "></span></button>
+          </td> -->
+          <!-- BOTON PARA CUADROS MODALES -->
+          <!-- <td>
+              <button class="btn btn-danger" title="Eliminar Establecimiento" data-toggle="modal" data-target="#miCuadroModal1" ng-click="get_es_id(establecimiento.ess_id, establecimiento.ess_razon_social)"><span class="glyphicon glyphicon-trash "></span></button> -->
               <!--CUADRO MODAL-->
-              <div id="miCuadroModal1" class="modal fade" role="dialog" tabindex="-1">
+              <!-- <div id="miCuadroModal1" class="modal fade" role="dialog" tabindex="-1">
               <div class="modal-dialog">
                 <div class="modal-content">
                   <div class="modal-header bg-red">
@@ -103,8 +104,8 @@
                 </div>
               </div>
             </div>
+          </td> -->
             <!--FIN CUADRO MODAL-->
-          </td>
           </tr>
 
         </tbody>

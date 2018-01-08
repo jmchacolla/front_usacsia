@@ -704,9 +704,9 @@ angular.module("adminApp", ["authService", "ngRoute", "ngResource", "satellizer"
     controller: 'BuscarPropietarioCtrl'
   })
   /*jhon generador de boleta pago form1 ces*/
-  .when('/boleta-ces/:et_id', {
-    templateUrl: 'templates/empresatramite/boleta-ces.html',
-    controller: 'BoletaCesCtrl'
+  .when('/boleta-ces-f1/:et_id', {
+    templateUrl: 'templates/empresatramite/boleta-ces-f1.html',
+    controller: 'BoletaF1Ctrl'
   })
 
   .when('/pago-pendiente/:pp_id', {

@@ -66,6 +66,7 @@ angular.module("adminApp")
         EmpresaTramite.save(emptr).promise.then(function (argument) {
           console.log('et_id------', argument.et_id);
           if (argument.msg) {
+            toastr.success('Generando nuevo trámite');
             $timeout(function() {
                 $location.path('/boleta-ces/'+argument.et_id);
             },1000);
@@ -83,6 +84,7 @@ angular.module("adminApp")
           EmpresaTramite.save(emptr).promise.then(function (argument) {
             console.log('et_id------', argument.et_id);
             if (argument.msg) {
+              toastr.success('Generando nuevo trámite');
               $timeout(function() {
                   $location.path('/boleta-ces/'+argument.et_id);
               },1000);

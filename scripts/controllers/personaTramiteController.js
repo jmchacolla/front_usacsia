@@ -107,16 +107,16 @@ angular.module("adminApp")
     })
 
     var FunG = localStorage.getItem("Funcionario");
-  var FunG = JSON.parse(FunG);
- var fun_id = FunG.fun_id;
+    var FunG = JSON.parse(FunG);
+    var fun_id = FunG.fun_id;
 
     /**/
       $scope.tramiteselect={
-    tra_id:null,
-    tra_nombre:"",
-    tr_costo:null,
-    tra_vigencia:"",
-  };
+        tra_id:null,
+        tra_nombre:"",
+        tr_costo:null,
+        tra_vigencia:"",
+      };
   $scope.save = function(a, per_id,tra_id,tra_costo){
     $scope.persona_tramite.per_id=per_id;
     $scope.persona_tramite.tra_id=tra_id;
