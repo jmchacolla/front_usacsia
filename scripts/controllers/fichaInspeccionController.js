@@ -113,8 +113,8 @@ angular.module("adminApp")
 
 }])
 
-.controller('CrearCateCtrl', ['$scope','$routeParams','EmpTra','Categoria','FichaCat','Zonas',  '$location', '$timeout', 'toastr','Rubro',
- function ($scope,$routeParams, EmpTra,Categoria,FichaCat,Zonas,  $location, $timeout, toastr,Rubro){
+.controller('CrearCateCtrl', ['$scope','$routeParams','EmpTra','Categoria','FichaCat','Zonas',  '$location', '$timeout', 'toastr','Rubro','Cle','BusSub','BusCat','EstadoIns',
+ function ($scope,$routeParams, EmpTra,Categoria,FichaCat,Zonas,  $location, $timeout, toastr,Rubro,Cle,BusSub,BusCat,EstadoIns){
 
  $scope.ajustes = {
     //Configuraciones del menu:
@@ -134,6 +134,9 @@ angular.module("adminApp")
   }
  var et_id=$routeParams.et_id;
   var fi_id=$routeParams.fi_id;
+    var FunG = localStorage.getItem("Funcionario");
+  var FunG = JSON.parse(FunG);
+  var fun_id = FunG.fun_id;
   console.log("_______llego al controlador asignar________",fi_id)
 EmpTra.get({et_id:et_id},function(data){
     $scope.emp_tra=data.establecimiento;
@@ -149,12 +152,58 @@ EmpTra.get({et_id:et_id},function(data){
         $scope.rubro=data.rubro;
     });
   });
+$scope.ver=false;
+$scope.sancion=false;
+Cle.get(function(data){
+    $scope.subclacificacion=data.cle;
+});
+
+  $scope.buscarS=function(cle_id){
+      console.log(cle_id+"<<< cle_ID");
+    if (cle_id==17) {
+      $scope.sancion=true;
+      $scope.ver=false;
+       BusCat.get({sub_id:93}, function(data){
+          $scope.subcla=data.categoria;
+          console.log("ZOnasss",$scope.buscas);
+          //Agregando 26/10/17
+          
+      })
+    }
+    else{
+      $scope.ver=true;
+      $scope.sancion=false;
+      
+    }
+BusSub.get({cle_id:cle_id}, function(data){
+          $scope.buscas=data.subcla;
+          console.log("ZOnasss",$scope.buscas);
+         
+      })
+      
+  };
+
+  $scope.buscarC=function(sub_id){
+
+      console.log(sub_id+"<<< sub_ID");
+
+      BusCat.get({sub_id:sub_id}, function(data){
+          $scope.subcla=data.categoria;
+          console.log("ZOnasss",$scope.buscas);
+          //Agregando 26/10/17
+          
+      })
+
+  };
+
+
+
 
   $scope.CurrentDate=new Date();
 
   $scope.items = [];
   Categoria.get(function(data){
-      $scope.subcla=data.categoria;
+      $scope.subcla2=data.categoria;
       console.log($scope.subcla);
 
 /*agregar categorias a la empresa*/
@@ -173,7 +222,7 @@ EmpTra.get({et_id:et_id},function(data){
 
             aux=$scope.subcla[i];
             $scope.subcla.splice(i,1);
-           console.log("______agregando categoria______",aux);
+           console.log("______agregando categoria__-___",aux);
           }
         };
         // console.log('este es el vector reducido', $scope.subcla);
@@ -194,17 +243,72 @@ EmpTra.get({et_id:et_id},function(data){
       }
     };
   });
+$scope.checkedI=false;
+
 
     $scope.todo1={
       fi_id:fi_id,
       vector:$scope.items
     };
 
-    $scope.todo=JSON.stringify($scope.todo1);
-  
 
-  //VALIDAR NUMEROS !!!!!!
+    $scope.todo=JSON.stringify($scope.todo1);
+    $scope.CurrentDate = new Date();
+    var mes=$scope.CurrentDate.getMonth()+1;
+    var fecha=$scope.CurrentDate.getDate()+"-"+mes+"-"+$scope.CurrentDate.getFullYear();
+   $scope.datos={
+            fun_id:null,
+           /* eta_id:null,*/
+            te_estado:'',
+            te_observacion:'',
+            te_fecha:''
+        }
+
   $scope.submit = function(){
+    console.log('EL OBJETO QUE S VA A CREAR', $scope.todo1);
+    FichaCat.save($scope.todo1).$promise.then(function(data){
+      if(data.status) {
+        
+          if ($scope.checkedI) {
+             $scope.datos={
+                fun_id:fun_id,
+                te_estado:'OBSERVADO',
+                te_observacion:$scope.datos.te_observacion,
+                te_fecha:fecha
+            }
+          }
+          else{
+             $scope.datos={
+                fun_id:fun_id,
+                /*eta_id:2,*/
+                te_estado:'APROBADO',
+                te_observacion:'NINGUNA',
+                te_fecha:fecha
+            }
+          }
+        
+
+      EstadoIns.update({et_id:et_id}, $scope.datos).$promise.then(function(data)
+      {
+        console.log("__datos tramitecer__",$scope.datos);
+          if(data.status) {
+            angular.copy({}, $scope.datos);
+          }
+         
+
+      })
+
+        angular.copy({}, $scope.todo1);
+        $scope.ajustes.pagina.success = "Categoria añadida correctamente";
+        toastr.success('Categoria añadida correctamente');
+         $timeout(function() {
+            $location.path('/tramites_certi');
+          },10);
+      }
+    });
+  };
+
+    $scope.submitS = function(){
     console.log('EL OBJETO QUE S VA A CREAR', $scope.todo1);
     FichaCat.save($scope.todo1).$promise.then(function(data){
       if(data.status) {
@@ -363,7 +467,35 @@ $scope.checked=true;
   }*/
 
 }])
-
+.controller('VerFichaCtrl', [/*'authUser',*/ '$scope', 'FichaIn', '$routeParams', '$location', 
+  function (/*authUser,*/ $scope, FichaIn, $routeParams, $location){
+ /* if(authUser.isLoggedIn()){*/
+    $scope.ajustes = {
+      menu:{
+        titulo: 'Gestión de Fichas de Inspección',
+        items:[
+          {nombre:'Fichas de inspeccion', enlace:'#/', estilo:''}/*,
+          {nombre:'Registrar Ciudadano', enlace:'#/personas/create', estilo:''}*/]
+      },
+      pagina:{
+        titulo:'Detalle de ficha de inspeccion'
+      }
+    }
+    $scope.loading=true;
+    var fi_id = $routeParams.fi_id;
+    console.log("persona_id",fi_id);
+    FichaIn.get({fi_id:fi_id}, function(data){
+      $scope.ficha_inspeccion = data.ficha_inspeccion;
+      console.log("PERSONAS");
+    
+      $scope.loading = false;
+      $scope.msg = data.mensaje;
+     
+    });
+  /*} else {
+    $location.path('/inicio');
+  }*/
+}])
 .controller('CrearFicha2Ctrl', ['$http','CONFIG','$scope','Ficha2', '$route', 'toastr','EmpTra', function ($http,CONFIG,$scope,Ficha2, $route, toastr,EmpTra){
   $scope.ajustes = {
     menu:{
@@ -534,3 +666,28 @@ $scope.checked=true;
   }*/
 
 }])
+
+
+.controller('apiAppCtrl_estadoCar', ['$http', '$scope', 'CONFIG', buscaEstadoCarCtrl])
+function buscaEstadoCarCtrl($http, $scope, CONFIG){
+  $scope.buscaEstadoCar = function(){
+
+    console.log('esta buscando numero de pertramite', $scope.numero_muestra);
+      $scope.tamanio="Cargando...";//////CAMBIADO
+      $http.get(CONFIG.DOMINIO_SERVICIOS+'/estado_carnet/'+$scope.per_ci).success(function(respuesta){
+          $scope.pertra = respuesta.pertramite;
+          if(respuesta.pertramite){
+              $scope.tamanio="";
+              $scope.ver=true;
+              $scope.switch=false;
+          } else if(!respuesta.pertramite){
+              $scope.ver=false;
+              $scope.tamanio="El numero de pertramite ingresado no fue asignado";
+          }
+          if(respuesta.pruebalabo){
+              $scope.tamanio="La pertramite ya fue analizada";
+              $scope.verprueba=true;
+          }
+      });
+  }
+}

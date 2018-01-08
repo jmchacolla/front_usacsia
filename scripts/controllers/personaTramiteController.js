@@ -715,7 +715,8 @@ function buscaPersonaController($http, $scope, CONFIG){
           $scope.persona = respuesta.persona.persona;
           if(!respuesta.persona){
               $scope.ver=false;
-              $scope.resultado=" La persona no se encuentra registrada";              
+              $scope.resultado=" La persona no se encuentra registrada";    
+              console.log("_respuesta__",$scope.resultado);          
           } else if(respuesta.persona){
               $scope.ver=true;
               $scope.resultado='';
@@ -723,5 +724,6 @@ function buscaPersonaController($http, $scope, CONFIG){
       });
   }
 }
+
 
 
