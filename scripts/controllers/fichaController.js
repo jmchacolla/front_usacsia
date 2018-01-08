@@ -16,7 +16,7 @@ angular.module("adminApp")
     pt_id:null
   }
   $scope.num_ficha_traido_del_crear=0;
-  $scope.aux=null;
+
   //guarda la ficha input pt_id
   $scope.savef=function(a)
   {
@@ -27,17 +27,18 @@ angular.module("adminApp")
       if(data.status)
       {
         $scope.ajustes.pagina.success="Muestra asignada exitosamente";
-        $scope.aux2=data.ficha.fic_id;
+        $scope.aux1=data.ficha.ficha.fic_id;
+        $scope.aux2=data.ficha.consultorio_cod;
         console.log('ESTE ES EL NUMERO DE FICHA QUE SE ASIGNÓ',$scope.aux2);
-        verNumeroFicha($scope.aux2);
+        verNumeroFicha($scope.aux1,$scope.aux2);
         toastr.success('Número de ficha asignada correctamente');
       }
     });
   }
-  function verNumeroFicha(fic_id){
+  function verNumeroFicha(fic_id,con_cod){
       $http.get(CONFIG.DOMINIO_SERVICIOS+'/ficha/'+fic_id).success(function(respuesta){
           $scope.num_ficha_traido_del_crear = respuesta.ficha.fic_numero;
-          $scope.num_con_traido_del_crear = respuesta.ficha.con_id;
+          $scope.num_con_traido_del_crear = con_cod;
           console.log('llamo a la funcion', $scope.num_ficha_traido_del_crear);
       });
   }

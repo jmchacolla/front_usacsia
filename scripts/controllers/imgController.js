@@ -415,11 +415,10 @@ $scope.persona.ima_nombre=file.name;
 
 .controller('UploadDocCtrl', ['$scope', '$timeout','$http',function($scope, $timeout, $http){
     
-        $scope.thumbnail = {
-            // window['dataUrl'+$scope.documentoTramite.doc_id]=
-            dataUrl: '' 
-        };
 
+        $scope.items_doc=[];
+        
+        $scope.thumbnailbase64='';
         $scope.fileReaderSupported = window.FileReader != null;
             $scope.photoChanged = function(files){
                 if (files != null) {
@@ -430,42 +429,64 @@ $scope.persona.ima_nombre=file.name;
                         fileReader.readAsDataURL(file);
                         fileReader.onload = function(e) {
                             $timeout(function(){
-                                $scope.thumbnail.dataUrl = e.target.result;
+                                $scope.thumbnailbase64 = e.target.result;
+                                console.log('como suele pasar', e.target);
                             });
                         }
-                        $scope.establecimiento.ie_nombre=file.name;  //obtenemos el nombre de la imagen :)
-                        $scope.establecimiento.imagenes.ie_nombre=file.name; 
+                        /*imagenes creadas consultorios*/
+                        
+                        
+                        $scope.nombre_de_mi_imagencita=file.name;  //obtenemos el nombre de la imagen :)
+                        $scope.ids = [1];
+                        $scope.nombres_imagenes = ['uno'];
+                        docimg_creado($scope.doc_id);
+                        function docimg_creado(doc_id) {
+                                console.log('llego a la funcion si existe img',doc_id);
+                                // var idx = $scope.ids.indexOf(doc_id);
+                                // if (idx > -1){
+                                //     $scope.nombres_imagenes[idx]=file.nombre;
+                                // }
+                                // else{
+                                //     $scope.ids.push(doc_id);
+                                //     $scope.nombres_imagenes.push(file.nombre);
+                                // }
+                                // $scope.final= $scope.ids.toString();
+                                // $scope.final2= $scope.nombres_imagenes.toString();
+                            
+                        };
+                        /*----------------------*/                        
                     });
                 }
             }
         };
 
-
+        
         var vm = this;
         vm.img=false;
-        vm.enviar=function() {
-            if(vm.ie_nombre){
+        vm.guardar_imagenes=function() {
                 //Asignamos el file-model a la variable file, gracias a la directiva de mas arriba.
-                var file = vm.ie_nombre;
+                var file = vm.img_nombre;
+                // var fd = new FormData();
+                // fd.append('file', file); //Agregamos data al "formulario" que vamos a enviar
+                
+                    for (var i = $scope.items_doc.length - 1; i >= 0; i--) {
+                        $http.post('documents.php', fd, {
+                            transformRequest: angular.identity, //Le decimos a angular que no serialize el envio
+                            headers: {'Content-Type': undefined}
+                            })
+                            .success(function(response){
+                                //Guardamos la url de la imagen y hacemos que la muestre.
+                                vm.ie_nombre=response;
+                                vm.img=true;
+                            })
+                            .error(function(response){
 
-                var fd = new FormData();
-                fd.append('file', file); //Agregamos data al "formulario" que vamos a enviar
+                        });
+                         $scope.msg="Imagen cargada correctamente";
+                    }
+        };
 
-                $http.post('est.php', fd, {
-                    transformRequest: angular.identity, //Le decimos a angular que no serialize el envio
-                    headers: {'Content-Type': undefined}
-                    })
-                    .success(function(response){
-                        //Guardamos la url de la imagen y hacemos que la muestre.
-                        vm.ie_nombre=response;
-                        vm.img=true;
-                    })
-                    .error(function(response){
 
-                });
-                 $scope.msg="Imagen cargada correctamente";
-            }
-    };
 }])
 
 .controller('UploadFirmaCtrl', ['$scope', '$timeout','$http',function($scope, $timeout, $http){

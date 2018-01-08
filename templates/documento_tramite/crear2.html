@@ -30,9 +30,11 @@
 							<div class="col-md-12">
 							<!-- AQUI VAN LAS TABLAS O FORMULARIOS incrustados -->
 							<!-- INICIO -->
+							{{'final ='}}{{final}}<br/>{{'final2='}}{{final2}}
 								<div class="well well-sm" style="background-color:#fff;">
 									<div class="row">
 										<div class="col-md-12">
+
 											<div class="panel panel-default" ng-class="{'panel-success':documento.doc_importancia!='OBLIGATORIO', 'panel-warning':documento.doc_importancia=='OBLIGATORIO' }"  ng-repeat="documento in documentos">
 										      <div class="panel-heading"  >
 										        <h4 class="panel-title">
@@ -48,7 +50,6 @@
 											          		
 											          	</div>	
 										          	</div>
-										          											
 										          </a>
 										        </h4>
 										      </div>
@@ -59,24 +60,27 @@
 														<div ng-controller="UploadDocCtrl as vm"> 
 														<form>
 										                    <div class="well well-sm">
-										                    	<h4 class="text-center text-primary">{{documento.doc_nombre}}</h4>
+										                    	<h4 class="text-center text-primary">{{documento.doc_nombre+" "+documento.doc_id}}</h4>
 										                    	<hr class="bg-red">
-																<div ng-if="thumbnail.dataUrl == ''">
+
+																<div ng-if=" documento.dt_url== ''">
 																	<img ng-src="./images/imagen-default.jpg" align="center" class="img-responsive img-thumbnail"/>
 																</div>
-																<div ng-if="thumbnail.dataUrl != ''" style="height:190px !important; overflow:auto;">
-																	<img ng-src="{{ thumbnail.dataUrl }}" align="center" class="img-responsive img-thumbnail"/>
+																<div ng-if="documento.dt_url!= ''" style="height:190px !important; overflow:auto;">
+																	<img ng-src="{{documento.dt_url+documento.dt_nombre}}" align="center" class="img-responsive img-thumbnail"/>
 																</div>
 																<div class="form-group">
-																	<label>Cargar Imagen</label>
-																	<input type="file" name="fileInput" id ="fileInput" class="filestyle" data-buttonText="Find file" file-model="vm.ima_nombre" onchange="angular.element(this).scope().photoChanged(this.files)" required/>
-																	<input type="hidden" name="" ng-model="documentoTramite1.dt_nombre" value="{{vm.ima_nombre}}">
+																	<label>Cargar Imagen</label><br/>
+																	<input type="file" name="fileInput" id ="fileInput" class="filestyle" data-buttonText="Find file" file-model="vm.ie_nombre" onchange="angular.element(this).scope().photoChanged(this.files)" ng-change="docimg_creado()" ng-model="nombre_de_mi_imagencita" required/>
+																	<input  ng-model="nombre_de_mi_imagencita" value="{{vm.ie_nombre}}">
 																	<br>
-																</div> 
+																	<input id="doc_id" value="{{documento.doc_id}}">
+																</div>
+																<button  >enviar mi doc_id</button>
 																<label for="nombre" class="control-label">Observacion: <strong class="fg_red">*</strong></label>
 											                   <label><input type="checkbox" ng-click="cambio()">Si</label>
 											                	
-														        <textarea style="resize: vertical;min-height:70px;max-height: 150px;" ng-show="obs" class="form-control" name="nombres" type="text" placeholder="Nombre" ng-model="persona.per_nombres" ng-model-options="{ updateOn: 'blur' }" required ng-pattern="patternCadena" autofocus>
+														        <textarea style="resize: vertical;min-height:70px;max-height: 150px;" ng-show="obs" class="form-control" type="text" required ng-pattern="patternCadena">
 														        	</textarea>
 														        <span class="messages" ng-show="addPersona.nombres.$touched"></span>
 														        	<center>
@@ -84,10 +88,12 @@
 											                    </center>
 										                    </div>
 									                    </form>
+
 									                	</div>
 									                </div>
 										        </div>
 										      </div>
+
 										    </div>
 
 										</div>

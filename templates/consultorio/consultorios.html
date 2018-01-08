@@ -29,7 +29,7 @@
   <div class="row">
       <div class="col-md-12">
              <button class="btn btn-primary" ng-click="cambio_hab()" ng-if="btn_hab"><span class="glyphicon glyphicon-ok"></span> HABILITAR CONSULTORIOS</button>
-             <button class="btn btn-primary" ng-click="cambio_hab();update_lista()" ng-if="!btn_hab"><span class="glyphicon glyphicon-save"></span> GUARDAR CONFIGURACIÓN</a>
+             <button class="btn btn-primary" ng-click="cambio_hab();update_lista()" ng-if="!btn_hab"><span class="glyphicon glyphicon-save"></span> GUARDAR CONFIGURACIÓN</button>
       </div>
   </div>
   <div class="row">
@@ -39,8 +39,6 @@
       <div class="text-center" ng-show="loading"><br><img ng-src="./images/image.gif" class="loader-img"></div>
       <div ng-show="!loading && !msg">No se encontraron resultados</div>
       <div class="table-responsive">
-        {{final}}<br/>
-        {{final2}}
         <table class="table table-bordered table-striped table-hover" ng-show="!loading && msg" id="table">
           <thead >
             <th >

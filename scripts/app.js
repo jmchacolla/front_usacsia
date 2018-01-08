@@ -444,6 +444,23 @@ angular.module("adminApp", ["authService", "ngRoute", "ngResource", "satellizer"
 
 
 /*===================================VERONICA================================================*/
+/*empresa verfica el estado de persona que sera contratada*/
+  .when('/empresa/verificar-persona', {
+    templateUrl: 'templates/empresafuncionario/verificar_persona.html',
+    controller:'VerificarPersonaCtrl',
+    data: {
+      authorized: [ROLES.ADMIN_USACSIA.ROL]
+    }
+  })
+
+  
+
+
+
+
+
+  /*------------------------ empresa ---------------------------*/
+
 /*buscar persona registrada, para luego registrar su establecimiento*/
   .when('/establecimientosol/persona', { 
     templateUrl: 'templates/establecimiento_solicitante/buscar_persona_registrada.html',
@@ -527,6 +544,7 @@ angular.module("adminApp", ["authService", "ngRoute", "ngResource", "satellizer"
       authorized: [ROLES.ADMIN_USACSIA.ROL, ROLES.RECEP_LAB.ROL]
     }
   })
+
 //LISTA DE NUMERO DE MUESTRAS ASIGNADOS
   .when('/numero-muestra', {
     templateUrl: 'templates/muestra/index.html',
@@ -676,6 +694,10 @@ angular.module("adminApp", ["authService", "ngRoute", "ngResource", "satellizer"
     templateUrl: 'templates/firma/editar.html',
     controller: 'CrearDocumentoTramiteCtrl'
   })
+
+
+
+
 
 /*########################CERTIFICADO SANITARIO#######################################*/
 /*========================== empresa tramite==========================================*/
