@@ -285,7 +285,7 @@ $scope.initMap = function(){
       establecimiento:$scope.establecimiento,
       vector:$scope.items
     };
-    console.log('EL OBJETO QUE S VA A CREAR', $scope.todo);
+    console.log('EL OBJETO QUE SE VA A CREAR', $scope.todo);
       EstabSols.save($scope.todo).$promise.then(function(data){
         if(data.status) {
           $scope.ajustes.pagina.success = "Establecimiento añadido correctamente";

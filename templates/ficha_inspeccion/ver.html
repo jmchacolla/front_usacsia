@@ -10,77 +10,94 @@
 					<span class="glyphicon glyphicon-th-large" aria-hidden="true"></span>
 					<strong class="fg-gray">{{ajustes.pagina.titulo}}</strong>
 				</h2>
-				<hr class="bg-green">
+				<hr class="bg-red">
 			</div>
 		</div>
 		<!-- Cabecera -->
 		<div class="row">
 		    <div class="col-md-12">
 			<!-- AQUI VAN LOAS TABLAS O FORMULARIOS incrustados -->
-					<div class="row">
-				        
-				        <div class="col-md-4">
-					        <label class="text-primary control-label">Empresa:</label>
-			            	<p class="lead">{{ficha_inspeccion.establecimiento_solicitante.ess_razon_social}}</p>
-					        <label class="text-primary control-label">Tipo:</label>
+				<div class="row">
+					<div class="col-md-4">
+				        <label class="text-primary control-label">Empresa:</label>
+		            	<p class="lead">{{ficha_inspeccion.establecimiento_solicitante.ess_razon_social}}</p>
+						<label class="text-primary control-label">Zona:</label>
+		            	<p class="lead">{{emp_tra.zona.zon_nombre}}</p>
+		            	<label class="text-primary control-label">Stand:</label>
+		            	<p class="lead" ng-if="emp_tra.establecimiento_sol.ess_stand !=''">{{emp_tra.establecimiento_sol.ess_stand}}</p>
+		            	<p class="lead" ng-if="emp_tra.establecimiento_sol.ess_stand ==''">---</p>
+					</div>
+				    <div class="col-md-4">
+						<label class="text-primary control-label">Tipo:</label>
 			            	<p class="lead">
 							{{ficha_inspeccion.establecimiento_solicitante.ess_tipo}} 
-							
 							</p>
-					        <!-- <label class="text-primary control-label">Números telefónicos:</label>
-			            	<p class="lead" ng-repeat="tel in establecimiento.telefonos">{{tel.te_numero}}</p>
-			            	<label class="text-primary control-label">Números de fax:</label>
-			            	<p class="lead">{{establecimiento.establecimientos.es_fax}}</p>
-					        <label class="text-primary control-label">Correo Electrónico:</label>
-			            	<p class="lead" ng-if="establecimiento.establecimientos.es_correo_electronico !=''">{{establecimiento.establecimientos.es_correo_electronico}}</p>
-			            	<p class="lead" ng-if="establecimiento.establecimientos.es_correo_electronico ==''">---</p>
-					        <label class="text-primary control-label">Dirección de página Web Institucional:</label>
-			            	<p class="lead" ng-if="establecimiento.establecimientos.es_direccion_web !=''">{{establecimiento.establecimientos.es_direccion_web}}</p>
-			            	<p class="lead" ng-if="establecimiento.establecimientos.es_direccion_web ==''">---</p> -->
-				        </div>
-				        <div class="col-md-4">
-				        	<label class="text-primary control-label">Ficha Inspección:</label>
-			            	<p class="lead">{{establecimiento.establecimientos.es_codigo}}</p>
-			            	<label class="text-primary control-label">Resolución Ministerial:</label>
-			            	<p class="lead">{{establecimiento.establecimientos.es_numero_rm}}</p>
-			            	<label class="text-primary control-label">NIT:</label>
-			            	<p class="lead">{{establecimiento.establecimientos.es_nit}}</p>
-			            	<label class="text-primary control-label">Institución de dependencia:</label>
-			            	<p class="lead">{{establecimiento.institucion.ins_nombre}}</p>
-				        </div>
+			            	<label class="text-primary control-label">Avenida/Calle:</label>
+			            	<p class="lead">{{emp_tra.establecimiento_sol.ess_avenida_calle}}</p>
+			        </div>
+				    <div class="col-md-4">
+				        	<label class="text-primary control-label">Propietario:</label>
+			            	<p class="lead" >{{propietario}}</p>
+			            	<label class="text-primary control-label">Número:</label>
+			            	<p class="lead">{{emp_tra.establecimiento_sol.ess_numero}}</p>
 					</div>
-					<div class="row">
-				        <div class="col-md-3">
-					        <label class="text-primary control-label">Fecha de creación del establecimiento:</label>
-				            <p class="lead">{{establecimiento.establecimientos.es_fecha_creacion}}</p>
-				        </div>
-				        <div class="col-md-3">
-					        <label class="text-primary control-label">Inicio de actividades del establecimiento:</label>
-			        	    <p class="lead">{{establecimiento.establecimientos.es_fecha_inicio_actividad}}</p>
-				        </div>
-				        <div class="col-md-3">
-					        <label class="text-primary control-label">Horas de atención:</label>
-				            <p class="lead">{{establecimiento.establecimientos.es_horas}}</p>
-				        </div>
-				        <div class="col-md-3">
-					        <label class="text-primary control-label">Horario de atención:</label>
-			        	    <p class="lead">{{establecimiento.establecimientos.es_inicio_atencion | date: 'H:mm'}} - {{ establecimiento.establecimientos.es_final_atencion | date: 'H:mm'}}</p>
-				        </div>
-					</div>
-					<div class="row">
-				        <div class="col-md-4">
-					        <label class="text-primary control-label">Red de salud:</label>
-			            	<p class="lead">{{establecimiento.reds.red_nombre}}</p>
-				        </div>
-				        <div class="col-md-4">
-					        <label class="text-primary control-label">Tipo de establecimiento:</label>
-				            <p class="lead">{{establecimiento.tipos.tip_nombre}}</p>
-				        </div>
-				        <div class="col-md-4">
-					        <label class="text-primary control-label">Nivel:</label>
-			            	<p class="lead">{{establecimiento.establecimientos.es_nivel}}</p>
-				        </div>
-					</div>
+				</div>
+				<div class="row">
+					<div class="form-group col-md-6 col-sm-6 col-xs-12">
+				        <label class="control-label">Servicio Referente:</label>
+			            	<p>{{contrareferencia.contrareferencia.bc_servicio_referente}}</p>
+			        </div>
+					
+				</div>
+				<div class="table-responsive">
+			        <table class="table table-hovertable table-bordered table-striped table-hover"  id="tablaES">
+			            <thead>
+		                    <th >Descripción</th>
+		                    <th >Código</th>
+		                    <th >Monto (Bs)</th>
+		                    <th ng-if="user.rol_id == '1' || user.rol_id == '16' ">Sanción</th> 
+			            </thead>
+			            <tbody ng-repeat="cate in ficha_inspeccion.ficha_categoria | orderBy:sortType:sortReverse">
+			                <tr>
+			                    <td>{{cate.cat_descripcion}}</td>
+			                    <td>{{cate.cat_codigo}}</td>
+			                    <td>{{cate.cat_monto}}</td>
+			                    <td ng-if="user.rol_id == '1' || user.rol_id == '16' ">
+					                <!-- BOTON PARA CUADROS MODALES ng-disabled="refer.br_estado_referencia == true"-->
+					                <button  class="btn btn-xm btn-warning glyphicon glyphicon-check" data-toggle="modal" ng-click="rec(cate.fc_id,cate.cat_id)" data-target="#miCuadroModal1" title="Sancionar categoria" ></button>
+					                <!--CUADRO MODAL-->
+					                <div id="miCuadroModal1" class="modal fade" role="dialog" tabindex="-1">
+					                  <div class="modal-dialog">
+					                    <div class="modal-content">
+					                     <div class="modal-header bg-red">
+						                    <button type="button" class="close" data-dismiss="modal">×</button>
+						                    <h4 class="modal-title fg-white">Sanción de categoria</h4>
+					                  	 </div>
+					                 	 <div class="modal-body lead text-center">
+					                     Categoria de empresa:
+					                     	<br>
+							                 <div class="well well-sm">
+							                  <strong>{{nombre | uppercase}}</strong>
+							                </div>
+					                		<label for="sc" class="control-label">Sancion: <strong class="fg_red">*</strong></label>
+                                    			<select class="form-control " name="sc"  ng-model="cat.cat_id" ng-options="cat.cat_id as cat.cat_descripcion+'   -'+cat.cat_monto for cat in subcla" required>
+                                    		</select>
+					                    </div>
+					                      <div class="modal-footer"><!-- ,checkedI -->
+					                        <button type="button" class="btn btn-primary" data-dismiss="modal" ng-click="submit(cat.cat_id)"><span class="glyphicon glyphicon-ok"></span> GUARDAR </button>
+					                  
+					                        <button type="button" class="btn btn-danger" data-dismiss="modal"><span class="glyphicon glyphicon-remove"></span> CANCELAR</button>
+					                      </div>
+					                    </div>
+					                  </div>
+					                </div>
+					                <!--FIN CUADRO MODAL-->
+					              </td>
+			                  </tr>
+			                </tbody>
+			            </table>
+			          </div>
+				
 				
 			<!-- FIN FORMULARIO O TABLA-->
 			</div>

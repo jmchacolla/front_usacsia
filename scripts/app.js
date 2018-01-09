@@ -336,6 +336,23 @@ angular.module("adminApp", ["authService", "ngRoute", "ngResource", "satellizer"
       authorized: [ROLES.ADMIN_SEDES.ROL]
     }*/
   })
+  //*****************************   LISTA DE PROPIETARIOS NATURALES JURIDICOS   **************
+   //lista para inspectores prop naturales
+  .when('/tramites_nat',{
+   templateUrl:'templates/empresatramite/listaNat.html',
+   controller: 'NatInsCtrl',
+    data: {
+      authorized: [/*ROLES.ADMIN_USACSIA.ROL,*/ROLES.INSPECTOR.ROL]
+    }
+  })
+      //lista para inspectores prop juridicos
+  .when('/tramites_jur',{
+   templateUrl:'templates/empresatramite/listaJur.html',
+   controller: 'JurInsCtrl',
+    data: {
+      authorized: [/*ROLES.ADMIN_USACSIA.ROL,*/ROLES.INSPECTOR.ROL]
+    }
+  })
 //=========================         FICHAS DE INSPECCION     =============================
 //LISTA DE 6 FICHAS//no esta en rutas privadas
   .when('/inspeccion/fichas',{
@@ -356,6 +373,14 @@ angular.module("adminApp", ["authService", "ngRoute", "ngResource", "satellizer"
   .when('/inspeccion/categoria/crear/:fi_id/:et_id',{
    templateUrl:'templates/ficha_inspeccion/asignar.html',
    controller: 'CrearCateCtrl',
+    data: {
+      authorized: [ROLES.ADMIN_USACSIA.ROL,ROLES.INSPECTOR.ROL]
+    }
+  })
+    //ASIGNAR SANCION ----falta revisar 9-1-2018
+  .when('/inspeccion/sancion/crear/:fi_id/:et_id',{
+   templateUrl:'templates/ficha_inspeccion/crear_sancion.html',
+   controller: 'CrearSancionCtrl',
     data: {
       authorized: [ROLES.ADMIN_USACSIA.ROL,ROLES.INSPECTOR.ROL]
     }
@@ -417,22 +442,7 @@ angular.module("adminApp", ["authService", "ngRoute", "ngResource", "satellizer"
       authorized: [ROLES.ADMIN_SEDES.ROL]
     }*/
   })
-    //lista para inspectores prop naturales
-  .when('/tramites_nat',{
-   templateUrl:'templates/empresatramite/listaNat.html',
-   controller: 'NatInsCtrl',
-    data: {
-      authorized: [/*ROLES.ADMIN_USACSIA.ROL,*/ROLES.INSPECTOR.ROL]
-    }
-  })
-      //lista para inspectores prop juridicos
-  .when('/tramites_jur',{
-   templateUrl:'templates/empresatramite/listaJur.html',
-   controller: 'JurInsCtrl',
-    data: {
-      authorized: [/*ROLES.ADMIN_USACSIA.ROL,*/ROLES.INSPECTOR.ROL]
-    }
-  })
+   
 
 
   
@@ -718,14 +728,20 @@ angular.module("adminApp", ["authService", "ngRoute", "ngResource", "satellizer"
     templateUrl: 'templates/arancel/categoria-lista.html',
     controller: 'CategoriaCtrl'
   })
-
+//falta colocar en el menu inicio
   .when('/firma/crear', {
     templateUrl: 'templates/firma/crear.html',
-    controller: 'FirmaCrearCtrl'
+    controller: 'FirmaCrearCtrl',
+    data: {
+      authorized: [ROLES.ADMIN_USACSIA.ROL, ROLES.ADMIN_CERTIFICADO.ROL, ROLES.JEFE_USACSIA.ROL,ROLES.JEFE_FINANCIERA.ROL, ROLES.RESPONSABLE_TESORERIA.ROL]
+    }
   })
   .when('/firma/editar', {
     templateUrl: 'templates/firma/editar.html',
-    controller: 'CrearDocumentoTramiteCtrl'
+    controller: 'CrearDocumentoTramiteCtrl',
+    data: {
+      authorized: [ROLES.ADMIN_USACSIA.ROL, ROLES.ADMIN_CERTIFICADO.ROL, ROLES.JEFE_USACSIA.ROL,ROLES.JEFE_FINANCIERA.ROL, ROLES.RESPONSABLE_TESORERIA.ROL]
+    }
   })
 
 
@@ -742,16 +758,27 @@ angular.module("adminApp", ["authService", "ngRoute", "ngResource", "satellizer"
 /*jhon busca un establecimiento por ci de propietario o razon social*/
   .when('/buscar-propietario', {
     templateUrl: 'templates/empresatramite/buscar.html',
-    controller: 'BuscarPropietarioCtrl'
+    controller: 'BuscarPropietarioCtrl',
+    data: {
+      authorized: [ROLES.ADMIN_USACSIA.ROL, ROLES.CAJERO.ROL]
+    }
   })
   /*jhon generador de boleta pago form1 ces*/
+  //ver boleta pagocertificaco
   .when('/boleta-ces-f1/:et_id', {
     templateUrl: 'templates/empresatramite/boleta-ces-f1.html',
-    controller: 'BoletaF1Ctrl'
+    controller: 'BoletaF1Ctrl',
+    data: {
+      authorized: [ROLES.ADMIN_USACSIA.ROL, ROLES.CAJERO.ROL]
+    }
   })
+  //crear boleta pago certificado
    .when('/boleta-ces/:et_id', {
     templateUrl: 'templates/empresatramite/boleta-ces.html',
-    controller: 'BoletaCesCtrl'
+    controller: 'BoletaCesCtrl',
+    data: {
+      authorized: [ROLES.ADMIN_USACSIA.ROL, ROLES.CAJERO.ROL]
+    }
   })
 
   .when('/pago-pendiente/:pp_id', {
