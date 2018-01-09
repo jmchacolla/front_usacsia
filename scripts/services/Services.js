@@ -195,6 +195,7 @@ angular.module("adminApp")
     update: {method: "PUT", params: {et_id:"@et_id"}}
   })
 }])
+
 //------------------------            ASIGNACION DE ZONAS             ----------------------------
 .factory('ZonIn', ['$resource', 'CONFIG', function ($resource, CONFIG) {
   return $resource(CONFIG.DOMINIO_SERVICIOS+"/zon_ins/:zi_id", {zi_id:"@_zi_id"}, {
@@ -388,8 +389,8 @@ angular.module("adminApp")
 
 
 .factory('Tramite', ['$resource', 'CONFIG', function ($resource, CONFIG){
-  return $resource(CONFIG.DOMINIO_SERVICIOS+"/tramite/:tra_id", {pt_id:"@_tra_id"}, {
-    update: {method: "PUT", params: {pt_id: "@tra_id"}}
+  return $resource(CONFIG.DOMINIO_SERVICIOS+"/tramite/:tra_id", {tra_id:"@_tra_id"}, {
+    update: {method: "PUT", params: {tra_id: "@tra_id"}}
   })
 }])
 

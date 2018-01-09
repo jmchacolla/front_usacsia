@@ -177,7 +177,7 @@ Cle.get(function(data){
     }
 BusSub.get({cle_id:cle_id}, function(data){
           $scope.buscas=data.subcla;
-          console.log("ZOnasss",$scope.buscas);
+          console.log("busca subclasificacion",$scope.buscas);
          
       })
       
@@ -667,14 +667,15 @@ $scope.checked=true;
 
 }])
 
-
+/*
 .controller('apiAppCtrl_estadoCar', ['$http', '$scope', 'CONFIG', buscaEstadoCarCtrl])
 function buscaEstadoCarCtrl($http, $scope, CONFIG){
   $scope.buscaEstadoCar = function(){
 
-    console.log('esta buscando numero de pertramite', $scope.numero_muestra);
+    console.log('esta buscando numero de pertramite', $scope.per_ci);
       $scope.tamanio="Cargando...";//////CAMBIADO
       $http.get(CONFIG.DOMINIO_SERVICIOS+'/estado_carnet/'+$scope.per_ci).success(function(respuesta){
+        console.log("_ERROR__",respuesta.errors);
           $scope.pertra = respuesta.pertramite;
           if(respuesta.pertramite){
               $scope.tamanio="";
@@ -688,6 +689,9 @@ function buscaEstadoCarCtrl($http, $scope, CONFIG){
               $scope.tamanio="La pertramite ya fue analizada";
               $scope.verprueba=true;
           }
+          if(respuesta.errors){
+
+          }
       });
   }
-}
+}*/
