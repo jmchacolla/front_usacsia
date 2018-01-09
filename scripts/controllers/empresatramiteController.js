@@ -774,7 +774,7 @@ var FunG = localStorage.getItem("Funcionario");
     $scope.loading=true;//PARA HACER UN LOADING EN EL TEMPLATE
     var condiciones={
       eta_id:1,
-      te_estado:'PENDIENTE'
+      te_estado:'APROBADO'
 
     }
   ListaEmpTraEtapaEstado.get(condiciones, function (argument) {
