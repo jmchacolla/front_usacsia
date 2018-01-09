@@ -1,7 +1,7 @@
 'use strict';
 angular.module("adminApp")
 
-.controller('BoletaCesCtrl', ['$scope', '$http', 'EmpTra', 'Tramite','PagoPendienteTramite', 'PagoPendiente', 'EmpresaTramite', '$route', '$resource', '$routeParams', 'toastr', '$location', '$timeout', 'CONFIG', function ($scope, $http,EmpTra, Tramite, PagoPendienteTramite, PagoPendiente, EmpresaTramite, $route, $resource,$routeParams, toastr, $location, $timeout,CONFIG) {
+.controller('BoletaCesCtrl', ['$scope', '$http', 'EmpTra', 'Tramite','PagoPendienteTramite', 'PagoPendiente', 'EmpresaTramite', 'CrearEstados', '$route', '$resource', '$routeParams', 'toastr', '$location', '$timeout', 'CONFIG', function ($scope, $http,EmpTra, Tramite, PagoPendienteTramite, PagoPendiente, EmpresaTramite, CrearEstados, $route, $resource,$routeParams, toastr, $location, $timeout,CONFIG) {
   var et_id=$routeParams.et_id;
   var FunG = localStorage.getItem("Funcionario");
   var FunG = JSON.parse(FunG);
@@ -58,6 +58,17 @@ EmpTra.get({et_id:et_id}, function (argument) {
               et_estado_tramite:'INICIADO',
               et_monto:tra_costo
           };
+      CrearEstados.save({et_id:et_id}).$promise.then(function (data) {
+        console.log('los estados++++++++', data);
+      })
+
+
+      $http.post(CONFIG.DOMINIO_SERVICIOS+'/crearestados/'+et_id).success(function(respuesta){
+        console.log("_respuesta__",respuesta);
+      });
+
+
+
       EmpTra.update({et_id:et_id},pago, function (argument) {
           toastr.success('Pago registrado exitosamente');
           console.log('pago', argument);

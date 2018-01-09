@@ -504,6 +504,9 @@ angular.module("adminApp")
   return $resource(CONFIG.DOMINIO_SERVICIOS+"/personas_x_establecimiento/:ess_id",{ess_id:'@_ess_id'})
 }])
 
+.factory('PersonasEstablecimiento2', ['$resource', 'CONFIG', function ($resource, CONFIG){
+  return $resource(CONFIG.DOMINIO_SERVICIOS+"/personaempresa/:ep_id",{ep_id:'@_ep_id'})
+}])
 /* /VEROOOO*/
 
 
@@ -667,8 +670,12 @@ angular.module("adminApp")
     update:{method:"PUT", params: {fun_id:"@fun_id"}}
   })
 }])
-
-
+/*jhon------crea todos los trmitecer_estado para un empresa tramite*/
+.factory('CrearEstados', ['$resource', 'CONFIG', function ($resource, CONFIG) {
+  return $resource(CONFIG.DOMINIO_SERVICIOS+"/crearestados/:et_id", {et_id:"@_et_id"},{ 
+    update:{method:"PUT", params: {et_id:"@et_id"}}
+  })
+}])
 
 
 
