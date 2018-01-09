@@ -122,10 +122,10 @@
                        </span> 
                 </div> 
                  <div class="col-md-2 col-sm-6">
-                    <label for="temp" class="control-label">TEMP(°C):<strong class="fg_red">*</strong></label>
-                    <input name="temp" type="number" ng-model-options="{ updateOn: 'blur' }" class="form-control" id="temp" placeholder="TEMP" ng-model="pruebamed.pm_temperatura" min="20" max="50" required>
+                    <label for="temp" class="control-label">TEMP(°C):</label>
+                    <input name="temp" type="number" ng-model-options="{ updateOn: 'blur' }" class="form-control" id="temp" placeholder="TEMP" ng-model="pruebamed.pm_temperatura" min="20" max="50" >
                     <span class="messages" ng-show="userForm.$submitted || userForm.temp.$touched ">
-                     <span ng-show="userForm.temp.$error.required">El campo es obligatorio</span>
+                    
                      <span ng-show="userForm.temp.$error.max">La temperatura no puede exceder de 50 °C</span>
                      <span ng-show="userForm.temp.$error.min">La temperatura no puede ser menor de 20 °C</span>
                      </span> 

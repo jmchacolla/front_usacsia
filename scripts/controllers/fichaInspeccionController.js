@@ -694,11 +694,7 @@ $scope.checked=true;
     
       $scope.loading = false;
       $scope.msg = data.mensaje;
-
-
-
-
-    EmpTra.get({et_id:$scope.ficha_inspeccion.ficha_inspeccion.et_id},function(data){
+  EmpTra.get({et_id:$scope.ficha_inspeccion.ficha_inspeccion.et_id},function(data){
     $scope.emp_tra=data.establecimiento;
 
     if (Object.keys($scope.emp_tra.propietario).length==7) {

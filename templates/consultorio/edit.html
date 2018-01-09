@@ -85,13 +85,13 @@
           <div class="row">
             <div class="col-md-6">
               <label class="text-primary">Seleccione un Médico:</label><br>
-              <select class="form-control" name="medico" ng-model="horario.fun_id"  ng-options="medico.fun_id as (medico.fun_cargo+' '+medico.per_nombres+' '+medico.per_apellido_primero) for medico in medicos" required>
+              <select class="form-control" name="medico" ng-model="horario.fun_id"  ng-options="medico.fun_id as (medico.fun_cargo+' '+medico.per_nombres+' '+medico.per_apellido_primero) for medico in medicos" >
               <option value="">--Elige opcion--</option>
               </select>
             </div>
             <div class="col-md-6">
               <label class="text-primary">Seleccione personal de enfermería:</label><br>
-              <select class="form-control" name="enfermera" ng-model="horario2.fun_id"  ng-options="enfermera.fun_id as (enfermera.fun_cargo+' '+enfermera.per_nombres+' '+enfermera.per_apellido_primero) for enfermera in enfermeras" required>
+              <select class="form-control" name="enfermera" ng-model="horario2.fun_id"  ng-options="enfermera.fun_id as (enfermera.fun_cargo+' '+enfermera.per_nombres+' '+enfermera.per_apellido_primero) for enfermera in enfermeras" >
               <option value="">--Elige opcion--</option>
               </select>
             </div>
