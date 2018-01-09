@@ -177,7 +177,7 @@ Cle.get(function(data){
     }
 BusSub.get({cle_id:cle_id}, function(data){
           $scope.buscas=data.subcla;
-          console.log("ZOnasss",$scope.buscas);
+          console.log("busca subclasificacion",$scope.buscas);
          
       })
       
