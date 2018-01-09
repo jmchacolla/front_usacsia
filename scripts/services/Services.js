@@ -167,8 +167,8 @@ angular.module("adminApp")
 }])
 //------------------------CREAR FICHA DE INSPECCION----------------------------
 .factory('FichaIn', ['$resource', 'CONFIG', function ($resource, CONFIG) {
-  return $resource(CONFIG.DOMINIO_SERVICIOS+"/ficha_inspeccion", {}, {
-    update: {method: "PUT", params: {}}
+  return $resource(CONFIG.DOMINIO_SERVICIOS+"/ficha_inspeccion/:fi_id", {fi_id:"@_fi_id"}, {
+    update: {method: "PUT", params: {fi_id:"@fi_id"}}
   })
 }])
 //------------------------CREAR FICHA_CATEGORIA----------------------------
@@ -194,7 +194,7 @@ angular.module("adminApp")
   return $resource(CONFIG.DOMINIO_SERVICIOS+"/empresa_tramite/:et_id", {et_id:"@_et_id"}, {
     update: {method: "PUT", params: {et_id:"@et_id"}}
   })
-}])
+}])//repetido
 
 //------------------------            ASIGNACION DE ZONAS             ----------------------------
 .factory('ZonIn', ['$resource', 'CONFIG', function ($resource, CONFIG) {
@@ -341,13 +341,19 @@ angular.module("adminApp")
     update: {method: "PUT", params: {et_id: "@et_id"}}
   })
 }])
-//buscar certificado sanitario segun et_id
+//buscar ultima ficha inspeccion  segun et_id
 .factory('FichaInspc', ['$resource', 'CONFIG', function ($resource, CONFIG) {
   return $resource(CONFIG.DOMINIO_SERVICIOS+"/buscarfi/:et_id", {et_id:"@_et_id"}, {
     update: {method: "PUT", params: {et_id: "@et_id"}}
   })
 }])
-
+/*======================        FICHA CATEGORIA SANCION           ========================*/
+//
+.factory('FichaCatSan', ['$resource', 'CONFIG', function ($resource, CONFIG) {
+  return $resource(CONFIG.DOMINIO_SERVICIOS+"/ficha_cat_san/:fcs_id", {fcs_id:"@_fcs_id"}, {
+    update: {method: "PUT", params: {fcs_id: "@fcs_id"}}
+  })
+}])
 
 
 
@@ -629,7 +635,7 @@ angular.module("adminApp")
 .factory('PagoPendienteTramite', ['$resource', 'CONFIG', function ($resource, CONFIG) {
   return $resource(CONFIG.DOMINIO_SERVICIOS+"/ppportramite/:et_id", {et_id:"@_et_id"},{ update:{method:"PUT", params:{et_id:"@et_id"}}})
 }])
-
+//repetido
 .factory('EmpresaTramite', ['$resource', 'CONFIG', function ($resource, CONFIG) {
   return $resource(CONFIG.DOMINIO_SERVICIOS+"/empresa_tramite/:et_id", {et_id:"@_et_id"},{ update:{method:"PUT", params:{et_id:"@et_id"}}})
 }])

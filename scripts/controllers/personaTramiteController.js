@@ -646,15 +646,16 @@ function ($scope, ListarTramitesService, $route, toastr,$location)
 .controller('BuscaPersonaCtrl', ['$http', '$scope', 'CONFIG', buscaPersonaController])
 function buscaPersonaController($http, $scope, CONFIG){
   $scope.buscaPersona = function(){
-    console.log('esta buscando persona');
+    /*console.log('esta buscando persona',$scope.per_ci);*/
       $scope.resultado="Cargando...";
       $http.get(CONFIG.DOMINIO_SERVICIOS+'/personas_ci/'+$scope.per_ci).success(function(respuesta){
-          $scope.persona = respuesta.persona.persona;
-          if(!respuesta.persona){
+          
+          if(!respuesta.persona || respuesta.persona==null){
               $scope.ver=false;
               $scope.resultado=" La persona no se encuentra registrada";    
-              console.log("_respuesta__",$scope.resultado);          
+              /*console.log("_respuesta__",$scope.resultado); */         
           } else if(respuesta.persona){
+            $scope.persona = respuesta.persona.persona;
               $scope.ver=true;
               $scope.resultado='';
           }  
