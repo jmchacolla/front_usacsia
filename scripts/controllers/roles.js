@@ -191,3 +191,5 @@ DOMINIO_SERVICIOS: "http://localhost/api_usacsia_v1_0/public"
     $http.defaults.headers.common.Authorization = 'Bearer <myApp_token>';}
 }])*/
 
+// jmchacolla@gmail.com
+// @Jhon123m
