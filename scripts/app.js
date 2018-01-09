@@ -490,7 +490,7 @@ angular.module("adminApp", ["authService", "ngRoute", "ngResource", "satellizer"
 
 
 
-
+ 
 
   /*------------------------ empresa ---------------------------*/
 

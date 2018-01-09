@@ -135,8 +135,7 @@ angular.module("adminApp")
 
   $scope.items = [];
   Subclacificacion.get(function(data){
-      $scope.subcla=data.subcla;
-      console.log($scope.subcla);
+      $scope.subcla=data.subclacificacion;
 
 /*agregar rubros en la empresa*/
     var aux=null;

@@ -497,6 +497,9 @@ angular.module("adminApp")
   return $resource(CONFIG.DOMINIO_SERVICIOS+"/personas_x_establecimiento/:ess_id",{ess_id:'@_ess_id'})
 }])
 
+.factory('PersonasEstablecimiento2', ['$resource', 'CONFIG', function ($resource, CONFIG){
+  return $resource(CONFIG.DOMINIO_SERVICIOS+"/personaempresa/:ep_id",{ep_id:'@_ep_id'})
+}])
 /* /VEROOOO*/
 
 
