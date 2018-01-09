@@ -28,7 +28,7 @@
            <div class="row">
             <form name="perForm" novalidate>
              <div class="col-md-6 col-md-offset-2">
-                <input name="perci" class="form-control input-lg" ng-model="per_ci" type="text" placeholder="Escriba el C.I." required autofocus>
+                <input name="perci" class="form-control input-lg" ng-change="cambioper_ci()" ng-model="per_ci" type="text" placeholder="Escriba el C.I." required autofocus>
              </div>
              <div class="col-md-4">
                 <button class="btn btn-primary btn-lg" ng-click="verificarper(per_ci)"><span class="glyphicon glyphicon-search"></span><strong> BUSCAR</strong></button>
@@ -39,13 +39,16 @@
         </div>
         <table class="table table-bordered  table-hover" ng-show="estado_persona!=null && per_ci!=null">
             <tbody >
-                <tr ng-class="{success:estado_persona.pt_estado_tramite=='APROBADO', warning:estado_persona.pt_estado_tramite=='OBSERVADO', danger:estado_persona.pt_estado_tramite=='INICIADO'}">
+                <tr ng-class="{success:estado_persona.pt_estado_tramite=='APROBADO', warning:estado_persona.pt_estado_tramite=='OBSERVADO', info:estado_persona.pt_estado_tramite=='INICIADO'}">
                     <td>{{estado_persona.per_ci+" "+estado_persona.per_ci_expedido}}</td>
                     <td>{{estado_persona.per_nombres+" "+estado_persona.per_apellido_primero+" "+estado_persona.per_apellido_segundo}}</td>
                     <td>{{estado_persona.pt_estado_tramite}}</td>
                     <td>
-                        <button class="btn btn-warning" data-toggle="modal" ng-click="get_perid(estado_persona.per_id,estado_persona.per_nombres,estado_persona.per_apellido_primero,estado_persona.per_apellido_segundo)" data-target="#miCuadroModal2" title="Registrar como funcionario"><span class="glyphicon glyphicon-plus"></span> Agregar</button>
-
+                        <center>
+                            <button class="btn btn-warning" data-toggle="modal" ng-click="get_perid(estado_persona.per_id,estado_persona.per_nombres,estado_persona.per_apellido_primero,estado_persona.per_apellido_segundo)" data-target="#miCuadroModal2" title="Registrar como funcionario"><span class="glyphicon glyphicon-plus"></span> Agregar
+                        </button>
+                        </center>
+                        
                         <div id="miCuadroModal2" class="modal fade" role="dialog" tabindex="-1">
                             <div class="modal-dialog">
                                 <div class="modal-content">
@@ -77,7 +80,8 @@
             </tbody>
         </table>
         <h4 class="alert alert-warning text-center" ng-show="no_registrada!=null && per_ci!=null">
-            {{no_registrada}}
+            {{no_registrada}}<br/>
+            <a href="{{preregistro}}">Realizar Registro</a>
         </h4>
         <hr>
         <div class="text-center" ng-show="loading" ><br><img ng-src="./images/image.gif" class="loader-img"></div>

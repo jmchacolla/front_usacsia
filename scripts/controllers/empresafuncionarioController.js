@@ -14,6 +14,7 @@ function ($scope, $http,CONFIG,PersonasEstablecimiento2,PersonasEstablecimiento,
       titulo:'Verificar estado de persona en USACSIA'
     }
   }
+  $scope.preregistro="http://localhost/usacsia_php_5.6/usacsia_git2/front_usacsia/#/servicios_ciudadanos/preregistro";
 
 	var ess_id=1;
 	PersonasEstablecimiento.get({ess_id:ess_id},function(data)
@@ -31,7 +32,10 @@ function ($scope, $http,CONFIG,PersonasEstablecimiento2,PersonasEstablecimiento,
 	      $scope.loading = false;
 	      $scope.msg = false;
 	 });
-
+	$scope.cambioper_ci=function(){
+		$scope.estado_persona = null;
+	    $scope.no_registrada=null;
+	}
 	$scope.verificarper=function(){
 	  	$http.get(CONFIG.DOMINIO_SERVICIOS+'/estado_tramite_persona/'+$scope.per_ci).success(function(data){
 	          $scope.estado_persona = data.estado_pt;
@@ -70,8 +74,8 @@ function ($scope, $http,CONFIG,PersonasEstablecimiento2,PersonasEstablecimiento,
 		id2=ep_id;
 		$scope.nombres=n+" "+app+" "+aps;
 		console.log("perid elegido", id2); 
-
 	};
+
 	$scope.remove = function()
 	{
 	  PersonasEstablecimiento2.delete({ep_id:id2}).$promise.then(function(data)
