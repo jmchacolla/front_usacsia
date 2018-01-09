@@ -108,6 +108,8 @@ angular.module("adminApp")
       var gober="";
       var sedes="";
       var ifirma="";
+      var vigencia=moment($scope.persona.persona_tramite.pt_vigencia_documento, 'YYYY-MM-DD').format('DD-MM-YYYY');
+      var nacimiento=moment( $scope.persona.persona.per_fecha_nacimiento, 'YYYY-MM-DD').format('DD-MM-YYYY');
       var imagenpersona=$scope.persona.imagen/*[0]*/.ima_enlace+'/'+$scope.persona.imagen/*[0]*/.ima_nombre;
       FirmaFun.get({fun_id:fun_id}, function(data)
       {
@@ -122,12 +124,12 @@ angular.module("adminApp")
           gober =base64Img;
           var img3 =convertImgToDataURLviaCanvas("./scripts/logoSEDES.png", function(base64Img) {
             sedes =base64Img;
-             var img4 =convertImgToDataURLviaCanvas( imagenfirma, function(base64Img) {
+             // var img4 =convertImgToDataURLviaCanvas( imagenfirma, function(base64Img) {
                 ifirma =base64Img;
             console.log("entro al controlador pdf---------",$scope.persona,$scope.firmas);
 
             var tituloqr= 'Nro. Trámite: '+$scope.persona.persona_tramite.pt_numero_tramite;
-            var textoqr= 'USACSIA-CARNÉ-SANITARIO-'+$scope.persona.persona.per_nombres+" "+$scope.persona.persona.per_apellido_primero+" "+$scope.persona.persona.per_apellido_segundo+'-'+$scope.persona.persona.per_ci+'-'+$scope.persona.persona.per_ci_expedido+'/'+$scope.persona.persona_tramite.pt_numero_tramite;
+            var textoqr= 'USACSIA-CARNÉ-SANITARIO-'+$scope.persona.persona.per_nombres+" "+$scope.persona.persona.per_apellido_primero+" "+$scope.persona.persona.per_apellido_segundo+'-'+$scope.persona.persona.per_ci+'-'+$scope.persona.persona.per_ci_expedido+'/T'+$scope.persona.persona_tramite.pt_numero_tramite+'/Venc:'+vigencia;
 
             var docDefinition = {
                 
@@ -223,13 +225,13 @@ angular.module("adminApp")
                                                       text:'Nacimiento: ', bold:true, fontSize:6
                                                   },
                                                   {
-                                                     text: $scope.persona.persona.per_fecha_nacimiento+'\n', fontSize: 6
+                                                     text:nacimiento+'\n', fontSize: 6
                                                   },
                                                   {
-                                                      text:'Trámite N°:  ', bold:true, fontSize:6
+                                                      text:'Vigencia:  ', bold:true, fontSize:6
                                                   },
                                                   {
-                                                      text: $scope.persona.persona_tramite.pt_numero_tramite, bold:true, fontSize:5
+                                                      text: vigencia, bold:true, fontSize:5
                                                   },
                                           ]
                                         },
@@ -240,14 +242,14 @@ angular.module("adminApp")
                                         },
                                     ],
                                     [ '',
-                                      {
-                                        image: ifirma,
-                                        width: 60,
-                                        height: 30,
-                                        align:'center',
-                                        absolutePosition: {x: 85, y: 110}
-                                      }
-                                      
+                                      // {
+                                      //   image: ifirma,
+                                      //   width: 60,
+                                      //   height: 30,
+                                      //   align:'center',
+                                      //   absolutePosition: {x: 85, y: 110}
+                                      // }
+                                      ''
                                     ],
                                 ],
                             },
@@ -298,7 +300,7 @@ angular.module("adminApp")
                 pdfMake.createPdf(docDefinition).download();
               };
  
-            });//fin imagen firma
+            // });//fin imagen firma
           });//fin imagen logoSEDES
         });//fin imagen gober
       });//fin imagen sedes
