@@ -27,7 +27,7 @@ angular.module("adminApp")
         console.log('persona---------', $scope.personas);
         if(respuesta.persona.length<=0){
             $scope.ver=false;
-            $scope.resultado=" No se encuentra resultados";              
+            $scope.resultado=" No se encuentra resultados";
         } else if(respuesta.persona.length>0){
             $scope.ver=true;
             $scope.resultado='';
@@ -56,12 +56,6 @@ angular.module("adminApp")
                 et_tipo_tramite:'RENOVACION'
               };
 
-      if(!persona.et_vigencia_documento|| persona.et_estado_tramite !='APROBADO')
-      {
-        $timeout(function() {
-            $location.path('/boleta-ces/'+persona.et_id);
-        },1000);
-      }
       if (persona.et_estado_pago=='VENCIDO') {
         EmpresaTramite.save(emptr).promise.then(function (argument) {
           console.log('et_id------', argument.et_id);
@@ -72,6 +66,12 @@ angular.module("adminApp")
             },1000);
           }
         });
+      }
+      if(!persona.et_vigencia_documento|| persona.et_estado_tramite !='APROBADO')
+      {
+        $timeout(function() {
+            $location.path('/boleta-ces/'+persona.et_id);
+        },1000);
       }
         var today= moment().format('DD/MM/YYYY');
         var vigencia=moment(persona.et_vigencia_documento).format('DD/MM/YYYY');

@@ -661,8 +661,12 @@ angular.module("adminApp")
     update:{method:"PUT", params: {fun_id:"@fun_id"}}
   })
 }])
-
-
+/*jhon------crea todos los trmitecer_estado para un empresa tramite*/
+.factory('CrearEstados', ['$resource', 'CONFIG', function ($resource, CONFIG) {
+  return $resource(CONFIG.DOMINIO_SERVICIOS+"/crearestados/:et_id", {et_id:"@_et_id"},{ 
+    update:{method:"PUT", params: {et_id:"@et_id"}}
+  })
+}])
 
 
 
