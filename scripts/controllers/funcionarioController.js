@@ -831,25 +831,29 @@ function controladorPrincipal_fun($http, $scope, CONFIG){
   $scope.ss="dcs";
   $scope.mos=false;
   $scope.msg=true;
+  $scope.ver=false;
   $scope.buscaPersona = function(){
       $scope.tamanio="Cargando... ";//////CAMBIADO
       $http.get(CONFIG.DOMINIO_SERVICIOS+'/personas_ci/'+$scope.per_ci).success(function(respuesta){
      
-          $scope.personas = respuesta.persona.persona;
-          console.log($scope.personas);
-          $scope.tamanio=$scope.personas.length;
-          console.log($scope.personas,"PERSONAS",$scope.tamanio);
-          if(respuesta.persona){
-
+          /*$scope.personas1 = respuesta.persona;
+          console.log($scope.personas1);*/
+         console.log(respuesta.persona);
+          if(respuesta.persona==null){
              $scope.mos=true;
               $scope.aa="cero";
               $scope.msg=true;
               $scope.switch=false;
+              $scope.tamanio=" La persona no se encuentra registrada";
           } else /*if(respuesta.mensaje=='no')*/{
+            $scope.personas = respuesta.persona.persona;
+             $scope.tamanio=$scope.personas.length;
              console.log("No existe",$scope.mos);
               $scope.aa="uno";
               $scope.msg=false;
-              $scope.tamanio="No se encontraron resultados";
+              $scope.ver=true;
+              $scope.mos=false;
+              $scope.tamanio="Se encontro un resultado";
           }  
       });
   }
