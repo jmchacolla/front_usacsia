@@ -412,7 +412,14 @@ angular.module("adminApp", ["authService", "ngRoute", "ngResource", "satellizer"
     //VER FICHA INSPECCION -- falta hacer el html 8-1-2018 --falta añadir a rutas privadas
   .when('/inspeccion/ver/:fi_id',{
    templateUrl:'templates/ficha_inspeccion/ver.html',
-   controller: 'VerFichaCtrl'/*,
+   controller: 'VerFichaCtrl',
+    data: {
+      authorized: [ROLES.ADMIN_USACSIA.ROL,ROLES.INSPECTOR.ROL]
+    }
+  })
+  .when('/sancion/ver/:fc_id',{
+   templateUrl:'templates/ficha_inspeccion/sanciones.html',
+   controller: 'VersancionesCtrl'/*,
     data: {
       authorized: [ROLES.ADMIN_SEDES.ROL]
     }*/

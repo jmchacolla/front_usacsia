@@ -21,33 +21,68 @@
 					<div class="col-md-4">
 				        <label class="text-primary control-label">Empresa:</label>
 		            	<p class="lead">{{ficha_inspeccion.establecimiento_solicitante.ess_razon_social}}</p>
-						<label class="text-primary control-label">Zona:</label>
-		            	<p class="lead">{{emp_tra.zona.zon_nombre}}</p>
-		            	<label class="text-primary control-label">Stand:</label>
-		            	<p class="lead" ng-if="emp_tra.establecimiento_sol.ess_stand !=''">{{emp_tra.establecimiento_sol.ess_stand}}</p>
-		            	<p class="lead" ng-if="emp_tra.establecimiento_sol.ess_stand ==''">---</p>
+		            	<label class="text-primary control-label">Propietario:</label>
+			            	<p class="lead" >{{propietario}}</p>
+						<label class="text-primary control-label">Número:</label>
+			            	<p class="lead">{{emp_tra.establecimiento_sol.ess_numero}}</p>
+		            	
 					</div>
 				    <div class="col-md-4">
 						<label class="text-primary control-label">Tipo:</label>
 			            	<p class="lead">
 							{{ficha_inspeccion.establecimiento_solicitante.ess_tipo}} 
 							</p>
-			            	<label class="text-primary control-label">Avenida/Calle:</label>
-			            	<p class="lead">{{emp_tra.establecimiento_sol.ess_avenida_calle}}</p>
+							<label class="text-primary control-label">Zona:</label>
+		            	<p class="lead">{{emp_tra.zona.zon_nombre}}</p>
+		            	<label class="text-primary control-label">Stand:</label>
+		            	<p class="lead" ng-if="emp_tra.establecimiento_sol.ess_stand !=''">{{emp_tra.establecimiento_sol.ess_stand}}</p>
+		            	<p class="lead" ng-if="emp_tra.establecimiento_sol.ess_stand ==''">---</p>
+			            	
 			        </div>
 				    <div class="col-md-4">
-				        	<label class="text-primary control-label">Propietario:</label>
-			            	<p class="lead" >{{propietario}}</p>
-			            	<label class="text-primary control-label">Número:</label>
-			            	<p class="lead">{{emp_tra.establecimiento_sol.ess_numero}}</p>
+				        	<label class="text-primary control-label">Rubro:</label>
+			            	<p class="lead" >{{rubro.re_nombre}}</p>
+			            	<label class="text-primary control-label">Avenida/Calle:</label>
+			            	<p class="lead">{{emp_tra.establecimiento_sol.ess_avenida_calle}}</p>
+			            	
 					</div>
 				</div>
 				<div class="row">
 					<div class="form-group col-md-6 col-sm-6 col-xs-12">
-				        <label class="control-label">Servicio Referente:</label>
-			            	<p>{{contrareferencia.contrareferencia.bc_servicio_referente}}</p>
+				        <label class="text-primary control-label">Estado inspección:</label>
+			            	<p class="lead">{{ficha_inspeccion.ficha_inspeccion.fi_estado}}</p>
+		            	 
 			        </div>
-					
+			        <div class="form-group col-md-6 col-sm-6 col-xs-12">
+				        
+		            	 <label class="text-primary control-label">Recomendaciones:</label>
+		            	<p class="lead">{{ficha_inspeccion.ficha_inspeccion.fi_observacion}}</p>
+			        </div>
+			        <div class="form-group col-md-6 col-sm-6 col-xs-12">
+			        <label class="text-primary control-label">Insalubridad:</label>
+			            	<p class="lead" ng-if="ficha_inspeccion.ficha_inspeccion.fi_foco_insalubridad!=false || ficha_inspeccion.ficha_inspeccion.fi_foco_insalubridad !='0'">No tiene insalubridad</p>
+			            	<p class="lead" ng-if="ficha_inspeccion.ficha_inspeccion.fi_foco_insalubridad==false || ficha_inspeccion.ficha_inspeccion.fi_foco_insalubridad =='0'">Tiene insalubridad</p>
+					</div>
+					<div class="form-group col-md-6 col-sm-6 col-xs-12">
+					<label class="text-primary control-label">Certificado Sanitario:</label>
+			            	<p class="lead" ng-if="ficha_inspeccion.ficha_inspeccion.fi_exibe_certificado!=false || ficha_inspeccion.ficha_inspeccion.fi_exibe_certificado !='0'">No exibe certificado sanitario</p>
+			            	<p class="lead" ng-if="ficha_inspeccion.ficha_inspeccion.fi_exibe_certificado==false || ficha_inspeccion.ficha_inspeccion.fi_exibe_certificado =='0'">Exibe certificado sanitario</p>
+					</div>
+					<div class="form-group col-md-6 col-sm-6 col-xs-12">
+					<label class="text-primary control-label">Carné sanitario:</label>
+			            	<p class="lead" ng-if="ficha_inspeccion.ficha_inspeccion.fi_exibe_carne!=false || ficha_inspeccion.ficha_inspeccion.fi_exibe_carne !='0'">No exibe carné sanitario</p>
+			            	<p class="lead" ng-if="ficha_inspeccion.ficha_inspeccion.fi_exibe_carne==false || ficha_inspeccion.ficha_inspeccion.fi_exibe_carne =='0'">Exibe carné sanitario</p>
+					</div>
+					<div class="form-group col-md-6 col-sm-6 col-xs-12">
+					<label class="text-primary control-label">Extinguidor:</label>
+			            	<p class="lead" ng-if="ficha_inspeccion.ficha_inspeccion.fi_extinguidor!=false || ficha_inspeccion.ficha_inspeccion.fi_extinguidor !='0'">No tiene extinguidor</p>
+			            	<p class="lead" ng-if="ficha_inspeccion.ficha_inspeccion.fi_extinguidor==false || ficha_inspeccion.ficha_inspeccion.fi_extinguidor =='0'">Tiene extinguidor</p>
+					</div>
+					<div class="form-group col-md-6 col-sm-6 col-xs-12">
+					<label class="text-primary control-label">Botiquin:</label>
+			            	<p class="lead" ng-if="ficha_inspeccion.ficha_inspeccion.fi_botiquin!=false || ficha_inspeccion.ficha_inspeccion.fi_botiquin !='0'">No tiene Botiquin</p>
+			            	<p class="lead" ng-if="ficha_inspeccion.ficha_inspeccion.fi_botiquin==false || ficha_inspeccion.ficha_inspeccion.fi_botiquin =='0'">Tiene Botiquin</p>
+					</div>
 				</div>
 				<div class="table-responsive">
 			        <table class="table table-hovertable table-bordered table-striped table-hover"  id="tablaES">
@@ -55,6 +90,7 @@
 		                    <th >Descripción</th>
 		                    <th >Código</th>
 		                    <th >Monto (Bs)</th>
+		                    <th>Ver sancion</th>
 		                    <th ng-if="user.rol_id == '1' || user.rol_id == '16' ">Sanción</th> 
 			            </thead>
 			            <tbody ng-repeat="cate in ficha_inspeccion.ficha_categoria | orderBy:sortType:sortReverse">
@@ -62,6 +98,9 @@
 			                    <td>{{cate.cat_descripcion}}</td>
 			                    <td>{{cate.cat_codigo}}</td>
 			                    <td>{{cate.cat_monto}}</td>
+								<td class="text-center">
+				                <a href="#/sancion/ver/{{cate.fc_id}}" class="btn btn-success" title="VER SANCIONES"><span class="glyphicon glyphicon-file"></span></a>
+				              </td>
 			                    <td ng-if="user.rol_id == '1' || user.rol_id == '16' ">
 					                <!-- BOTON PARA CUADROS MODALES ng-disabled="refer.br_estado_referencia == true"-->
 					                <button  class="btn btn-xm btn-warning glyphicon glyphicon-check" data-toggle="modal" ng-click="rec(cate.fc_id,cate.cat_id)" data-target="#miCuadroModal1" title="Sancionar categoria" ></button>
@@ -97,6 +136,7 @@
 			                </tbody>
 			            </table>
 			          </div>
+	
 				
 				
 			<!-- FIN FORMULARIO O TABLA-->

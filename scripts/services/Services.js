@@ -354,6 +354,11 @@ angular.module("adminApp")
     update: {method: "PUT", params: {fcs_id: "@fcs_id"}}
   })
 }])
+.factory('VerFcs', ['$resource', 'CONFIG', function ($resource, CONFIG) {
+  return $resource(CONFIG.DOMINIO_SERVICIOS+"/ficha_cat_ver/:fc_id", {fc_id:"@_fc_id"}, {
+    update: {method: "PUT", params: {fc_id: "@fc_id"}}
+  })
+}])
 
 
 
