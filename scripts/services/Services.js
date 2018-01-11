@@ -579,6 +579,14 @@ angular.module("adminApp")
   })
 }])
 
+//10-01-2018
+//============================R E P O R T E S==========================================//
+//Nuevo
+.factory('Reportes', ['$resource', 'CONFIG', function ($resource, CONFIG){
+  return $resource(CONFIG.DOMINIO_SERVICIOS+"/reportes/:rep_id", {rep_id:"@_rep_id"}, {
+    update: {method: "PUT", params: {rep_id: "@rep_id"}}
+  })
+}])
 
 
 
