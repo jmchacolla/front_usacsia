@@ -253,14 +253,9 @@ $scope.zon=false;
     $scope.submit = function(b, per_ci, fechaNacimiento/*,zon_id, fechaIni, fechaFin*/)
     {
       $scope.funcionarios.per_fecha_nacimiento = fechaNacimiento;
-     /* $scope.funcionarios.zon_id=zon_id*/
-     /* if(CONFIG.ROL_CURRENT_USER==1){
-        es_id = $routeParams.es_id;
-      } else {*/
-        var FunG = localStorage.getItem("Funcionario");
-        var FunG = JSON.parse(FunG);
-     /*   es_id = FunG.es_id;
-      }*/
+      console.log("_____aaaa___________",b.fun_profesion)
+      $scope.funcionarios.per_ocupacion =b.fun_profesion;
+     
      
         $scope.funcionarios.per_tipo_documento="CI"
         $scope.funcionarios.per_pais="BOLIVIA";
@@ -276,13 +271,9 @@ $scope.zon=false;
           $scope.ajustes.pagina.success = "FUNCIONARIO REGISTRADO CORRECTAMENTE";
           toastr.success('FUNCIONARIO REGISTRADO CORRECTAMENTE');
           $timeout(function() {
-            /*if(CONFIG.ROL_CURRENT_USER==1){
-              var es_id2 = $routeParams.es_id;
-              $location.path('/establecimientos/ver/'+es_id2);
-            }
-            else{*/
+            
               $location.path('/funcionarios');
-           /* }*/
+           
           },1000);
         }
       },function () {
@@ -374,7 +365,7 @@ $scope.zon=false;
          $scope.personaE.per_fecha_nacimiento=fecha_naci;
       }
      
-      console.log("ANTES DE EDITAR",$scope.personaE);
+     /* console.log("ANTES DE EDITAR",$scope.personaE);*/
 
       Personas.update({per_id:$scope.personas.persona.per_id}, $scope.personaE).$promise.then(function(data){
         if(data.status){

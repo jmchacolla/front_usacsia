@@ -10,8 +10,7 @@ $scope.ajustes = {
        {nombre:'Gestión de Parasitos', enlace:'#/parasito', estilo:''},
         {nombre:'Gestión de Tratamientos', enlace:'#/tratamiento', estilo:''},
         {nombre:'Gestión de Enferemdades', enlace:'#/homeenfermedad', estilo:'active'},
-         {nombre:'Paises', enlace:'#/homepais', estilo:''},
-        {nombre:'Departamentos', enlace:'#/homedepartamento'}
+         {nombre:'Paises', enlace:'#/homepais', estilo:''}
        ]
         
     },

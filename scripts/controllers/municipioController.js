@@ -9,7 +9,6 @@ angular.module("adminApp")
       items:[
       
         {nombre:'Paises', enlace:'#/homepais'},
-        {nombre:'Departamentos', enlace:'#/homedepartamento'},
         {nombre:'Provincias', enlace:'#/homeprovincia'},
         {nombre:'Regiones', enlace:'#/homeregion'},
         {nombre:'Gestión de Municipios', enlace:'#/homemunicipio', estilo:'active'},

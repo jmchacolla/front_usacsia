@@ -10,8 +10,7 @@ angular.module("adminApp")
        {nombre:'Gestión de Parasitos', enlace:'#/parasito', estilo:'active'},
         {nombre:'Gestión de Tratamientos', enlace:'#/tratamiento', estilo:''},
         {nombre:'Gestión de Enferemdades', enlace:'#/homeenfermedad', estilo:''},
-         {nombre:'Paises', enlace:'#/homepais', estilo:''},
-        {nombre:'Departamentos', enlace:'#/homedepartamento'}
+         {nombre:'Paises', enlace:'#/homepais', estilo:''}
         ]
     },
     pagina:{
