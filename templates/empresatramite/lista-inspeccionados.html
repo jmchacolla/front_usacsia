@@ -57,22 +57,31 @@
                      <span ng-show="sortType == 'dep_nombre' && sortReverse" class="glyphicon glyphicon-sort-by-alphabet-alt"></span>
                         </a>
                     </th>
+                    <th class="text-primary">Ver Inspección</th>
                     <th class="text-primary">Ver trámite</th>
                    
                     
                 </thead>
                 <tbody ng-repeat="establecimiento in establecimientos | orderBy:sortType:sortReverse | filter:ess_razon_social">
-                
                   <tr>
-                    
                     <td>{{establecimiento.ess_razon_social}}</td>
                     <td>{{establecimiento.ess_telefono}}</td>
                     <td>{{establecimiento.te_fecha}}</td>
-                    <td class="text-center"><a class="btn btn-success" href="#/seguimiento-tramite-ces/{{establecimiento.et_id}}"><span class="glyphicon glyphicon-file"></span></a></td>
+                    <td class="text-center">
+
+                    <a href="#/inspecciones/{{establecimiento.et_id}}" class="btn btn-success" title="VER INSPECCIONES"><span class="glyphicon glyphicon-file"></span></a>
+                  </td>
+                    <td class="text-center"><a class="btn btn-success" href="#/seguimiento-tramite-ces/{{establecimiento.et_id}}" title="VER TRÁMITE"><span class="glyphicon glyphicon-file"></span></a></td>
+                    <td>
+                          <a class="btn btn-success" href="#/orden-pago/crear/{{establecimiento.et_id}}">
+                            <span class="glyphicon glyphicon-file"></span>
+                        </a>
+                    </td>
 
                     
                    
                 </tr>
+
                 </tbody>
             </table>
         </div>

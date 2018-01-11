@@ -145,7 +145,12 @@ angular.module("adminApp")
     update: {method: "PUT", params: {cas_id: "@cas_id"}}
   })
 }])
-
+//ver
+.factory('VerCas', ['$resource', 'CONFIG', function ($resource, CONFIG) {
+  return $resource(CONFIG.DOMINIO_SERVICIOS+"/vercas/:pt_id", {pt_id:"@_pt_id"}, {
+    update: {method: "PUT", params: {pt_id: "@pt_id"}}
+  })
+}])
 //-------------------------CAMBIAR ESTADO DE TRAMITE----------------------------
 .factory('TramiteEstado', ['$resource', 'CONFIG', function ($resource, CONFIG) {
   return $resource(CONFIG.DOMINIO_SERVICIOS+"/tramite_estado/:pt_id", {pt_id:"@_pt_id"}, {
@@ -283,6 +288,12 @@ angular.module("adminApp")
     update: {method: "PUT", params: {te_id:"@te_id"}}
   })
 }])
+//ver tramite cer estado
+.factory('VerTramCer', ['$resource', 'CONFIG', function ($resource, CONFIG) {
+  return $resource(CONFIG.DOMINIO_SERVICIOS+"/ver_tce/:et_id", {et_id:"@_et_id"}, {
+    update: {method: "PUT", params: {et_id:"@et_id"}}
+  })
+}])
 //-------------------------CAMBIAR ESTADO DE EMPRESA TRAMITE 1 eliminado 4-1-2018--------------------
 /*.factory('Aprob1', ['$resource', 'CONFIG', function ($resource, CONFIG) {
   return $resource(CONFIG.DOMINIO_SERVICIOS+"/aprobacion1/:et_id", {pt_id:"@_et_id"}, {
@@ -315,7 +326,7 @@ angular.module("adminApp")
 }])
 //--------------------------CREAR CERTIFICADO SANITARIO----------------------------
 .factory('CertificadoSanitario', ['$resource', 'CONFIG', function ($resource, CONFIG) {
-  return $resource(CONFIG.DOMINIO_SERVICIOS+"/editar_tramitecer/:ces_id", {ces_id:"@_ces_id"}, {
+  return $resource(CONFIG.DOMINIO_SERVICIOS+"/certificado_sanitario/:ces_id", {ces_id:"@_ces_id"}, {
     update: {method: "PUT", params: {ces_id: "@ces_id"}}
   })
 }])
@@ -352,6 +363,18 @@ angular.module("adminApp")
 .factory('FichaCatSan', ['$resource', 'CONFIG', function ($resource, CONFIG) {
   return $resource(CONFIG.DOMINIO_SERVICIOS+"/ficha_cat_san/:fcs_id", {fcs_id:"@_fcs_id"}, {
     update: {method: "PUT", params: {fcs_id: "@fcs_id"}}
+  })
+}])
+//ver sanciones de una categoria
+.factory('VerFcs', ['$resource', 'CONFIG', function ($resource, CONFIG) {
+  return $resource(CONFIG.DOMINIO_SERVICIOS+"/ficha_cat_ver/:fc_id", {fc_id:"@_fc_id"}, {
+    update: {method: "PUT", params: {fc_id: "@fc_id"}}
+  })
+}])
+//lista de fichas de inspeccion por et_id
+.factory('FichasInsEt', ['$resource', 'CONFIG', function ($resource, CONFIG) {
+  return $resource(CONFIG.DOMINIO_SERVICIOS+"/ver_fichas/:et_id", {et_id:"@_et_id"}, {
+    update: {method: "PUT", params: {et_id: "@et_id"}}
   })
 }])
 
@@ -687,7 +710,33 @@ angular.module("adminApp")
 }])
 
 
+/*john--------hay factory, pero no encontre el route e hice otro XD*/
+.factory('FichaCatSancion', ['$resource', 'CONFIG', function ($resource, CONFIG) {
+  return $resource(CONFIG.DOMINIO_SERVICIOS+"/fichasancion/:fi_id", {fi_id:"@_fi_id"},{ 
+    update:{method:"PUT", params: {fi_id:"@fi_id"}}
+  })
+}])
 
-
-
-
+/*jhon----------------orden pago*/
+.factory('OrdenPago', ['$resource', 'CONFIG', function ($resource, CONFIG) {
+  return $resource(CONFIG.DOMINIO_SERVICIOS+"/orden_pago/:et_id", {et_id:"@_et_id"},{ 
+    update:{method:"PUT", params: {op_id:"@op_id"}}
+  })
+}])
+.factory('OrdenPagoEstado', ['$resource', 'CONFIG', function ($resource, CONFIG) {
+  return $resource(CONFIG.DOMINIO_SERVICIOS+"/ordenpagoestado", {},{ 
+    update:{method:"PUT", params: {}}
+  })
+}])
+/*jhon---------------- pago_arancel*/
+.factory('PagoArancel', ['$resource', 'CONFIG', function ($resource, CONFIG) {
+  return $resource(CONFIG.DOMINIO_SERVICIOS+"/pago_arancel/:et_id", {et_id:"@_et_id"},{ 
+    update:{method:"PUT", params: {pa_id:"@pa_id"}}
+  })
+}])
+/*jhon---------------- pago_sancion*/
+.factory('PagoSancion', ['$resource', 'CONFIG', function ($resource, CONFIG) {
+  return $resource(CONFIG.DOMINIO_SERVICIOS+"/pago_sancion/:et_id", {et_id:"@_et_id"},{ 
+    update:{method:"PUT", params: {ps_id:"@ps_id"}}
+  })
+}])

@@ -48,7 +48,7 @@
 							<span class="glyphicon glyphicon-asterisk" aria-hidden="true"></span>
 							Asignar número de ficha</a>
 						</li>
-						<li ng-show="menu.CONFIG.ROL_CURRENT_USER == 1 || menu.CONFIG.ROL_CURRENT_USER == 9">
+						<li ng-show="menu.CONFIG.ROL_CURRENT_USER == 1 || menu.CONFIG.ROL_CURRENT_USER == 9 || menu.CONFIG.ROL_CURRENT_USER == 10">
 							<a href="#/atencion" >
 							<span class="glyphicon glyphicon-asterisk" aria-hidden="true"></span>
 							Atención de Pacientes</a>				
@@ -96,6 +96,11 @@
 							<span class="glyphicon glyphicon-asterisk" aria-hidden="true"></span>
 							Establecimientos Solicitantes</a>
 						</li>
+						<li ng-show="menu.CONFIG.ROL_CURRENT_USER == 1 || menu.CONFIG.ROL_CURRENT_USER == 3" >
+			            	<a href="#/buscar-propietario">
+			            	<span class="glyphicon glyphicon-asterisk" aria-hidden="true"></span>
+			           		Registrar pago certificado</a>
+			            </li>
 						<li ng-show="menu.CONFIG.ROL_CURRENT_USER == 1 || menu.CONFIG.ROL_CURRENT_USER == 14">
 							<a href="#/asignacion_zonas/crear" >
 							<span class="glyphicon glyphicon-asterisk" aria-hidden="true"></span>
@@ -112,26 +117,27 @@
 			           		Trámites certificado propietarios juridicos</a>
 			            </li>
 			            <li ng-show="menu.CONFIG.ROL_CURRENT_USER == 1 || menu.CONFIG.ROL_CURRENT_USER == 16" >
+			            	<a href="#/lista-inspeccionados">
+			            	<span class="glyphicon glyphicon-asterisk" aria-hidden="true"></span>
+			           		Inspeccionados</a>
+			            </li>
+			            <li ng-show="menu.CONFIG.ROL_CURRENT_USER == 16" >
 			            	<a href="#/tramites_nat">
 			            	<span class="glyphicon glyphicon-asterisk" aria-hidden="true"></span>
 			           		Propietarios Naturales</a>
 			            </li>
-			            <li ng-show="menu.CONFIG.ROL_CURRENT_USER == 1 || menu.CONFIG.ROL_CURRENT_USER == 16" >
+			            <li ng-show=" menu.CONFIG.ROL_CURRENT_USER == 16" >
 			            	<a href="#/tramites_jur">
 			            	<span class="glyphicon glyphicon-asterisk" aria-hidden="true"></span>
 			           		Propietarios Juridicos</a>
 			            </li>
 
-			            <li ng-show="menu.CONFIG.ROL_CURRENT_USER == 1 || menu.CONFIG.ROL_CURRENT_USER == 3" >
-			            	<a href="#/buscar-propietario">
-			            	<span class="glyphicon glyphicon-asterisk" aria-hidden="true"></span>
-			           		Registrar pago certificado</a>
-			            </li>
-			             <li ng-show="menu.CONFIG.ROL_CURRENT_USER == 1 || menu.CONFIG.ROL_CURRENT_USER == 3" >
+			            
+			             <!-- <li ng-show="menu.CONFIG.ROL_CURRENT_USER == 1 || menu.CONFIG.ROL_CURRENT_USER == 3" >
 			            	<a href="#/buscar-propietario">
 			            	<span class="glyphicon glyphicon-asterisk" aria-hidden="true"></span>
 			           		Cargar Firma</a>
-			            </li>
+			            </li> -->
 						<li ng-show="menu.CONFIG.ROL_CURRENT_USER == 1 || menu.CONFIG.ROL_CURRENT_USER == 7">	 <a href="#/homepais">
 				            <span class="glyphicon glyphicon-asterisk" aria-hidden="true"></span>
 				            Tablas administrativas</a>

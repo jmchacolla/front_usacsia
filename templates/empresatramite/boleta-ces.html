@@ -14,7 +14,7 @@
     </div>
   </div>
 
-    <div class="well well-sm" style="background-color:#fff;">
+    <div class="well well-sm" style="background-color:#fff;"  ng-if="!establecimiento.empresa_tramite.et_estado_pago=='PAGADO'">
       <div class="row">
         <div class="col-md-12">
           <h3 class="text-center text-primary">
@@ -83,16 +83,6 @@
                 <label class="text-primary">Unidad de:</label><br>
                 {{tramiteselect.tra_nombre}}
               </div>
-
-            <!-- <div class="col-md-6 col-sm-6" ng-show="verdeudas" >
-              <label for="pp" class="control-label text-primary">Selecione concepto de pago:</label><strong class="fg_red">*</strong>
-              <select  name="pp" class="form-control" ng-model="pagopselect" ng-options="pagop as pagop.pp_descripcion  for pagop in pagop" required>
-              </select>
-                <span ng-if="userForm.pp.$touched && pagopselect.pp_id==null" class="messages">El campo es obligatorio</span> 
-            </div>
-            <div class="col-md-12" ng-show="!verdeudas">
-              <label for="pp" class="control-label text-primary">Aún no se han registrado pagos para este trámite</label>
-            </div> -->
             <div class="col-md-12 col-sm-12">
                 <div><label class="control-label text-primary">Monto a cancelar:</label></div>
                 <div class="well well-sm col-md-6">
@@ -114,6 +104,91 @@
       </div>
     </div>
 
-      
 
+    <div class="well well-sm" style="background-color:#fff;"  ng-if="establecimiento.empresa_tramite.et_estado_pago=='PAGADO'" ng-controller="PagoOrdenPagoCtrl">
+      <div class="row">
+        <div class="col-md-12">
+            <h4 class="text-center text-primary">I. DATOS GENERALES</h4>
+            <hr class="bg-red">
+            <div class="col-md-4 col-sm-6">
+                    <label class="text-primary control-label">Propietario:</label>
+                    {{propietario}}
+            </div>
+            <div class="col-md-4 col-sm-6">
+                <label class="text-primary control-label">Establecimiento:</label>
+                {{establecimiento.establecimiento_sol.ess_razon_social}}
+            </div>
+            <div class="col-md-4 col-sm-6">
+              <label class="text-primary control-label">Zona:</label>
+                {{establecimiento.zona.zon_nombre}}
+            </div>
+            <div class="col-md-4 col-sm-6">
+              <label class="text-primary control-label">Avenida/Calle:</label>
+              {{establecimiento.establecimiento_sol.ess_avenida_calle}}
+            </div>
+            <div class="col-md-4 col-sm-6">
+                    <label class="text-primary control-label">Número:</label>
+                    {{establecimiento.establecimiento_sol.ess_numero}}
+            </div>
+            <div class="col-md-4 col-sm-6">
+              <label class="text-primary control-label">Stand:</label>
+                <span ng-if="establecimiento.establecimiento_sol.ess_stand !=''">
+                    {{establecimiento.establecimiento_sol.ess_stand}}</span>
+                <span ng-if="establecimiento.establecimiento_sol.ess_stand ==''">---</span>
+            </div>
+            <div class="col-md-4 col-sm-6">
+                <label class="text-primary control-label">Tipo:</label>
+                    {{establecimiento.establecimiento_sol.ess_tipo}} 
+             </div>
+            <div class="col-md-4 col-sm-6">
+                    <label class="text-primary control-label">Número de trámite:</label>
+                    {{establecimiento.empresa_tramite.et_numero_tramite}}
+            </div>
+            <div class="col-md-4 col-sm-6">
+                    <label class="text-primary control-label">Kardex:</label>
+                    <span ng-if="establecimiento.empresa.emp_kardex">{{establecimiento.empresa.emp_kardex}}</span>
+                    <span ng-if="!establecimiento.empresa.emp_kardex">POR DESIGNAR</span>
+            </div>
+            <div class="col-md-4 col-sm-6">
+                    <label class="text-primary control-label">Inicio de trámite:</label>
+                    {{establecimiento.empresa_tramite.et_fecha_ini}}
+            </div>
+            <div class="col-md-4 col-sm-6">
+                    <label class="text-primary control-label">Número de NIT:</label>
+                    <span ng-if="establecimiento.empresa.emp_nit">{{establecimiento.empresa.emp_nit}}</span>
+                    <span ng-if="!establecimiento.empresa.emp_nit">PENDIENTE</span>
+            </div>
+            <div class="col-md-4 col-sm-6">
+                    <label class="text-primary">Lic. de funcionamiento:</label>
+                    {{establecimiento.empresa.emp_licencia}}
+            </div>
+            
+        
+          <div class="col-md-12 col-sm-12">
+            <div class="table-responsive">
+            <table class="table table-hovertable table-bordered table-striped table-hover">
+              <thead>
+                <th class="text-center text-primary">Nro. Orden de Pago</th>
+                <th class="text-center text-primary">Fecha emisión</th>
+                <th class="text-center text-primary">Estado</th>
+                <th class="text-center text-primary">Monto (Bs.)</th>
+                <th class="text-center text-primary">Ver detalle</th>
+              </thead>
+              <tbody>
+                <tr >
+                  <td>{{ordenpago.op_id}}</td>
+                  <td>{{ordenpago.op_fecha_emision}}</td>
+                  <td>{{ordenpago.op_estado_pago}}</td>
+                  <td>{{ordenpago.op_monto_total | number:2}}</td>
+                  <td align="center">
+                    <a class="btn btn-success" href="#/orden-detalle/{{ordenpago.op_id}}"><span class="glyphicon glyphicon-file"></span></a>
+                  </td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+          </div>
+        </div>
+
+    </div>
 </div>

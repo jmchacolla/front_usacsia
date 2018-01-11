@@ -13,6 +13,7 @@
       </div>
     </div>
     <div class="well well-sm" style="background-color:#fff;">
+
       <div class="row">
         <div class="col-md-12">
           <h3 class="text-center text-primary">
@@ -34,11 +35,11 @@
           <div ng-show="empresatramite.propietario.per_id">
             <div class="col-md-6 col-sm-6">
               <label class="text-primary">Propietario:</label>
-              {{empresatramite.propietario.per_nombres}} {{empresatramite.propietario.per_apellido_primero}} {{empresatramite.propietario.per_apellido_segundo}}
+              {{propietario}} 
             </div>
             <div class="col-md-6 col-sm-6">
               <label class="text-primary">C.I./NIT:</label>
-              {{empresatramite.propietario.per_ci}} {{empresatramite.propietario.per_ci_expedido}}
+              {{documento}}
             </div>
           </div>
         </div>
@@ -61,13 +62,40 @@
             <label for="tra" class="control-label text-primary">Número de trámite:</label>
              {{empresatramite.empresa_tramite.et_numero_tramite}}
           </div>
-        <hr>
         </div>
-        <div  class="col-md-12" align="center" ng-controller="PdfCertificadoCtrl" ng-show="false">
-            <hr>
+<<<<<<< HEAD
+        <div class="col-md-12">
+        <h3 class="text-center text-primary">
+           II. Datos del trámite
+          <hr class="bg-red">
+          </h3>
+          <div class="table-responsive">
+              <table class="table table-hovertable table-bordered table-striped table-hover"  >
+                  <thead>
+                        <th >Etapa</th>
+                        <th >Estado</th>   
+                  </thead>
+                  <tbody ng-repeat="tce in tramitecerestado | orderBy:sortType:sortReverse">
+                      <tr>
+                          <td>{{tce.eta_nombre}}</td>
+                          <td>{{tce.te_estado}}</td>
+                         
+                        </tr>
+                      </tbody>
+                  </table>
+        </div>
+        
+        <!-- <div class="col-md-12"> -->
+          
+      <!--   </div> -->
+        
+        </div>
+        </div><!--  -->
+         <hr>
+        <div ng-show="ver"  class="col-md-12" align="center" ng-controller="PdfCertificadoCtrl" >
            <button type="button" class="btn btn-default" ng-click="openPdfCES()" >IMPRIMIR PAGO  <span class="glyphicon glyphicon-print"></span></button>
            <button type="button"  class="btn btn-default" ng-click="downloadPdfCES()">Descargar PDF PAGO  <span class="glyphicon glyphicon-download-alt"></span></button>
         </div>
-      </div>
+      
     </div>
 </div>

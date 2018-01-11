@@ -28,7 +28,7 @@
                         <label class="control-label">Tipo de Documento</label>
                         <select class="form-control" name="tipo_doc" ng-model="persona.per_tipo_documento" ng-model-options="{ updateOn: 'blur' }" required>
                             <option value="CI">CARNET DE IDENTIDAD</option>
-                            <option value="PASAPORTE">PASAPORTE</option>        
+                            <option value="PASAPORTE">CARNET DE IDENTIDAD(EXTRANJERO)</option>        
                         </select>
                         <span class="messages" ng-show="addPersona.$submitted || addPersona.tipo_doc.$touched">
                            <span ng-show="addPersona.tipo_doc.$error.required">El campo es obligatorio.</span>
