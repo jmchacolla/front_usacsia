@@ -817,6 +817,11 @@ angular.module("adminApp", ["authService", "ngRoute", "ngResource", "satellizer"
     templateUrl: 'templates/empresatramite/lista-inspeccionados.html',
     controller: 'ListaInspeccionadosCtrl'
   })
+
+  .when('/orden-detalle/:op_id', {
+    templateUrl: 'templates/pagopendiente/orden-detalle.html',
+    controller: 'OrdenDetalleCtrl'
+  })
   /*========================== /empresa tramite =======================================*/
 /*-------------------------------------- documentos -----------------------------------------*/
     

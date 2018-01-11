@@ -172,6 +172,7 @@
                 <th class="text-center text-primary">Fecha emisión</th>
                 <th class="text-center text-primary">Estado</th>
                 <th class="text-center text-primary">Monto (Bs.)</th>
+                <th class="text-center text-primary">Ver detalle</th>
               </thead>
               <tbody>
                 <tr >
@@ -179,6 +180,9 @@
                   <td>{{ordenpago.op_fecha_emision}}</td>
                   <td>{{ordenpago.op_estado_pago}}</td>
                   <td>{{ordenpago.op_monto_total | number:2}}</td>
+                  <td align="center">
+                    <a class="btn btn-success" href="#/orden-detalle/{{ordenpago.op_id}}"><span class="glyphicon glyphicon-file"></span></a>
+                  </td>
                 </tr>
               </tbody>
             </table>
