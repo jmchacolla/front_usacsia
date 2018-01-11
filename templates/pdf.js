@@ -1,31 +1,17 @@
-  /*-----------------------------REPORTES PDF ADMINISTRADOR DE SEDES-----------------------------------------*/
-
-  /******************FUNCIONARIOS*******************/
-
-   function generate() {
+    /******************R E P O R T E S      U S A C S I A*******************/
+  // CONTROL DIARIO
+   function generate_reportes() {
         var pdfsize = 'a4';
         var pdf = new jsPDF('l', 'pt', 'letter');  
 
-
         pdf.setProperties({
-          title: 'Lista de personal de salud'
+          title: 'Reportes de control diario'
         });
-        //pdf.text(300, 40, 'LISTA DE FUNCIONARIOS' );
-
-
-/*        pdf.autoTableSetDefaults({
-             margin: {top: 25},
-             addPageContent: function(data) {
-                 pdf.setFontSize(20);
-                 pdf.text('Document specific header', data.settings.margin.left, 20);
-             }
-        });
-*/
 
         var totalPagesExp = "{total_pages_count_string}";
         var pageContent = function (data) {
              // HEADER
-              pdf.text(280,30, "LISTA DE PERSONAL DE SALUD");
+              pdf.text(280,30, "CONTROL DIARIO");
             //FOOTER
               var str = "Página " + data.pageCount;
               // Total page number plugin only available in jspdf v1.0+
@@ -36,13 +22,12 @@
               pdf.text(str, data.settings.margin.left, pdf.internal.pageSize.height - 10);
         };
 
-
-        var res = pdf.autoTableHtmlToJson(document.getElementById("table"));
+        var res = pdf.autoTableHtmlToJson(document.getElementById("tableREP"));
         var col=res.columns;
-        col.splice(4,4);
+        col.splice(8,8);
         pdf.autoTable(col, res.data, {
           addPageContent: pageContent,
-          theme: 'striped',
+          theme: 'grid',
           //startY: pdf.autoTableEndPosY() + 30,
           startY: 60,
           styles: {
@@ -51,8 +36,15 @@
             rowHeight: 40,
             columnWidth: 'wrap'
           },
-          columnStyles: {
-            1: {columnWidth: 'auto'}
+          columnStyles: {       
+             0: {columnWidth: 'auto'},
+             1: {columnWidth: 'auto'},
+             2: {columnWidth: 'auto'},
+             3: {columnWidth: 'auto'},
+             4: {columnWidth: 'auto'},
+             5: {columnWidth: 'auto'},
+             6: {columnWidth: 'auto'},
+             7: {columnWidth: 'auto'}
           }
         });
         
@@ -65,20 +57,21 @@
 
       };
 
-/*********************************ESTABLECIMIENTOS************************************************/
-        function generateEST() {
+
+  // SIGNOS VITALES
+  function generate_signos() {
         var pdfsize = 'a4';
         var pdf = new jsPDF('l', 'pt', 'letter');  
 
-
         pdf.setProperties({
-          title: 'Lista de establecimientos de salud'
+          title: 'Reportes de control diario'
         });
-        pdf.text(270, 40, 'LISTA DE ESTABLECIMIENTOS DE SALUD' );
 
         var totalPagesExp = "{total_pages_count_string}";
         var pageContent = function (data) {
              // HEADER
+              pdf.text(280,30, "REPORTES DE SIGNOS VITALES");
+            //FOOTER
               var str = "Página " + data.pageCount;
               // Total page number plugin only available in jspdf v1.0+
               if (typeof pdf.putTotalPages === 'function') {
@@ -88,13 +81,12 @@
               pdf.text(str, data.settings.margin.left, pdf.internal.pageSize.height - 10);
         };
 
-
-        var res = pdf.autoTableHtmlToJson(document.getElementById("tablaES"));
+        var res = pdf.autoTableHtmlToJson(document.getElementById("tableREP"));
         var col=res.columns;
-        col.splice(6,7);
+        col.splice(16,16);
         pdf.autoTable(col, res.data, {
           addPageContent: pageContent,
-          theme: 'striped',
+          theme: 'grid',
           //startY: pdf.autoTableEndPosY() + 30,
           startY: 60,
           styles: {
@@ -103,41 +95,48 @@
             rowHeight: 40,
             columnWidth: 'wrap'
           },
-          columnStyles: {
-            0: {columnWidth: 'auto'},
-            1: {columnWidth: 'auto'},
-            2: {columnWidth: 'auto'},
-            3: {columnWidth: 'auto'},
-            4: {columnWidth: 'auto'},
-            5: {columnWidth: 'auto'}
+          columnStyles: {       
+             0: {columnWidth: 'auto'},
+             1: {columnWidth: 'auto'},
+             2: {columnWidth: 'auto'},
+             3: {columnWidth: 'auto'},
+             4: {columnWidth: 'auto'},
+             5: {columnWidth: 'auto'},
+             6: {columnWidth: 'auto'},
+             7: {columnWidth: 'auto'},
+             8: {columnWidth: 'auto'},
+             9: {columnWidth: 'auto'},            
+             10: {columnWidth: 'auto'},
+             11: {columnWidth: 'auto'},
+             12: {columnWidth: 'auto'},
+             13: {columnWidth: 'auto'},
+             14: {columnWidth: 'auto'},
+             15: {columnWidth: 'auto'},
+             16: {columnWidth: 'auto'}
           }
         });
         
         if (typeof pdf.putTotalPages === 'function') {
             pdf.putTotalPages(totalPagesExp);
         };
-
         /*pdf.save(pdfsize + ".pdf");*/
         pdf.output("dataurlnewwindow");
 
       };
 
-/********************************SERVICIOS**************************/
-
- function generateSER() {
+ // INFORME DIARIO
+   function generate_informesdiario() {
         var pdfsize = 'a4';
         var pdf = new jsPDF('l', 'pt', 'letter');  
 
-
         pdf.setProperties({
-          title: 'Lista de servicios de salud'
+          title: 'Reportes de control diario'
         });
-        //pdf.text(300, 40, 'LISTA DE SERVICIOS DE SALUD' );
 
         var totalPagesExp = "{total_pages_count_string}";
         var pageContent = function (data) {
              // HEADER
-             pdf.text(280,30, "LISTA DE SERVICIOS DE SALUD");
+              pdf.text(280,30, "REPORTES DE INFORME DIARIO");
             //FOOTER
               var str = "Página " + data.pageCount;
               // Total page number plugin only available in jspdf v1.0+
@@ -148,13 +147,12 @@
               pdf.text(str, data.settings.margin.left, pdf.internal.pageSize.height - 10);
         };
 
-
-        var res = pdf.autoTableHtmlToJson(document.getElementById("tablaSER"));
+        var res = pdf.autoTableHtmlToJson(document.getElementById("tableREP"));
         var col=res.columns;
-        col.splice(3,4);
+        col.splice(12,12);
         pdf.autoTable(col, res.data, {
           addPageContent: pageContent,
-          theme: 'striped',
+          theme: 'grid',
           //startY: pdf.autoTableEndPosY() + 30,
           startY: 60,
           styles: {
@@ -163,12 +161,20 @@
             rowHeight: 40,
             columnWidth: 'wrap'
           },
-          columnStyles: {
-            //para arreglar tamanios de la tabla
-            0: {columnWidth: 'auto'},
-            1: {columnWidth: 'auto'},
-            2: {columnWidth: 'auto'},
-            3: {columnWidth: 'auto'}
+          columnStyles: {       
+             0: {columnWidth: 'auto'},
+             1: {columnWidth: 'auto'},
+             2: {columnWidth: 'auto'},
+             3: {columnWidth: 'auto'},
+             4: {columnWidth: 'auto'},
+             5: {columnWidth: 'auto'},
+             6: {columnWidth: 'auto'},
+             7: {columnWidth: 'auto'},
+             8: {columnWidth: 'auto'},
+             9: {columnWidth: 'auto'},
+             10: {columnWidth: 'auto'},
+             11: {columnWidth: 'auto'},
+             12: {columnWidth: 'auto'}
           }
         });
         
@@ -181,23 +187,19 @@
 
       };
 
-
-/*-------------------------------REPORTES DE ADMINISTRADOR DE ESTABLECIMIENTO DE SALUD-------------------------------------*/
-/*  1)  funcionarios  */
-function generateFUN_AE() {
+   // INFORME OBSERVADOS
+   function generate_observado() {
         var pdfsize = 'a4';
         var pdf = new jsPDF('l', 'pt', 'letter');  
 
-
         pdf.setProperties({
-          title: 'Lista de personal'
+          title: 'Reportes de control diario'
         });
 
         var totalPagesExp = "{total_pages_count_string}";
         var pageContent = function (data) {
-          console.log("dataaa",data);
              // HEADER
-              pdf.text(280,30, "LISTA DE PERSONAL");
+              pdf.text(280,30, "INFORME DE PACIENTES OBSERVADOS");
             //FOOTER
               var str = "Página " + data.pageCount;
               // Total page number plugin only available in jspdf v1.0+
@@ -208,14 +210,12 @@ function generateFUN_AE() {
               pdf.text(str, data.settings.margin.left, pdf.internal.pageSize.height - 10);
         };
 
-
-        var res = pdf.autoTableHtmlToJson(document.getElementById("table"));
-        console.log("resss",res);
+        var res = pdf.autoTableHtmlToJson(document.getElementById("tableREP"));
         var col=res.columns;
-        col.splice(4,5);
+        col.splice(5,5);
         pdf.autoTable(col, res.data, {
           addPageContent: pageContent,
-          theme: 'striped',
+          theme: 'grid',
           //startY: pdf.autoTableEndPosY() + 30,
           startY: 60,
           styles: {
@@ -224,14 +224,13 @@ function generateFUN_AE() {
             rowHeight: 40,
             columnWidth: 'wrap'
           },
-          columnStyles: {
-            //1: {columnWidth: 'auto'}
-           0: {columnWidth: 'auto'},
-           1: {columnWidth: 'auto'},
-           2: {columnWidth: 'auto'},
-           3: {columnWidth: 'auto'},
-           4: {columnWidth: 'auto'},
-           5: {columnWidth: 'auto'}
+          columnStyles: {       
+             0: {columnWidth: 'auto'},
+             1: {columnWidth: 'auto'},
+             2: {columnWidth: 'auto'},
+             3: {columnWidth: 'auto'},
+             4: {columnWidth: 'auto'},
+             5: {columnWidth: 'auto'}
           }
         });
         
@@ -242,407 +241,4 @@ function generateFUN_AE() {
         /*pdf.save(pdfsize + ".pdf");*/
         pdf.output("dataurlnewwindow");
 
-      };
-
-/*  2) consultorios*/
-
-function generateCON() {
-        var pdfsize = 'a4';
-        var pdf = new jsPDF('l', 'pt', 'letter');  
-
-
-        pdf.setProperties({
-          title: 'Lista de consultorios'
-        });
-
-        var totalPagesExp = "{total_pages_count_string}";
-        var pageContent = function (data) {
-          console.log("data_cons",data);
-             // HEADER
-              pdf.text(280,30, "LISTA DE CONSULTORIOS");
-            //FOOTER
-              var str = "Página " + data.pageCount;
-              // Total page number plugin only available in jspdf v1.0+
-              if (typeof pdf.putTotalPages === 'function') {
-                  str = str + " de " + totalPagesExp;
-              }
-              pdf.setFontSize(10);
-              pdf.text(str, data.settings.margin.left, pdf.internal.pageSize.height - 10);
-        };
-
-
-        var res = pdf.autoTableHtmlToJson(document.getElementById("tableCON"));
-        var col=res.columns;
-        col.splice(4,5);
-        pdf.autoTable(col, res.data, {
-          addPageContent: pageContent,
-          theme: 'striped',
-          //startY: pdf.autoTableEndPosY() + 30,
-          startY: 60,
-          styles: {
-            overflow: 'linebreak',
-            fontSize: 10,
-            //rowHeight: 40,
-            columnWidth: 'wrap'
-          },
-          columnStyles: {
-            //1: {columnWidth: 'auto'}
-           // 0: {columnWidth: 300}
-           0: {columnWidth: 'auto'},
-           1: {columnWidth: 'auto'},
-           2: {columnWidth: 'auto'},
-           3: {columnWidth: 'auto'}
-          }
-        });
-        
-        if (typeof pdf.putTotalPages === 'function') {
-            pdf.putTotalPages(totalPagesExp);
-        };
-
-        /*pdf.save(pdfsize + ".pdf");*/
-        pdf.output("dataurlnewwindow");
-
-      };
-
-function generateCon_usa() {
-        var pdfsize = 'a4';
-        var pdf = new jsPDF('l', 'pt', 'letter');  
-        pdf.setProperties({
-          title: 'Lista de consultorios'
-        });
-
-        var totalPagesExp = "{total_pages_count_string}";
-        var pageContent = function (data) {
-
-             // HEADER
-              pdf.text(280,30, "LISTA DE CONSULTORIOS");
-            //FOOTER
-              var str = "Página " + data.pageCount;
-              // Total page number plugin only available in jspdf v1.0+
-              if (typeof pdf.putTotalPages === 'function') {
-                  str = str + " de " + totalPagesExp;
-              }
-              pdf.setFontSize(10);
-              pdf.text(str, data.settings.margin.left, pdf.internal.pageSize.height - 10);
-        };
-
-
-        var res = pdf.autoTableHtmlToJson(document.getElementById("table"));
-        console.log("resss",res);
-        var col=res.columns;
-        col.splice(3,5);
-        pdf.autoTable(col, res.data, {
-          addPageContent: pageContent,
-          theme: 'striped',
-          //startY: pdf.autoTableEndPosY() + 30,
-          startY: 60,
-          styles: {
-            overflow: 'linebreak',
-            fontSize: 10,
-            rowHeight: 40,
-            columnWidth: 'wrap'
-          },
-          columnStyles: {
-            //1: {columnWidth: 'auto'}
-           0: {columnWidth: 'auto'},
-           1: {columnWidth: 'auto'},
-           2: {columnWidth: 'auto'},
-           3: {columnWidth: 'auto'},
-           4: {columnWidth: 'auto'},
-           5: {columnWidth: 'auto'}
-          }
-        });
-        
-        if (typeof pdf.putTotalPages === 'function') {
-            pdf.putTotalPages(totalPagesExp);
-        };
-
-        /*pdf.save(pdfsize + ".pdf");*/
-        pdf.output("dataurlnewwindow");
-
-      };
-//personas que concluyeron el tramite
-function generatePe() {
-        var pdfsize = 'a4';
-        var pdf = new jsPDF('l', 'pt', 'letter');  
-        pdf.setProperties({
-          title: 'Lista de Personas'
-        });
-        var totalPagesExp = "{total_pages_count_string}";
-        var pageContent = function (data) {
-
-             // HEADER
-              pdf.text(280,30, "LISTA DE PERSONAS");
-            //FOOTER
-              var str = "Página " + data.pageCount;
-              // Total page number plugin only available in jspdf v1.0+
-              if (typeof pdf.putTotalPages === 'function') {
-                  str = str + " de " + totalPagesExp;
-              }
-              pdf.setFontSize(10);
-              pdf.text(str, data.settings.margin.left, pdf.internal.pageSize.height - 10);
-        };
-        var res = pdf.autoTableHtmlToJson(document.getElementById("table"));
-     
-        var col=res.columns;
-        col.splice(4,5);
-        pdf.autoTable(col, res.data, {
-          addPageContent: pageContent,
-          theme: 'striped',
-          //startY: pdf.autoTableEndPosY() + 30,
-          startY: 60,
-          styles: {
-            overflow: 'linebreak',
-            fontSize: 10,
-            rowHeight: 40,
-            columnWidth: 'wrap'
-          },
-          columnStyles: {
-            //1: {columnWidth: 'auto'}
-           0: {columnWidth: 'auto'},
-           1: {columnWidth: 'auto'},
-           2: {columnWidth: 'auto'},
-           3: {columnWidth: 'auto'},
-           4: {columnWidth: 'auto'},
-           5: {columnWidth: 'auto'}
-          }
-        });
-        
-        if (typeof pdf.putTotalPages === 'function') {
-            pdf.putTotalPages(totalPagesExp);
-        };
-
-        /*pdf.save(pdfsize + ".pdf");*/
-        pdf.output("dataurlnewwindow");
-
-      };
-
-/*  3) servicios del estblecimiento de salud  */
-
-function generateSER_AE() {
-        var pdfsize = 'a4';
-        var pdf = new jsPDF('l', 'pt', 'letter');  
-
-
-        pdf.setProperties({
-          title: 'Lista de servicios de salud'
-        });
-
-        var totalPagesExp = "{total_pages_count_string}";
-        var pageContent = function (data) {
-             // HEADER
-              pdf.text(280,30, "LISTA DE SERVICIOS DE SALUD");
-            //FOOTER
-              var str = "Página " + data.pageCount;
-              // Total page number plugin only available in jspdf v1.0+
-              if (typeof pdf.putTotalPages === 'function') {
-                  str = str + " de " + totalPagesExp;
-              }
-              pdf.setFontSize(10);
-              pdf.text(str, data.settings.margin.left, pdf.internal.pageSize.height - 10);
-        };
-
-
-        var res = pdf.autoTableHtmlToJson(document.getElementById("tableSER"));
-        var col=res.columns;
-        col.splice(3,5);
-        pdf.autoTable(col, res.data, {
-          addPageContent: pageContent,
-          theme: 'striped',
-          //startY: pdf.autoTableEndPosY() + 30,
-          startY: 60,
-          styles: {
-            overflow: 'linebreak',
-            fontSize: 10,
-            //rowHeight: 40,
-            columnWidth: 'wrap'
-          },
-          columnStyles: {
-            //1: {columnWidth: 'auto'}
-           // 0: {columnWidth: 300}
-           0: {columnWidth: 'auto'},
-           1: {columnWidth: 'auto'},
-           2: {columnWidth: 'auto'},
-           3: {columnWidth: 'auto'}
-          }
-        });
-        
-        if (typeof pdf.putTotalPages === 'function') {
-            pdf.putTotalPages(totalPagesExp);
-        };
-
-        /*pdf.save(pdfsize + ".pdf");*/
-        pdf.output("dataurlnewwindow");
-
-      };
-
-/*  4) pacientes del estblecimiento de salud  */
-
-function generatePAC_AE() {
-        var pdfsize = 'a4';
-        var pdf = new jsPDF('l', 'pt', 'letter');  
-
-        pdf.setProperties({
-          title: 'Lista de pacientes'
-        });
-
-        var totalPagesExp = "{total_pages_count_string}";
-        var pageContent = function (data) {
-             // HEADER
-              pdf.text(280,30, "LISTA DE PACIENTES");
-            //FOOTER
-              var str = "Página " + data.pageCount;
-              // Total page number plugin only available in jspdf v1.0+
-              if (typeof pdf.putTotalPages === 'function') {
-                  str = str + " de " + totalPagesExp;
-              }
-              pdf.setFontSize(10);
-              pdf.text(str, data.settings.margin.left, pdf.internal.pageSize.height - 10);
-        };
-
-
-        var res = pdf.autoTableHtmlToJson(document.getElementById("tablePAC"));
-        var col=res.columns;
-        col.splice(5,6);
-        pdf.autoTable(col, res.data, {
-          addPageContent: pageContent,
-          theme: 'striped',
-          //startY: pdf.autoTableEndPosY() + 30,
-          startY: 60,
-          styles: {
-            overflow: 'linebreak',
-            fontSize: 10,
-            //rowHeight: 40,
-            columnWidth: 'wrap'
-          },
-          columnStyles: {
-            //1: {columnWidth: 'auto'}
-           // 0: {columnWidth: 300}
-           0: {columnWidth: 'auto'},
-           1: {columnWidth: 'auto'},
-           2: {columnWidth: 'auto'},
-           3: {columnWidth: 'auto'}
-          }
-        });     
-        if (typeof pdf.putTotalPages === 'function') {
-            pdf.putTotalPages(totalPagesExp);
-        };
-        /*pdf.save(pdfsize + ".pdf");*/
-        pdf.output("dataurlnewwindow");
-      };
-
-/*  5) referencias recibidas  */
-
-function generateREF_AE() {
-        var pdfsize = 'a4';
-        var pdf = new jsPDF('l', 'pt', 'letter');  
-
-        pdf.setProperties({
-          title: 'Lista de referencias'
-        });
-
-        var totalPagesExp = "{total_pages_count_string}";
-        var pageContent = function (data) {
-             // HEADER
-              pdf.text(280,30, "LISTA DE REFERENCIAS");
-            //FOOTER
-              var str = "Página " + data.pageCount;
-              // Total page number plugin only available in jspdf v1.0+
-              if (typeof pdf.putTotalPages === 'function') {
-                  str = str + " de " + totalPagesExp;
-              }
-              pdf.setFontSize(10);
-              pdf.text(str, data.settings.margin.left, pdf.internal.pageSize.height - 10);
-        };
-
-
-        var res = pdf.autoTableHtmlToJson(document.getElementById("tableREF"));
-        var col=res.columns;
-        col.splice(7,8);
-        pdf.autoTable(col, res.data, {
-          addPageContent: pageContent,
-          theme: 'striped',
-          //startY: pdf.autoTableEndPosY() + 30,
-          startY: 60,
-          styles: {
-            overflow: 'linebreak',
-            fontSize: 10,
-            //rowHeight: 40,
-            columnWidth: 'wrap'
-          },
-          columnStyles: {
-            //1: {columnWidth: 'auto'}
-           // 0: {columnWidth: 300}
-           0: {columnWidth: 'auto'},
-           1: {columnWidth: 'auto'},
-           2: {columnWidth: 'auto'},
-           3: {columnWidth: 'auto'},
-           4: {columnWidth: 'auto'},
-           5: {columnWidth: 'auto'},
-           6: {columnWidth: 'auto'}
-          }
-        });     
-        if (typeof pdf.putTotalPages === 'function') {
-            pdf.putTotalPages(totalPagesExp);
-        };
-        /*pdf.save(pdfsize + ".pdf");*/
-        pdf.output("dataurlnewwindow");
-      };
-
-/*  6) contrareferencias realizadas */
-
-function generateCON_AE() {
-        var pdfsize = 'a4';
-        var pdf = new jsPDF('l', 'pt', 'letter');  
-
-        pdf.setProperties({
-          title: 'Lista de contrareferencias'
-        });
-
-        var totalPagesExp = "{total_pages_count_string}";
-        var pageContent = function (data) {
-             // HEADER
-              pdf.text(220,30, "LISTA DE CONTRAREFERENCIAS");
-            //FOOTER
-              var str = "Página " + data.pageCount;
-              // Total page number plugin only available in jspdf v1.0+
-              if (typeof pdf.putTotalPages === 'function') {
-                  str = str + " de " + totalPagesExp;
-              }
-              pdf.setFontSize(10);
-              pdf.text(str, data.settings.margin.left, pdf.internal.pageSize.height - 10);
-        };
-
-
-        var res = pdf.autoTableHtmlToJson(document.getElementById("tableCON"));
-        var col=res.columns;
-        col.splice(5,6);
-        pdf.autoTable(col, res.data, {
-          addPageContent: pageContent,
-          theme: 'striped',
-          //startY: pdf.autoTableEndPosY() + 30,
-          startY: 60,
-          styles: {
-            overflow: 'linebreak',
-            fontSize: 10,
-            //rowHeight: 40,
-            columnWidth: 'wrap'
-          },
-          columnStyles: {
-            //1: {columnWidth: 'auto'}
-           // 0: {columnWidth: 300}
-           0: {columnWidth: 'auto'},
-           1: {columnWidth: 'auto'},
-           2: {columnWidth: 'auto'},
-           3: {columnWidth: 'auto'},
-           4: {columnWidth: 'auto'},
-           5: {columnWidth: 'auto'},
-           6: {columnWidth: 'auto'}
-          }
-        });     
-        if (typeof pdf.putTotalPages === 'function') {
-            pdf.putTotalPages(totalPagesExp);
-        };
-        /*pdf.save(pdfsize + ".pdf");*/
-        pdf.output("dataurlnewwindow");
       };

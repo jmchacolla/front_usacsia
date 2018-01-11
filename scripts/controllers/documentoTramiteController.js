@@ -100,18 +100,26 @@ function ($scope, DocumentoTramite, $route,$routeParams,toastr,$location)
 function ($scope, DocumentoTramite2,DocumentoTramiteL,PersonasEstablecimiento,Documento, $route,$routeParams,toastr,$location)
 {
   $scope.ajustes = {
+    //Configuraciones del menu:
     menu:{
-      titulo: 'Gestión de tramites de Carné Sanitario',
+      titulo: 'Gestión de Establecimientos Solicitantes',
       items:[
-        {nombre:'Requisitos para el tramite de Certificado sanitario', enlace:'#/persona-usacsia', estilo:'active'}]
+        {nombre:'Trámites iniciados', enlace:'#/tramite-establecimientosol', estilo:'active'},
+        {nombre:'Establecimientos', enlace:'#/establecimientossol', estilo:''},
+        {nombre:'Nuevo establecimiento', enlace:'#/establecimientosol/persona', estilo:''}]
     },
+    //Configuraciones de la página
     pagina:{
-      titulo:'Requisitos presentados del Tramite:'
+      titulo:'Tramites iniciados'
     }
   }
 
   var et_id=$routeParams.et_id;
+  var FunG = localStorage.getItem("Funcionario");
+  var FunG = JSON.parse(FunG);
+  var fun_id=FunG.fun_id;
   var ess_id=null;
+
     DocumentoTramite2.get({et_id:et_id},function(data){
     $scope.documentos=data.documentotramite;
     $scope.tramite=data.tramite;
@@ -131,27 +139,26 @@ function ($scope, DocumentoTramite2,DocumentoTramiteL,PersonasEstablecimiento,Do
               $scope.loading = false;
               $scope.msg = false;
          });
-      
-
-
     });
       
-  
-
-
   /*guasrda modificaciones*/
+      $scope.dt_observacion={
+        dt_id:null,
+        dt_observado:null,
+        dt_observacion:""
+      };
       $scope.ids = [];
       $scope.observaciones = [];
 
         $scope.editado = function (dt_id,observado,observacion) {
-            
               var idx = $scope.ids.indexOf(dt_id);
               if (idx > -1){
                 if(observado){
-                $scope.observaciones[idx].dt_observado=observado;
-                $scope.observaciones[idx].dt_observacion=observacion;
+                  $scope.observaciones[idx].dt_observado=observado;
+                  $scope.observaciones[idx].dt_observacion=observacion;
                 }else{
-                  $scope.observaciones.splice(idx,1);
+                  $scope.observaciones[idx].dt_observado=false;
+                  $scope.observaciones[idx].dt_observacion="";
                 }
               }
               else{
@@ -161,6 +168,9 @@ function ($scope, DocumentoTramite2,DocumentoTramiteL,PersonasEstablecimiento,Do
                   dt_observado:observado,
                   dt_observacion:observacion
                 };
+                if(!observado)
+                  $scope.dt_observacion.dt_observacion="";
+                
                 $scope.observaciones.push($scope.dt_observacion);
               }
             $scope.final= $scope.ids;
@@ -168,8 +178,13 @@ function ($scope, DocumentoTramite2,DocumentoTramiteL,PersonasEstablecimiento,Do
         };
 
         $scope.update_lista = function(a){
+          $scope.todo={
+            et_id:et_id,
+            fun_id:fun_id
+          };
           $scope.vector={
-            observaciones:$scope.observaciones
+            observaciones:$scope.observaciones,
+            todo:$scope.todo
           };
         DocumentoTramiteL.save($scope.vector).$promise.then(function(data){
           if(data.status) {

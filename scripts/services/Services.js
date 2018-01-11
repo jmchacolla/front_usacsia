@@ -697,6 +697,14 @@ angular.module("adminApp")
   return $resource(CONFIG.DOMINIO_SERVICIOS+"/funcionario_cargo", {},{ update:{method:"PUT", params:{}}})
 }])
 
+
+//10-01-2018
+//============================R E P O R T E S==========================================//
+//Nuevo
+.factory('Reportes', ['$resource', 'CONFIG', function ($resource, CONFIG){
+  return $resource(CONFIG.DOMINIO_SERVICIOS+"/reportes/:rep_id", {rep_id:"@_rep_id"}, {
+    update: {method: "PUT", params: {rep_id: "@rep_id"}}
+
 .factory('Horario', ['$resource', 'CONFIG', function ($resource, CONFIG) {
   return $resource(CONFIG.DOMINIO_SERVICIOS+"/horario/:fun_id", {fun_id:"@_fun_id"},{ 
     update:{method:"PUT", params: {fun_id:"@fun_id"}}
