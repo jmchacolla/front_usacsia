@@ -85,7 +85,7 @@ angular.module("adminApp")
 }])
 
 
-.controller('pdf_carneCtrl',['$scope', 'PersonaTramite', 'CONFIG','$routeParams', '$http','FirmaFun', function ($scope, PersonaTramite, CONFIG, $routeParams, $http,FirmaFun){
+.controller('pdf_carneCtrl',['$scope', 'PersonaTramite', 'CONFIG','$routeParams', '$http','FirmaFun','VerCas', function ($scope, PersonaTramite, CONFIG, $routeParams, $http,FirmaFun,VerCas){
   // prepare the document definition using declarative approach
     var id = $routeParams.pt_id;
     console.log("IDEDESS",id);
@@ -99,6 +99,11 @@ angular.module("adminApp")
       $scope.per = data.pertramite;
       console.log('persona-----------', $scope.persona);
       console.log('imagen-----------', $scope.persona.imagen/*[0]*/.ima_enlace+'/'+$scope.persona.imagen/*[0]*/.ima_nombre);
+      VerCas.get({pt_id:id}, function(data)
+    {
+      $scope.carnet = data.carnet_sanitario;
+      var ff=$scope.carnet.cas_fecha_fin;
+      console.log(data.carnet_sanitario,"___________________________________________________________Fecha____",ff)
       var fechapago= $scope.persona.persona_tramite.pt_fecha_ini;
       var fecha_cont=moment(new Date(), "YYYY-MM-DD") .format("DD-MM-YYYY");
       var horaC=fecha_cont[1];
@@ -108,6 +113,8 @@ angular.module("adminApp")
       var gober="";
       var sedes="";
       var ifirma="";
+      var vigencia=moment($scope.persona.persona_tramite.pt_vigencia_documento, 'YYYY-MM-DD').format('DD-MM-YYYY');
+      var nacimiento=moment( $scope.persona.persona.per_fecha_nacimiento, 'YYYY-MM-DD').format('DD-MM-YYYY');
       var imagenpersona=$scope.persona.imagen/*[0]*/.ima_enlace+'/'+$scope.persona.imagen/*[0]*/.ima_nombre;
       FirmaFun.get({fun_id:fun_id}, function(data)
       {
@@ -122,12 +129,12 @@ angular.module("adminApp")
           gober =base64Img;
           var img3 =convertImgToDataURLviaCanvas("./scripts/logoSEDES.png", function(base64Img) {
             sedes =base64Img;
-             var img4 =convertImgToDataURLviaCanvas( imagenfirma, function(base64Img) {
+             // var img4 =convertImgToDataURLviaCanvas( imagenfirma, function(base64Img) {
                 ifirma =base64Img;
             console.log("entro al controlador pdf---------",$scope.persona,$scope.firmas);
 
             var tituloqr= 'Nro. Trámite: '+$scope.persona.persona_tramite.pt_numero_tramite;
-            var textoqr= 'USACSIA-CARNÉ-SANITARIO-'+$scope.persona.persona.per_nombres+" "+$scope.persona.persona.per_apellido_primero+" "+$scope.persona.persona.per_apellido_segundo+'-'+$scope.persona.persona.per_ci+'-'+$scope.persona.persona.per_ci_expedido+'/'+$scope.persona.persona_tramite.pt_numero_tramite;
+            var textoqr= 'USACSIA-CARNÉ-SANITARIO-'+$scope.persona.persona.per_nombres+" "+$scope.persona.persona.per_apellido_primero+" "+$scope.persona.persona.per_apellido_segundo+'-'+$scope.persona.persona.per_ci+'-'+$scope.persona.persona.per_ci_expedido+'/T'+$scope.persona.persona_tramite.pt_numero_tramite+'/Venc:'+vigencia;
 
             var docDefinition = {
                 
@@ -195,7 +202,7 @@ angular.module("adminApp")
 
                         {
                             table:{
-                                widths:[60, 75, 35],
+                                widths:[50, 85, 35],
                                 heights: [20, 100],
                                 body:[
                                     [
@@ -208,7 +215,7 @@ angular.module("adminApp")
                                         {
                                           text:[
                                                   {
-                                                      text:'Nombre: ', bold:true, fontSize:6
+                                                      text:'Nombres: ', bold:true, fontSize:6
                                                   },
                                                   {
                                                       text:$scope.persona.persona.per_nombres+" "+$scope.persona.persona.per_apellido_primero+" "+$scope.persona.persona.per_apellido_segundo+'\n ', fontSize:6
@@ -223,13 +230,13 @@ angular.module("adminApp")
                                                       text:'Nacimiento: ', bold:true, fontSize:6
                                                   },
                                                   {
-                                                     text: $scope.persona.persona.per_fecha_nacimiento, fontSize: 6
+                                                     text:nacimiento+'\n', fontSize: 6
                                                   },
                                                   {
-                                                      text:'Trámite N°:  ', bold:true, fontSize:6
+                                                      text:'Vigencia:  ', bold:true, fontSize:6
                                                   },
                                                   {
-                                                      text: $scope.persona.persona_tramite.pt_numero_tramite, bold:true, fontSize:5
+                                                      text: /*vigencia*/ ff, bold:true, fontSize:5
                                                   },
                                           ]
                                         },
@@ -240,14 +247,14 @@ angular.module("adminApp")
                                         },
                                     ],
                                     [ '',
-                                      {
-                                        image: ifirma,
-                                        width: 60,
-                                        height: 30,
-                                        align:'center'/*,
-                                        absolutePosition: {x: 85, y: 110}*/
-                                      }
-                                      
+                                      // {
+                                      //   image: ifirma,
+                                      //   width: 60,
+                                      //   height: 30,
+                                      //   align:'center',
+                                      //   absolutePosition: {x: 85, y: 110}
+                                      // }
+                                      ''
                                     ],
                                 ],
                             },
@@ -298,7 +305,7 @@ angular.module("adminApp")
                 pdfMake.createPdf(docDefinition).download();
               };
  
-            });//fin imagen firma
+            // });//fin imagen firma
           });//fin imagen logoSEDES
         });//fin imagen gober
       });//fin imagen sedes
@@ -320,6 +327,7 @@ angular.module("adminApp")
             img.src = url;
         };
       });//fin firma funcionario get
+});// ============  FIN carnet.get
     });// ============  FIN persona tramite.get
 
 }])

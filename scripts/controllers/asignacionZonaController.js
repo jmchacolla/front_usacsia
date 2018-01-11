@@ -109,3 +109,38 @@ angular.module("adminApp")
   }*/
 
 }])
+
+
+.controller('ListaAsigCtrl', ['$scope', 'ZonIn','$routeParams',   function($scope, ZonIn,$routeParams)
+{
+  var nom=$routeParams.nom;
+  var fc_id=$routeParams.fc_id;
+/*  $scope.ajustes = {
+    menu:{
+      titulo: 'Lista de Sanciones',
+      items:[ 
+        {nombre:'Sanciones', enlace:'#/sancion/ver/'+fc_id+'/'+nom}
+        ]
+        },
+    pagina:{
+      titulo:'Sancion de: '
+      
+    }
+  }*/
+  $scope.sortType = 'created_at'; // ESTABLECIENDO EL TIPO DE ORDENAMIENTO
+  $scope.sortReverse  = true;  // PARA ORDENAR ASCENDENTEMENTO O DESCENDENTEMENTE
+  $scope.loading=true;//PARA HACER UN LOADING EN EL TEMPLATE
+
+
+  ZonIn.get(function(data)
+  {
+    $scope.zona_inspeccion = data.zona_inspeccion;
+   
+    //PARA HACER UN LOADING EN EL TEMPLATE
+    if(data.status){
+      $scope.loading = false;
+      $scope.msg = data.status;
+    }
+  })
+
+}])

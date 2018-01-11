@@ -107,16 +107,16 @@ angular.module("adminApp")
     })
 
     var FunG = localStorage.getItem("Funcionario");
-  var FunG = JSON.parse(FunG);
- var fun_id = FunG.fun_id;
+    var FunG = JSON.parse(FunG);
+    var fun_id = FunG.fun_id;
 
     /**/
       $scope.tramiteselect={
-    tra_id:null,
-    tra_nombre:"",
-    tr_costo:null,
-    tra_vigencia:"",
-  };
+        tra_id:null,
+        tra_nombre:"",
+        tr_costo:null,
+        tra_vigencia:"",
+      };
   $scope.save = function(a, per_id,tra_id,tra_costo){
     $scope.persona_tramite.per_id=per_id;
     $scope.persona_tramite.tra_id=tra_id;
@@ -139,69 +139,6 @@ angular.module("adminApp")
 }])
 
 
-/*LISTAR FICHAS DE ATENCION*/
-.controller('AtencionCtrl', ['$scope', 'FichasfechaService', 'Ficha', '$route', 'toastr', '$timeout', '$location',function ($scope, FichasfechaService, Ficha, $route, toastr,$timeout, $location) 
-{
-    $scope.today=moment(new Date(), "YYYY-MM-DD") .format("DD-MM-YY");
-    $scope.ajustes = {
-      menu:{
-        titulo: 'Atencion de Pacientes',
-        items:[
-        {nombre:'Fichas de atencion', enlace:'#/atencion', estilo:'active'}]
-      },
-      pagina:{
-        titulo:'Atención para el Carné Sanitario '+$scope.today
-      }
-    };
-    $scope.fecha={
-      fecha1:moment(new Date(), "YYYY-MM-DD") .format("DD-MM-YYYY"),
-      fecha2:moment(new Date(), "YYYY-MM-DD") .format("DD-MM-YYYY"),
-      fic_estado:'PENDIENTE'
-    };
-    $scope.sortType = 'per_id'; // set the default sort type
-    $scope.sortReverse  = true;  // set the default sort order
-    $scope.Personas = [];
-    $scope.loading=true;//para hacer un loading
-    var tra_id = 1;
-    FichasfechaService.get($scope.fecha, function(data){
-      console.log('*******fichafecha---------', data);
-      $scope.fichas = data.fichas;
-
-      if(data.fichas.length>0){
-        $scope.loading = false;
-        $scope.msg = true;
-      }
-      else{
-        $scope.loading = false;
-        $scope.msg = false;
-      }
-    
-    },function () {
-        toastr.error("ERROR INESPERADO, por favor actualize la página");
-        $scope.loading = false;
-        $scope.msg = false;
-      }); 
-    var id=0;
-    $scope.nombre_completo = "";
-    $scope.get_per_id = function(pt_id, per_apellido_primero, per_apellido_segundo, per_nombres){
-      id = pt_id;
-      $scope.nombre_completo = per_apellido_primero + " " + per_apellido_segundo + " " + per_nombres;
-    }
-    $scope.atender = function (fic_id/*, pt_id*/) {
-      // body...
-      var fic_id=fic_id;
-      var pt=id;
-      console.log(pt, 'akiiiii');
-      Ficha.update({fic_id:fic_id}).$promise.then(function (data) {
-        if(data.status){
-                toastr.success('Registrando paciente');
-                $timeout(function() {
-                 $location.path('/prueba-medica/'+pt);
-                  },1000);
-              }
-      })
-    }
-}])
 
 /*VER PAGO*/
 .controller('BoletaCtrl', ['$scope', 'PersonaTramite', 'Ficha', '$route', 'toastr', '$timeout', '$location', '$routeParams', function ($scope, PersonaTramite, Ficha, $route, toastr,$timeout, $location, $routeParams) {
@@ -709,19 +646,22 @@ function ($scope, ListarTramitesService, $route, toastr,$location)
 .controller('BuscaPersonaCtrl', ['$http', '$scope', 'CONFIG', buscaPersonaController])
 function buscaPersonaController($http, $scope, CONFIG){
   $scope.buscaPersona = function(){
-    console.log('esta buscando persona');
+    /*console.log('esta buscando persona',$scope.per_ci);*/
       $scope.resultado="Cargando...";
       $http.get(CONFIG.DOMINIO_SERVICIOS+'/personas_ci/'+$scope.per_ci).success(function(respuesta){
-          $scope.persona = respuesta.persona.persona;
-          if(!respuesta.persona){
+          
+          if(!respuesta.persona || respuesta.persona==null){
               $scope.ver=false;
-              $scope.resultado=" La persona no se encuentra registrada";              
+              $scope.resultado=" La persona no se encuentra registrada";    
+              /*console.log("_respuesta__",$scope.resultado); */         
           } else if(respuesta.persona){
+            $scope.persona = respuesta.persona.persona;
               $scope.ver=true;
               $scope.resultado='';
           }  
       });
   }
 }
+
 
 

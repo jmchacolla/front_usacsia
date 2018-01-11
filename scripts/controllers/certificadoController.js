@@ -1,32 +1,56 @@
 'use strict';
 angular.module("adminApp")
 
-.controller('CertificadoCtrl', ['CONFIG', /*'authUser',*/ '$scope', 'EmpTra', '$route', '$routeParams', 'toastr', '$location', function (CONFIG,/*authUser,*/$scope,EmpTra,$route,$routeParams,toastr,$location) {
+.controller('CertificadoCtrl', ['CONFIG', /*'authUser',*/ '$scope', 'EmpTra', '$route', '$routeParams', 'toastr', '$location','VerTramCer', function (CONFIG,/*authUser,*/$scope,EmpTra,$route,$routeParams,toastr,$location,VerTramCer) {
     
-  console.log("___LLEGO AL CONTROLADOR CERTIFICADO____")
     var et_id = $routeParams.et_id;
     EmpTra.get({et_id:et_id}, function(data)
     {
-        console.log(data);
+        console.log('la data-------',data);
         $scope.empresatramite=data.establecimiento;
 
         $scope.ajustes = {
           menu:{
             titulo: 'Impresión de certificado sanitario',
             items:[
-              {nombre:'Ciudadanos Registrados', enlace:'#/persona-usacsia', estilo:''}]
+              {nombre:'Establecimientos inspeccionados', enlace:'#/lista-inspeccionados', estilo:''},
+              {nombre:'Detalle de trámite', enlace:'', estilo:'active'}
+              ]
           },
           pagina:{
-            titulo:'Registro de Certificado Sanitario trámite N°: '+$scope.empresatramite.empresa_tramite.et_numero_tramite
+            titulo:'Certificado Sanitario trámite N°: '+$scope.empresatramite.empresa_tramite.et_numero_tramite
           }
         }
 
+    if (Object.keys($scope.empresatramite.propietario).length==7) {
+      $scope.propietario=$scope.empresatramite.propietario.pjur_razon_social;
+      $scope.documento=$scope.empresatramite.propietario.pjur_nit;
+    }
+    if (Object.keys($scope.empresatramite.propietario).length==22) {
+      $scope.propietario=$scope.empresatramite.propietario.per_nombres+' '+$scope.empresatramite.propietario.per_apellido_primero+' '+$scope.empresatramite.propietario.per_apellido_segundo;
+      $scope.documento=$scope.empresatramite.propietario.per_ci+' '+$scope.empresatramite.propietario.per_ci_expedido;
+    }
+
+    })
+    /*$scope.ver=false;*/
+    VerTramCer.get({et_id:et_id}, function(data)
+    {
+      
+        $scope.tramitecerestado=data.tramitecerestado;
+          
+      if ($scope.tramitecerestado[6].eta_id==7 && $scope.tramitecerestado[6].te_estado=='APROBADO') {
+          $scope.ver=true;
+      }
+      else{
+        $scope.ver=false;
+      }
+console.log("_______sssssssssssssssssss",$scope.tramitecerestado[6].eta_id);
     })
 
 
 }])
 
-.controller('PdfCertificadoCtrl', ['CONFIG', /*'authUser',*/ '$scope', 'EmpTra', '$route', '$routeParams', 'toastr', '$location', function (CONFIG,/*authUser,*/$scope,EmpTra,$route,$routeParams,toastr,$location) {
+.controller('PdfCertificadoCtrl', ['CONFIG', /*'authUser',*/ '$scope', 'EmpTra', '$route', '$routeParams', 'toastr', '$location','FichaInspc','FichaCat','VcertS', function (CONFIG,/*authUser,*/$scope,EmpTra,$route,$routeParams,toastr,$location,FichaInspc,FichaCat,VcertS) {
 
 
   var et_id = $routeParams.et_id;
@@ -34,36 +58,77 @@ angular.module("adminApp")
   var FunG = JSON.parse(FunG);
   var fun_id=FunG.fun_id;//remplaar con la sesion
 
+  $scope.CurrentDate = new Date();
+ var mes=$scope.CurrentDate.getMonth()+1;
+ var fecha=$scope.CurrentDate.getDate()+"-"+mes+"-"+$scope.CurrentDate.getFullYear();
+
   
   EmpTra.get({et_id:et_id},function (argument) {
     console.log(argument);
     $scope.empresatra=argument.establecimiento;
+    var razon_socialq=$scope.empresatra.establecimiento_sol.ess_razon_social;
+    if (Object.keys($scope.empresatra.propietario).length==7) {
+      $scope.propietario=$scope.empresatra.propietario.pjur_razon_social;
+      $scope.documento=$scope.empresatra.propietario.pjur_nit;
+    }
+    if (Object.keys($scope.empresatra.propietario).length==22) {
+      $scope.propietario=$scope.empresatra.propietario.per_nombres+' '+$scope.empresatra.propietario.per_apellido_primero+' '+$scope.empresatra.propietario.per_apellido_segundo;
+      $scope.documento=$scope.empresatra.propietario.per_ci+' '+$scope.empresatra.propietario.per_ci_expedido;
+    }
+    $scope.direccion=$scope.empresatra.establecimiento_sol.ess_avenida_calle+' #'+$scope.empresatra.establecimiento_sol.ess_numero+' '+$scope.empresatra.establecimiento_sol.ess_stand
+    FichaInspc.get({et_id:et_id},function (argument) { 
+      $scope.ficha=argument.ficha_inspeccion;
+      FichaCat.get({fi_id:$scope.ficha.fi_id},function (argument) { 
+        $scope.fichac=argument.ficha_categoria;//falta sacar categorias
+        console.log("__ficha cat___",$scope.fichac);
+        VcertS.get({et_id:et_id},function (argument) { 
+        $scope.cs=argument.certificado_sanitario;
+        console.log("__certif san___",$scope.cs);
+        var imagenfirma1=$scope.cs.ces_fir_url1+'/'+$scope.cs.ces_fir_nombre1;
+        var imagenfirma2=$scope.cs.ces_fir_url2+'/'+$scope.cs.ces_fir_nombre2;
+        var imagenfirma3=$scope.cs.ces_fir_url3+'/'+$scope.cs.ces_fir_nombre3;
+   
 
+       
+        
+            var gober='';
+            var sedes='';
+            var ifirma1='';
+            var ifirma2='';
+            var ifirma3='';
+            var watermark='';
+            var tituloqr='';
+            //aumentar datos en textoqr
+            var textoqr='USACSIA-CERTIFICADO-SANITARIO '+' '+razon_socialq+' - '+$scope.empresatra.empresa.emp_nit+' - '+$scope.propietario+' - '+$scope.documento+' /Venc: '+$scope.empresatra.empresa_tramite.et_vigencia_documento;
+            var razon_social='';
+            var clasificacion='';
+            var tipotramite=$scope.empresatra.empresa_tramite.et_tipo_tramite;
+            var item='';
+            var propietario='';
+            var direccion='';
+            var gestion='';
+            var vencimiento=/*$scope.cs.ces_fecha_fin*/moment($scope.empresatra.empresa_tramite.et_vigencia_documento, 'YYYY-MM-DD').format('DD-MM-YYYY');;
+            var nroregistro='';
+            var kardex='';
 
-        var gober='';
-        var sedes='';
-        var ifirma='';
-        var watermark='';
-        var tituloqr='';
-        var textoqr='';
-        var razon_social='';
-        var clasificacion='';
-        var tipotramite='';
-        var item='';
-        var propietario='';
-        var direccion='';
-        var gestion='';
-        var vencimiento='';
-        var nroregistro='';
-        var kardex='';
-
-
+            for (var i = $scope.fichac.length - 1; i >= 0; i--) {
+              var j=i--;
+                var clasificacion =$scope.fichac[i].cat_area+''+$scope.fichac[i].cat_categoria;
+                var clasificacion2 =$scope.fichac[j].cat_area+''+$scope.fichac[j].cat_categoria;
+                var item=$scope.fichac[i].cat_codigo;
+                var item2=$scope.fichac[j].cat_codigo;
+          
+/*waterlogoSEDES*/
         var img2 =convertImgToDataURLviaCanvas("./scripts/escudo-gober.png", function(base64Img) {
           gober =base64Img;
           var img3 =convertImgToDataURLviaCanvas("./scripts/logoSEDES.png", function(base64Img) {
             sedes =base64Img;
-            /*var img4 =convertImgToDataURLviaCanvas( 'imagenfirma', function(base64Img) {
-              ifirma =base64Img;*/
+            var img4 =convertImgToDataURLviaCanvas( imagenfirma1, function(base64Img) {
+              ifirma1 =base64Img;
+             var img4_2 =convertImgToDataURLviaCanvas( imagenfirma2, function(base64Img) {
+              ifirma2 =base64Img;
+               var img4_3 =convertImgToDataURLviaCanvas( imagenfirma3, function(base64Img) {
+              ifirma3 =base64Img;
                 var img5 =convertImgToDataURLviaCanvas("./images/waterlogoSEDES.png", function(base64Img) {
                   watermark =base64Img;
 
@@ -73,7 +138,7 @@ angular.module("adminApp")
                   pageMargins: [ 30, 30, 30, 30 ],
 
                   info: {/*Metadatos*/
-                    title: 'textoqr',
+                    title: textoqr,
                     author: 'USACSIA-SEDES LA PAZ',
                     subject: 'certificado sanitario'+tituloqr,
                     keywords: 'certificado sanitario',
@@ -111,10 +176,10 @@ angular.module("adminApp")
                         widths:[120, 120, 120, 120],
                         body:[
                               [
-                                {text:'RAZON SOCIAL RAZON SOCIAL RAZON SOCIAL', colSpan:3, alignment:'right', fontSize:34, bold:true,italics: true},
+                                {text: razon_socialq , colSpan:3, alignment:'center', fontSize:34, bold:true,italics: true},
                                 {},
                                 {},
-                                {qr: 'textoqr', fit:100, alignment: 'right'}
+                                {qr: textoqr, fit:100, alignment: 'right'}
                               ],
                               [
                                 {text:'DENOMINACIÓN', colSpan:4, alignment:'center', fontSize:13, bold:true},
@@ -124,39 +189,40 @@ angular.module("adminApp")
                               ],
                               [
                                 {text:'CLASIFICACIÓN: ', alignment:'left', bold:true, fontSize:13},
-                                {text:'clasificacion', alignment:'center', bold:true, fontSize:15},
+
+                               {text:clasificacion+' '+clasificacion2, alignment:'center', bold:true, fontSize:15},
                                 {text:'DERECHO DE: ', alignment:'left', bold:true, fontSize:13},
-                                {text:'tipotramite', alignment:'center', bold:true, fontSize:15},
+                                {text:tipotramite, alignment:'center', bold:true, fontSize:15},
                               ],
                               [
                                 {text:'ITEM: ',alignment:'left', bold:true, fontSize:13},
-                                {text:'item', alignment:'center', bold:true, colSpan:3, fontSize:15},
+                                {text:item+' '+item2, alignment:'center', bold:true, colSpan:3, fontSize:15},
                                 {},
                                 {},
                               ],
                               [
                                 {text:'PROPIETARIO: ',alignment:'left', bold:true, fontSize:13},
-                                {text:'propietario', alignment:'center', bold:true, colSpan:3, fontSize:15},
+                                {text:$scope.propietario, alignment:'center', bold:true, colSpan:3, fontSize:15},
                                 {},
                                 {},
                               ],
                               [
                                 {text:'DIRECCIÓN: ',alignment:'left', bold:true, fontSize:13},
-                                {text:'direccion', alignment:'center', bold:true, colSpan:3, fontSize:15},
+                                {text:$scope.direccion, alignment:'center', bold:true, colSpan:3, fontSize:15},
                                 {},
                                 {},
                               ],
                               [
                                 {text:'GESTIÓN: ',alignment:'left', bold:true, fontSize:13},
-                                {text:'gestion', alignment:'center', bold:true, fontSize:15},
+                                {text:$scope.CurrentDate.getFullYear(), alignment:'center', bold:true, fontSize:15},
                                 {text:'VENCIMIENTO: ',alignment:'left', bold:true, fontSize:13},
-                                {text:'vencimiento', alignment:'center', bold:true, fontSize:15},
+                                {text:vencimiento, alignment:'center', bold:true, fontSize:15},
                               ],
                               [
                                 {text:'N° DE REGISTRO: ',alignment:'left', bold:true, fontSize:13},
                                 {text:'nroregistro', alignment:'center', bold:true, fontSize:15},
                                 {text:'KARDEX: ',alignment:'left', bold:true, fontSize:13},
-                                {text:'kardex', alignment:'center', bold:true, fontSize:15},
+                                {text:$scope.empresatra.empresa.emp_kardex, alignment:'center', bold:true, fontSize:15},
                               ],
 
                         ]
@@ -178,12 +244,37 @@ angular.module("adminApp")
                       margin:[20, 30, 10, 0],
                       layout: 'noBorders',
                       border: [false, false, false, false]
-                    },
+                    },/* absolutePosition:{x:30, y:50}*/
                     {
                       table:{
                         widths:[160,160,160],
                         body:[
                                 [
+
+                                  {
+                                    image:ifirma1, width: 80,  height: 30
+                                  },
+                                  {
+                                    image:ifirma2, width: 60,  height: 30
+                                  },
+                                  {
+                                    image:ifirma3, width: 60,  height: 30
+                                  },
+                                ]
+
+                        ]
+                      },
+                      absolutePosition:{x:85, y:690},
+                      layout: 'noBorders',
+                      border: [false, false, false, false]
+                    },
+                    {
+                      table:{
+                        widths:[160,160,160],
+                        body:[
+                                
+                                [
+
                                   {text:'RESPONSABLE\n CERTIFICADO SANITARIO', fontSize:8, bold:true, alignment:'center'},
                                   {text:'JEFE UNIDAD DE SALUD AMBIENTAL, CONTROL SANITARIO E INOCUIDAD ALIMENTARIA', fontSize:8, bold:true, alignment:'center'},
                                   {text:'JEFE DE UNIDAD\n ADMINISTRATIVA FINANCIERA', fontSize:8, bold:true, alignment:'center'}
@@ -209,7 +300,10 @@ angular.module("adminApp")
                 };
 
               });//-----/img5
-            /*});//----/img4*/
+});//----/img4_2
+});//----/img4_3
+
+            });//----/img4
           });//------/img3
         });//--------/img2
 
@@ -229,9 +323,10 @@ angular.module("adminApp")
             };
             img.src = url;
         };
-
-
-
+}//fin de for
+ });/*-----/certificado sanitario*/
+ });/*-----/fichaCat*/
+ });/*-----/fichaInspc*/
   });/*-----/EmpTra.get*/
 
    

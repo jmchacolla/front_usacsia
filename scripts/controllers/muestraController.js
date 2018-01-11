@@ -84,7 +84,7 @@ angular.module("adminApp")
 .controller('apiAppCtrl_persona', ['$http', '$scope', 'CONFIG', '$route', buscaPersonaController])
 function buscaPersonaController($http, $scope, CONFIG, $route){
   $scope.buscaPersona = function($per_ci){
-    console.log('esta buscando persona');
+    console.log('esta buscando persona',$scope.per_ci);
       $scope.tamanio="Cargando...";//////CAMBIADO
       $http.get(CONFIG.DOMINIO_SERVICIOS+'/buscar_persona_tramite/'+$scope.per_ci).success(function(respuesta){
           $scope.persona_tramite = respuesta.persona_tramite;

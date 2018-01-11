@@ -51,7 +51,7 @@
               <span ng-show="sortType == 'per_nombres' && sortReverse" class="glyphicon glyphicon-chevron-down"></span></a>
             </th>
             <th>Establecimiento</th>
-            <th>Ver</th>
+            <th>Ver Inspección</th>
             <th>Ficha</th>
             <!-- <th>Dar de baja</th> -->
           </thead>
@@ -62,7 +62,7 @@
               <td>{{et.per_nombres}} </td>  
               <td>{{et.ess_razon_social}}</td>
               <td class="text-center">
-                <a href="#/tramites/ver/{{et.et_id}}" class="btn btn-success" title="VER TRAMITE"><span class="glyphicon glyphicon-file"></span></a>
+                <a href="#/inspecciones/{{et.et_id}}" class="btn btn-success" title="VER INSPECCIONES"><span class="glyphicon glyphicon-file"></span></a>
               </td>
               <td>
                 <a href="#/inspeccion/fichas/crear/{{et.et_id}}" class="btn btn-info" title="FICHA DE INSPECCIÓN"><span >FICHA</span></a>
