@@ -91,7 +91,7 @@ angular.module("adminApp")
       par_id:null
     }
   
-
+  var pl_id=null;
   $scope.negcreado=false;
   $scope.saveplnegativo=function(mue_id){
     $scope.pruebalaboratorio.mue_id=mue_id;
@@ -102,9 +102,9 @@ angular.module("adminApp")
       if(data.status){
         $scope.negcreado=true;
         $scope.pruebapar.pl_id=data.prueba_laboratorio.pl_id;
+         pl_id=data.prueba_laboratorio.pl_id;
         console.log("id_ de la prueba labortorio creada" , $scope.pruebapar.pl_id);
         toastr.success('Muestra Negativa');
-        
       }
     })
   }
@@ -114,17 +114,15 @@ angular.module("adminApp")
   }
 
 
-  /*se crea la prueba laboratorio*/
-
+  /*se crea la prueba laboratorio positiva*/
+ 
   $scope.savepl=function(mue_id){
     $scope.pruebalaboratorio.mue_id=mue_id;
     $scope.pruebalaboratorio.fun_id=fun_id;
-    console.log("prueba laboratorio creada",$scope.pruebalaboratorio);
     PruebaLaboratorioService.save($scope.pruebalaboratorio).$promise.then(function(data)
     {
       if(data.status){
         $scope.pruebapar.pl_id=data.prueba_laboratorio.pl_id;
-        console.log("id_ de la prueba labortorio creada" , $scope.pruebapar.pl_id);
         $timeout(function() {
           $location.path('/prueba-laboratorio/crear/'+$scope.pruebapar.pl_id);
         },10);
@@ -132,6 +130,20 @@ angular.module("adminApp")
       }
     })
   }
+  
+    $scope.cancelar=function(){
+    PruebaLaboratorioService.delete({pl_id:pl_id}).$promise.then(function(data)
+    {
+      if(data.status)
+      {
+        $timeout(function() {
+          $location.path('/buscar-numero-muestra');
+        },1);
+        $route.reload();
+      }
+    })
+  }
+
 }])
 
 //crear prueba laboratorio parasitos y otros
@@ -150,25 +162,6 @@ angular.module("adminApp")
     }
   }
   
-
-  // $scope.loading=true;//para hacer un loading
-  // PruebaLaboratorioService.get(function(data){
-  //   console.log(data);
-  //   $scope.prueba_laboratorio = data.prueba_laboratorio;
-  //   if(data.prueba_laboratorio.length>0){
-  //     $scope.loading = false;
-  //     $scope.msg = true;
-  //   }
-  //   else{
-  //     $scope.loading = false;
-  //     $scope.msg = false;
-  //   }
-  // },function () {
-  //     toastr.error("ERROR INESPERADO, por favor actualize la página");
-  //     $scope.loading = false;
-  //     $scope.msg = false;
-  //   });
-
   var FunG = localStorage.getItem("Funcionario");
   var FunG = JSON.parse(FunG);
 
@@ -303,6 +296,19 @@ $scope.sangre=function(){
       }
     })
 }
+
+  $scope.cancelar=function(){
+    PruebaLaboratorioService.delete({pl_id:pl_id}).$promise.then(function(data)
+    {
+      if(data.status)
+      {
+        $timeout(function() {
+          $location.path('/buscar-numero-muestra');
+        },1);
+        $route.reload();
+      }
+    })
+  }
 
 }])
 

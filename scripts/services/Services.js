@@ -463,6 +463,9 @@ angular.module("adminApp")
     update: {method: "PUT", params: {dt_id: "@dt_id"}}
   })
 }])
+.factory('DocumentoTramiteL', ['$resource', 'CONFIG', function ($resource, CONFIG){
+  return $resource(CONFIG.DOMINIO_SERVICIOS+"/update_lista_documentotramite")
+}])
 /*lista los documentos ue registro un tramite en certificado sanitario*/
 .factory('DocumentoTramite2', ['$resource', 'CONFIG', function ($resource, CONFIG){
   return $resource(CONFIG.DOMINIO_SERVICIOS+"/lista_documentos_x_tramite/:et_id", {et_id:"@_et_id"})
@@ -500,6 +503,7 @@ angular.module("adminApp")
 
 }])
 
+// lista de las personas que trabjan en un establecimiento
 .factory('PersonasEstablecimiento', ['$resource', 'CONFIG', function ($resource, CONFIG){
   return $resource(CONFIG.DOMINIO_SERVICIOS+"/personas_x_establecimiento/:ess_id",{ess_id:'@_ess_id'})
 }])
@@ -509,6 +513,11 @@ angular.module("adminApp")
 }])
 /* /VEROOOO*/
 
+/*---------------------------tramite certificado----------------------*/
+
+.factory('TramiteCerPagado', ['$resource', 'CONFIG', function ($resource, CONFIG){
+  return $resource(CONFIG.DOMINIO_SERVICIOS+"/tramitescer_pagados")
+}])
 
 /*=========================================USACSIA====================================*/
 //Nuevo(Obtiene funcionario por per_id)
