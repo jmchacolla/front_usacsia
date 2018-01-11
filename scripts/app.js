@@ -856,9 +856,29 @@ angular.module("adminApp", ["authService", "ngRoute", "ngResource", "satellizer"
     
   /*--------PENDIENTE------*/
 
-  /*===================================VERONICA================================================*/
-
-
+ //  ---------------------------------  REPORTES ------------------------------//
+ 
+ //c7
+  .when('/reportes/parasitos', {
+    templateUrl: 'templates/reportes/rep_parasito.html',
+    controller: 'ReporteParasitoController'
+  })
+  .when('/reportes/signosvitales', {
+    templateUrl: 'templates/reportes/rep_signosvitales.html',
+    controller: 'ReporteSignosVitalesController'
+  })
+  .when('/reportes/observadosdia', {
+    templateUrl: 'templates/reportes/rep_observadosdia.html',
+    controller: 'ReporteObservadosDiaController'
+  })
+  .when('/reportes/informedia', {
+    templateUrl: 'templates/reportes/rep_informedia.html',
+    controller: 'ReporteInformeDiaController'
+  })
+  .when('/reportes/controldiario', {
+    templateUrl: 'templates/reportes/rep_controldia.html',
+    controller: 'ReporteControlDiarioController'
+  })
 
 
 
