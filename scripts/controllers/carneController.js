@@ -85,7 +85,7 @@ angular.module("adminApp")
 }])
 
 
-.controller('pdf_carneCtrl',['$scope', 'PersonaTramite', 'CONFIG','$routeParams', '$http','FirmaFun', function ($scope, PersonaTramite, CONFIG, $routeParams, $http,FirmaFun){
+.controller('pdf_carneCtrl',['$scope', 'PersonaTramite', 'CONFIG','$routeParams', '$http','FirmaFun','VerCas', function ($scope, PersonaTramite, CONFIG, $routeParams, $http,FirmaFun,VerCas){
   // prepare the document definition using declarative approach
     var id = $routeParams.pt_id;
     console.log("IDEDESS",id);
@@ -99,6 +99,11 @@ angular.module("adminApp")
       $scope.per = data.pertramite;
       console.log('persona-----------', $scope.persona);
       console.log('imagen-----------', $scope.persona.imagen/*[0]*/.ima_enlace+'/'+$scope.persona.imagen/*[0]*/.ima_nombre);
+      VerCas.get({pt_id:id}, function(data)
+    {
+      $scope.carnet = data.carnet_sanitario;
+      var ff=$scope.carnet.cas_fecha_fin;
+      console.log(data.carnet_sanitario,"___________________________________________________________Fecha____",ff)
       var fechapago= $scope.persona.persona_tramite.pt_fecha_ini;
       var fecha_cont=moment(new Date(), "YYYY-MM-DD") .format("DD-MM-YYYY");
       var horaC=fecha_cont[1];
@@ -231,7 +236,7 @@ angular.module("adminApp")
                                                       text:'Vigencia:  ', bold:true, fontSize:6
                                                   },
                                                   {
-                                                      text: vigencia, bold:true, fontSize:5
+                                                      text: /*vigencia*/ ff, bold:true, fontSize:5
                                                   },
                                           ]
                                         },
@@ -322,6 +327,7 @@ angular.module("adminApp")
             img.src = url;
         };
       });//fin firma funcionario get
+});// ============  FIN carnet.get
     });// ============  FIN persona tramite.get
 
 }])

@@ -51,7 +51,8 @@
               <span ng-show="sortType == 'per_nombres' && sortReverse" class="glyphicon glyphicon-chevron-down"></span></a>
             </th>
             <th>Establecimiento</th>
-            <th>Ver</th>
+            <th ng-if="user.rol_id == '1' || user.rol_id == '14' || user.rol_id == '3'">Ver Pago</th>
+            <th ng-if="user.rol_id == '1' || user.rol_id == '14' ">Ver Trámite</th>
             <th ng-if="user.rol_id == '1' || user.rol_id == '14' ">Aprobación</th><!-- resp de area -->
             <th ng-if="user.rol_id == '1' || user.rol_id == '2' ">Aprobación</th><!-- jefe de unidad -->
             <th ng-if="user.rol_id == '1' || user.rol_id == '2' ">Aprobación</th><!-- tesoreria -->
@@ -65,7 +66,10 @@
               <td>{{et.per_nombres}} </td>  
               <td>{{et.ess_razon_social}}</td>
               <td class="text-center">
-                <a href="#/tramites/ver/{{et.et_id}}" class="btn btn-success" title="VER TRAMITE"><span class="glyphicon glyphicon-file"></span></a>
+                <a href="#/boleta-ces-f1/{{et.et_id}}" class="btn btn-success" title="VER PAGO"><span class="glyphicon glyphicon-file"></span></a>
+              </td>
+              <td class="text-center">
+                <a href="#/seguimiento-tramite-ces/{{et.et_id}}" class="btn btn-success" title="VER TRÁMITE"><span class="glyphicon glyphicon-file"></span></a>
               </td>
               <!-- APROBACION 1 ng-if="user.rol_id == '6' || user.rol_id == '10' || user.rol_id == '4'"-->
               <td ng-if="user.rol_id == '1' || user.rol_id == '14' ">

@@ -336,6 +336,7 @@ angular.module("adminApp", ["authService", "ngRoute", "ngResource", "satellizer"
       authorized: [ROLES.ADMIN_SEDES.ROL]
     }*/
   })
+  //*****************************   INSPECCIONES   *************************************
   //*****************************   LISTA DE PROPIETARIOS NATURALES JURIDICOS   **************
    //lista para inspectores prop naturales
   .when('/tramites_nat',{
@@ -409,6 +410,14 @@ angular.module("adminApp", ["authService", "ngRoute", "ngResource", "satellizer"
       authorized: [ROLES.ADMIN_SEDES.ROL]
     }*/
   })
+      //LISTA DE EMPRESAS QUE YA FUERON INSPECCIONADOS
+  .when('/inspecciones/:et_id',{
+   templateUrl:'templates/ficha_inspeccion/inspecciones.html',
+   controller: 'InspeccionesCtrl',
+    data: {
+      authorized: [ROLES.ADMIN_USACSIA.ROL,ROLES.INSPECTOR.ROL]
+    }
+  })
     //VER FICHA INSPECCION -- falta hacer el html 8-1-2018 --falta añadir a rutas privadas
   .when('/inspeccion/ver/:fi_id',{
    templateUrl:'templates/ficha_inspeccion/ver.html',
@@ -417,9 +426,9 @@ angular.module("adminApp", ["authService", "ngRoute", "ngResource", "satellizer"
       authorized: [ROLES.ADMIN_USACSIA.ROL,ROLES.INSPECTOR.ROL]
     }
   })
-  .when('/sancion/ver/:fc_id',{
+  .when('/sancion/ver/:fc_id/:nom',{
    templateUrl:'templates/ficha_inspeccion/sanciones.html',
-   controller: 'VersancionesCtrl'/*,
+   controller: 'SancionesCtrl'/*,
     data: {
       authorized: [ROLES.ADMIN_SEDES.ROL]
     }*/
@@ -433,10 +442,17 @@ angular.module("adminApp", ["authService", "ngRoute", "ngResource", "satellizer"
       authorized: [ROLES.ADMIN_USACSIA.ROL,ROLES.ADMIN_CARNET.ROL]
     }
   })
+  .when('/empresa/ver/:ess_id',{
+   templateUrl:'templates/empresatramite/ver.html',
+   controller: 'VerEmpresaCtrl',
+    data: {
+      authorized: [ROLES.ADMIN_USACSIA.ROL,ROLES.ADMIN_CARNET.ROL]
+    }
+  })
 //=========================         EMPRESA TRAMITE     =======================================
 
   .when('/tramites_certi',{
-   templateUrl:'templates/empresatramite/list.html',
+   templateUrl:'templates/empresatramite/listN.html',
    controller: 'ListNatCtrl',
     data: {
       authorized: [ROLES.ADMIN_USACSIA.ROL,ROLES.CAJERO.ROL,ROLES.ADMIN_CERTIFICADO.ROL]
@@ -527,7 +543,7 @@ angular.module("adminApp", ["authService", "ngRoute", "ngResource", "satellizer"
       authorized: [ROLES.ADMIN_USACSIA.ROL]
     }
   })
-
+//existe 2 busquedas de propietario
     .when('/establecimientosol/persona/ver/:per_id', { 
     templateUrl: 'templates/establecimiento_solicitante/verpersona.html',
     controller: 'VerPersonaEstablecimientoSolicitanteCtrl',
@@ -535,7 +551,7 @@ angular.module("adminApp", ["authService", "ngRoute", "ngResource", "satellizer"
       authorized: [ROLES.ADMIN_USACSIA.ROL]
     }
   })
-
+//existe 2 busquedas de propietario
   .when('/establecimientosol/empresa/ver/:pjur_nit', { 
     templateUrl: 'templates/establecimiento_solicitante/verempresa.html',
     controller: 'VerPJuridicaCtrl',
@@ -799,7 +815,10 @@ angular.module("adminApp", ["authService", "ngRoute", "ngResource", "satellizer"
   })
   .when('/lista-inspeccionados', {
     templateUrl: 'templates/empresatramite/lista-inspeccionados.html',
-    controller: 'ListaInspeccionadosCtrl'
+    controller: 'ListaInspeccionadosCtrl',
+    data: {
+      authorized: [ROLES.ADMIN_USACSIA.ROL, ROLES.ADMIN_CERTIFICADO.ROL,, ROLES.INSPECTOR.ROL]
+    }
   })
   /*========================== /empresa tramite =======================================*/
 /*-------------------------------------- documentos -----------------------------------------*/

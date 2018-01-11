@@ -74,7 +74,7 @@
             <th >Tipo</th>
             <th >Ver</th>
            <!--  <th >Editar</th> -->
-            <th >Borrar</th>
+            <!-- <th >Borrar</th> -->
           </thead>
 
           <tbody ng-repeat="pt in persona_tramite | orderBy:sortType:sortReverse | filter:per_ci">
@@ -94,8 +94,8 @@
                 <a class="btn btn-primary" href="#/personas/edit/{{persona.per_id}}">
                 <span class="glyphicon glyphicon-pencil"></span></a> editar 
               </td> -->
-              <td >
-                <button class="btn btn-danger" data-toggle="modal" data-target="#miCuadroModal1" ng-click="get_per_id(persona.per_id, persona.per_apellido_primero, persona.per_apellido_segundo, persona.per_nombres)" title="Eliminar"><span class="glyphicon glyphicon-trash"></span></button> <!--archivar -->
+              <!-- <td >
+                <button class="btn btn-danger" data-toggle="modal" data-target="#miCuadroModal1" ng-click="get_per_id(persona.per_id, persona.per_apellido_primero, persona.per_apellido_segundo, persona.per_nombres)" title="Eliminar"><span class="glyphicon glyphicon-trash"></span></button> 
                 <div id="miCuadroModal1" class="modal fade" role="dialog" tabindex="-1">
                   <div class="modal-dialog">
                     <div class="modal-content">
@@ -121,7 +121,7 @@
                     </div>
                   </div>
                 </div>
-              </td>
+              </td> -->
             </tr>
           </tbody>
         </table>

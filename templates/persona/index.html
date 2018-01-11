@@ -1,4 +1,4 @@
-<!-- TOP-MENU inicio -->
+TOP-MENU inicio -->
 <div ng-include="'./templates/menu_inicio.html'"></div>
 
 <!-- CONTEXT-MENU  -->
@@ -57,7 +57,7 @@
               <span ng-show="sortType == 'per_nombres' && sortReverse" class="glyphicon glyphicon-sort-by-alphabet-alt"></span></a>
             </th>
             <th >Celular</th>
-            <th >E-mail</th>
+            <!-- <th >E-mail</th> -->
             <th >Ver</th>
             <th >Editar</th>
             <th >Borrar</th>
@@ -68,7 +68,7 @@
               <td>{{persona.per_apellido_primero + " " + persona.per_apellido_segundo}}</td>
               <td>{{persona.per_nombres}}</td>
               <td>{{persona.per_numero_celular}}</td>
-              <td>{{persona.per_email | maxLength : 20}}</td>
+             <!--  <td>{{persona.per_email | maxLength : 20}}</td> -->
               <td>
                 <a href="#/personas/ver/{{persona.per_id}}" class="btn btn-success"><span class="glyphicon glyphicon-file" title="Ver"></span></a><!-- ver -->
               </td>
@@ -115,4 +115,4 @@
     </div>
   </div>
 
-<!-- CONTENIDO MODULO fin -->
+<!-- CONTENIDO MODULO fin

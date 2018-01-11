@@ -1,7 +1,7 @@
 'use strict';
 angular.module("adminApp")
 
-.controller('CertificadoCtrl', ['CONFIG', /*'authUser',*/ '$scope', 'EmpTra', '$route', '$routeParams', 'toastr', '$location', function (CONFIG,/*authUser,*/$scope,EmpTra,$route,$routeParams,toastr,$location) {
+.controller('CertificadoCtrl', ['CONFIG', /*'authUser',*/ '$scope', 'EmpTra', '$route', '$routeParams', 'toastr', '$location','VerTramCer', function (CONFIG,/*authUser,*/$scope,EmpTra,$route,$routeParams,toastr,$location,VerTramCer) {
     
     var et_id = $routeParams.et_id;
     EmpTra.get({et_id:et_id}, function(data)
@@ -22,6 +22,29 @@ angular.module("adminApp")
           }
         }
 
+    if (Object.keys($scope.empresatramite.propietario).length==7) {
+      $scope.propietario=$scope.empresatramite.propietario.pjur_razon_social;
+      $scope.documento=$scope.empresatramite.propietario.pjur_nit;
+    }
+    if (Object.keys($scope.empresatramite.propietario).length==22) {
+      $scope.propietario=$scope.empresatramite.propietario.per_nombres+' '+$scope.empresatramite.propietario.per_apellido_primero+' '+$scope.empresatramite.propietario.per_apellido_segundo;
+      $scope.documento=$scope.empresatramite.propietario.per_ci+' '+$scope.empresatramite.propietario.per_ci_expedido;
+    }
+
+    })
+    /*$scope.ver=false;*/
+    VerTramCer.get({et_id:et_id}, function(data)
+    {
+      
+        $scope.tramitecerestado=data.tramitecerestado;
+          
+      if ($scope.tramitecerestado[6].eta_id==7 && $scope.tramitecerestado[6].te_estado=='APROBADO') {
+          $scope.ver=true;
+      }
+      else{
+        $scope.ver=false;
+      }
+console.log("_______sssssssssssssssssss",$scope.tramitecerestado[6].eta_id);
     })
 
 
@@ -46,9 +69,11 @@ angular.module("adminApp")
     var razon_socialq=$scope.empresatra.establecimiento_sol.ess_razon_social;
     if (Object.keys($scope.empresatra.propietario).length==7) {
       $scope.propietario=$scope.empresatra.propietario.pjur_razon_social;
+      $scope.documento=$scope.empresatra.propietario.pjur_nit;
     }
     if (Object.keys($scope.empresatra.propietario).length==22) {
       $scope.propietario=$scope.empresatra.propietario.per_nombres+' '+$scope.empresatra.propietario.per_apellido_primero+' '+$scope.empresatra.propietario.per_apellido_segundo;
+      $scope.documento=$scope.empresatra.propietario.per_ci+' '+$scope.empresatra.propietario.per_ci_expedido;
     }
     $scope.direccion=$scope.empresatra.establecimiento_sol.ess_avenida_calle+' #'+$scope.empresatra.establecimiento_sol.ess_numero+' '+$scope.empresatra.establecimiento_sol.ess_stand
     FichaInspc.get({et_id:et_id},function (argument) { 
@@ -73,7 +98,8 @@ angular.module("adminApp")
             var ifirma3='';
             var watermark='';
             var tituloqr='';
-            var textoqr='';
+            //aumentar datos en textoqr
+            var textoqr='USACSIA-CERTIFICADO-SANITARIO '+' '+razon_socialq+' - '+$scope.empresatra.empresa.emp_nit+' - '+$scope.propietario+' - '+$scope.documento+' /Venc: '+$scope.empresatra.empresa_tramite.et_vigencia_documento;
             var razon_social='';
             var clasificacion='';
             var tipotramite=$scope.empresatra.empresa_tramite.et_tipo_tramite;
@@ -81,7 +107,7 @@ angular.module("adminApp")
             var propietario='';
             var direccion='';
             var gestion='';
-            var vencimiento=$scope.cs.ces_fecha_fin;
+            var vencimiento=/*$scope.cs.ces_fecha_fin*/moment($scope.empresatra.empresa_tramite.et_vigencia_documento, 'YYYY-MM-DD').format('DD-MM-YYYY');;
             var nroregistro='';
             var kardex='';
 
@@ -91,7 +117,8 @@ angular.module("adminApp")
                 var clasificacion2 =$scope.fichac[j].cat_area+''+$scope.fichac[j].cat_categoria;
                 var item=$scope.fichac[i].cat_codigo;
                 var item2=$scope.fichac[j].cat_codigo;
-
+          
+/*waterlogoSEDES*/
         var img2 =convertImgToDataURLviaCanvas("./scripts/escudo-gober.png", function(base64Img) {
           gober =base64Img;
           var img3 =convertImgToDataURLviaCanvas("./scripts/logoSEDES.png", function(base64Img) {
@@ -111,7 +138,7 @@ angular.module("adminApp")
                   pageMargins: [ 30, 30, 30, 30 ],
 
                   info: {/*Metadatos*/
-                    title: 'textoqr',
+                    title: textoqr,
                     author: 'USACSIA-SEDES LA PAZ',
                     subject: 'certificado sanitario'+tituloqr,
                     keywords: 'certificado sanitario',
@@ -152,7 +179,7 @@ angular.module("adminApp")
                                 {text: razon_socialq , colSpan:3, alignment:'center', fontSize:34, bold:true,italics: true},
                                 {},
                                 {},
-                                {qr: 'textoqr', fit:100, alignment: 'right'}
+                                {qr: textoqr, fit:100, alignment: 'right'}
                               ],
                               [
                                 {text:'DENOMINACIÓN', colSpan:4, alignment:'center', fontSize:13, bold:true},

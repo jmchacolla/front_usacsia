@@ -311,7 +311,7 @@ $scope.checkedI=false;
         $scope.ajustes.pagina.success = "Categoria añadida correctamente";
         toastr.success('Categoria añadida correctamente');
          $timeout(function() {
-            $location.path('/tramites_certi');
+            $location.path('/');
           },10);
       }
     });
@@ -358,23 +358,6 @@ $scope.checkedI=false;
        
       });
   };
-$scope.ver=false;
-
-  $scope.ver=function(fc_id){
-  console.log("entra a function");
- 
-    $scope.ver=true;
-    VerFcs.get({fc_id:fc_id}, function(data)
-      {
-        $scope.fcs=data.ficha_cat_san;
-        console.log("entra a save",$scope.fcs);
-      });
-  
-
-  };
-
-
-
 
   var sancion =93;
   BusCat.get({sub_id:sancion}, function(data){
@@ -384,9 +367,7 @@ $scope.ver=false;
   })
   FichaIn.get({fi_id:fi_id}, function(data){
       $scope.ficha_inspeccion = data.ficha_inspeccion;
-      
-
-      $scope.loading = false;
+        $scope.loading = false;
       $scope.msg = data.mensaje;
       EmpTra.get({et_id:$scope.ficha_inspeccion.ficha_inspeccion.et_id},function(data){
           $scope.emp_tra=data.establecimiento;
@@ -442,6 +423,92 @@ $scope.ver=false;
   /*} else {
     $location.path('/inicio');
   }*/
+}])
+.controller('SancionesCtrl', ['$scope', 'VerFcs','$routeParams',   function($scope, VerFcs,$routeParams)
+{
+  var nom=$routeParams.nom;
+  var fc_id=$routeParams.fc_id;
+  $scope.ajustes = {
+    menu:{
+      titulo: 'Lista de Sanciones',
+      items:[ 
+        {nombre:'Sanciones', enlace:'#/sancion/ver/'+fc_id+'/'+nom}
+        ]
+        },
+    pagina:{
+      titulo:'Sancion de: '+nom
+      
+    }
+  }
+   $scope.sortType = 'created_at'; // ESTABLECIENDO EL TIPO DE ORDENAMIENTO
+  $scope.sortReverse  = true;  // PARA ORDENAR ASCENDENTEMENTO O DESCENDENTEMENTE
+  $scope.loading=true;//PARA HACER UN LOADING EN EL TEMPLATE
+
+
+var fc_id=$routeParams.fc_id;
+
+  VerFcs.get({fc_id:fc_id},function(data)
+  {
+    $scope.ficha_cat_san = data.ficha_cat_san;
+   
+    //PARA HACER UN LOADING EN EL TEMPLATE
+    if(data.status){
+      $scope.loading = false;
+      $scope.msg = data.status;
+    }
+  })
+
+}])
+.controller('InspeccionesCtrl', ['$scope', 'FichasInsEt','$routeParams','CONFIG',   function($scope, FichasInsEt,$routeParams,CONFIG)
+{
+  var et_id=$routeParams.et_id;
+    $scope.user = {
+    rol_id: CONFIG.ROL_CURRENT_USER
+  }
+  if ($scope.user.rol_id == 16) {
+  $scope.ajustes = {
+    menu:{
+      titulo: 'Lista de Fichas de inspección',
+      items:[ 
+      {nombre:'Propietarios Naturales', enlace:'#/tramites_nat', estilo:''},
+        {nombre:'Propietarios Juridicos', enlace:'#/tramites_jur', estilo:''},
+        {nombre:'Inspecciones', enlace:'#/inspecciones/'+et_id, estilo:'active'}
+        ]
+    },
+    pagina:{
+      titulo:'Gestión de Inspecciones'
+    }
+  }
+  } else {
+    $scope.ajustes = {
+    menu:{
+      titulo: 'Lista de Fichas de inspección',
+      items:[ 
+      
+        {nombre:'Inspecciones', enlace:'#/inspecciones/'+et_id, estilo:'active'}
+        ]
+    },
+    pagina:{
+      titulo:'Gestión de Inspecciones'
+    }
+
+  }
+}
+  $scope.sortType = 'created_at'; // ESTABLECIENDO EL TIPO DE ORDENAMIENTO
+  $scope.sortReverse  = true;  // PARA ORDENAR ASCENDENTEMENTO O DESCENDENTEMENTE
+  $scope.loading=true;//PARA HACER UN LOADING EN EL TEMPLATE
+
+  FichasInsEt.get({et_id:et_id},function(data)
+  {
+    $scope.ficha_inspeccion = data.ficha_inspeccion;
+   
+    //PARA HACER UN LOADING EN EL TEMPLATE
+    if(data.status){
+      $scope.loading = false;
+      $scope.msg = data.status;
+    }
+  })
+
 }])
 //FALTA HACER EL CONTROLADOR PARA LAS SANCIONES 9-1-2018
 .controller('CrearSancionCtrl', ['$scope','$routeParams','EmpTra','Categoria','FichaCat','Zonas',  '$location', '$timeout', 'toastr','Rubro','BusSub','BusCat','EstadoIns',

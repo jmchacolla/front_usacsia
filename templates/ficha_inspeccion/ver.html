@@ -99,7 +99,7 @@
 			                    <td>{{cate.cat_codigo}}</td>
 			                    <td>{{cate.cat_monto}}</td>
 								<td class="text-center">
-				                <a href="#/sancion/ver/{{cate.fc_id}}" class="btn btn-success" title="VER SANCIONES"><span class="glyphicon glyphicon-file"></span></a>
+				                <a href="#/sancion/ver/{{cate.fc_id}}/{{cate.cat_descripcion}}" class="btn btn-success" title="VER SANCIONES"><span class="glyphicon glyphicon-file"></span></a>
 				              </td>
 			                    <td ng-if="user.rol_id == '1' || user.rol_id == '16' ">
 					                <!-- BOTON PARA CUADROS MODALES ng-disabled="refer.br_estado_referencia == true"-->
