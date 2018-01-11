@@ -790,6 +790,10 @@ angular.module("adminApp", ["authService", "ngRoute", "ngResource", "satellizer"
     templateUrl: 'templates/certificado/ver.html',
     controller: 'CertificadoCtrl'
   })
+  .when('/orden-pago/crear/:et_id', {
+    templateUrl: 'templates/empresatramite/ordenpago-crear.html',
+    controller: 'OrdenPagoCrearCtrl'
+  })
   .when('/lista-inspeccionados', {
     templateUrl: 'templates/empresatramite/lista-inspeccionados.html',
     controller: 'ListaInspeccionadosCtrl'

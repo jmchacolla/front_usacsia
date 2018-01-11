@@ -678,7 +678,33 @@ angular.module("adminApp")
 }])
 
 
+/*john--------hay factory, pero no encontre el route e hice otro XD*/
+.factory('FichaCatSancion', ['$resource', 'CONFIG', function ($resource, CONFIG) {
+  return $resource(CONFIG.DOMINIO_SERVICIOS+"/fichasancion/:fi_id", {fi_id:"@_fi_id"},{ 
+    update:{method:"PUT", params: {fi_id:"@fi_id"}}
+  })
+}])
 
-
-
-
+/*jhon----------------orden pago*/
+.factory('OrdenPago', ['$resource', 'CONFIG', function ($resource, CONFIG) {
+  return $resource(CONFIG.DOMINIO_SERVICIOS+"/orden_pago/:et_id", {et_id:"@_et_id"},{ 
+    update:{method:"PUT", params: {op_id:"@op_id"}}
+  })
+}])
+.factory('OrdenPagoEstado', ['$resource', 'CONFIG', function ($resource, CONFIG) {
+  return $resource(CONFIG.DOMINIO_SERVICIOS+"/ordenpagoestado", {},{ 
+    update:{method:"PUT", params: {}}
+  })
+}])
+/*jhon---------------- pago_arancel*/
+.factory('PagoArancel', ['$resource', 'CONFIG', function ($resource, CONFIG) {
+  return $resource(CONFIG.DOMINIO_SERVICIOS+"/pago_arancel/:et_id", {et_id:"@_et_id"},{ 
+    update:{method:"PUT", params: {pa_id:"@pa_id"}}
+  })
+}])
+/*jhon---------------- pago_sancion*/
+.factory('PagoSancion', ['$resource', 'CONFIG', function ($resource, CONFIG) {
+  return $resource(CONFIG.DOMINIO_SERVICIOS+"/pago_sancion/:et_id", {et_id:"@_et_id"},{ 
+    update:{method:"PUT", params: {ps_id:"@ps_id"}}
+  })
+}])
