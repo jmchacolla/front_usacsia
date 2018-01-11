@@ -36,7 +36,9 @@
 								<div class="well well-sm" style="background-color:#fff;">
 									<div class="row">
 										<div class="col-md-12">
-											
+											{{final}}<br>
+											{{final2}}
+											<form name="docForm" novalidate>
 											<div class="panel panel-default" ng-class="{'panel-success':documento.doc_importancia!='OBLIGATORIO', 'panel-warning':documento.doc_importancia=='OBLIGATORIO' }"  ng-repeat="documento in documentos">
 										      <div class="panel-heading"  >
 										        <h4 class="panel-title">
@@ -61,7 +63,6 @@
 										        <div class="panel-body">
 										        	<div class="col-md-8">
 														
-														<form>
 										                    <div class="well well-sm">
 																<div ng-if=" documento.dt_url== ''">
 																	<img ng-src="./images/imagen-default.jpg" align="center" class="img-responsive img-thumbnail"/>
@@ -71,22 +72,30 @@
 																</div>
 																
 										                    </div>
-									                    </form>
+
+
+														   <label for="nombre" class="control-label">Observacion: <strong class="fg_red">*</strong></label>
+										                   <label><input  ng-click="editado(documento.dt_id,documento.dt_observado,documento.dt_observacion)" type="checkbox" ng-model="documento.dt_observado">&nbsp;Si</label>
+													        <textarea ng-change="editado(documento.dt_id,documento.dt_observado,documento.dt_observacion)" style="resize: vertical;min-height:70px;max-height: 150px;" ng-show="documento.dt_observado" class="form-control" type="text" ng-model="documento.dt_observacion" ng-required="documento.dt_observado" ng-pattern="patternCadena" name="obs">
+													        </textarea>
+													        <span class="messages" ng-show="(docForm.$submitted || docForm.obs.$touched) && documento.dt_observado">
+					                                            <span ng-show="docForm.obs.$error.required">El campo es obligatorio.</span>
+					                                       </span>
+					                                       	                	
 									                </div>
-									                <div class="col-md-4">
-													   <label for="nombre" class="control-label">Observacion: <strong class="fg_red">*</strong></label>
-									                   <label><input  ng-click="editado(documento.dt_id,documento.dt_observado,documento.dt_observacion)" type="checkbox" ng-model="documento.dt_observado">&nbsp;Si</label>
-												        <textarea ng-change="editado(documento.dt_id,documento.dt_observado,documento.dt_observacion)" style="resize: vertical;min-height:70px;max-height: 150px;" ng-show="documento.dt_observado" class="form-control" type="text" ng-model="documento.dt_observacion" required ng-pattern="patternCadena">
-												        </textarea>
-												        <span class="messages" ng-show="addPersona.nombres.$touched"></span>				                	
-									                </div>
+									                
 										        </div>
 										      </div>
 										    </div>
+											    <div class="col-md-6 col-md-offset-3 text-center">
+			                                        <button ng-if="docForm.$invalid" type="submit" class="btn btn-primary" title="Debe llenar todos los campos obligatorios de manera correcta"><span class="glyphicon glyphicon-save"></span> GUARDAR</button>
+			                                        <button ng-if="docForm.$valid" type="submit" class="btn btn-primary" ng-click="update_lista()" title="Guardar"><span class="glyphicon glyphicon-save"></span> GUARDAR</button>
+				                                </div>
+				                                <p ng-show="docForm.$invalid && docForm.$submitted" class="alert alert-danger">Asegúrese de llenar correctamente todos los campos</p>
+		                    					<p ng-show="ajustes.pagina.success" class="alert alert-success">{{ajustes.pagina.success}}</p>
+									        </form>
 										</div>
-										<center>
-						                    <button ng-disabled="docForm1.$invalid" type="submit" class="btn btn-primary" ng-click="update_lista()" title="Debe llenar todos los campos obligatorios de manera correcta"><span class="glyphicon glyphicon-save"></span> GUARDAR</button>
-						                    </center>
+										
 									</div>	
 								</div>
 								</pane>

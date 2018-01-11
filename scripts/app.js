@@ -284,7 +284,7 @@ angular.module("adminApp", ["authService", "ngRoute", "ngResource", "satellizer"
     templateUrl: 'templates/establecimiento_solicitante/establecimientos.html',
     controller: 'ListaEstabSolCtrl'  ,
   data: {
-      authorized: [ROLES.ADMIN_USACSIA.ROL]
+      authorized: [ROLES.ADMIN_USACSIA.ROL,ROLES.REVISOR.ROL]
     }
   }) 
 
@@ -293,7 +293,7 @@ angular.module("adminApp", ["authService", "ngRoute", "ngResource", "satellizer"
     templateUrl: 'templates/establecimiento_solicitante/tramite_establecimientos.html',
     controller: 'ListaEstabSolTramitePagadoCtrl'  ,
   data: {
-      authorized: [ROLES.ADMIN_USACSIA.ROL]
+      authorized: [ROLES.ADMIN_USACSIA.ROL,ROLES.REVISOR.ROL]
     }
   })
 
@@ -526,7 +526,7 @@ angular.module("adminApp", ["authService", "ngRoute", "ngResource", "satellizer"
     templateUrl: 'templates/establecimiento_solicitante/buscar_persona_registrada.html',
     controller: 'BuscarCrearPersonaCtrl',
     data: {
-      authorized: [ROLES.ADMIN_USACSIA.ROL]
+      authorized: [ROLES.ADMIN_USACSIA.ROL,ROLES.REVISOR.ROL]
     }
   })
 /*buscar empresa registrada, para luego registrar su establecimiento*/
@@ -534,7 +534,7 @@ angular.module("adminApp", ["authService", "ngRoute", "ngResource", "satellizer"
     templateUrl: 'templates/establecimiento_solicitante/buscar_empresa_registrada.html',
     controller: 'BuscarCrearPersonaCtrl',
     data: {
-      authorized: [ROLES.ADMIN_USACSIA.ROL]
+      authorized: [ROLES.ADMIN_USACSIA.ROL,ROLES.REVISOR.ROL]
     }
   })
 
@@ -723,7 +723,10 @@ angular.module("adminApp", ["authService", "ngRoute", "ngResource", "satellizer"
 
   .when('/documento-tramite/revisar/:et_id', {
     templateUrl: 'templates/documento_tramite/editar.html',
-    controller: 'EditarDocumentoTramiteCtrl'
+    controller: 'EditarDocumentoTramiteCtrl',
+    data: {
+      authorized: [ROLES.ADMIN_USACSIA.ROL, ROLES.REVISOR.ROL]
+    }
   })
 
   .when('/documento-tramite/crear2/#:doc', {

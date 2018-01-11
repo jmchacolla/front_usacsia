@@ -108,7 +108,7 @@ angular.module("adminApp")
     menu:{
       titulo: 'Gestión de Establecimientos Solicitantes',
       items:[
-        {nombre:'Establecimientos', enlace:'#/tramite-establecimientosol', estilo:'active'},
+        {nombre:'Tramites iniciados', enlace:'#/tramite-establecimientosol', estilo:'active'},
         {nombre:'Establecimientos', enlace:'#/establecimientossol', estilo:''},
         {nombre:'Nuevo establecimiento', enlace:'#/establecimientosol/persona', estilo:''}]
     },
@@ -226,15 +226,13 @@ angular.module("adminApp")
 
     var pro_id=$routeParams.pro_id;
     PNaturalPJuridicaPro_id.get({pro_id:pro_id},function(data2){
-      if(!data2.pjuridica){
-        $scope.persona=data2.pnatural;
-        console.log('persona natural dentro del ver persona', $scope.persona);
-      }else{
-        $scope.pjuridica=data2.pjuridica;
-        console.log('persona juridica dentro del ver persona', $scope.pjuridica);
-      }
-
-        
+        if(!data2.pjuridica){
+          $scope.persona=data2.pnatural;
+          console.log('persona natural dentro del ver persona', $scope.persona);
+        }else{
+          $scope.pjuridica=data2.pjuridica;
+          console.log('persona juridica dentro del ver persona', $scope.pjuridica);
+        }
       });
 
   $scope.CurrentDate=new Date();
