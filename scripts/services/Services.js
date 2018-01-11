@@ -486,6 +486,9 @@ angular.module("adminApp")
     update: {method: "PUT", params: {dt_id: "@dt_id"}}
   })
 }])
+.factory('DocumentoTramiteL', ['$resource', 'CONFIG', function ($resource, CONFIG){
+  return $resource(CONFIG.DOMINIO_SERVICIOS+"/update_lista_documentotramite")
+}])
 /*lista los documentos ue registro un tramite en certificado sanitario*/
 .factory('DocumentoTramite2', ['$resource', 'CONFIG', function ($resource, CONFIG){
   return $resource(CONFIG.DOMINIO_SERVICIOS+"/lista_documentos_x_tramite/:et_id", {et_id:"@_et_id"})
@@ -523,6 +526,7 @@ angular.module("adminApp")
 
 }])
 
+// lista de las personas que trabjan en un establecimiento
 .factory('PersonasEstablecimiento', ['$resource', 'CONFIG', function ($resource, CONFIG){
   return $resource(CONFIG.DOMINIO_SERVICIOS+"/personas_x_establecimiento/:ess_id",{ess_id:'@_ess_id'})
 }])
@@ -532,6 +536,11 @@ angular.module("adminApp")
 }])
 /* /VEROOOO*/
 
+/*---------------------------tramite certificado----------------------*/
+
+.factory('TramiteCerPagado', ['$resource', 'CONFIG', function ($resource, CONFIG){
+  return $resource(CONFIG.DOMINIO_SERVICIOS+"/tramitescer_pagados")
+}])
 
 /*=========================================USACSIA====================================*/
 //Nuevo(Obtiene funcionario por per_id)
@@ -701,7 +710,33 @@ angular.module("adminApp")
 }])
 
 
+/*john--------hay factory, pero no encontre el route e hice otro XD*/
+.factory('FichaCatSancion', ['$resource', 'CONFIG', function ($resource, CONFIG) {
+  return $resource(CONFIG.DOMINIO_SERVICIOS+"/fichasancion/:fi_id", {fi_id:"@_fi_id"},{ 
+    update:{method:"PUT", params: {fi_id:"@fi_id"}}
+  })
+}])
 
-
-
-
+/*jhon----------------orden pago*/
+.factory('OrdenPago', ['$resource', 'CONFIG', function ($resource, CONFIG) {
+  return $resource(CONFIG.DOMINIO_SERVICIOS+"/orden_pago/:et_id", {et_id:"@_et_id"},{ 
+    update:{method:"PUT", params: {op_id:"@op_id"}}
+  })
+}])
+.factory('OrdenPagoEstado', ['$resource', 'CONFIG', function ($resource, CONFIG) {
+  return $resource(CONFIG.DOMINIO_SERVICIOS+"/ordenpagoestado", {},{ 
+    update:{method:"PUT", params: {}}
+  })
+}])
+/*jhon---------------- pago_arancel*/
+.factory('PagoArancel', ['$resource', 'CONFIG', function ($resource, CONFIG) {
+  return $resource(CONFIG.DOMINIO_SERVICIOS+"/pago_arancel/:et_id", {et_id:"@_et_id"},{ 
+    update:{method:"PUT", params: {pa_id:"@pa_id"}}
+  })
+}])
+/*jhon---------------- pago_sancion*/
+.factory('PagoSancion', ['$resource', 'CONFIG', function ($resource, CONFIG) {
+  return $resource(CONFIG.DOMINIO_SERVICIOS+"/pago_sancion/:et_id", {et_id:"@_et_id"},{ 
+    update:{method:"PUT", params: {ps_id:"@ps_id"}}
+  })
+}])

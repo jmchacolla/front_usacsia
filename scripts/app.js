@@ -286,9 +286,26 @@ angular.module("adminApp", ["authService", "ngRoute", "ngResource", "satellizer"
   data: {
       authorized: [ROLES.ADMIN_USACSIA.ROL]
     }
+  }) 
+
+  .when('/tramite-establecimientosol', {
+    title: 'Establecimientos Solicitantes',
+    templateUrl: 'templates/establecimiento_solicitante/tramite_establecimientos.html',
+    controller: 'ListaEstabSolTramitePagadoCtrl'  ,
+  data: {
+      authorized: [ROLES.ADMIN_USACSIA.ROL]
+    }
   })
 
   .when('/establecimientosol/crear/:pro_id', { 
+    templateUrl: 'templates/establecimiento_solicitante/crear2.html',
+    controller: 'CrearEstablecimientoSolicitanteCtrl',
+      data: {
+      authorized: [ROLES.ADMIN_USACSIA.ROL]
+    }
+  })
+
+    .when('/establecimientosol/ver/:et_id', { 
     templateUrl: 'templates/establecimiento_solicitante/crear2.html',
     controller: 'CrearEstablecimientoSolicitanteCtrl',
       data: {
@@ -720,15 +737,16 @@ angular.module("adminApp", ["authService", "ngRoute", "ngResource", "satellizer"
     }
   })
 
-//subir documento
+/*-------------------- DOCUMENTOS  TRAMITE-------------------------*/
+
   .when('/documento-tramite/crear/:et_id', {
     templateUrl: 'templates/documento_tramite/crear.html',
     controller: 'CrearDocumentoTramiteCtrl'
   })
 
-  .when('/documento-tramite/crear2/:et_id', {
-    templateUrl: 'templates/documento_tramite/crear2.html',
-    controller: 'Crear2DocumentoTramiteCtrl'
+  .when('/documento-tramite/revisar/:et_id', {
+    templateUrl: 'templates/documento_tramite/editar.html',
+    controller: 'EditarDocumentoTramiteCtrl'
   })
 
   .when('/documento-tramite/crear2/#:doc', {
@@ -736,6 +754,7 @@ angular.module("adminApp", ["authService", "ngRoute", "ngResource", "satellizer"
     controller: 'Crear2DocumentoTramiteCtrl'
   })
 
+/*-------------------- DOCUMENTOS-------------------------*/
   .when('/documento', {
     templateUrl: 'templates/documento/index.html',
     controller: 'ListarDocumentoCtrl'
@@ -813,12 +832,21 @@ angular.module("adminApp", ["authService", "ngRoute", "ngResource", "satellizer"
     templateUrl: 'templates/certificado/ver.html',
     controller: 'CertificadoCtrl'
   })
+  .when('/orden-pago/crear/:et_id', {
+    templateUrl: 'templates/empresatramite/ordenpago-crear.html',
+    controller: 'OrdenPagoCrearCtrl'
+  })
   .when('/lista-inspeccionados', {
     templateUrl: 'templates/empresatramite/lista-inspeccionados.html',
     controller: 'ListaInspeccionadosCtrl',
     data: {
       authorized: [ROLES.ADMIN_USACSIA.ROL, ROLES.ADMIN_CERTIFICADO.ROL,, ROLES.INSPECTOR.ROL]
     }
+  })
+
+  .when('/orden-detalle/:op_id', {
+    templateUrl: 'templates/pagopendiente/orden-detalle.html',
+    controller: 'OrdenDetalleCtrl'
   })
   /*========================== /empresa tramite =======================================*/
 /*-------------------------------------- documentos -----------------------------------------*/

@@ -9,7 +9,7 @@ angular.module("adminApp")
 
       $scope.ajustes = {
         menu:{
-          titulo: 'Búsqueda de Establecimiento',
+          titulo: 'Registro de pago',
           items:[
             {nombre:'Solicitudes de Propietarios Naturales', enlace:'#/tramites_certi', estilo:''},
             {nombre:'Solicitudes de Propietarios Juridicos', enlace:'#/tramites_certiJ', estilo:''},
@@ -18,7 +18,7 @@ angular.module("adminApp")
            ]
         },
         pagina:{
-          titulo:'Boleta de pago Formulario N° 1'
+          titulo:'Boleta de pago'
         }
       }
 EmpTra.get({et_id:et_id}, function (argument) {
@@ -115,7 +115,7 @@ EmpTra.get({et_id:et_id}, function (argument) {
         $scope.pagop=argument.pagop;
         console.log('pagop----',$scope.pagop);
     })
-}])
+}])//---/BoletaCesVerCtrl
 .controller('BoletaF1Ctrl', ['$scope', 'CONFIG', '$route', '$routeParams', 'toastr', '$location', 'Tramite', 'EmpresaTramite', function ($scope,CONFIG,$route,$routeParams,toastr,$location,Tramite, EmpresaTramite) {
   var et_id=$routeParams.et_id;
   $scope.ajustes = {
@@ -201,7 +201,226 @@ EmpTra.get({et_id:et_id}, function (argument) {
 
   })//-----empresa_tramite
   
+}])//--------/BoletaF1Ctrl
+
+.controller('OrdenPagoCrearCtrl', ['$scope', 'FichaInspc', 'FichaCat', 'FichaCatSancion', 'EmpresaTramite', 'Zonas', 'OrdenPago', 'PagoArancel', 'PagoSancion', 'VerEs', 'CONFIG', '$route', '$http', '$routeParams', '$location', 'toastr', function ($scope,FichaInspc, FichaCat, FichaCatSancion, EmpresaTramite, Zonas, OrdenPago, PagoArancel, PagoSancion, VerEs, CONFIG,$route, $http, $routeParams, $location, toastr) {
+    $scope.ajustes = {
+      menu:{
+        titulo: 'Gestión de Trámites',
+        items:[
+          {nombre:'Buscar empresa solicitante', enlace:'#/buscar-propietario', estilo:''},
+          // {nombre:'Lista de pagos', enlace:'#/', estilo:''},
+          {nombre:'Imprimir boleta de pago', enlace:'', estilo:'active'}
+          ]
+      },
+      pagina:{
+        titulo:'Orden de Pago'
+      }
+    }
+    var et_id=$routeParams.et_id;
+    var FunG = localStorage.getItem("Funcionario");
+    var FunG = JSON.parse(FunG);
+    var fun_id = FunG.fun_id;
+    var arancel=0;
+    var sancion=0;
+    var et_id=$routeParams.et_id;
+
+
+    $http.get(CONFIG.DOMINIO_SERVICIOS+'/verestados/'+et_id+'/'+2).success(function(respuesta){
+      console.log("_respuesta__",respuesta);
+      $scope.tramitecerestado=respuesta.tramitecerestado;
+    });
+
+    FichaInspc.get({et_id:et_id}, function (argument) {
+      $scope.fichas=argument.ficha_inspeccion;
+      console.log('datos ficha+++++', $scope.fichas);
+      FichaCat.get({fi_id:$scope.fichas.fi_id}, function (argument) {
+        $scope.categorias=argument.ficha_categoria;
+        console.log('argument fichacate++++', argument);
+          angular.forEach($scope.categorias, function (value, key) {
+              $scope.parciales.arancel=$scope.parciales.arancel+Number(value.cat_monto);
+          })
+          FichaCatSancion.get({fi_id:$scope.fichas.fi_id}, function (argument) {
+            $scope.fichasancion=argument.fichasancion;
+            console.log('$scope.fichasancion++++',  $scope.fichasancion);
+              angular.forEach($scope.fichasancion, function (value, key) {
+                  $scope.parciales.sancion=$scope.parciales.sancion+Number(value.fcs_total);
+              })
+
+              $scope.total=$scope.parciales.arancel+$scope.parciales.sancion;
+              var orden={
+                et_id:et_id,
+                fun_id:fun_id,
+                op_monto_total:$scope.total,
+
+              }
+              $scope.genordenpago=function () {
+                  /*generando orden de pago--------------------------*/
+                  // console.log('orden++++++', orden);
+                  OrdenPago.save(orden).$promise.then(function (data) {
+                    var opago=data.ordenpago;
+                    // console.log('opago++++++', opago);
+                    if(data.msg){
+                      if($scope.categorias.length>0){
+                      /*generando pagocategoria----------------------*/
+                        angular.forEach($scope.categorias, function (value, key) {
+                          var pagoar={
+                              op_id:opago.op_id,
+                              fc_id:value.fc_id,
+                              pa_monto:value.cat_monto,
+                              pa_descripcion:value.cat_codigo
+                          }
+                          // console.log('pagoar------', pagoar);
+                          PagoArancel.save(pagoar).$promise.then(function (dataarancel) {
+                            // console.log('dataarancel', dataarancel.pagoa);
+                          })
+                        });
+                        
+                        if ($scope.fichasancion.length>0) {
+                          angular.forEach($scope.fichasancion, function (value, key) {
+                            var pagosan={
+                                op_id:opago.op_id,
+                                fcs_id:value.fcs_id,
+                                ps_monto:value.fcs_total,
+                                ps_descripcion:value.cat_codigo
+                            }
+                            // console.log('pagosancion------', pagosan);
+                            PagoSancion.save(pagosan).$promise.then(function (datasan) {
+                              // console.log('datasan', datasan.pagos);
+                            })
+                          });
+                        }
+                        toastr.success('Orden de pago registrada exitosamente')
+                        var req={
+                          te_estado:'ASIGNADO',
+                          fun_id:fun_id,
+                          te_fecha:new Date(),
+                          }
+                        $http.put(CONFIG.DOMINIO_SERVICIOS+'/wen2/'+et_id+'/'+3, req).success(function(respuesta){
+                          console.log("_respuesta__",respuesta);
+                          $scope.tramitecerestado=respuesta.tramitecerestado;
+                        });
+                      }
+                    }
+
+                  })
+              };
+          })
+      })
+    })
+    EmpresaTramite.get({et_id:et_id},function (argument) {
+      $scope.establecimiento=argument.establecimiento;
+      console.log('$scope.establecimiento+++++++',$scope.establecimiento);
+      $scope.establecimiento.empresa_tramite.et_fecha_ini=moment($scope.establecimiento.empresa_tramite.et_fecha_ini, 'YYYY-MM-DD').format('DD-MM-YYYY');
+      if (Object.keys($scope.establecimiento.propietario).length==7) {
+        $scope.propietario=$scope.establecimiento.propietario.pjur_razon_social;
+
+      }
+      if (Object.keys($scope.establecimiento.propietario).length==22) {
+        $scope.propietario=$scope.establecimiento.propietario.per_nombres+' '+$scope.establecimiento.propietario.per_apellido_primero+' '+$scope.establecimiento.propietario.per_apellido_segundo;
+
+      }
+
+    })
+
+    
+    $scope.parciales={
+      arancel:0,
+      sancion:0,
+    };
+
 }])
+
+.controller('PagoOrdenPagoCtrl', ['$scope', '$routeParams', '$location', 'CONFIG', 'EmpresaTramite', 'OrdenPago', 'OrdenPagoEstado', function ($scope, $routeParams, $location, CONFIG, EmpresaTramite, OrdenPago, OrdenPagoEstado) {
+    var et_id=$routeParams.et_id;
+    var FunG = localStorage.getItem("Funcionario");
+    var FunG = JSON.parse(FunG);
+    var fun_id = FunG.fun_id;
+    EmpresaTramite.get({et_id:et_id},function (argument) {
+      $scope.establecimiento=argument.establecimiento;
+      console.log('$scope.establecimiento+++++++',$scope.establecimiento);
+      $scope.establecimiento.empresa_tramite.et_fecha_ini=moment($scope.establecimiento.empresa_tramite.et_fecha_ini, 'YYYY-MM-DD').format('DD-MM-YYYY');
+      if (Object.keys($scope.establecimiento.propietario).length==7) {
+        $scope.propietario=$scope.establecimiento.propietario.pjur_razon_social;
+      }
+      if (Object.keys($scope.establecimiento.propietario).length==22) {
+        $scope.propietario=$scope.establecimiento.propietario.per_nombres+' '+$scope.establecimiento.propietario.per_apellido_primero+' '+$scope.establecimiento.propietario.per_apellido_segundo;
+      }
+
+    })
+    var estado={op_estado_pago:'PENDIENTE', et_id:et_id};
+    OrdenPagoEstado.get(estado, function (data) {
+      $scope.ordenpago=data.ordenpago;
+      console.log('$scope.ordenpago', $scope.ordenpago);
+    })
+    $scope.detalle=function (op_id) {
+      $location.path('/orden-detalle/'+op_id);
+    }
+
+}])
+.controller('OrdenDetalleCtrl', ['$scope', '$routeParams', '$location', 'CONFIG', 'EmpresaTramite', 'OrdenPago', 'OrdenPagoEstado', 'EstabSols', '$http', function ($scope, $routeParams, $location, CONFIG, EmpresaTramite, OrdenPago, OrdenPagoEstado, EstabSols, $http) {
+    $scope.ajustes = {
+      menu:{
+        titulo: 'Gestión de Trámites',
+        items:[
+          {nombre:'Buscar empresa solicitante', enlace:'#/buscar-propietario', estilo:''},
+          // {nombre:'Lista de pagos', enlace:'#/', estilo:''},
+          {nombre:'Imprimir boleta de pago', enlace:'', estilo:'active'}
+          ]
+      },
+      pagina:{
+        titulo:'Orden de Pago'
+      }
+    }
+
+    var op_id=$routeParams.op_id;
+    var FunG = localStorage.getItem("Funcionario");
+    var FunG = JSON.parse(FunG);
+    var fun_id = FunG.fun_id;
+
+    $http.get(CONFIG.DOMINIO_SERVICIOS+'/verordenpago/'+op_id).success(function(data){
+        $scope.emptra=data.emptra;
+        console.log('$scope.emptra',$scope.emptra);
+        $http.get(CONFIG.DOMINIO_SERVICIOS+'/verestados/'+$scope.emptra.et_id+'/'+3).success(function(respuesta){
+          console.log("_respuesta__",respuesta);
+          $scope.tramitecerestado=respuesta.tramitecerestado;
+        });
+        $scope.emptra.et_fecha_ini=moment($scope.emptra.et_fecha_ini, 'YYYY-MM-DD').format('DD-MM-YYYY');
+        $scope.ordenpago=data.ordenpago;
+        console.log('$scope.ordenpago',$scope.ordenpago);
+        $scope.pagoa=data.pagoa;
+        console.log('$scope.pagoa',$scope.pagoa);
+        $scope.pagos=data.pagos;
+        console.log('$scope.pagos',$scope.pagos);
+        EstabSols.get({ess_id:$scope.emptra.ess_id}, function (argument) {
+          $scope.establecimiento=argument.establecimiento;
+          console.log(' $scope.establecimiento', $scope.establecimiento);
+        })
+
+        $scope.pagarorden=function (data) {
+          var req={
+            fun_cajero_id:fun_id,
+            op_estado_pago:'PAGADO',
+            op_fecha_pagado:new Date()
+          };
+          $http.put(CONFIG.DOMINIO_SERVICIOS+'/orden_pago/'+$scope.ordenpago.op_id,req).success(function(respuesta){
+            console.log("_respuesta__",respuesta);
+            $scope.tramitecerestado=respuesta.tramitecerestado;
+          });
+          var req2={
+            te_estado:'APROBADO',
+            fun_id:fun_id,
+            te_fecha:new Date(),
+            }
+          $http.put(CONFIG.DOMINIO_SERVICIOS+'/wen2/'+$scope.ordenpago.et_id+'/'+3, req2).success(function(respuesta){
+            console.log("_respuesta__",respuesta);
+            $scope.tramitecerestado=respuesta.tramitecerestado;
+          });
+        }
+    });
+
+}])
+
 .controller('pdf_pagopF_Ctrl',['$scope', 'PagoPendiente', 'CONFIG','$routeParams', '$http', function ($scope, PagoPendiente, CONFIG, $routeParams, $http){
   // prepare the document definition using declarative approach
     var id = $routeParams.pp_id;
@@ -300,7 +519,7 @@ EmpTra.get({et_id:et_id}, function (argument) {
                   style: 'header'  
                 },
 
-{
+  {
 
                     table: {
                     widths: [530],
