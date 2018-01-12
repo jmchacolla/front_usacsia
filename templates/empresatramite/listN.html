@@ -51,9 +51,10 @@
               <span ng-show="sortType == 'per_nombres' && sortReverse" class="glyphicon glyphicon-chevron-down"></span></a>
             </th>
             <th>Establecimiento</th>
-            <th ng-if="user.rol_id == '1' || user.rol_id == '14' || user.rol_id == '3'">Ver Pago</th>
+            <th ng-if="user.rol_id == '1' || user.rol_id == '14' || user.rol_id == '3' ">Ver Pago</th>
+     <th ng-if="user.rol_id == '1' || user.rol_id == '15' " >Revisar requisitos</th>
             <th ng-if="user.rol_id == '1' || user.rol_id == '14' ">Ver Trámite</th>
-            <th ng-if="user.rol_id == '1' || user.rol_id == '14' ">Aprobación</th><!-- resp de area -->
+            <th ng-if="user.rol_id == '1' || user.rol_id == '14'">Aprobación</th><!-- resp de area -->
             <th ng-if="user.rol_id == '1' || user.rol_id == '2' ">Aprobación</th><!-- jefe de unidad -->
             <th ng-if="user.rol_id == '1' || user.rol_id == '2' ">Aprobación</th><!-- tesoreria -->
             <th ng-if="user.rol_id == '1' || user.rol_id == '17' ">Aprobación</th><!-- final -->
@@ -65,10 +66,13 @@
               <td>{{et.per_apellido_primero + " " + et.per_apellido_segundo}}</td>
               <td>{{et.per_nombres}} </td>  
               <td>{{et.ess_razon_social}}</td>
-              <td class="text-center">
+              <td class="text-center" ng-if="user.rol_id == '1' || user.rol_id == '14' || user.rol_id == '3'">
                 <a href="#/boleta-ces-f1/{{et.et_id}}" class="btn btn-success" title="VER PAGO"><span class="glyphicon glyphicon-file"></span></a>
               </td>
-              <td class="text-center">
+              <td class="text-center" ng-if="user.rol_id == '1' || user.rol_id == '15'">
+                <a href="#/documento-tramite/revisar/{{et.et_id}}" class="btn btn-success" title="REVISAR REQUISITOS"><span class="glyphicon glyphicon-file"></span></a>
+              </td>
+              <td class="text-center" ng-if="user.rol_id == '1' || user.rol_id == '14' ">
                 <a href="#/seguimiento-tramite-ces/{{et.et_id}}" class="btn btn-success" title="VER TRÁMITE"><span class="glyphicon glyphicon-file"></span></a>
               </td>
               <!-- APROBACION 1 ng-if="user.rol_id == '6' || user.rol_id == '10' || user.rol_id == '4'"-->
@@ -144,7 +148,7 @@
                             <!-- </div> -->
                           </div>
                           <div class="modal-footer lead text-center">
-                            <button type="button" class="btn btn-primary" data-dismiss="modal" ng-click="recepcionar2(datos2.te_observacion)"><span class="glyphicon glyphicon-ok"></span> GUARDAR JEFE</button>
+                            <button type="button" class="btn btn-primary" data-dismiss="modal" ng-click="recepcionar2(datos2.te_observacion)"><span class="glyphicon glyphicon-ok"></span> GUARDAR</button>
                             <button type="button" class="btn btn-danger" data-dismiss="modal"><span class="glyphicon glyphicon-remove"></span> CANCELAR</button>
                           </div>
                         </div>
@@ -177,7 +181,7 @@
                             <!-- </div> -->
                           </div>
                           <div class="modal-footer lead text-center">
-                            <button type="button" class="btn btn-primary" data-dismiss="modal" ng-click="recepcionar4(datos4.te_observacion)"><span class="glyphicon glyphicon-ok"></span> GUARDAR tesoreria</button>
+                            <button type="button" class="btn btn-primary" data-dismiss="modal" ng-click="recepcionar4(datos4.te_observacion)"><span class="glyphicon glyphicon-ok"></span> GUARDAR</button>
                             <button type="button" class="btn btn-danger" data-dismiss="modal"><span class="glyphicon glyphicon-remove"></span> CANCELAR</button>
                           </div>
                         </div>

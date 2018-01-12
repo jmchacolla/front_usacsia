@@ -25,13 +25,13 @@ function ($scope, DocumentoNoRegistrado,DocumentoRegistrado,DocumentoTramite, $r
     doc_nombre:""
   };
 
+
   DocumentoNoRegistrado.get({et_id:et_id},function(data){
     $scope.documentos_no_registraos=data.documento;
     if( $scope.documentos_no_registraos.length==0){
       $scope.documentos_no_registraos=null;
     }
   });
-
 
   DocumentoRegistrado.get({et_id:et_id},function(data){
     $scope.documentos_registraos=data.documento;

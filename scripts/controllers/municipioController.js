@@ -8,9 +8,6 @@ angular.module("adminApp")
       titulo: 'Gestión de Municipios',
       items:[
       
-        {nombre:'Paises', enlace:'#/homepais'},
-        {nombre:'Provincias', enlace:'#/homeprovincia'},
-        {nombre:'Regiones', enlace:'#/homeregion'},
         {nombre:'Gestión de Municipios', enlace:'#/homemunicipio', estilo:'active'},
         {nombre:'Listar Tipos de Establecimientos de Salud', enlace:'#/hometipo', estilo:''},
         {nombre:'Gestión de Seguros', enlace:'#/homeseguro', estilo:''},

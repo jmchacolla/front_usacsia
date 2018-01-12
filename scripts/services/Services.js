@@ -28,6 +28,13 @@ angular.module("adminApp")
     update: {method: "PUT", params: {zon_id: "@zon_id"}}
   })
 }])
+//gestión de zonas
+.factory('ZonasG', ['$resource', 'CONFIG', function ($resource, CONFIG){
+  return $resource(CONFIG.DOMINIO_SERVICIOS+"/zonass/:zon_id", {zon_id:"@_zon_id"}, {
+    update: {method: "PUT", params: {zon_id: "@zon_id"}}
+  })
+}])
+
 
 
 // ==================== M U N I C I P I O S =========================================================================
@@ -119,7 +126,7 @@ angular.module("adminApp")
     update: {method: "PUT", params: {usu_id: "@usu_id"}}
   })
 }])
-//lista usuarios funcionarios --laboratorista 8976543 --medico 8976854 --caja 8765784 --admin 83062745
+//lista usuarios funcionarios 
 .factory('UsuariosF', ['$resource', 'CONFIG', function ($resource, CONFIG) {
   return $resource(CONFIG.DOMINIO_SERVICIOS+"/usuarios_fun/:usu_id", {usu_id:"@_usu_id"}, {
     update: {method: "PUT", params: {usu_id: "@usu_id"}}
@@ -311,7 +318,7 @@ angular.module("adminApp")
   })
 }])*/
 .factory('VerEs', ['$resource', 'CONFIG', function ($resource, CONFIG){
-  return $resource(CONFIG.DOMINIO_SERVICIOS+"/estadosver/:et_id/:eta_id", {et_id:"@_et_id",eta_id:"@_eta_id"}, {update: {method: "PUT", params: {et_id: "@et_id",eta_id:"@eta_id"}}
+  return $resource(CONFIG.DOMINIO_SERVICIOS+"/verestados/:et_id/:eta_id", {et_id:"@_et_id",eta_id:"@_eta_id"}, {update: {method: "PUT", params: {et_id: "@et_id",eta_id:"@eta_id"}}
   })
 }])
 //cambiar de estado tramitecer **********PRUEBA
@@ -374,6 +381,12 @@ angular.module("adminApp")
 //lista de fichas de inspeccion por et_id
 .factory('FichasInsEt', ['$resource', 'CONFIG', function ($resource, CONFIG) {
   return $resource(CONFIG.DOMINIO_SERVICIOS+"/ver_fichas/:et_id", {et_id:"@_et_id"}, {
+    update: {method: "PUT", params: {et_id: "@et_id"}}
+  })
+}])
+//lista de fichas de inspeccion prop Juridicos por et_id
+.factory('FichasInsEtJ', ['$resource', 'CONFIG', function ($resource, CONFIG) {
+  return $resource(CONFIG.DOMINIO_SERVICIOS+"/ver_fichasJ/:et_id", {et_id:"@_et_id"}, {
     update: {method: "PUT", params: {et_id: "@et_id"}}
   })
 }])
@@ -713,8 +726,11 @@ angular.module("adminApp")
 .factory('Reportes', ['$resource', 'CONFIG', function ($resource, CONFIG){
   return $resource(CONFIG.DOMINIO_SERVICIOS+"/reportes/:rep_id", {rep_id:"@_rep_id"}, {
     update: {method: "PUT", params: {rep_id: "@rep_id"}}
-  })
-}])    
+
+    })
+}])  
+
+
 
 .factory('Horario', ['$resource', 'CONFIG', function ($resource, CONFIG) {
   return $resource(CONFIG.DOMINIO_SERVICIOS+"/horario/:fun_id", {fun_id:"@_fun_id"},{ 
@@ -759,3 +775,4 @@ angular.module("adminApp")
     update:{method:"PUT", params: {ps_id:"@ps_id"}}
   })
 }])
+

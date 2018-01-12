@@ -72,12 +72,10 @@
               <td class="text-center">
                 <a href="#/inspeccion/ver/{{et.fi_id}}" class="btn btn-success" title="VER DETALLE DE FICHA"><span class="glyphicon glyphicon-file"></span></a>
               </td>
-              <td ng-show="user.rol_id == '16'" >
-              <button ng-click="#/inspeccion/fichas/crear/{{et.et_id}}" ng-disabled="user.rol_id !=16" class="btn btn-info">
-                FICHA
-              </button>
-                <!-- <a ng-disabled="user!=16" href="#/inspeccion/fichas/crear/{{et.et_id}}" class="btn btn-info" title="FICHA DE INSPECCIÓN"><span ></span>FICHA</a> -->
-              </td>
+<!--               <td ng-show="user.rol_id == '16'" >
+  
+                <a  href="#/inspeccion/fichas/crear/{{et.et_id}}" class="btn btn-info" title="FICHA DE INSPECCIÓN"><span ></span>FICHA</a>
+              </td> -->
              <!--  <td>
   
                 <button ng-click="get_fe_id(funcionario.fun_id, funcionario.per_apellido_primero, funcionario.per_apellido_segundo, funcionario.per_nombres, funcionario.fun_cargo, funcionario.fun_profesion, funcionario.fun_estado)" title="DAR DE BAJA A FUNCIONARIO DEL ESTABLECIMIENTO" class="btn btn-danger" data-toggle="modal" data-target="#miCuadroModal1" ><span class="glyphicon glyphicon-trash"></span></button>
