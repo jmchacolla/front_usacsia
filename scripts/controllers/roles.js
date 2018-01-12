@@ -22,16 +22,6 @@ angular.module('adminApp')
 
 //DOMINIO_SERVICIOS: "http://localhost:8080/GE-USACSIA/api_usacsia/public"
 
- //wendy
-
-<<<<<<< HEAD
- // DOMINIO_SERVICIOS: "http://localhost:8080/api_usacsia_v1_0/public"
-=======
-
- //DOMINIO_SERVICIOS: "http://localhost:8080/api_usacsia_v1_0/public"
->>>>>>> 41b8a8044deda329825018c79289d3403016a597
-
-
 //vero
 
 DOMINIO_SERVICIOS: "http://localhost/usacsia_php_5.6/solo_api_dorys_git/api_usacsia_v1_0/public"

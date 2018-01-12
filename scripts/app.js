@@ -732,7 +732,7 @@ angular.module("adminApp", ["authService", "ngRoute", "ngResource", "satellizer"
 
 /*-------------------- DOCUMENTOS  TRAMITE-------------------------*/
 
-  .when('/documento-tramite/crear/:et_id', {
+  .when('/documento-tramite/crear', {
     templateUrl: 'templates/documento_tramite/crear.html',
     controller: 'CrearDocumentoTramiteCtrl'
   })

@@ -704,6 +704,8 @@ angular.module("adminApp")
 .factory('Reportes', ['$resource', 'CONFIG', function ($resource, CONFIG){
   return $resource(CONFIG.DOMINIO_SERVICIOS+"/reportes/:rep_id", {rep_id:"@_rep_id"}, {
     update: {method: "PUT", params: {rep_id: "@rep_id"}}
+  })
+}])    
 
 .factory('Horario', ['$resource', 'CONFIG', function ($resource, CONFIG) {
   return $resource(CONFIG.DOMINIO_SERVICIOS+"/horario/:fun_id", {fun_id:"@_fun_id"},{ 

@@ -313,7 +313,7 @@ $scope.persona.ima_nombre=file.name;
 
 .controller('UploadLicenciaFuncionamientoCtrl', ['$scope', '$timeout','$http',function($scope, $timeout, $http){
     
-        $scope.thumbnail = {
+        $scope.variable2 = {
             dataUrl: ''
         };
 
@@ -327,7 +327,7 @@ $scope.persona.ima_nombre=file.name;
                         fileReader.readAsDataURL(file);
                         fileReader.onload = function(e) {
                             $timeout(function(){
-                                $scope.thumbnail.dataUrl = e.target.result;
+                                $scope.variable2.dataUrl = e.target.result;
                             });
                         }
                         $scope.documentoTramite2.ima_nombre=file.name;  //obtenemos el nombre de la imagen :)
@@ -336,12 +336,12 @@ $scope.persona.ima_nombre=file.name;
             }
         };
 
-        var vm = this;
-        vm.img=false;
+        var vm2 = this;
+        vm2.img=false;
 
-        vm.enviar=function() {
+        vm2.enviar=function() {
         //Asignamos el file-model a la variable file, gracias a la directiva de mas arriba.
-        var file = vm.ima_nombre;
+        var file = vm2.ima_nombre;
 
         var fd = new FormData();
         fd.append('file', file); //Agregamos data al "formulario" que vamos a enviar
@@ -352,8 +352,8 @@ $scope.persona.ima_nombre=file.name;
             })
             .success(function(response){
                 //Guardamos la url de la imagen y hacemos que la muestre.
-                vm.ima_nombre=response;
-                vm.img=true;
+                vm2.ima_nombre=response;
+                vm2.img=true;
             })
             .error(function(response){
 
@@ -365,7 +365,7 @@ $scope.persona.ima_nombre=file.name;
 
 .controller('UploadCICtrl', ['$scope', '$timeout','$http',function($scope, $timeout, $http){
     
-        $scope.thumbnail = {
+        $scope.thumbnail3 = {
             dataUrl: ''
         };
 
@@ -379,7 +379,7 @@ $scope.persona.ima_nombre=file.name;
                         fileReader.readAsDataURL(file);
                         fileReader.onload = function(e) {
                             $timeout(function(){
-                                $scope.thumbnail.dataUrl = e.target.result;
+                                $scope.thumbnail3.dataUrl = e.target.result;
                             });
                         }
                         $scope.documentoTramite3.ima_nombre=file.name;  //obtenemos el nombre de la imagen :)
@@ -388,12 +388,12 @@ $scope.persona.ima_nombre=file.name;
             }
         };
 
-        var vm = this;
-        vm.img=false;
+        var vm3 = this;
+        vm3.img=false;
         
-        vm.enviar=function() {
+        vm3.enviar=function() {
         //Asignamos el file-model a la variable file, gracias a la directiva de mas arriba.
-        var file = vm.ima_nombre;
+        var file = vm3.ima_nombre;
 
         var fd = new FormData();
         fd.append('file', file); //Agregamos data al "formulario" que vamos a enviar
@@ -404,8 +404,8 @@ $scope.persona.ima_nombre=file.name;
             })
             .success(function(response){
                 //Guardamos la url de la imagen y hacemos que la muestre.
-                vm.ima_nombre=response;
-                vm.img=true;
+                vm3.ima_nombre=response;
+                vm3.img=true;
             })
             .error(function(response){
 
