@@ -134,14 +134,11 @@ angular.module("adminApp")
   $scope.sortReverse  = true;  // set the default sort order
   $scope.Personas = [];
 
-  
   $scope.loading=true;//para hacer un loading
   var tra_id = 1;
   ListN.get( function(data){
-    console.log('*******empresa_tramite ---------', data);
     $scope.empresa_tramite = data.empresa_tramite;
- 
-    if(data.empresa_tramite.length>0){
+     if(data.empresa_tramite.length>0){
       $scope.loading = false;
       $scope.msg = true;
     }
@@ -150,11 +147,10 @@ angular.module("adminApp")
       $scope.msg = false;
     }
 
-
     var id = 0;
     var ci=0;
     $scope.rec=function(et_id, per_id){
-    console.log("LLEGA A LA FUNCION",et_id);
+
     id=et_id;
     Personas.get({per_id:per_id}, function(data)
       {
@@ -205,8 +201,8 @@ angular.module("adminApp")
       $scope.estado3 =data.tramitecerestado;
       if ($scope.estado3.te_estado=='APROBADO') { 
         VerEs.get({et_id:id,eta_id:4}, function(data){
-      $scope.estado1 =data.tramitecerestado;
-      if ($scope.estado1.te_estado!='APROBADO') {
+      $scope.estado4 =data.tramitecerestado;
+      if ($scope.estado4.te_estado!='APROBADO') {
 
     if (obs!='NINGUNA') {
       $scope.datos={
@@ -242,9 +238,9 @@ angular.module("adminApp")
             console.log("__el ci de la persona__",ci);
             $scope.certificado={
                 et_id:id,
-                ces_numero:1234567,
-                ces_fecha_inicio:'2-1-2018',
-                ces_fecha_fin:'2-1-2019',
+                ces_numero:ci,
+                ces_fecha_inicio:fecha,
+                ces_fecha_fin:fecha2,
                 ces_fir_url1:$scope.firmas.firma.fir_url,
                 ces_fir_nombre1:$scope.firmas.firma.fir_name
             }
@@ -281,8 +277,8 @@ angular.module("adminApp")
   
   $scope.recepcionar2=function(obs){
 VerEs.get({et_id:id,eta_id:5}, function(data){
-      $scope.estado2 =data.tramitecerestado;
-      if ($scope.estado2.te_estado!='APROBADO') {
+      $scope.estado5 =data.tramitecerestado;
+      if ($scope.estado5.te_estado!='APROBADO') {
     EmpTra.get({et_id:id}, function(data){
     /*console.log('*******empresa_tramite___recep 2 ---------', data);*/
 
@@ -389,14 +385,14 @@ VerEs.get({et_id:id,eta_id:5}, function(data){
 
   $scope.recepcionar4=function(obs){
 VerEs.get({et_id:id,eta_id:6}, function(data){
-      $scope.estado4 =data.tramitecerestado;
-      if ($scope.estado4.te_estado!='APROBADO') {
+      $scope.estado6 =data.tramitecerestado;
+      if ($scope.estado6.te_estado!='APROBADO') {
     EmpTra.get({et_id:id}, function(data){
     $scope.emp_tra = data.establecimiento;
     var b=5;
     VerEs.get({et_id:id,eta_id:b}, function(data){
       $scope.busca =data.tramitecerestado;
-      console.log("hizo el get de recep 4",$scope.busca.te_estado);
+
       if ($scope.busca.te_estado=='APROBADO') {
           if (obs!='NINGUNA') {
             $scope.datos4={
@@ -456,8 +452,8 @@ VerEs.get({et_id:id,eta_id:6}, function(data){
 
     $scope.recepcionar3=function(obs){
 VerEs.get({et_id:id,eta_id:6}, function(data){
-      $scope.estado5 =data.tramitecerestado;
-      if ($scope.estado5.te_estado!='APROBADO') {
+      $scope.estadoq =data.tramitecerestado;
+      if ($scope.estadoq.te_estado!='APROBADO') {
     EmpTra.get({et_id:id}, function(data){
     /*console.log('*******empresa_tramite ---------', data);*/
     $scope.emp_tra = data.establecimiento;
@@ -1006,137 +1002,28 @@ $scope.CurrentDate = new Date();
   }*/
 }])
 
-//lista tramites propietarios naturales segun funcionario
-.controller('NatInsCtrl', ['$scope', 'NatI', '$route', 'toastr', '$location', function ($scope, NatI, $route, toastr,$location)
-{
-  $scope.ajustes = {
-    menu:{
-      titulo: 'Gestión de tramites de Certificado Sanitario',
-      items:[
-        {nombre:'Propietarios Naturales', enlace:'#/tramites_nat', estilo:'active'},
-        {nombre:'Propietarios Juridicos', enlace:'#/tramites_jur', estilo:''}/*,
-        {nombre:'Busqueda de personas registradas', enlace:'#/tramite/crear', estilo:''}*/]
-    },
-    pagina:{
-      titulo:'Tramites de Certificado Sanitario'
-    }
-  }
-var FunG = localStorage.getItem("Funcionario");
-  var FunG = JSON.parse(FunG);
- var fun_id = FunG.fun_id;
-
-  
-  $scope.sortType = 'per_id'; // set the default sort type
-  $scope.sortReverse  = true;  // set the default sort order
-  $scope.Personas = [];
-  $scope.loading=true;//para hacer un loading
-
-  NatI.get({fun_id:fun_id}, function(data){
-    console.log('*******empresa_tramite ---------', data);
-    $scope.empresa_tramite = data.empresa_tramite;
- 
-    if(data.empresa_tramite.length>0){
-      $scope.loading = false;
-      $scope.msg = true;
-    }
-    else{
-      $scope.loading = false;
-      $scope.msg = false;
-    }
-    
-  },function () {
-      toastr.error("ERROR INESPERADO, por favor actualize la página");
-      $scope.loading = false;
-      $scope.msg = false;
-    }); 
-
-  var id=0;
-  $scope.nombre_completo = "";
-  $scope.get_per_id = function(per_id, per_apellido_primero, per_apellido_segundo, per_nombres){
-    id = per_id;
-    $scope.nombre_completo = per_apellido_primero + " " + per_apellido_segundo + " " + per_nombres;
-  }
-
-  $scope.remove = function(per_id){
-    Personas.delete({per_id:id}).$promise.then(function(data){
-      if(data.mensaje){
-        toastr.success('Eliminado correctamente');
-        $route.reload();
-      }
-    })
-  }
-}])
-
-
- //lista tramites propietarios Juridicos
-.controller('JurInsCtrl', ['$scope', 'JurI', '$route', 'toastr', '$location', function ($scope, JurI, $route, toastr,$location)
-{
-  $scope.ajustes = {
-    menu:{
-      titulo: 'Gestión de tramites de Certificado Sanitario',
-      items:[
-        {nombre:'Propietarios Naturales', enlace:'#/tramites_nat', estilo:''},
-        {nombre:'Propietarios Juridicos', enlace:'#/tramites_jur', estilo:'active'}/*,
-        {nombre:'Busqueda de personas registradas', enlace:'#/tramite/crear', estilo:''}*/]
-    },
-    pagina:{
-      titulo:'Tramites de Certificado Sanitario'
-    }
-  }
-  var FunG = localStorage.getItem("Funcionario");
-  var FunG = JSON.parse(FunG);
-  var fun_id = FunG.fun_id;
-  $scope.sortType = 'et_id'; // set the default sort type
-  $scope.sortReverse  = true;  // set the default sort order
-  $scope.Personas = [];
-
-  
-  $scope.loading=true;//para hacer un loading
-
-  JurI.get({fun_id:fun_id}, function(data){
-    console.log('*******empresa_tramite ---------', data);
-    $scope.empresa_tramite = data.empresa_tramite;
- 
-    if(data.empresa_tramite.length>0){
-      $scope.loading = false;
-      $scope.msg = true;
-    }
-    else{
-      $scope.loading = false;
-      $scope.msg = false;
-    }
-    
-  },function () {
-      toastr.error("ERROR INESPERADO, por favor actualize la página");
-      $scope.loading = false;
-      $scope.msg = false;
-    }); 
-
-  var id=0;
-  $scope.nombre_completo = "";
-  $scope.get_per_id = function(per_id, per_apellido_primero, per_apellido_segundo, per_nombres){
-    id = per_id;
-    $scope.nombre_completo = per_apellido_primero + " " + per_apellido_segundo + " " + per_nombres;
-  }
-
-  $scope.remove = function(per_id){
-    Personas.delete({per_id:id}).$promise.then(function(data){
-      if(data.mensaje){
-        toastr.success('Eliminado correctamente');
-        $route.reload();
-      }
-    })
-  }
-}])
 
 
 .controller('ListaInspeccionadosCtrl', ['$scope', '$http', 'moment', 'ListaEmpTraEtapaEstado', 'EmpresaTramite', '$route', '$resource','$routeParams', 'toastr', '$location', '$timeout','CONFIG', function ($scope, $http, moment, ListaEmpTraEtapaEstado, EmpresaTramite, $route, $resource,$routeParams, toastr, $location, $timeout,CONFIG) {
  $scope.user = {
     rol_id: CONFIG.ROL_CURRENT_USER
   }
-  if ($scope.user.rol_id == 1) {
-
-  $scope.ajustes = {
+  if ($scope.user.rol_id == 16) {
+    $scope.ajustes = {
+    menu:{
+      titulo: 'Lista de establecimientos inspeccionados',
+      items:[
+        {nombre:'Establecimientos inspeccionados', enlace:'#/lista-inspeccionados', estilo:'active'},
+       {nombre:'Propietarios Naturales', enlace:'#/tramites_nat', estilo:''},
+        {nombre:'Propietarios Juridicos', enlace:'#/tramites_jur', estilo:''},
+        {nombre:'Establecimientos inspeccionados', enlace:'#/lista-inspeccionados', estilo:''}]
+    },
+    pagina:{
+      titulo:'Establecimientos inspeccionados'
+    }
+  }
+  } else {
+    $scope.ajustes = {
     menu:{
       titulo: 'Lista de establecimientos inspeccionados',
       items:[
@@ -1148,23 +1035,9 @@ var FunG = localStorage.getItem("Funcionario");
       titulo:'Establecimientos inspeccionados'
     }
   }
-
-  } else {
-$scope.ajustes = {
-    menu:{
-      titulo: 'Lista de establecimientos inspeccionados',
-      items:[
-        {nombre:'Establecimientos inspeccionados', enlace:'#/lista-inspeccionados', estilo:'active'},
-       {nombre:'Propietarios Naturales', enlace:'#/tramites_nat', estilo:''},
-        {nombre:'Propietarios Juridicos', enlace:'#/tramites_jur', estilo:''}]
-    },
-    pagina:{
-      titulo:'Establecimientos inspeccionados'
-    }
   }
 
 
-  }
 
     $scope.sortType = 'te_fecha'; // ESTABLECIENDO EL TIPO DE ORDENAMIENTO
     $scope.sortReverse  = true;  // PARA ORDENAR ASCENDENTEMENTO O DESCENDENTEMENTE

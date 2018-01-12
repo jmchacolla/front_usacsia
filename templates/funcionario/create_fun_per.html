@@ -183,7 +183,7 @@
                     </div>
                   </div>
                   <br>
-                  <div class="row">
+                 <!--  <div class="row">
                     <div class="col-md-6">
                       <label class="control-label">Ocupación:</label>
                       <input type="text" class="form-control" name="ocupa" placeholder="Cajero" ng-model="funcionarios.per_ocupacion" ng-model-options="{ updateOn: 'blur' }"> 
@@ -192,7 +192,7 @@
                  
                       </span>
                     </div>
-                  </div>
+                  </div> -->
                  </div>    
               </div>    
                 <hr>
@@ -275,15 +275,35 @@
               </div> 
               <div class="col-md-6">
               <!-- ng-controller="IndexCargoCtrl" -->
-                <div >
+             
+                      <label class="control-label">Cargo: <strong class="fg_red">*</strong></label>
+                      <select class="form-control" name="ci_expedido" ng-model="funcionarios.fun_cargo" ng-model-options="{ updateOn: 'blur' }" required>
+                        <option value="JEFE DE UNIDAD">JEFE DE UNIDAD</option>
+                        <option value="SECRETARIA">SECRETARIA</option>
+                        <option value="JEFE DE PERSONAL">JEFE DE PERSONAL</option>
+                        <option value="CAJERO">CAJERO</option>
+                        <option value="RESPONSABLE CERTIFICADO SANITARIO">RESPONSABLE CERTIFICADO SANITARIO</option>
+                        <option value="INSPECTOR">INSPECTOR</option>
+                        <option value="RESPONSABLE CARNET SANITARIO">RESPONSABLE CARNET SANITARIO</option>
+                        <option value="MEDICO">MEDICO</option>
+                        <option value="ENFERMERA/O">ENFERMERA/O</option>
+                        <option value="RESPONSABLE DE LABORATORIO">RESPONSABLE DE LABORATORIO</option>
+                        <option value="TECNICO LABORATORIO">TECNICO LABORATORIO</option>
+                      </select>
+                      <span class="messages" ng-show="addFuncionario.ci_expedido.$touched">
+                        <span ng-show="addFuncionario.ci_expedido.$error.required">El campo es obligatorio.</span>
+                      </span>
+                 
+                    <!--  <select class="form-control" name="cargo" ng-model="funcionarios.fe_cargo"  ng-options="cargo.car_tipo as cargo.car_tipo for cargo in cargos" >
+                  </select> -->
+                <!-- <div >
                   <label class="control-label">Cargo: <strong class="fg_red">*</strong></label>
                    <input type="" class="form-control" name="cargo" placeholder="Cargo" ng-model="funcionarios.fun_cargo" ng-model-options="{ updateOn: 'blur' }" required ng-pattern="patternCadenaNumero">
-                 <!--  <select class="form-control" name="cargo" ng-model="funcionarios.fe_cargo"  ng-options="cargo.car_tipo as cargo.car_tipo for cargo in cargos" >
-                  </select> -->
+                 
                   <span class="messages" ng-show="addFuncionario.cargo.$touched">
                     <span ng-show="addFuncionario.cargo.$error.required">El campo es obligatorio.</span>
                   </span>
-                </div>  
+                </div>  --> 
               </div>
           <!--     <div class="col-md-3">
                 <label class="control-label">Estado Laboral: <strong class="fg_red">*</strong></label>

@@ -413,8 +413,8 @@ $scope.initMap = function(){
 }])
 
 
-.controller('BuscarCrearPersonaCtrl', ['$scope','EstabSols', '$route', 'toastr','$location',
-  function ($scope, EstabSols, $route, toastr,$location){
+.controller('BuscarCrearPersonaCtrl', ['$http','CONFIG','$scope','EstabSols', '$route', 'toastr','$location',
+  function ($http,CONFIG,$scope, EstabSols, $route, toastr,$location){
   $scope.ajustes = {
     //Configuraciones del menu:
     menu:{
@@ -429,7 +429,17 @@ $scope.initMap = function(){
       titulo:'Buscar propietario registrado'
     }
   }
-  
+    
+  $scope.crear_pnatural=function(per_id){
+    $scope.data={
+      per_id:per_id
+    };
+     $http.post(CONFIG.DOMINIO_SERVICIOS+'/pnatural', $scope.data).success(function(data){
+          $scope.pro_id = data.pnatural.pnatural.pro_id;
+          console.log('llamo a la funcion', data.pnatural.pnatural.pro_id);
+      });
+  }
+
   $scope.pag_buscar_empresa=function(){
       $location.path('/establecimientosol/empresa');
     }

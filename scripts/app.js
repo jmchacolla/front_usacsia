@@ -5,7 +5,7 @@ angular.module("adminApp", ["authService", "ngRoute", "ngResource", "satellizer"
   $authProvider.loginUrl = CONFIG.DOMINIO_SERVICIOS+'/login';
 
   $routeProvider
-  // ======================================jhon===========================================================================
+// ======================================jhon==================================================
 // ==========================    ATENCION DE PACIENTES         =================================
 //persona_tramite lista para atender pacientes para enfermeria
 
@@ -262,7 +262,7 @@ angular.module("adminApp", ["authService", "ngRoute", "ngResource", "satellizer"
   })
 
 
-  //***************************E S T A B L E C I M I E N T O S USACSIA          **********************
+  //**************E S T A B L E C I M I E N T O S USACSIA          **********************
   .when('/establecimientos', {
     title: 'Establecimientos',
     templateUrl: 'templates/establecimiento/index.html',
@@ -338,20 +338,34 @@ angular.module("adminApp", ["authService", "ngRoute", "ngResource", "satellizer"
       authorized: [ROLES.ADMIN_USACSIA.ROL]
     }
   })
-    .when('/pais/create',{
+  .when('/pais/create',{
    templateUrl:'templates/pais/create.html',
    controller: 'PaisCreateCtrl',
     data: {
       authorized: [ROLES.ADMIN_USACSIA.ROL]
     }
   })
-//==========================           DEPARTAMENTO              ==============================
-  .when('/homedepartamento',{
-   templateUrl:'templates/departamento/list.html',
-   controller: 'HomeCtrlDep'/*,
+//**********************************ZONAS************************************************
+    .when('/zona/crear',{
+   templateUrl:'templates/zonas/crear.html',
+   controller: 'CrearZonaCtrl',
     data: {
-      authorized: [ROLES.ADMIN_SEDES.ROL]
-    }*/
+      authorized: [ROLES.ADMIN_USACSIA.ROL]
+    }
+  })
+/*  .when('/zonas',{
+   templateUrl:'templates/zonas/ver.html',
+   controller: 'VerZonaCtrl',
+    data: {
+      authorized: [ROLES.ADMIN_USACSIA.ROL]
+    }
+  })*/
+  .when('/zona/ver/:zon_id',{
+   templateUrl:'templates/zonas/ver.html',
+   controller: 'VerZonaCtrl',
+    data: {
+      authorized: [ROLES.ADMIN_USACSIA.ROL]
+    }
   })
   //*****************************   INSPECCIONES   *************************************
   //*****************************   LISTA DE PROPIETARIOS NATURALES JURIDICOS   **************
@@ -429,8 +443,16 @@ angular.module("adminApp", ["authService", "ngRoute", "ngResource", "satellizer"
   })
       //LISTA DE EMPRESAS QUE YA FUERON INSPECCIONADOS
   .when('/inspecciones/:et_id',{
-   templateUrl:'templates/ficha_inspeccion/inspecciones.html',
+   templateUrl:'templates/ficha_inspeccion/inspeccionesN.html',
    controller: 'InspeccionesCtrl',
+    data: {
+      authorized: [ROLES.ADMIN_USACSIA.ROL,ROLES.INSPECTOR.ROL]
+    }
+  })
+//LISTA DE EMPRESAS QUE YA FUERON INSPECCIONADOS
+  .when('/inspeccionesJ/:et_id',{
+   templateUrl:'templates/ficha_inspeccion/inspeccionesJ.html',
+   controller: 'InspeccionesJCtrl',
     data: {
       authorized: [ROLES.ADMIN_USACSIA.ROL,ROLES.INSPECTOR.ROL]
     }
@@ -560,7 +582,7 @@ angular.module("adminApp", ["authService", "ngRoute", "ngResource", "satellizer"
       authorized: [ROLES.ADMIN_USACSIA.ROL,ROLES.REVISOR.ROL]
     }
   })
-//existe 2 busquedas de propietario
+//
     .when('/establecimientosol/persona/ver/:per_id', { 
     templateUrl: 'templates/establecimiento_solicitante/verpersona.html',
     controller: 'VerPersonaEstablecimientoSolicitanteCtrl',
@@ -737,9 +759,15 @@ angular.module("adminApp", ["authService", "ngRoute", "ngResource", "satellizer"
     }
   })
 
+
+/*--------------------                 DOCUMENTOS  TRAMITE-    ------------------------*/
+//cuenta para empresas 12-1-2018
+  .when('/documento-tramite/crear/:et_id', {
+
 /*-------------------- DOCUMENTOS  TRAMITE-------------------------*/
 
-  .when('/documento-tramite/crear/:et_id', {
+  /*.when('/documento-tramite/crear', {*/
+
     templateUrl: 'templates/documento_tramite/crear.html',
     controller: 'CrearDocumentoTramiteCtrl'
   })
@@ -856,9 +884,29 @@ angular.module("adminApp", ["authService", "ngRoute", "ngResource", "satellizer"
     
   /*--------PENDIENTE------*/
 
-  /*===================================VERONICA================================================*/
-
-
+ //  ---------------------------------  REPORTES ------------------------------//
+ 
+ //c7
+  .when('/reportes/parasitos', {
+    templateUrl: 'templates/reportes/rep_parasito.html',
+    controller: 'ReporteParasitoController'
+  })
+  .when('/reportes/signosvitales', {
+    templateUrl: 'templates/reportes/rep_signosvitales.html',
+    controller: 'ReporteSignosVitalesController'
+  })
+  .when('/reportes/observadosdia', {
+    templateUrl: 'templates/reportes/rep_observadosdia.html',
+    controller: 'ReporteObservadosDiaController'
+  })
+  .when('/reportes/informedia', {
+    templateUrl: 'templates/reportes/rep_informedia.html',
+    controller: 'ReporteInformeDiaController'
+  })
+  .when('/reportes/controldiario', {
+    templateUrl: 'templates/reportes/rep_controldia.html',
+    controller: 'ReporteControlDiarioController'
+  })
 
 
 
@@ -880,7 +928,7 @@ angular.module("adminApp", ["authService", "ngRoute", "ngResource", "satellizer"
 .run(function($rootScope, $location, authUser, toastr, sessionControl, Personas){
   var rutasPrivadas = 
 
-  ['/','/atencion','/prueba-medica/:pt_id','/prueba-medica/prueba/:pm_id','/prueba-medica/ver/:pm_id','/ficha-clinica/:per_ci','/perfil', '/usuario/edit','/usuario/create','/persona/create','/personas','/personas/ver/:per_id','/personas/edit/:per_id', '/funcionarios','/funcionarios/ver/:fun_id', '/funcionarios/createFun','/funcionarios/edit/:fun_id', '/consultorios','/consultorios/ver/:amb_id', '/consultorios/create','/consultorios/edit/:amb_id','/laboratorios','/laboratorios/ver/:amb_id', '/laboratorios/create','/laboratorios/edit/:amb_id',  '/establecimientos','/establecimientos/ver/:usa_id','/establecimientossol','/establecimientos/crear','/establecimientosol/crear','/tramites_concluidos',  '/tramites_concluidos/ver/:pt_id', '/homepais','/pais/create','/buscar-numero-muestra','/prueba-laboratorio/crear/:pl_id','/prueba-laboratorio/ver/:pl_id', '/prueba-laboratorio','/numero-muestra/crear','/numero-muestra','/numero-ficha/crear','/tramite/crear','/tramites-car','/boleta-pago/:pt_id','/parasito/crear', '/parasito','/parasito/editar/:par_id','/parasito/ver/:par_id','/tratamiento/crear', '/tratamiento','/homedepartamento','/establecimientosol/crear/:per_id','/asignacion_zonas/crear','/funcionarios/create_fun/:per_id','/funcionarios/habilitar/:fun_id/:fun_estado','/establecimientosol/crear/:pro_id','/inspeccion/fichas/crear/:et_id','/inspeccion/categoria/crear/:fi_id/:et_id','/tramites_certi','/tramites_nat','/tramites_jur','/establecimientosol/persona','/establecimientosol/persona/ver/:per_id','/establecimientosol/empresa/ver/:pjur_nit','/documento','/categoria','/firma/crear','/firma/editar','/buscar-propietario','/boleta-ces/:et_id'];
+  ['/','/atencion','/prueba-medica/:pt_id','/prueba-medica/prueba/:pm_id','/prueba-medica/ver/:pm_id','/ficha-clinica/:per_ci','/perfil', '/usuario/edit','/usuario/create','/persona/create','/personas','/personas/ver/:per_id','/personas/edit/:per_id', '/funcionarios','/funcionarios/ver/:fun_id', '/funcionarios/createFun','/funcionarios/edit/:fun_id', '/consultorios','/consultorios/ver/:amb_id', '/consultorios/create','/consultorios/edit/:amb_id','/laboratorios','/laboratorios/ver/:amb_id', '/laboratorios/create','/laboratorios/edit/:amb_id',  '/establecimientos','/establecimientos/ver/:usa_id','/establecimientossol','/establecimientos/crear','/establecimientosol/crear','/tramites_concluidos',  '/tramites_concluidos/ver/:pt_id', '/homepais','/pais/create','/buscar-numero-muestra','/prueba-laboratorio/crear/:pl_id','/prueba-laboratorio/ver/:pl_id', '/prueba-laboratorio','/numero-muestra/crear','/numero-muestra','/numero-ficha/crear','/tramite/crear','/tramites-car','/boleta-pago/:pt_id','/parasito/crear', '/parasito','/parasito/editar/:par_id','/parasito/ver/:par_id','/tratamiento/crear', '/tratamiento','/establecimientosol/crear/:per_id','/asignacion_zonas/crear','/funcionarios/create_fun/:per_id','/funcionarios/habilitar/:fun_id/:fun_estado','/establecimientosol/crear/:pro_id','/inspeccion/fichas/crear/:et_id','/inspeccion/categoria/crear/:fi_id/:et_id','/tramites_certi','/tramites_nat','/tramites_jur','/establecimientosol/persona','/establecimientosol/persona/ver/:per_id','/establecimientosol/empresa/ver/:pjur_nit','/documento','/categoria','/firma/crear','/firma/editar','/buscar-propietario','/boleta-ces/:et_id'];
 
   
   $rootScope.$on('$routeChangeStart', function(){

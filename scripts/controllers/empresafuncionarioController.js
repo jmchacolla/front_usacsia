@@ -16,7 +16,7 @@ function ($scope, $http,CONFIG,PersonasEstablecimiento2,PersonasEstablecimiento,
   }
   $scope.preregistro="http://localhost/usacsia_php_5.6/usacsia_git2/front_usacsia/#/servicios_ciudadanos/preregistro";
 
-	var ess_id=11;//con inicio de sion de empresa
+	var ess_id=15;//con inicio de sion de empresa
 	PersonasEstablecimiento.get({ess_id:ess_id},function(data)
 	{
     $scope.personas_x_establecimiento = data.personas_x_establecimiento;
