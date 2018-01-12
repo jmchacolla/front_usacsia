@@ -1,7 +1,7 @@
 <?php
 //No es un codigo para poner en produccion... solo pruebas
 
-$uploaddir = './img-documents/';
+$uploaddir = './img-documentos/';
 
 $uploadfile = $uploaddir . basename($_FILES['file']['name']);
 
