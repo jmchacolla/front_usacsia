@@ -114,15 +114,278 @@ angular.module("adminApp")
       });
   }*/
 
-  //lista tramites propietarios naturales
+ 
+
+
+
+.controller('ListaValidadosCtrl', ['$scope', '$http', 'moment', 'ListaEmpTraEtapaEstado', 'EmpresaTramite', '$route', '$resource','$routeParams', 'toastr', '$location', '$timeout','CONFIG', function ($scope, $http, moment, ListaEmpTraEtapaEstado, EmpresaTramite, $route, $resource,$routeParams, toastr, $location, $timeout,CONFIG) {
+ $scope.user = {
+    rol_id: CONFIG.ROL_CURRENT_USER
+  }
+  if ($scope.user.rol_id == 16) {
+    $scope.ajustes = {
+    menu:{
+      titulo: 'Lista de establecimientos validados',
+      items:[
+      {nombre:'Establecimientos validados', enlace:'#/lista-validacion', estilo:'active'},
+        {nombre:'Establecimientos inspeccionados', enlace:'#/lista-inspeccionados', estilo:''}
+       /*{nombre:'Propietarios Naturales', enlace:'#/tramites_nat', estilo:''},
+        {nombre:'Propietarios Juridicos', enlace:'#/tramites_jur', estilo:''},*/
+      ]
+    },
+    pagina:{
+      titulo:'Establecimientos Validados'
+    }
+  }
+  } else {
+    $scope.ajustes = {
+    menu:{
+      titulo: 'Lista de establecimientos validados',
+      items:[
+       {nombre:'Establecimientos validados', enlace:'#/lista-validacion', estilo:'active'},
+        {nombre:'Establecimientos inspeccionados', enlace:'#/lista-inspeccionados', estilo:''},
+        {nombre:'Establecimientos que cancelaron', enlace:'#/lista-cancelaron', estilo:''},
+       
+        {nombre:'Esablecimientos que cancelaron naturales', enlace:'#/tramites_certi', estilo:''},
+        {nombre:'Esablecimientos que cancelaron Juridicos', enlace:'#/tramites_certiJ', estilo:''}]
+    },
+    pagina:{
+      titulo:'Establecimientos Validados'
+    }
+  }
+  }
+
+
+
+    $scope.sortType = 'te_fecha'; // ESTABLECIENDO EL TIPO DE ORDENAMIENTO
+    $scope.sortReverse  = true;  // PARA ORDENAR ASCENDENTEMENTO O DESCENDENTEMENTE
+    $scope.loading=true;//PARA HACER UN LOADING EN EL TEMPLATE
+    var condiciones={
+      eta_id:1,
+      te_estado:'APROBADO'
+
+    }
+  ListaEmpTraEtapaEstado.get(condiciones, function (argument) {
+      $scope.establecimientos = argument.empresa_tramite;
+      console.log('establecimientos', $scope.establecimientos);
+
+      angular.forEach($scope.establecimientos, function(value, key){
+            console.log( 'fecha:',value.te_fecha);
+            value.te_fecha=moment(value.te_fecha,"YYYY-MM-DD").format("DD-MM-YYYY");
+         });
+    //PARA HACER UN LOADING EN EL TEMPLATE  
+    if(argument.status){
+        $scope.loading = false;
+        $scope.msg = argument.status;
+      }
+    }); 
+  
+
+
+
+}])
+
+
+
+.controller('ListaInspeccionadosCtrl', ['$scope', '$http', 'moment', 'ListaEmpTraEtapaEstado', 'EmpresaTramite', '$route', '$resource','$routeParams', 'toastr', '$location', '$timeout','CONFIG', function ($scope, $http, moment, ListaEmpTraEtapaEstado, EmpresaTramite, $route, $resource,$routeParams, toastr, $location, $timeout,CONFIG) {
+ $scope.user = {
+    rol_id: CONFIG.ROL_CURRENT_USER
+  }
+  if ($scope.user.rol_id == 16) {
+    $scope.ajustes = {
+    menu:{
+      titulo: 'Lista de establecimientos inspeccionados',
+      items:[
+      {nombre:'Establecimientos validados', enlace:'#/lista-validacion', estilo:''},
+        {nombre:'Establecimientos inspeccionados', enlace:'#/lista-inspeccionados', estilo:'active'}
+      /* {nombre:'Propietarios Naturales', enlace:'#/tramites_nat', estilo:''},
+        {nombre:'Propietarios Juridicos', enlace:'#/tramites_jur', estilo:''},*/
+     ]
+    },
+    pagina:{
+      titulo:'Establecimientos inspeccionados'
+    }
+  }
+  } else {
+    $scope.ajustes = {
+    menu:{
+      titulo: 'Lista de establecimientos inspeccionados',
+      items:[
+       {nombre:'Establecimientos validados', enlace:'#/lista-validacion', estilo:''},
+        {nombre:'Establecimientos inspeccionados', enlace:'#/lista-inspeccionados', estilo:'active'},
+        {nombre:'Establecimientos que cancelaron', enlace:'#/lista-cancelaron', estilo:''},
+        {nombre:'Esablecimientos que cancelaron naturales', enlace:'#/tramites_certi', estilo:''},
+        {nombre:'Esablecimientos que cancelaron Juridicos', enlace:'#/tramites_certiJ', estilo:''}]
+    },
+    pagina:{
+      titulo:'Establecimientos inspeccionados'
+    }
+  }
+  }
+
+
+
+    $scope.sortType = 'te_fecha'; // ESTABLECIENDO EL TIPO DE ORDENAMIENTO
+    $scope.sortReverse  = true;  // PARA ORDENAR ASCENDENTEMENTO O DESCENDENTEMENTE
+    $scope.loading=true;//PARA HACER UN LOADING EN EL TEMPLATE
+    var condiciones={
+      eta_id:2,
+      te_estado:'APROBADO'
+
+    }
+  ListaEmpTraEtapaEstado.get(condiciones, function (argument) {
+      $scope.establecimientos = argument.empresa_tramite;
+      console.log('establecimientos', $scope.establecimientos);
+
+      angular.forEach($scope.establecimientos, function(value, key){
+            console.log( 'fecha:',value.te_fecha);
+            value.te_fecha=moment(value.te_fecha,"YYYY-MM-DD").format("DD-MM-YYYY");
+         });
+    //PARA HACER UN LOADING EN EL TEMPLATE  
+    if(argument.status){
+        $scope.loading = false;
+        $scope.msg = argument.status;
+      }
+    }); 
+  
+
+
+
+}])
+
+
+.controller('ListaCancelaronCtrl', ['$scope', '$http', 'moment', 'ListaEmpTraEtapaEstado', 'EmpresaTramite', '$route', '$resource','$routeParams', 'toastr', '$location', '$timeout','CONFIG','EstabSols', function ($scope, $http, moment, ListaEmpTraEtapaEstado, EmpresaTramite, $route, $resource,$routeParams, toastr, $location, $timeout,CONFIG,EstabSols) {
+ $scope.user = {
+    rol_id: CONFIG.ROL_CURRENT_USER
+  }
+  if ($scope.user.rol_id == 16) {
+    $scope.ajustes = {
+    menu:{
+      titulo: 'Lista de establecimientos que pagaron arancel',
+      items:[
+      {nombre:'Establecimientos validados', enlace:'#/lista-validacion', estilo:''},
+        {nombre:'Establecimientos inspeccionados', enlace:'#/lista-inspeccionados', estilo:''},
+        {nombre:'Establecimientos que cancelaron', enlace:'#/lista-cancelaron', estilo:'active'}
+      /* {nombre:'Propietarios Naturales', enlace:'#/tramites_nat', estilo:''},
+        {nombre:'Propietarios Juridicos', enlace:'#/tramites_jur', estilo:''},*/
+     ]
+    },
+    pagina:{
+      titulo:'Establecimientos que pagaron arancel'
+    }
+  }
+  } else {
+    $scope.ajustes = {
+    menu:{
+      titulo: 'Lista de establecimientos que pagaron arancel',
+      items:[
+       {nombre:'Establecimientos validados', enlace:'#/lista-validacion', estilo:''},
+        {nombre:'Establecimientos inspeccionados', enlace:'#/lista-inspeccionados', estilo:''},
+        {nombre:'Establecimientos que cancelaron', enlace:'#/lista-cancelaron', estilo:'active'}/*,
+        {nombre:'Esablecimientos que cancelaron naturales', enlace:'#/tramites_certi', estilo:''},
+        {nombre:'Esablecimientos que cancelaron Juridicos', enlace:'#/tramites_certiJ', estilo:''}*/]
+    },
+    pagina:{
+      titulo:'Establecimientos que pagaron arancel'
+    }
+  }
+  }
+
+
+
+    $scope.sortType = 'te_fecha'; // ESTABLECIENDO EL TIPO DE ORDENAMIENTO
+    $scope.sortReverse  = true;  // PARA ORDENAR ASCENDENTEMENTO O DESCENDENTEMENTE
+    $scope.loading=true;//PARA HACER UN LOADING EN EL TEMPLATE
+    var condiciones={
+      eta_id:3,
+      te_estado:'APROBADO'
+
+    }
+  ListaEmpTraEtapaEstado.get(condiciones, function (argument) {
+      $scope.establecimientos = argument.empresa_tramite;
+      console.log('establecimientos', $scope.establecimientos);
+
+      angular.forEach($scope.establecimientos, function(value, key){
+            console.log( 'fecha:',value.te_fecha);
+            value.te_fecha=moment(value.te_fecha,"YYYY-MM-DD").format("DD-MM-YYYY");
+         });
+    //PARA HACER UN LOADING EN EL TEMPLATE  
+    if(argument.status){
+        $scope.loading = false;
+        $scope.msg = argument.status;
+      }
+
+    var id = 0;
+    var ci=0;
+    $scope.rec=function(et_id, per_id){
+
+    id=et_id;
+    EstabSols.get({ess_id:per_id}, function(data){
+            $scope.persona = data.establecimiento;
+            console.log("para ver est___",$scope.persona);
+            $scope.nombre=$scope.persona.est_sol.ess_razon_social;
+            //console.log("GUARDANDO DATOS DE PERSONA EN LOCALSTORAGE",persona)
+  
+          });
+
+    /*Personas.get({per_id:per_id}, function(data)
+      {
+        $scope.persona = data.persona;
+        $scope.nombre=$scope.persona.persona.per_nombres+' '+$scope.persona.persona.per_apellido_primero+' '+$scope.persona.persona.per_apellido_segundo;
+        ci=$scope.persona.persona.per_ci;
+      });*/
+  
+
+    var q=6;
+
+    
+     $scope.datos={
+      fun_id:null,         
+      te_estado:'',
+      te_observacion:'NINGUNA',
+      te_fecha:''
+    };
+    $scope.datos2={
+      fun_id:null,         
+      te_estado:'',
+      te_observacion:'NINGUNA',
+      te_fecha:''
+    };
+    $scope.datos3={
+      fun_id:null,         
+      te_estado:'',
+      te_observacion:'NINGUNA',
+      te_fecha:''
+    };
+    $scope.datos4={
+      fun_id:null,         
+      te_estado:'',
+      te_observacion:'NINGUNA',
+      te_fecha:''
+    };
+    
+  }; 
+
+
+
+
+
+
+    }); 
+  
+
+
+
+}])
+ //lista tramites propietarios naturales etapa 3=aprobada arancel
 .controller('ListNatCtrl', ['$scope','CONFIG', 'ListN', '$route', 'toastr', '$location','Personas','FirmaFun','EmpTra','CertificadoSanitario','Firm2','Firm3','BusCert','Prueba','wen','VerEs', function ($scope,CONFIG, ListN, $route, toastr,$location,Personas,FirmaFun,EmpTra,CertificadoSanitario,Firm2,Firm3,BusCert,Prueba,wen,VerEs)
 {
   $scope.ajustes = {
     menu:{
       titulo: 'Gestión de tramites de Certificado Sanitario',
       items:[
-        {nombre:'Solicitudes de Propietarios Naturales', enlace:'#/tramites_certi', estilo:'active'},
-        {nombre:'Solicitudes de Propietarios Juridicos', enlace:'#/tramites_certiJ', estilo:''},
+        {nombre:'Esablecimientos que cancelaron naturales', enlace:'#/tramites_certi', estilo:'active'},
+        {nombre:'Esablecimientos que cancelaron Juridicos', enlace:'#/tramites_certiJ', estilo:''},
         {nombre:'Busqueda de personas registradas', enlace:'#/buscar-propietario', estilo:''}]
     },
     pagina:{
@@ -588,15 +851,15 @@ VerEs.get({et_id:id,eta_id:6}, function(data){
   }*/
 }])
 
- //lista tramites propietarios juridicos
+ //lista tramites propietarios juridicos etapa 3=aprobada arancel
 .controller('ListJurCtrl', ['$scope', 'ListJ', '$route', 'toastr', '$location','CONFIG','FirmaFun','EmpTra','CertificadoSanitario','Firm2','Firm3','BusCert','Prueba','VerEs', function ($scope, ListJ, $route, toastr,$location,CONFIG,FirmaFun,EmpTra,CertificadoSanitario,Firm2,Firm3,BusCert,Prueba,VerEs)
 {//en este caso el rec debe ver al propietario juridico
   $scope.ajustes = {
     menu:{
       titulo: 'Gestión de tramites de Certificado Sanitario',
       items:[
-        {nombre:'Solicitudes de Propietarios Naturales', enlace:'#/tramites_certi', estilo:''},
-        {nombre:'Solicitudes de Propietarios Juridicos', enlace:'#/tramites_certiJ', estilo:'active'},
+       {nombre:'Esablecimientos que cancelaron naturales', enlace:'#/tramites_certi', estilo:''},
+        {nombre:'Esablecimientos que cancelaron Juridicos', enlace:'#/tramites_certiJ', estilo:'active'},
         {nombre:'Busqueda de personas registradas', enlace:'#/buscar-propietario', estilo:''}]
     },
     pagina:{
@@ -1016,72 +1279,6 @@ $scope.CurrentDate = new Date();
     })
   }*/
 }])
-
-
-
-.controller('ListaInspeccionadosCtrl', ['$scope', '$http', 'moment', 'ListaEmpTraEtapaEstado', 'EmpresaTramite', '$route', '$resource','$routeParams', 'toastr', '$location', '$timeout','CONFIG', function ($scope, $http, moment, ListaEmpTraEtapaEstado, EmpresaTramite, $route, $resource,$routeParams, toastr, $location, $timeout,CONFIG) {
- $scope.user = {
-    rol_id: CONFIG.ROL_CURRENT_USER
-  }
-  if ($scope.user.rol_id == 16) {
-    $scope.ajustes = {
-    menu:{
-      titulo: 'Lista de establecimientos inspeccionados',
-      items:[
-        {nombre:'Establecimientos inspeccionados', enlace:'#/lista-inspeccionados', estilo:'active'},
-       {nombre:'Propietarios Naturales', enlace:'#/tramites_nat', estilo:''},
-        {nombre:'Propietarios Juridicos', enlace:'#/tramites_jur', estilo:''},
-        {nombre:'Establecimientos inspeccionados', enlace:'#/lista-inspeccionados', estilo:''}]
-    },
-    pagina:{
-      titulo:'Establecimientos inspeccionados'
-    }
-  }
-  } else {
-    $scope.ajustes = {
-    menu:{
-      titulo: 'Lista de establecimientos inspeccionados',
-      items:[
-        {nombre:'Establecimientos inspeccionados', enlace:'#/lista-inspeccionados', estilo:'active'},
-        {nombre:'Solicitudes de Propietarios Naturales', enlace:'#/tramites_certi', estilo:''},
-        {nombre:'Solicitudes de Propietarios Juridicos', enlace:'#/tramites_certiJ', estilo:''}]
-    },
-    pagina:{
-      titulo:'Establecimientos inspeccionados'
-    }
-  }
-  }
-
-
-
-    $scope.sortType = 'te_fecha'; // ESTABLECIENDO EL TIPO DE ORDENAMIENTO
-    $scope.sortReverse  = true;  // PARA ORDENAR ASCENDENTEMENTO O DESCENDENTEMENTE
-    $scope.loading=true;//PARA HACER UN LOADING EN EL TEMPLATE
-    var condiciones={
-      eta_id:2,
-      te_estado:'APROBADO'
-
-    }
-  ListaEmpTraEtapaEstado.get(condiciones, function (argument) {
-      $scope.establecimientos = argument.empresa_tramite;
-      console.log('establecimientos', $scope.establecimientos);
-
-      angular.forEach($scope.establecimientos, function(value, key){
-            console.log( 'fecha:',value.te_fecha);
-            value.te_fecha=moment(value.te_fecha,"YYYY-MM-DD").format("DD-MM-YYYY");
-         });
-    //PARA HACER UN LOADING EN EL TEMPLATE  
-    if(argument.status){
-        $scope.loading = false;
-        $scope.msg = argument.status;
-      }
-    }); 
-  
-
-
-
-}])
-
 
 .controller('VerEmpresaCtrl', ['CONFIG', 'authUser','$scope','EstabSols','Funcionario', '$routeParams', '$location', '$timeout',
   function (CONFIG, authUser,$scope, EstabSols, Funcionario, $routeParams, $location, $timeout){

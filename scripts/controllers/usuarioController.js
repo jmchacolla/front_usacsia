@@ -1,10 +1,11 @@
 'use strict';
 angular.module('adminApp')
-.controller('InicioCtrl', [/*'Personas',*/ 'PersonaporCI','$scope', 'CONFIG', function (/*Personas,*/ PersonaporCI,$scope, CONFIG){
+.controller('InicioCtrl', [/*'Personas',*/ 'PersonaporCI','$scope', 'CONFIG','EstabSols', function (/*Personas,*/ PersonaporCI,$scope, CONFIG,EstabSols){
   var SesionG = localStorage.getItem("Sesion");
   if (SesionG != null)
   {
     var SesionG = JSON.parse(SesionG);
+    console.log("__sesion de usuario___",SesionG.per_id);
   /*  Personas.get({per_id:SesionG.per_id}, function(data)
     {
       $scope.persona = data.persona;
@@ -15,10 +16,11 @@ angular.module('adminApp')
         $scope.ajustes.menu.titulo = "Bienvenido";
       }
     });*/
-    PersonaporCI.get({per_ci:SesionG.usu_nick}, function(data)
+if (SesionG.rol_id !=6) {
+  PersonaporCI.get({per_ci:SesionG.usu_nick}, function(data)
     {
       $scope.persona = data.persona;
-      console.log("DATOS DE PERSONA",$scope.persona);
+
       if($scope.persona.per_genero=='F' || $scope.persona.per_genero=='f'){
         $scope.ajustes.menu.titulo = "Bienvenida";
       }
@@ -26,15 +28,45 @@ angular.module('adminApp')
         $scope.ajustes.menu.titulo = "Bienvenido";
       }
     });
-    console.log("entra a usuario controller para ver persona y logra verla persona con personaporci");
-  }
-  $scope.ajustes = {
+    $scope.ajustes = {
     menu:{
       items:[
         {nombre:'Inicio', enlace:'#/', estilo:'active'},
         {nombre:'Manual de Usuario', enlace:'#/', estilo:''}]
     }
-  } 
+  }
+ 
+} else {
+
+  EstabSols.get({ess_id:SesionG.per_id}, function(data){
+            $scope.establecimiento = data.establecimiento;
+                      
+          });
+ $scope.bien = "Bienvenido";
+   $scope.ajustes = {
+    menu:{
+      items:[
+        {nombre:'Inicio', enlace:'#/', estilo:'active'},
+        ]/*,
+        titulo:"Bienvenido"*/
+    }
+  }
+
+}
+     $scope.ajustes = {
+    menu:{
+      items:[
+        {nombre:'Inicio', enlace:'#/', estilo:'active'},
+        {nombre:'Manual de Usuario', enlace:'#/', estilo:''}]
+    }
+  }
+
+
+    
+  }
+
+
+ 
 
   $scope.rol = CONFIG.ROL_CURRENT_USER;
 

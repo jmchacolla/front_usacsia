@@ -117,9 +117,19 @@
 			           		Trámites certificado propietarios juridicos</a>
 			            </li>
 			            <li ng-show="menu.CONFIG.ROL_CURRENT_USER == 1 || menu.CONFIG.ROL_CURRENT_USER == 16" >
+			            	<a href="#/lista-validacion">
+			            	<span class="glyphicon glyphicon-asterisk" aria-hidden="true"></span>
+			           		Validados</a>
+			            </li>
+			            <li ng-show="menu.CONFIG.ROL_CURRENT_USER == 1 || menu.CONFIG.ROL_CURRENT_USER == 16" >
 			            	<a href="#/lista-inspeccionados">
 			            	<span class="glyphicon glyphicon-asterisk" aria-hidden="true"></span>
 			           		Inspeccionados</a>
+			            </li>
+			            <li ng-show="menu.CONFIG.ROL_CURRENT_USER == 1 || menu.CONFIG.ROL_CURRENT_USER == 14 || menu.CONFIG.ROL_CURRENT_USER == 2 || menu.CONFIG.ROL_CURRENT_USER == 17 || menu.CONFIG.ROL_CURRENT_USER == 18" >
+			            	<a href="#/lista-cancelaron">
+			            	<span class="glyphicon glyphicon-asterisk" aria-hidden="true"></span>
+			           		Pagaron</a>
 			            </li>
 			            <li ng-show="menu.CONFIG.ROL_CURRENT_USER == 16" >
 			            	<a href="#/tramites_nat">

@@ -76,7 +76,7 @@ angular.module("adminApp", ["authService", "ngRoute", "ngResource", "satellizer"
   })
 //no existe esta ruta --eliminar 1/1/2018
   .when('/inicio2', {
-    templateUrl: 'templates/publico/index2.html'
+    templateUrl: 'templates/usuario/index2.html'
   })
 // ========================= PREREGISTRO =================================================== templates
   .when('/servicios_ciudadanos/preregistro', {
@@ -489,7 +489,32 @@ angular.module("adminApp", ["authService", "ngRoute", "ngResource", "satellizer"
     }
   })
 //=========================         EMPRESA TRAMITE     =======================================
+   //etapa 1 =APROBADO
+  .when('/lista-validacion', {
+    templateUrl: 'templates/empresatramite/lista-validacion.html',
+    controller: 'ListaValidadosCtrl',
+    data: {
+      authorized: [ROLES.ADMIN_USACSIA.ROL, ROLES.ADMIN_CERTIFICADO.ROL, ROLES.INSPECTOR.ROL, ROLES.REVISOR.ROL]
+    }
+  })
+  //etapa 2 =APROBADO
+  .when('/lista-inspeccionados', {
+    templateUrl: 'templates/empresatramite/lista-inspeccionados.html',
+    controller: 'ListaInspeccionadosCtrl',
+    data: {
+      authorized: [ROLES.ADMIN_USACSIA.ROL, ROLES.ADMIN_CERTIFICADO.ROL, ROLES.INSPECTOR.ROL]
+    }
+  })
 
+  //etapa 3 =APROBADO
+  .when('/lista-cancelaron', {
+    templateUrl: 'templates/empresatramite/lista-cancelaron.html',
+    controller: 'ListaCancelaronCtrl',
+    data: {
+      authorized: [ROLES.ADMIN_USACSIA.ROL, ROLES.ADMIN_CERTIFICADO.ROL]
+    }
+  })
+//etapa 3 =APROBADO
   .when('/tramites_certi',{
    templateUrl:'templates/empresatramite/listN.html',
    controller: 'ListNatCtrl',
@@ -762,11 +787,11 @@ angular.module("adminApp", ["authService", "ngRoute", "ngResource", "satellizer"
 
 /*--------------------                 DOCUMENTOS  TRAMITE-    ------------------------*/
 //cuenta para empresas 12-1-2018
-  .when('/documento-tramite/crear/:et_id', {
+ /* .when('/documento-tramite/crear/:et_id', {*/
 
 /*-------------------- DOCUMENTOS  TRAMITE-------------------------*/
 
-  /*.when('/documento-tramite/crear', {*/
+  .when('/documento-tramite/crear', {
 
     templateUrl: 'templates/documento_tramite/crear.html',
     controller: 'CrearDocumentoTramiteCtrl'
@@ -867,13 +892,7 @@ angular.module("adminApp", ["authService", "ngRoute", "ngResource", "satellizer"
     templateUrl: 'templates/empresatramite/ordenpago-crear.html',
     controller: 'OrdenPagoCrearCtrl'
   })
-  .when('/lista-inspeccionados', {
-    templateUrl: 'templates/empresatramite/lista-inspeccionados.html',
-    controller: 'ListaInspeccionadosCtrl',
-    data: {
-      authorized: [ROLES.ADMIN_USACSIA.ROL, ROLES.ADMIN_CERTIFICADO.ROL,, ROLES.INSPECTOR.ROL]
-    }
-  })
+
 
   .when('/orden-detalle/:op_id', {
     templateUrl: 'templates/pagopendiente/orden-detalle.html',
