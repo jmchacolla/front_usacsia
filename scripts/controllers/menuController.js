@@ -72,6 +72,10 @@ angular.module('adminApp')
 		
 
 
+		/*jhonnnnnnnnnnnnnn*/
+		console.log('$auth.isAuthenticated()', $auth.isAuthenticated());
+		console.log('hola charo+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++', $auth.isAuthenticated());
+
 		//PARA LAS NOTIFICACIONES DE RESERVAS/////////////////////////////////////////////////////////
 		//NOTIFICACIONES PARA EL MEDICO Y ADMINISTRADOR MEDICO
 	/*	if((CONFIG.ROL_CURRENT_USER == 4 || CONFIG.ROL_CURRENT_USER == 9) && FunG) {

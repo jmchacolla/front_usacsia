@@ -226,7 +226,7 @@ EmpTra.get({et_id:et_id}, function (argument) {
     var et_id=$routeParams.et_id;
 
 
-    $http.get(CONFIG.DOMINIO_SERVICIOS+'/verestados/'+et_id+'/'+2).success(function(respuesta){
+    $http.get(CONFIG.DOMINIO_SERVICIOS+'/verestados/'+et_id+'/'+3).success(function(respuesta){
       console.log("_respuesta__",respuesta);
       $scope.tramitecerestado=respuesta.tramitecerestado;
     });
@@ -418,7 +418,6 @@ EmpTra.get({et_id:et_id}, function (argument) {
           });
         }
     });
-
 }])
 
 .controller('pdf_pagopF_Ctrl',['$scope', 'PagoPendiente', 'CONFIG','$routeParams', '$http', function ($scope, PagoPendiente, CONFIG, $routeParams, $http){

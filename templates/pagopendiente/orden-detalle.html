@@ -81,14 +81,14 @@
                                     <tr>
                                         <th class="text-primary text-center" colspan="3">ARANCEL</th>
                                     </tr>
-                                    <th class="text-primary">Nro.</th>
-                                    <th class="text-primary">Arancel</th>
-                                    <th class="text-primary">Monto (Bs.)</th>
+                                    <th class="text-primary text-center">Nro.</th>
+                                    <th class="text-primary text-center">Arancel</th>
+                                    <th class="text-primary text-center">Monto (Bs.)</th>
                                 </thead>
                                 <tbody ng-repeat="pagoa in pagoa | orderBy:sortType:sortReverse">
                                   <tr>
-                                    <td>{{$index+1}}</td>
-                                    <td>{{pagoa.pa_descripcion}}</td>
+                                    <td class="text-center">{{$index+1}}</td>
+                                    <td class="text-center">{{pagoa.pa_descripcion}}</td>
                                     <td align="right">{{pagoa.pa_monto  | number:2}}</td>
                                   </tr>
                                 </tbody>
@@ -106,14 +106,14 @@
                                     <tr>
                                         <th class="text-primary text-center" colspan="5">SANCIONES</th>
                                     </tr>
-                                    <th class="text-primary">Nro.</th>
-                                    <th class="text-primary">Categoria</th>
-                                    <th class="text-primary">Monto (Bs.)</th>
+                                    <th class="text-primary text-center">Nro.</th>
+                                    <th class="text-primary text-center">Categoria</th>
+                                    <th class="text-primary text-center">Monto (Bs.)</th>
                                 </thead>
                                 <tbody ng-repeat="pagos in pagos | orderBy:sortType:sortReverse">
                                   <tr>
-                                    <td>{{$index+1}}</td>
-                                    <td>{{pagos.ps_descripcion }}</td>
+                                    <td class="text-center">{{$index+1}}</td>
+                                    <td class="text-center">{{pagos.ps_descripcion }}</td>
                                     <td align="right">{{pagos.ps_monto | number:2}}</td>
                                   </tr>
                                 </tbody>
@@ -140,10 +140,12 @@
                         <span class="btn btn-success" ng-click="pagarorden()"><span class="glyphicon glyphicon-piggy-bank"> </span> REGISTRAR PAGO</span>
                         <a class="btn btn-danger" href="#/buscar-propietario"><span class="glyphicon glyphicon-remove"> </span> CANCELAR</a>
                     </div>
-                    <div class="col-md-12 col-sm-12" align="center" ng-if="tramitecerestado.te_estado=='APROBADO'">
-                        <div class="text-primary text-center">
-                            Orden de pago cancelada.
-                        </div>
+                    <div class="col-md-12">
+                    <hr>
+                      <div align="center">
+                         <button type="button" class="btn btn-default" ng-click="openOrdenPDF()" >IMPRIMIR PAGO  <span class="glyphicon glyphicon-open-file"></span></button>
+                         <button type="button"  class="btn btn-default" ng-click="downloadOrdenPDF()">Descargar PDF PAGO  <span class="glyphicon glyphicon-download-alt"></span></button>
+                      </div>
                     </div>
                 </div>
             </div>

@@ -326,10 +326,10 @@ angular.module("adminApp")
         titulo: 'Gestión de tramites Concluidos de Carné Sanitario',
         items:[
             {nombre:'Tramites concluidos', enlace:'#/tramites_concluidos', estilo:''},
-            {nombre:'Detalle de Tramite concluido', enlace:'#/tramites_concluidos/ver/'+pt_id, estilo:'active'}]
+            {nombre:'Detalle de Trámite concluido', enlace:'#/tramites_concluidos/ver/'+pt_id, estilo:'active'}]
       },
       pagina:{
-        titulo:'Detalle tramite concluido: '/*$scope.pertramite.persona_tramite.pt_numero_tramite*/
+        titulo:'Detalle trámite concluido: '/*$scope.pertramite.persona_tramite.pt_numero_tramite*/
       }
     };
   
