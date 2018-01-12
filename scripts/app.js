@@ -262,7 +262,7 @@ angular.module("adminApp", ["authService", "ngRoute", "ngResource", "satellizer"
   })
 
 
-  //***************************E S T A B L E C I M I E N T O S USACSIA          **********************
+  //**************E S T A B L E C I M I E N T O S USACSIA          **********************
   .when('/establecimientos', {
     title: 'Establecimientos',
     templateUrl: 'templates/establecimiento/index.html',
@@ -338,14 +338,35 @@ angular.module("adminApp", ["authService", "ngRoute", "ngResource", "satellizer"
       authorized: [ROLES.ADMIN_USACSIA.ROL]
     }
   })
-    .when('/pais/create',{
+  .when('/pais/create',{
    templateUrl:'templates/pais/create.html',
    controller: 'PaisCreateCtrl',
     data: {
       authorized: [ROLES.ADMIN_USACSIA.ROL]
     }
   })
-
+//**********************************ZONAS************************************************
+    .when('/zona/crear',{
+   templateUrl:'templates/zonas/crear.html',
+   controller: 'CrearZonaCtrl',
+    data: {
+      authorized: [ROLES.ADMIN_USACSIA.ROL]
+    }
+  })
+/*  .when('/zonas',{
+   templateUrl:'templates/zonas/ver.html',
+   controller: 'VerZonaCtrl',
+    data: {
+      authorized: [ROLES.ADMIN_USACSIA.ROL]
+    }
+  })*/
+  .when('/zona/ver/:zon_id',{
+   templateUrl:'templates/zonas/ver.html',
+   controller: 'VerZonaCtrl',
+    data: {
+      authorized: [ROLES.ADMIN_USACSIA.ROL]
+    }
+  })
   //*****************************   INSPECCIONES   *************************************
   //*****************************   LISTA DE PROPIETARIOS NATURALES JURIDICOS   **************
    //lista para inspectores prop naturales
@@ -422,8 +443,16 @@ angular.module("adminApp", ["authService", "ngRoute", "ngResource", "satellizer"
   })
       //LISTA DE EMPRESAS QUE YA FUERON INSPECCIONADOS
   .when('/inspecciones/:et_id',{
-   templateUrl:'templates/ficha_inspeccion/inspecciones.html',
+   templateUrl:'templates/ficha_inspeccion/inspeccionesN.html',
    controller: 'InspeccionesCtrl',
+    data: {
+      authorized: [ROLES.ADMIN_USACSIA.ROL,ROLES.INSPECTOR.ROL]
+    }
+  })
+//LISTA DE EMPRESAS QUE YA FUERON INSPECCIONADOS
+  .when('/inspeccionesJ/:et_id',{
+   templateUrl:'templates/ficha_inspeccion/inspeccionesJ.html',
+   controller: 'InspeccionesJCtrl',
     data: {
       authorized: [ROLES.ADMIN_USACSIA.ROL,ROLES.INSPECTOR.ROL]
     }
@@ -553,7 +582,7 @@ angular.module("adminApp", ["authService", "ngRoute", "ngResource", "satellizer"
       authorized: [ROLES.ADMIN_USACSIA.ROL,ROLES.REVISOR.ROL]
     }
   })
-//existe 2 busquedas de propietario
+//
     .when('/establecimientosol/persona/ver/:per_id', { 
     templateUrl: 'templates/establecimiento_solicitante/verpersona.html',
     controller: 'VerPersonaEstablecimientoSolicitanteCtrl',
@@ -730,8 +759,8 @@ angular.module("adminApp", ["authService", "ngRoute", "ngResource", "satellizer"
     }
   })
 
-/*-------------------- DOCUMENTOS  TRAMITE-------------------------*/
-
+/*--------------------                 DOCUMENTOS  TRAMITE-    ------------------------*/
+//cuenta para empresas 12-1-2018
   .when('/documento-tramite/crear/:et_id', {
     templateUrl: 'templates/documento_tramite/crear.html',
     controller: 'CrearDocumentoTramiteCtrl'

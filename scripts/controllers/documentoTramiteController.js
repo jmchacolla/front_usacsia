@@ -58,14 +58,14 @@ function ($scope, DocumentoTramite, $route,$routeParams,toastr,$location)
   }
 
     $scope.documentoTramite2={
-    doc_id:1,
+    doc_id:2,
     et_id:et_id,
     dt_url: "./img-licfun",
     dt_observacion:"",
   }
 
   $scope.documentoTramite3={
-    doc_id:1,
+    doc_id:3,
     et_id:et_id,
     dt_url: "./img-ci",
     dt_observacion:"",

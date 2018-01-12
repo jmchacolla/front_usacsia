@@ -1,5 +1,131 @@
 'use-strict';
 angular.module("adminApp")
+//lista tramites propietarios naturales segun funcionario inspector
+.controller('NatInsCtrl', ['$scope', 'NatI', '$route', 'toastr', '$location', function ($scope, NatI, $route, toastr,$location)
+{
+  $scope.ajustes = {
+    menu:{
+      titulo: 'Gestión de tramites de Certificado Sanitario',
+      items:[
+        {nombre:'Propietarios Naturales', enlace:'#/tramites_nat', estilo:'active'},
+        {nombre:'Propietarios Juridicos', enlace:'#/tramites_jur', estilo:''},
+        {nombre:'Establecimientos inspeccionados', enlace:'#/lista-inspeccionados', estilo:''}
+        /*,
+        {nombre:'Busqueda de personas registradas', enlace:'#/tramite/crear', estilo:''}*/]
+    },
+    pagina:{
+      titulo:'Tramites de Certificado Sanitario'
+    }
+  }
+var FunG = localStorage.getItem("Funcionario");
+  var FunG = JSON.parse(FunG);
+ var fun_id = FunG.fun_id;
+
+  
+  $scope.sortType = 'per_id'; // set the default sort type
+  $scope.sortReverse  = true;  // set the default sort order
+  $scope.Personas = [];
+  $scope.loading=true;//para hacer un loading
+
+  NatI.get({fun_id:fun_id}, function(data){
+    console.log('*******empresa_tramite ---------', data);
+    $scope.empresa_tramite = data.empresa_tramite;
+ 
+    if(data.empresa_tramite.length>0){
+      $scope.loading = false;
+      $scope.msg = true;
+    }
+    else{
+      $scope.loading = false;
+      $scope.msg = false;
+    }
+    
+  },function () {
+      toastr.error("ERROR INESPERADO, por favor actualize la página");
+      $scope.loading = false;
+      $scope.msg = false;
+    }); 
+
+  var id=0;
+  $scope.nombre_completo = "";
+  $scope.get_per_id = function(per_id, per_apellido_primero, per_apellido_segundo, per_nombres){
+    id = per_id;
+    $scope.nombre_completo = per_apellido_primero + " " + per_apellido_segundo + " " + per_nombres;
+  }
+
+  $scope.remove = function(per_id){
+    Personas.delete({per_id:id}).$promise.then(function(data){
+      if(data.mensaje){
+        toastr.success('Eliminado correctamente');
+        $route.reload();
+      }
+    })
+  }
+}])
+
+
+ //lista tramites propietarios Juridicos
+.controller('JurInsCtrl', ['$scope', 'JurI', '$route', 'toastr', '$location', function ($scope, JurI, $route, toastr,$location)
+{
+  $scope.ajustes = {
+    menu:{
+      titulo: 'Gestión de tramites de Certificado Sanitario',
+      items:[
+        {nombre:'Propietarios Naturales', enlace:'#/tramites_nat', estilo:''},
+        {nombre:'Propietarios Juridicos', enlace:'#/tramites_jur', estilo:'active'},
+        {nombre:'Establecimientos inspeccionados', enlace:'#/lista-inspeccionados', estilo:''}/*,
+        {nombre:'Busqueda de personas registradas', enlace:'#/tramite/crear', estilo:''}*/]
+    },
+    pagina:{
+      titulo:'Tramites de Certificado Sanitario'
+    }
+  }
+  var FunG = localStorage.getItem("Funcionario");
+  var FunG = JSON.parse(FunG);
+  var fun_id = FunG.fun_id;
+  $scope.sortType = 'et_id'; // set the default sort type
+  $scope.sortReverse  = true;  // set the default sort order
+  $scope.Personas = [];
+
+  
+  $scope.loading=true;//para hacer un loading
+
+  JurI.get({fun_id:fun_id}, function(data){
+    console.log('*******empresa_tramite ---------', data);
+    $scope.empresa_tramite = data.empresa_tramite;
+ 
+    if(data.empresa_tramite.length>0){
+      $scope.loading = false;
+      $scope.msg = true;
+    }
+    else{
+      $scope.loading = false;
+      $scope.msg = false;
+    }
+    
+  },function () {
+      toastr.error("ERROR INESPERADO, por favor actualize la página");
+      $scope.loading = false;
+      $scope.msg = false;
+    }); 
+
+  var id=0;
+  $scope.nombre_completo = "";
+  $scope.get_per_id = function(per_id, per_apellido_primero, per_apellido_segundo, per_nombres){
+    id = per_id;
+    $scope.nombre_completo = per_apellido_primero + " " + per_apellido_segundo + " " + per_nombres;
+  }
+
+  $scope.remove = function(per_id){
+    Personas.delete({per_id:id}).$promise.then(function(data){
+      if(data.mensaje){
+        toastr.success('Eliminado correctamente');
+        $route.reload();
+      }
+    })
+  }
+}])
+
 .controller('CrearFichaInsCtrl', ['$http','CONFIG','$scope','FichaIn', '$route', 'toastr','EmpTra','Funcionarios','$timeout','$location','$routeParams', function ($http,CONFIG,$scope,FichaIn, $route, toastr,EmpTra,Funcionarios,$timeout,$location,$routeParams){
   $scope.ajustes = {
     menu:{
@@ -7,6 +133,7 @@ angular.module("adminApp")
       items:[
       {nombre:'Propietarios Naturales', enlace:'#/tramites_nat', estilo:''},
         {nombre:'Propietarios Juridicos', enlace:'#/tramites_jur', estilo:''},
+        {nombre:'Establecimientos inspeccionados', enlace:'#/lista-inspeccionados', estilo:''},
         {nombre:'Crear Ficha', enlace:'#/numero-ficha/crear', estilo:'active'}]
     },
     pagina:{
@@ -124,6 +251,7 @@ angular.module("adminApp")
         /*{nombre:'Establecimientos', enlace:'#/establecimientossol', estilo:''},*/
         {nombre:'Propietarios Naturales', enlace:'#/tramites_nat', estilo:''},
         {nombre:'Propietarios Juridicos', enlace:'#/tramites_jur', estilo:''},
+        {nombre:'Establecimientos inspeccionados', enlace:'#/lista-inspeccionados', estilo:''},
         {nombre:'Asignar categoria', enlace:'#/inspeccion/categoria/crear', estilo:'active'}]
     },
     //Configuraciones de la página
@@ -333,7 +461,7 @@ $scope.checkedI=false;
       menu:{
         titulo: 'Gestión de Fichas de Inspección',
         items:[
-          {nombre:'Fichas de inspeccion', enlace:'#/', estilo:''}/*,
+           {nombre:'Establecimientos inspeccionados', enlace:'#/lista-inspeccionados', estilo:''}/*,
           {nombre:'Registrar Ciudadano', enlace:'#/personas/create', estilo:''}*/]
       },
       pagina:{
@@ -432,7 +560,8 @@ $scope.checkedI=false;
     menu:{
       titulo: 'Lista de Sanciones',
       items:[ 
-        {nombre:'Sanciones', enlace:'#/sancion/ver/'+fc_id+'/'+nom}
+        {nombre:'Sanciones', enlace:'#/sancion/ver/'+fc_id+'/'+nom},
+        {nombre:'Establecimientos inspeccionados', enlace:'#/lista-inspeccionados', estilo:''}
         ]
         },
     pagina:{
@@ -472,6 +601,7 @@ var fc_id=$routeParams.fc_id;
       items:[ 
       {nombre:'Propietarios Naturales', enlace:'#/tramites_nat', estilo:''},
         {nombre:'Propietarios Juridicos', enlace:'#/tramites_jur', estilo:''},
+{nombre:'Establecimientos inspeccionados', enlace:'#/lista-inspeccionados', estilo:''},
         {nombre:'Inspecciones', enlace:'#/inspecciones/'+et_id, estilo:'active'}
         ]
     },
@@ -484,8 +614,8 @@ var fc_id=$routeParams.fc_id;
     menu:{
       titulo: 'Lista de Fichas de inspección',
       items:[ 
-      
-        {nombre:'Inspecciones', enlace:'#/inspecciones/'+et_id, estilo:'active'}
+      {nombre:'Establecimientos inspeccionados', enlace:'#/lista-inspeccionados', estilo:''},
+        {nombre:'Fichas de inspección', enlace:'#/inspecciones/'+et_id, estilo:'active'}
         ]
     },
     pagina:{
@@ -510,6 +640,59 @@ var fc_id=$routeParams.fc_id;
   })
 
 }])
+//lista de fichas de inspeccion propietarios juridicos
+.controller('InspeccionesJCtrl', ['$scope', 'FichasInsEtJ','$routeParams','CONFIG',   function($scope, FichasInsEtJ,$routeParams,CONFIG)
+{
+  var et_id=$routeParams.et_id;
+    $scope.user = {
+    rol_id: CONFIG.ROL_CURRENT_USER
+  }
+  if ($scope.user.rol_id == 16) {
+  $scope.ajustes = {
+    menu:{
+      titulo: 'Lista de Fichas de inspección',
+      items:[ 
+      {nombre:'Propietarios Naturales', enlace:'#/tramites_nat', estilo:''},
+        {nombre:'Propietarios Juridicos', enlace:'#/tramites_jur', estilo:''},
+        {nombre:'Establecimientos inspeccionados', enlace:'#/lista-inspeccionados', estilo:''},
+        {nombre:'Inspecciones', enlace:'#/inspecciones/'+et_id, estilo:'active'}
+        ]
+    },
+    pagina:{
+      titulo:'Gestión de Inspecciones'
+    }
+  }
+  } else {
+    $scope.ajustes = {
+    menu:{
+      titulo: 'Lista de Fichas de inspección',
+      items:[ 
+        {nombre:'Establecimientos inspeccionados', enlace:'#/lista-inspeccionados', estilo:'active'},
+        {nombre:'Fichas de inspección', enlace:'#/inspeccionesJ/'+et_id, estilo:'active'}
+        ]
+    },
+    pagina:{
+      titulo:'Gestión de Inspecciones'
+    }
+
+  }
+}
+  $scope.sortType = 'created_at'; // ESTABLECIENDO EL TIPO DE ORDENAMIENTO
+  $scope.sortReverse  = true;  // PARA ORDENAR ASCENDENTEMENTO O DESCENDENTEMENTE
+  $scope.loading=true;//PARA HACER UN LOADING EN EL TEMPLATE
+
+  FichasInsEtJ.get({et_id:et_id},function(data)
+  {
+    $scope.ficha_inspeccion = data.ficha_inspeccionJ;
+   
+    //PARA HACER UN LOADING EN EL TEMPLATE
+    if(data.status){
+      $scope.loading = false;
+      $scope.msg = data.status;
+    }
+  })
+
+}])
 //FALTA HACER EL CONTROLADOR PARA LAS SANCIONES 9-1-2018
 .controller('CrearSancionCtrl', ['$scope','$routeParams','EmpTra','Categoria','FichaCat','Zonas',  '$location', '$timeout', 'toastr','Rubro','BusSub','BusCat','EstadoIns',
  function ($scope,$routeParams, EmpTra,Categoria,FichaCat,Zonas,  $location, $timeout, toastr,Rubro,BusSub,BusCat,EstadoIns){
@@ -522,6 +705,7 @@ var fc_id=$routeParams.fc_id;
         /*{nombre:'Establecimientos', enlace:'#/establecimientossol', estilo:''},*/
         {nombre:'Propietarios Naturales', enlace:'#/tramites_nat', estilo:''},
         {nombre:'Propietarios Juridicos', enlace:'#/tramites_jur', estilo:''},
+        {nombre:'Establecimientos inspeccionados', enlace:'#/lista-inspeccionados', estilo:''},
         {nombre:'Asignar sanción', enlace:'#/inspeccion/sancion/crear', estilo:'active'}]
     },
     //Configuraciones de la página
