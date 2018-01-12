@@ -140,10 +140,11 @@
                   </div>
               </div>    
               </div>
+              <button ng-show="persona.pro_id==null && pro_id==null" class="btn btn-primary" ng-click="crear_pnatural(persona.per_id)"><span class="glyphicon glyphicon-book"></span> REGISTRAR COMO PROPIETARIO</button>
               <div class="text-center">
-                  <a ng-click="recarga()" class="btn btn-primary" ><span class="glyphicon glyphicon-search"></span>  VOLVER A BUSCAR</a>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;   
-                  <a class="btn btn-primary" href="#/establecimientosol/crear/{{persona.per_id}}"><span class="glyphicon glyphicon-book"></span> REGISTRAR ESTABLECIMIENTO</a>
-                  
+                  <a ng-show="persona.pro_id!=null || pro_id!=null" ng-click="recarga()" class="btn btn-primary" ><span class="glyphicon glyphicon-search"></span>  VOLVER A BUSCAR</a>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                  <a ng-show="pro_id!=null && persona.pro_id==null" class="btn btn-primary" href="#/establecimientosol/crear/{{pro_id}}"><span class="glyphicon glyphicon-book"></span> REGISTRAR ESTABLECIMIENTO</a>
+                  <a ng-show="persona.pro_id!=null && pro_id==null" class="btn btn-primary" href="#/establecimientosol/crear/{{persona.pro_id}}"><span class="glyphicon glyphicon-book"></span> REGISTRAR ESTABLECIMIENTO</a>
               </div>
             </div>
             <!-- /PROPIETARIOPERSONA -->
