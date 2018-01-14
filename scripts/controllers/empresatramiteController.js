@@ -1,14 +1,13 @@
 'use strict';
 angular.module("adminApp")
 
-.controller('BuscarPropietarioCtrl', ['$scope', '$http', 'moment', 'BuscarPropietario', 'EmpresaTramite', '$route', '$resource', '$routeParams', 'toastr', '$location', '$timeout', 'CONFIG', function ($scope, $http, moment, BuscarPropietario, EmpresaTramite, $route, $resource,$routeParams, toastr, $location, $timeout,CONFIG) {
+.controller('BuscarPropietarioCtrl', ['$scope', '$http', 'moment', 'BuscarPropietario', 'EmpresaTramite', '$route', '$resource', '$routeParams', 'toastr', '$location', '$timeout', 'CONFIG','Usuarios', function ($scope, $http, moment, BuscarPropietario, EmpresaTramite, $route, $resource,$routeParams, toastr, $location, $timeout,CONFIG,Usuarios) {
     $scope.ajustes = {
       menu:{
         titulo: 'Búsqueda de Establecimiento',
         items:[
-        {nombre:'Solicitudes de Propietarios Naturales', enlace:'#/tramites_certi', estilo:''},
-        {nombre:'Solicitudes de Propietarios Juridicos', enlace:'#/tramites_certiJ', estilo:''},
-          {nombre:'Buscar empresa solicitante', enlace:'#/buscar-propietario', estilo:'active'}
+           {nombre:'Buscar empresa solicitante', enlace:'#/buscar-propietario', estilo:'active'},
+           {nombre:'Establecimientos solicitantes', enlace:'#/lista-solicitantes', estilo:''}
           // {nombre:'Registrar pago', enlace:'#/boleta-ces/'+et_id, estilo:''},
         ]
       },
@@ -20,11 +19,14 @@ angular.module("adminApp")
     var FunG = localStorage.getItem("Funcionario");
   var FunG = JSON.parse(FunG);
  var fun_id = FunG.fun_id;
+ $scope.ess_id=0;
     $scope.buscar=function () {
       console.log('parametro---------', $scope.parametro);
       $http.get(CONFIG.DOMINIO_SERVICIOS+'/buscarpropietario/'+$scope.parametro).success(function (respuesta) {
         $scope.personas=respuesta.persona;
         console.log('persona---------', $scope.personas);
+        
+       
         if(respuesta.persona.length<=0){
             $scope.ver=false;
             $scope.resultado=" No se encuentra resultados";
@@ -56,11 +58,14 @@ angular.module("adminApp")
                 et_tipo_tramite:'RENOVACION'
               };
 
+      $scope.ess_id=emptr.ess_id;
       if (persona.et_estado_pago=='VENCIDO') {
         EmpresaTramite.save(emptr).promise.then(function (argument) {
           console.log('et_id------', argument.et_id);
           if (argument.msg) {
             toastr.success('Generando nuevo trámite');
+
+            
             $timeout(function() {
                 $location.path('/boleta-ces/'+argument.et_id);
             },1000);
@@ -79,12 +84,13 @@ angular.module("adminApp")
         console.log('haber----',c);
 
       if(persona.et_estado_tramite=='APROBADO'&& c<=30)
-      {   
+      {   console.log("_____ENTRA AL IF DE APROBADO");
         
           EmpresaTramite.save(emptr).promise.then(function (argument) {
             console.log('et_id------', argument.et_id);
             if (argument.msg) {
               toastr.success('Generando nuevo trámite');
+             
               $timeout(function() {
                   $location.path('/boleta-ces/'+argument.et_id);
               },1000);
@@ -113,8 +119,171 @@ angular.module("adminApp")
           }  
       });
   }*/
+.controller('VerEmpresaCtrl', ['CONFIG', 'authUser','$scope','EmpTra','Funcionario', '$routeParams', '$location', '$timeout','Rubro',
+  function (CONFIG, authUser,$scope, EmpTra, Funcionario, $routeParams, $location, $timeout,Rubro){
+  /*if(authUser.isLoggedIn()){*/
 
- 
+    if(CONFIG.ROL_CURRENT_USER == 1 || CONFIG.ROL_CURRENT_USER == 14 || CONFIG.ROL_CURRENT_USER == 15)
+    {
+      $scope.ajustes = {
+        menu:{
+          titulo: 'Gestión de Empresas Solicitantes',
+          items:[
+            {nombre:'Establecimientos solicitantes', enlace:'#/lista-solicitantes', estilo:''},
+           {nombre:'Establecimientos validados', enlace:'#/lista-validacion', estilo:''},
+            {nombre:'Establecimientos inspeccionados', enlace:'#/lista-inspeccionados', estilo:''},
+            {nombre:'Establecimientos que cancelaron', enlace:'#/lista-cancelaron', estilo:''}]
+        },
+        pagina:{
+          titulo:'Información General del Establecimiento'
+        }
+      }
+    }
+  /*  else if(CONFIG.ROL_CURRENT_USER == 15 ){
+      $scope.ajustes = {
+        menu:{
+          titulo: 'Gestión de Empresas Solicitantes',
+          items:[
+            {nombre:'Establecimientos solicitantes', enlace:'#/lista-solicitantes', estilo:''},
+           {nombre:'Establecimientos validados', enlace:'#/lista-validacion', estilo:''}]
+        },
+        pagina:{
+          titulo:'Información General del Establecimiento'
+        }
+      }
+    }
+    else{
+      $scope.ajustes = {
+        menu:{
+          titulo: 'Gestión del Establecimiento de Salud',
+          items:[
+            {nombre:'Establecimiento', enlace:'#/establecimientos/ver', estilo:'active'}]
+        },
+        pagina:{
+          titulo:'Información General del Establecimiento'
+        }
+      }
+    }*/
+  /*  var es_id = 0;
+    if(CONFIG.ROL_CURRENT_USER == 1)
+    {
+      es_id = $routeParams.es_id;
+    }else{
+      var FunG = localStorage.getItem("Funcionario");
+      var FunG = JSON.parse(FunG);
+      es_id = FunG.es_id;
+    }*/
+    $scope.propietario="";
+    var et_id=$routeParams.et_id;
+    EmpTra.get({et_id:et_id},function(data){
+      $scope.establecimiento=data.establecimiento;
+      console.log("ver est____",$scope.establecimiento);
+console.log("length   ____",Object.keys($scope.establecimiento.propietario).length);
+      if (Object.keys($scope.establecimiento.propietario).length==7) {
+        $scope.propietario=$scope.establecimiento.propietario.pjur_razon_social;
+        console.log("propietario juridico  ____",$scope.propietario);
+      }
+      if (Object.keys($scope.establecimiento.propietario).length==22) {
+        $scope.propietario=$scope.establecimiento.propietario.per_nombres+' '+$scope.establecimiento.propietario.per_apellido_primero+' '+$scope.establecimiento.propietario.per_apellido_segundo;
+console.log("propietario natural  ____",$scope.propietario);
+      }
+
+      $scope.direccion=$scope.establecimiento.establecimiento_sol.ess_avenida_calle+' #'+$scope.establecimiento.establecimiento_sol.ess_numero+' '+$scope.establecimiento.establecimiento_sol.ess_stand
+      Rubro.get({emp_id:$scope.establecimiento.empresa.emp_id},function(data){
+          $scope.rubro=data.rubro;
+      });
+    });
+
+    function toTime(timeString){
+      var timeTokens = timeString.split(':');
+      return new Date(1970,0,1, timeTokens[0], timeTokens[1], timeTokens[2]);
+    }
+
+ /* } else {
+    $location.path('/inicio');
+  }*/
+}])
+ .controller('ListaSolicitantesCtrl', ['$scope', '$http', 'moment', 'ListaEmpTraEtapaEstado', 'EmpresaTramite', '$route', '$resource','$routeParams', 'toastr', '$location', '$timeout','CONFIG', function ($scope, $http, moment, ListaEmpTraEtapaEstado, EmpresaTramite, $route, $resource,$routeParams, toastr, $location, $timeout,CONFIG) {
+ $scope.user = {
+    rol_id: CONFIG.ROL_CURRENT_USER
+  }
+  if ($scope.user.rol_id == 15) {
+    $scope.ajustes = {
+    menu:{
+      titulo: 'Gestión de Certificado Sanitario',
+      items:[
+      {nombre:'Establecimientos solicitantes', enlace:'#/lista-solicitantes', estilo:'active'},
+      {nombre:'Establecimientos validados', enlace:'#/lista-validacion', estilo:''},
+      {nombre:'Establecimientos inspeccionados', enlace:'#/lista-inspeccionados', estilo:''}
+      ]
+    },
+    pagina:{
+      titulo:'Establecimientos Solicitantes'
+    }
+  }
+  } else if ($scope.user.rol_id == 3) {
+     $scope.ajustes = {
+      menu:{
+        titulo: 'Búsqueda de Establecimiento',
+        items:[
+           {nombre:'Buscar empresa solicitante', enlace:'#/buscar-propietario', estilo:''},
+           {nombre:'Establecimientos solicitantes', enlace:'#/lista-solicitantes', estilo:'active'}
+
+        ]
+      },
+      pagina:{
+        titulo:'Búsqueda de Establecimiento'
+      }
+    }
+  }
+  else {
+        $scope.ajustes = {
+        menu:{
+          titulo: 'Gestión de Certificado Sanitario',
+          items:[
+          {nombre:'Establecimientos solicitantes', enlace:'#/lista-solicitantes', estilo:'active'},
+           {nombre:'Establecimientos validados', enlace:'#/lista-validacion', estilo:''},
+            {nombre:'Establecimientos inspeccionados', enlace:'#/lista-inspeccionados', estilo:''},
+            {nombre:'Establecimientos que cancelaron', enlace:'#/lista-cancelaron', estilo:''}
+            /*,
+            {nombre:'Esablecimientos que cancelaron naturales', enlace:'#/tramites_certi', estilo:''},
+            {nombre:'Esablecimientos que cancelaron Juridicos', enlace:'#/tramites_certiJ', estilo:''}*/]
+        },
+        pagina:{
+          titulo:'Establecimientos Solicitantes'
+        }
+      }
+  }
+
+
+
+    $scope.sortType = 'te_fecha'; // ESTABLECIENDO EL TIPO DE ORDENAMIENTO
+    $scope.sortReverse  = true;  // PARA ORDENAR ASCENDENTEMENTO O DESCENDENTEMENTE
+    $scope.loading=true;//PARA HACER UN LOADING EN EL TEMPLATE
+    var condiciones={
+      eta_id:1,
+      te_estado:'PENDIENTE'
+
+    }
+  ListaEmpTraEtapaEstado.get(condiciones, function (argument) {
+      $scope.establecimientos = argument.empresa_tramite;
+      console.log('establecimientos', $scope.establecimientos);
+
+      angular.forEach($scope.establecimientos, function(value, key){
+            console.log( 'fecha:',value.te_fecha);
+            value.te_fecha=moment(value.te_fecha,"YYYY-MM-DD").format("DD-MM-YYYY");
+         });
+    //PARA HACER UN LOADING EN EL TEMPLATE  
+    if(argument.status){
+        $scope.loading = false;
+        $scope.msg = argument.status;
+      }
+    }); 
+  
+
+
+
+}])
 
 
 
@@ -125,7 +294,7 @@ angular.module("adminApp")
   if ($scope.user.rol_id == 16) {
     $scope.ajustes = {
     menu:{
-      titulo: 'Lista de establecimientos validados',
+      titulo: 'Gestión de Certificado Sanitario',
       items:[
       {nombre:'Establecimientos validados', enlace:'#/lista-validacion', estilo:'active'},
         {nombre:'Establecimientos inspeccionados', enlace:'#/lista-inspeccionados', estilo:''}
@@ -137,22 +306,38 @@ angular.module("adminApp")
       titulo:'Establecimientos Validados'
     }
   }
-  } else {
+  }else if ($scope.user.rol_id == 15) {
     $scope.ajustes = {
     menu:{
-      titulo: 'Lista de establecimientos validados',
+      titulo: 'Gestión de Certificado Sanitario',
       items:[
-       {nombre:'Establecimientos validados', enlace:'#/lista-validacion', estilo:'active'},
-        {nombre:'Establecimientos inspeccionados', enlace:'#/lista-inspeccionados', estilo:''},
-        {nombre:'Establecimientos que cancelaron', enlace:'#/lista-cancelaron', estilo:''},
-       
-        {nombre:'Esablecimientos que cancelaron naturales', enlace:'#/tramites_certi', estilo:''},
-        {nombre:'Esablecimientos que cancelaron Juridicos', enlace:'#/tramites_certiJ', estilo:''}]
+      {nombre:'Establecimientos solicitantes', enlace:'#/lista-solicitantes', estilo:''},
+      {nombre:'Establecimientos validados', enlace:'#/lista-validacion', estilo:'active'},
+      {nombre:'Establecimientos inspeccionados', enlace:'#/lista-inspeccionados', estilo:''}
+      ]
     },
     pagina:{
       titulo:'Establecimientos Validados'
     }
   }
+  }
+   else {
+        $scope.ajustes = {
+        menu:{
+          titulo: 'Gestión de Certificado Sanitario',
+          items:[
+          {nombre:'Establecimientos solicitantes', enlace:'#/lista-solicitantes', estilo:''},
+           {nombre:'Establecimientos validados', enlace:'#/lista-validacion', estilo:'active'},
+            {nombre:'Establecimientos inspeccionados', enlace:'#/lista-inspeccionados', estilo:''},
+            {nombre:'Establecimientos que cancelaron', enlace:'#/lista-cancelaron', estilo:''}
+            /*,
+            {nombre:'Esablecimientos que cancelaron naturales', enlace:'#/tramites_certi', estilo:''},
+            {nombre:'Esablecimientos que cancelaron Juridicos', enlace:'#/tramites_certiJ', estilo:''}*/]
+        },
+        pagina:{
+          titulo:'Establecimientos Validados'
+        }
+      }
   }
 
 
@@ -206,16 +391,32 @@ angular.module("adminApp")
       titulo:'Establecimientos inspeccionados'
     }
   }
-  } else {
+  }else if ($scope.user.rol_id == 15) {
     $scope.ajustes = {
     menu:{
-      titulo: 'Lista de establecimientos inspeccionados',
+      titulo: 'Establecimientos',
       items:[
+      {nombre:'Establecimientos solicitantes', enlace:'#/lista-solicitantes', estilo:''},
+      {nombre:'Establecimientos validados', enlace:'#/lista-validacion', estilo:''},
+      {nombre:'Establecimientos inspeccionados', enlace:'#/lista-inspeccionados', estilo:'active'}
+      ]
+    },
+    pagina:{
+      titulo:'Establecimientos Inspeccionados'
+    }
+  }
+  }
+   else {
+    $scope.ajustes = {
+    menu:{
+      titulo: 'Gestión de Certificado Sanitario',
+      items:[
+      {nombre:'Establecimientos solicitantes', enlace:'#/lista-solicitantes', estilo:''},
        {nombre:'Establecimientos validados', enlace:'#/lista-validacion', estilo:''},
         {nombre:'Establecimientos inspeccionados', enlace:'#/lista-inspeccionados', estilo:'active'},
-        {nombre:'Establecimientos que cancelaron', enlace:'#/lista-cancelaron', estilo:''},
+        {nombre:'Establecimientos que cancelaron', enlace:'#/lista-cancelaron', estilo:''}/*,
         {nombre:'Esablecimientos que cancelaron naturales', enlace:'#/tramites_certi', estilo:''},
-        {nombre:'Esablecimientos que cancelaron Juridicos', enlace:'#/tramites_certiJ', estilo:''}]
+        {nombre:'Esablecimientos que cancelaron Juridicos', enlace:'#/tramites_certiJ', estilo:''}*/]
     },
     pagina:{
       titulo:'Establecimientos inspeccionados'
@@ -228,6 +429,8 @@ angular.module("adminApp")
     $scope.sortType = 'te_fecha'; // ESTABLECIENDO EL TIPO DE ORDENAMIENTO
     $scope.sortReverse  = true;  // PARA ORDENAR ASCENDENTEMENTO O DESCENDENTEMENTE
     $scope.loading=true;//PARA HACER UN LOADING EN EL TEMPLATE
+    $scope.tabla2=false;
+     $scope.msg = false
     var condiciones={
       eta_id:2,
       te_estado:'APROBADO'
@@ -235,7 +438,19 @@ angular.module("adminApp")
     }
   ListaEmpTraEtapaEstado.get(condiciones, function (argument) {
       $scope.establecimientos = argument.empresa_tramite;
-      console.log('establecimientos', $scope.establecimientos);
+      console.log('establecimientos', $scope.establecimientos.length);
+      if($scope.establecimientos.length == 0){
+        $scope.loading = false;
+          $scope.msg = false;
+        $scope.tabla=false;
+         $scope.tabla2=true;
+        }
+        else{
+          $scope.loading = false;
+          $scope.msg = true;
+          $scope.tabla=true;
+      
+        }
 
       angular.forEach($scope.establecimientos, function(value, key){
             console.log( 'fecha:',value.te_fecha);
@@ -246,7 +461,11 @@ angular.module("adminApp")
         $scope.loading = false;
         $scope.msg = argument.status;
       }
-    }); 
+    },function () {
+      toastr.error("ERROR INESPERADO, POR FAVOR ACTUALICE LA PÁGINA");
+      $scope.loading = false;
+      $scope.msg = false;
+  }); 
   
 
 
@@ -254,27 +473,43 @@ angular.module("adminApp")
 }])
 
 
-.controller('ListaCancelaronCtrl', ['$scope', '$http', 'moment', 'ListaEmpTraEtapaEstado', 'EmpresaTramite', '$route', '$resource','$routeParams', 'toastr', '$location', '$timeout','CONFIG','EstabSols', function ($scope, $http, moment, ListaEmpTraEtapaEstado, EmpresaTramite, $route, $resource,$routeParams, toastr, $location, $timeout,CONFIG,EstabSols) {
+.controller('ListaCancelaronCtrl', ['$scope', '$http', 'moment', 'ListaEmpTraEtapaEstado', 'EmpresaTramite', '$route', '$resource','$routeParams', 'toastr', '$location', '$timeout','CONFIG','Verpropietario','VerEs','Prueba','CertificadoSanitario','EmpTra', function ($scope, $http, moment, ListaEmpTraEtapaEstado, EmpresaTramite, $route, $resource,$routeParams, toastr, $location, $timeout,CONFIG,Verpropietario,VerEs,Prueba,CertificadoSanitario,EmpTra) {
  $scope.user = {
     rol_id: CONFIG.ROL_CURRENT_USER
   }
   if ($scope.user.rol_id == 16) {
     $scope.ajustes = {
     menu:{
-      titulo: 'Lista de establecimientos que pagaron arancel',
+      titulo: 'Gestión de Certificado Sanitario',
       items:[
       {nombre:'Establecimientos validados', enlace:'#/lista-validacion', estilo:''},
         {nombre:'Establecimientos inspeccionados', enlace:'#/lista-inspeccionados', estilo:''},
         {nombre:'Establecimientos que cancelaron', enlace:'#/lista-cancelaron', estilo:'active'}
-      /* {nombre:'Propietarios Naturales', enlace:'#/tramites_nat', estilo:''},
-        {nombre:'Propietarios Juridicos', enlace:'#/tramites_jur', estilo:''},*/
      ]
     },
     pagina:{
       titulo:'Establecimientos que pagaron arancel'
     }
   }
-  } else {
+  } else if ($scope.user.rol_id == 14 || $scope.user.rol_id == 2) {
+    $scope.ajustes = {
+      menu:{
+        titulo: 'Gestión de Certificado Sanitario',
+        items:[ 
+
+          {nombre:'Establecimientos solicitantes', enlace:'#/lista-solicitantes', estilo:''},
+           {nombre:'Establecimientos validados', enlace:'#/lista-validacion', estilo:''},
+            {nombre:'Establecimientos inspeccionados', enlace:'#/lista-inspeccionados', estilo:''},
+            {nombre:'Establecimientos que cancelaron', enlace:'#/lista-cancelaron', estilo:'active'}
+          
+          ]
+      },
+      pagina:{
+        titulo:'Establecimientos que pagaron arancel'
+      }
+    }
+  }
+   else {
     $scope.ajustes = {
     menu:{
       titulo: 'Lista de establecimientos que pagaron arancel',
@@ -292,6 +527,14 @@ angular.module("adminApp")
   }
 
 
+
+    var FunG = localStorage.getItem("Funcionario");
+    var FunG = JSON.parse(FunG);
+    var fun_id = FunG.fun_id;
+
+    $scope.CurrentDate = new Date();
+    var mes=$scope.CurrentDate.getMonth()+1;
+    var fecha=$scope.CurrentDate.getDate()+"-"+mes+"-"+$scope.CurrentDate.getFullYear();
 
     $scope.sortType = 'te_fecha'; // ESTABLECIENDO EL TIPO DE ORDENAMIENTO
     $scope.sortReverse  = true;  // PARA ORDENAR ASCENDENTEMENTO O DESCENDENTEMENTE
@@ -314,31 +557,25 @@ angular.module("adminApp")
         $scope.loading = false;
         $scope.msg = argument.status;
       }
+  });
 
     var id = 0;
     var ci=0;
-    $scope.rec=function(et_id, per_id){
+    $scope.rec=function(et_id, ess_id, razon_social){
 
     id=et_id;
-    EstabSols.get({ess_id:per_id}, function(data){
-            $scope.persona = data.establecimiento;
-            console.log("para ver est___",$scope.persona);
-            $scope.nombre=$scope.persona.est_sol.ess_razon_social;
-            //console.log("GUARDANDO DATOS DE PERSONA EN LOCALSTORAGE",persona)
-  
-          });
+    Verpropietario.get({ess_id:ess_id}, function(data){
+      $scope.prop = data.propietario;
+      console.log("para ver est___",$scope.est);
+      if ($scope.prop.pro_tipo == 'N') {
+        $scope.nombre='Propietario: '+$scope.prop.per_nombres+' '+$scope.prop.per_apellido_primero+' '+$scope.prop.per_apellido_segundo+' , Empresa: '+razon_social;
+      }
+      if ($scope.prop.pro_tipo == 'J') {
+        $scope.nombre='Propietario: '+$scope.prop.pjur_razon_social+' , Empresa: '+razon_social;
+      }
+      
 
-    /*Personas.get({per_id:per_id}, function(data)
-      {
-        $scope.persona = data.persona;
-        $scope.nombre=$scope.persona.persona.per_nombres+' '+$scope.persona.persona.per_apellido_primero+' '+$scope.persona.persona.per_apellido_segundo;
-        ci=$scope.persona.persona.per_ci;
-      });*/
-  
-
-    var q=6;
-
-    
+    });    
      $scope.datos={
       fun_id:null,         
       te_estado:'',
@@ -364,21 +601,367 @@ angular.module("adminApp")
       te_fecha:''
     };
     
-  }; 
+  }; //fin rec
+  $scope.recepcionar1=function(obs){
+    VerEs.get({et_id:id,eta_id:3}, function(data){
+      $scope.estado3 =data.tramitecerestado;
+      if ($scope.estado3.te_estado=='APROBADO') { 
+        VerEs.get({et_id:id,eta_id:4}, function(data){
+          $scope.estado4 =data.tramitecerestado;
+          if ($scope.estado4.te_estado!='APROBADO') {
+              if (obs!='NINGUNA') {
+                $scope.datos={
+                    fun_id:fun_id,
+                    te_estado:'OBSERVADO',
+                    te_observacion:obs,
+                    te_fecha:fecha
+                }
+                console.log("observado",obs);
+              } else {
+                  $scope.datos={
+                      fun_id:fun_id,
+                      te_estado:'APROBADO',
+                      te_observacion:'NINGUNA',
+                      te_fecha:fecha
+                  }
+                  console.log("No observado");
+              }
+              console.log('el et_id para cambiar estado',id);
+              
+
+              var anio2=$scope.CurrentDate.getFullYear()+1;
+              var fecha2=$scope.CurrentDate.getDate()+"-"+mes+"-"+anio2;
+              Prueba.update({et_id:id,eta_id:4}, $scope.datos).$promise.then(function(data)
+              {
+                  if(data.status)
+                  {
+                      console.log("lo logro...",data);
+                      toastr.success('Guardado correctamente');
+                    if ($scope.datos.te_observacion=='NINGUNA') {
+                      /*FirmaFun.get({fun_id:fun_id}, function(data)
+                      {
+                        $scope.firmas=data.firma;
+                        $scope.fir=data.firma;
+                        console.log("obteniendo la firma del fucnionario logueado", $scope.firmas);*/
+                        console.log("__el ci de la persona__",ci);
+                        $scope.certificado={
+                            et_id:id,
+                            ces_numero:ci,
+                            ces_fecha_inicio:fecha,
+                            ces_fecha_fin:fecha2,
+                           /* ces_fir_url1:$scope.firmas.firma.fir_url,
+                            ces_fir_nombre1:$scope.firmas.firma.fir_name*/
+                        }
+                        console.log("PARA GUARDAR EL certificado",$scope.certificado);
+                        CertificadoSanitario.save($scope.certificado).$promise.then(function(data)
+                        {
+                           if(data.msg){
+                            angular.copy({}, $scope.certificado);
+                            console.log("Se registro certificado correctamente",data);
+                          
+                          }
+
+                        });//fin carnetsanitario
+                      /*  $scope.fir=$scope.firmas;
+                        console.log("__FIRMA__dentro",$scope.fir); */   
+                    /*  } );//FIN DE FIRMAFUNCIONARIO*/
+                     /* $route.reload();*/
+                     }
+                  }
+              });//FIN prueba
+          }
+          else{
+            toastr.error('Ya se aprobó este trámite');
+          }
+        });//estado 1
+      }
+      else{
+        toastr.error('Aun no se realizó pago de arancel');
+      }
+    });//estado 33
+  };//recepcionar 1
+
+  $scope.recepcionar2=function(obs){
+    VerEs.get({et_id:id,eta_id:5}, function(data){
+      $scope.estado5 =data.tramitecerestado;
+      if ($scope.estado5.te_estado!='APROBADO') {
+        EmpTra.get({et_id:id}, function(data){
+          $scope.emp_tra = data.establecimiento;
+          var b=4;
+          VerEs.get({et_id:id,eta_id:b}, function(data){
+            $scope.busca =data.tramitecerestado;
+            console.log("hizo el get",$scope.busca.te_estado);
+            if ($scope.busca.te_estado=='APROBADO') {
+                if (obs!='NINGUNA') {
+                  $scope.datos2={
+                      fun_id:fun_id,
+                      te_estado:'OBSERVADO',
+                      te_observacion:obs,
+                      te_fecha:fecha
+                  };
+                  console.log("observado",obs);
+                } else {
+                    $scope.datos2={
+                        fun_id:fun_id,
+                        te_estado:'APROBADO',
+                        te_observacion:'NINGUNA',
+                        te_fecha:fecha
+                    };
+                  console.log("No observado");
+                }
+                /*BusCert.get({et_id:id}, function(data){
+                  $scope.certificado = data.certificado;*/
+                  Prueba.update({et_id:id,eta_id:5}, $scope.datos2).$promise.then(function(data)
+                  {
+                    console.log("entra a update")
+                    if(data.status)
+                    {     
+                      console.log("lo logro...");
+                      toastr.success('Aprobacion correcta');
+                      console.log("PARA VER LA FIRMA", fun_id);
+                      if ($scope.datos2.te_observacion=='NINGUNA') {
+                    
+                            /*$scope.certificado2={
+                                ces_fir_url2:$scope.firmas.firma.fir_url,
+                                ces_fir_nombre2:$scope.firmas.firma.fir_name
+                            }*/
+                            //para editar el certificado FirmaFun --borrar 13-1-2018
+                            /*Firm2.update({ces_id:$scope.certificado.ces_id},$scope.certificado2).$promise.then(function(data)
+                            {
+                               if(data.msg){
+                                angular.copy({}, $scope.certificado2);
+                                console.log("Se registro certificado correctamente",data);
+                                }
+                            });//fin carnetsanitario*/
+                
+                      }
+                      $route.reload();
+                    }
+                  });//FIN TRAMITE ESTADO
+                //fin de busca certificado
+             /*   },function () {
+                    toastr.error("ERROR INESPERADO, por favor actualize la página");
+                    $scope.loading = false;
+                    $scope.msg = false;
+
+                  });//fin de busca certificado*/
+            } else {
+              toastr.error('ANTES DEBE APROBAR EL RESPONSABLE DE AREA');
+            }
+          },function () {
+          toastr.error("ERROR INESPERADO, por favor actualize la página");
+          $scope.loading = false;
+          $scope.msg = false;
+           });
+        });//fin emptra 
+      }
+      else{
+          toastr.error('Ya se aprobó este trámite');
+      }
+    });//estado 1
+  };//fin recepcionar 2
+
+  $scope.recepcionar4=function(obs){
+    VerEs.get({et_id:id,eta_id:6}, function(data){
+      $scope.estado6 =data.tramitecerestado;
+      if ($scope.estado6.te_estado!='APROBADO') {
+        EmpTra.get({et_id:id}, function(data){
+          $scope.emp_tra = data.establecimiento;
+          var b=5;
+          VerEs.get({et_id:id,eta_id:b}, function(data){
+            $scope.busca =data.tramitecerestado;
+            if ($scope.busca.te_estado=='APROBADO') {
+                if (obs!='NINGUNA') {
+                  $scope.datos4={
+                      fun_id:fun_id,
+                      te_estado:'OBSERVADO',
+                      te_observacion:obs,
+                      te_fecha:fecha
+                  };
+                  console.log("observado",obs);
+                } else {
+                    $scope.datos4={
+                        fun_id:fun_id,
+                        te_estado:'APROBADO',
+                        te_observacion:'NINGUNA',
+                        te_fecha:fecha
+                    };
+                  console.log("No observado");
+                };
+                var d=6;
+                Prueba.update({et_id:id,eta_id:d}, $scope.datos4).$promise.then(function(data)
+                {
+                  if(data.status)
+                  {
+                      console.log("lo logro...");
+                      toastr.success('Aprobacion correcta');
+                      $route.reload();
+                  }
+                });//FIN TRAMITE ESTADO
+            } else {
+              toastr.error('ANTES DEBE APROBAR EL JEFE DE UNIDAD ');
+            }
+            //fin de emptra 
+          },function () {
+            toastr.error("ERROR INESPERADO, por favor actualize la página");
+            $scope.loading = false;
+            $scope.msg = false;
+          });
+        });//fin emptra 
+      }
+      else{
+        toastr.error('Ya se aprobó este trámite');
+      }
+    });//estado 4
+  };//fin recepcionar 4
+
+  $scope.recepcionar3=function(obs){
+    VerEs.get({et_id:id,eta_id:7}, function(data){
+      $scope.estadoq =data.tramitecerestado;
+      console.log("estado del no firma___",$scope.estadoq.te_estado);
+      if ($scope.estadoq.te_estado!='APROBADO') {
+        EmpTra.get({et_id:id}, function(data){
+          $scope.emp_tra = data.establecimiento;
+          var b=6;
+          VerEs.get({et_id:id,eta_id:b}, function(data){
+            $scope.busca =data.tramitecerestado;
+            if ($scope.busca.te_estado=='APROBADO') {
+              if (obs!='NINGUNA') {
+                $scope.datos3={
+                    fun_id:fun_id,
+                    te_estado:'OBSERVADO',
+                    te_observacion:obs,
+                    te_fecha:fecha
+                };
+              } else {
+                  $scope.datos3={
+                      fun_id:fun_id,
+                      te_estado:'APROBADO',
+                      te_observacion:'NINGUNA',
+                      te_fecha:fecha
+                  };
+              }
+              /*BusCert.get({et_id:id}, function(data){
+                $scope.certificadoFI = data.certificado;*/
+                Prueba.update({et_id:id,eta_id:7}, $scope.datos3).$promise.then(function(data){
+                  if(data.status){
+                    toastr.success('Aprobacion correcta');
+                      /*$scope.certificado3={
+                          ces_fir_url3:$scope.firmas.firma.fir_url,
+                          ces_fir_nombre3:$scope.firmas.firma.fir_name
+                      }
+                      Firm3.update({ces_id:$scope.certificadoFI.ces_id},$scope.certificado3).$promise.then(function(data){
+                           if(data.msg){
+                            angular.copy({}, $scope.certificado3);
+                            console.log("Se registro certificado correctamente",data);
+                            }
+                      });//fin carnetsanitario */                
+                    $route.reload();
+                  }
+                });//FIN TRAMITE ESTADO prueba
+              /*},function () {
+                toastr.error("ERROR INESPERADO, por favor actualize la página");
+                $scope.loading = false;
+                $scope.msg = false;
+              });//fin de busca certificado*/
+            } else {
+              toastr.error('ANTES DEBE APROBAR EL RESPONSABLE DE TESORERÍA');
+            }
+          });//fin de ver estado
+        },function () {
+          toastr.error("ERROR INESPERADO, por favor actualize la página");
+          $scope.loading = false;
+          $scope.msg = false;
+        });//fin emptra 
+      }
+      else{
+        toastr.error('Ya se aprobó este trámite');
+      }
+    });//estado 4
+  };//fin de recepcion 3
+
+}])
+
+.controller('ListaConcluidosCtrl', ['$scope', '$http', 'moment', 'ListaEmpTraEtapaEstado', 'EmpresaTramite', '$route', '$resource','$routeParams', 'toastr', '$location', '$timeout','CONFIG', function ($scope, $http, moment, ListaEmpTraEtapaEstado, EmpresaTramite, $route, $resource,$routeParams, toastr, $location, $timeout,CONFIG) {
+ $scope.user = {
+    rol_id: CONFIG.ROL_CURRENT_USER
+  }
+  if ($scope.user.rol_id == 16) {
+    $scope.ajustes = {
+    menu:{
+      titulo: 'Lista de establecimientos inspeccionados',
+      items:[
+      {nombre:'Establecimientos validados', enlace:'#/lista-validacion', estilo:''},
+        {nombre:'Establecimientos inspeccionados', enlace:'#/lista-inspeccionados', estilo:'active'}
+      /* {nombre:'Propietarios Naturales', enlace:'#/tramites_nat', estilo:''},
+        {nombre:'Propietarios Juridicos', enlace:'#/tramites_jur', estilo:''},*/
+     ]
+    },
+    pagina:{
+      titulo:'Establecimientos inspeccionados'
+    }
+  }
+  } else {
+    $scope.ajustes = {
+    menu:{
+      titulo: 'Lista de establecimientos inspeccionados',
+      items:[
+      {nombre:'Establecimientos solicitantes', enlace:'#/lista-solicitantes', estilo:''},
+       {nombre:'Establecimientos validados', enlace:'#/lista-validacion', estilo:''},
+        {nombre:'Establecimientos inspeccionados', enlace:'#/lista-inspeccionados', estilo:'active'},
+        {nombre:'Establecimientos que cancelaron', enlace:'#/lista-cancelaron', estilo:''},
+        {nombre:'Esablecimientos que cancelaron naturales', enlace:'#/tramites_certi', estilo:''},
+        {nombre:'Esablecimientos que cancelaron Juridicos', enlace:'#/tramites_certiJ', estilo:''}]
+    },
+    pagina:{
+      titulo:'Establecimientos inspeccionados'
+    }
+  }
+  }
 
 
 
+    $scope.sortType = 'te_fecha'; // ESTABLECIENDO EL TIPO DE ORDENAMIENTO
+    $scope.sortReverse  = true;  // PARA ORDENAR ASCENDENTEMENTO O DESCENDENTEMENTE
+    $scope.loading=true;//PARA HACER UN LOADING EN EL TEMPLATE
+    var condiciones={
+      eta_id:7,
+      te_estado:'APROBADO'
 
+    }
+  ListaEmpTraEtapaEstado.get(condiciones, function (argument) {
+      $scope.establecimientos = argument.empresa_tramite;
+      console.log('establecimientos', $scope.establecimientos);
 
-
+      angular.forEach($scope.establecimientos, function(value, key){
+            console.log( 'fecha:',value.te_fecha);
+            value.te_fecha=moment(value.te_fecha,"YYYY-MM-DD").format("DD-MM-YYYY");
+         });
+    //PARA HACER UN LOADING EN EL TEMPLATE  
+    if(argument.status){
+        $scope.loading = false;
+        $scope.msg = argument.status;
+      }
     }); 
   
 
 
 
 }])
+
+
+
+
+
+
+
+
+
+
+
+
  //lista tramites propietarios naturales etapa 3=aprobada arancel
-.controller('ListNatCtrl', ['$scope','CONFIG', 'ListN', '$route', 'toastr', '$location','Personas','FirmaFun','EmpTra','CertificadoSanitario','Firm2','Firm3','BusCert','Prueba','wen','VerEs', function ($scope,CONFIG, ListN, $route, toastr,$location,Personas,FirmaFun,EmpTra,CertificadoSanitario,Firm2,Firm3,BusCert,Prueba,wen,VerEs)
+/*.controller('ListNatCtrl', ['$scope','CONFIG', 'ListN', '$route', 'toastr', '$location','Personas','FirmaFun','EmpTra','CertificadoSanitario','Firm2','Firm3','BusCert','Prueba','wen','VerEs', function ($scope,CONFIG, ListN, $route, toastr,$location,Personas,FirmaFun,EmpTra,CertificadoSanitario,Firm2,Firm3,BusCert,Prueba,wen,VerEs)
 {
   $scope.ajustes = {
     menu:{
@@ -535,7 +1118,7 @@ angular.module("adminApp")
             $scope.fir=$scope.firmas;
             console.log("__FIRMA__dentro",$scope.fir);    
           } );//FIN DE FIRMAFUNCIONARIO
-         /* $route.reload();*/
+         // $route.reload();
          }
       }
 
@@ -558,10 +1141,8 @@ VerEs.get({et_id:id,eta_id:5}, function(data){
       $scope.estado5 =data.tramitecerestado;
       if ($scope.estado5.te_estado!='APROBADO') {
     EmpTra.get({et_id:id}, function(data){
-    /*console.log('*******empresa_tramite___recep 2 ---------', data);*/
-
     $scope.emp_tra = data.establecimiento;
-   /* console.log('*******PARA VER EMPTRA---------', $scope.emp_tra);*/
+  
       
     var b=4;
     VerEs.get({et_id:id,eta_id:b}, function(data){
@@ -586,20 +1167,13 @@ VerEs.get({et_id:id,eta_id:5}, function(data){
             console.log("No observado");
             }
           BusCert.get({et_id:id}, function(data){
-          /*console.log('__BUSCAR CERTIFICADO__', data);*/
+          
           $scope.certificado = data.certificado;
-         /* console.log('el et_id para cambiar estado',id);*/
+        
           Prueba.update({et_id:id,eta_id:5}, $scope.datos2).$promise.then(function(data)
           {
               console.log("entra a update")
 
-          /*wen.get({et_id:1,eta_id:5}, function(data){
-            $scope.busca =data.tramitecerestado;
-            console.log("hizo el get",$scope.busca);
-            
-          });*/
-          /*Aprob2.update({et_id:id}, $scope.datos2).$promise.then(function(data)
-          {*/
             console.log("entra a update")
             if(data.status)
             {
@@ -733,7 +1307,7 @@ VerEs.get({et_id:id,eta_id:6}, function(data){
       $scope.estadoq =data.tramitecerestado;
       if ($scope.estadoq.te_estado!='APROBADO') {
     EmpTra.get({et_id:id}, function(data){
-    /*console.log('*******empresa_tramite ---------', data);*/
+ 
     $scope.emp_tra = data.establecimiento;
     console.log('*******PARA VER EMPTRA---------', $scope.emp_tra);
     var b=5;
@@ -767,8 +1341,6 @@ VerEs.get({et_id:id,eta_id:6}, function(data){
           {
               console.log("entra a update")
 
-   /* Aprob3.update({et_id:id}, $scope.estado3).$promise.then(function(data)
-    {*/
       console.log("entra a update")
       if(data.status)
       {
@@ -840,19 +1412,11 @@ VerEs.get({et_id:id,eta_id:6}, function(data){
     idd = per_id;
     $scope.nombre_completo = per_apellido_primero + " " + per_apellido_segundo + " " + per_nombres;
   }
-/*
-  $scope.remove = function(per_id){
-    Personas.delete({per_id:id}).$promise.then(function(data){
-      if(data.mensaje){
-        toastr.success('Eliminado correctamente');
-        $route.reload();
-      }
-    })
-  }*/
-}])
+
+}])*/
 
  //lista tramites propietarios juridicos etapa 3=aprobada arancel
-.controller('ListJurCtrl', ['$scope', 'ListJ', '$route', 'toastr', '$location','CONFIG','FirmaFun','EmpTra','CertificadoSanitario','Firm2','Firm3','BusCert','Prueba','VerEs', function ($scope, ListJ, $route, toastr,$location,CONFIG,FirmaFun,EmpTra,CertificadoSanitario,Firm2,Firm3,BusCert,Prueba,VerEs)
+/*.controller('ListJurCtrl', ['$scope', 'ListJ', '$route', 'toastr', '$location','CONFIG','FirmaFun','EmpTra','CertificadoSanitario','Firm2','Firm3','BusCert','Prueba','VerEs', function ($scope, ListJ, $route, toastr,$location,CONFIG,FirmaFun,EmpTra,CertificadoSanitario,Firm2,Firm3,BusCert,Prueba,VerEs)
 {//en este caso el rec debe ver al propietario juridico
   $scope.ajustes = {
     menu:{
@@ -906,12 +1470,7 @@ $scope.CurrentDate = new Date();
     console.log("LLEGA A LA FUNCION",et_id);
     id=et_id;
     $scope.nombre=pjur_razon_social;
-/*    Personas.get({per_id:per_id}, function(data)
-      {
-        $scope.persona = data.persona;
-        $scope.nombre=$scope.persona.persona.per_nombres+' '+$scope.persona.persona.per_apellido_primero+' '+$scope.persona.persona.per_apellido_segundo;
-        ci=$scope.persona.persona.per_ci;
-      });*/  
+
      $scope.datos={
       fun_id:null,         
       te_estado:'',
@@ -1069,7 +1628,7 @@ $scope.CurrentDate = new Date();
                          
                     } );//FIN DE FIRMAFUNCIONARIO
                   }
-                   /* $route.reload();*/
+                   // $route.reload();
                 }
 
               });//FIN TRAMITE ESTADO
@@ -1137,8 +1696,8 @@ $scope.CurrentDate = new Date();
             if(data.status)
             {
                 toastr.success('Se aprobo el trámite correctamente');
-              /*
-                $route.reload();*/
+              
+                //$route.reload();
             }
 
           });//FIN TRAMITE ESTADO
@@ -1197,14 +1756,13 @@ $scope.CurrentDate = new Date();
             }
             BusCert.get({et_id:id}, function(data){
                 $scope.certificadoFI = data.certificado;
-               /*if($scope.certificadoFI.ces_fir_nombre3 ==null)
-               {*/
+             
                 Prueba.update({et_id:id,eta_id:7}, $scope.datos3).$promise.then(function(data)
                 {
                    if(data.status)
                    {
                         toastr.success('Se aprobo el trámite correctamente');
-                /*console.log("PARA VER LA FIRMA", fun_id)*/;
+                
                         FirmaFun.get({fun_id:fun_id}, function(data)
                         {
                             $scope.firmas=data.firma;
@@ -1222,7 +1780,7 @@ $scope.CurrentDate = new Date();
 
                             });//fin de firma3
                         } );//FIN DE FIRMAFUNCIONARIO
-            /*$route.reload();*/
+            //$route.reload();
                     }
                  });//FIN prueba
      
@@ -1264,94 +1822,5 @@ $scope.CurrentDate = new Date();
       $scope.msg = false;
     }); 
 
+}])*/
 
-/*  $scope.get_per_id = function(per_id, per_apellido_primero, per_apellido_segundo, per_nombres){
-    id = per_id;
-    $scope.nombre_completo = per_apellido_primero + " " + per_apellido_segundo + " " + per_nombres;
-  }
-
-  $scope.remove = function(per_id){
-    Personas.delete({per_id:id}).$promise.then(function(data){
-      if(data.mensaje){
-        toastr.success('Eliminado correctamente');
-        $route.reload();
-      }
-    })
-  }*/
-}])
-
-.controller('VerEmpresaCtrl', ['CONFIG', 'authUser','$scope','EstabSols','Funcionario', '$routeParams', '$location', '$timeout',
-  function (CONFIG, authUser,$scope, EstabSols, Funcionario, $routeParams, $location, $timeout){
-  /*if(authUser.isLoggedIn()){*/
-
-    if(CONFIG.ROL_CURRENT_USER == 1)
-    {
-      $scope.ajustes = {
-        menu:{
-          titulo: 'Gestión de Empresas Solicitantes',
-          items:[
-            {nombre:'Propietarios Naturales', enlace:'#/tramites_certi', estilo:''},
-            {nombre:'Propietarios Juridicos', enlace:'#/tramites_certiJ', estilo:''}/*,
-            {nombre:'Nuevo Establecimiento', enlace:'#/establecimientos/create', estilo:''},
-            {nombre:'Establecimientos por Red', enlace:'#/red/establecimientos', estilo:''}*/]
-        },
-        pagina:{
-          titulo:'Información General del Establecimiento'
-        }
-      }
-    }
-   /* else if(CONFIG.ROL_CURRENT_USER == 2 || CONFIG.ROL_CURRENT_USER == 9){
-      $scope.ajustes = {
-        menu:{
-          titulo: 'Gestión del Establecimiento de Salud',
-          items:[
-            {nombre:'Establecimiento', enlace:'#/establecimientos/ver', estilo:'active'},
-            {nombre:'Editar Establecimiento', enlace:'#/establecimientos/edit', estilo:''}]
-        },
-        pagina:{
-          titulo:'Información General del Establecimiento'
-        }
-      }
-    }
-    else{
-      $scope.ajustes = {
-        menu:{
-          titulo: 'Gestión del Establecimiento de Salud',
-          items:[
-            {nombre:'Establecimiento', enlace:'#/establecimientos/ver', estilo:'active'}]
-        },
-        pagina:{
-          titulo:'Información General del Establecimiento'
-        }
-      }
-    }*/
-  /*  var es_id = 0;
-    if(CONFIG.ROL_CURRENT_USER == 1)
-    {
-      es_id = $routeParams.es_id;
-    }else{
-      var FunG = localStorage.getItem("Funcionario");
-      var FunG = JSON.parse(FunG);
-      es_id = FunG.es_id;
-    }*/
-    var ess_id=$routeParams.ess_id;
-    EstabSols.get({ess_id:ess_id}, function(data){
-      $scope.establecimiento = data.establecimiento;
-      if (Object.keys($scope.establecimiento.propietario).length==7) {
-      $scope.propietario=$scope.establecimiento.propietario.pjur_razon_social;
-      }
-      if (Object.keys($scope.establecimiento.propietario).length==22) {
-        $scope.propietario=$scope.establecimiento.propietario.per_nombres+' '+$scope.establecimiento.propietario.per_apellido_primero+' '+$scope.establecimiento.propietario.per_apellido_segundo;
-      }
-      
-    });
-
-    function toTime(timeString){
-      var timeTokens = timeString.split(':');
-      return new Date(1970,0,1, timeTokens[0], timeTokens[1], timeTokens[2]);
-    }
-
- /* } else {
-    $location.path('/inicio');
-  }*/
-}])

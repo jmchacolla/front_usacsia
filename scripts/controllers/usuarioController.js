@@ -204,12 +204,12 @@ if (SesionG.rol_id !=6) {
     vm.buscaFuncionario = function(){
       $http.get(CONFIG.DOMINIO_SERVICIOS+"/funcionario/"+vm.aux).success(function(data){
         vm.funci = data.funcionario;
-        console.log("datos obtenidos del funcionario",vm.funci);
+        console.log("datos obtenidos del funcionario",vm.aux);
       
         vm.usuario.usu_tipo = "P";
         vm.usuario.usu_identificador =vm.funci.persona.per_id;
-        vm.usuario.usu_nick = vm.funci.persona.per_ci;
-        vm.usuario.password = vm.funci.persona.per_ci;
+        /*vm.usuario.usu_nick = vm.funci.persona.per_ci;
+        vm.usuario.password = vm.funci.persona.per_ci;*/
     
       })
     }
@@ -473,7 +473,7 @@ if (SesionG.rol_id !=6) {
   
   UsuariosF.get(function(data){
     $scope.usuarios = data.usuario;
-    console.log("USUARIOS FUNCIONARIOS wendy",$scope.usuarios);
+
     if(data.status && $scope.usuarios.length>0) {
       $scope.loading = false;
       $scope.msg = data.status;

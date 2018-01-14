@@ -68,11 +68,9 @@
                         </div>
                     </div> 
                     <hr>
-                                 
-                   <!-- <div class="row"> -->
-                      <h4 class="text-center text-primary">II. FICHA INSPECCIÓN</h4>
-                          <hr class="bg-red"> 
-                  <!-- </div>   -->
+                    <h4 class="text-center text-primary">II. FICHA INSPECCIÓN</h4>
+                    <hr class="bg-red"> 
+ 
                   <div class="row">
                     <div class="col-md-4">
                          <div class="formulario">
@@ -86,7 +84,7 @@
                         <div class="formulario">
                               <div class="checkbox">
                               <input class="checkbox" type="checkbox" name="ag" id="agua" ng-model="ficha.fi_exibe_certificado" ng-init="true" >
-                              <label for="agua">Exhibe certificado</label>
+                              <label for="agua">Exhibe certificado sanitario</label>
                               </div>
                         </div>
                     </div>
@@ -94,7 +92,7 @@
                         <div class="formulario">
                               <div class="checkbox">
                               <input class="checkbox" type="checkbox" name="ag" id="calf" ng-model="ficha.fi_exibe_carne" ng-init="checked=false" >
-                              <label for="calf">Exhibe carnet</label>
+                              <label for="calf">Exhibe carné sanitario</label>
                               </div>
                         </div>
                     </div>
@@ -118,9 +116,7 @@
                               </div>
                         </div>
                     </div>
-                    
-                  
-                </div>
+              </div>
          <!-- 
                    <div class="row">
                         <div class="col-md-6">
@@ -133,7 +129,7 @@
                    <div class="row">
                     <div class="col-md-6">
                             <label for="equi" class="control-label ">RECOMENDACIONES :<strong class="fg_red">*</strong></label><br>
-                            <textarea name="equi" ng-model-options="{ updateOn: 'blur' }" rows="6" cols="100" style="resize: vertical;min-height:70px;max-height: 150px;" placeholder="detalle equipo" ng-model="ficha.fi_observacion"></textarea>
+                            <textarea name="equi" ng-model-options="{ updateOn: 'blur' }" rows="6" cols="50" style="resize: vertical;min-height:70px;max-height: 150px;" placeholder="detalle equipo" ng-model="ficha.fi_observacion"></textarea>
                            
                      </div>
                    </div>

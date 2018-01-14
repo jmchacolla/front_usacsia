@@ -85,14 +85,11 @@
                   </table>
         </div>
         
-        <!-- <div class="col-md-12"> -->
-          
-      <!--   </div> -->
-        
+              
         </div>
-        </div><!--  -->
-         <hr>
-        <div ng-show="ver"  class="col-md-12" align="center" ng-controller="PdfCertificadoCtrl" >
+        </div>
+<!--          <hr> -->
+        <div ng-show="ver && user.rol_id==14"  class="col-md-12" align="center" ng-controller="PdfCertificadoCtrl" >
            <button type="button" class="btn btn-default" ng-click="openPdfCES()" >IMPRIMIR PAGO  <span class="glyphicon glyphicon-print"></span></button>
            <button type="button"  class="btn btn-default" ng-click="downloadPdfCES()">Descargar PDF PAGO  <span class="glyphicon glyphicon-download-alt"></span></button>
         </div>

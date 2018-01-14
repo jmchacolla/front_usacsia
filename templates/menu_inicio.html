@@ -106,7 +106,12 @@
 							<span class="glyphicon glyphicon-asterisk" aria-hidden="true"></span>
 								Asignación de zonas a inspectores</a>
 						</li>
-						<li ng-show="menu.CONFIG.ROL_CURRENT_USER == 1 || menu.CONFIG.ROL_CURRENT_USER == 3" >
+						<li ng-show="menu.CONFIG.ROL_CURRENT_USER == 6">
+							<a href="#/documento-tramite/crear" >
+							<span class="glyphicon glyphicon-asterisk" aria-hidden="true"></span>
+								Subir documentos</a>
+						</li>
+						<!-- <li ng-show="menu.CONFIG.ROL_CURRENT_USER == 1 || menu.CONFIG.ROL_CURRENT_USER == 3" >
 			            	<a href="#/tramites_certi">
 			            	<span class="glyphicon glyphicon-asterisk" aria-hidden="true"></span>
 			           		Trámites certificado propietarios naturales</a>
@@ -115,23 +120,33 @@
 			            	<a href="#/tramites_certiJ">
 			            	<span class="glyphicon glyphicon-asterisk" aria-hidden="true"></span>
 			           		Trámites certificado propietarios juridicos</a>
+			            </li> -->
+			            <li ng-show="menu.CONFIG.ROL_CURRENT_USER == 1 || menu.CONFIG.ROL_CURRENT_USER == 15 || menu.CONFIG.ROL_CURRENT_USER == 3" >
+			            	<a href="#/lista-solicitantes">
+			            	<span class="glyphicon glyphicon-asterisk" aria-hidden="true"></span>
+			           		Solicitantes</a>
 			            </li>
-			            <li ng-show="menu.CONFIG.ROL_CURRENT_USER == 1 || menu.CONFIG.ROL_CURRENT_USER == 16" >
+			            <li ng-show="menu.CONFIG.ROL_CURRENT_USER == 1 || menu.CONFIG.ROL_CURRENT_USER == 15 || menu.CONFIG.ROL_CURRENT_USER == 16" >
 			            	<a href="#/lista-validacion">
 			            	<span class="glyphicon glyphicon-asterisk" aria-hidden="true"></span>
 			           		Validados</a>
 			            </li>
-			            <li ng-show="menu.CONFIG.ROL_CURRENT_USER == 1 || menu.CONFIG.ROL_CURRENT_USER == 16" >
+			            <li ng-show="menu.CONFIG.ROL_CURRENT_USER == 1 || menu.CONFIG.ROL_CURRENT_USER == 15 || menu.CONFIG.ROL_CURRENT_USER == 16 || menu.CONFIG.ROL_CURRENT_USER == 14 || menu.CONFIG.ROL_CURRENT_USER == 2 || menu.CONFIG.ROL_CURRENT_USER == 17 || menu.CONFIG.ROL_CURRENT_USER == 18" >
 			            	<a href="#/lista-inspeccionados">
 			            	<span class="glyphicon glyphicon-asterisk" aria-hidden="true"></span>
 			           		Inspeccionados</a>
 			            </li>
-			            <li ng-show="menu.CONFIG.ROL_CURRENT_USER == 1 || menu.CONFIG.ROL_CURRENT_USER == 14 || menu.CONFIG.ROL_CURRENT_USER == 2 || menu.CONFIG.ROL_CURRENT_USER == 17 || menu.CONFIG.ROL_CURRENT_USER == 18" >
+			            <li ng-show="menu.CONFIG.ROL_CURRENT_USER == 1  || menu.CONFIG.ROL_CURRENT_USER == 14 || menu.CONFIG.ROL_CURRENT_USER == 2 || menu.CONFIG.ROL_CURRENT_USER == 17 || menu.CONFIG.ROL_CURRENT_USER == 18" >
 			            	<a href="#/lista-cancelaron">
 			            	<span class="glyphicon glyphicon-asterisk" aria-hidden="true"></span>
 			           		Pagaron</a>
 			            </li>
-			            <li ng-show="menu.CONFIG.ROL_CURRENT_USER == 16" >
+			            <li ng-show="menu.CONFIG.ROL_CURRENT_USER == 1 || menu.CONFIG.ROL_CURRENT_USER == 14 " >
+			            	<a href="#/lista-concluidos">
+			            	<span class="glyphicon glyphicon-asterisk" aria-hidden="true"></span>
+			           		Trámites concluidos</a>
+			            </li>
+			            <!-- <li ng-show="menu.CONFIG.ROL_CURRENT_USER == 16" >
 			            	<a href="#/tramites_nat">
 			            	<span class="glyphicon glyphicon-asterisk" aria-hidden="true"></span>
 			           		Propietarios Naturales</a>
@@ -140,23 +155,21 @@
 			            	<a href="#/tramites_jur">
 			            	<span class="glyphicon glyphicon-asterisk" aria-hidden="true"></span>
 			           		Propietarios Juridicos</a>
-			            </li>
-
-			            
-			             <!-- <li ng-show="menu.CONFIG.ROL_CURRENT_USER == 1 || menu.CONFIG.ROL_CURRENT_USER == 3" >
+			            </li> -->
+						<!-- <li ng-show="menu.CONFIG.ROL_CURRENT_USER == 1 || menu.CONFIG.ROL_CURRENT_USER == 3" >
 			            	<a href="#/buscar-propietario">
 			            	<span class="glyphicon glyphicon-asterisk" aria-hidden="true"></span>
 			           		Cargar Firma</a>
 			            </li> -->
-						<li ng-show="menu.CONFIG.ROL_CURRENT_USER == 1 || menu.CONFIG.ROL_CURRENT_USER == 7">	 <a href="#/homepais">
-				            <span class="glyphicon glyphicon-asterisk" aria-hidden="true"></span>
-				            Tablas administrativas</a>
-				        </li>
 			            <li ng-show="menu.CONFIG.ROL_CURRENT_USER == 1 " >
 			            	<a href="#/usuario/create">
 			            	<span class="glyphicon glyphicon-asterisk" aria-hidden="true"></span>
 			           		Usuarios</a>
 			            </li>
+						<li ng-show="menu.CONFIG.ROL_CURRENT_USER == 1 || menu.CONFIG.ROL_CURRENT_USER == 7">	 <a href="#/homepais">
+				            <span class="glyphicon glyphicon-asterisk" aria-hidden="true"></span>
+				            Tablas administrativas</a>
+				        </li>
 			            
 			    	</ul>
 				</li>
