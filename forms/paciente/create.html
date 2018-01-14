@@ -55,12 +55,12 @@
          <!--  <div><center>  RESULTADOS {{ tamanio }}</center></div> -->
            <table class="table table-bordered table-striped table-hover">
              <thead >
-                <th>C.I.</th> 
-                <th>NOMBRES</th>
-                <th>APELLIDO PATERNO</th>
-                <th>APELLIDO MATERNO</th>                          
-                <th>REGISTRAR</th>
-                <th>ADMITIR</th>
+                <th class="text-primary">C.I.</th> 
+                <th class="text-primary">NOMBRES</th>
+                <th class="text-primary">APELLIDO PATERNO</th>
+                <th class="text-primary">APELLIDO MATERNO</th>                          
+                <th class="text-primary">REGISTRAR</th>
+                <th class="text-primary">ADMITIR</th>
              </thead>
              <tbody >
                 <tr>
@@ -125,7 +125,7 @@
                   </div>
                   <div ng-if="valor == '0'" class="modal-footer">
                     <button type="button" class="btn btn-primary" data-dismiss="modal" ng-click="admitir(pac_per.paciente.pac_id)" ng-disabled="addCod.$invalid"><span class="glyphicon glyphicon-ok"></span>ADMITIR</button>
-                    <button type="button" class="btn btn-danger" data-dismiss="modal"><span class="glyphicon glyphicon-remove"></span>CANCELAR</button>
+                    <button type="button" class="btn btn-default" data-dismiss="modal"><span class="glyphicon glyphicon-remove"></span>CANCELAR</button>
                   </div>
                   <div ng-if="valor == '1'" class="modal-footer">
                     <button type="button" class="btn btn-primary" data-dismiss="modal" ng-click="admitir_E(pac_per.paciente.pac_id)"><span class="glyphicon glyphicon-ok"></span>  HABILTAR</button>

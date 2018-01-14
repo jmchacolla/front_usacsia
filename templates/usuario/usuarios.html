@@ -43,11 +43,11 @@
 			<div class="table-responsive">
 				<table class="table table-bordered table-striped table-hover" ng-show="!loading && msg" >
 					<thead>
-						<th>Nº</th>
-						<th>Funcionario</th>
-						<th>Rol</th>
-						<th>Cambiar Rol</th>
-						<th>Restablecer Contraseña</th>
+						<th class="text-primary">Nº</th>
+						<th class="text-primary">Funcionario</th>
+						<th class="text-primary">Rol</th>
+						<th class="text-primary">Cambiar Rol</th>
+						<th class="text-primary">Restablecer Contraseña</th>
 					</thead>
 					<tbody ng-repeat="usuario in usuarios | filter:texto">
 						<td>{{$index + 1}}</td>
@@ -60,7 +60,7 @@
 		                    <div id="miCuadroModal" class="modal fade" role="dialog" tabindex="-1">
 		                      <div class="modal-dialog">
 		                        <div class="modal-content">
-		                          <div class="modal-header bg-green">
+		                          <div class="modal-header bg-red">
 		                            <button type="button" class="close" data-dismiss="modal">×</button>
 		                            <h4 class="modal-title fg-white">CAMBIAR ROL</h4>
 		                          </div>
@@ -81,8 +81,8 @@
 		                          </div>
 		                          <div class="modal-footer">
 		                          	¿Está seguro que desea cambiar el rol del usuario? 
+		                            <button type="button" class="btn btn-default" data-dismiss="modal"><span class="glyphicon glyphicon-remove"></span> NO</button>
 		                            <button type="button" class="btn btn-primary" data-dismiss="modal" ng-click="cambiar_rol(usu.rol_id)" ng-disabled="cambiarRol.$invalid"><span class="glyphicon glyphicon-ok"></span> SI</button>
-		                            <button type="button" class="btn btn-danger" data-dismiss="modal"><span class="glyphicon glyphicon-remove"></span> NO</button>
 		                          </div>
 		                        </div>
 		                      </div>

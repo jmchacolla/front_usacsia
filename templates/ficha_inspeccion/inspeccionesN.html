@@ -35,31 +35,31 @@
       <div class="table-responsive">
         <table class="table table-bordered table-striped table-hover" ng-show="!loading && msg" id="table">
           <thead >
-          <th >
+          <th class="text-primary" >
               <a href="" ng-click="sortType = 'created_at'; sortReverse = !sortReverse">
                       Fecha de Inspección
                       <span ng-show="sortType == 'created_at' && !sortReverse" class="glyphicon glyphicon-chevron-up"></span>
                         <span ng-show="sortType == 'created_at' && sortReverse" class="glyphicon glyphicon-chevron-down"></span>
                         </a>
             </th>
-            <th >
+            <th class="text-primary" >
               <a href="" ng-click="sortType = 'per_ci'; sortReverse = !sortReverse">C.I.</a>
               <span ng-show="sortType == 'per_ci' && !sortReverse" class="glyphicon glyphicon-chevron-up"></span>
               <span ng-show="sortType == 'per_ci' && sortReverse" class="glyphicon glyphicon-chevron-down"></span>
             </th>
-            <th >
+            <th class="text-primary" >
               <a href="" ng-click="sortType = 'per_apellido_primero'; sortReverse = !sortReverse">Apellidos 
               <span ng-show="sortType == 'per_apellido_primero' && !sortReverse" class="glyphicon glyphicon-chevron-up"></span>
               <span ng-show="sortType == 'per_apellido_primero' && sortReverse" class="glyphicon glyphicon-chevron-down"></span></a>
             </th>
-            <th >
+            <th class="text-primary" >
               <a href="" ng-click="sortType = 'per_nombres'; sortReverse = !sortReverse">Nombres 
               <span ng-show="sortType == 'per_nombres' && !sortReverse" class="glyphicon glyphicon-chevron-up"></span>
               <span ng-show="sortType == 'per_nombres' && sortReverse" class="glyphicon glyphicon-chevron-down"></span></a>
             </th>
-            <th>Establecimiento</th>
-            <th>Ver</th>
-            <th ng-show="user.rol == '16'">Ficha</th>
+            <th class="text-primary">Establecimiento</th>
+            <th class="text-primary">Ver</th>
+            <th class="text-primary" ng-show="user.rol == '16'">Ficha</th>
             <!-- <th>Dar de baja</th> -->
           </thead>
           <tbody>

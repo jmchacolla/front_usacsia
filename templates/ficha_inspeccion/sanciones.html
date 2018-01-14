@@ -34,27 +34,27 @@
       <div ng-show="!loading && !msg">No se encontraron resultados</div>
       <div class="table-responsive">
         <table class="table table-bordered table-striped table-hover" ng-show="!loading && msg" id="table">
-          <thead >
-          <th >
+          <th class="text-primary"ead >
+          <th class="text-primary" >
               <a href="" ng-click="sortType = 'created_at'; sortReverse = !sortReverse">
                       Fecha de Recepción
                       <span ng-show="sortType == 'created_at' && !sortReverse" class="glyphicon glyphicon-chevron-up"></span>
                         <span ng-show="sortType == 'created_at' && sortReverse" class="glyphicon glyphicon-chevron-down"></span>
                         </a>
             </th>
-            <th >
+            <th class="text-primary" >
               <a href="" ng-click="sortType = 'cat_descripcion'; sortReverse = !sortReverse">Sanción</a>
              <!--  <span ng-show="sortType == 'per_ci' && !sortReverse" class="glyphicon glyphicon-chevron-up"></span>
               <span ng-show="sortType == 'per_ci' && sortReverse" class="glyphicon glyphicon-chevron-down"></span> -->
             </th>
-            <th >
+            <th class="text-primary" >
               <a href="" ng-click="sortType = 'cat_monto'; sortReverse = !sortReverse">Monto 
               <!-- <span ng-show="sortType == 'per_apellido_primero' && !sortReverse" class="glyphicon glyphicon-chevron-up"></span>
               <span ng-show="sortType == 'per_apellido_primero' && sortReverse" class="glyphicon glyphicon-chevron-down"></span> --></a>
             </th>
            
            
-           <!--  <th>Dar de baja</th> -->
+           <!--  <th class="text-primary">Dar de baja</th> -->
           </thead>
           <tbody>
             <tr ng-repeat="fc in ficha_cat_san  | orderBy:sortType:sortReverse | filter:per_ci">

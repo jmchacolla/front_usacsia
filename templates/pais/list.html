@@ -37,15 +37,15 @@
             
                 <table class="table table-hovertable table-bordered table-striped table-hover" ng-show="!loading && msg" id="tablaES">
                      <thead>
-                        <th >
+                        <th class="text-primary">
                             <a href="" ng-click="sortType = 'nac_nombre'; sortReverse = !sortReverse">
                             Nombre País
                             <span ng-show="sortType == 'nac_nombre' && !sortReverse" class="glyphicon glyphicon-sort-by-alphabet"></span>
-                         <span ng-show="sortType == 'nac_nombre' && sortReverse" class="glyphicon glyphicon-sort-by-alphabet-alt"></span>
+                            <span ng-show="sortType == 'nac_nombre' && sortReverse" class="glyphicon glyphicon-sort-by-alphabet-alt"></span>
                             </a>
                         </th>
-                        <th >Nombre del Capital</th>
-                        <th >Nombre del Continente</th>
+                        <th class="text-primary">Nombre del Capital</th>
+                        <th class="text-primary">Nombre del Continente</th>
                         
                         
                     </thead>

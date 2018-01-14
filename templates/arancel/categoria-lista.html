@@ -38,27 +38,27 @@
         
         <table class="table table-bordered table-striped table-hover" ng-show="!loading && msg">
           <thead >
-            <th >
+            <th class="text-primary">
               <a href="" ng-click="sortType = 'per_ci'; sortReverse = !sortReverse">Item</a>
               <span ng-show="sortType == 'per_ci' && !sortReverse" class="glyphicon glyphicon-sort-by-order"></span>
               <span ng-show="sortType == 'per_ci' && sortReverse" class="glyphicon glyphicon-sort-by-order-alt"></span>
             </th>
-            <th >
+            <th class="text-primary">
               <a href="" ng-click="sortType = 'per_apellido_primero'; sortReverse = !sortReverse">Servicio 
               <span ng-show="sortType == 'per_apellido_primero' && !sortReverse" class="glyphicon glyphicon-sort-by-alphabet"></span>
               <span ng-show="sortType == 'per_apellido_primero' && sortReverse" class="glyphicon glyphicon-sort-by-alphabet-alt"></span></a>
             </th>
-            <th>
+            <th class="text-primary">
               <a href="" ng-click="sortType = 'per_nombres'; sortReverse = !sortReverse">Descripción 
               <span ng-show="sortType == 'per_nombres' && !sortReverse" class="glyphicon glyphicon-sort-by-alphabet"></span>
               <span ng-show="sortType == 'per_nombres' && sortReverse" class="glyphicon glyphicon-sort-by-alphabet-alt"></span></a>
             </th>
-            <th >Área</th>
-            <th >Categoría</th>
-            <th >Monto (Bs.)</th>
-            <th >Ver</th>
-            <th >Editar</th>
-            <th >Borrar</th>
+            <th class="text-primary">Área</th>
+            <th class="text-primary">Categoría</th>
+            <th class="text-primary">Monto (Bs.)</th>
+            <th class="text-primary">Ver</th>
+            <th class="text-primary">Editar</th>
+            <th class="text-primary">Borrar</th>
           </thead>
 
           <tbody ng-repeat="categoria in categoria | orderBy:sortType:sortReverse | filter:cat_id">
@@ -76,27 +76,27 @@
                 <a class="btn btn-primary" title="Editar" href="#/categoria/editar/{{categoria.cat_id}}">
                 <span class="glyphicon glyphicon-pencil"></span></a>
               <td >
-                <button class="btn btn-danger" title="Borrar" data-toggle="modal" data-target="#miCuadroModal1" ng-click="get_per_id(persona.per_id, persona.per_apellido_primero, persona.per_apellido_segundo, persona.per_nombres)" title="Eliminar"><span class="glyphicon glyphicon-trash"></span></button> <!--archivar -->
+                <button class="btn btn-danger" title="Borrar" data-toggle="modal" data-target="#miCuadroModal1" ng-click="get_per_id(categoria.cat_codigo)" title="Eliminar"><span class="glyphicon glyphicon-trash"></span></button> <!--archivar -->
                 <div id="miCuadroModal1" class="modal fade" role="dialog" tabindex="-1">
                   <div class="modal-dialog">
                     <div class="modal-content">
                       <div class="modal-header bg-red">
                         <button type="button" class="close" data-dismiss="modal">×</button>
-                        <h4 class="modal-title fg-white">ELIMINAR REGISTROS DE CIUDADANO</h4>
+                        <h4 class="modal-title  fg-white">ELIMINAR REGISTRO DE CATEGORÍA</h4>
                       </div>
                       <div class="modal-body lead text-center">
-                        Está seguro que desea eliminar los registros de esta persona?
+                        ¿Está seguro que desea eliminar los registros?
                         <br>
                         <div class="well well-sm">
                           <strong>{{nombre_completo | uppercase}}</strong>
                         </div>
                       </div>
                       <div class="modal-footer">
-                        <button type="button" class="btn btn-primary" data-dismiss="modal" ng-click="remove(persona.per_id)">
-                          <span class="glyphicon glyphicon-ok"></span>SI
+                        <button type="button" class="btn btn-default" data-dismiss="modal">
+                          <span class="glyphicon glyphicon-remove"></span> NO
                         </button>
-                        <button type="button" class="btn btn-danger" data-dismiss="modal">
-                          <span class="glyphicon glyphicon-remove"></span>NO
+                        <button type="button" class="btn btn-primary" data-dismiss="modal" ng-click="remove(persona.per_id)">
+                          <span class="glyphicon glyphicon-ok"></span> SI
                         </button>
                       </div>
                     </div>

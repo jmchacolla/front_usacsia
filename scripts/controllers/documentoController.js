@@ -8,7 +8,7 @@ function ($scope, Documento, $route,$routeParams,toastr,$location)
     menu:{
       titulo: 'Gestión de tramites de Carné Sanitario',
       items:[
-        {nombre:'Requisitos para el tramite de Certificado sanitario', enlace:'#/documento', estilo:'active'},
+        {nombre:'Requisitos para el trámite de Certificado sanitario', enlace:'#/documento', estilo:'active'},
         {nombre:'Crear documento como requisito', enlace:'#/documento/crear', estilo:''}]
     },
     pagina:{
@@ -30,7 +30,7 @@ function ($scope, Documento, $route,$routeParams,toastr,$location)
 {
   $scope.ajustes = {
     menu:{
-      titulo: 'Gestión de tramites de Carné Sanitario',
+      titulo: 'Gestión de trámites de Carné Sanitario',
       items:[
         {nombre:'Requisitos para el tramite de Certificado sanitario', enlace:'#/documento', estilo:''},
         {nombre:'Crear documento como requisito', enlace:'#/documento/crear', estilo:'active'}]

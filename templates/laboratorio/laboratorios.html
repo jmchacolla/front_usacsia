@@ -35,25 +35,25 @@
       <div class="table-responsive">
         <table class="table table-bordered table-striped table-hover" ng-show="!loading && msg" id="table">
           <thead >
-            <th >
+            <th class="text-primary" >
               <a href="" ng-click="sortType = 'lab_cod'; sortReverse = !sortReverse">Codigo</a>
               <span ng-show="sortType == 'lab_cod' && !sortReverse" class="glyphicon glyphicon-chevron-up"></span>
               <span ng-show="sortType == 'lab_cod' && sortReverse" class="glyphicon glyphicon-chevron-down"></span>
             </th>
-            <th >
+            <th class="text-primary" >
               <a href="" ng-click="sortType = 'amb_nombre'; sortReverse = !sortReverse">Nombre 
               <span ng-show="sortType == 'amb_nombre' && !sortReverse" class="glyphicon glyphicon-chevron-up"></span>
               <span ng-show="sortType == 'amb_nombre' && sortReverse" class="glyphicon glyphicon-chevron-down"></span></a>
             </th>
-            <th >
+            <th class="text-primary" >
               <a href="" ng-click="sortType = 'amb_descripcion'; sortReverse = !sortReverse">Descripcion 
               <span ng-show="sortType == 'amb_descripcion' && !sortReverse" class="glyphicon glyphicon-chevron-up"></span>
               <span ng-show="sortType == 'amb_descripcion' && sortReverse" class="glyphicon glyphicon-chevron-down"></span></a>
             </th>
-            <th>Responsable</th>
-            <th >Ver</th>
-            <th>Editar</th>
-            <th>Eliminar</th>
+            <th class="text-primary">Responsable</th>
+            <th class="text-primary" >Ver</th>
+            <th class="text-primary">Editar</th>
+            <th class="text-primary">Eliminar</th>
           </thead>
           <tbody>
             <tr  ng-repeat="laboratorio in laboratorios  | filter:searchText | orderBy:sortType:sortReverse ">
@@ -83,8 +83,8 @@
                         <div class="well well-sm"><strong>{{nombre | uppercase}}</strong></div>
                       </div>
                       <div class="modal-footer">
+                        <button type="button" class="btn btn-default" data-dismiss="modal"><span class="glyphicon glyphicon-remove"></span> NO</button>
                         <button type="button" class="btn btn-primary" data-dismiss="modal" ng-click="remove(laboratorio.amb_id)"><span class="glyphicon glyphicon-ok"></span> SI</button>
-                        <button type="button" class="btn btn-danger" data-dismiss="modal"><span class="glyphicon glyphicon-remove"></span> NO</button>
                       </div>
                     </div>
                   </div>

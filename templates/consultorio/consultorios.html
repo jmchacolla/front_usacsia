@@ -41,25 +41,25 @@
       <div class="table-responsive">
         <table class="table table-bordered table-striped table-hover" ng-show="!loading && msg" id="table">
           <thead >
-            <th >
+            <th class="text-primary" >
               <a href="" ng-click="sortType = 'con_cod'; sortReverse = !sortReverse">Codigo</a>
               <span ng-show="sortType == 'con_cod' && !sortReverse" class="glyphicon glyphicon-chevron-up"></span>
               <span ng-show="sortType == 'con_cod' && sortReverse" class="glyphicon glyphicon-chevron-down"></span>
             </th>
-            <th >
+            <th class="text-primary" >
               <a href="" ng-click="sortType = 'amb_nombre'; sortReverse = !sortReverse">Nombre 
               <span ng-show="sortType == 'per_apellido_primero' && !sortReverse" class="glyphicon glyphicon-chevron-up"></span>
               <span ng-show="sortType == 'per_apellido_primero' && sortReverse" class="glyphicon glyphicon-chevron-down"></span></a>
             </th>
-            <th >
+            <th class="text-primary" >
               <a href="" ng-click="sortType = 'amb_descripcion'; sortReverse = !sortReverse">Descripcion 
               <span ng-show="sortType == 'amb_descripcion' && !sortReverse" class="glyphicon glyphicon-chevron-up"></span>
               <span ng-show="sortType == 'amb_descripcion' && sortReverse" class="glyphicon glyphicon-chevron-down"></span></a>
             </th>
-            <th>Habilitar</th>
-            <th >Ver</th>
-            <th>Editar</th>
-            <th>Eliminar</th>
+            <th class="text-primary">Habilitar</th>
+            <th class="text-primary" >Ver</th>
+            <th class="text-primary">Editar</th>
+            <th class="text-primary">Eliminar</th>
           </thead>
           <tbody>
             <tr  ng-repeat="consultorio in consultorios  | filter:searchText | orderBy:sortType:sortReverse ">
@@ -81,17 +81,17 @@
                 <div id="miCuadroModal1" class="modal fade" role="dialog" tabindex="-1">
                   <div class="modal-dialog">
                     <div class="modal-content">
-                      <div class="modal-header bg-red">
+                      <div class="modal-header">
                         <button type="button" class="close" data-dismiss="modal">×</button>
-                        <h4 class="modal-title fg-white">ELIMINAR CONSULTORIO</h4>
+                        <h4 class="modal-title">ELIMINAR CONSULTORIO</h4>
                       </div>
                       <div class="modal-body lead text-center">
                         ¿Está seguro que desea eliminar este consultorio?
                         <div class="well well-sm"><strong>{{nombre | uppercase}}</strong></div>
                       </div>
                       <div class="modal-footer">
+                        <button type="button" class="btn btn-default" data-dismiss="modal"><span class="glyphicon glyphicon-remove"></span> NO</button>
                         <button type="button" class="btn btn-primary" data-dismiss="modal" ng-click="remove(consultorio.amb_id)"><span class="glyphicon glyphicon-ok"></span> SI</button>
-                        <button type="button" class="btn btn-danger" data-dismiss="modal"><span class="glyphicon glyphicon-remove"></span> NO</button>
                       </div>
                     </div>
                   </div>

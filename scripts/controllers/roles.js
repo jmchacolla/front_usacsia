@@ -12,7 +12,7 @@ angular.module('adminApp')
 
 // DOMINIO_SERVICIOS: "http://localhost:8000"//---------------------jhon
 
-//DOMINIO_SERVICIOS: "http://localhost/api_usacsia_v1_0/public"
+DOMINIO_SERVICIOS: "http://localhost/api_usacsia_v1_0/public"
 
 
 
@@ -25,9 +25,7 @@ angular.module('adminApp')
 
  //wendy
 
-
 // DOMINIO_SERVICIOS: "http://localhost:8080/api_usacsia_v1_0/public"
-
 
 
 //vero

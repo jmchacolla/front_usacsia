@@ -64,9 +64,9 @@
 					<div class="table-responsive">
 						<table class="table table-bordered table-striped table-hover" ng-show="!loading && msg" >
 							<thead>
-								<th>Nº</th>
-								<th>Funcionario</th>
-								<th>Rol</th>
+								<th class="text-primary">Nº</th>
+								<th class="text-primary">Funcionario</th>
+								<th class="text-primary">Rol</th>
 							</thead>
 							<tbody ng-repeat="usuario in usuarios | filter:texto">
 								<td>{{$index + 1}}</td>

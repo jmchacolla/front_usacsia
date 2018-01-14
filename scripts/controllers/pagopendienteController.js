@@ -34,22 +34,7 @@ EmpTra.get({et_id:et_id}, function (argument) {
           // $scope.pagop=costo;
       }
     })
-    // $scope.verpagos=function (tra_id) {
-    //   if (tra_id==2) {
-          
-    //       $scope.verdeudas=true;
-    //       PagoPendienteTramite.get({et_id:et_id}, function (argument) { 
-    //         console.log('argument-------', argument);
-    //         if (argument.pagop.length<=0) {
-    //           $scope.verdeudas=false;
-    //         }
-    //         else{
-    //           $scope.pagop=argument.pagop;
-    //         }
-    //       })
-    //   }
-      
-    // }
+
     $scope.save=function (et_id, tra_costo) {
       // var today=moment().format('DD-MM-YYYY');
       var pago={
@@ -78,21 +63,6 @@ EmpTra.get({et_id:et_id}, function (argument) {
             },200);
           }
       })
-
-      /*var emptramite={
-        fun_id:1,//----------------debe recoger de la sesion
-        et_estado_pago:'PAGADO',
-        et_estado_tramite:'INICIADO',
-      };*/
-      /*EmpresaTramite.update(emptramite, {et_id:et_id}, function (data) {
-          toastr.success('Pago registrado exitosamente');
-        console.log('empt', data);
-        if (data.mensaje) {
-          $timeout(function() {
-              $location.path('/pago-pendiente/'+pp_id);
-          },1000);
-        }
-      })*/
     }
 }])
 
@@ -351,7 +321,8 @@ EmpTra.get({et_id:et_id}, function (argument) {
     var estado={op_estado_pago:'PENDIENTE', et_id:et_id};
     OrdenPagoEstado.get(estado, function (data) {
       $scope.ordenpago=data.ordenpago;
-      console.log('$scope.ordenpago', $scope.ordenpago);
+      // console.log('$scope.ordenpago', $scope.ordenpago);
+      $scope.ordenpago.op_fecha_emision=moment($scope.ordenpago.op_fecha_emision, 'YYYY-MM-DD').format('DD-MM-YYYY');
     })
     $scope.detalle=function (op_id) {
       $location.path('/orden-detalle/'+op_id);
@@ -418,6 +389,10 @@ EmpTra.get({et_id:et_id}, function (argument) {
           });
         }
     });
+    $scope.openOrdenPDF=function (data) {
+      // body...
+    }
+
 
 }])
 

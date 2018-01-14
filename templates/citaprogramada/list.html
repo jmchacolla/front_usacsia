@@ -61,11 +61,11 @@
                     <div ><h4><span class="well well-sm">FECHA: <strong>{{cita[0].cit_fecha_consulta}}</strong></span></h4></div>
                     <table  class="table table-bordered">
                           <thead  class="well well-sm">
-                            <th>Nº</th>
-                            <th>Hora</th>
-                            <th>Servicio</th>
-                            <th>Paciente</th>    
-                            <th>Estado</th>            
+                            <th class="text-primary">Nº</th>
+                            <th class="text-primary">Hora</th>
+                            <th class="text-primary">Servicio</th>
+                            <th class="text-primary">Paciente</th>    
+                            <th class="text-primary">Estado</th>            
                           </thead>
                           <tbody ng-repeat="citat in cita " >
                             <tr ng-class="{success:citat.cit_estado_confirmacion == 'CONFIRMADA'}">

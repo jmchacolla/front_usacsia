@@ -42,11 +42,11 @@
            <!--  <div><center>  RESULTADOS {{ tamanio }}</center></div> -->
              <table class="table table-bordered table-striped table-hover">
                <thead >
-                  <th>C.I.</th> 
-                  <th>NOMBRES</th>
-                  <th>APELLIDO PATERNO</th>
-                  <th>APELLIDO MATERNO</th>                          
-                  <th>REGISTRAR</th>
+                  <th class="text-primary">C.I.</th> 
+                  <th class="text-primary">NOMBRES</th>
+                  <th class="text-primary">APELLIDO PATERNO</th>
+                  <th class="text-primary">APELLIDO MATERNO</th>                          
+                  <th class="text-primary">REGISTRAR</th>
                </thead>
                <tbody >
                   <tr>
@@ -94,11 +94,11 @@
                     </div>
                     <div ng-if="valor == '0' && !fe_estado && !fe_estado_activo" class="modal-footer">
                       <button type="button" class="btn btn-primary" data-dismiss="modal" ng-click="reg(persona.per_id,fun_id,null)"><span class="glyphicon glyphicon-ok"></span> REGISTRAR</button>
-                      <button type="button" class="btn btn-danger" data-dismiss="modal"><span class="glyphicon glyphicon-remove"></span> CANCELAR</button>
+                      <button type="button" class="btn btn-default" data-dismiss="modal"><span class="glyphicon glyphicon-remove"></span> CANCELAR</button>
                     </div>
                     <div ng-if="fe_estado" class="modal-footer">
                       <button type="button" class="btn btn-success" data-dismiss="modal" ng-click="reg(persona.per_id,fun_id,fe_id)"><span class="glyphicon glyphicon-ok"></span> HABILITAR</button>
-                      <button type="button" class="btn btn-danger" data-dismiss="modal"><span class="glyphicon glyphicon-remove"></span> CANCELAR</button>
+                      <button type="button" class="btn btn-default" data-dismiss="modal"><span class="glyphicon glyphicon-remove"></span> CANCELAR</button>
                     </div>
                     <div ng-if="fe_estado_activo" class="modal-footer">
                       <button type="button" class="btn btn-primary" data-dismiss="modal"><span class="glyphicon glyphicon-ok"></span> ENTENDIDO</button>

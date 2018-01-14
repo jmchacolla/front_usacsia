@@ -36,11 +36,11 @@
                 <div class="table-responsive" >
                     <table class="table table-bordered table-striped table-hover" >
                       <thead >
-                        <th ><a href="" >Nombre
+                        <th class="text-primary"><a href="" >Nombre
                             <span ng-show="sortType == 'con_nombre' && !sortReverse" class="glyphicon glyphicon-sort-by-alphabet"></span>
                             <span ng-show="sortType == 'con_nombre' && sortReverse" class="glyphicon glyphicon-sort-by-alphabet-alt"></span></a>
                         </th>
-                        <th >Ver Horarios de atenci&oacute;n</th>
+                        <th class="text-primary">Ver Horarios de atenci&oacute;n</th>
                       </thead>
                       <tbody ng-repeat="consultorio in consultorios | filter:searchText " >
                         <tr>

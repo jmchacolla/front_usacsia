@@ -18,8 +18,8 @@ angular.module("adminApp")
     }
 
     var FunG = localStorage.getItem("Funcionario");
-  var FunG = JSON.parse(FunG);
- var fun_id = FunG.fun_id;
+    var FunG = JSON.parse(FunG);
+    var fun_id = FunG.fun_id;
     $scope.buscar=function () {
       console.log('parametro---------', $scope.parametro);
       $http.get(CONFIG.DOMINIO_SERVICIOS+'/buscarpropietario/'+$scope.parametro).success(function (respuesta) {
@@ -63,7 +63,7 @@ angular.module("adminApp")
             toastr.success('Generando nuevo trámite');
             $timeout(function() {
                 $location.path('/boleta-ces/'+argument.et_id);
-            },1000);
+            },200);
           }
         });
       }
@@ -71,7 +71,7 @@ angular.module("adminApp")
       {
         $timeout(function() {
             $location.path('/boleta-ces/'+persona.et_id);
-        },1000);
+        },200);
       }
         var today= moment().format('DD/MM/YYYY');
         var vigencia=moment(persona.et_vigencia_documento).format('DD/MM/YYYY');
@@ -87,7 +87,7 @@ angular.module("adminApp")
               toastr.success('Generando nuevo trámite');
               $timeout(function() {
                   $location.path('/boleta-ces/'+argument.et_id);
-              },1000);
+              },200);
             }
           })
       }
@@ -99,21 +99,6 @@ angular.module("adminApp")
 }])
 
 
-/*$scope.buscaPersona = function(){
-    console.log('esta buscando persona');
-      $scope.resultado="Cargando...";
-      $http.get(CONFIG.DOMINIO_SERVICIOS+'/personas_ci/'+$scope.per_ci).success(function(respuesta){
-          $scope.persona = respuesta.persona;
-          if(!respuesta.persona){
-              $scope.ver=false;
-              $scope.resultado=" La persona no se encuentra registrada";              
-          } else if(respuesta.persona){
-              $scope.ver=true;
-              $scope.resultado='';
-          }  
-      });
-  }*/
-
   //lista tramites propietarios naturales
 .controller('ListNatCtrl', ['$scope','CONFIG', 'ListN', '$route', 'toastr', '$location','Personas','FirmaFun','EmpTra','CertificadoSanitario','Firm2','Firm3','BusCert','Prueba','wen','VerEs', function ($scope,CONFIG, ListN, $route, toastr,$location,Personas,FirmaFun,EmpTra,CertificadoSanitario,Firm2,Firm3,BusCert,Prueba,wen,VerEs)
 {
@@ -123,7 +108,7 @@ angular.module("adminApp")
       items:[
         {nombre:'Solicitudes de Propietarios Naturales', enlace:'#/tramites_certi', estilo:'active'},
         {nombre:'Solicitudes de Propietarios Juridicos', enlace:'#/tramites_certiJ', estilo:''},
-        {nombre:'Busqueda de personas registradas', enlace:'#/buscar-propietario', estilo:''}]
+        {nombre:'Búsqueda de personas registradas', enlace:'#/buscar-propietario', estilo:''}]
     },
     pagina:{
       titulo:'Tramites de Certificado Sanitario'
@@ -284,7 +269,7 @@ angular.module("adminApp")
     });//estado 1
     }
     else{
-      toastr.error('Aun no se realizó pago de arancel');
+      toastr.error('Aún no se realizó pago de arancel');
     }
     });//estado 33
   };

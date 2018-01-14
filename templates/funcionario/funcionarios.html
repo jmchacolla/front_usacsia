@@ -35,25 +35,25 @@
       <div class="table-responsive">
         <table class="table table-bordered table-striped table-hover" ng-show="!loading && msg" id="table">
           <thead >
-            <th >
+            <th class="text-primary" >
               <a href="" ng-click="sortType = 'per_ci'; sortReverse = !sortReverse">C.I.</a>
               <span ng-show="sortType == 'per_ci' && !sortReverse" class="glyphicon glyphicon-chevron-up"></span>
               <span ng-show="sortType == 'per_ci' && sortReverse" class="glyphicon glyphicon-chevron-down"></span>
             </th>
-            <th >
+            <th class="text-primary" >
               <a href="" ng-click="sortType = 'per_apellido_primero'; sortReverse = !sortReverse">Apellidos 
               <span ng-show="sortType == 'per_apellido_primero' && !sortReverse" class="glyphicon glyphicon-chevron-up"></span>
               <span ng-show="sortType == 'per_apellido_primero' && sortReverse" class="glyphicon glyphicon-chevron-down"></span></a>
             </th>
-            <th >
+            <th class="text-primary" >
               <a href="" ng-click="sortType = 'per_nombres'; sortReverse = !sortReverse">Nombres 
               <span ng-show="sortType == 'per_nombres' && !sortReverse" class="glyphicon glyphicon-chevron-up"></span>
               <span ng-show="sortType == 'per_nombres' && sortReverse" class="glyphicon glyphicon-chevron-down"></span></a>
             </th>
-            <th >Cargo</th>
-            <th >Ver</th>
-            <th>Editar</th>
-            <th>Dar de baja</th>
+            <th class="text-primary" >Cargo</th>
+            <th class="text-primary" >Ver</th>
+            <th class="text-primary">Editar</th>
+            <th class="text-primary">Dar de baja</th>
           </thead>
           <tbody>
             <tr  ng-repeat="funcionario in funcionarios  | orderBy:sortType:sortReverse | filter:per_ci">
@@ -82,8 +82,8 @@
                         <div class="well well-sm"><strong>{{nombre_completo | uppercase}}</strong></div>
                       </div>
                       <div class="modal-footer">
+                        <button type="button" class="btn btn-default" data-dismiss="modal"><span class="glyphicon glyphicon-remove"></span> NO</button>
                         <button type="button" class="btn btn-primary" data-dismiss="modal" ng-click="remove(funcionario.fun_id)"><span class="glyphicon glyphicon-ok"></span> SI</button>
-                        <button type="button" class="btn btn-danger" data-dismiss="modal"><span class="glyphicon glyphicon-remove"></span> NO</button>
                       </div>
                     </div>
                   </div>

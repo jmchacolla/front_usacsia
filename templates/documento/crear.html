@@ -63,11 +63,11 @@
                         </div>
                       </div>
                       <center>
+                        <a href="#/referenciasRec">
+                          <button type="submit" data-toggle="modal"  class="btn btn-default"  ><span class="glyphicon glyphicon-remove"></span> CANCELAR</button>
+                        </a>
                         <button ng-if="docForm.$invalid" type="submit" class="btn btn-primary"><span class="glyphicon glyphicon-save"></span>GUARDAR</button>
                         <button ng-if="docForm.$valid" type="submit" class="btn btn-primary" ng-click="submit()"><span class="glyphicon glyphicon-save"></span>GUARDAR</button>
-                        <a href="#/referenciasRec">
-                          <button type="submit" data-toggle="modal"  class="btn btn-danger"  ><span class="glyphicon glyphicon-remove"></span> CANCELAR</button>
-                        </a>
                     </center>
                     </div>
                     <p ng-show="docForm.$invalid && docForm.$submitted" class="alert alert-danger">Asegúrese de llenar correctamente todos los campos</p>
