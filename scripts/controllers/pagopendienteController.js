@@ -21,18 +21,26 @@ angular.module("adminApp")
           titulo:'Boleta de pago'
         }
       }
-EmpTra.get({et_id:et_id}, function (argument) {
+
+      $http.get(CONFIG.DOMINIO_SERVICIOS+'/verestados/'+et_id+'/'+3).success(function(respuesta){
+        $scope.tramitecerestado=respuesta.tramitecerestado;
+        console.log("_respuesta__",$scope.tramitecerestado);
+      });
+
+    EmpTra.get({et_id:et_id}, function (argument) {
       console.log('argument-------', argument);
       $scope.establecimiento=argument.establecimiento;
-    })
-    Tramite.get(function(data){
-    $scope.tramite = data.tramites;
-    console.log("tramite del get",$scope.tramite);
-      $scope.monto = function(costo){
-        console.log("tramite del get",costo);
-          $scope.establecimiento.et_monto=costo;  
-          // $scope.pagop=costo;
-      }
+        
+        console.log('$scope.establecimiento.empresa_tramite.tra_id', $scope.establecimiento.empresa_tramite.tra_id);
+        Tramite.get({tra_id:$scope.establecimiento.empresa_tramite.tra_id}, function(data){
+        $scope.tramite = data.tramite;
+        console.log("tramite del get------",$scope.tramite);
+          $scope.monto = function(costo){
+            console.log("tramite del get",costo);
+              $scope.establecimiento.et_monto=costo;  
+              // $scope.pagop=costo;
+          }
+        })
     })
 
     $scope.save=function (et_id, tra_costo) {
@@ -43,7 +51,9 @@ EmpTra.get({et_id:et_id}, function (argument) {
               et_estado_tramite:'INICIADO',
               et_monto:tra_costo
           };
-      CrearEstados.save({et_id:et_id}).$promise.then(function (data) {
+          console.log('+++++++++pago', pago);
+          var tramite={et_id:et_id};
+      CrearEstados.save(tramite).$promise.then(function (data) {
         console.log('los estados++++++++', data);
       })
 
@@ -51,7 +61,6 @@ EmpTra.get({et_id:et_id}, function (argument) {
       $http.post(CONFIG.DOMINIO_SERVICIOS+'/crearestados/'+et_id).success(function(respuesta){
         console.log("_respuesta__",respuesta);
       });
-
 
 
       EmpTra.update({et_id:et_id},pago, function (argument) {
@@ -301,11 +310,15 @@ EmpTra.get({et_id:et_id}, function (argument) {
 
 }])
 
-.controller('PagoOrdenPagoCtrl', ['$scope', '$routeParams', '$location', 'CONFIG', 'EmpresaTramite', 'OrdenPago', 'OrdenPagoEstado', function ($scope, $routeParams, $location, CONFIG, EmpresaTramite, OrdenPago, OrdenPagoEstado) {
+.controller('PagoOrdenPagoCtrl', ['$scope', '$http', '$routeParams', '$location', 'CONFIG', 'EmpresaTramite', 'OrdenPago', 'OrdenPagoEstado', function ($scope, $http, $routeParams, $location, CONFIG, EmpresaTramite, OrdenPago, OrdenPagoEstado) {
     var et_id=$routeParams.et_id;
     var FunG = localStorage.getItem("Funcionario");
     var FunG = JSON.parse(FunG);
     var fun_id = FunG.fun_id;
+    $http.get(CONFIG.DOMINIO_SERVICIOS+'/verestados/'+et_id+'/'+3).success(function(respuesta){
+      console.log("_respuesta__",respuesta);
+      $scope.tramitecerestado=respuesta.tramitecerestado;
+    });
     EmpresaTramite.get({et_id:et_id},function (argument) {
       $scope.establecimiento=argument.establecimiento;
       console.log('$scope.establecimiento+++++++',$scope.establecimiento);

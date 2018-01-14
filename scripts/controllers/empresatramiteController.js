@@ -93,7 +93,7 @@ angular.module("adminApp")
       }
       if(persona.et_estado_tramite=='APROBADO'&& c>=30)
       {
-        toastr.error('El docuemnto aún se encuentra en vigencia');
+        toastr.error('El documento aún se encuentra en vigencia');
       }
     }
 }])
