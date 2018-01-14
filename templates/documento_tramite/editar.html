@@ -68,9 +68,8 @@
 																	<img ng-src="./images/imagen-default.jpg" align="center" class="img-responsive img-thumbnail"/>
 																</div>
 																<div ng-if="documento.dt_url!= ''" style="height:190px !important; overflow:auto;">
-																	<img ng-src="{{documento.dt_url+documento.dt_nombre}}" align="center" class="img-responsive img-thumbnail"/>
+																	<img ng-src="{{documento.dt_url+'/'+documento.dt_nombre}}" align="center" class="img-responsive img-thumbnail"/>
 																</div>
-																
 										                    </div>
 
 

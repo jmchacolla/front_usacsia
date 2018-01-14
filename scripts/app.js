@@ -762,11 +762,9 @@ angular.module("adminApp", ["authService", "ngRoute", "ngResource", "satellizer"
 
 /*--------------------                 DOCUMENTOS  TRAMITE-    ------------------------*/
 //cuenta para empresas 12-1-2018
-  .when('/documento-tramite/crear/:et_id', {
+  // .when('/documento-tramite/crear/:et_id', {
 
-/*-------------------- DOCUMENTOS  TRAMITE-------------------------*/
-
-  /*.when('/documento-tramite/crear', {*/
+  .when('/documento-tramite/crear', {
 
     templateUrl: 'templates/documento_tramite/crear.html',
     controller: 'CrearDocumentoTramiteCtrl'
