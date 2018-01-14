@@ -780,7 +780,7 @@ angular.module("adminApp", ["authService", "ngRoute", "ngResource", "satellizer"
     }
   })
 
-  .when('/documento-tramite/crear2/#:doc', {
+  .when('/documento-tramite/crear2/#:doc_id', {
     templateUrl: 'templates/documento_tramite/crear2.html',
     controller: 'Crear2DocumentoTramiteCtrl'
   })

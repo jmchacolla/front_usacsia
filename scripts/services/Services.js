@@ -493,6 +493,7 @@ angular.module("adminApp")
 }])
 /*prueba e*/
 
+/*-----------------------------------DOCUMENTOS-------------------------------*/
 
 .factory('DocumentoTramite', ['$resource', 'CONFIG', function ($resource, CONFIG){
   return $resource(CONFIG.DOMINIO_SERVICIOS+"/documento_tramite/:dt_id", {dt_id:"@_dt_id"}, {
@@ -507,12 +508,20 @@ angular.module("adminApp")
   return $resource(CONFIG.DOMINIO_SERVICIOS+"/lista_documentos_x_tramite/:et_id", {et_id:"@_et_id"})
 }])
 
-
 .factory('Documento', ['$resource', 'CONFIG', function ($resource, CONFIG){
   return $resource(CONFIG.DOMINIO_SERVICIOS+"/documento/:doc_id", {doc_id:"@_doc_id"}, {
     update: {method: "PUT", params: {doc_id: "@doc_id"}}
   })
 }])
+
+.factory('DocumentoNoRegistrado', ['$resource', 'CONFIG', function ($resource, CONFIG){
+  return $resource(CONFIG.DOMINIO_SERVICIOS+"/doc_no_registrados/:et_id")
+}])
+.factory('DocumentoRegistrado', ['$resource', 'CONFIG', function ($resource, CONFIG){
+  return $resource(CONFIG.DOMINIO_SERVICIOS+"/doc_registrados/:et_id")
+}])
+
+/*------------------------------------------------------------------*/
 
 .factory('Subclacificacion', ['$resource', 'CONFIG', function ($resource, CONFIG){
   return $resource(CONFIG.DOMINIO_SERVICIOS+"/subclasificacion/:sub_id", {sub_id:"@_sub_id"}, {
@@ -533,7 +542,7 @@ angular.module("adminApp")
 .factory('PNaturalPJuridicaPro_id', ['$resource', 'CONFIG', function ($resource, CONFIG){
   return $resource(CONFIG.DOMINIO_SERVICIOS+"/pro_id_pjuridica_pnatural/:pro_id", {pro_id:"@_pro_id"})
 }])
-
+/*actualiza la habilitacion de una lista de consultorios*/
 .factory('ConsultoriosLista', ['$resource', 'CONFIG', function ($resource, CONFIG){
   return $resource(CONFIG.DOMINIO_SERVICIOS+"/update_lista_consultorios")
 
