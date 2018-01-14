@@ -30,7 +30,7 @@ DOMINIO_SERVICIOS: "http://localhost/api_usacsia_v1_0/public"
 
 //vero
 
-DOMINIO_SERVICIOS: "http://localhost/usacsia_php_5.6/solo_api_dorys_git/api_usacsia_v1_0/public"
+// DOMINIO_SERVICIOS: "http://localhost/usacsia_php_5.6/solo_api_dorys_git/api_usacsia_v1_0/public"
 
 })
 

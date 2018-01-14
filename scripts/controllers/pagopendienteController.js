@@ -257,6 +257,7 @@ angular.module("adminApp")
           })
           FichaCatSancion.get({fi_id:$scope.fichas.fi_id}, function (argument) {
             $scope.fichasancion=argument.fichasancion;
+            $scope.cantsancion=$scope.fichasancion.length;
             console.log('$scope.fichasancion++++',  $scope.fichasancion);
               angular.forEach($scope.fichasancion, function (value, key) {
                   $scope.parciales.sancion=$scope.parciales.sancion+Number(value.fcs_total);
@@ -411,6 +412,7 @@ angular.module("adminApp")
         $scope.pagoa=data.pagoa;
         console.log('$scope.pagoa',$scope.pagoa);
         $scope.pagos=data.pagos;
+        $scope.cantsancion=$scope.pagos.length;
         console.log('$scope.pagos',$scope.pagos);
         EstabSols.get({ess_id:$scope.emptra.ess_id}, function (argument) {
           $scope.establecimiento=argument.establecimiento;
