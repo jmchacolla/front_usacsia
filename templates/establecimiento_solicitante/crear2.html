@@ -42,7 +42,7 @@
                                             <div class="clearfix">
                                             </div>
                                             <div class="form-group">
-                                                <label>Cargar Imagen</label>
+                                                <label class="text-primary">Cargar Imagen</label>
                                                 <input type="file" name="fileInput" id ="fileInput" class="filestyle" data-buttonText="Find file"  file-model="vista.ie_nombre" onchange="angular.element(this).scope().photoChanged(this.files)" />
                                                 <input type="hidden" name="" ng-model="establecimiento.ie_nombre" value="{{establecimiento.ie_nombre}}">
                                                 <br>
@@ -53,9 +53,9 @@
                                     <div class="col-md-8">
                                                 <div class="row">
                                                     <div class="col-md-8">
-                                                        <label ng-show="persona.per_genero=='M'" for="nombre" class="control-label">Propietario:</label>
-                                                        <label ng-show="persona.per_genero=='F'" for="nombre" class="control-label">Propietaria:</label>
-                                                        <label ng-show="pjuridica!=null" for="nombre" class="control-label">Empresa Propietaria:</label>
+                                                        <label ng-show="persona.per_genero=='M'" for="nombre" class="control-label text-primary">Propietario:</label>
+                                                        <label ng-show="persona.per_genero=='F'" for="nombre" class="control-label text-primary">Propietaria:</label>
+                                                        <label ng-show="pjuridica!=null" for="nombre" class="control-label text-primary">Empresa Propietaria:</label>
                                                         <p>
                                                             {{persona.per_nombres+" "+persona.per_apellido_primero+" "+persona.per_apellido_segundo}}
                                                         </p>
@@ -64,8 +64,8 @@
                                                         </p>
                                                     </div>
                                                     <div class="col-md-4">
-                                                        <label ng-show="persona!=null" for="nombre" class="control-label">C.I.:</label>
-                                                        <label ng-show="pjuridica!=null" for="nombre" class="control-label">NIT</label>
+                                                        <label ng-show="persona!=null" for="nombre" class="control-label text-primary">C.I.:</label>
+                                                        <label ng-show="pjuridica!=null" for="nombre" class="control-label text-primary">NIT</label>
                                                         <p>
                                                             {{persona.per_ci+" "+persona.per_ci_expedido}}
                                                             {{pjuridica.pjur_nit}}
@@ -73,14 +73,14 @@
                                                     </div>
                                                 </div>
                                                 <hr>
-                                                <label for="nrs" class="control-label">Nombre o razón social: <strong class="fg_red">*</strong></label>
+                                                <label for="nrs" class="control-label text-primary">Nombre o razón social: <strong class="fg_red">*</strong></label>
                                                      <input type="text" class="form-control" name="nrs"  ng-model="establecimiento.ess_razon_social" required placeholder="Nombre del establecimiento">
                                                     <span class="messages" ng-show="estForm.$submitted || estForm.nrs.$touched">
                                                         <span ng-show=" estForm.nrs.$error.required">El campo es obligatorio.</span>
                                                         <span ng-show="estForm.nrs.$error.pattern">No se admiten símbolos especiales.</span>
                                                     </span>
                                                 <br>
-                                                 <label for="tipo" class="control-label">Tipo: <strong class="fg_red">*</strong></label>
+                                                 <label for="tipo" class="control-label text-primary">Tipo: <strong class="fg_red">*</strong></label>
                                                     <select class="form-control " name="tipo" ng-model="establecimiento.ess_tipo"  required>
                                                       <option value="">--Elige opcion--</option>
                                                       <option value="PUBLICO">PUBLICO</option>
@@ -91,7 +91,7 @@
                                                      </span>
                                                      <div class="row">
                                                         <div class="col-md-6">
-                                                            <label class="control-label" for="tipo">Teléfono:</label>
+                                                            <label class="control-label text-primary" for="tipo">Teléfono:</label>
                                                                 <input type="number" class="form-control" name="telefono" placeholder="Ej: 2262626" ng-model="establecimiento.ess_telefono" ng-model-options="{ updateOn: 'blur' }" min="2000000" max="79999999">
                                                                 <span class="messages" ng-show="estForm.telefono.$touched">
                                                                     <span ng-show="estForm.telefono.$error.required">El campo es obligatorio.</span>
@@ -100,7 +100,7 @@
                                                                 </span>
                                                         </div>    
                                                         <div class="col-md-6">
-                                                            <label class="control-label" for="email">Email:</label>
+                                                            <label class="control-label text-primary" for="email">Email:</label>
                                                             <input type="email" name="email" class="form-control" placeholder="Ej. micorreo@hotmail.com" ng-model="establecimiento.ess_correo_electronico" ng-model-options="{ updateOn: 'blur' }">
                                                             <span class="messages" ng-show="estForm.$submitted || estForm.email.$touched">
                                                                 <span ng-show="estForm.email.$error.email">Formato de email incorrecto.</span>
@@ -113,7 +113,7 @@
                                 
                                 <div class="row">
                                     <div class="col-md-4">
-                                         <label for="sc" class="control-label">Rubro de la empresa: <strong class="fg_red">*</strong></label>
+                                         <label for="sc" class="control-label text-primary">Rubro de la empresa: <strong class="fg_red">*</strong></label>
                                         <select class="form-control " name="sc" ng-change="agregar(subclasificacion.sub_id,subclasificacion)" ng-model="subclasificacion" ng-options="subcla as subcla.sub_nombre for subcla in subcla">
                                         <option value="">--Elige opcion--</option>
                                         </select>
@@ -122,7 +122,7 @@
                                         </span>
                                     </div>
                                     <div class="col-md-8">
-                                         <label for="nombrelab" class="control-label">Rubro de la empresa: <strong class="fg_red">*</strong></label>                                     
+                                         <label for="nombrelab" class="control-label text-primary">Rubro de la empresa: <strong class="fg_red">*</strong></label>                                     
                                         <div class="table-responsive">
                                             <table class="table table-bordered  table-hover">
                                                 <tbody ng-repeat="items in items track by $index">
@@ -145,7 +145,7 @@
                             <div class="panel">
                                 <div class="row">  
                                     <div class="col-md-4" ng-controller="MunicipioCtrl">
-                                        <label class="control-label">Municipio: <strong class="fg_red">*</strong></label>
+                                        <label class="control-label text-primary">Municipio: <strong class="fg_red">*</strong></label>
                                         <select class="form-control " name="municipio" ng-model="establecimiento.mun_id"  ng-options="municipio.mun_id as municipio.mun_nombre for municipio in municipios" ng-change="ver_zonas(establecimiento.mun_id)" required>
                                         <option value="">--Elige opcion--</option>
                                         </select>
@@ -154,7 +154,7 @@
                                        </span>
                                     </div> 
                                     <div class="col-md-4">
-                                      <label class="control-label">Zona/Comunidad: <strong class="fg_red">*</strong></label>
+                                      <label class="control-label text-primary">Zona/Comunidad: <strong class="fg_red">*</strong></label>
                                         <select ng-show="!zon" class="form-control " name="zona_comunidad" ng-model="establecimiento.zon_id"  ng-options="zona.zon_id as zona.zon_nombre for zona in zonas" required>
                                         </select>
                                             <span  class="messages" ng-show="estForm.$submitted || estForm.zona_comunidad.$touched">
@@ -164,7 +164,7 @@
                                       
                                     </div>
                                     <div class="col-md-4">
-                                        <label class="control-label">Calle/Avenida: <strong class="fg_red">*</strong></label>
+                                        <label class="control-label text-primary">Calle/Avenida: <strong class="fg_red">*</strong></label>
                                         <input type="" class="form-control" id="calleavenida" name="calleavenida" placeholder="Calle/Avenida" ng-model="establecimiento.ess_avenida_calle" ng-model-options="{ updateOn: 'blur' }" required ng-pattern="patternCadenaNumero">
                                         <span class="messages" ng-show="estForm.calleavenida.$touched">
                                             <span ng-show="estForm.calleavenida.$error.required">El campo es obligatorio.</span>
@@ -174,24 +174,24 @@
                                 </div>
                                 <div class="row">
                                     <div class="col-md-4"><!--VALIDAR NUMEROS !!!!!!-->
-                                        <label class="control-label">Número: <strong class="fg_red">*</strong></label>
+                                        <label class="control-label text-primary">Número: <strong class="fg_red">*</strong></label>
                                         <input type="number" class="form-control" id="numero" name="numero" placeholder="Número" ng-model="establecimiento.ess_numero" ng-model-options="{ updateOn: 'blur' }" required min="0">
                                         <span class="messages" ng-show="estForm.numero.$touched">
                                             <span ng-show="estForm.numero.$error.required">El campo es obligatorio.</span>
                                         </span>
                                     </div>
                                     <div class="col-md-4">
-                                        <label class="control-label">Latitud:</label>
+                                        <label class="control-label text-primary">Latitud:</label>
                                         <input disabled type="" class="form-control" id="establecimientolatitud" placeholder="Latitud" ng-model="establecimiento.ess_latitud">
                                     </div>    
                                     <div class="col-md-4">
-                                        <label class="control-label">Longitud:</label>
+                                        <label class="control-label text-primary">Longitud:</label>
                                         <input disabled type="" class="form-control" id="establecimientolongitud" placeholder="Longitud" ng-model="establecimiento.ess_longitud">
                                     </div>   
                                     
                                     <div class="col-md-12 text-center">
                                         <br>
-                                        <button class="btn btn-primary text-center" ng-click="initMap()">GENERAR POSICION</button>
+                                        <button class="btn btn-primary text-center" ng-click="initMap()">GENERAR POSICIÓN</button>
                                     </div>
                                 </div>
                             </div>   

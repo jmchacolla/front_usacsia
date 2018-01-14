@@ -46,17 +46,17 @@
             
                 <table class="table table-hovertable table-bordered table-striped table-hover" ng-show="!loading && msg" id="tablaES">
                      <thead>
-                        <th >
+                        <th class="text-primary">
                             <a href="" ng-click="sortType = 'ins_nombre'; sortReverse = !sortReverse">
                             Nombre Institución
                             <span ng-show="sortType == 'ins_nombre' && !sortReverse" class="glyphicon glyphicon-sort-by-alphabet"></span>
                          <span ng-show="sortType == 'ins_nombre' && sortReverse" class="glyphicon glyphicon-sort-by-alphabet-alt"></span>
                             </a>
                         </th>
-                        <th >Código SICE</th>
-                        <th >Sub Sector</th>
-                        <th >Editar</th>
-                        <th >Borrar</th>
+                        <th class="text-primary">Código SICE</th>
+                        <th class="text-primary">Sub Sector</th>
+                        <th class="text-primary">Editar</th>
+                        <th class="text-primary">Borrar</th>
                         
                     </thead>
                     <tbody ng-repeat="instituciones in instituciones | orderBy:sortType:sortReverse | filter:nac_nombre">
@@ -93,10 +93,10 @@
                                     </div>
                                   </div>
                                   <div class="modal-footer">
-                                    <button type="button" class="btn btn-primary" data-dismiss="modal" ng-click="remove()"><span class="glyphicon glyphicon-ok"></span> SI</button>
-                                    <button type="button" class="btn btn-danger" data-dismiss="modal">
+                                    <button type="button" class="btn btn-default" data-dismiss="modal">
                                         <span class="glyphicon glyphicon-remove"></span>
                                         NO</button>
+                                    <button type="button" class="btn btn-primary" data-dismiss="modal" ng-click="remove()"><span class="glyphicon glyphicon-ok"></span> SI</button>
                                   </div>
                                 </div>
                               </div>

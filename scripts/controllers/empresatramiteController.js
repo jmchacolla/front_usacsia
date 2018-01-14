@@ -17,9 +17,11 @@ angular.module("adminApp")
     }
 
     var FunG = localStorage.getItem("Funcionario");
+
   var FunG = JSON.parse(FunG);
  var fun_id = FunG.fun_id;
  $scope.ess_id=0;
+
     $scope.buscar=function () {
       console.log('parametro---------', $scope.parametro);
       $http.get(CONFIG.DOMINIO_SERVICIOS+'/buscarpropietario/'+$scope.parametro).success(function (respuesta) {
@@ -921,13 +923,55 @@ console.log("propietario natural  ____",$scope.propietario);
 
 
 
+/*<<<<<<< HEAD*/
     $scope.sortType = 'te_fecha'; // ESTABLECIENDO EL TIPO DE ORDENAMIENTO
     $scope.sortReverse  = true;  // PARA ORDENAR ASCENDENTEMENTO O DESCENDENTEMENTE
     $scope.loading=true;//PARA HACER UN LOADING EN EL TEMPLATE
     var condiciones={
       eta_id:7,
       te_estado:'APROBADO'
+}
+/*=======*/
+      if (persona.et_estado_pago=='VENCIDO') {
+        EmpresaTramite.save(emptr).promise.then(function (argument) {
+          console.log('et_id------', argument.et_id);
+          if (argument.msg) {
+            toastr.success('Generando nuevo trámite');
+            $timeout(function() {
+                $location.path('/boleta-ces/'+argument.et_id);
+            },200);
+          }
+        });
+      }
+      if(!persona.et_vigencia_documento|| persona.et_estado_tramite !='APROBADO')
+      {
+        $timeout(function() {
+            $location.path('/boleta-ces/'+persona.et_id);
+        },200);
+      }
+        var today= moment().format('DD/MM/YYYY');
+        var vigencia=moment(persona.et_vigencia_documento).format('DD/MM/YYYY');
+        var c=restaFechas(today,vigencia);
+        console.log('haber----',c);
 
+      if(persona.et_estado_tramite=='APROBADO'&& c<=30)
+      {   
+        
+          EmpresaTramite.save(emptr).promise.then(function (argument) {
+            console.log('et_id------', argument.et_id);
+            if (argument.msg) {
+              toastr.success('Generando nuevo trámite');
+              $timeout(function() {
+                  $location.path('/boleta-ces/'+argument.et_id);
+              },200);
+            }
+          })
+      }
+      if(persona.et_estado_tramite=='APROBADO'&& c>=30)
+      {
+        toastr.error('El docuemnto aún se encuentra en vigencia');
+      }
+/*>>>>>>> a354e6c9b2fb30b8eef3d8d152fc9db34b17322e*/
     }
   ListaEmpTraEtapaEstado.get(condiciones, function (argument) {
       $scope.establecimientos = argument.empresa_tramite;
@@ -950,6 +994,7 @@ console.log("propietario natural  ____",$scope.propietario);
 }])
 
 
+/*<<<<<<< HEAD*/
 
 
 
@@ -962,14 +1007,24 @@ console.log("propietario natural  ____",$scope.propietario);
 
  //lista tramites propietarios naturales etapa 3=aprobada arancel
 /*.controller('ListNatCtrl', ['$scope','CONFIG', 'ListN', '$route', 'toastr', '$location','Personas','FirmaFun','EmpTra','CertificadoSanitario','Firm2','Firm3','BusCert','Prueba','wen','VerEs', function ($scope,CONFIG, ListN, $route, toastr,$location,Personas,FirmaFun,EmpTra,CertificadoSanitario,Firm2,Firm3,BusCert,Prueba,wen,VerEs)
+=======
+  //lista tramites propietarios naturales
+.controller('ListNatCtrl', ['$scope','CONFIG', 'ListN', '$route', 'toastr', '$location','Personas','FirmaFun','EmpTra','CertificadoSanitario','Firm2','Firm3','BusCert','Prueba','wen','VerEs', function ($scope,CONFIG, ListN, $route, toastr,$location,Personas,FirmaFun,EmpTra,CertificadoSanitario,Firm2,Firm3,BusCert,Prueba,wen,VerEs)
+>>>>>>> a354e6c9b2fb30b8eef3d8d152fc9db34b17322e
 {
   $scope.ajustes = {
     menu:{
       titulo: 'Gestión de tramites de Certificado Sanitario',
       items:[
+<<<<<<< HEAD
         {nombre:'Esablecimientos que cancelaron naturales', enlace:'#/tramites_certi', estilo:'active'},
         {nombre:'Esablecimientos que cancelaron Juridicos', enlace:'#/tramites_certiJ', estilo:''},
         {nombre:'Busqueda de personas registradas', enlace:'#/buscar-propietario', estilo:''}]
+=======
+        {nombre:'Solicitudes de Propietarios Naturales', enlace:'#/tramites_certi', estilo:'active'},
+        {nombre:'Solicitudes de Propietarios Juridicos', enlace:'#/tramites_certiJ', estilo:''},
+        {nombre:'Búsqueda de personas registradas', enlace:'#/buscar-propietario', estilo:''}]
+>>>>>>> a354e6c9b2fb30b8eef3d8d152fc9db34b17322e
     },
     pagina:{
       titulo:'Tramites de Certificado Sanitario'
@@ -1130,7 +1185,7 @@ console.log("propietario natural  ____",$scope.propietario);
     });//estado 1
     }
     else{
-      toastr.error('Aun no se realizó pago de arancel');
+      toastr.error('Aún no se realizó pago de arancel');
     }
     });//estado 33
   };

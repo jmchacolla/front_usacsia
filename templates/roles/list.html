@@ -46,14 +46,14 @@
             
                 <table class="table table-hovertable table-bordered table-striped table-hover" ng-show="!loading && msg" id="tablaES">
                      <thead>
-                        <th >
+                        <th class="text-primary">
                             <a href="" ng-click="sortType = 'rol_nombre'; sortReverse = !sortReverse">
                             Nombre del Rol
                             <span ng-show="sortType == 'rol_nombre' && !sortReverse" class="glyphicon glyphicon-sort-by-alphabet"></span>
-                         <span ng-show="sortType == 'rol_nombre' && sortReverse" class="glyphicon glyphicon-sort-by-alphabet-alt"></span>
+                            <span ng-show="sortType == 'rol_nombre' && sortReverse" class="glyphicon glyphicon-sort-by-alphabet-alt"></span>
                             </a>
                         </th>
-                        <th >Descripción</th>                   
+                        <th class="text-primary">Descripción</th>                   
                     </thead>
                     <tbody ng-repeat="roles in roles | orderBy:sortType:sortReverse | filter:rol_nombre">
                     

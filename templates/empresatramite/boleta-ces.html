@@ -13,7 +13,6 @@
       <hr class="bg-red">
     </div>
   </div>
-
     <div class="well well-sm" style="background-color:#fff;"  ng-if="establecimiento.empresa_tramite.et_estado_pago=='PENDIENTE'">
       <div class="row">
         <div class="col-md-12">
@@ -176,10 +175,10 @@
               </thead>
               <tbody>
                 <tr >
-                  <td>{{ordenpago.op_id}}</td>
-                  <td>{{ordenpago.op_fecha_emision}}</td>
-                  <td>{{ordenpago.op_estado_pago}}</td>
-                  <td>{{ordenpago.op_monto_total | number:2}}</td>
+                  <td align="right">{{ordenpago.op_id}}</td>
+                  <td align="center">{{ordenpago.op_fecha_emision}}</td>
+                  <td align="center">{{ordenpago.op_estado_pago}}</td>
+                  <td align="right">{{ordenpago.op_monto_total | number:2}}</td>
                   <td align="center">
                     <a class="btn btn-success" href="#/orden-detalle/{{ordenpago.op_id}}"><span class="glyphicon glyphicon-file"></span></a>
                   </td>

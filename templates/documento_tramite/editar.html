@@ -68,9 +68,8 @@
 																	<img ng-src="./images/imagen-default.jpg" align="center" class="img-responsive img-thumbnail"/>
 																</div>
 																<div ng-if="documento.dt_url!= ''" style="height:190px !important; overflow:auto;">
-																	<img ng-src="{{documento.dt_url+documento.dt_nombre}}" align="center" class="img-responsive img-thumbnail"/>
+																	<img ng-src="{{documento.dt_url+'/'+documento.dt_nombre}}" align="center" class="img-responsive img-thumbnail"/>
 																</div>
-																
 										                    </div>
 
 
@@ -110,12 +109,12 @@
 									        <div class="table-responsive">
 									            <table class="table table-bordered  table-hover" ng-show="!loading && msg" id="tableCON">
 									                <thead>
-									                    <th>Nº</th>
-									                    <th>C.I.</th>
-									                    <th>Empleado</th>
-									                    <th>Fecha de inicio</th>
-									                    <th >Cargo</th>
-									                    <th >Estado</th>
+									                    <th class="text-primary">Nº</th>
+									                    <th class="text-primary">C.I.</th>
+									                    <th class="text-primary">Empleado</th>
+									                    <th class="text-primary">Fecha de inicio</th>
+									                    <th class="text-primary" >Cargo</th>
+									                    <th class="text-primary" >Estado</th>
 									                </thead>
 									                <tbody ng-repeat="pe in personas_x_establecimiento | orderBy:sortType:sortReverse | filter:searchText" >
 									                    <tr>
@@ -140,10 +139,10 @@
 									                                            </div>
 									                                        </div>
 									                                        <div class="modal-footer">
+									                                            <button type="button" class="btn btn-defaul" data-dismiss="modal">
+									                                            <span class="glyphicon glyphicon-remove"></span> NO</button>
 									                                            <button type="button" class="btn btn-primary" data-dismiss="modal" ng-click="remove()">
-									                                            <span class="glyphicon glyphicon-ok"></span>SI</button>
-									                                            <button type="button" class="btn btn-danger" data-dismiss="modal">
-									                                            <span class="glyphicon glyphicon-remove"></span>NO</button>
+									                                            <span class="glyphicon glyphicon-ok"></span> SI</button>
 									                                        </div>
 									                                    </div>
 									                                </div>

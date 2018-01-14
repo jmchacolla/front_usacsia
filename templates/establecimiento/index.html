@@ -41,20 +41,20 @@
 				<thead >
 					<!--<th >Nº</th>-->
 					<!-- <th >Código</th> -->
-					<th >
+					<th class="text-primary" >
 						<a href="" ng-click="sortType = 'usa_nombre'; sortReverse = !sortReverse">
 	                	Nombre
 	                	<span ng-show="sortType == 'usa_nombre' && !sortReverse" class="glyphicon glyphicon-sort-by-alphabet-alt"></span>
 	                    <span ng-show="sortType == 'usa_nombre' && sortReverse" class="glyphicon glyphicon-sort-by-alphabet"></span>
 	                    </a>
 					</th>
-					<!-- <th >Nivel</th>
-					<th >Horario</th>
-					<th >Red</th> -->
-					<th >Municipio</th>
-					<th >Ver</th>
-					<th>Editar</th>
-					<th>Borrar</th>
+					<!-- <th class="text-primary" >Nivel</th>
+					<th class="text-primary" >Horario</th>
+					<th class="text-primary" >Red</th> -->
+					<th class="text-primary" >Municipio</th>
+					<th class="text-primary" >Ver</th>
+					<th class="text-primary">Editar</th>
+					<th class="text-primary">Borrar</th>
 				</thead>
 				<tbody ng-repeat="establecimiento in establecimientos | orderBy:sortType:sortReverse | filter:es_nombre | startFromGrid: currentPage * pageSize | limitTo: pageSize ">
 				  <tr>
@@ -90,13 +90,13 @@
 								</div>
 						      </div>
 						      <div class="modal-footer">
+						        <button type="button" class="btn btn-default" data-dismiss="modal">
+									<span class="glyphicon glyphicon-remove"></span>
+									NO
+								</button>
 						        <button type="button" class="btn btn-primary" data-dismiss="modal" ng-click="remove(establecimiento.usa_id)">
 									<span class="glyphicon glyphicon-ok"></span>
 									SI
-								</button>
-						        <button type="button" class="btn btn-danger" data-dismiss="modal">
-									<span class="glyphicon glyphicon-remove"></span>
-									NO
 								</button>
 						      </div>
 						    </div>

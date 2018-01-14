@@ -1,4 +1,4 @@
-TOP-MENU inicio -->
+<!--TOP-MENU inicio -->
 <div ng-include="'./templates/menu_inicio.html'"></div>
 
 <!-- CONTEXT-MENU  -->
@@ -41,26 +41,26 @@ TOP-MENU inicio -->
       <div class="table-responsive">
         <table class="table table-bordered table-striped table-hover" ng-show="!loading && msg">
           <thead >
-            <th >
+            <th class="text-primary" >
               <a href="" ng-click="sortType = 'per_ci'; sortReverse = !sortReverse">C.I.</a>
               <span ng-show="sortType == 'per_ci' && !sortReverse" class="glyphicon glyphicon-sort-by-order"></span>
               <span ng-show="sortType == 'per_ci' && sortReverse" class="glyphicon glyphicon-sort-by-order-alt"></span>
             </th>
-            <th >
+            <th class="text-primary" >
               <a href="" ng-click="sortType = 'per_apellido_primero'; sortReverse = !sortReverse">Apellidos 
               <span ng-show="sortType == 'per_apellido_primero' && !sortReverse" class="glyphicon glyphicon-sort-by-alphabet"></span>
               <span ng-show="sortType == 'per_apellido_primero' && sortReverse" class="glyphicon glyphicon-sort-by-alphabet-alt"></span></a>
             </th>
-            <th>
+            <th class="text-primary">
               <a href="" ng-click="sortType = 'per_nombres'; sortReverse = !sortReverse">Nombres 
               <span ng-show="sortType == 'per_nombres' && !sortReverse" class="glyphicon glyphicon-sort-by-alphabet"></span>
               <span ng-show="sortType == 'per_nombres' && sortReverse" class="glyphicon glyphicon-sort-by-alphabet-alt"></span></a>
             </th>
-            <th >Celular</th>
-            <!-- <th >E-mail</th> -->
-            <th >Ver</th>
-            <th >Editar</th>
-            <th >Borrar</th>
+            <th class="text-primary">Celular</th>
+            <!-- <th class="text-primary">E-mail</th> -->
+            <th class="text-primary">Ver</th>
+            <th class="text-primary">Editar</th>
+            <th class="text-primary">Borrar</th>
           </thead>
           <tbody ng-repeat="persona in personas | orderBy:sortType:sortReverse | filter:per_ci">
             <tr>
@@ -93,11 +93,11 @@ TOP-MENU inicio -->
                         </div>
                       </div>
                       <div class="modal-footer">
+                        <button type="button" class="btn btn-default" data-dismiss="modal">
+                          <span class="glyphicon glyphicon-remove"></span>NO
+                        </button>
                         <button type="button" class="btn btn-primary" data-dismiss="modal" ng-click="remove(persona.per_id)">
                           <span class="glyphicon glyphicon-ok"></span>SI
-                        </button>
-                        <button type="button" class="btn btn-danger" data-dismiss="modal">
-                          <span class="glyphicon glyphicon-remove"></span>NO
                         </button>
                       </div>
                     </div>

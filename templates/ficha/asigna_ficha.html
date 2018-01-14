@@ -44,9 +44,9 @@
 							<div class="table-responsive">
 								<table class="table table-bordered table-striped table-hover" ng-show="!loading && msg">
 									<thead >
-										<th>Médico</th>
-										<th>Turno</th>
-										<th>Ver Fichas</th>
+										<th class="text-primary">Médico</th>
+										<th class="text-primary">Turno</th>
+										<th class="text-primary">Ver Fichas</th>
 									</thead>
 									<tbody ng-repeat="funcionario in funcionarios">
 										<tr>
@@ -122,8 +122,8 @@
 							</div>		
 					      </div>
 					      <div class="modal-footer lead text-center">
+							<button class="btn btn-default col-sm-4" data-dismiss="modal"><span class="glyphicon glyphicon-remove"></span> CANCELAR</button>
 					        <button class="btn btn-primary col-md-offset-2 col-md-4 col-sm-4" data-dismiss="modal" ng-click="submit()"><span class="glyphicon glyphicon-ok"></span><strong>ASIGNAR FICHA</strong></button> &nbsp;
-							<button class="btn btn-danger col-sm-4" data-dismiss="modal"><span class="glyphicon glyphicon-remove"></span> CANCELAR</button>
 					      </div>
 					 	</div>
 					  </div>

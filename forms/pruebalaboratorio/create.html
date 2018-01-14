@@ -121,8 +121,8 @@
                         
                             <table class="table table-hovertable table-bordered table-striped table-hover" ng-show="!loading && msg">
                                <thead>
-                                  <th >Parasito</th>
-                                  <th >Agregar</th> 
+                                  <th class="text-primary">Parasito</th>
+                                  <th class="text-primary">Agregar</th> 
                               </thead>
                               <tbody ng-repeat="parasito in parasitos | orderBy:sortType:sortReverse">
                               <tr>
@@ -176,7 +176,7 @@
               <center>
                 <button type="submit" class="btn btn-primary" ng-disabled="userForm.$invalid" ng-click="save($parent.atiende);reset(userForm)"><span class="glyphicon glyphicon-save"></span>GUARDAR</button>
                 <a href="#/referenciasRec">
-                    <button type="submit" data-toggle="modal"  class="btn btn-danger"  ><span class="glyphicon glyphicon-remove"></span> CANCELAR</button>
+                    <button type="submit" data-toggle="modal"  class="btn btn-default"  ><span class="glyphicon glyphicon-remove"></span> CANCELAR</button>
                   </a>
               </center>
           </div>

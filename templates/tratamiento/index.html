@@ -46,11 +46,11 @@
             
                 <table class="table table-hovertable table-bordered table-striped table-hover" ng-show="!loading && msg" id="tablaES">
                      <thead>
-                        <th >Nombre</th>
-                        <th >Dosis</th>
-                        <th >Descripcion</th> 
-                        <th >Editar</th> 
-                        <th >Eliminar</th> 
+                        <th class="text-primary">Nombre</th>
+                        <th class="text-primary">Dosis</th>
+                        <th class="text-primary">Descripcion</th> 
+                        <th class="text-primary">Editar</th> 
+                        <th class="text-primary">Eliminar</th> 
                     </thead>
                     <tbody ng-repeat="tratamiento in tratamiento | orderBy:sortType:sortReverse">
                       <tr>
@@ -99,7 +99,7 @@
                                   </div>
                                   <div class="modal-footer">
                                     <button type="button" class="btn btn-primary" data-dismiss="modal" ng-click="editar(nombre,dosis,descripcion)"><span class="glyphicon glyphicon-save"></span> GUARDAR</button>
-                                    <button type="button" class="btn btn-danger" data-dismiss="modal">
+                                    <button type="button" class="btn btn-default" data-dismiss="modal">
                                         <span class="glyphicon glyphicon-remove"></span>
                                         CANCELAR</button>
 

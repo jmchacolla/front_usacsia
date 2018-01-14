@@ -139,11 +139,13 @@
 				<div class="table-responsive">
 			        <table class="table table-hovertable table-bordered table-striped table-hover"  id="tablaES">
 			            <thead>
-		                    <th >Descripción</th>
+
+		                    <th class="text-primary">Descripción</th>
 		                    <th >Código</th>
 		                    <th >Monto (Bs)</th>
 		                    <!-- <th>Ver sanción</th> -->
 		                    <!-- <th ng-if="user.rol_id == '1' || user.rol_id == '16' ">Sanción</th>  -->
+
 			            </thead>
 			            <tbody ng-repeat="cate in ficha_inspeccion.ficha_categoria | orderBy:sortType:sortReverse">
 			                <tr>
@@ -174,14 +176,19 @@
                                     			<select class="form-control " name="sc"  ng-model="cat.cat_id" ng-options="cat.cat_id as cat.cat_descripcion+'   -'+cat.cat_monto for cat in subcla" required>
                                     		</select>
 					                    </div>
+
 					                      <div class="modal-footer">
 					                        <button type="button" class="btn btn-primary" data-dismiss="modal" ng-click="submit(cat.cat_id)"><span class="glyphicon glyphicon-ok"></span> GUARDAR </button>
-					                  
-					                        <button type="button" class="btn btn-danger" data-dismiss="modal"><span class="glyphicon glyphicon-remove"></span> CANCELAR</button>
+
+					                      <div class="modal-footer"><!-- ,checkedI 
+					                        <button type="button" class="btn btn-default" data-dismiss="modal"><span class="glyphicon glyphicon-remove"></span> CANCELAR</button>-->
+
+					                  <!-- 
+					                        <button type="button" class="btn btn-primary" data-dismiss="modal" ng-click="submit(cat.cat_id)"><span class="glyphicon glyphicon-ok"></span> GUARDAR </button>
 					                      </div>
 					                    </div>
 					                  </div>
-					                </div> -->
+					                </div>  -->
 					                <!--FIN CUADRO MODAL-->
 					              <!-- </td> -->
 			                  </tr>
