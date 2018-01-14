@@ -14,7 +14,9 @@ angular.module("adminApp")
       titulo:'Tramites de Carné Sanitario'
     }
   }
-
+  var FunG = localStorage.getItem("Funcionario");
+  var FunG = JSON.parse(FunG);
+  var fun_id = FunG.fun_id;
 
   
   $scope.sortType = 'per_id'; // set the default sort type
@@ -27,6 +29,9 @@ angular.module("adminApp")
   ListarTramitesService.get({tra_id:1}, function(data){
     console.log('*******persona_tramite ---------', data);
     $scope.persona_tramite = data.persona_tramite;
+    angular.forEach($scope.persona_tramite, function (value, key) {
+       value.per_fecha_nacimiento=moment(value.per_fecha_nacimiento, 'YYYY-MM-DD').format('DD-MM-YYYY');
+    });
     // for (var i=0; i=$scope.persona_tramite.length; i++)
     // {
     // 	 if ($scope.persona_tramite[i].per_genero=='F' || $scope.persona_tramite[i].per_genero=='f'){
@@ -97,8 +102,8 @@ angular.module("adminApp")
     };
 
     $scope.CurrentDate = new Date();
-    Tramite.get(function(data){
-    $scope.tramite = data.tramites;
+    Tramite.get({tra_id:1}, function(data){
+    $scope.tramite = data.tramite;
     console.log("tramite del get",$scope.tramite);
 
       $scope.monto = function(costo){
@@ -109,7 +114,7 @@ angular.module("adminApp")
     var FunG = localStorage.getItem("Funcionario");
     var FunG = JSON.parse(FunG);
     var fun_id = FunG.fun_id;
-
+    $scope.bloqueo=true;
     /**/
       $scope.tramiteselect={
         tra_id:null,
@@ -126,9 +131,9 @@ angular.module("adminApp")
     PersonaTramite.save($scope.persona_tramite).$promise.then(function(data)
     {
       console.log('el data', data);
-
+      $scope.bloqueo=false;
         if(data.mensaje){
-          toastr.success('Pago registrado correctamente'+data.persona_tramite.pt_id+' es');
+          toastr.success('Pago registrado correctamente.');
                $location.path('/boleta-pago/'+data.persona_tramite.pt_id);
 
         }
@@ -443,106 +448,59 @@ function ($scope, ListarTramitesService, $route, toastr,$location)
             var docDefinition = {
                 
                 pageOrientation: 'landscape',
-                pageSize: 'A5',
-                pageMargins: [ 30, 5, 30, 5 ],
+                // pageSize: {width:100, height:100},
+                pageSize: 'A6',
+                pageMargins: [ 30, 20, 30, 20 ],
 
                 content: [
 
-                  {
-                  table: {
-                  widths: [110, 300, 260],
-                  body: [
-                      [
-                        {
-                          image: gober,
-                          width: 68,
-                          height: 73
-                        },
-                        {
-                          /*image: gober,
-                          width: 64,
-                          height: 62*/
-                          text: "\n \n \n GOBIERNO AUTONOMO DEPARTAMENTAL DE LA PAZ \n SERVICIO DEPARTAMENTAL DE SALUD \n UNIDAD DE SALUD AMBIENTAL \n CONTROL SANITARIO E INOCUIDAD ALIMENTARIA \n \n CAJA RECAUDADORA DE USACSIA",
-                          alignment: 'center',
-                          style: 'header' 
-                        },
-                        {
-                          image: sedes,
-                          width: 35,
-                          height: 55
-                        }
-                      ],
-                  ],
-
-                  },
-                  layout: 'noBorders',
-                  style: 'cuerpo',
-                  border: [false, false, false, false]
-
-                },
-                header(tituloqr),
                     {
-                      qr: textoqr,
-                      fit:50,
-                      alignment: 'right'
+                      image: gober, width: 50, height: 50,  absolutePosition:{x:15, y:15}
                     },
+                    {
+                      image: sedes, width: 30, height: 50, absolutePosition:{x:360, y:15}
+                    },
+                    {
+                      text: "GOBIERNO AUTONOMO DEPARTAMENTAL DE LA PAZ\nSERVICIO DEPARTAMENTAL DE SALUD\nUNIDAD DE SALUD AMBIENTAL CONTROL SANITARIO E INOCUIDAD ALIMENTARIA\nCAJA RECAUDADORA DE USACSIA",
+                      alignment: 'center', fontSize:8
+                    },
+                    {text: 'REVISADO', bold: true, fontSize:10 , absolutePosition:{x:90, y:250}},
+                    {text: 'FIRMA USUARIO', bold: true, fontSize:10 , absolutePosition:{x:210, y:250}},
+                    {text: "CI:  N°"+$scope.persona.persona.per_ci, fontSize: 12, alignment: 'right', absolutePosition:{x:210, y:200} },
+                    
+                
                 {
-                   text: "CI:  N°"+$scope.persona.persona.per_ci, fontSize: 12, alignment: 'right'
-                },
-                {
-                  text: " \nBOLETA DE PAGOS\n\n",
+                  text: " BOLETA DE PAGO",
                   alignment: 'center',
                   style: 'header'  
                 },
 
-{
+                {
 
                     table: {
-                    widths: [530],
+                      widths: [230, 100],
 
                       body: [
-                        [
-                          {
-                            table: {
-                              headerRows: 1,
-                              body: [
-                                 [{text: 'UNIDAD DE:', bold: true},$scope.persona.tramite.tra_nombre,{text: 'FECHA: ', bold: true},fechaCONT,{text: 'HORA: ', bold: true},horaC],
-                                  [{text: 'HEMOS RECIBIDO DEL SR:', bold: true},$scope.persona.persona.per_nombres+" "+$scope.persona.persona.per_apellido_primero+" "+$scope.persona.persona.per_apellido_segundo,{text: ''},'',{text: ' '},''],
-                                   [{text: 'LA SUMA DE:', bold: true},$scope.persona.tramite.tra_costo+" BOLIVIANOS",{text: ''},'',{text: ' '},''],
-                                   [{text: 'POR CONCEPTO DE:', bold: true},$scope.persona.tramite.tra_nombre,{text: ''},'',{text: ' '},''],
-                             
-                                
-                                ]
-                              },
-                              layout: 'noBorders',
-                              style: 'cuerpo',
-                              border: [true, true, true, false]
-                          }
-                        ],
-                       
-                   
-                        [
-                          {
-
-                            table: {
-                            widths: [130, 130, 130,130],
-                            body: [
-                                  ['\n \n',''/*,'',''*/],
-                                  ['\n \n',''/*,'\n\n',''*/],
-                                  ['',''/*,'\n\n',''*/],                                  
-                                  [{text: 'REVISADO', bold: true, alignment: 'center'},
-                                  {text: 'FIRMA USUARIO', bold: true,alignment: 'center'}/*,{text: '', bold: true,alignment: 'center'},{text: '', bold: true, alignment: 'center' }*/]
-                              ]
-                            },
-                            layout: 'noBorders',
-                            style: 'cuerpo1',
-                            border: [true, false, true, true]
-                          }
-                        ],
-                      ],
-                      style: 'cuerpo' 
-                    }     
+                                [
+                                  { text: 'UNIDAD DE: '+$scope.persona.tramite.tra_nombre, text: 'FECHA: '+fechaCONT},
+                                  { rowSpan:4, qr: textoqr, fit:100, alignment: 'right'},
+                                ],
+                                [
+                                  {text: 'HEMOS RECIBIDO DEL SR:  '+$scope.persona.persona.per_nombres+" "+$scope.persona.persona.per_apellido_primero+" "+$scope.persona.persona.per_apellido_segundo}
+                                ],
+                                [
+                                  {text: 'LA SUMA DE:  '+$scope.persona.tramite.tra_costo+" BOLIVIANOS"}
+                                ],
+                                [
+                                  {text: 'POR CONCEPTO DE: '+$scope.persona.tramite.tra_nombre}
+                                ],
+                            ],
+                    },
+                    margin:[20, 30, 10, 0],
+                    layout: 'noBorders',
+                    border: [false, false, false, false],
                 },
+
 
 
 
@@ -664,4 +622,10 @@ function buscaPersonaController($http, $scope, CONFIG){
 }
 
 
+
+// rgb(213, 48, 50)
+
+// @component-active-bg
+
+// @component-active-bg
 

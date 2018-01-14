@@ -35,29 +35,29 @@
       <div class="table-responsive">
         <table class="table table-bordered table-striped table-hover" ng-show="!loading && msg" id="table">
           <thead >
-            <th >
+            <th class="text-primary" >
               <a href="" ng-click="sortType = 'per_ci'; sortReverse = !sortReverse">C.I.</a>
               <span ng-show="sortType == 'per_ci' && !sortReverse" class="glyphicon glyphicon-chevron-up"></span>
               <span ng-show="sortType == 'per_ci' && sortReverse" class="glyphicon glyphicon-chevron-down"></span>
             </th>
-            <th >
+            <th class="text-primary" >
               <a href="" ng-click="sortType = 'per_apellido_primero'; sortReverse = !sortReverse">Apellidos 
               <span ng-show="sortType == 'per_apellido_primero' && !sortReverse" class="glyphicon glyphicon-chevron-up"></span>
               <span ng-show="sortType == 'per_apellido_primero' && sortReverse" class="glyphicon glyphicon-chevron-down"></span></a>
             </th>
-            <th >
+            <th class="text-primary" >
               <a href="" ng-click="sortType = 'per_nombres'; sortReverse = !sortReverse">Nombres 
               <span ng-show="sortType == 'per_nombres' && !sortReverse" class="glyphicon glyphicon-chevron-up"></span>
               <span ng-show="sortType == 'per_nombres' && sortReverse" class="glyphicon glyphicon-chevron-down"></span></a>
             </th>
-            <th>Establecimiento</th>
-            <th ng-if="user.rol_id == '1' || user.rol_id == '14' || user.rol_id == '3' ">Ver Pago</th>
-     <th ng-if="user.rol_id == '1' || user.rol_id == '15' " >Revisar requisitos</th>
-            <th ng-if="user.rol_id == '1' || user.rol_id == '14' ">Ver Trámite</th>
-            <th ng-if="user.rol_id == '1' || user.rol_id == '14'">Aprobación</th><!-- resp de area -->
-            <th ng-if="user.rol_id == '1' || user.rol_id == '2' ">Aprobación</th><!-- jefe de unidad -->
-            <th ng-if="user.rol_id == '1' || user.rol_id == '2' ">Aprobación</th><!-- tesoreria -->
-            <th ng-if="user.rol_id == '1' || user.rol_id == '17' ">Aprobación</th><!-- final -->
+            <th class="text-primary">Establecimiento</th>
+            <th class="text-primary" ng-if="user.rol_id == '1' || user.rol_id == '14' || user.rol_id == '3' ">Ver Pago</th>
+            <th class="text-primary" ng-if="user.rol_id == '1' || user.rol_id == '15' " >Revisar requisitos</th>
+            <th class="text-primary" ng-if="user.rol_id == '1' || user.rol_id == '14' ">Ver Trámite</th>
+            <th class="text-primary" ng-if="user.rol_id == '1' || user.rol_id == '14'">Aprobación</th><!-- resp de area -->
+            <th class="text-primary" ng-if="user.rol_id == '1' || user.rol_id == '2' ">Aprobación</th><!-- jefe de unidad -->
+            <th class="text-primary" ng-if="user.rol_id == '1' || user.rol_id == '2' ">Aprobación</th><!-- tesoreria -->
+            <th class="text-primary" ng-if="user.rol_id == '1' || user.rol_id == '17' ">Aprobación</th><!-- final -->
            <!--  <th>Dar de baja</th> -->
           </thead>
           <tbody>
@@ -113,9 +113,9 @@
                 </div>
                 </div>
                       <div class="modal-footer"><!-- ,checkedI -->
-                        <button type="button" class="btn btn-primary" data-dismiss="modal" ng-click="recepcionar1(datos.te_observacion)"><span class="glyphicon glyphicon-ok"></span> GUARDAR </button>
+                        <button type="button" class="btn btn-default" data-dismiss="modal"><span class="glyphicon glyphicon-remove"></span> CANCELAR</button>
                   
-                        <button type="button" class="btn btn-danger" data-dismiss="modal"><span class="glyphicon glyphicon-remove"></span> CANCELAR</button>
+                        <button type="button" class="btn btn-primary" data-dismiss="modal" ng-click="recepcionar1(datos.te_observacion)"><span class="glyphicon glyphicon-ok"></span> GUARDAR </button>
                       </div>
                     </div>
                   </div>
@@ -148,8 +148,8 @@
                             <!-- </div> -->
                           </div>
                           <div class="modal-footer lead text-center">
+                            <button type="button" class="btn btn-default" data-dismiss="modal"><span class="glyphicon glyphicon-remove"></span> CANCELAR</button>
                             <button type="button" class="btn btn-primary" data-dismiss="modal" ng-click="recepcionar2(datos2.te_observacion)"><span class="glyphicon glyphicon-ok"></span> GUARDAR</button>
-                            <button type="button" class="btn btn-danger" data-dismiss="modal"><span class="glyphicon glyphicon-remove"></span> CANCELAR</button>
                           </div>
                         </div>
                     </div>
@@ -181,8 +181,8 @@
                             <!-- </div> -->
                           </div>
                           <div class="modal-footer lead text-center">
+                            <button type="button" class="btn btn-default" data-dismiss="modal"><span class="glyphicon glyphicon-remove"></span> CANCELAR</button>
                             <button type="button" class="btn btn-primary" data-dismiss="modal" ng-click="recepcionar4(datos4.te_observacion)"><span class="glyphicon glyphicon-ok"></span> GUARDAR</button>
-                            <button type="button" class="btn btn-danger" data-dismiss="modal"><span class="glyphicon glyphicon-remove"></span> CANCELAR</button>
                           </div>
                         </div>
                     </div>
@@ -213,8 +213,8 @@
                              
                           </div>
                           <div class="modal-footer">
+                            <button type="button" class="btn btn-default" data-dismiss="modal"><span class="glyphicon glyphicon-remove"></span> CANCELAR</button>
                             <button type="button" class="btn btn-primary" data-dismiss="modal" ng-click="recepcionar3(datos3.te_observacion)"><span class="glyphicon glyphicon-ok"></span> GUARDAR</button>
-                            <button type="button" class="btn btn-danger" data-dismiss="modal"><span class="glyphicon glyphicon-remove"></span> CANCELAR</button>
                           </div>
                         </div>
                     </div>

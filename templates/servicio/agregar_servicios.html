@@ -40,18 +40,18 @@
         <div class="table-responsive">
           <table class="table table-hovertable table-bordered table-striped table-hover table-condensed" ng-show="!loading && msg" id="tablaSER">
             <thead >
-              <th>Nº</th>
-              <th>
+              <th class="text-primary">Nº</th>
+              <th class="text-primary">
                 <a href="" ng-click="sortType = 'ser_nombre'; sortReverse = !sortReverse">Servicio</a>
                 <span ng-show="sortType == 'ser_nombre' && !sortReverse" class="glyphicon glyphicon-sort-by-alphabet"></span>
                 <span ng-show="sortType == 'ser_nombre' && sortReverse" class="glyphicon glyphicon-sort-by-alphabet-alt"></span>
               </th>
-              <th >
+              <th class="text-primary" >
                 <a href="" ng-click="sortType = 'ser_tipo'; sortReverse = !sortReverse">Tipo</a>
                 <span ng-show="sortType == 'ser_tipo' && !sortReverse" class="glyphicon glyphicon-sort-by-alphabet"></span>
                 <span ng-show="sortType == 'ser_tipo' && sortReverse" class="glyphicon glyphicon-sort-by-alphabet-alt"></span>
               </th>
-              <th >Agregar</th>
+              <th class="text-primary" >Agregar</th>
             </thead>
             <tbody  ng-repeat="ser in noprestas | filter:ser_nombre | orderBy:sortType:sortReverse">
               <tr>

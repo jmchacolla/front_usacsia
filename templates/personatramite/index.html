@@ -52,27 +52,27 @@
         
         <table class="table table-bordered table-striped table-hover" ng-show="!loading && msg">
           <thead >
-            <th >
+            <th class="text-primary" >
               <a href="" ng-click="sortType = 'per_ci'; sortReverse = !sortReverse">C.I.</a>
               <span ng-show="sortType == 'per_ci' && !sortReverse" class="glyphicon glyphicon-sort-by-order"></span>
               <span ng-show="sortType == 'per_ci' && sortReverse" class="glyphicon glyphicon-sort-by-order-alt"></span>
             </th>
-            <th >
+            <th class="text-primary" >
               <a href="" ng-click="sortType = 'per_apellido_primero'; sortReverse = !sortReverse">Apellidos 
               <span ng-show="sortType == 'per_apellido_primero' && !sortReverse" class="glyphicon glyphicon-sort-by-alphabet"></span>
               <span ng-show="sortType == 'per_apellido_primero' && sortReverse" class="glyphicon glyphicon-sort-by-alphabet-alt"></span></a>
             </th>
-            <th>
+            <th class="text-primary">
               <a href="" ng-click="sortType = 'per_nombres'; sortReverse = !sortReverse">Nombres 
               <span ng-show="sortType == 'per_nombres' && !sortReverse" class="glyphicon glyphicon-sort-by-alphabet"></span>
               <span ng-show="sortType == 'per_nombres' && sortReverse" class="glyphicon glyphicon-sort-by-alphabet-alt"></span></a>
             </th>
-            <th >tramite</th>
-            <th >Fecha de Nacimiento</th>
-            <!-- <th >Genero</th> -->
-            <th >Ocupacion</th>
-            <th >Tipo</th>
-            <th >Ver</th>
+            <th class="text-primary" >tramite</th>
+            <th class="text-primary" >Fecha de Nacimiento</th>
+            <!-- <th class="text-primary" >Genero</th> -->
+            <th class="text-primary" >Ocupacion</th>
+            <th class="text-primary" >Tipo</th>
+            <th class="text-primary" >Ver</th>
            <!--  <th >Editar</th> -->
             <!-- <th >Borrar</th> -->
           </thead>

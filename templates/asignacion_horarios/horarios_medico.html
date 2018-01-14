@@ -31,22 +31,22 @@
 				<div class="table-responsive">
 					<table class="table table-bordered table-hover" ng-show="!loading && msg">
 		            	<thead>
-		                	<th>Nº</th>
-		                	<th align="center">
+		                	<th class="text-primary">Nº</th>
+		                	<th class="text-primary" align="center">
 		                		<a href="" ng-click="sortType = 'ser_nombre'; sortReverse = !sortReverse">
 			                	Servicio
 			                	<span ng-show="sortType == 'ser_nombre' && !sortReverse" class="glyphicon glyphicon-chevron-up"></span>
 			                    <span ng-show="sortType == 'ser_nombre' && sortReverse" class="glyphicon glyphicon-chevron-down"></span>
 			                    </a>
 							</th>
-		                	<th>
+		                	<th class="text-primary">
 		                		<a href="" ng-click="sortType = 'con_nombre'; sortReverse = !sortReverse">
 			                	Consultorio
 			                	<span ng-show="sortType == 'con_nombre' && !sortReverse" class="glyphicon glyphicon-chevron-up"></span>
 			                    <span ng-show="sortType == 'con_nombre' && sortReverse" class="glyphicon glyphicon-chevron-down"></span>
 			                    </a>
 		                	</th>
-		                	<th>Detalle</th>
+		                	<th class="text-primary">Detalle</th>
 		              	</thead>
 		              	<tbody ng-repeat="horario in horarios | orderBy:sortType:sortReverse | filter:ser_nombre" ng-if="horario.fe_id == fe_id">
 		                    <tr>

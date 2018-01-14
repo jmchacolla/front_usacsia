@@ -40,13 +40,13 @@
                 <div class="table-responsive">
                   <table class="table table-bordered table-striped table-hover" ng-show="!loading && msg">
                     <thead>
-                      <th>ID</th>
-                      <th>Tipo de alerta</th>
-                      <th>Rango</th>
-                      <th>Frecuencia</th>
-                      <th>Ver</th>
-                      <th>Editar</th>
-                      <th>Borrar</th>
+                      <th class="text-primary">ID</th>
+                      <th class="text-primary">Tipo de alerta</th>
+                      <th class="text-primary">Rango</th>
+                      <th class="text-primary">Frecuencia</th>
+                      <th class="text-primary">Ver</th>
+                      <th class="text-primary">Editar</th>
+                      <th class="text-primary">Borrar</th>
                     </thead>
                     <tbody ng-repeat="alerta in alertas | orderBy:sortType:sortReverse | filter:searchText">
                       <tr>
@@ -132,13 +132,13 @@
                   <div ng-show="!loading && !msg">No se encontraron resultados</div>
                   <table class="table table-bordered table-striped table-hover" ng-show="!loading && msg">
                     <thead>
-                      <th>ID</th>
-                      <th>Tipo de alerta</th>
-                      <th>Rango</th>
-                      <th>Frecuencia</th>
-                      <th>Ver</th>
-                      <th>Editar</th>
-                      <th>Borrar</th>
+                      <th class="text-primary">ID</th>
+                      <th class="text-primary">Tipo de alerta</th>
+                      <th class="text-primary">Rango</th>
+                      <th class="text-primary">Frecuencia</th>
+                      <th class="text-primary">Ver</th>
+                      <th class="text-primary">Editar</th>
+                      <th class="text-primary">Borrar</th>
                     </thead>
                     <tbody ng-repeat="alerta in alertas | orderBy:sortType:sortReverse | filter:searchText">
                       <tr>

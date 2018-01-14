@@ -41,17 +41,17 @@
                 <table class="table table-hovertable table-bordered table-striped table-hover" ng-show="!loading && msg">
                     <thead>
                         
-                        <th >
+                        <th class="text-primary">
                             <a href="" ng-click="sortType = 'enfe_nombre'; sortReverse = !sortReverse">
                             Nombre enfermedad
                             <span ng-show="sortType == 'enfe_nombre' && !sortReverse" class="glyphicon glyphicon-sort-by-alphabet"></span>
                             <span ng-show="sortType == 'enfe_nombre' && sortReverse" class="glyphicon glyphicon-sort-by-alphabet-alt"></span>
                             </a>
                         </th>
-                        <th >Prevención</th>
-                        <th >Ver</th>
-                        <th >Editar</th>
-                        <th >Borrar</th>
+                        <th class="text-primary">Prevención</th>
+                        <th class="text-primary">Ver</th>
+                        <th class="text-primary">Editar</th>
+                        <th class="text-primary">Borrar</th>
                         
                     </thead>
                     
@@ -92,9 +92,9 @@
                                     </div>
                                   </div>
                                   <div class="modal-footer">
-                                    <button type="button" class="btn btn-primary" data-dismiss="modal" ng-click="remove()"><span class="glyphicon glyphicon-ok"></span> SI</button>
-                                    <button type="button" class="btn btn-danger" data-dismiss="modal">
+                                    <button type="button" class="btn btn-default" data-dismiss="modal">
                                         <span class="glyphicon glyphicon-remove"></span> NO
+                                    <button type="button" class="btn btn-primary" data-dismiss="modal" ng-click="remove()"><span class="glyphicon glyphicon-ok"></span> SI</button>
                                     </button>
                                   </div>
                                 </div>

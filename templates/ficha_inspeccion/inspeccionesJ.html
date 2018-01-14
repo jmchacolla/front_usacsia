@@ -35,7 +35,7 @@
       <div class="table-responsive">
         <table class="table table-bordered table-striped table-hover" ng-show="!loading && msg" id="table">
           <thead >
-          <th >
+          <th class="text-primary" >
               <a href="" ng-click="sortType = 'created_at'; sortReverse = !sortReverse">
                       Fecha de Inspección
                       <span ng-show="sortType == 'created_at' && !sortReverse" class="glyphicon glyphicon-chevron-up"></span>
@@ -43,18 +43,18 @@
                         </a>
             </th>
            
-            <th >
+            <th class="text-primary" >
               <a href="" ng-click="sortType = 'pjur_nit'; sortReverse = !sortReverse">Nit propietario
               <span ng-show="sortType == 'pjur_nit' && !sortReverse" class="glyphicon glyphicon-chevron-up"></span>
               <span ng-show="sortType == 'pjur_nit' && sortReverse" class="glyphicon glyphicon-chevron-down"></span></a>
             </th>
-            <th >
+            <th class="text-primary" >
               <a href="" ng-click="sortType = 'pjur_razon_social'; sortReverse = !sortReverse">Propietario 
               <span ng-show="sortType == 'pjur_razon_social' && !sortReverse" class="glyphicon glyphicon-chevron-up"></span>
               <span ng-show="sortType == 'pjur_razon_social' && sortReverse" class="glyphicon glyphicon-chevron-down"></span></a>
             </th>
-            <th>Establecimiento</th>
-            <th>Ver</th>
+            <th class="text-primary">Establecimiento</th>
+            <th class="text-primary">Ver</th>
             <!-- <th ng-show="user.rol == '16'">Ficha</th> -->
             <!-- <th>Dar de baja</th> -->
           </thead>

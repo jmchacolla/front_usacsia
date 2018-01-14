@@ -58,32 +58,32 @@
 				</ul>
 				<table class="table table-bordered table-striped table-hover" ng-show="!loading && msg" id="tablePAC">
 					<thead >
-						<th >
+						<th class="text-primary" >
 							<a href="" ng-click="sortType = 'per_ci'; sortReverse = !sortReverse">C.I.</a>
 				            <span ng-show="sortType == 'per_ci' && !sortReverse" class="glyphicon glyphicon-chevron-up"></span>
 				            <span ng-show="sortType == 'per_ci' && sortReverse" class="glyphicon glyphicon-chevron-down"></span>
 						</th>
-						<th >
+						<th class="text-primary" >
 							<a href="" ng-click="sortType = 'pac_hist_clinico'; sortReverse = !sortReverse">Cod.Hist.
 							<span ng-show="sortType == 'pac_hist_clinico' && !sortReverse" class="glyphicon glyphicon-chevron-up"></span>
 	                        <span ng-show="sortType == 'pac_hist_clinico' && sortReverse" class="glyphicon glyphicon-chevron-down"></span></a>
 						</th>
-						<th >
+						<th class="text-primary" >
 							<a href="" ng-click="sortType = 'per_apellido_primero'; sortReverse = !sortReverse">Apellidos
 							<span ng-show="sortType == 'per_apellido_primero' && !sortReverse" class="glyphicon glyphicon-chevron-up"></span>
 	                        <span ng-show="sortType == 'per_apellido_primero' && sortReverse" class="glyphicon glyphicon-chevron-down"></span></a>
 						</th>
-						<th>
+						<th class="text-primary">
 				            <a href="" ng-click="sortType = 'per_nombres'; sortReverse = !sortReverse">Nombres 
 				            <span ng-show="sortType == 'per_nombres' && !sortReverse" class="glyphicon glyphicon-chevron-up"></span>
 				            <span ng-show="sortType == 'per_nombres' && sortReverse" class="glyphicon glyphicon-chevron-down"></span></a>
 				        </th>
-						<th >Fecha de nacimiento</th>
-						<th >Ver</th>
-						<th ng-if="rol_id == 4 || rol_id == '9'">Referenciar</th>
-						<th ng-if="rol_id == 4 || rol_id == '9'">Programar cita</th>
-						<th ng-if="rol_id == 6">Asignar ficha</th>
-						<th ng-if="rol_id == 3 || rol_id == 6 || rol_id == 10">Editar</th>
+						<th class="text-primary" >Fecha de nacimiento</th>
+						<th class="text-primary" >Ver</th>
+						<th class="text-primary" ng-if="rol_id == 4 || rol_id == '9'">Referenciar</th>
+						<th class="text-primary" ng-if="rol_id == 4 || rol_id == '9'">Programar cita</th>
+						<th class="text-primary" ng-if="rol_id == 6">Asignar ficha</th>
+						<th class="text-primary" ng-if="rol_id == 3 || rol_id == 6 || rol_id == 10">Editar</th>
 						<!--<th ng-if="rol_id == 3 || rol_id == 6 || rol_id == 10">Borrar</th>-->
 					</thead>
 					<tbody ng-repeat="paciente in pacientes.data | orderBy:sortType:sortReverse | filter:per_ci ">

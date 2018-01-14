@@ -50,10 +50,10 @@
 	            </div>
 	            <div ng-if="!verb">
 		            <center>
-		            	<button type="submit" class="btn btn-primary" ng-disabled="userForm.$invalid" ng-click="save($parent.parasito);verbutton()"><span class="glyphicon glyphicon-save"></span>GUARDAR</button>
 		            	<a href="#/referenciasRec">
-		                  <button type="submit" data-toggle="modal"  class="btn btn-danger"  ><span class="glyphicon glyphicon-remove"></span> CANCELAR</button>
+		                  <button type="submit" data-toggle="modal"  class="btn btn-default"  ><span class="glyphicon glyphicon-remove"></span> CANCELAR</button>
 		                </a>
+		            	<button type="submit" class="btn btn-primary" ng-disabled="userForm.$invalid" ng-click="save($parent.parasito);verbutton()"><span class="glyphicon glyphicon-save"></span>GUARDAR</button>
 		            </center>
 		        </div>
 	            <div ng-if="verb">
@@ -87,7 +87,7 @@
 		            </div>
 		            <center>
 		            	<button type="submit" class="btn btn-primary" ng-disabled="userForm.$invalid" ng-click="savep($parent.parasitoTratamiento)"><span class="glyphicon glyphicon-save"></span>GUARDAR</button>
-		                  <button type="submit" ng-click="vertratamientos(userForm)" data-toggle="modal"  class="btn btn-danger"  ><span class="glyphicon glyphicon-remove"></span> CANCELAR</button>
+		                  <button type="submit" ng-click="vertratamientos(userForm)" data-toggle="modal"  class="btn btn-default"  ><span class="glyphicon glyphicon-remove"></span> CANCELAR</button>
 		            </center>
 		       	</div>
 		    </div>
