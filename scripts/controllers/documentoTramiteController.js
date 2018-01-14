@@ -75,9 +75,26 @@ function ($scope, DocumentoNoRegistrado,DocumentoRegistrado,DocumentoTramite, $r
 
 
 
-.controller('EditarDocumentoTramiteCtrl', ['$scope', 'DocumentoTramite2', 'DocumentoTramiteL','PersonasEstablecimiento','Documento','$route','$routeParams', 'toastr', '$location',
-function ($scope, DocumentoTramite2,DocumentoTramiteL,PersonasEstablecimiento,Documento, $route,$routeParams,toastr,$location)
+.controller('EditarDocumentoTramiteCtrl', ['$scope', 'DocumentoTramite2', 'DocumentoTramiteL','PersonasEstablecimiento','Documento','$route','$routeParams', 'toastr', '$location','CONFIG',
+function ($scope, DocumentoTramite2,DocumentoTramiteL,PersonasEstablecimiento,Documento, $route,$routeParams,toastr,$location,CONFIG)
 {
+  $scope.user = {
+    rol_id: CONFIG.ROL_CURRENT_USER
+  }
+  if ($scope.user.rol_id == 15) {
+    $scope.ajustes = {
+    menu:{
+      titulo: 'Establecimientos',
+      items:[
+      {nombre:'Establecimientos solicitantes', enlace:'#/lista-solicitantes', estilo:'active'}
+      ]
+    },
+    pagina:{
+      titulo:'Establecimientos Solicitantes'
+    }
+  }
+  }
+  else{
   $scope.ajustes = {
     //Configuraciones del menu:
     menu:{
@@ -92,7 +109,7 @@ function ($scope, DocumentoTramite2,DocumentoTramiteL,PersonasEstablecimiento,Do
       titulo:'Tramites iniciados'
     }
   }
-
+}
   var et_id=$routeParams.et_id;
   var FunG = localStorage.getItem("Funcionario");
   var FunG = JSON.parse(FunG);

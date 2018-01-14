@@ -14,7 +14,7 @@ angular.module('authService', [])
 		};
 	})
 
-	.factory('authUser', function ($auth, sessionControl, toastr, $location, $rootScope, FuncionarioPer, CONFIG,/* Establecimientos,*/$route,$timeout,/*RolResource,*/Personas,Paises,/*PacientePersona,*/) {
+	.factory('authUser', function ($auth, sessionControl, toastr, $location, $rootScope, FuncionarioPer, CONFIG,/* Establecimientos,*/$route,$timeout,/*RolResource,*/Personas,Paises,/*PacientePersona,*/EstabSols) {
 		var cacheSession = function(usu_nick, rol_id, usu_identificador, id){
 			//Asigna variables de sesion
 			sessionControl.set('userIsLogin',true);
@@ -64,14 +64,24 @@ angular.module('authService', [])
 					//para almacenar en localStorage los datos de la persona logueada
 					//convirtiendo text a int
 					var per_id= parseInt(response.data.user.usu_identificador, 10);
-					
+					if (response.data.user.rol_id!=6) {
 					Personas.get({per_id:per_id}, function(data){
 						var persona = data.persona;
 						//console.log("GUARDANDO DATOS DE PERSONA EN LOCALSTORAGE",persona)
 						persona = JSON.stringify(persona);
 						localStorage.setItem("DatosPer", persona);
 					});
-
+	
+					} else {
+						EstabSols.get({ess_id:per_id}, function(data){
+						var persona = data.establecimiento;
+						//console.log("GUARDANDO DATOS DE PERSONA EN LOCALSTORAGE",persona)
+						persona = JSON.stringify(persona);
+						localStorage.setItem("DatosEstablecimiento", persona);
+						
+					});
+					}
+					
 
 
 
@@ -104,7 +114,7 @@ angular.module('authService', [])
 						  	localStorage.setItem("Funcionario", datosFunG);
 					});*/
 					/*}*/
-					
+					if (response.data.user.rol_id!=6) {
 					FuncionarioPer.get({per_id:response.data.user.usu_identificador}, function(data)
 					{
 						var funcionario = data.funcionario;
@@ -119,9 +129,13 @@ angular.module('authService', [])
 
 						}
 					});
+
+
+					}//fin del if
+					
 					$timeout(function() {
-						              $location.path('/');
-						          	},1500);
+		              $location.path('/');
+		          	},1500);
 
 										
 					//PARA ROLES
@@ -174,7 +188,7 @@ angular.module('authService', [])
 				localStorage.removeItem("DatosPer");
 				localStorage.removeItem("ROL_CURRENT_USER");
 				localStorage.removeItem("ROL_CURRENT_USER_NAME");
-				//localStorage.removeItem("DatosEstablecimiento");
+				localStorage.removeItem("DatosEstablecimiento");
 				localStorage.removeItem("Funcionario");
 			//	localStorage.removeItem("PacId");
 				localStorage.removeItem("aux_es_id");

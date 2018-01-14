@@ -1,7 +1,7 @@
 'use strict';
 angular.module("adminApp")
 
-.controller('BoletaCesCtrl', ['$scope', '$http', 'EmpTra', 'Tramite','PagoPendienteTramite', 'PagoPendiente', 'EmpresaTramite', 'CrearEstados', '$route', '$resource', '$routeParams', 'toastr', '$location', '$timeout', 'CONFIG', function ($scope, $http,EmpTra, Tramite, PagoPendienteTramite, PagoPendiente, EmpresaTramite, CrearEstados, $route, $resource,$routeParams, toastr, $location, $timeout,CONFIG) {
+.controller('BoletaCesCtrl', ['$scope', '$http', 'EmpTra', 'Tramite','PagoPendienteTramite', 'PagoPendiente', 'EmpresaTramite', 'CrearEstados', '$route', '$resource', '$routeParams', 'toastr', '$location', '$timeout', 'CONFIG','Usuarios', function ($scope, $http,EmpTra, Tramite, PagoPendienteTramite, PagoPendiente, EmpresaTramite, CrearEstados, $route, $resource,$routeParams, toastr, $location, $timeout,CONFIG,Usuarios) {
   var et_id=$routeParams.et_id;
   var FunG = localStorage.getItem("Funcionario");
   var FunG = JSON.parse(FunG);
@@ -65,8 +65,23 @@ angular.module("adminApp")
 
       EmpTra.update({et_id:et_id},pago, function (argument) {
           toastr.success('Pago registrado exitosamente');
-          console.log('pago', argument);
+
           if (argument.mensaje) {
+
+
+              $scope.usuario={
+                usu_identificador:argument.empt.ess_id,
+                usu_tipo:"E",
+                rol_id:6
+              };
+
+              Usuarios.save($scope.usuario).$promise.then(function(data){
+                if(data.msg){
+                  angular.copy({}, $scope.usuario);
+
+                }
+              });
+
             $timeout(function() {
                 $location.path('/boleta-ces-f1/'+et_id);
             },200);
@@ -183,6 +198,26 @@ angular.module("adminApp")
 }])//--------/BoletaF1Ctrl
 
 .controller('OrdenPagoCrearCtrl', ['$scope', 'FichaInspc', 'FichaCat', 'FichaCatSancion', 'EmpresaTramite', 'Zonas', 'OrdenPago', 'PagoArancel', 'PagoSancion', 'VerEs', 'CONFIG', '$route', '$http', '$routeParams', '$location', 'toastr', function ($scope,FichaInspc, FichaCat, FichaCatSancion, EmpresaTramite, Zonas, OrdenPago, PagoArancel, PagoSancion, VerEs, CONFIG,$route, $http, $routeParams, $location, toastr) {
+   $scope.user = {
+    rol_id: CONFIG.ROL_CURRENT_USER
+  }
+  if ($scope.user.rol_id == 15) {
+    $scope.ajustes = {
+    menu:{
+      titulo: 'Gestión de Trámites',
+      items:[
+      {nombre:'Establecimientos solicitantes', enlace:'#/lista-solicitantes', estilo:''},
+      {nombre:'Establecimientos validados', enlace:'#/lista-validacion', estilo:''},
+      {nombre:'Establecimientos inspeccionados', enlace:'#/lista-inspeccionados', estilo:''},
+      {nombre:'Imprimir boleta de pago', enlace:'', estilo:'active'}
+      ]
+    },
+    pagina:{
+      titulo:'Orden de Pago'
+    }
+  }
+  }else{
+
     $scope.ajustes = {
       menu:{
         titulo: 'Gestión de Trámites',
@@ -196,6 +231,7 @@ angular.module("adminApp")
         titulo:'Orden de Pago'
       }
     }
+  }
     var et_id=$routeParams.et_id;
     var FunG = localStorage.getItem("Funcionario");
     var FunG = JSON.parse(FunG);

@@ -119,19 +119,29 @@ angular.module('adminApp')
 	.controller('MenuLateralCtrl', ['$scope', 'CONFIG', function ($scope, CONFIG) {
 		var SesionG = localStorage.getItem("Sesion");
   		var SesionG = JSON.parse(SesionG);
+  		$scope.ro=SesionG.rol_id;
   		
   		var vm = this;
   		//obteniendo datos del rol
 		vm.roles = CONFIG.ROL_CURRENT_USER_NAME;//localStorage.getItem("ROL_CURRENT_USER_NAME");
 		vm.rol = CONFIG.ROL_CURRENT_USER;//SesionG.rol_id;
 		//obteniendo datos de la persona
-		var DatosPer = localStorage.getItem("DatosPer");
-		var DatosPer = JSON.parse(DatosPer);
-		vm.persona = DatosPer;
+		if (vm.rol!=6) {
+			var DatosPer = localStorage.getItem("DatosPer");
+			var DatosPer = JSON.parse(DatosPer);
+			vm.persona = DatosPer;
+		} else {
+			var DatosEst = localStorage.getItem("DatosEstablecimiento");
+			var DatosEst = JSON.parse(DatosEst);
+			vm.establecimiento = DatosEst;
+			console.log("datos de establecimiento__________",vm.establecimiento);
+		}
+		
 		
 		vm.usu_nick=SesionG.usu_nick;
+		
 		//vm.nombreEst = localStorage.getItem("nombreEst");
-/*		if(vm.rol != 1 && vm.rol != 7 && (localStorage.getItem("DatosEstablecimiento")!=null)) {
+		/*if(vm.rol == 6 && (localStorage.getItem("DatosEstablecimiento")!=null)) {
 			var Establecimiento = localStorage.getItem("DatosEstablecimiento");
 	  		var Establecimiento = JSON.parse(Establecimiento);
 	  		vm.nombreEst = Establecimiento.establecimientos.es_nombre;

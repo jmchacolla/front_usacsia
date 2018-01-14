@@ -93,7 +93,7 @@ angular.module("adminApp")
     update: {method: "PUT", params: {}}
   })
 }])
-// ==================== E S T A B L E C I M I E N T O S ============================================================
+// ==================== E S T A B L E C I M I E N T O S ==============================================
 //Lista los establecimientos usacsia
 .factory('Establecimientos', ['$resource', 'CONFIG', function ($resource, CONFIG){
   return $resource(CONFIG.DOMINIO_SERVICIOS+"/usacsia/:usa_id", {usa_id:"@_usa_id"}, {
@@ -101,7 +101,7 @@ angular.module("adminApp")
   })
 }])
 
-//Lista los establecimientos solicitantes
+//Lista los establecimientos solicitantes, ver est 
 .factory('EstabSols', ['$resource', 'CONFIG', function ($resource, CONFIG){
   return $resource(CONFIG.DOMINIO_SERVICIOS+"/establecimiento_solicitante/:ess_id", {ess_id:"@_ess_id"}, {
     update: {method: "PUT", params: {ess_id: "@ess_id"}}
@@ -327,10 +327,10 @@ angular.module("adminApp")
   return $resource(CONFIG.DOMINIO_SERVICIOS+"/wen2/:et_id/:eta_id", {et_id:"@_et_id",eta_id:"@_eta_id"}, {update: {method: "PUT", params: {et_id: "@et_id",eta_id:"@eta_id"}}
   })
 }])
-.factory('wen', ['$resource', 'CONFIG', function ($resource, CONFIG){
+/*.factory('wen', ['$resource', 'CONFIG', function ($resource, CONFIG){
   return $resource(CONFIG.DOMINIO_SERVICIOS+"/celulr/:et_id/:eta_id", {et_id:"@_et_id",eta_id:"@_eta_id"}, {update: {method: "PUT", params: {et_id: "@et_id",eta_id:"@eta_id"}}
   })
-}])
+}])*/
 //--------------------------CREAR CERTIFICADO SANITARIO----------------------------
 .factory('CertificadoSanitario', ['$resource', 'CONFIG', function ($resource, CONFIG) {
   return $resource(CONFIG.DOMINIO_SERVICIOS+"/certificado_sanitario/:ces_id", {ces_id:"@_ces_id"}, {
@@ -372,6 +372,11 @@ angular.module("adminApp")
     update: {method: "PUT", params: {fcs_id: "@fcs_id"}}
   })
 }])
+.factory('CrearFichaCatSan', ['$resource', 'CONFIG', function ($resource, CONFIG) {
+  return $resource(CONFIG.DOMINIO_SERVICIOS+"/crearsan", {}, {
+    update: {method: "PUT", params: {}}
+  })
+}])
 //ver sanciones de una categoria
 .factory('VerFcs', ['$resource', 'CONFIG', function ($resource, CONFIG) {
   return $resource(CONFIG.DOMINIO_SERVICIOS+"/ficha_cat_ver/:fc_id", {fc_id:"@_fc_id"}, {
@@ -388,6 +393,18 @@ angular.module("adminApp")
 .factory('FichasInsEtJ', ['$resource', 'CONFIG', function ($resource, CONFIG) {
   return $resource(CONFIG.DOMINIO_SERVICIOS+"/ver_fichasJ/:et_id", {et_id:"@_et_id"}, {
     update: {method: "PUT", params: {et_id: "@et_id"}}
+  })
+}])
+//ver propietario de establecimiento
+.factory('Verpropietario', ['$resource', 'CONFIG', function ($resource, CONFIG) {
+  return $resource(CONFIG.DOMINIO_SERVICIOS+"/verpropietario/:ess_id", {ess_id:"@_ess_id"}, {
+    update: {method: "PUT", params: {ess_id: "@ess_id"}}
+  })
+}])
+//ver sanciones de una ficha
+.factory('VerSanciones', ['$resource', 'CONFIG', function ($resource, CONFIG) {
+  return $resource(CONFIG.DOMINIO_SERVICIOS+"/versancion/:fi_id", {fi_id:"@_fi_id"}, {
+    update: {method: "PUT", params: {fi_id: "@fi_id"}}
   })
 }])
 
