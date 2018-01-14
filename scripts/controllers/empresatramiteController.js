@@ -493,7 +493,7 @@ console.log("propietario natural  ____",$scope.propietario);
       titulo:'Establecimientos que pagaron arancel'
     }
   }
-  } else if ($scope.user.rol_id == 14 || $scope.user.rol_id == 2) {
+  } else if ($scope.user.rol_id == 14 || $scope.user.rol_id == 2 || $scope.user.rol_id == 1) {
     $scope.ajustes = {
       menu:{
         titulo: 'Gestión de Certificado Sanitario',
@@ -518,9 +518,7 @@ console.log("propietario natural  ____",$scope.propietario);
       items:[
        {nombre:'Establecimientos validados', enlace:'#/lista-validacion', estilo:''},
         {nombre:'Establecimientos inspeccionados', enlace:'#/lista-inspeccionados', estilo:''},
-        {nombre:'Establecimientos que cancelaron', enlace:'#/lista-cancelaron', estilo:'active'}/*,
-        {nombre:'Esablecimientos que cancelaron naturales', enlace:'#/tramites_certi', estilo:''},
-        {nombre:'Esablecimientos que cancelaron Juridicos', enlace:'#/tramites_certiJ', estilo:''}*/]
+        {nombre:'Establecimientos que cancelaron', enlace:'#/lista-cancelaron', estilo:'active'}]
     },
     pagina:{
       titulo:'Establecimientos que pagaron arancel'
@@ -927,12 +925,9 @@ console.log("propietario natural  ____",$scope.propietario);
     $scope.sortType = 'te_fecha'; // ESTABLECIENDO EL TIPO DE ORDENAMIENTO
     $scope.sortReverse  = true;  // PARA ORDENAR ASCENDENTEMENTO O DESCENDENTEMENTE
     $scope.loading=true;//PARA HACER UN LOADING EN EL TEMPLATE
-    var condiciones={
-      eta_id:7,
-      te_estado:'APROBADO'
-}
+    
 /*=======*/
-      if (persona.et_estado_pago=='VENCIDO') {
+      /*if (persona.et_estado_pago=='VENCIDO') {
         EmpresaTramite.save(emptr).promise.then(function (argument) {
           console.log('et_id------', argument.et_id);
           if (argument.msg) {
@@ -970,9 +965,13 @@ console.log("propietario natural  ____",$scope.propietario);
       if(persona.et_estado_tramite=='APROBADO'&& c>=30)
       {
         toastr.error('El docuemnto aún se encuentra en vigencia');
-      }
+      }*/
 /*>>>>>>> a354e6c9b2fb30b8eef3d8d152fc9db34b17322e*/
-    }
+   /* }*/
+   var condiciones={
+      eta_id:7,
+      te_estado:'APROBADO'
+}
   ListaEmpTraEtapaEstado.get(condiciones, function (argument) {
       $scope.establecimientos = argument.empresa_tramite;
       console.log('establecimientos', $scope.establecimientos);
