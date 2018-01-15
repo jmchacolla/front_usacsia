@@ -148,15 +148,114 @@ angular.module("adminApp")
         sedes =base64Img;
 
         var docDefinition = {
-            
-            pageOrientation: 'landscape',
-            pageSize: 'A6',
-            pageMargins: [ 30, 10, 30, 10 ],
+                
+                pageOrientation: 'landscape',
+                pageSize: 'A5',
+                pageMargins: [ 30, 10, 30, 10 ],
 
-              watermark:{text:'EN DESARROLLO', color: 'blue', opacity: 0.3, bold: true, italics: false},
-            content: [
-            ]
-          }
+                content: [
+
+                //   {
+                //   table: {
+                //   widths: [110, 310, 100],
+                //   body: [
+                //       [
+                //         {
+                //           image: gober,
+                //           width: 68,
+                //           height: 73
+                //         },
+                //         {
+                //           /*image: gober,
+                //           width: 64,
+                //           height: 62*/
+                //           text: "\n \n \n GOBIERNO AUTONOMO DEPARTAMENTAL DE LA PAZ \n SERVICIO DEPARTAMENTAL DE SALUD \n UNIDAD DE SALUD AMBIENTAL \n CONTROL SANITARIO E INOCUIDAD ALIMENTARIA \n \n CAJA RECAUDADORA DE USACSIA",
+                //           alignment: 'center',
+                //           style: 'header' 
+                //         },
+                //         {
+                //           image: sedes,
+                //           width: 35,
+                //           height: 55,
+                //           alignment:'right'
+                //         }
+                //       ],
+                //   ],
+
+                //   },
+                //   layout: 'noBorders',
+                //   style: 'cuerpo',
+                //   border: [false, false, false, false]
+
+                // },
+                // header(tituloqr),
+                //     {
+                //       qr: textoqr,
+                //       fit:50,
+                //       alignment: 'right'
+                //     },
+                {
+                   text: "C.I./NIT:  "+'identificador', fontSize: 12, alignment: 'right'
+                },
+                {
+                  text: " \nBOLETA DE PAGOS\n\n",
+                  alignment: 'center',
+                  style: 'header'  
+                },
+                {
+                    table: {
+                    widths: [530],
+
+                      body: [
+                        [
+                          {
+                            table: {
+                              headerRows: 1,
+                              body: [
+                                 [{text: 'UNIDAD DE:', bold: true},'$scope.pagop.tramite.tra_nombre',{text: 'FECHA: ', bold: true},'fechaCONT',{text: 'HORA: ', bold: true},'horaC'],
+                                  [{text: 'HEMOS RECIBIDO DEL SR:', bold: true}, 'nombre', {text: ''},'',{text: ' '},''],
+                                   [{text: 'LA SUMA DE:', bold: true},'$scope.pagop.pagop.pp_monto_total'+" BOLIVIANOS",{text: ''},'',{text: ' '},''],
+                                   [{text: 'POR CONCEPTO DE:', bold: true},'$scope.pagop.pagop.pp_descripcion',{text: ''},'',{text: ' '},''],
+                             
+                                
+                                ]
+                              },
+                              layout: 'noBorders',
+                              style: 'cuerpo',
+                              border: [true, true, true, false]
+                          }
+                        ],
+                       
+                   
+                        [
+                          {
+
+                            table: {
+                            widths: [130, 130, 130,130],
+                            body: [
+                                  ['\n \n',''/*,'',''*/],
+                                  ['\n \n',''/*,'\n\n',''*/],
+                                  ['',''/*,'\n\n',''*/],                                  
+                                  [{text: 'REVISADO', bold: true, alignment: 'center'},
+                                  {text: 'FIRMA USUARIO', bold: true,alignment: 'center'}/*,{text: '', bold: true,alignment: 'center'},{text: '', bold: true, alignment: 'center' }*/]
+                              ]
+                            },
+                            layout: 'noBorders',
+                            style: 'cuerpo1',
+                            border: [true, false, true, true]
+                          }
+                        ],
+                      ],
+                      style: 'cuerpo' 
+                    }     
+                },
+
+
+
+                  
+                ]
+             };       
+
 
 
         $scope.openPdfF1 = function() {
@@ -440,9 +539,128 @@ angular.module("adminApp")
           });
         }
     });
+    
     $scope.openOrdenPDF=function (data) {
-      // body...
-    }
+      console.log('llego maricas');
+      pdfMake.createPdf(docDefinition).open();
+    };
+    $scope.downloadOrdenPDF = function() {
+      console.log('llego maricas');
+      pdfMake.createPdf(docDefinition).download();
+    };
+
+
+
+
+    var docDefinition = {
+                
+                pageOrientation: 'landscape',
+                pageSize: 'A5',
+                pageMargins: [ 30, 10, 30, 10 ],
+
+                content: [
+
+                //   {
+                //   table: {
+                //   widths: [110, 310, 100],
+                //   body: [
+                //       [
+                //         {
+                //           image: gober,
+                //           width: 68,
+                //           height: 73
+                //         },
+                //         {
+                //           /*image: gober,
+                //           width: 64,
+                //           height: 62*/
+                //           text: "\n \n \n GOBIERNO AUTONOMO DEPARTAMENTAL DE LA PAZ \n SERVICIO DEPARTAMENTAL DE SALUD \n UNIDAD DE SALUD AMBIENTAL \n CONTROL SANITARIO E INOCUIDAD ALIMENTARIA \n \n CAJA RECAUDADORA DE USACSIA",
+                //           alignment: 'center',
+                //           style: 'header' 
+                //         },
+                //         {
+                //           image: sedes,
+                //           width: 35,
+                //           height: 55,
+                //           alignment:'right'
+                //         }
+                //       ],
+                //   ],
+
+                //   },
+                //   layout: 'noBorders',
+                //   style: 'cuerpo',
+                //   border: [false, false, false, false]
+
+                // },
+                // header(tituloqr),
+                //     {
+                //       qr: textoqr,
+                //       fit:50,
+                //       alignment: 'right'
+                //     },
+                {
+                   text: "C.I./NIT:  "+'identificador', fontSize: 12, alignment: 'right'
+                },
+                {
+                  text: " \nBOLETA DE PAGOS\n\n",
+                  alignment: 'center',
+                  style: 'header'  
+                },
+                {
+                    table: {
+                    widths: [530],
+
+                      body: [
+                        [
+                          {
+                            table: {
+                              headerRows: 1,
+                              body: [
+                                 [{text: 'UNIDAD DE:', bold: true},'$scope.pagop.tramite.tra_nombre',{text: 'FECHA: ', bold: true},'fechaCONT',{text: 'HORA: ', bold: true},'horaC'],
+                                  [{text: 'HEMOS RECIBIDO DEL SR:', bold: true}, 'nombre', {text: ''},'',{text: ' '},''],
+                                   [{text: 'LA SUMA DE:', bold: true},'$scope.pagop.pagop.pp_monto_total'+" BOLIVIANOS",{text: ''},'',{text: ' '},''],
+                                   [{text: 'POR CONCEPTO DE:', bold: true},'$scope.pagop.pagop.pp_descripcion',{text: ''},'',{text: ' '},''],
+                             
+                                
+                                ]
+                              },
+                              layout: 'noBorders',
+                              style: 'cuerpo',
+                              border: [true, true, true, false]
+                          }
+                        ],
+                       
+                   
+                        [
+                          {
+
+                            table: {
+                            widths: [130, 130, 130,130],
+                            body: [
+                                  ['\n \n',''/*,'',''*/],
+                                  ['\n \n',''/*,'\n\n',''*/],
+                                  ['',''/*,'\n\n',''*/],                                  
+                                  [{text: 'REVISADO', bold: true, alignment: 'center'},
+                                  {text: 'FIRMA USUARIO', bold: true,alignment: 'center'}/*,{text: '', bold: true,alignment: 'center'},{text: '', bold: true, alignment: 'center' }*/]
+                              ]
+                            },
+                            layout: 'noBorders',
+                            style: 'cuerpo1',
+                            border: [true, false, true, true]
+                          }
+                        ],
+                      ],
+                      style: 'cuerpo' 
+                    }     
+                },
+
+
+
+                  
+                ]
+             };       
+
 
 
 }])
@@ -544,9 +762,7 @@ angular.module("adminApp")
                   alignment: 'center',
                   style: 'header'  
                 },
-
-  {
-
+                {
                     table: {
                     widths: [530],
 
