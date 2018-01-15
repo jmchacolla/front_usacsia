@@ -114,7 +114,7 @@
                         <label class="control-label">Tipo de documento: <strong class="fg_red">*</strong></label>
                                     <select class="form-control " name="tipo_doc" ng-model="persona.per_tipo_documento" ng-change="documento()">
                                 <option value="CI">CEDULA DE IDENTIDAD</option>
-                                <option value="PASAPORTE">PASAPORTE</option> 
+                                <option value="PASAPORTE">CEDULA DE IDENTIDAD(EXTRANJERO)</option> 
                                     </select>
                                     <span class="messages" ng-show="addPersona.$submitted || addPersona.tipo_doc.$touched">
                                <span ng-show="addPersona.tipo_doc.$error.required">El campo es obligatorio.</span>
@@ -130,9 +130,27 @@
                                <span ng-show="addPersona.num_iden.$error.min">Número de CI incorrecto.</span>
                                <span ng-show="addPersona.num_iden.$error.pattern">El formato introducido es incorrecto.</span>
                                <span ng-show="pre_reg">ESTE NÚMERO YA SE ENCUENTRA REGISTRADO.</span>
-                            </span>
+                        </span>
                         </div>
                         </div>
+                        <!-- <div class="col-md-4">
+                         <label class="control-label">Sufijo: </label>
+                              <select class="form-control"  title="Mes" name="mes" ng-model="sufijo"  required placeholder="sufijo">
+                                <option value="">NO TIENE</option>
+                                <option value="01">A</option>
+                                <option value="02">Febrero</option>
+                                <option value="03">Marzo</option>
+                                <option value="04">Abril</option>
+                                <option value="05">Mayo</option>
+                                <option value="06">Junio</option>
+                                <option value="07">Julio</option>
+                                <option value="08">Agosto</option>
+                                <option value="09">Septiembre</option>
+                                <option value="10">Octubre</option>
+                                <option value="11">Noviembre</option>
+                                <option value="12">Diciembre</option>
+                              </select>
+                        </div> -->
                     <div class="col-md-2" ng-show="exp">
                         <div class="form-group">
                                     <label class="control-label ">Expedido en: <strong class="fg_red">*</strong></label>
@@ -535,4 +553,4 @@ $(document).ready(function(){
  <script type="text/javascript">
       $(":file").filestyle({buttonText: " Abrir"});
        //$('#fileInput').filestyle({buttonName : 'btn-warning'});
-    </script>
+</script>

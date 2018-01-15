@@ -14,13 +14,6 @@ angular.module('adminApp')
 // DOMINIO_SERVICIOS: "http://localhost:8000"//---------------------jhon
 
 // DOMINIO_SERVICIOS: "http://localhost/api_usacsia_v1_0/public"
-
-//wendy
-//http://localhost:8080/GE-USACSIA/api_usacsia/public
-
-//DOMINIO_SERVICIOS: "http://localhost:8080/GE-USACSIA/api_usacsia/public"
-
-
  //wendy
 
  DOMINIO_SERVICIOS: "http://localhost:8080/api_usacsia_v1_0/public"

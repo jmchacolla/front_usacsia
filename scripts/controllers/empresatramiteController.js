@@ -921,12 +921,10 @@ console.log("propietario natural  ____",$scope.propietario);
 
 
 
-/*<<<<<<< HEAD*/
     $scope.sortType = 'te_fecha'; // ESTABLECIENDO EL TIPO DE ORDENAMIENTO
     $scope.sortReverse  = true;  // PARA ORDENAR ASCENDENTEMENTO O DESCENDENTEMENTE
     $scope.loading=true;//PARA HACER UN LOADING EN EL TEMPLATE
-    
-/*=======*/
+
       if (persona.et_estado_pago=='VENCIDO') {
         EmpresaTramite.save(emptr).promise.then(function (argument) {
           console.log('et_id------', argument.et_id);
@@ -966,8 +964,7 @@ console.log("propietario natural  ____",$scope.propietario);
       {
         toastr.error('El docuemnto aún se encuentra en vigencia');
       }
-/*>>>>>>> a354e6c9b2fb30b8eef3d8d152fc9db34b17322e*/
-   /* }*/
+
    var condiciones={
       eta_id:7,
       te_estado:'APROBADO'
@@ -993,7 +990,7 @@ console.log("propietario natural  ____",$scope.propietario);
 }])
 
 
-/*<<<<<<< HEAD*/
+
 
 
 
