@@ -257,9 +257,9 @@ $scope.zon=false;
       $scope.funcionarios.per_ocupacion =b.fun_profesion;
      
      
-        $scope.funcionarios.per_tipo_documento="CI"
+        $scope.funcionarios.per_tipo_documento="CI";
         $scope.funcionarios.per_pais="BOLIVIA";
-     
+      $scope.funcionarios.per_ci=per_ci;
     
       FuncionarioPersona.save($scope.funcionarios).$promise.then(function(data)
       {

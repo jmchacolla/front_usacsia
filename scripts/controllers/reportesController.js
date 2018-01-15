@@ -3,7 +3,27 @@ angular.module("adminApp")
 //c7
 .controller('ReporteParasitoController', ['$http','CONFIG','$scope','Ficha', '$route', 'toastr', 'Reportes',
   function ($http,CONFIG,$scope,Ficha, $route, toastr, Reportes){
+  $scope.user = {
+    rol_id: CONFIG.ROL_CURRENT_USER
+  }
+  if ($scope.user.rol_id==11) {
   $scope.ajustes = {
+    menu:{
+      titulo: 'Reportes',
+      items:[
+        {nombre:'Informe mensual', enlace:'#/reportes/parasitos', estilo:'active'},   ///c7
+        /*{nombre:'Reportes de signos vitales', enlace:'#/reportes/signosvitales', estilo:''},*/
+        {nombre:'Reportes observados por dia', enlace:'#/reportes/observadosdia', estilo:''},
+       /* {nombre:'Informe diario', enlace:'#/reportes/informedia', estilo:''},*/  //c6
+        {nombre:'Control diario', enlace:'#/reportes/controldiario', estilo:''} //c3
+      ]
+    },
+    pagina:{
+      titulo:'Informe mensual'
+    }
+  }
+ }else if ($scope.user.rol_id==7) {
+      $scope.ajustes = {
     menu:{
       titulo: 'Reportes',
       items:[
@@ -18,7 +38,7 @@ angular.module("adminApp")
       titulo:'Informe mensual'
     }
   }
- 
+ }
   $scope.fecha_ini1 = null;
   $scope.fecha_fin1 = null;
   $scope.show = false;
@@ -68,7 +88,27 @@ angular.module("adminApp")
 //c2
 .controller('ReporteSignosVitalesController', ['$http','CONFIG','$scope','Ficha', '$route', 'toastr', 'Reportes',
   function ($http,CONFIG,$scope,Ficha, $route, toastr, Reportes){
+    $scope.user = {
+    rol_id: CONFIG.ROL_CURRENT_USER
+  }
+  if ($scope.user.rol_id==9 || $scope.user.rol_id==10) {
   $scope.ajustes = {
+    menu:{
+      titulo: 'Reportes',
+      items:[
+        /*{nombre:'Informe mensual', enlace:'#/reportes/parasitos', estilo:''},*/   ///c7
+        {nombre:'Reportes de signos vitales', enlace:'#/reportes/signosvitales', estilo:'active'},
+       /* {nombre:'Reportes observados por dia', enlace:'#/reportes/observadosdia', estilo:''},
+        {nombre:'Informe diario', enlace:'#/reportes/informedia', estilo:''},  //c6
+        {nombre:'Control diario', enlace:'#/reportes/controldiario', estilo:''} *///c3
+      ]
+    },
+    pagina:{
+      titulo:'Reportes de signos vitales'
+    }
+  }
+}else if ($scope.user.rol_id==7) {
+      $scope.ajustes = {
     menu:{
       titulo: 'Reportes',
       items:[
@@ -80,10 +120,10 @@ angular.module("adminApp")
       ]
     },
     pagina:{
-      titulo:'Reportes de signos vitales'
+      titulo:'Informe mensual'
     }
   }
-
+ }
   $scope.fechas={
     fecha1 : null,
     fecha2 : null
@@ -116,14 +156,18 @@ angular.module("adminApp")
 //c4
 .controller('ReporteObservadosDiaController', ['$http','CONFIG','$scope','Ficha', '$route', 'toastr', 'Reportes',
   function ($http,CONFIG,$scope,Ficha, $route, toastr, Reportes){
+  $scope.user = {
+    rol_id: CONFIG.ROL_CURRENT_USER
+  }
+  if ($scope.user.rol_id==11) {
   $scope.ajustes = {
     menu:{
       titulo: 'Reportes',
       items:[
         {nombre:'Informe mensual', enlace:'#/reportes/parasitos', estilo:''},   ///c7
-        {nombre:'Reportes de signos vitales', enlace:'#/reportes/signosvitales', estilo:''},
+        /*{nombre:'Reportes de signos vitales', enlace:'#/reportes/signosvitales', estilo:''},*/
         {nombre:'Reportes observados por dia', enlace:'#/reportes/observadosdia', estilo:'active'},
-        {nombre:'Informe diario', enlace:'#/reportes/informedia', estilo:''}, //c6
+       /* {nombre:'Informe diario', enlace:'#/reportes/informedia', estilo:''}, *///c6
         {nombre:'Control diario', enlace:'#/reportes/controldiario', estilo:''} //c3
       ]
     },
@@ -131,7 +175,23 @@ angular.module("adminApp")
       titulo:'Reportes observados por dia'
     }
   }
-
+}else if ($scope.user.rol_id==7) {
+      $scope.ajustes = {
+    menu:{
+      titulo: 'Reportes',
+      items:[
+        {nombre:'Informe mensual', enlace:'#/reportes/parasitos', estilo:''},   ///c7
+        {nombre:'Reportes de signos vitales', enlace:'#/reportes/signosvitales', estilo:''},
+        {nombre:'Reportes observados por dia', enlace:'#/reportes/observadosdia', estilo:'active'},
+        {nombre:'Informe diario', enlace:'#/reportes/informedia', estilo:''},  //c6
+        {nombre:'Control diario', enlace:'#/reportes/controldiario', estilo:''} //c3
+      ]
+    },
+    pagina:{
+      titulo:'Informe mensual'
+    }
+  }
+ }
   var fecha_hoy = new Date();
   $scope.hoy = moment(fecha_hoy,"YYYY-MM-DD").format("DD-MM-YYYY");
   console.log("funcion submit  fecha de hoy ",$scope.hoy);
@@ -183,14 +243,18 @@ angular.module("adminApp")
 //c3
 .controller('ReporteControlDiarioController', ['$http','CONFIG','$scope','Ficha', '$route', 'toastr', 'Reportes',
   function ($http,CONFIG,$scope,Ficha, $route, toastr, Reportes){
+     $scope.user = {
+    rol_id: CONFIG.ROL_CURRENT_USER
+  }
+  if ($scope.user.rol_id==11) {
   $scope.ajustes = {
     menu:{
       titulo: 'Reportes',
       items:[
         {nombre:'Informe mensual', enlace:'#/reportes/parasitos', estilo:''},   ///c7
-        {nombre:'Reportes de signos vitales', enlace:'#/reportes/signosvitales', estilo:''},
+        /*{nombre:'Reportes de signos vitales', enlace:'#/reportes/signosvitales', estilo:''},*/
         {nombre:'Reportes observados por dia', enlace:'#/reportes/observadosdia', estilo:''},
-        {nombre:'Informe diario', enlace:'#/reportes/informedia', estilo:''}, ///c6
+        /*{nombre:'Informe diario', enlace:'#/reportes/informedia', estilo:''},*/ ///c6
         {nombre:'Control diario', enlace:'#/reportes/controldiario', estilo:'active'}//c3
       ]
     },
@@ -198,14 +262,30 @@ angular.module("adminApp")
       titulo:'Reportes Control diario'
     }
   }
-
+}else if ($scope.user.rol_id==7) {
+      $scope.ajustes = {
+    menu:{
+      titulo: 'Reportes',
+      items:[
+        {nombre:'Informe mensual', enlace:'#/reportes/parasitos', estilo:''},   ///c7
+        {nombre:'Reportes de signos vitales', enlace:'#/reportes/signosvitales', estilo:''},
+        {nombre:'Reportes observados por dia', enlace:'#/reportes/observadosdia', estilo:''},
+        {nombre:'Informe diario', enlace:'#/reportes/informedia', estilo:''},  //c6
+        {nombre:'Control diario', enlace:'#/reportes/controldiario', estilo:'active'} //c3
+      ]
+    },
+    pagina:{
+      titulo:'Informe mensual'
+    }
+  }
+ }
   var fecha_hoy = new Date();
   $scope.hoy = moment(fecha_hoy,"YYYY-MM-DD").format("DD-MM-YYYY");
   console.log("funcion submit  fecha de hoy ",$scope.hoy);
 
   $http.get(CONFIG.DOMINIO_SERVICIOS+'/c3_laboratorios').success(function(respuesta){
     $scope.laboratorio = respuesta.laboratorio;
-
+  console.log("funcion submit  fecha de hoy ",$scope.laboratorio);
   });
 
 }])

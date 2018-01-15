@@ -921,23 +921,38 @@ angular.module("adminApp", ["authService", "ngRoute", "ngResource", "satellizer"
  //c7
   .when('/reportes/parasitos', {
     templateUrl: 'templates/reportes/rep_parasito.html',
-    controller: 'ReporteParasitoController'
+    controller: 'ReporteParasitoController',
+    data: {
+      authorized: [ROLES.ADMIN_CARNET.ROL, ROLES.RESPONSABLE_LAB.ROL]
+    }
   })
   .when('/reportes/signosvitales', {
     templateUrl: 'templates/reportes/rep_signosvitales.html',
-    controller: 'ReporteSignosVitalesController'
+    controller: 'ReporteSignosVitalesController'/*,
+    data: {
+      authorized: [ROLES.ENFERMERA.ROL, ROLES.MEDICO.ROL]
+    }*/
   })
   .when('/reportes/observadosdia', {
     templateUrl: 'templates/reportes/rep_observadosdia.html',
-    controller: 'ReporteObservadosDiaController'
+    controller: 'ReporteObservadosDiaController',
+    data: {
+      authorized: [ROLES.ADMIN_CARNET.ROL, ROLES.RESPONSABLE_LAB.ROL]
+    }
   })
   .when('/reportes/informedia', {
     templateUrl: 'templates/reportes/rep_informedia.html',
-    controller: 'ReporteInformeDiaController'
+    controller: 'ReporteInformeDiaController',
+    data: {
+      authorized: [ROLES.ADMIN_CARNET.ROL]
+    }
   })
   .when('/reportes/controldiario', {
     templateUrl: 'templates/reportes/rep_controldia.html',
-    controller: 'ReporteControlDiarioController'
+    controller: 'ReporteControlDiarioController',
+    data: {
+      authorized: [ROLES.ADMIN_CARNET.ROL, ROLES.RESPONSABLE_LAB.ROL]
+    }
   })
 
 

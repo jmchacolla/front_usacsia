@@ -67,12 +67,14 @@
 			<!-- FIN -->
 		</div>
 		<div class="col-md-12" ng-controller="ListaAsigCtrl">
+		<button class="btn btn-default" onclick="generateaszon()"><span class="glyphicon glyphicon-save-file"></span> Exportar lista en PDF</button>
+        		<div class="clearfix"></div>
 					<!-- INICIO -->
 					<h4 class="text-center text-primary"><strong>Inspectores Asignados</strong></h4>
 					<div class="text-center" ng-show="loading"><br><img ng-src="./images/image.gif" class="loader-img"></div>
 		        	<div ng-show="!loading && !msg">No se encontraron resultados</div>
-					<div class="table-responsive">
-						<table class="table table-bordered table-striped table-hover" ng-show="!loading && msg" >
+					<div class="table-responsive" >
+						<table class="table table-bordered table-striped table-hover" ng-show="!loading && msg" id="tableZon" >
 							<thead>
 								<th>Nº</th>
 								<th>Funcionario</th>
@@ -85,6 +87,7 @@
 							</tbody>
 						</table>
 					</div>
+					
 		</div>
 	</div>
 </div>

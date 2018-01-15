@@ -178,6 +178,7 @@ function ($scope, DocumentoTramite2,DocumentoTramiteL,PersonasEstablecimiento,Do
             et_id:et_id,
             fun_id:fun_id
           };
+          console.log("::::::::::a",a)
           $scope.vector={
             observaciones:$scope.observaciones,
             todo:$scope.todo
