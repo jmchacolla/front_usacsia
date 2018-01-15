@@ -883,47 +883,51 @@ console.log("propietario natural  ____",$scope.propietario);
 }])
 
 .controller('ListaConcluidosCtrl', ['$scope', '$http', 'moment', 'ListaEmpTraEtapaEstado', 'EmpresaTramite', '$route', '$resource','$routeParams', 'toastr', '$location', '$timeout','CONFIG', function ($scope, $http, moment, ListaEmpTraEtapaEstado, EmpresaTramite, $route, $resource,$routeParams, toastr, $location, $timeout,CONFIG) {
- $scope.user = {
-    rol_id: CONFIG.ROL_CURRENT_USER
-  }
-  if ($scope.user.rol_id == 16) {
-    $scope.ajustes = {
-    menu:{
-      titulo: 'Lista de establecimientos inspeccionados',
-      items:[
-      {nombre:'Establecimientos validados', enlace:'#/lista-validacion', estilo:''},
-        {nombre:'Establecimientos inspeccionados', enlace:'#/lista-inspeccionados', estilo:'active'}
-      /* {nombre:'Propietarios Naturales', enlace:'#/tramites_nat', estilo:''},
-        {nombre:'Propietarios Juridicos', enlace:'#/tramites_jur', estilo:''},*/
-     ]
-    },
-    pagina:{
-      titulo:'Establecimientos inspeccionados'
+   $scope.user = {
+      rol_id: CONFIG.ROL_CURRENT_USER
     }
-  }
-  } else {
-    $scope.ajustes = {
-    menu:{
-      titulo: 'Lista de establecimientos inspeccionados',
-      items:[
-      {nombre:'Establecimientos solicitantes', enlace:'#/lista-solicitantes', estilo:''},
-       {nombre:'Establecimientos validados', enlace:'#/lista-validacion', estilo:''},
-        {nombre:'Establecimientos inspeccionados', enlace:'#/lista-inspeccionados', estilo:'active'},
-        {nombre:'Establecimientos que cancelaron', enlace:'#/lista-cancelaron', estilo:''},
-        {nombre:'Esablecimientos que cancelaron naturales', enlace:'#/tramites_certi', estilo:''},
-        {nombre:'Esablecimientos que cancelaron Juridicos', enlace:'#/tramites_certiJ', estilo:''}]
-    },
-    pagina:{
-      titulo:'Establecimientos inspeccionados'
+    if ($scope.user.rol_id == 16) {
+        $scope.ajustes = {
+        menu:{
+          titulo: 'Lista de establecimientos inspeccionados',
+          items:[
+          {nombre:'Establecimientos validados', enlace:'#/lista-validacion', estilo:''},
+            {nombre:'Establecimientos inspeccionados', enlace:'#/lista-inspeccionados', estilo:'active'}
+          /* {nombre:'Propietarios Naturales', enlace:'#/tramites_nat', estilo:''},
+            {nombre:'Propietarios Juridicos', enlace:'#/tramites_jur', estilo:''},*/
+           ]
+          },
+          pagina:{
+            titulo:'Establecimientos inspeccionados'
+          }
+        }
+    }else{
+      $scope.ajustes = {
+        menu:{
+          titulo: 'Lista de establecimientos inspeccionados',
+          items:[
+          {nombre:'Establecimientos solicitantes', enlace:'#/lista-solicitantes', estilo:''},
+           {nombre:'Establecimientos validados', enlace:'#/lista-validacion', estilo:''},
+            {nombre:'Establecimientos inspeccionados', enlace:'#/lista-inspeccionados', estilo:'active'},
+            {nombre:'Establecimientos que cancelaron', enlace:'#/lista-cancelaron', estilo:''},
+            {nombre:'Esablecimientos que cancelaron naturales', enlace:'#/tramites_certi', estilo:''},
+            {nombre:'Esablecimientos que cancelaron Juridicos', enlace:'#/tramites_certiJ', estilo:''}]
+        },
+        pagina:{
+          titulo:'Establecimientos inspeccionados'
+        }
+      }
     }
-  }
-  }
-
 
 
     $scope.sortType = 'te_fecha'; // ESTABLECIENDO EL TIPO DE ORDENAMIENTO
     $scope.sortReverse  = true;  // PARA ORDENAR ASCENDENTEMENTO O DESCENDENTEMENTE
     $scope.loading=true;//PARA HACER UN LOADING EN EL TEMPLATE
+    /*var condiciones={
+      eta_id:7,
+      te_estado:'APROBADO'
+    }
+
 
       if (persona.et_estado_pago=='VENCIDO') {
         EmpresaTramite.save(emptr).promise.then(function (argument) {
@@ -963,7 +967,7 @@ console.log("propietario natural  ____",$scope.propietario);
       if(persona.et_estado_tramite=='APROBADO'&& c>=30)
       {
         toastr.error('El docuemnto aún se encuentra en vigencia');
-      }
+      }*/
 
    var condiciones={
       eta_id:7,
