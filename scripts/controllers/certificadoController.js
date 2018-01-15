@@ -50,6 +50,58 @@ console.log("_______sssssssssssssssssss",$scope.tramitecerestado[6].eta_id);
 
 }])
 
+
+.controller('DetalleTramiteCtrl', ['CONFIG', /*'authUser',*/ '$scope', 'EmpTra', '$route', '$routeParams', 'toastr', '$location','VerTramCer', function (CONFIG,/*authUser,*/$scope,EmpTra,$route,$routeParams,toastr,$location,VerTramCer) {
+    
+    var et_id = $routeParams.et_id;
+    EmpTra.get({et_id:et_id}, function(data)
+    {
+        console.log('la data-------',data);
+        $scope.empresatramite=data.establecimiento;
+
+        $scope.ajustes = {
+          menu:{
+            titulo: 'Impresión de certificado sanitario',
+            items:[
+              {nombre:'Establecimientos inspeccionados', enlace:'#/lista-inspeccionados', estilo:''},
+              {nombre:'Detalle de trámite', enlace:'', estilo:'active'}
+              ]
+          },
+          pagina:{
+            titulo:'Certificado Sanitario - Trámite N°: '+$scope.empresatramite.empresa_tramite.et_numero_tramite
+          }
+        }
+
+    if (Object.keys($scope.empresatramite.propietario).length==7) {
+      $scope.propietario=$scope.empresatramite.propietario.pjur_razon_social;
+      $scope.documento=$scope.empresatramite.propietario.pjur_nit;
+    }
+    if (Object.keys($scope.empresatramite.propietario).length==22) {
+      $scope.propietario=$scope.empresatramite.propietario.per_nombres+' '+$scope.empresatramite.propietario.per_apellido_primero+' '+$scope.empresatramite.propietario.per_apellido_segundo;
+      $scope.documento=$scope.empresatramite.propietario.per_ci+' '+$scope.empresatramite.propietario.per_ci_expedido;
+    }
+    })
+    
+    /*$scope.ver=false;*/
+    VerTramCer.get({et_id:et_id}, function(data)
+    {
+      
+        $scope.tramitecerestado=data.tramitecerestado;
+          
+      if ($scope.tramitecerestado[6].eta_id==7 && $scope.tramitecerestado[6].te_estado=='APROBADO') {
+          $scope.ver=true;
+      }
+      else{
+        $scope.ver=false;
+      }
+console.log("_______sssssssssssssssssss",$scope.tramitecerestado[6].eta_id);
+    })
+
+
+}])
+
+
+
 .controller('PdfCertificadoCtrl', ['CONFIG', /*'authUser',*/ '$scope', 'EmpTra', '$route', '$routeParams', 'toastr', '$location','FichaInspc','FichaCat','VcertS', function (CONFIG,/*authUser,*/$scope,EmpTra,$route,$routeParams,toastr,$location,FichaInspc,FichaCat,VcertS) {
 
 

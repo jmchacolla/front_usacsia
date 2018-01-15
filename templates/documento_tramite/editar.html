@@ -91,7 +91,6 @@
 			                                        <button ng-if="docForm.$valid" type="submit" class="btn btn-primary" ng-click="update_lista()" title="Guardar"><span class="glyphicon glyphicon-save"></span> GUARDAR</button>
 				                                </div>
 				                                <p ng-show="docForm.$invalid && docForm.$submitted" class="alert alert-danger">Asegúrese de llenar correctamente todos los campos</p>
-		                    					<p ng-show="ajustes.pagina.success" class="alert alert-success">{{ajustes.pagina.success}}</p>
 									        </form>
 										</div>
 										
@@ -99,10 +98,43 @@
 								</div>
 								</pane>
 
-								<!-- ..............DIRECCION................. -->
+								<!-- .............. EMPLEADOS ................. -->
 					            <pane title="LISTA DE EMPLEADOS" ng-click="llamar_lista()">
 					            	<div class="panel">
 										<br>
+										<div>
+											<div class="table-responsive">
+								            <table class="table table-bordered  table-hover" ng-show="!loading && msg">
+								                <thead>
+								                    <th class="text-primary text-center" colspan="6">ESTADO DE TRÁMITE DE CARNÉ SANITARIO DE EMPLEADOS</th>
+								                </thead>
+								                <thead>
+								                    <th class="text-center text-primary">Iniciados</th>
+								                    <th class="text-center text-primary">Observados</th>
+								                    <th class="text-center text-primary">Vencidos</th>
+								                    <th class="text-center text-primary">Concluidos</th>
+								                    <th class="text-center text-primary">Aprobados</th>
+								                    <th class="text-center text-primary">Total</th>
+								                </thead>
+								                <tbody>
+								                    <tr>
+								                        <td class="text-center">{{i}}</td>
+								                        <td class="text-center">{{o}}</td>
+								                        <td class="text-center">{{v}}</td>
+								                        <td class="text-center">{{c}}</td>
+								                        <td class="text-center">{{a}}</td>
+								                        <td class="text-center">{{t}}</td>
+								                    </tr>
+								                    <tr>
+								                    	<td class="text-center warning"  colspan="3">{{'ÚLTIMA REVISIÓN:'+' '+te.updated}}</td>
+								                    	<td class="text-center warning"  colspan="3">{{llega_obs}}</td>
+								                    </tr>
+								                </tbody>
+								            </table>
+								        </div>
+										</div>
+										<hr>
+										
 										<div>
 									        <div class="text-center" ng-show="loading" ><br><img ng-src="./images/image.gif" class="loader-img"></div>
 									        <div ng-show="!loading && !msg">No se encontraron resultados</div>
@@ -114,7 +146,7 @@
 									                    <th class="text-primary">Empleado</th>
 									                    <th class="text-primary">Fecha de inicio</th>
 									                    <th class="text-primary" >Cargo</th>
-									                    <th class="text-primary" >Estado</th>
+									                    <th class="text-primary" >Estado Trámite</th>
 									                </thead>
 									                <tbody ng-repeat="pe in personas_x_establecimiento | orderBy:sortType:sortReverse | filter:searchText" >
 									                    <tr>
@@ -123,37 +155,47 @@
 									                        <td>{{pe.per_nombres+"&nbsp;"+pe.per_apellido_primero+" "+pe.per_apellido_segundo}}</td>
 									                        <td>{{pe.ep_inicio_trabajo}}</td>
 									                        <td>{{pe.ep_cargo}}</td>
-									                        <td >
-
-									                            <button class="btn btn-warning" data-toggle="modal" ng-click="get_perid2(pe.ep_id,pe.per_nombres,pe.per_apellido_primero,pe.per_apellido_segundo)" data-target="#modal" title="Registrar como funcionario"><span class="glyphicon glyphicon-remove"></span></button>
-									                            <div id="modal" class="modal fade" role="dialog" tabindex="-1">
-									                                <div class="modal-dialog">
-									                                    <div class="modal-content">
-									                                      <div class="modal-header bg-red">
-									                                        <button type="button" class="close" data-dismiss="modal">x</button>
-									                                        <h4 class="modal-title fg-white">Retirar funcionario</h4>
-									                                        </div>
-									                                        <div class="modal-body lead text-center">Esta seguro de retirar a este funcionario?<br>
-									                                            <div class="well well-sm">
-									                                                <strong>{{nombres}}</strong>
-									                                            </div>
-									                                        </div>
-									                                        <div class="modal-footer">
-									                                            <button type="button" class="btn btn-defaul" data-dismiss="modal">
-									                                            <span class="glyphicon glyphicon-remove"></span> NO</button>
-									                                            <button type="button" class="btn btn-primary" data-dismiss="modal" ng-click="remove()">
-									                                            <span class="glyphicon glyphicon-ok"></span> SI</button>
-									                                        </div>
-									                                    </div>
-									                                </div>
-									                            </div>
-
-									                        </td>
+									                        <td>{{pe.pt_estado_tramite}}</td>
 									                    </tr>
 									                </tbody>
 									            </table>
 									        </div>
-											
+									        <form name="reqempForm">
+											 <div class="row">
+										          <div class="col-md-6">
+										            <div class="well well-sm">
+										            <div class="checkbox">
+										                <label style="font-size: 1.5em">
+										                  <input type = "checkbox" ng-model = "btn_observado" > 
+										                  <span class="cr"><i class="cr-icon glyphicon glyphicon-ok"></i></span>
+										                  <small style="font-size: 0.6em" class="text-primary" title="Haga click para escribir su Observación">
+										                    <span class="glyphicon glyphicon-hand-left"></span>
+										                    <span class="glyphicon glyphicon-chevron-left"></span>
+										                    ¿TIENE ALGUNA OBSERVACIÓN?
+										                  </small>
+										                </label>
+										              </div>
+										            </div>   
+										          </div>
+										          <div class="col-md-6">
+										           <div class="well well-sm text-center" >
+										           	<div style="margin: 8px 0px;">
+										               <button type="submit" ng-show = "!btn_observado" class="btn btn-primary" ng-click="actualizar_empleados(1)"><span class="glyphicon glyphicon-ok"></span> APROBAR </button>
+										               <button type="submit" ng-show = "btn_observado && reqempForm.$valid" class="btn btn-primary" ng-click="actualizar_empleados(2)"><span class="glyphicon glyphicon-ok"></span> GUARDAR OBSERVACI&Oacute;N </button>
+										               <button type="submit" ng-show = "btn_observado && reqempForm.$invalid" class="btn btn-primary"><span class="glyphicon glyphicon-ok"></span> GUARDAR OBSERVACI&Oacute;N </button>
+										           	</div>
+										            </div>
+										           </div>										           
+										    </div>
+										    <div class="row" ng-show="btn_observado">
+										    	<label for="nombre" class="control-label">Observacion: <strong class="fg_red">*</strong></label>
+										        <textarea style="resize: vertical;min-height:70px;max-height: 150px;" ng-show="btn_observado" class="form-control" type="text" ng-model="te.te_observacion" ng-required="btn_observado" name="t_obs">
+										        </textarea>
+										        <span class="messages" ng-show="(reqempForm.$submitted || reqempForm.t_obs.$touched) && btn_observado">
+		                                            <span ng-show="reqempForm.t_obs.$error.required">El campo es obligatorio.</span>
+		                                       </span>
+										    </div>
+									        </form>
 										</div>
 									</div>
 					            </pane>
@@ -168,7 +210,6 @@
 				</div>
 			</div>
 		</div>
-		<p ng-show="ajustes.pagina.success" class="alert alert-success">{{ajustes.pagina.success}}</p>
 		</div> <!-- fin controlador de imagen -->
 
 		<!-- FIN -->

@@ -14,7 +14,7 @@ function ($scope, $http,CONFIG,PersonasEstablecimiento2,PersonasEstablecimiento,
       titulo:'Verificar estado de persona en USACSIA'
     }
   }
-  $scope.preregistro="http://localhost/usacsia_php_5.6/usacsia_git2/front_usacsia/#/servicios_ciudadanos/preregistro";
+  
 
 	var ess_id=12;//con inicio de sesion de empresa
 	PersonasEstablecimiento.get({ess_id:ess_id},function(data)
@@ -34,16 +34,33 @@ function ($scope, $http,CONFIG,PersonasEstablecimiento2,PersonasEstablecimiento,
 	 });
 	$scope.cambioper_ci=function(){
 		$scope.estado_persona = null;
-	    $scope.no_registrada=null;
+	    $scope.mensajee=null;
+	    $scope.sin_registro=false;
+	    $scope.en_establecimiento=false;
 	}
 	$scope.verificarper=function(){
+		
 	  	$http.get(CONFIG.DOMINIO_SERVICIOS+'/estado_tramite_persona/'+$scope.per_ci).success(function(data){
 	          $scope.estado_persona = data.estado_pt;
-	          $scope.no_registrada=null;
+	          $scope.mensajee=null;
+			  var per_id=data.estado_pt.per_id;
+			  $scope.en_establecimiento=true;
+	          $http.get(CONFIG.DOMINIO_SERVICIOS+'/establecimiento_persona/'+per_id+'/'+ess_id).success(function(data){
+	          	if(data.message)
+	          		$scope.mensajee="REGISTRADO";
+	          		$scope.class='success';
+	          }).error(function(data){$scope.en_establecimiento=false;})
 	      }).error(function(data){
+	      	
 	      	$scope.estado_persona=null;
-	  		console.log('errorrrrrrrrr-----');
-	      	$scope.no_registrada="La persona no cuenta con registro en USACSIA";
+	  		$scope.mensajee="La persona no cuenta con registro en USACSIA";
+	  		$scope.sin_registro=true;
+	  		$scope.class='warning';
+	  		if(data.errors[0].message=='Sin tramite'){
+	  			$scope.mensajee="Persona registrada, sin inicio de tramite en USACSIA";
+	  			$scope.sin_registro=false;
+	  			$scope.class='info';
+	  		}
 	  	});
 	};
 
