@@ -77,7 +77,25 @@ function ($scope, DocumentoNoRegistrado,DocumentoRegistrado,DocumentoTramite, $r
 
 .controller('EditarDocumentoTramiteCtrl', ['$http','CONFIG','$scope', 'DocumentoTramite2', 'DocumentoTramiteL','PersonasEstablecimiento','Documento','VerEstadoEmpleados','$route','$routeParams', 'toastr', '$location',
 function ($http,CONFIG,$scope, DocumentoTramite2,DocumentoTramiteL,PersonasEstablecimiento,Documento, VerEstadoEmpleados,$route,$routeParams,toastr,$location)
+
 {
+  $scope.user = {
+    rol_id: CONFIG.ROL_CURRENT_USER
+  }
+  if ($scope.user.rol_id == 15) {
+    $scope.ajustes = {
+    menu:{
+      titulo: 'Establecimientos',
+      items:[
+      {nombre:'Establecimientos solicitantes', enlace:'#/lista-solicitantes', estilo:'active'}
+      ]
+    },
+    pagina:{
+      titulo:'Establecimientos Solicitantes'
+    }
+  }
+  }
+  else{
   $scope.ajustes = {
     //Configuraciones del menu:
     menu:{
@@ -92,7 +110,7 @@ function ($http,CONFIG,$scope, DocumentoTramite2,DocumentoTramiteL,PersonasEstab
       titulo:'Tramites iniciados'
     }
   }
-
+}
   var et_id=$routeParams.et_id;
   var FunG = localStorage.getItem("Funcionario");
   var FunG = JSON.parse(FunG);
@@ -167,6 +185,7 @@ function ($http,CONFIG,$scope, DocumentoTramite2,DocumentoTramiteL,PersonasEstab
             et_id:et_id,
             fun_id:fun_id
           };
+          console.log("::::::::::a",a)
           $scope.vector={
             observaciones:$scope.observaciones,
             todo:$scope.todo

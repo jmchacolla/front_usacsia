@@ -16,7 +16,7 @@
         </div>
 
   <div ng-controller="UploadFunCtrl as vista"> 
-      <div class="row">
+      <div class="row" ng-controller="apiAppCtrl_Pre as vm">
         <div class="col-md-12">
           <label class="control-label">Los campos marcados con asterisco (<strong class="fg_red">*</strong>) son obligatorios</label>
           
@@ -50,7 +50,12 @@
                   <div class="row">
                     <div class="col-md-6">
                       <label class="control-label ">CI: <strong class="fg_red">*</strong></label>
-                      <input type="" class="form-control" id="ci" placeholder="CI" ng-model="funcionarios.per_ci">
+                      <input type="" class="form-control" id="ci" placeholder="CI" ng-model="vm.per_ci" ng-change="vm.buscaPersona()" required>
+                      <span class="messages" ng-show="addFuncionario.$submitted || addFuncionario.ci.$touched">
+                        <span ng-show="addFuncionario.ci.$error.required">El campo es obligatorio.</span><!-- 
+                        <span ng-show="addFuncionario.ci.$error.min">Número de CI incorrecto.</span> -->
+                        <span ng-show="pre_reg">ESTE NÚMERO YA SE ENCUENTRA REGISTRADO</span>
+                      </span>
                     </div>
                     <div class="col-md-6">
                       <label class="control-label">Expedido: <strong class="fg_red">*</strong></label>
@@ -150,11 +155,11 @@
                           <div class="formulario">
                             <div class="radio">
                               <div class="col-md-6">
-                                <input type="radio" name="genero" id="M" value="M" ng-model="funcionarios.per_genero">
+                                <input type="radio" name="genero" id="M" value="M" ng-model="funcionarios.per_genero" required>
                                 <label for="M">Masculino</label>
                               </div>
                               <div class="col-md-6">
-                                <input type="radio" name="genero" id="F" value="F" ng-model="funcionarios.per_genero">
+                                <input type="radio" name="genero" id="F" value="F" ng-model="funcionarios.per_genero" required>
                                 <label for="F">Femenino</label>
                               </div>
                             </div>
@@ -177,7 +182,6 @@
                       <label class="control-label">Email:</label>
                       <input type="email" class="form-control" name="email" placeholder="ejemplo@hotmail.com" ng-model="funcionarios.per_email" ng-model-options="{ updateOn: 'blur' }"> 
                       <span class="messages" ng-show="addFuncionario.$submitted || addFuncionario.email.$touched">
-                        <span ng-show="addFuncionario.email.$error.required">El campo es obligatorio.</span>
                         <span ng-show="addFuncionario.email.$error.email">Formato de email incorrecto.</span>
                       </span>
                     </div>
@@ -225,19 +229,9 @@
                       <span ng-show="addPersona.zona_comunidad.$error.required">El campo es obligatorio.</span>
                       <span ng-show="addPersona.zona_comunidad.$error.pattern">Formato introducido es incorrecta.</span>
                     </span>
-                    <span class="messages" ng-show="addPersona.$submitted || addPersona.zona_comunidad1.$touched">
-                      <span ng-show="addPersona.zona_comunidad1.$error.required">El campo es obligatorio.</span>
-                      <span ng-show="addPersona.zona_comunidad1.$error.pattern">Formato introducido es incorrecta.</span>
-                    </span>
+               
                     </div>
-                 <!--  <div class="col-md-3">
-                    <label class="control-label">Zona/Comunidad: <strong class="fg_red">*</strong></label>
-                    <input type="" class="form-control" name="zona_comunidad" placeholder="Zona comunidad" ng-model="funcionarios.zon_id" ng-model-options="{ updateOn: 'blur' }" required ng-pattern="patternCadenaNumero">
-                    <span class="messages" ng-show="addFuncionario.zona_comunidad.$touched">
-                      <span ng-show="addFuncionario.zona_comunidad.$error.required">El campo es obligatorio.</span>
-                      <span ng-show="addFuncionario.zona_comunidad.$error.pattern">No se admiten símbolos especiales.</span>
-                    </span>
-                  </div> -->  
+               
                   <div class="col-md-3">
                     <label class="control-label">Calle/Avenida: <strong class="fg_red">*</strong></label>
                     <input type="" class="form-control" name="avenida_calle" placeholder="Avenida / Calle" ng-model="funcionarios.per_avenida_calle" ng-model-options="{ updateOn: 'blur' }" required ng-pattern="patternCadenaNumero">
@@ -278,184 +272,30 @@
              
                       <label class="control-label">Cargo: <strong class="fg_red">*</strong></label>
                       <select class="form-control" name="ci_expedido" ng-model="funcionarios.fun_cargo" ng-model-options="{ updateOn: 'blur' }" required>
-                        <option value="JEFE DE UNIDAD">JEFE DE UNIDAD</option>
-                        <option value="SECRETARIA">SECRETARIA</option>
-                        <option value="JEFE DE PERSONAL">JEFE DE PERSONAL</option>
+                        <option value="JEFE DE USACSIA">JEFE DE USACSIA</option>
+                        <option value="RECEPCIONISTA">RECEPCIÓNISTA</option>
+                        <option value="RECEPCION LABORATORIO">RECEPCION LABORATORIO</option>
                         <option value="CAJERO">CAJERO</option>
-                        <option value="RESPONSABLE CERTIFICADO SANITARIO">RESPONSABLE CERTIFICADO SANITARIO</option>
-                        <option value="INSPECTOR">INSPECTOR</option>
                         <option value="RESPONSABLE CARNET SANITARIO">RESPONSABLE CARNET SANITARIO</option>
                         <option value="MEDICO">MEDICO</option>
                         <option value="ENFERMERA/O">ENFERMERA/O</option>
                         <option value="RESPONSABLE DE LABORATORIO">RESPONSABLE DE LABORATORIO</option>
                         <option value="TECNICO LABORATORIO">TECNICO LABORATORIO</option>
+                        <option value="RESPONSABLE CERTIFICADO SANITARIO">RESPONSABLE CERTIFICADO SANITARIO</option>
+                        <option value="INSPECTOR">INSPECTOR</option>
+                        <option value="REVISOR">REVISOR</option>
+                        <option value="JEFE DE UNIDAD ADMINISTRATIVA FINANCIERA">JEFE DE UNIDAD ADMINISTRATIVA FINANCIERA</option>
+                        <option value="RESPONSABLE DE TESORERIA">RESPONSABLE DE TESORERIA</option>
                       </select>
                       <span class="messages" ng-show="addFuncionario.ci_expedido.$touched">
                         <span ng-show="addFuncionario.ci_expedido.$error.required">El campo es obligatorio.</span>
                       </span>
-                 
-                    <!--  <select class="form-control" name="cargo" ng-model="funcionarios.fe_cargo"  ng-options="cargo.car_tipo as cargo.car_tipo for cargo in cargos" >
-                  </select> -->
-                <!-- <div >
-                  <label class="control-label">Cargo: <strong class="fg_red">*</strong></label>
-                   <input type="" class="form-control" name="cargo" placeholder="Cargo" ng-model="funcionarios.fun_cargo" ng-model-options="{ updateOn: 'blur' }" required ng-pattern="patternCadenaNumero">
-                 
-                  <span class="messages" ng-show="addFuncionario.cargo.$touched">
-                    <span ng-show="addFuncionario.cargo.$error.required">El campo es obligatorio.</span>
-                  </span>
-                </div>  --> 
+   
               </div>
-          <!--     <div class="col-md-3">
-                <label class="control-label">Estado Laboral: <strong class="fg_red">*</strong></label>
-                <select class="form-control" name="estado_laboral" ng-model="funcionarios.fe_estado_laboral" >
-                  <option value="PERMANENTE">PERMANENTE</option>
-                  <option value="CONTRATO">CONTRATO</option>
-                  <option value="POR CONTRATAR">POR CONTRATAR</option>
-                </select>
-                <span class="messages" ng-show="addFuncionario.estado_laboral.$touched">
-                  <span ng-show="addFuncionario.estado_laboral.$error.required">El campo es obligatorio.</span>
-                </span>
-              </div> -->
+
             </div>
             <br>    
-           <!--  <div class="row" ng-if="funcionarios.fe_estado_laboral != 'POR CONTRATAR'"> 
-              <div class="col-md-4">
-                <label class="control-label">Nro. Item/Contrato: <strong class="fg_red">*</strong></label>
-                <input type="" class="form-control" name="memo" placeholder="Nro. Item/Contrato" ng-model="funcionarios.fe_memorandum" ng-model-options="{ updateOn: 'blur' }" required>
-                <span class="messages" ng-show="addFuncionario.memo.$touched">
-                  <span ng-show="addFuncionario.numero.$error.required">El campo es obligatorio.</span>
-                  <span ng-show="addFuncionario.numero.$error.pattern">Solo se acepta números.</span>
-                </span>
-              </div> -->
-                <!-- 04/08/2017 COMENTAMOS CONTRATO -->
-                <!--  <div ng-if="funcionarios.fun_estado_laboral == 'CONTRATO'">
-                  <div class="col-md-6">
-                    <div class="row">
-                      <label class="control-label ">Fecha inicio de trabajo: <strong class="fg_red">*</strong></label>
-                    </div>
-                    <div class="row">
-                      <div class="col-md-4">
-                        <div class='input-group date'>
-                        </div>
-                          <select class="form-control" name="diait" ng-model="fechaIT.diait" ng-change="restIT()" ng-options="dia.dia_id as dia.dia for dia in dias">
-                            <option value="">Dia</option>
-                          </select>
-                      </div>
-                      <div class="col-md-4">
-                        <select class="form-control" aria-label="MES" title="Mes" name="mesit" ng-model="fechaIT.mesit" ng-change="restIT()" required placeholder="MES">
-                          <option value="">Mes</option>
-                          <option value="1">Enero</option>
-                          <option value="2">Febrero</option>
-                          <option value="3">Marzo</option>
-                          <option value="4">Abril</option>
-                          <option value="5">Mayo</option>
-                          <option value="6">Junio</option>
-                          <option value="7">Julio</option>
-                          <option value="8">Agosto</option>
-                          <option value="9">Septiembre</option>
-                          <option value="10">Octubre</option>
-                          <option value="11">Noviembre</option>
-                          <option value="12">Diciembre</option>
-                        </select>
-                      </div>
-                      <div class="col-md-4">
-                        <input  type="number" class="form-control" name="anio" placeholder="aaaa" ng-model="fechaIT.anioit" ng-change="restIT()" pattern="[0-9]{4,4}" maxlength="4" required > 
-                        <input my-valid-date ng-model="fechaITrab" name="fec_ini_trabajo" placeholder="dd-mm-aaaa" type="hidden" class="form-control" ng-model-options="{ updateOn: 'blur' }" ng-pattern="patternFecha" readonly>
-                      </div>  
-                    </div>   
-                       <span class="messages" ng-show="addFuncionario.fec_ini_trabajo">
-                        <span ng-show="addFuncionario.fec_ini_trabajo.$error.pattern">La Fecha no es valida  :(.
-                        </span>
-                      </span>          
-                  </div> 
-                  
-                  <div class="row">
-                    <div class="col-md-6">
-                      <div class="row">
-                         <label class="control-label ">Fecha fin de trabajo: <strong class="fg_red">*</strong></label>
-                      </div>
-                      <div class="row">
-                        <div class="col-md-4">
-                          <div class='input-group date'>
-                          </div>
-                          <select class="form-control" name="diaft" ng-model="fechaFT.diaft" ng-change="restFT()" ng-options="dia.dia_id as dia.dia for dia in dias">
-                            <option value="">Dia</option>
-                          </select>
-                        </div>
-                        <div class="col-md-4">
-                          <select class="form-control" aria-label="MES" title="Mes" name="mesft" ng-model="fechaFT.mesft" ng-change="restFT()" placeholder="MES">
-                            <option value="">Mes</option>
-                            <option value="1">Enero</option>
-                            <option value="2">Febrero</option>
-                            <option value="3">Marzo</option>
-                            <option value="4">Abril</option>
-                            <option value="5">Mayo</option>
-                            <option value="6">Junio</option>
-                            <option value="7">Julio</option>
-                            <option value="8">Agosto</option>
-                            <option value="9">Septiembre</option>
-                            <option value="10">Octubre</option>
-                            <option value="11">Noviembre</option>
-                            <option value="12">Diciembre</option>
-                          </select>
-                        </div>
-                        <div class="col-md-4">
-                           <input  type="number" class="form-control" name="anio" placeholder="aaaa" ng-model="fechaFT.anioft" ng-change="restFT()" pattern="[0-9]{4,4}" maxlength="4" required > 
-
-                           <input my-valid-date ng-model="fechaFTrab" name="fec_fin_trabajo" placeholder="dd-mm-aaaa" type="hidden" class="form-control" ng-model-options="{ updateOn: 'blur' }" ng-pattern="patternFecha" readonly>
-                        </div>  
-                      </div> 
-                      <span class="messages" ng-show="addFuncionario.fec_fin_trabajo">
-                        <span ng-show="addFuncionario.fec_fin_trabajo.$error.pattern">La Fecha no es valida  :(.
-                        </span>
-                      </span>
-                    </div> 
-                  </div>
-                </div>  -->
-                
-                <!-- 04/08/2017 COMENTAMOS  PERMANENTE-->
-                <!--   <div ng-if="funcionarios.fun_estado_laboral == 'PERMANENTE'">
-                <div class="col-md-6">  
-                  <div class="row">
-                    <label class="control-label ">Fecha inicio de trabajo: <strong class="fg_red">*</strong></label>
-                  </div>
-                  <div class="row">
-                    <div class="col-md-4">
-                      <div class='input-group date'>
-                      </div>
-                      <select class="form-control" name="diait" ng-model="fechaIT.diait" ng-change="restIT()" ng-options="dia.dia_id as dia.dia for dia in dias"   required>
-                        <option value="">Dia</option>
-                      </select>
-                    </div>
-                    <div class="col-md-4">
-                      <select class="form-control" aria-label="MES" title="Mes" name="mesit" ng-model="fechaIT.mesit" ng-change="restIT()" required placeholder="MES">
-                        <option value="">Mes</option>
-                        <option value="1">Enero</option>
-                        <option value="2">Febrero</option>
-                        <option value="3">Marzo</option>
-                        <option value="4">Abril</option>
-                        <option value="5">Mayo</option>
-                        <option value="6">Junio</option>
-                        <option value="7">Julio</option>
-                        <option value="8">Agosto</option>
-                        <option value="9">Septiembre</option>
-                        <option value="10">Octubre</option>
-                        <option value="11">Noviembre</option>
-                        <option value="12">Diciembre</option>
-                      </select>
-                    </div>
-                    <div class="col-md-4">
-                       <input  type="number" class="form-control" name="anio" placeholder="aaaa" ng-model="fechaIT.anioit" ng-change="restIT()" pattern="[0-9]{4,4}" maxlength="4" required > 
-                       <input my-valid-date ng-model="fechaITrab" name="fec_ini_trabajoP" placeholder="dd-mm-aaaa" type="hidden" class="form-control" ng-model-options="{ updateOn: 'blur' }" ng-pattern="patternFecha" readonly>
-                    </div>
-                    <span class="messages" ng-show="addFuncionario.fec_ini_trabajoP">
-                        <span ng-show="addFuncionario.fec_ini_trabajoP.$error.pattern">La Fecha no es valida  :(.
-                        </span>            
-                    </span> 
-                  </div> 
-                </div>
-              </div> -->
-           <!--  </div>  -->
+          
 
             <hr>
 
@@ -478,7 +318,7 @@
                 </div>
                 <br>
                 <!--  -->
-                <button ng-show = "para_enviar" class="btn btn-primary" ng-disabled="addFuncionario.$invalid" ng-click="submit($parent.funcionarios, vm.per_ci,d, fechaITrab, fechaFTrab); vista.enviar();reset(addFuncionario)" title="Debe llenar todos los campos obligatorios de manera correcta"><span class="glyphicon glyphicon-save"></span> GUARDAR</button>
+                <button ng-show = "para_enviar" ng-disabled="addFuncionario.$invalid" class="btn btn-primary"  ng-click="submit($parent.funcionarios, vm.per_ci,d, fechaITrab, fechaFTrab); vista.enviar();reset(addFuncionario)" title="Debe llenar todos los campos obligatorios de manera correcta"><span class="glyphicon glyphicon-save"></span> GUARDAR</button>
                 </div>    
               </div> 
             </div> 

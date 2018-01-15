@@ -27,23 +27,24 @@
    			<table  class="table table-bordered table-hover" id="tableREP">
    				<thead  class="well well-sm">
    					<th class="text-primary">Tipo de atenci&oacute;n</th>
-   					<th class="text-primary">Primera fecha</th>
+   					<!-- <th class="text-primary">Primera fecha</th> -->
    					<th class="text-primary">Nombre completo</th>
-   					<th class="text-primary">Empresa de trabajo</th>
+   					<!-- <th class="text-primary">Empresa de trabajo</th> -->
    					<th class="text-primary">Resultado de prueba</th>
             <th class="text-primary">Resumen (positivo - negativo)</th>
-            <th class="text-primary">Segunda fecha</th>
+          <!--   <th class="text-primary">Segunda fecha</th> -->
             <th class="text-primary">Responsable</th>
    				</thead>
    				<tbody ng-repeat="laboratorio in laboratorio">
    					<tr>
-   						<td>{{""}}</td>
-   						<td>{{""}}</td>
+   						<td>{{laboratorio.mue_tipo}}</td>
+   						<!-- <td>{{""}}</td> -->
               <td>{{laboratorio.per_nombres}}</td>
-   						<td>{{""}}</td>
+   						<!-- <td>{{""}}</td> -->
    						<td>{{laboratorio.pl_estado}}</td>
-   						<td>{{""}}</td>
-              <td>{{""}}</td>
+   						<td><p ng-show="laboratorio.pl_estado=='NO OBSERVADO'">{{"NEGATIVO"}}</p>
+              <p ng-show="laboratorio.pl_estado=='OBSERVADO'">{{"POSITIVO"}}</p></td>
+              <!-- <td>{{""}}</td> -->
               <td>{{laboratorio.responsable}}</td>
    					</tr>
    				</tbody>

@@ -2,18 +2,39 @@
 angular.module("adminApp")
 
 .controller('CertificadoCtrl', ['CONFIG', /*'authUser',*/ '$scope', 'EmpTra', '$route', '$routeParams', 'toastr', '$location','VerTramCer', function (CONFIG,/*authUser,*/$scope,EmpTra,$route,$routeParams,toastr,$location,VerTramCer) {
-    
+/*    if ($scope.user.rol_id == 14) {
+    $scope.ajustes = {
+      menu:{
+        titulo: 'Gestión de Certificado Sanitario',
+        items:[ 
+
+          {nombre:'Establecimientos solicitantes', enlace:'#/lista-solicitantes', estilo:''},
+           {nombre:'Establecimientos validados', enlace:'#/lista-validacion', estilo:''},
+            {nombre:'Establecimientos inspeccionados', enlace:'#/lista-inspeccionados', estilo:''},
+            {nombre:'Establecimientos que cancelaron', enlace:'#/lista-cancelaron', estilo:'active'}
+          
+          ]
+      },
+      pagina:{
+        titulo:'Establecimientos que pagaron arancel'
+      }
+    }
+  }*/
+   $scope.user = {
+    rol_id: CONFIG.ROL_CURRENT_USER
+  }
     var et_id = $routeParams.et_id;
     EmpTra.get({et_id:et_id}, function(data)
     {
         console.log('la data-------',data);
         $scope.empresatramite=data.establecimiento;
 
+
         $scope.ajustes = {
           menu:{
             titulo: 'Impresión de certificado sanitario',
             items:[
-              {nombre:'Establecimientos inspeccionados', enlace:'#/lista-inspeccionados', estilo:''},
+              {nombre:'Establecimientos que cancelaron', enlace:'#/lista-cancelaron', estilo:''},
               {nombre:'Detalle de trámite', enlace:'', estilo:'active'}
               ]
           },
@@ -136,9 +157,9 @@ console.log("_______sssssssssssssssssss",$scope.tramitecerestado[6].eta_id);
         VcertS.get({et_id:et_id},function (argument) { 
         $scope.cs=argument.certificado_sanitario;
         console.log("__certif san___",$scope.cs);
-        var imagenfirma1=$scope.cs.ces_fir_url1+'/'+$scope.cs.ces_fir_nombre1;
+       /* var imagenfirma1=$scope.cs.ces_fir_url1+'/'+$scope.cs.ces_fir_nombre1;
         var imagenfirma2=$scope.cs.ces_fir_url2+'/'+$scope.cs.ces_fir_nombre2;
-        var imagenfirma3=$scope.cs.ces_fir_url3+'/'+$scope.cs.ces_fir_nombre3;
+        var imagenfirma3=$scope.cs.ces_fir_url3+'/'+$scope.cs.ces_fir_nombre3;*/
    
 
        
@@ -154,8 +175,12 @@ console.log("_______sssssssssssssssssss",$scope.tramitecerestado[6].eta_id);
             var textoqr='USACSIA-CERTIFICADO-SANITARIO '+' '+razon_socialq+' - '+$scope.empresatra.empresa.emp_nit+' - '+$scope.propietario+' - '+$scope.documento+' /Venc: '+$scope.empresatra.empresa_tramite.et_vigencia_documento;
             var razon_social='';
             var clasificacion='';
+            var clasificacion2='';
+            var clasificacion3='';
             var tipotramite=$scope.empresatra.empresa_tramite.et_tipo_tramite;
             var item='';
+            var item2='';
+            var item3='';
             var propietario='';
             var direccion='';
             var gestion='';
@@ -164,23 +189,42 @@ console.log("_______sssssssssssssssssss",$scope.tramitecerestado[6].eta_id);
             var kardex='';
 
             for (var i = $scope.fichac.length - 1; i >= 0; i--) {
-              var j=i--;
-                var clasificacion =$scope.fichac[i].cat_area+''+$scope.fichac[i].cat_categoria;
-                var clasificacion2 =$scope.fichac[j].cat_area+''+$scope.fichac[j].cat_categoria;
-                var item=$scope.fichac[i].cat_codigo;
-                var item2=$scope.fichac[j].cat_codigo;
+              console.log("este es el i___________",$scope.fichac.length);
+              if (i==0) {
+                clasificacion =$scope.fichac[i].cat_area+''+$scope.fichac[i].cat_categoria;
+                item=$scope.fichac[i].cat_codigo;
+                
+              }
+              if (i==1) {
+                var j=i--;
+                clasificacion =$scope.fichac[i].cat_area+''+$scope.fichac[i].cat_categoria;
+                clasificacion2 =$scope.fichac[j].cat_area+''+$scope.fichac[j].cat_categoria;
+                item=$scope.fichac[i].cat_codigo;
+                item2=$scope.fichac[j].cat_codigo;
+              }
+              if (i==2) {
+                var j=i--;
+                var k=j--;
+                clasificacion =$scope.fichac[i].cat_area+''+$scope.fichac[i].cat_categoria;
+                clasificacion2 =$scope.fichac[j].cat_area+''+$scope.fichac[j].cat_categoria;
+                clasificacion3 =$scope.fichac[k].cat_area+''+$scope.fichac[k].cat_categoria;
+                item=$scope.fichac[i].cat_codigo;
+                item2=$scope.fichac[j].cat_codigo;
+                item3=$scope.fichac[k].cat_codigo;
+              }
+              
           
 /*waterlogoSEDES*/
         var img2 =convertImgToDataURLviaCanvas("./scripts/escudo-gober.png", function(base64Img) {
           gober =base64Img;
           var img3 =convertImgToDataURLviaCanvas("./scripts/logoSEDES.png", function(base64Img) {
             sedes =base64Img;
-            var img4 =convertImgToDataURLviaCanvas( imagenfirma1, function(base64Img) {
+/*            var img4 =convertImgToDataURLviaCanvas( imagenfirma1, function(base64Img) {
               ifirma1 =base64Img;
              var img4_2 =convertImgToDataURLviaCanvas( imagenfirma2, function(base64Img) {
               ifirma2 =base64Img;
                var img4_3 =convertImgToDataURLviaCanvas( imagenfirma3, function(base64Img) {
-              ifirma3 =base64Img;
+              ifirma3 =base64Img;*/
                 var img5 =convertImgToDataURLviaCanvas("./images/waterlogoSEDES.png", function(base64Img) {
                   watermark =base64Img;
 
@@ -242,13 +286,13 @@ console.log("_______sssssssssssssssssss",$scope.tramitecerestado[6].eta_id);
                               [
                                 {text:'CLASIFICACIÓN: ', alignment:'left', bold:true, fontSize:13},
 
-                               {text:clasificacion+' '+clasificacion2, alignment:'center', bold:true, fontSize:15},
+                               {text:clasificacion+' '+clasificacion2+' '+clasificacion3, alignment:'center', bold:true, fontSize:15},
                                 {text:'DERECHO DE: ', alignment:'left', bold:true, fontSize:13},
                                 {text:tipotramite, alignment:'center', bold:true, fontSize:15},
                               ],
                               [
                                 {text:'ITEM: ',alignment:'left', bold:true, fontSize:13},
-                                {text:item+' '+item2, alignment:'center', bold:true, colSpan:3, fontSize:15},
+                                {text:item+' '+item2+' '+item3, alignment:'center', bold:true, colSpan:3, fontSize:15},
                                 {},
                                 {},
                               ],
@@ -296,8 +340,8 @@ console.log("_______sssssssssssssssssss",$scope.tramitecerestado[6].eta_id);
                       margin:[20, 30, 10, 0],
                       layout: 'noBorders',
                       border: [false, false, false, false]
-                    },/* absolutePosition:{x:30, y:50}*/
-                    {
+                    },
+                    /*{
                       table:{
                         widths:[160,160,160],
                         body:[
@@ -319,7 +363,7 @@ console.log("_______sssssssssssssssssss",$scope.tramitecerestado[6].eta_id);
                       absolutePosition:{x:85, y:690},
                       layout: 'noBorders',
                       border: [false, false, false, false]
-                    },
+                    },*/
                     {
                       table:{
                         widths:[160,160,160],
@@ -352,10 +396,10 @@ console.log("_______sssssssssssssssssss",$scope.tramitecerestado[6].eta_id);
                 };
 
               });//-----/img5
-});//----/img4_2
+/*});//----/img4_2
 });//----/img4_3
 
-            });//----/img4
+            });//----/img4*/
           });//------/img3
         });//--------/img2
 

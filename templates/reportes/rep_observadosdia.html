@@ -26,7 +26,7 @@
    			<table  class="table table-bordered table-hover" id="tableREP">
    				<thead  class="well well-sm">
    					<th class="text-primary">Nro. muestra</th>
-   					<th class="text-primary">Carnet sanitario</th>
+   					<!-- <th class="text-primary">Carnet sanitario</th> -->
    					<th class="text-primary">Nombre</th>
    					<th class="text-primary">Resultado de prueba</th>
    					<th class="text-primary">Responsable</th>
@@ -34,7 +34,7 @@
    				<tbody ng-repeat="observado in observados">
    					<tr>
    						<td>{{observado.mue_num_muestra}}</td>
-   						<td>{{""}}</td>
+   						<!-- <td>{{""}}</td> -->
    						<td>{{observado.per_nombres +" "+observado.per_apellido_primero}}</td>
    						<td>{{observado.pl_estado}}</td>
    						<td>{{observado.responsable}}</td>

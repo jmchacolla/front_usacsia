@@ -361,7 +361,9 @@ $scope.initMap = function(){
     ess_longitud:0,
     ess_altitud:0,
     ie_nombre:"centro.png",
+
     ie_enlace: "./img-est",
+
     ie_tipo:"fotografia",
     emp_nit:"",
     emp_url_nit:"",

@@ -1,38 +1,43 @@
 'use strict';
 angular.module("adminApp")
 
-/*.controller('ListarZonaCtrl',['$scope','CONFIG', 'ZonasG','$routeParams', '$route', 'toastr', '$location','$timeout',
-  function ($scope, CONFIG, ZonasG,$routeParams, $route, toastr, $location,$timeout){
+.controller('ListarZonaCtrl',['$scope','CONFIG', 'Zonas','$routeParams', '$route', 'toastr', '$location','$timeout',
+  function ($scope, CONFIG, Zonas,$routeParams, $route, toastr, $location,$timeout){
   $scope.ajustes = {
     menu:{
-      titulo: 'Gestión de Parasitos',
+      titulo: 'Tramites administrativos',
       items:[
-       {nombre:'Gestión de Parasitos', enlace:'#/parasito', estilo:'active'},
-        {nombre:'Gestión de Tratamientos', enlace:'#/tratamiento', estilo:''},
-        {nombre:'Gestión de Enferemdades', enlace:'#/homeenfermedad', estilo:''},
+       {nombre:'Gestión de Parasitos', enlace:'#/parasito', estilo:''},
+        {nombre:'Gestión de Tratamientos', enlace:'#/tratamiento', estilo:''}/*,
+        {nombre:'Gestión de Enferemdades', enlace:'#/homeenfermedad', estilo:''}*/,
+        {nombre:'Gestión de Zonas', enlace:'#/parasito', estilo:'active'},
          {nombre:'Paises', enlace:'#/homepais', estilo:''}
         ]
     },
     pagina:{
-      titulo:'Parasitos'
+      titulo:'Zonas'
     }
   }
-  var mun_id=$routeParams.zon_id;
+  $scope.zon=false;
+  $scope.ver_zonas=function(mun_id){
+      console.log(mun_id+"<<< MUN_ID");
       Zonas.get({mun_id:mun_id}, function(data){
           $scope.zonas=data.zona;
           console.log("ZOnasss",$scope.zonas);
-          if($scope.zonas.length == 0){
-                $scope.zon=true;
+          if ($scope.zonas.length!=0) {
+          $scope.zon=true;
+          console.log("mostrar zonas "+$scope.zon);
           }
-          console.log("length "+$scope.zonas.length);
-      },function () {
-      toastr.error("ERROR INESPERADO, por favor actualize la página");
-      $scope.loading = false;
-      $scope.msg = false;
-    });
+          else{
+            console.log("no hay zonas "+$scope.zon);
+          }
+        
+      })
+  };
 
 
-    var  ide=0;
+
+  /*  var  ide=0;
     $scope.get_id = function(id,nombre,descripcion,clasificacion)
     {
       ide=id;
@@ -42,8 +47,8 @@ angular.module("adminApp")
 
       console.log("llego----",ide,$scope.nombre);
     }
-
-    $scope.editar=function(b,c,d){
+*/
+  /*  $scope.editar=function(b,c,d){
       $scope.parasit={
         par_nombre:b,
         par_descripcion:c, 
@@ -61,9 +66,9 @@ angular.module("adminApp")
           },1);
         }
       })
-    }
+    }*/
     
-    $scope.get_id1 = function(id,nombre)
+/*    $scope.get_id1 = function(id,nombre)
     {
       ide=id;
       $scope.nombre=nombre;
@@ -81,9 +86,9 @@ angular.module("adminApp")
           },1);
         }
       })
-    }
+    }*/
 
-}])*/
+}])
 
 .controller('CrearZonaCtrl',['$scope','CONFIG', 'ZonasG','$routeParams', '$route', 'toastr', '$location','$timeout',
   function ($scope, CONFIG, ZonasG,$routeParams, $route, toastr, $location,$timeout){
@@ -157,4 +162,4 @@ angular.module("adminApp")
     }
 
   }
-}])
+/*}*/])

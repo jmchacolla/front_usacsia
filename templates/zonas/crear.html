@@ -36,7 +36,7 @@
 				                  <span ng-show="userForm.municipio.$error.required">El campo es obligatorio.</span>
 				             </span>
 				       </div> 
-	              		<div class="row">
+	              	<!-- 	<div class="row"> -->
 			                <div class="col-md-6">
 			                  	<label class="control-label ">Macrodistrito:</label>
 			                    <input type="" class="form-control"  name="macro" ng-model="zona.zon_macrodistrito" required="">
@@ -44,8 +44,8 @@
 			                <span class="messages" ng-show="userForm.$submitted || userForm.macro.$touched">
 				                  <span ng-show="userForm.macro.$error.required">El campo es obligatorio.</span>
 				             </span>
-		                </div>
-		                <div class="row">
+		              <!--   </div> -->
+		                <!-- <div class="row"> -->
 			                <div class="col-md-6">
 				               	<label class="control-label ">Distrito:</label>
 			                    <input type="" class="form-control" name="dist" ng-model="zona.zon_distrito">
@@ -54,8 +54,8 @@
 			               	<span class="messages" ng-show="userForm.$submitted || userForm.dist.$touched">
 				                  <span ng-show="userForm.dist.$error.required">El campo es obligatorio.</span>
 				             </span>
-		                </div>
-		                <div class="row">
+		             <!--    </div> -->
+		            <!--     <div class="row"> -->
 			               	<div class="form-group col-md-6">
 			                  	<label for="sevref" class="control-label ">Nombre de Zona:<strong class="fg_red"> *</strong></label>
 			                    <input  type="" class="form-control" name="zon" ng-model="zona.zon_nombre">
@@ -63,7 +63,7 @@
 			                <span class="messages" ng-show="userForm.$submitted || userForm.zon.$touched">
 				                  <span ng-show="userForm.zon.$error.required">El campo es obligatorio.</span>
 				             </span>  
-	 					</div>
+	 				<!-- 	</div> -->
 	             	</div>
 	            </div>
 	            <div ng-if="!verb">

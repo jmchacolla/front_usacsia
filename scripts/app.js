@@ -76,7 +76,7 @@ angular.module("adminApp", ["authService", "ngRoute", "ngResource", "satellizer"
   })
 //no existe esta ruta --eliminar 1/1/2018
   .when('/inicio2', {
-    templateUrl: 'templates/publico/index2.html'
+    templateUrl: 'templates/usuario/index2.html'
   })
 // ========================= PREREGISTRO =================================================== templates
   .when('/servicios_ciudadanos/preregistro', {
@@ -304,7 +304,7 @@ angular.module("adminApp", ["authService", "ngRoute", "ngResource", "satellizer"
       authorized: [ROLES.ADMIN_USACSIA.ROL]
     }
   })
-
+//no existe 14-1-2018
     .when('/establecimientosol/ver/:et_id', { 
     templateUrl: 'templates/establecimiento_solicitante/crear2.html',
     controller: 'CrearEstablecimientoSolicitanteCtrl',
@@ -353,13 +353,13 @@ angular.module("adminApp", ["authService", "ngRoute", "ngResource", "satellizer"
       authorized: [ROLES.ADMIN_USACSIA.ROL]
     }
   })
-/*  .when('/zonas',{
-   templateUrl:'templates/zonas/ver.html',
-   controller: 'VerZonaCtrl',
+  .when('/zonas',{
+   templateUrl:'templates/zonas/zonas.html',
+   controller: 'ListarZonaCtrl',
     data: {
       authorized: [ROLES.ADMIN_USACSIA.ROL]
     }
-  })*/
+  })
   .when('/zona/ver/:zon_id',{
    templateUrl:'templates/zonas/ver.html',
    controller: 'VerZonaCtrl',
@@ -446,7 +446,7 @@ angular.module("adminApp", ["authService", "ngRoute", "ngResource", "satellizer"
    templateUrl:'templates/ficha_inspeccion/inspeccionesN.html',
    controller: 'InspeccionesCtrl',
     data: {
-      authorized: [ROLES.ADMIN_USACSIA.ROL,ROLES.INSPECTOR.ROL]
+      authorized: [ROLES.ADMIN_USACSIA.ROL,ROLES.ADMIN_CERTIFICADO.ROL,ROLES.INSPECTOR.ROL]
     }
   })
 //LISTA DE EMPRESAS QUE YA FUERON INSPECCIONADOS
@@ -454,7 +454,7 @@ angular.module("adminApp", ["authService", "ngRoute", "ngResource", "satellizer"
    templateUrl:'templates/ficha_inspeccion/inspeccionesJ.html',
    controller: 'InspeccionesJCtrl',
     data: {
-      authorized: [ROLES.ADMIN_USACSIA.ROL,ROLES.INSPECTOR.ROL]
+      authorized: [ROLES.ADMIN_USACSIA.ROL,ROLES.ADMIN_CERTIFICADO.ROL,ROLES.INSPECTOR.ROL]
     }
   })
     //VER FICHA INSPECCION -- falta hacer el html 8-1-2018 --falta añadir a rutas privadas
@@ -462,7 +462,7 @@ angular.module("adminApp", ["authService", "ngRoute", "ngResource", "satellizer"
    templateUrl:'templates/ficha_inspeccion/ver.html',
    controller: 'VerFichaCtrl',
     data: {
-      authorized: [ROLES.ADMIN_USACSIA.ROL,ROLES.INSPECTOR.ROL]
+      authorized: [ROLES.ADMIN_USACSIA.ROL,ROLES.ADMIN_CERTIFICADO.ROL,ROLES.INSPECTOR.ROL]
     }
   })
   .when('/sancion/ver/:fc_id/:nom',{
@@ -481,7 +481,8 @@ angular.module("adminApp", ["authService", "ngRoute", "ngResource", "satellizer"
       authorized: [ROLES.ADMIN_USACSIA.ROL,ROLES.ADMIN_CARNET.ROL]
     }
   })
-  .when('/empresa/ver/:ess_id',{
+  //ver empresa 
+  .when('/empresa/ver/:et_id',{
    templateUrl:'templates/empresatramite/ver.html',
    controller: 'VerEmpresaCtrl',
     data: {
@@ -489,8 +490,51 @@ angular.module("adminApp", ["authService", "ngRoute", "ngResource", "satellizer"
     }
   })
 //=========================         EMPRESA TRAMITE     =======================================
+   //etapa 1 =PENDIENTE
+  .when('/lista-solicitantes', {
+    templateUrl: 'templates/empresatramite/lista-solicitantes.html',
+    controller: 'ListaSolicitantesCtrl',
+    data: {
+      authorized: [ROLES.ADMIN_USACSIA.ROL, ROLES.ADMIN_CERTIFICADO.ROL, ROLES.CAJERO.ROL, ROLES.INSPECTOR.ROL, ROLES.REVISOR.ROL]
+    }
+  })
+   //etapa 1 =APROBADO
+  .when('/lista-validacion', {
+    templateUrl: 'templates/empresatramite/lista-validacion.html',
+    controller: 'ListaValidadosCtrl',
+    data: {
+      authorized: [ROLES.ADMIN_USACSIA.ROL, ROLES.ADMIN_CERTIFICADO.ROL, ROLES.INSPECTOR.ROL, ROLES.REVISOR.ROL]
+    }
+  })
+  //etapa 2 =APROBADO
+  .when('/lista-inspeccionados', {
+    templateUrl: 'templates/empresatramite/lista-inspeccionados.html',
+    controller: 'ListaInspeccionadosCtrl',
+    data: {
+      authorized: [ROLES.ADMIN_USACSIA.ROL, ROLES.ADMIN_CERTIFICADO.ROL, ROLES.INSPECTOR.ROL,ROLES.REVISOR.ROL,ROLES.JEFE_USACSIA.ROL,ROLES.JEFE_FINANCIERA.ROL,ROLES.RESPONSABLE_TESORERIA.ROL]
+    }
+  })
 
-  .when('/tramites_certi',{
+  //etapa 3 =APROBADO
+  .when('/lista-cancelaron', {
+    templateUrl: 'templates/empresatramite/lista-cancelaron.html',
+    controller: 'ListaCancelaronCtrl',
+    data: {
+      authorized: [ROLES.ADMIN_USACSIA.ROL, ROLES.ADMIN_CERTIFICADO.ROL, ROLES.JEFE_USACSIA.ROL,ROLES.JEFE_FINANCIERA.ROL,ROLES.RESPONSABLE_TESORERIA.ROL]
+    }
+  })
+  //etapa 7 =APROBADO
+  .when('/lista-concluidos', {
+    templateUrl: 'templates/empresatramite/lista-concluidos.html',
+    controller: 'ListaConcluidosCtrl',
+    data: {
+      authorized: [ROLES.ADMIN_USACSIA.ROL, ROLES.ADMIN_CERTIFICADO.ROL]
+    }
+  })
+
+
+//etapa 3 =APROBADO -----------ya no se usa 14-1-2018
+/*  .when('/tramites_certi',{
    templateUrl:'templates/empresatramite/listN.html',
    controller: 'ListNatCtrl',
     data: {
@@ -499,11 +543,8 @@ angular.module("adminApp", ["authService", "ngRoute", "ngResource", "satellizer"
   })
     .when('/tramites_certiJ',{
    templateUrl:'templates/empresatramite/listJ.html',
-   controller: 'ListJurCtrl'/*,
-    data: {
-      authorized: [ROLES.ADMIN_SEDES.ROL]
-    }*/
-  })
+   controller: 'ListJurCtrl'
+  })*/
    
 
 
@@ -762,7 +803,6 @@ angular.module("adminApp", ["authService", "ngRoute", "ngResource", "satellizer"
 
 /*--------------------                 DOCUMENTOS  TRAMITE-    ------------------------*/
 //cuenta para empresas 12-1-2018
-  // .when('/documento-tramite/crear/:et_id', {
 
   .when('/documento-tramite/crear', {
 
@@ -788,7 +828,7 @@ angular.module("adminApp", ["authService", "ngRoute", "ngResource", "satellizer"
     templateUrl: 'templates/documento/index.html',
     controller: 'ListarDocumentoCtrl'
   })
-
+//CREAR DOCUMENTOS PARA VER SI SON OBLIGATORIOS O NO
   .when('/documento/crear', {
     templateUrl: 'templates/documento/crear.html',
     controller: 'CrearDocumentoCtrl'
@@ -874,13 +914,7 @@ angular.module("adminApp", ["authService", "ngRoute", "ngResource", "satellizer"
     templateUrl: 'templates/empresatramite/ordenpago-crear.html',
     controller: 'OrdenPagoCrearCtrl'
   })
-  .when('/lista-inspeccionados', {
-    templateUrl: 'templates/empresatramite/lista-inspeccionados.html',
-    controller: 'ListaInspeccionadosCtrl',
-    data: {
-      authorized: [ROLES.ADMIN_USACSIA.ROL, ROLES.ADMIN_CERTIFICADO.ROL,, ROLES.INSPECTOR.ROL]
-    }
-  })
+
 
   .when('/orden-detalle/:op_id', {
     templateUrl: 'templates/pagopendiente/orden-detalle.html',
@@ -896,23 +930,38 @@ angular.module("adminApp", ["authService", "ngRoute", "ngResource", "satellizer"
  //c7
   .when('/reportes/parasitos', {
     templateUrl: 'templates/reportes/rep_parasito.html',
-    controller: 'ReporteParasitoController'
+    controller: 'ReporteParasitoController',
+    data: {
+      authorized: [ROLES.ADMIN_CARNET.ROL, ROLES.RESPONSABLE_LAB.ROL]
+    }
   })
   .when('/reportes/signosvitales', {
     templateUrl: 'templates/reportes/rep_signosvitales.html',
-    controller: 'ReporteSignosVitalesController'
+    controller: 'ReporteSignosVitalesController'/*,
+    data: {
+      authorized: [ROLES.ENFERMERA.ROL, ROLES.MEDICO.ROL]
+    }*/
   })
   .when('/reportes/observadosdia', {
     templateUrl: 'templates/reportes/rep_observadosdia.html',
-    controller: 'ReporteObservadosDiaController'
+    controller: 'ReporteObservadosDiaController',
+    data: {
+      authorized: [ROLES.ADMIN_CARNET.ROL, ROLES.RESPONSABLE_LAB.ROL]
+    }
   })
   .when('/reportes/informedia', {
     templateUrl: 'templates/reportes/rep_informedia.html',
-    controller: 'ReporteInformeDiaController'
+    controller: 'ReporteInformeDiaController',
+    data: {
+      authorized: [ROLES.ADMIN_CARNET.ROL]
+    }
   })
   .when('/reportes/controldiario', {
     templateUrl: 'templates/reportes/rep_controldia.html',
-    controller: 'ReporteControlDiarioController'
+    controller: 'ReporteControlDiarioController',
+    data: {
+      authorized: [ROLES.ADMIN_CARNET.ROL, ROLES.RESPONSABLE_LAB.ROL]
+    }
   })
 
 

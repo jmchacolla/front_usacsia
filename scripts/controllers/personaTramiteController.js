@@ -270,18 +270,18 @@ angular.module("adminApp")
           toastr.success('Aprobacion correcta');
           //tengo que obtener la firma del funcionario que se logueo y guardar en carnet recien
           console.log("PARA VER LA FIRMA", fun_id);
-          FirmaFun.get({fun_id:fun_id}, function(data)
-          {
-            $scope.firmas=data.firma;
-            console.log("obteniendo la firma del fucnionario loguaado", $scope.firmas);
+          /*FirmaFun.get({fun_id:fun_id}, function(data)
+          {*/
+            /*$scope.firmas=data.firma;
+            console.log("obteniendo la firma del fucnionario loguaado", $scope.firmas);*/
             console.log("__el ci de la persona__",ci);
             $scope.carnet={
                 pt_id:id,
                 cas_numero:ci,
                 cas_fecha_inicio:fecha,
-                cas_fecha_fin:fecha2,
+                cas_fecha_fin:fecha2/*,
                 cas_url:$scope.firmas.firma.fir_url,
-                cas_nombre:$scope.firmas.firma.fir_name
+                cas_nombre:$scope.firmas.firma.fir_name*/
             }
             console.log("PARA GUARDAR EL CARNET",$scope.carnet);
             CarnetSanitario.save($scope.carnet).$promise.then(function(data)
@@ -293,7 +293,7 @@ angular.module("adminApp")
               }
 
             });//fin carnetsanitario
-          } );//FIN DE FIRMAFUNCIONARIO
+          /*} );//FIN DE FIRMAFUNCIONARIO*/
           $route.reload();
       }
 
