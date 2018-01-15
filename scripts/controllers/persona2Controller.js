@@ -90,18 +90,18 @@ $scope.zon=false;
   $scope.persona.ima_enlace="./img-per";
    $scope.persona.ima_tipo="fotografia";
 
-  $scope.submit = function(b, fechaNacimiento,per_ci){
+  $scope.submit = function(b,fechaNacimiento){
 
     $scope.persona.per_fecha_nacimiento=fechaNacimiento;
 
     if($scope.persona.per_tipo_documento=="CI"){
       $scope.persona.per_pais="BOLIVIA";
-      $scope.persona.per_ci=per_ci;
+
     }
 
     if($scope.persona.per_tipo_documento=="PASAPORTE"){
       $scope.persona.per_ci_expedido="EXTRANJERO";
-      $scope.persona.per_ci='E-'+per_ci;
+      $scope.persona.per_ci='E-'+b.per_ci;
     }
     
 
