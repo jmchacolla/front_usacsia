@@ -1,4 +1,4 @@
-TOP-MENU inicio -->
+
 <div ng-include="'./templates/menu_inicio.html'"></div>
 <!-- CONTEXT-MENU  -->
 <div ng-include="'./templates/menu_lateral.html'"></div>
@@ -35,11 +35,11 @@ TOP-MENU inicio -->
 				</form> -->
 				<strong class="pull-left lead">Herramientas: &nbsp;</strong>
 		        <form class="form-inline pull-left">
-		          <input type="text" class="form-control" placeholder="Filtrar por ..." ng-model="pl_id">
+		          <input type="text" class="form-control" placeholder="Filtrar por ..." ng-model="searchText">
 		        </form>
 		        &nbsp;&nbsp;
-		        <button class="btn btn-default" onclick="generateFUN_AE()"><span class="glyphicon glyphicon-save-file"></span> Exportar lista en PDF</button>
-		        <div class="clearfix"></div>
+		       <!--  <button class="btn btn-default" onclick="generateFUN_AE()"><span class="glyphicon glyphicon-save-file"></span> Exportar lista en PDF</button>
+		        <div class="clearfix"></div> -->
 				
 				
 			</div>
@@ -89,7 +89,7 @@ TOP-MENU inicio -->
 				            <span ng-show="sortType == 'per_nombres' && !sortReverse" class="glyphicon glyphicon-chevron-up"></span>
 				            <span ng-show="sortType == 'per_nombres' && sortReverse" class="glyphicon glyphicon-chevron-down"></span></a>
 				        </th>
-						<th class="text-primary" >TIPO ATENCION</th>
+						<!-- <th class="text-primary" >TIPO ATENCION</th> -->
 						<th class="text-primary" >VER</th>
 					<!-- 	<th ng-if="rol_id == 4 || rol_id == '9'">EDITAR</th>
 						<th ng-if="rol_id == 4 || rol_id == '9'">Programar cita</th>
@@ -97,13 +97,13 @@ TOP-MENU inicio -->
 						<th ng-if="rol_id == 3 || rol_id == 6 || rol_id == 10">Editar</th> -->
 						<!--<th ng-if="rol_id == 3 || rol_id == 6 || rol_id == 10">Borrar</th>-->
 					</thead>
-					<tbody ng-repeat="pl in prueba_laboratorio | orderBy:sortType:sortReverse ">
+					<tbody ng-repeat="pl in prueba_laboratorio | filter:searchText | orderBy:sortType:sortReverse ">
 					  <tr>
 						<td>{{pl.mue_num_muestra}}</td>
 						<td>{{pl.per_apellido_primero+" "+pl.per_apellido_segundo}}</td>
 						<td>{{pl.per_nombres |uppercase}}</td>
-						<td>{{pl.mue_num_muestra}}</td>
-						<td>{{pl.pl_tipo}}</td>
+						<td>{{pl.pl_estado}}</td>
+						<!-- <td>{{pl.pl_tipo}}</td> -->
 						<td>
 							<a href="#/prueba-laboratorio/ver/{{pl.pl_id}}" class="btn btn-success"><span class="glyphicon glyphicon-file"></span></a>
 						</td>

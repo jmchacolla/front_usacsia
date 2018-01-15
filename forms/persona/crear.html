@@ -2,7 +2,7 @@
         <h4 class="text-center text-primary">I. DATOS GENERALES</h4>
         <hr class="bg-red">
         <br>
-        <div class="row">
+        <div class="row" ng-controller="apiAppCtrl_Pre as vm">
             <div class="col-md-3">
                 <div class="well well-sm">
                     <div ng-if="thumbnail.dataUrl == ''">
@@ -50,10 +50,11 @@
                     <div class="col-md-6" >
                       <label class="control-label ">Número de documento: <strong class="fg_red">*</strong></label>
                       <label ng-show="nac">E-</label> 
-                      <input type="number" class="form-control" name="ci" placeholder="Ej. 9999988" ng-model="persona.per_ci" ng-model-options="{ updateOn: 'blur' }"  min="100000" ng-required="required" ng-disabled="disabled">
+                      <input type="number" class="form-control" name="ci" placeholder="Ej. 9999988" ng-model="vm.per_ci" ng-model-options="{ updateOn: 'blur' }"  min="100000" ng-required="required" ng-disabled="disabled" ng-change="vm.buscaPersona()">
                       <span class="messages" ng-show="addPersona.$submitted || addPersona.ci.$touched">
                         <span ng-show="addPersona.ci.$error.required">El campo es obligatorio.</span>
                         <span ng-show="addPersona.ci.$error.min">Número de CI incorrecto.</span>
+                        <span ng-show="pre_reg">ESTE NÚMERO YA SE ENCUENTRA REGISTRADO.</span>
                       </span>
                     </div>
                  
@@ -276,7 +277,7 @@
                   </small>
                 </label>
               </div>
-            <button ng-show = "para_enviar" class="btn btn-primary" ng-click="submit($parent.persona,d);vista.enviar();reset(addPersona)" ng-disabled="addPersona.$invalid"><span class="glyphicon glyphicon-save"></span> {{ajustes.pagina.action}}</button>
+            <button ng-show = "para_enviar" class="btn btn-primary" ng-click="submit($parent.persona,d,vm.per_ci);vista.enviar();reset(addPersona)" ng-disabled="addPersona.$invalid"><span class="glyphicon glyphicon-save"></span> {{ajustes.pagina.action}}</button>
             </div>    
           </div>
         </div>  

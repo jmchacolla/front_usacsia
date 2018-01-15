@@ -10,7 +10,7 @@ angular.module("adminApp")
 				 ]
 	  },
 	  pagina:{
-		  titulo:'Registro Departamental de Personas'
+		  titulo:'Registro de Personas'
 	  }
 	}
 	$scope.entendido = false;
