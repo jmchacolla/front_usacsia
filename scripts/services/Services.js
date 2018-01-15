@@ -581,6 +581,12 @@ angular.module("adminApp")
   return $resource(CONFIG.DOMINIO_SERVICIOS+"/tramitescer_pagados")
 }])
 
+
+
+.factory('VerEstadoEmpleados', ['$resource', 'CONFIG', function ($resource, CONFIG){
+  return $resource(CONFIG.DOMINIO_SERVICIOS+"/ver_estado_empleados/:et_id",{et_id:'@_et_id'})
+}])
+
 /*=========================================USACSIA====================================*/
 //Nuevo(Obtiene funcionario por per_id)
 .factory('FuncionarioPer', ['$resource', 'CONFIG', function ($resource, CONFIG){

@@ -897,10 +897,19 @@ angular.module("adminApp", ["authService", "ngRoute", "ngResource", "satellizer"
     controller: 'BoletaCesVerCtrl'
   })
 
+
+  /*--------------------------SEGUIMIETO TRAMITE-------------------------*/
   .when('/seguimiento-tramite-ces/:et_id', {
     templateUrl: 'templates/certificado/ver.html',
     controller: 'CertificadoCtrl'
   })
+
+  .when('/seguimiento-tramite-ces2/:et_id', {
+    templateUrl: 'templates/certificado/detalle_seguimiento.html',
+    controller: 'DetalleTramiteCtrl'
+  })
+
+
   .when('/orden-pago/crear/:et_id', {
     templateUrl: 'templates/empresatramite/ordenpago-crear.html',
     controller: 'OrdenPagoCrearCtrl'
