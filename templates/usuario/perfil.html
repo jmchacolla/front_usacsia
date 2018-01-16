@@ -1,4 +1,4 @@
-<!-- TOP-MENU inicio -->
+
 <div ng-if="rol" ng-include="'./templates/menu_inicio.html'"></div>
 <!-- CONTEXT-MENU  -->
 <div ng-if="rol" ng-include="'./templates/menu_lateral.html'"></div>
@@ -20,9 +20,9 @@
 			<!-- INICIO -->
 			<div class="well well-sm" style="background-color:#fff;">
 					<form action="">
-					<div class="row">
-						<div class="col-md-3 col-sm-4" ng-repeat="imagen in persona.imagen">
-							<img class="img-thumbnail" style="width:100%;" align="center" ng-src="{{imagen.ima_enlace}}/{{imagen.ima_nombre}}"  alt="...">
+					<div class="row"><!-- ng-repeat="imagen in persona.imagen" {{imagen.ima_enlace}}/{{imagen.ima_nombre}}-->
+						<div class="col-md-3 col-sm-4" >
+							<img class="img-thumbnail" style="width:100%;" align="center" ng-src="{{src}}"  alt="...">
 						</div>
 						<div class="col-md-9 col-sm-8">
 							<div class="row">
@@ -92,4 +92,4 @@
 			</div>
 		</div>
 	</div>
-<!-- CONTENIDO MODULO fin -->
+<!-- CONTENIDO MODULO fin
