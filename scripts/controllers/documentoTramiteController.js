@@ -22,7 +22,7 @@ function ($scope, DocumentoNoRegistrado,DocumentoRegistrado,DocumentoTramite, $r
 
   var EstG = localStorage.getItem("DatosEstablecimiento");
   var EstG = JSON.parse(EstG);
-  var et_id=EstG.empresatramite.et_id;
+  var et_id= EstG.empresatramite.et_id;
   console.log('ultimo',et_id);
   // var et_id=2; //se debe obtener el ultimo tramite del establecimiento
   
