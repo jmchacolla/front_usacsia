@@ -116,12 +116,12 @@ angular.module("adminApp")
       var vigencia=moment($scope.persona.persona_tramite.pt_vigencia_documento, 'YYYY-MM-DD').format('DD-MM-YYYY');
       var nacimiento=moment( $scope.persona.persona.per_fecha_nacimiento, 'YYYY-MM-DD').format('DD-MM-YYYY');
       var imagenpersona=$scope.persona.imagen/*[0]*/.ima_enlace+'/'+$scope.persona.imagen/*[0]*/.ima_nombre;
-      FirmaFun.get({fun_id:fun_id}, function(data)
+      /*FirmaFun.get({fun_id:fun_id}, function(data)
       {
         $scope.firmas=data.firma;
-        var imagenfirma=$scope.firmas.firma/*[0]*/.fir_url+'/'+$scope.firmas.firma.fir_name;
+        var imagenfirma=$scope.firmas.firma.fir_url+'/'+$scope.firmas.firma.fir_name;
         console.log('imagen firma-----------', imagenfirma);
-
+*/
 
       var img1 =convertImgToDataURLviaCanvas( imagenpersona, function(base64Img) {
         ipersona =base64Img;
@@ -130,7 +130,7 @@ angular.module("adminApp")
           var img3 =convertImgToDataURLviaCanvas("./scripts/logoSEDES.png", function(base64Img) {
             sedes =base64Img;
              // var img4 =convertImgToDataURLviaCanvas( imagenfirma, function(base64Img) {
-                ifirma =base64Img;
+               // ifirma =base64Img;
             console.log("entro al controlador pdf---------",$scope.persona,$scope.firmas);
 
             var tituloqr= 'Nro. Trámite: '+$scope.persona.persona_tramite.pt_numero_tramite;
@@ -326,7 +326,7 @@ angular.module("adminApp")
             };
             img.src = url;
         };
-      });//fin firma funcionario get
+      /*});//fin firma funcionario get*/
 });// ============  FIN carnet.get
     });// ============  FIN persona tramite.get
 

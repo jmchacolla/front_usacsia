@@ -37,16 +37,27 @@
            </div>  
          </div>
         </div>
+        <div class="table-responsive">
         <table class="table table-bordered  table-hover" ng-show="estado_persona!=null && per_ci!=null">
+            <thead>
+                    <th class="text-primary">C.I.</th>
+                    <th class="text-primary">Empleado</th>
+                    <th class="text-primary">Estado del Trámite</th>
+                    <th class="text-primary" ng-show="!en_establecimiento" >Opciones</th>
+                    <th class="text-primary" ng-show="en_establecimiento" >Estado</th>
+                </thead>
             <tbody >
                 <tr ng-class="{success:estado_persona.pt_estado_tramite=='APROBADO', warning:estado_persona.pt_estado_tramite=='OBSERVADO', info:estado_persona.pt_estado_tramite=='INICIADO'}">
                     <td>{{estado_persona.per_ci+" "+estado_persona.per_ci_expedido}}</td>
                     <td>{{estado_persona.per_nombres+" "+estado_persona.per_apellido_primero+" "+estado_persona.per_apellido_segundo}}</td>
                     <td>{{estado_persona.pt_estado_tramite}}</td>
-                    <td>
+                    <td ng-show="en_establecimiento" >{{mensajee}}</td>
+                    <td class="text-primary" ng-show="!en_establecimiento" >
+                        
+                            
                         <center>
                             <button class="btn btn-warning" data-toggle="modal" ng-click="get_perid(estado_persona.per_id,estado_persona.per_nombres,estado_persona.per_apellido_primero,estado_persona.per_apellido_segundo)" data-target="#miCuadroModal2" title="Registrar como funcionario"><span class="glyphicon glyphicon-plus"></span> Agregar
-                        </button>
+                            </button>
                         </center>
                         
                         <div id="miCuadroModal2" class="modal fade" role="dialog" tabindex="-1">
@@ -79,9 +90,10 @@
                 </tr>
             </tbody>
         </table>
-        <h4 class="alert alert-warning text-center" ng-show="no_registrada!=null && per_ci!=null">
-            {{no_registrada}}<br/>
-            <a href="{{preregistro}}" target="_blank">Realizar Registro</a>
+        </div>
+        <h4 class="alert alert-{{class}} text-center" ng-show="mensajee!=null && per_ci!=null && !en_establecimiento">
+            {{mensajee}}<br/>
+            <a ng-show="sin_registro" href="#/servicios_ciudadanos/preregistro" target="_blank">Realizar Registro</a>
         </h4>
         <hr>
         <div class="text-center" ng-show="loading" ><br><img ng-src="./images/image.gif" class="loader-img"></div>
@@ -94,7 +106,7 @@
                     <th class="text-primary">Empleado</th>
                     <th class="text-primary">Fecha de inicio</th>
                     <th class="text-primary" >Cargo</th>
-                    <th class="text-primary" >Estado</th>
+                    <th class="text-primary" >Opciones</th>
                 </thead>
                 <tbody ng-repeat="pe in personas_x_establecimiento | orderBy:sortType:sortReverse | filter:searchText" >
                     <tr>
@@ -104,8 +116,7 @@
                         <td>{{pe.ep_inicio_trabajo}}</td>
                         <td>{{pe.ep_cargo}}</td>
                         <td >
-
-                            <button class="btn btn-warning" data-toggle="modal" ng-click="get_perid2(pe.ep_id,pe.per_nombres,pe.per_apellido_primero,pe.per_apellido_segundo)" data-target="#modal" title="Registrar como funcionario"><span class="glyphicon glyphicon-remove"></span></button>
+                            <button class="btn btn-danger" data-toggle="modal" ng-click="get_perid2(pe.ep_id,pe.per_nombres,pe.per_apellido_primero,pe.per_apellido_segundo)" data-target="#modal" title="Retirar funcionario"><span class="glyphicon glyphicon-remove"></span></button>
                             <div id="modal" class="modal fade" role="dialog" tabindex="-1">
                                 <div class="modal-dialog">
                                     <div class="modal-content">

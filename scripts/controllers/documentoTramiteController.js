@@ -18,7 +18,13 @@ function ($scope, DocumentoNoRegistrado,DocumentoRegistrado,DocumentoTramite, $r
   $scope.sortType = 'per_id'; // set the default sort type
   $scope.sortReverse  = true;  // set the default sort order
   $scope.Personas = [];
-  var et_id=2; //se debe obtener el ultimo tramite del establecimiento
+
+
+  var EstG = localStorage.getItem("DatosEstablecimiento");
+  var EstG = JSON.parse(EstG);
+  var et_id=EstG.empresatramite.et_id;
+  console.log('ultimo',et_id);
+  // var et_id=2; //se debe obtener el ultimo tramite del establecimiento
   
   $scope.documento_select={
     doc_id:null,
@@ -75,8 +81,9 @@ function ($scope, DocumentoNoRegistrado,DocumentoRegistrado,DocumentoTramite, $r
 
 
 
-.controller('EditarDocumentoTramiteCtrl', ['$scope', 'DocumentoTramite2', 'DocumentoTramiteL','PersonasEstablecimiento','Documento','$route','$routeParams', 'toastr', '$location','CONFIG',
-function ($scope, DocumentoTramite2,DocumentoTramiteL,PersonasEstablecimiento,Documento, $route,$routeParams,toastr,$location,CONFIG)
+.controller('EditarDocumentoTramiteCtrl', ['$http','CONFIG','$scope', 'DocumentoTramite2', 'DocumentoTramiteL','PersonasEstablecimiento','Documento','VerEstadoEmpleados','$route','$routeParams', 'toastr', '$location',
+function ($http,CONFIG,$scope, DocumentoTramite2,DocumentoTramiteL,PersonasEstablecimiento,Documento, VerEstadoEmpleados,$route,$routeParams,toastr,$location)
+
 {
   $scope.user = {
     rol_id: CONFIG.ROL_CURRENT_USER
@@ -123,6 +130,12 @@ function ($scope, DocumentoTramite2,DocumentoTramiteL,PersonasEstablecimiento,Do
           PersonasEstablecimiento.get({ess_id:ess_id},function(data)
         {
           $scope.personas_x_establecimiento = data.personas_x_establecimiento;
+          $scope.i = data.iniciados;
+          $scope.o = data.observados;
+          $scope.v = data.vencidos;
+          $scope.c = data.concluidos;
+          $scope.a = data.aprobados;
+          $scope.t = data.total;
             if($scope.personas_x_establecimiento.length > 0){
               $scope.loading = false;
               $scope.msg = true;
@@ -178,17 +191,42 @@ function ($scope, DocumentoTramite2,DocumentoTramiteL,PersonasEstablecimiento,Do
             et_id:et_id,
             fun_id:fun_id
           };
+       
           $scope.vector={
             observaciones:$scope.observaciones,
             todo:$scope.todo
           };
         DocumentoTramiteL.save($scope.vector).$promise.then(function(data){
           if(data.status) {
-            $scope.ajustes.pagina.success = "CONFIGURACION GUARDADA";
+            $scope.ajustes.pagina.success = "CONFIGURACIÓN GUARDADA";
                 toastr.success('CONFIGURACIÓN GUARDADA');
           }
         })
       }
       /*----------------------*/
+      // empleados
+
+      VerEstadoEmpleados.get({et_id:et_id},function(data){
+        $scope.te=data.tramitestado;
+        $scope.llega_obs=data.tramitestado.te_observacion;
+        $scope.te.te_observacion="";
+      });
+
+      $scope.actualizar_empleados=function(a){
+        if(a==1){
+          $scope.te.te_estado="APROBADO";
+          $scope.te.te_observacion="";
+          
+        }else{
+          $scope.te.te_estado="OBSERVADO";
+        }
+
+        $http.put(CONFIG.DOMINIO_SERVICIOS+"/estado_empleados/"+et_id, $scope.te).success(function(data){
+           $scope.llega_obs=data.tramitestado.te_observacion;  
+           $scope.ajustes.pagina.success = "CONFIGURACIÓN GUARDADA";
+           toastr.success('CONFIGURACIÓN GUARDADA');
+      });
+      };
+
   
 }])

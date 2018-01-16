@@ -26,8 +26,7 @@
               </div> -->
               <br>
               <div class="clearfix"></div>
-              El Servicio de Registro Departamental de Personas es un servicio que le permite 
-              acceder a un conjunto de Servicios de en la unidad de USACSIA mejorados mediante la implementación de tecnología.
+              El Servicio de Registro de Personas permite acceder a un conjunto de Servicios en la unidad de (USACSIA) mejorados mediante la implementación de tecnología.
               <div class="clearfix"></div>
             </div>
           </div>
@@ -45,8 +44,7 @@
               <ol>
                 <li>
                   <strong>Registro a través de Internet:</strong> 
-                  Consiste en llenar con datos personales el formulario de registro
-                  departamental de ciudadanos.
+                  Consiste en llenar con datos personales y subir su fotografia, en el formulario de registro de ciudadanos.
                 </li>
                 <li>
                   <strong>Confirmación de datos:</strong>
@@ -69,7 +67,7 @@
               <br><br>
               <button ng-click="entendi()" class="btn btn-primary btn-block">
                 <span class="glyphicon glyphicon-ok"></span>
-                 Entendido...¡¡QUIERO REGISTRARME!!
+                 ¡¡QUIERO REGISTRARME!!
               </button>
             </div>
           </div>
@@ -116,7 +114,7 @@
                         <label class="control-label">Tipo de documento: <strong class="fg_red">*</strong></label>
                                     <select class="form-control " name="tipo_doc" ng-model="persona.per_tipo_documento" ng-change="documento()">
                                 <option value="CI">CEDULA DE IDENTIDAD</option>
-                                <option value="PASAPORTE">PASAPORTE</option> 
+                                <option value="PASAPORTE">CEDULA DE IDENTIDAD(EXTRANJERO)</option> 
                                     </select>
                                     <span class="messages" ng-show="addPersona.$submitted || addPersona.tipo_doc.$touched">
                                <span ng-show="addPersona.tipo_doc.$error.required">El campo es obligatorio.</span>
@@ -132,8 +130,40 @@
                                <span ng-show="addPersona.num_iden.$error.min">Número de CI incorrecto.</span>
                                <span ng-show="addPersona.num_iden.$error.pattern">El formato introducido es incorrecto.</span>
                                <span ng-show="pre_reg">ESTE NÚMERO YA SE ENCUENTRA REGISTRADO.</span>
-                            </span>
+                        </span>
                         </div>
+                        </div>
+                        <div class="col-md-2" ng-if="!paises">
+                         <label class="control-label">Sufijo: </label>
+                              <select class="form-control"  title="Mes" name="mes" ng-model="sufijo"  required placeholder="sufijo">
+                                <option value="NO TIENE">NO TIENE</option>
+                                <option value="A">A</option>
+                                <option value="B">B</option>
+                                <option value="C">C</option>
+                                <option value="D">D</option>
+                                <option value="E">E</option>
+                                <option value="F">F</option>
+                                <option value="G">G</option>
+                                <option value="H">H</option>
+                                <option value="I">I</option>
+                                <option value="J">J</option>
+                                <option value="K">K</option>
+                                <option value="L">L</option>
+                                <option value="M">M</option>
+                                <option value="N">N</option>
+                                <option value="O">O</option>
+                                <option value="P">P</option>
+                                <option value="Q">Q</option>
+                                <option value="R">R</option>
+                                <option value="S">S</option>
+                                <option value="T">T</option>
+                                <option value="U">U</option>
+                                <option value="V">V</option>
+                                <option value="W">W</option>
+                                <option value="X">X</option>
+                                <option value="Y">Y</option>
+                                <option value="Z">Z</option>
+                              </select>
                         </div>
                     <div class="col-md-2" ng-show="exp">
                         <div class="form-group">
@@ -480,7 +510,7 @@
                         </div><!-- persona.per_zona_comunidad.zon_nombre -->
                         <div class="modal-footer lead text-center">
                             <button type="button" class="btn btn-default col-md-4" data-dismiss="modal" ng-click=""><span class="glyphicon glyphicon-remove"></span>CANCELAR</button>
-                            <button class="btn btn-primary col-md-offset-2 col-md-4"  ng-disabled="addPersona.$invalid || pre_reg" ng-click="submit($parent.persona, d, vm.per_ci );vista.enviar()">
+                            <button class="btn btn-primary col-md-offset-2 col-md-4"  ng-disabled="addPersona.$invalid || pre_reg" ng-click="submit($parent.persona, d, vm.per_ci,sufijo );vista.enviar()">
                               <span class="glyphicon glyphicon-ok"></span>
                                REGISTRAR
                             </button>
@@ -537,4 +567,4 @@ $(document).ready(function(){
  <script type="text/javascript">
       $(":file").filestyle({buttonText: " Abrir"});
        //$('#fileInput').filestyle({buttonName : 'btn-warning'});
-    </script>
+</script>

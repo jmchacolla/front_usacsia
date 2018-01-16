@@ -44,7 +44,8 @@
 							<span class="glyphicon glyphicon-asterisk" aria-hidden="true"></span>
 							Realizar prueba de laboratorio </a>
 						</li>
-						<li ng-show="menu.CONFIG.ROL_CURRENT_USER == 1 || menu.CONFIG.ROL_CURRENT_USER == 8">	 <a href="#/numero-ficha/crear">
+						<li ng-show="menu.CONFIG.ROL_CURRENT_USER == 1 || menu.CONFIG.ROL_CURRENT_USER == 8 ||  menu.CONFIG.ROL_CURRENT_USER == 12">
+							<a href="#/numero-ficha/crear">
 							<span class="glyphicon glyphicon-asterisk" aria-hidden="true"></span>
 							Asignar número de ficha</a>
 						</li>
@@ -91,6 +92,26 @@
 							<span class="glyphicon glyphicon-asterisk" aria-hidden="true"></span>
 								Números de muestra asignados</a>
 						</li>
+						<li ng-show="menu.CONFIG.ROL_CURRENT_USER == 11 || menu.CONFIG.ROL_CURRENT_USER == 7">
+							<a href="#/reportes/parasitos" >
+							<span class="glyphicon glyphicon-asterisk" aria-hidden="true"></span>
+								Reporte Parasitos</a>
+						</li>
+						<li ng-show="menu.CONFIG.ROL_CURRENT_USER == 11 || menu.CONFIG.ROL_CURRENT_USER == 7">
+							<a href="#/reportes/observadosdia" >
+							<span class="glyphicon glyphicon-asterisk" aria-hidden="true"></span>
+								Reporte Observados del dia</a>
+						</li>
+					<!-- 	<li >
+							<a href="#/reportes/signosvitales" >
+							<span class="glyphicon glyphicon-asterisk" aria-hidden="true"></span>
+								Reporte Signos</a>
+						</li> -->
+						<li ng-show="menu.CONFIG.ROL_CURRENT_USER == 11 || menu.CONFIG.ROL_CURRENT_USER == 7">
+							<a href="#/reportes/controldiario" >
+							<span class="glyphicon glyphicon-asterisk" aria-hidden="true"></span>
+								Reporte Control diario</a>
+						</li>
 						<li ng-show="menu.CONFIG.ROL_CURRENT_USER == 1 || menu.CONFIG.ROL_CURRENT_USER == 7 || menu.CONFIG.ROL_CURRENT_USER == 15">
 							<a href="#/establecimientossol">
 							<span class="glyphicon glyphicon-asterisk" aria-hidden="true"></span>
@@ -104,12 +125,17 @@
 						<li ng-show="menu.CONFIG.ROL_CURRENT_USER == 1 || menu.CONFIG.ROL_CURRENT_USER == 14">
 							<a href="#/asignacion_zonas/crear" >
 							<span class="glyphicon glyphicon-asterisk" aria-hidden="true"></span>
-								Asignación de zonas a inspectores</a>
+							Asignación de zonas a inspectores</a>
 						</li>
 						<li ng-show="menu.CONFIG.ROL_CURRENT_USER == 6">
 							<a href="#/documento-tramite/crear" >
 							<span class="glyphicon glyphicon-asterisk" aria-hidden="true"></span>
 								Subir documentos</a>
+						</li>
+						<li ng-show="menu.CONFIG.ROL_CURRENT_USER == 6">
+							<a href="#/empresa/verificar-persona" >
+							<span class="glyphicon glyphicon-asterisk" aria-hidden="true"></span>
+								Registrar empleados</a>
 						</li>
 						<!-- <li ng-show="menu.CONFIG.ROL_CURRENT_USER == 1 || menu.CONFIG.ROL_CURRENT_USER == 3" >
 			            	<a href="#/tramites_certi">

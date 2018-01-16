@@ -4,8 +4,8 @@ angular.module("adminApp")
 .controller('LoginCtrl', function (authUser) {
 	var vm = this;
 	vm.loginForm = {
-	usu_nick: '121815027',
-	password: '121815027'
+	usu_nick: '',
+	password: ''
 	};
 
 	vm.login = function(){
@@ -14,6 +14,6 @@ angular.module("adminApp")
 
 })
 
-
+/*121815027*/
 
 ;

@@ -440,7 +440,7 @@ console.log("propietario natural  ____",$scope.propietario);
     }
   ListaEmpTraEtapaEstado.get(condiciones, function (argument) {
       $scope.establecimientos = argument.empresa_tramite;
-      console.log('establecimientos', $scope.establecimientos.length);
+
       if($scope.establecimientos.length == 0){
         $scope.loading = false;
           $scope.msg = false;
@@ -455,7 +455,7 @@ console.log("propietario natural  ____",$scope.propietario);
         }
 
       angular.forEach($scope.establecimientos, function(value, key){
-            console.log( 'fecha:',value.te_fecha);
+
             value.te_fecha=moment(value.te_fecha,"YYYY-MM-DD").format("DD-MM-YYYY");
          });
     //PARA HACER UN LOADING EN EL TEMPLATE  
@@ -616,7 +616,7 @@ console.log("propietario natural  ____",$scope.propietario);
                     te_observacion:obs,
                     te_fecha:fecha
                 }
-                console.log("observado",obs);
+                /*console.log("observado",obs);*/
               } else {
                   $scope.datos={
                       fun_id:fun_id,
@@ -624,9 +624,9 @@ console.log("propietario natural  ____",$scope.propietario);
                       te_observacion:'NINGUNA',
                       te_fecha:fecha
                   }
-                  console.log("No observado");
+                  /*console.log("No observado");*/
               }
-              console.log('el et_id para cambiar estado',id);
+              /*console.log('el et_id para cambiar estado',id);*/
               
 
               var anio2=$scope.CurrentDate.getFullYear()+1;
@@ -920,18 +920,16 @@ console.log("propietario natural  ____",$scope.propietario);
     }
 
 
-
-/*<<<<<<< HEAD*/
     $scope.sortType = 'te_fecha'; // ESTABLECIENDO EL TIPO DE ORDENAMIENTO
     $scope.sortReverse  = true;  // PARA ORDENAR ASCENDENTEMENTO O DESCENDENTEMENTE
     $scope.loading=true;//PARA HACER UN LOADING EN EL TEMPLATE
-    var condiciones={
+    /*var condiciones={
       eta_id:7,
       te_estado:'APROBADO'
     }
 
-/*=======*/
-      /*if (persona.et_estado_pago=='VENCIDO') {
+
+      if (persona.et_estado_pago=='VENCIDO') {
         EmpresaTramite.save(emptr).promise.then(function (argument) {
           console.log('et_id------', argument.et_id);
           if (argument.msg) {
@@ -968,10 +966,9 @@ console.log("propietario natural  ____",$scope.propietario);
       }
       if(persona.et_estado_tramite=='APROBADO'&& c>=30)
       {
-
         toastr.error('El docuemnto aún se encuentra en vigencia');
       }*/
-   /* }*/
+
    var condiciones={
       eta_id:7,
       te_estado:'APROBADO'
@@ -997,7 +994,7 @@ console.log("propietario natural  ____",$scope.propietario);
 }])
 
 
-/*<<<<<<< HEAD*/
+
 
 
 

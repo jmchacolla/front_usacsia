@@ -683,11 +683,15 @@ var fc_id=$routeParams.fc_id;
   FichasInsEt.get({et_id:et_id},function(data)
   {
     $scope.ficha_inspeccion = data.ficha_inspeccion;
-   
+
     //PARA HACER UN LOADING EN EL TEMPLATE
     if(data.status){
       $scope.loading = false;
       $scope.msg = data.status;
+      angular.forEach($scope.ficha_inspeccion, function(value, key){
+            console.log( 'fecha:',value.created_at);
+            value.created_at=moment(value.created_at,"YYYY-MM-DD").format("DD-MM-YYYY");
+         });
     }
   })
 
@@ -755,6 +759,10 @@ var fc_id=$routeParams.fc_id;
    
     //PARA HACER UN LOADING EN EL TEMPLATE
     if(data.status){
+      angular.forEach($scope.ficha_inspeccion, function(value, key){
+            console.log( 'fecha:',value.created_at);
+            value.created_at=moment(value.created_at,"YYYY-MM-DD").format("DD-MM-YYYY");
+         });
       $scope.loading = false;
       $scope.msg = data.status;
     }
