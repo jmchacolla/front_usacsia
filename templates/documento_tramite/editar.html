@@ -32,7 +32,7 @@
 					<!-- INICIO -->
 					<tabs>
 						<pane title="DOCUMENTOS">
-							<br>
+						<br>
 						<div class="well well-sm" style="background-color:#fff;">
 							<div class="row">
 								<div class="col-md-12">
@@ -58,7 +58,7 @@
 								          </a>
 								        </h4>
 								      </div>
-								      <div></div>
+								  
 								      <div id="{{documento.doc_id}}" class="panel-collapse collapse">
 								        <div class="panel-body">
 								        	<div class="col-md-8">
@@ -71,9 +71,7 @@
 															<img ng-src="{{documento.dt_url+'/'+documento.dt_nombre}}" align="center" class="img-responsive img-thumbnail"/>
 														</div>
 								                    </div>
-
-
-<!-- <<<<<<< HEAD -->
+								                    <div>
 														   <label for="nombre" class="control-label">Observacion: <strong class="fg_red">*</strong></label>
 										                   <label><input  ng-click="editado(documento.dt_id,documento.dt_observado,documento.dt_observacion)" type="checkbox" ng-model="documento.dt_observado">&nbsp;Si</label>
 													        <textarea ng-change="editado(documento.dt_id,documento.dt_observado,documento.dt_observacion)" style="resize: vertical;min-height:70px;max-height: 150px;" ng-show="documento.dt_observado" class="form-control" type="text" ng-model="documento.dt_observacion" ng-required="documento.dt_observado" ng-pattern="patternCadena" name="obs">
@@ -84,47 +82,25 @@
 					                                       	                	
 									                </div>
 									                
-										        </div>
-										      </div>
 										    </div>
-											    <div class="col-md-6 col-md-offset-3 text-center">
-			                                        <button ng-if="docForm.$invalid" type="submit" class="btn btn-primary" title="Debe llenar todos los campos obligatorios de manera correcta"><span class="glyphicon glyphicon-save"></span> GUARDAR</button>
-			                                        <button ng-if="docForm.$valid" type="submit" class="btn btn-primary" ng-click="update_lista()" title="Guardar"><span class="glyphicon glyphicon-save"></span> GUARDAR</button>
-				                                </div>
-				                                <p ng-show="docForm.$invalid && docForm.$submitted" class="alert alert-danger">Asegúrese de llenar correctamente todos los campos</p>
-									        </form>
 										</div>
-										
-									</div>	
-<!-- =======
-												   <label for="nombre" class="control-label">Observacion: <strong class="fg_red">*</strong></label>
-								                   <label><input  ng-click="editado(documento.dt_id,documento.dt_observado,documento.dt_observacion)" type="checkbox" ng-model="documento.dt_observado">&nbsp;Si</label>
-											        <textarea ng-change="editado(documento.dt_id,documento.dt_observado,documento.dt_observacion)" style="resize: vertical;min-height:70px;max-height: 150px;" ng-show="documento.dt_observado" class="form-control" type="text" ng-model="documento.dt_observacion" ng-required="documento.dt_observado" ng-pattern="patternCadena" name="obs">
-											        </textarea>
-											        <span class="messages" ng-show="(docForm.$submitted || docForm.obs.$touched) && documento.dt_observado">
-			                                            <span ng-show="docForm.obs.$error.required">El campo es obligatorio.</span>
-			                                       </span>
-			                                       	                	
-							                </div>
-							                
-								        </div>
-								      </div>
-								    </div>
-									    <div class="col-md-6 col-md-offset-3 text-center">
-	                                        <button ng-if="docForm.$invalid" type="submit" class="btn btn-primary" title="Debe llenar todos los campos obligatorios de manera correcta"><span class="glyphicon glyphicon-save"></span> GUARDAR</button>
-	                                        <button ng-if="docForm.$valid" type="submit" class="btn btn-primary" ng-click="update_lista()" title="Guardar"><span class="glyphicon glyphicon-save"></span> GUARDAR</button>
-		                                </div>
-		                                <p ng-show="docForm.$invalid && docForm.$submitted" class="alert alert-danger">Asegúrese de llenar correctamente todos los campos</p>
-                    					<p ng-show="ajustes.pagina.success" class="alert alert-success">{{ajustes.pagina.success}}</p>
+									  </div>
+		                           </div>
+								    <div class="col-md-6 col-md-offset-3 text-center">
+                                        <button ng-if="docForm.$invalid" type="submit" class="btn btn-primary" title="Debe llenar todos los campos obligatorios de manera correcta"><span class="glyphicon glyphicon-save"></span> GUARDAR</button>
+                                        <button ng-if="docForm.$valid" type="submit" class="btn btn-primary" ng-click="update_lista()" title="Guardar"><span class="glyphicon glyphicon-save"></span> GUARDAR</button>
+	                                </div>
+				                                <p ng-show="docForm.$invalid && docForm.$submitted" class="alert alert-danger">Asegúrese de llenar correctamente todos los campos</p>
 							        </form>
->>>>>>> a07c46a7b99b4766189deed467c3a3dbebede921 -->
 								</div>
-								
+										
 							</div>	
 						</div>
-						</pane>
+						</pane>		
+						<!-- </div>	
+						</div> -->
+					
 
-<!-- <<<<<<< HEAD -->
 								<!-- .............. EMPLEADOS ................. -->
 					            <pane title="LISTA DE EMPLEADOS" ng-click="llamar_lista()">
 					            	<div class="panel">
@@ -227,16 +203,11 @@
 									</div>
 					            </pane>
 	 				<!-- ..............SERVICIOS................. -->
-							</tabs>
+					</tabs>
 							<!-- FIN -->
 							<!-- AQUI VAN LOS TABLAS O FORMULARIOS incrustados -->
-							</div>
-			            </pane>
-				<!-- ..............SERVICIOS................. -->
-					</tabs>
-					<!-- FIN -->
-					<!-- AQUI VAN LOS TABLAS O FORMULARIOS incrustados -->
 					</div>
+			      
 				</div>
 					
 				<!-- CONTENIDO MODULO fin -->
