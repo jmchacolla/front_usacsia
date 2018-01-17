@@ -408,7 +408,19 @@ angular.module("adminApp")
   })
 }])
 
+//ver sanciones de una ficha
+.factory('UsuariosB', ['$resource', 'CONFIG', function ($resource, CONFIG) {
+  return $resource(CONFIG.DOMINIO_SERVICIOS+"/user_buscar/:usu_identificador", {usu_identificador:"@_usu_identificador"}, {
+    update: {method: "PUT", params: {usu_identificador: "@usu_identificador"}}
+  })
+}])
 
+//ver empresas pendientes que no pagaron arancel
+.factory('EmpresaPendiente', ['$resource', 'CONFIG', function ($resource, CONFIG) {
+  return $resource(CONFIG.DOMINIO_SERVICIOS+"/zonains_funcionario/:fun_id", {fun_id:"@_fun_id"}, {
+    update: {method: "PUT", params: {fun_id: "@fun_id"}}
+  })
+}])
 
 
 

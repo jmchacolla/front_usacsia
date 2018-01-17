@@ -126,7 +126,7 @@ var FunG = localStorage.getItem("Funcionario");
   }
 }])
 
-.controller('CrearFichaInsCtrl', ['$http','CONFIG','$scope','FichaIn', '$route', 'toastr','EmpTra','Funcionarios','$timeout','$location','$routeParams', function ($http,CONFIG,$scope,FichaIn, $route, toastr,EmpTra,Funcionarios,$timeout,$location,$routeParams){
+.controller('CrearFichaInsCtrl', ['$http','CONFIG','$scope','FichaIn', '$route', 'toastr','EmpTra','Funcionarios','$timeout','$location','$routeParams','EstadoIns', function ($http,CONFIG,$scope,FichaIn, $route, toastr,EmpTra,Funcionarios,$timeout,$location,$routeParams,EstadoIns){
   $scope.ajustes = {
     menu:{
       titulo: 'Gestión de Fichas de Inspección',
@@ -167,7 +167,7 @@ var FunG = localStorage.getItem("Funcionario");
     $scope.direccion=$scope.emp_tra.establecimiento_sol.ess_avenida_calle+' #'+$scope.emp_tra.establecimiento_sol.ess_numero+' '+$scope.emp_tra.establecimiento_sol.ess_stand
    
   });
- Funcionarios.get({fun_id:fun_id},function(data){
+  Funcionarios.get({fun_id:fun_id},function(data){
     $scope.funcionarios=data.funcionario;
     $scope.nombre=$scope.funcionarios.persona.per_nombres+' '+$scope.funcionarios.persona.per_apellido_primero+' '+$scope.funcionarios.persona.per_apellido_segundo;
 
@@ -192,12 +192,47 @@ var FunG = localStorage.getItem("Funcionario");
 
     $scope.patternCadena = /^[a-zA-ZñÑáéíóúÁÉÍÓÚ ]*$/;
     $scope.patternCadenaNumero = /^[a-zA-ZñÑáéíóúÁÉÍÓÚ 0-9.]*$/;
+
+    $scope.datos={
+            fun_id:null,
+            te_estado:'',
+            te_observacion:'',
+            te_fecha:''
+        }
     
     $scope.submit = function(b)
     {
+      console.log("llega a funcion submit.....",b);
         $scope.ficha.fun_id=fun_id;
         $scope.ficha.et_id=et_id;
         $scope.ficha.fi_estado='INSPECCIONADO';
+        if ($scope.checkedI) {
+             $scope.datos={
+                fun_id:fun_id,
+                te_estado:'OBSERVADO',
+                te_observacion:$scope.datos.te_observacion,
+                te_fecha:fecha
+            }
+            $scope.ficha.fi_observacion=$scope.datos.te_observacion;
+          }
+          else{
+             $scope.datos={
+                fun_id:fun_id,
+                te_estado:'APROBADO',
+                te_observacion:'NINGUNA',
+                te_fecha:fecha
+            }
+            $scope.ficha.fi_observacion='NINGUNA';
+          }
+      EstadoIns.update({et_id:et_id}, $scope.datos).$promise.then(function(data)
+      {
+        console.log("__datos tramitecer__",$scope.datos);
+          if(data.status) {
+            angular.copy({}, $scope.datos);
+          }
+         
+
+      })
      
 
        
@@ -240,8 +275,8 @@ var FunG = localStorage.getItem("Funcionario");
 
 }])
 
-.controller('CrearCateCtrl', ['$scope','$routeParams','EmpTra','Categoria','FichaCat','Zonas',  '$location', '$timeout', 'toastr','Rubro','Cle','BusSub','BusCat','EstadoIns',
- function ($scope,$routeParams, EmpTra,Categoria,FichaCat,Zonas,  $location, $timeout, toastr,Rubro,Cle,BusSub,BusCat,EstadoIns){
+.controller('CrearCateCtrl', ['$scope','$routeParams','EmpTra','Categoria','FichaCat','Zonas',  '$location', '$timeout', 'toastr','Rubro','Cle','BusSub','BusCat',
+ function ($scope,$routeParams, EmpTra,Categoria,FichaCat,Zonas,  $location, $timeout, toastr,Rubro,Cle,BusSub,BusCat){
 
  $scope.ajustes = {
     //Configuraciones del menu:
@@ -384,43 +419,14 @@ $scope.checkedI=false;
     $scope.CurrentDate = new Date();
     var mes=$scope.CurrentDate.getMonth()+1;
     var fecha=$scope.CurrentDate.getDate()+"-"+mes+"-"+$scope.CurrentDate.getFullYear();
-   $scope.datos={
-            fun_id:null,
-            te_estado:'',
-            te_observacion:'',
-            te_fecha:''
-        }
+   
 
   $scope.submit = function(){
     console.log('EL OBJETO QUE S VA A CREAR', $scope.todo1);
     FichaCat.save($scope.todo1).$promise.then(function(data){
       if(data.status) {
         
-          if ($scope.checkedI) {
-             $scope.datos={
-                fun_id:fun_id,
-                te_estado:'OBSERVADO',
-                te_observacion:$scope.datos.te_observacion,
-                te_fecha:fecha
-            }
-          }
-          else{
-             $scope.datos={
-                fun_id:fun_id,
-                te_estado:'APROBADO',
-                te_observacion:'NINGUNA',
-                te_fecha:fecha
-            }
-          }
-      EstadoIns.update({et_id:et_id}, $scope.datos).$promise.then(function(data)
-      {
-        console.log("__datos tramitecer__",$scope.datos);
-          if(data.status) {
-            angular.copy({}, $scope.datos);
-          }
-         
-
-      })
+          
       angular.copy({}, $scope.todo1);
         $scope.ajustes.pagina.success = "Categoria añadida correctamente";
         toastr.success('Categoria añadida correctamente');

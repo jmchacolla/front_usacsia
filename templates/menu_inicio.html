@@ -127,6 +127,11 @@
 							<span class="glyphicon glyphicon-asterisk" aria-hidden="true"></span>
 							Asignación de zonas a inspectores</a>
 						</li>
+						<li ng-show="menu.CONFIG.ROL_CURRENT_USER == 1 || menu.CONFIG.ROL_CURRENT_USER == 14">
+							<a href="#/lista-pendientes" >
+							<span class="glyphicon glyphicon-asterisk" aria-hidden="true"></span>
+							Empresas Pendientes en pago</a>
+						</li>
 						<li ng-show="menu.CONFIG.ROL_CURRENT_USER == 6">
 							<a href="#/documento-tramite/crear" >
 							<span class="glyphicon glyphicon-asterisk" aria-hidden="true"></span>
@@ -147,8 +152,13 @@
 			            	<span class="glyphicon glyphicon-asterisk" aria-hidden="true"></span>
 			           		Trámites certificado propietarios juridicos</a>
 			            </li> -->
-			            <li ng-show="menu.CONFIG.ROL_CURRENT_USER == 1 || menu.CONFIG.ROL_CURRENT_USER == 15 || menu.CONFIG.ROL_CURRENT_USER == 3" >
+			           <!--  <li ng-show="menu.CONFIG.ROL_CURRENT_USER == 1 || menu.CONFIG.ROL_CURRENT_USER == 15 || menu.CONFIG.ROL_CURRENT_USER == 3" >
 			            	<a href="#/lista-solicitantes">
+			            	<span class="glyphicon glyphicon-asterisk" aria-hidden="true"></span>
+			           		Empresas Habilitados</a>
+			            </li> -->
+			             <li ng-show="menu.CONFIG.ROL_CURRENT_USER == 1 || menu.CONFIG.ROL_CURRENT_USER == 15 || menu.CONFIG.ROL_CURRENT_USER == 3" >
+			            	<a href="#/tramite-establecimientosol">
 			            	<span class="glyphicon glyphicon-asterisk" aria-hidden="true"></span>
 			           		Empresas Habilitados</a>
 			            </li>

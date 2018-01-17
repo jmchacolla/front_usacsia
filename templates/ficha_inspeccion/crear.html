@@ -13,7 +13,7 @@
             <hr class="bg-red">
           </div>
        </div>
-    <label class="control-label">Los campos marcados con asterisco (<strong class="fg_red">*</strong>) son obligatorios</label>
+    <label class="control-label">Debe selecionar los campos que sean verdaderos </label>
     <div class="row">
       <div class="col-md-12" >
       <!-- AQUI VAN LAS TABLAS O FORMULARIOS incrustados ng-controller="apiApppCtrl as vm" -->
@@ -75,7 +75,7 @@
                     <div class="col-md-4">
                          <div class="formulario">
                               <div class="checkbox">
-                              <input class="checkbox" type="checkbox" name="ai" id="seleccion" ng-model="ficha.fi_foco_insalubridad">
+                              <input class="checkbox" type="checkbox" name="alejado" id="seleccion" ng-model="ficha.fi_foco_insalubridad" >
                               <label for="seleccion">Alejados de focos de insalubridad:</label>
                               </div>
                         </div>
@@ -83,7 +83,7 @@
                      <div class="col-md-4">
                         <div class="formulario">
                               <div class="checkbox">
-                              <input class="checkbox" type="checkbox" name="ag" id="agua" ng-model="ficha.fi_exibe_certificado" ng-init="true" >
+                              <input class="checkbox" type="checkbox" name="cert" id="agua" ng-model="ficha.fi_exibe_certificado" ng-init="true" >
                               <label for="agua">Exhibe certificado sanitario</label>
                               </div>
                         </div>
@@ -91,7 +91,7 @@
                     <div class="col-md-4">
                         <div class="formulario">
                               <div class="checkbox">
-                              <input class="checkbox" type="checkbox" name="ag" id="calf" ng-model="ficha.fi_exibe_carne" ng-init="checked=false" >
+                              <input class="checkbox" type="checkbox" name="carnet" id="calf" ng-model="ficha.fi_exibe_carne" ng-init="checked=false" >
                               <label for="calf">Exhibe carné sanitario</label>
                               </div>
                         </div>
@@ -103,7 +103,7 @@
                     <div class="col-md-4">
                         <div class="formulario">
                               <div class="checkbox">
-                              <input class="checkbox" type="checkbox" name="ag" id="fri" ng-model="ficha.fi_extinguidor" ng-init="checked=false" >
+                              <input class="checkbox" type="checkbox" name="ext" id="fri" ng-model="ficha.fi_extinguidor" ng-init="checked=false" >
                               <label for="fri">Extinguidor</label>
                               </div>
                         </div>
@@ -111,7 +111,7 @@
                     <div class="col-md-4">
                         <div class="formulario">
                               <div class="checkbox">
-                              <input class="checkbox" type="checkbox" name="ag" id="room" ng-model="ficha.fi_botiquin" ng-init="checked=false" >
+                              <input class="checkbox" type="checkbox" name="bot" id="room" ng-model="ficha.fi_botiquin" ng-init="checked=false" >
                               <label for="room">Botiquin</label>
                               </div>
                         </div>
@@ -126,16 +126,39 @@
                                         
                   </div>
                  -->
-                   <div class="row">
+                 <h4 class="text-center text-primary">III. OBSERVACIÓN</h4>
+                    <hr class="bg-red"> 
+                
+                  <div class="row">
+                      <div class="col-md-4">
+                        <div class="formulario">
+                           <div class="checkbox">
+                                  <input class="checkbox" type="checkbox" name="acomp" id="M" value="M" ng-model="checkedI" ng-init="checked=false" ng-click="reset_acomp(checkedI)">
+                                  <label for="M" >Tiene Observación</label>
+                            </div>
+                        </div>
+                      </div>
+                      <div ng-if="checkedI" class=" col-md-8">
+                          <label for="acomp" class="control-label ">Observación:</label>
+                          <br>
+                           <textarea name="equi" ng-model-options="{ updateOn: 'blur' }" rows="6" cols="40" style="resize: vertical;min-height:70px;max-height: 150px;" placeholder="Observación" ng-model="datos.te_observacion"></textarea>
+                       </div>
+                  </div>
+
+                   <!-- <div class="row">
                     <div class="col-md-6">
                             <label for="equi" class="control-label ">RECOMENDACIONES :<strong class="fg_red">*</strong></label><br>
-                            <textarea name="equi" ng-model-options="{ updateOn: 'blur' }" rows="6" cols="50" style="resize: vertical;min-height:70px;max-height: 150px;" placeholder="detalle equipo" ng-model="ficha.fi_observacion"></textarea>
+                            <textarea name="equi" ng-model-options="{ updateOn: 'blur' }" rows="6" cols="50" style="resize: vertical;min-height:70px;max-height: 150px;" placeholder="recomendaciones para el establecimiento" ng-model="ficha.fi_observacion"></textarea>
+                            <span class="messages" ng-show="userForm.$submitted || userForm.equi.$touched">
+                           <span ng-show="userForm.equi.$error.required">El campo es obligatorio.</span>
+                        </span>
                            
                      </div>
-                   </div>
+                   </div> -->
              
      
        </div><!-- fin formulario -->
+       <!-- <p ng-show="userForm.$invalid && userForm.$submitted" class="alert alert-danger">Asegúrese de llenar correctamente todos los campos</p> -->
        <p ng-show="$parent.ajustes.pagina.success" class="alert alert-success">{{$parent.ajustes.pagina.success}}</p>
       
 

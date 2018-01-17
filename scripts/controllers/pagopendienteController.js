@@ -1,7 +1,7 @@
 'use strict';
 angular.module("adminApp")
 
-.controller('BoletaCesCtrl', ['$scope', '$http', 'EmpTra', 'Tramite','PagoPendienteTramite', 'PagoPendiente', 'EmpresaTramite', 'CrearEstados', '$route', '$resource', '$routeParams', 'toastr', '$location', '$timeout', 'CONFIG','Usuarios', function ($scope, $http,EmpTra, Tramite, PagoPendienteTramite, PagoPendiente, EmpresaTramite, CrearEstados, $route, $resource,$routeParams, toastr, $location, $timeout,CONFIG,Usuarios) {
+.controller('BoletaCesCtrl', ['$scope', '$http', 'EmpTra', 'Tramite','PagoPendienteTramite', 'PagoPendiente', 'EmpresaTramite', 'CrearEstados', '$route', '$resource', '$routeParams', 'toastr', '$location', '$timeout', 'CONFIG','Usuarios','UsuariosB', function ($scope, $http,EmpTra, Tramite, PagoPendienteTramite, PagoPendiente, EmpresaTramite, CrearEstados, $route, $resource,$routeParams, toastr, $location, $timeout,CONFIG,Usuarios,UsuariosB) {
   var et_id=$routeParams.et_id;
   var FunG = localStorage.getItem("Funcionario");
   var FunG = JSON.parse(FunG);
@@ -68,19 +68,27 @@ angular.module("adminApp")
 
           if (argument.mensaje) {
 
+             UsuariosB.get({usu_identificador:argument.empt.ess_id}, function(data){
+                $scope.usuario = data.usuario;
+                if ($scope.usuario == null) {
+                      $scope.usuario={
+                        usu_identificador:argument.empt.ess_id,
+                        usu_tipo:"E",
+                        rol_id:6
+                      };
 
-              $scope.usuario={
-                usu_identificador:argument.empt.ess_id,
-                usu_tipo:"E",
-                rol_id:6
-              };
+                      Usuarios.save($scope.usuario).$promise.then(function(data){
+                        if(data.msg){
+                          angular.copy({}, $scope.usuario);
 
-              Usuarios.save($scope.usuario).$promise.then(function(data){
-                if(data.msg){
-                  angular.copy({}, $scope.usuario);
+                        }
+                      });
 
+                } else {
+                  toastr.error("La empresa ya tiene cuenta de usuario");
                 }
-              });
+       
+              })
 
             $timeout(function() {
                 $location.path('/boleta-ces-f1/'+et_id);

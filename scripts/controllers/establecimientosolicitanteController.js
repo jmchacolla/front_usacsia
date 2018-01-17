@@ -7,9 +7,9 @@ angular.module("adminApp")
     menu:{
       titulo: 'Gestión de Establecimientos Solicitantes',
       items:[
-        {nombre:'Establecimientos', enlace:'#/tramite-establecimientosol', estilo:''},
+        {nombre:'Trámites iniciados', enlace:'#/tramite-establecimientosol', estilo:''},
         {nombre:'Establecimientos', enlace:'#/establecimientossol', estilo:'active'},
-        {nombre:'Nuevo establecimiento', enlace:'#/establecimientosol/persona', estilo:''}]
+        {nombre:'Registrar establecimiento', enlace:'#/establecimientosol/persona', estilo:''}]
     },
     //Configuraciones de la página
     pagina:{
@@ -110,7 +110,7 @@ angular.module("adminApp")
       items:[
         {nombre:'Tramites iniciados', enlace:'#/tramite-establecimientosol', estilo:'active'},
         {nombre:'Establecimientos', enlace:'#/establecimientossol', estilo:''},
-        {nombre:'Nuevo establecimiento', enlace:'#/establecimientosol/persona', estilo:''}]
+        {nombre:'Registrar establecimiento', enlace:'#/establecimientosol/persona', estilo:''}]
     },
     //Configuraciones de la página
     pagina:{
@@ -215,7 +215,7 @@ angular.module("adminApp")
       items:[
         {nombre:'Establecimientos', enlace:'#/tramite-establecimientosol', estilo:''},
         {nombre:'Establecimientos', enlace:'#/establecimientossol', estilo:''},
-        {nombre:'Nuevo establecimiento', enlace:'#/establecimientosol/persona', estilo:'active'}]
+        {nombre:'Registrar establecimiento', enlace:'#/establecimientosol/persona', estilo:'active'}]
     },
     //Configuraciones de la página
     pagina:{
@@ -424,7 +424,7 @@ $scope.initMap = function(){
       items:[
         {nombre:'Establecimientos', enlace:'#/tramite-establecimientosol', estilo:''},
         {nombre:'Establecimientos', enlace:'#/establecimientossol', estilo:''},
-        {nombre:'Nuevo establecimiento', enlace:'#/establecimientosol/persona', estilo:'active'}]
+        {nombre:'Registrar establecimiento', enlace:'#/establecimientosol/persona', estilo:'active'}]
     },
     //Configuraciones de la página
     pagina:{
@@ -470,7 +470,7 @@ $scope.initMap = function(){
       items:[
         {nombre:'Establecimientos', enlace:'#/tramite-establecimientosol', estilo:''},
         {nombre:'Establecimientos', enlace:'#/establecimientossol', estilo:''},
-        {nombre:'Nuevo establecimiento', enlace:'#/establecimientosol/persona', estilo:'active'}]
+        {nombre:'Registrar establecimiento', enlace:'#/establecimientosol/persona', estilo:'active'}]
     },
     //Configuraciones de la página
     pagina:{
