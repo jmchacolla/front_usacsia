@@ -65,22 +65,8 @@
                                   <input disabled class="form-control" id="red" type="Text" ng-model="rubro.re_nombre" >          
                                 </div> 
                             </div> 
-                            <div class="row">
-                                <div class="col-md-4">
-                                  <div class="formulario">
-                                     <div class="checkbox">
-                                            <input class="checkbox" type="checkbox" name="acomp" id="M" value="M" ng-model="checkedI" ng-init="checked=false" ng-click="reset_acomp(checkedI)">
-                                            <label for="M">Tiene Observación</label>
-                                      </div>
-                                  </div>
-                                </div>
-                                <div ng-if="checkedI" class=" col-md-8">
-                                    <label for="acomp" class="control-label ">Observación:</label>
-                                    <br>
-                                     <textarea name="equi" ng-model-options="{ updateOn: 'blur' }" rows="6" cols="40" style="resize: vertical;min-height:70px;max-height: 150px;" placeholder="Observación" ng-model="datos.te_observacion"></textarea>
-                                    
-                               </div>
-                            </div>
+                            
+                           
                             <div class="row">
                                 <div class="col-md-4">
                                      <label for="sc" class="control-label">Clacificación: <strong class="fg_red">*</strong></label>

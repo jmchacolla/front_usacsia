@@ -1,7 +1,7 @@
 'use strict';
 angular.module("adminApp")
 
-.controller('BuscarPropietarioCtrl', ['$scope', '$http', 'moment', 'BuscarPropietario', 'EmpresaTramite', '$route', '$resource', '$routeParams', 'toastr', '$location', '$timeout', 'CONFIG','Usuarios', function ($scope, $http, moment, BuscarPropietario, EmpresaTramite, $route, $resource,$routeParams, toastr, $location, $timeout,CONFIG,Usuarios) {
+.controller('BuscarPropietarioCtrl', ['$scope', '$http', 'moment', 'BuscarPropietario', 'EmpresaTramite', '$route', '$resource', '$routeParams', 'toastr', '$location', '$timeout', 'CONFIG', function ($scope, $http, moment, BuscarPropietario, EmpresaTramite, $route, $resource,$routeParams, toastr, $location, $timeout,CONFIG) {
     $scope.ajustes = {
       menu:{
         titulo: 'Búsqueda de Establecimiento',
@@ -205,6 +205,89 @@ console.log("propietario natural  ____",$scope.propietario);
     $location.path('/inicio');
   }*/
 }])
+.controller('ListaPendCtrl', ['$scope', '$http', 'moment', 'EmpresaPendiente', '$route', '$resource','$routeParams', 'toastr', '$location', '$timeout','CONFIG','Inspectores', function ($scope, $http, moment, EmpresaPendiente, $route, $resource,$routeParams, toastr, $location, $timeout,CONFIG,Inspectores) {
+ $scope.user = {
+    rol_id: CONFIG.ROL_CURRENT_USER
+  }
+/*if ($scope.user.rol_id == 3) {
+     $scope.ajustes = {
+      menu:{
+        titulo: 'Búsqueda de Establecimiento',
+        items:[
+           {nombre:'Buscar empresa solicitante', enlace:'#/buscar-propietario', estilo:''},
+           {nombre:'Establecimientos solicitantes', enlace:'#/lista-solicitantes', estilo:'active'}
+
+        ]
+      },
+      pagina:{
+        titulo:'Búsqueda de Establecimiento'
+      }
+    }
+  }
+  else*/ if ($scope.user.rol_id == 14) {
+        $scope.ajustes = {
+        menu:{
+          titulo: 'Gestión de Certificado Sanitario',
+          items:[
+          {nombre:'Establecimientos solicitantes', enlace:'#/lista-solicitantes', estilo:''},
+           {nombre:'Establecimientos validados', enlace:'#/lista-validacion', estilo:''},
+            {nombre:'Establecimientos inspeccionados', enlace:'#/lista-inspeccionados', estilo:''},
+            {nombre:'Establecimientos que cancelaron', enlace:'#/lista-cancelaron', estilo:''},
+             {nombre:'Establecimientos Pendientes', enlace:'#/lista-pendientes', estilo:'active'}
+           ]
+        },
+        pagina:{
+          titulo:'Establecimientos Pendientes en Pago arancel'
+        }
+      }
+  }
+
+  Inspectores.get(function(data)
+  {
+    $scope.funcionarios = data.funcionario;
+    if($scope.funcionarios.length >0){
+      $scope.loading = false;
+      $scope.msg = true;
+    }
+    else{
+      $scope.loading = false;
+      $scope.msg = false;
+    }
+  },function () {
+      toastr.error("ERROR INESPERADO, POR FAVOR ACTUALICE LA PÁGINA");
+      $scope.loading = false;
+      $scope.msg = false;
+  });
+
+    $scope.sortType = 'te_fecha'; // ESTABLECIENDO EL TIPO DE ORDENAMIENTO
+    $scope.sortReverse  = true;  // PARA ORDENAR ASCENDENTEMENTO O DESCENDENTEMENTE
+    $scope.loading=true;//PARA HACER UN LOADING EN EL TEMPLATE
+  $scope.zon=false;
+  $scope.ver_zonas=function(fun_id){
+      console.log(fun_id+"<<< MUN_ID");
+      EmpresaPendiente.get({fun_id:fun_id}, function(data){
+          $scope.zona_inspeccion=data.zona_inspeccion;
+
+          console.log("ZOnasss",$scope.zonas);
+          if ($scope.zona_inspeccion.length!=0) {
+            $scope.zon=true;
+        angular.forEach($scope.zona_inspeccion, function(value, key){
+            console.log( 'fecha:',value.fi_fecha_realizacion);
+            value.fi_fecha_realizacion=moment(value.fi_fecha_realizacion,"YYYY-MM-DD").format("DD-MM-YYYY");
+         });
+            console.log("mostrar zonas "+$scope.zon);
+          }
+          else{
+            console.log("no hay zonas "+$scope.zon);
+          }
+        
+      })
+  };
+
+ 
+}])
+
+//lista de pendientes en requisitos
  .controller('ListaSolicitantesCtrl', ['$scope', '$http', 'moment', 'ListaEmpTraEtapaEstado', 'EmpresaTramite', '$route', '$resource','$routeParams', 'toastr', '$location', '$timeout','CONFIG', function ($scope, $http, moment, ListaEmpTraEtapaEstado, EmpresaTramite, $route, $resource,$routeParams, toastr, $location, $timeout,CONFIG) {
  $scope.user = {
     rol_id: CONFIG.ROL_CURRENT_USER

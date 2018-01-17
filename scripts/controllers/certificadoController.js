@@ -184,7 +184,7 @@ console.log("_______sssssssssssssssssss",$scope.tramitecerestado[6].eta_id);
             var propietario='';
             var direccion='';
             var gestion='';
-            var vencimiento=/*$scope.cs.ces_fecha_fin*/moment($scope.empresatra.empresa_tramite.et_vigencia_documento, 'YYYY-MM-DD').format('DD-MM-YYYY');;
+            var vencimiento=$scope.cs.ces_fecha_fin/*moment($scope.empresatra.empresa_tramite.et_vigencia_documento, 'YYYY-MM-DD').format('DD-MM-YYYY')*/;
             var nroregistro='';
             var kardex='';
 
@@ -316,7 +316,7 @@ console.log("_______sssssssssssssssssss",$scope.tramitecerestado[6].eta_id);
                               ],
                               [
                                 {text:'N° DE REGISTRO: ',alignment:'left', bold:true, fontSize:13},
-                                {text:'nroregistro', alignment:'center', bold:true, fontSize:15},
+                                {text:/*'nroregistro'*/ 1245, alignment:'center', bold:true, fontSize:15},
                                 {text:'KARDEX: ',alignment:'left', bold:true, fontSize:13},
                                 {text:$scope.empresatra.empresa.emp_kardex, alignment:'center', bold:true, fontSize:15},
                               ],

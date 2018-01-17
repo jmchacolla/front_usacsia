@@ -548,7 +548,14 @@ angular.module("adminApp", ["authService", "ngRoute", "ngResource", "satellizer"
    templateUrl:'templates/empresatramite/listJ.html',
    controller: 'ListJurCtrl'
   })*/
-   
+    //etapa 7 =APROBADO
+  .when('/lista-pendientes', {
+    templateUrl: 'templates/empresatramite/pendientes.html',
+    controller: 'ListaPendCtrl',
+    data: {
+      authorized: [ROLES.ADMIN_USACSIA.ROL, ROLES.ADMIN_CERTIFICADO.ROL]
+    }
+  }) 
 
 
   
@@ -810,7 +817,10 @@ angular.module("adminApp", ["authService", "ngRoute", "ngResource", "satellizer"
   .when('/documento-tramite/crear', {
 
     templateUrl: 'templates/documento_tramite/crear.html',
-    controller: 'CrearDocumentoTramiteCtrl'
+    controller: 'CrearDocumentoTramiteCtrl',
+    data: {
+      authorized: [ROLES.EMPRESA.ROL]
+    }
   })
 
   .when('/documento-tramite/revisar/:et_id', {
