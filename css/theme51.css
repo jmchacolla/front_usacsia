@@ -2238,7 +2238,7 @@ pre code {
   }
 }
 table {
-  background-color: transparent;
+  background-color: #ffffff;
 }
 caption {
   padding-top: 8px;
@@ -2554,10 +2554,10 @@ output {
   transition: border-color ease-in-out .15s, box-shadow ease-in-out .15s;
 }
 .form-control:focus {
-  border-color: #66afe9;
+  border-color: #b8adad;
   outline: 0;
-  -webkit-box-shadow: inset 0 1px 1px rgba(0,0,0,.075), 0 0 8px rgba(102, 175, 233, 0.6);
-  box-shadow: inset 0 1px 1px rgba(0,0,0,.075), 0 0 8px rgba(102, 175, 233, 0.6);
+  -webkit-box-shadow: inset 0 1px 1px rgba(0,0,0,.075), 0 0 8px rgba(184, 173, 173, 0.6);
+  box-shadow: inset 0 1px 1px rgba(0,0,0,.075), 0 0 8px rgba(184, 173, 173, 0.6);
 }
 .form-control::-moz-placeholder {
   color: #999999;
@@ -2732,7 +2732,7 @@ select[multiple].input-sm {
 }
 .input-lg {
   height: 41px;
-  padding: 10px 16px;
+  padding: 10px 10px;
   font-size: 14px;
   line-height: 1.3333333;
   border-radius: 0px;
@@ -2747,7 +2747,7 @@ select[multiple].input-lg {
 }
 .form-group-lg .form-control {
   height: 41px;
-  padding: 10px 16px;
+  padding: 10px 10px;
   font-size: 14px;
   line-height: 1.3333333;
   border-radius: 0px;
@@ -2763,7 +2763,7 @@ select[multiple].input-lg {
 .form-group-lg .form-control-static {
   height: 41px;
   min-height: 34px;
-  padding: 11px 16px;
+  padding: 11px 10px;
   font-size: 14px;
   line-height: 1.3333333;
 }
@@ -3421,7 +3421,7 @@ fieldset[disabled] .btn-link:focus {
 }
 .btn-lg,
 .btn-group-lg > .btn {
-  padding: 10px 16px;
+  padding: 10px 10px;
   font-size: 14px;
   line-height: 1.3333333;
   border-radius: 0px;
@@ -3821,7 +3821,7 @@ tbody.collapse.in {
 .input-group-lg > .input-group-addon,
 .input-group-lg > .input-group-btn > .btn {
   height: 41px;
-  padding: 10px 16px;
+  padding: 10px 10px;
   font-size: 14px;
   line-height: 1.3333333;
   border-radius: 0px;
@@ -3886,8 +3886,8 @@ select[multiple].input-group-sm > .input-group-btn > .btn {
   line-height: 1;
   color: #555555;
   text-align: center;
-  background-color: #eeeeee;
-  border: 1px solid #cccccc;
+  background-color: #d53032;
+  border: 1px solid #d53032;
   border-radius: 0px;
 }
 .input-group-addon.input-sm {
@@ -3896,7 +3896,7 @@ select[multiple].input-group-sm > .input-group-btn > .btn {
   border-radius: 0px;
 }
 .input-group-addon.input-lg {
-  padding: 10px 16px;
+  padding: 10px 10px;
   font-size: 14px;
   border-radius: 0px;
 }
@@ -4493,7 +4493,7 @@ select[multiple].input-group-sm > .input-group-btn > .btn {
 }
 .navbar-default .navbar-nav > li > a:hover,
 .navbar-default .navbar-nav > li > a:focus {
-  color: #0a0909;
+  color: #333333;
   background-color: transparent;
 }
 .navbar-default .navbar-nav > .active > a,
@@ -4513,10 +4513,10 @@ select[multiple].input-group-sm > .input-group-btn > .btn {
 }
 .navbar-default .navbar-toggle:hover,
 .navbar-default .navbar-toggle:focus {
-  background-color: #bd2628;
+  background-color: #dddddd;
 }
 .navbar-default .navbar-toggle .icon-bar {
-  background-color: #ffffff;
+  background-color: #888888;
 }
 .navbar-default .navbar-collapse,
 .navbar-default .navbar-form {
@@ -4534,7 +4534,7 @@ select[multiple].input-group-sm > .input-group-btn > .btn {
   }
   .navbar-default .navbar-nav .open .dropdown-menu > li > a:hover,
   .navbar-default .navbar-nav .open .dropdown-menu > li > a:focus {
-    color: #0a0909;
+    color: #333333;
     background-color: transparent;
   }
   .navbar-default .navbar-nav .open .dropdown-menu > .active > a,
@@ -4554,14 +4554,14 @@ select[multiple].input-group-sm > .input-group-btn > .btn {
   color: #ffffff;
 }
 .navbar-default .navbar-link:hover {
-  color: #0a0909;
+  color: #333333;
 }
 .navbar-default .btn-link {
   color: #ffffff;
 }
 .navbar-default .btn-link:hover,
 .navbar-default .btn-link:focus {
-  color: #0a0909;
+  color: #333333;
 }
 .navbar-default .btn-link[disabled]:hover,
 fieldset[disabled] .navbar-default .btn-link:hover,
@@ -4755,7 +4755,7 @@ fieldset[disabled] .navbar-inverse .btn-link:focus {
 }
 .pagination-lg > li > a,
 .pagination-lg > li > span {
-  padding: 10px 16px;
+  padding: 10px 10px;
   font-size: 14px;
   line-height: 1.3333333;
 }
@@ -4800,7 +4800,7 @@ fieldset[disabled] .navbar-inverse .btn-link:focus {
   padding: 5px 14px;
   background-color: #ffffff;
   border: 1px solid #dddddd;
-  border-radius: 15px;
+  border-radius: 4px;
 }
 .pager li > a:hover,
 .pager li > a:focus {
