@@ -58,9 +58,15 @@ angular.module("adminApp")
       })
 
 
+<<<<<<< HEAD
       //$http.post(CONFIG.DOMINIO_SERVICIOS+'/crearestados/'+et_id).success(function(respuesta){
         //console.log("_respuesta__",respuesta);
       //});
+=======
+     /* $http.post(CONFIG.DOMINIO_SERVICIOS+'/crearestados/'+et_id).success(function(respuesta){
+        console.log("_respuesta__",respuesta);
+      });*/
+>>>>>>> 75f9585d978bd9b4a5c0daeef9075139718a0938
 
 
       EmpTra.update({et_id:et_id},pago, function (argument) {

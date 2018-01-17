@@ -222,8 +222,13 @@ $scope.persona.ima_nombre=file.name;
                                 $scope.thumbnail.dataUrl = e.target.result;
                             });
                         }
+<<<<<<< HEAD
                         $scope.establecimiento.ima_nombre=file.name;  //obtenemos el nombre de la imagen :)
                         //$scope.establecimiento.imagenes.ima_nombre=file.name; 
+=======
+                        $scope.establecimiento.ie_nombre=file.name;  //obtenemos el nombre de la imagen :)
+                        // $scope.establecimiento.imagenes.ie_nombre=file.name; 
+>>>>>>> 75f9585d978bd9b4a5c0daeef9075139718a0938
                     });
                 }
             }
