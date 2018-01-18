@@ -223,7 +223,7 @@ $scope.persona.ima_nombre=file.name;
                             });
                         }
                         $scope.establecimiento.ie_nombre=file.name;  //obtenemos el nombre de la imagen :)
-                        $scope.establecimiento.imagenes.ie_nombre=file.name; 
+                        // $scope.establecimiento.imagenes.ie_nombre=file.name; 
                     });
                 }
             }
