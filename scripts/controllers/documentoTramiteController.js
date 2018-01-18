@@ -89,17 +89,20 @@ function ($http,CONFIG,$scope, DocumentoTramite2,DocumentoTramiteL,PersonasEstab
     rol_id: CONFIG.ROL_CURRENT_USER
   }
   if ($scope.user.rol_id == 15) {
-    $scope.ajustes = {
-    menu:{
-      titulo: 'Establecimientos',
-      items:[
-      {nombre:'Establecimientos solicitantes', enlace:'#/lista-solicitantes', estilo:'active'}
-      ]
-    },
-    pagina:{
-      titulo:'Establecimientos Solicitantes'
-    }
-  }
+
+      $scope.ajustes = {
+        menu:{
+          titulo: 'Gestión de Establecimientos Solicitantes',
+          items:[
+            {nombre:'Revisar Requisitos', enlace:'#/tramite-establecimientosol', estilo:'active'},
+            {nombre:'Establecimientos', enlace:'#/establecimientossol', estilo:''},
+            {nombre:'Nuevo establecimiento', enlace:'#/establecimientosol/persona', estilo:''}]
+        },
+        //Configuraciones de la página
+        pagina:{
+          titulo:'Establecimiento - Nro. Trámite'
+        }
+      }
   }
   else{
   $scope.ajustes = {
@@ -130,6 +133,7 @@ function ($http,CONFIG,$scope, DocumentoTramite2,DocumentoTramiteL,PersonasEstab
           PersonasEstablecimiento.get({ess_id:ess_id},function(data)
         {
           $scope.personas_x_establecimiento = data.personas_x_establecimiento;
+          $scope.st = data.sin_tramite;
           $scope.i = data.iniciados;
           $scope.o = data.observados;
           $scope.v = data.vencidos;

@@ -300,7 +300,7 @@ angular.module("adminApp", ["authService", "ngRoute", "ngResource", "satellizer"
     }
   })
 
-  .when('/establecimientosol/crear/:pro_id', { 
+  .when('/establecimientosol/crear/:pro_id', {
     templateUrl: 'templates/establecimiento_solicitante/crear2.html',
     controller: 'CrearEstablecimientoSolicitanteCtrl',
       data: {
@@ -521,7 +521,7 @@ angular.module("adminApp", ["authService", "ngRoute", "ngResource", "satellizer"
     templateUrl: 'templates/empresatramite/lista-validacion.html',
     controller: 'ListaValidadosCtrl',
     data: {
-      authorized: [ROLES.ADMIN_USACSIA.ROL, ROLES.ADMIN_CERTIFICADO.ROL, ROLES.INSPECTOR.ROL, ROLES.REVISOR.ROL]
+      authorized: [ROLES.ADMIN_USACSIA.ROL, ROLES.ADMIN_CERTIFICADO.ROL, ROLES.REVISOR.ROL]
     }
   })
   //etapa 2 =APROBADO
@@ -620,7 +620,7 @@ angular.module("adminApp", ["authService", "ngRoute", "ngResource", "satellizer"
     templateUrl: 'templates/empresafuncionario/verificar_persona.html',
     controller:'VerificarPersonaCtrl',
     data: {
-      authorized: [ROLES.EMPRESA.ROL]
+      authorized: [ROLES.ADMIN_USACSIA.ROL,ROLES.EMPRESA.ROL]
     }
   })
 

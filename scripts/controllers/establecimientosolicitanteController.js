@@ -7,8 +7,8 @@ angular.module("adminApp")
     menu:{
       titulo: 'Gestión de Establecimientos Solicitantes',
       items:[
-        {nombre:'Trámites iniciados', enlace:'#/tramite-establecimientosol', estilo:''},
-        {nombre:'Establecimientos', enlace:'#/establecimientossol', estilo:'active'},
+        {nombre:'Revisar Requisitos', enlace:'#/tramite-establecimientosol', estilo:''},
+        {nombre:'Establecimientos Registrados', enlace:'#/establecimientossol', estilo:'active'},
         {nombre:'Registrar establecimiento', enlace:'#/establecimientosol/persona', estilo:''}]
     },
     //Configuraciones de la página
@@ -108,13 +108,13 @@ angular.module("adminApp")
     menu:{
       titulo: 'Gestión de Establecimientos Solicitantes',
       items:[
-        {nombre:'Tramites iniciados', enlace:'#/tramite-establecimientosol', estilo:'active'},
-        {nombre:'Establecimientos', enlace:'#/establecimientossol', estilo:''},
+        {nombre:'Revisar Requisitos', enlace:'#/tramite-establecimientosol', estilo:'active'},
+        {nombre:'Establecimientos Registrados', enlace:'#/establecimientossol', estilo:''},
         {nombre:'Registrar establecimiento', enlace:'#/establecimientosol/persona', estilo:''}]
     },
     //Configuraciones de la página
     pagina:{
-      titulo:'Tramites iniciados'
+      titulo:'Revisar Requisitos'
     }
   }
 
@@ -205,16 +205,16 @@ angular.module("adminApp")
 
 
 
-.controller('CrearEstablecimientoSolicitanteCtrl', ['$scope','$routeParams','PNaturalPJuridicaPro_id','Subclacificacion','EstabSols','Zonas',  '$location', '$timeout', 'toastr',
- function ($scope,$routeParams, PNaturalPJuridicaPro_id,Subclacificacion,EstabSols,Zonas,  $location, $timeout, toastr){
+.controller('CrearEstablecimientoSolicitanteCtrl', ['HoraLoop','$scope','$routeParams','PNaturalPJuridicaPro_id','Subclacificacion','EstabSols','Zonas',  '$location', '$timeout', 'toastr',
+ function (HoraLoop,$scope,$routeParams, PNaturalPJuridicaPro_id,Subclacificacion,EstabSols,Zonas,  $location, $timeout, toastr){
 
  $scope.ajustes = {
     //Configuraciones del menu:
     menu:{
       titulo: 'Gestión de Establecimientos Solicitantes',
       items:[
-        {nombre:'Establecimientos', enlace:'#/tramite-establecimientosol', estilo:''},
-        {nombre:'Establecimientos', enlace:'#/establecimientossol', estilo:''},
+        {nombre:'Revisar Requisitos', enlace:'#/tramite-establecimientosol', estilo:''},
+        {nombre:'Establecimientos Registrados', enlace:'#/establecimientossol', estilo:''},
         {nombre:'Registrar establecimiento', enlace:'#/establecimientosol/persona', estilo:'active'}]
     },
     //Configuraciones de la página
@@ -346,9 +346,9 @@ $scope.initMap = function(){
       };
   }
 
-       
+    
 
-  $scope.establecimiento = {
+    $scope.establecimiento = {
     zon_id:null,
     ess_razon_social:null,
     ess_telefono:0,
@@ -360,6 +360,8 @@ $scope.initMap = function(){
     ess_latitud:0,
     ess_longitud:0,
     ess_altitud:0,
+    ess_hora_ini:"",
+    ess_hora_fin:"",
     ie_nombre:"centro.png",
 
     ie_enlace: "./img-est",
@@ -378,6 +380,18 @@ $scope.initMap = function(){
   TRA_ID
   */
     
+  $scope.hora=function(a,b){
+    if(a==1)
+      $scope.ehi_h=b;
+    if(a==2)
+      $scope.ehi_m=b;
+    if(a==3)
+      $scope.ehc_h=b;
+    if(a==4)
+      $scope.ehc_m=b;
+    console.log("supuesta hora",$scope.ehi_h,':',$scope.ehi_m, '------',$scope.ehc_h,':',$scope.ehc_m);
+  };
+
   $scope.patternCadena = /^[a-zA-ZñÑáéíóúÁÉÍÓÚ .]*$/;
   $scope.patternNumero = /^[0-9]*$/;
   $scope.patternNombreEstab = /^[a-zA-ZñÑáéíóúÁÉÍÓÚ. 0-9()-º]*$/;
@@ -386,6 +400,8 @@ $scope.initMap = function(){
   $scope.patternHora = /^[0-9:]*$/;
   //VALIDAR NUMEROS !!!!!!
   $scope.submit = function(){
+    $scope.establecimiento.ess_hora_ini=$scope.ehi_h+":"+$scope.ehi_m;
+    $scope.establecimiento.ess_hora_fin=$scope.ehc_h+":"+$scope.ehc_m;
     $scope.establecimiento.ess_latitud=document.getElementById("establecimientolatitud").value;
     $scope.establecimiento.ess_longitud=document.getElementById("establecimientolongitud").value;
     $scope.todo={
@@ -422,8 +438,8 @@ $scope.initMap = function(){
     menu:{
       titulo: 'Gestión de Establecimientos Solicitantes',
       items:[
-        {nombre:'Establecimientos', enlace:'#/tramite-establecimientosol', estilo:''},
-        {nombre:'Establecimientos', enlace:'#/establecimientossol', estilo:''},
+        {nombre:'Revisar Requisitos', enlace:'#/tramite-establecimientosol', estilo:''},
+        {nombre:'Establecimientos Registrados', enlace:'#/establecimientossol', estilo:''},
         {nombre:'Registrar establecimiento', enlace:'#/establecimientosol/persona', estilo:'active'}]
     },
     //Configuraciones de la página
@@ -468,8 +484,8 @@ $scope.initMap = function(){
     menu:{
       titulo: 'Gestión de Establecimientos Solicitantes',
       items:[
-        {nombre:'Establecimientos', enlace:'#/tramite-establecimientosol', estilo:''},
-        {nombre:'Establecimientos', enlace:'#/establecimientossol', estilo:''},
+        {nombre:'Revisar Requisitos', enlace:'#/tramite-establecimientosol', estilo:''},
+        {nombre:'Establecimientos Registrados', enlace:'#/establecimientossol', estilo:''},
         {nombre:'Registrar establecimiento', enlace:'#/establecimientosol/persona', estilo:'active'}]
     },
     //Configuraciones de la página

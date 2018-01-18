@@ -616,6 +616,9 @@ angular.module("adminApp")
   return $resource(CONFIG.DOMINIO_SERVICIOS+"/tramitescer_pagados")
 }])
 
+.factory('Establecimientos_x_Persona', ['$resource', 'CONFIG', function ($resource, CONFIG){
+  return $resource(CONFIG.DOMINIO_SERVICIOS+"/establecimientos_x_persona/:per_ci",{per_ci:'@_per_ci'})
+}])
 
 
 .factory('VerEstadoEmpleados', ['$resource', 'CONFIG', function ($resource, CONFIG){
@@ -635,6 +638,18 @@ angular.module("adminApp")
     update: {method: "PUT", params: {per_id: "@per_id"}}
   })
 }])
+
+.factory("HoraLoop",function() {
+  return {
+    reinicio:function(a){
+      if(a==23)
+        return 0;
+      if(a==0)
+        return 23;
+    }
+  }
+  
+})
 
 
 

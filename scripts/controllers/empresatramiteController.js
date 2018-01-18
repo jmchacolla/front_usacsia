@@ -1,7 +1,7 @@
 'use strict';
 angular.module("adminApp")
 
-.controller('BuscarPropietarioCtrl', ['$scope', '$http', 'moment', 'BuscarPropietario', 'EmpresaTramite', '$route', '$resource', '$routeParams', 'toastr', '$location', '$timeout', 'CONFIG', function ($scope, $http, moment, BuscarPropietario, EmpresaTramite, $route, $resource,$routeParams, toastr, $location, $timeout,CONFIG) {
+.controller('BuscarPropietarioCtrl', ['$scope', '$http', 'moment', 'BuscarPropietario', 'EmpresaTramite', '$route', '$resource', '$routeParams', 'toastr', '$location', '$timeout', 'CONFIG','Usuarios', function ($scope, $http, moment, BuscarPropietario, EmpresaTramite, $route, $resource,$routeParams, toastr, $location, $timeout,CONFIG,Usuarios) {
     $scope.ajustes = {
       menu:{
         titulo: 'Búsqueda de Establecimiento',
@@ -205,89 +205,6 @@ console.log("propietario natural  ____",$scope.propietario);
     $location.path('/inicio');
   }*/
 }])
-.controller('ListaPendCtrl', ['$scope', '$http', 'moment', 'EmpresaPendiente', '$route', '$resource','$routeParams', 'toastr', '$location', '$timeout','CONFIG','Inspectores', function ($scope, $http, moment, EmpresaPendiente, $route, $resource,$routeParams, toastr, $location, $timeout,CONFIG,Inspectores) {
- $scope.user = {
-    rol_id: CONFIG.ROL_CURRENT_USER
-  }
-/*if ($scope.user.rol_id == 3) {
-     $scope.ajustes = {
-      menu:{
-        titulo: 'Búsqueda de Establecimiento',
-        items:[
-           {nombre:'Buscar empresa solicitante', enlace:'#/buscar-propietario', estilo:''},
-           {nombre:'Establecimientos solicitantes', enlace:'#/lista-solicitantes', estilo:'active'}
-
-        ]
-      },
-      pagina:{
-        titulo:'Búsqueda de Establecimiento'
-      }
-    }
-  }
-  else*/ if ($scope.user.rol_id == 14) {
-        $scope.ajustes = {
-        menu:{
-          titulo: 'Gestión de Certificado Sanitario',
-          items:[
-          {nombre:'Establecimientos solicitantes', enlace:'#/lista-solicitantes', estilo:''},
-           {nombre:'Establecimientos validados', enlace:'#/lista-validacion', estilo:''},
-            {nombre:'Establecimientos inspeccionados', enlace:'#/lista-inspeccionados', estilo:''},
-            {nombre:'Establecimientos que cancelaron', enlace:'#/lista-cancelaron', estilo:''},
-             {nombre:'Establecimientos Pendientes', enlace:'#/lista-pendientes', estilo:'active'}
-           ]
-        },
-        pagina:{
-          titulo:'Establecimientos Pendientes en Pago arancel'
-        }
-      }
-  }
-
-  Inspectores.get(function(data)
-  {
-    $scope.funcionarios = data.funcionario;
-    if($scope.funcionarios.length >0){
-      $scope.loading = false;
-      $scope.msg = true;
-    }
-    else{
-      $scope.loading = false;
-      $scope.msg = false;
-    }
-  },function () {
-      toastr.error("ERROR INESPERADO, POR FAVOR ACTUALICE LA PÁGINA");
-      $scope.loading = false;
-      $scope.msg = false;
-  });
-
-    $scope.sortType = 'te_fecha'; // ESTABLECIENDO EL TIPO DE ORDENAMIENTO
-    $scope.sortReverse  = true;  // PARA ORDENAR ASCENDENTEMENTO O DESCENDENTEMENTE
-    $scope.loading=true;//PARA HACER UN LOADING EN EL TEMPLATE
-  $scope.zon=false;
-  $scope.ver_zonas=function(fun_id){
-      console.log(fun_id+"<<< MUN_ID");
-      EmpresaPendiente.get({fun_id:fun_id}, function(data){
-          $scope.zona_inspeccion=data.zona_inspeccion;
-
-          console.log("ZOnasss",$scope.zonas);
-          if ($scope.zona_inspeccion.length!=0) {
-            $scope.zon=true;
-        angular.forEach($scope.zona_inspeccion, function(value, key){
-            console.log( 'fecha:',value.fi_fecha_realizacion);
-            value.fi_fecha_realizacion=moment(value.fi_fecha_realizacion,"YYYY-MM-DD").format("DD-MM-YYYY");
-         });
-            console.log("mostrar zonas "+$scope.zon);
-          }
-          else{
-            console.log("no hay zonas "+$scope.zon);
-          }
-        
-      })
-  };
-
- 
-}])
-
-//lista de pendientes en requisitos
  .controller('ListaSolicitantesCtrl', ['$scope', '$http', 'moment', 'ListaEmpTraEtapaEstado', 'EmpresaTramite', '$route', '$resource','$routeParams', 'toastr', '$location', '$timeout','CONFIG', function ($scope, $http, moment, ListaEmpTraEtapaEstado, EmpresaTramite, $route, $resource,$routeParams, toastr, $location, $timeout,CONFIG) {
  $scope.user = {
     rol_id: CONFIG.ROL_CURRENT_USER
@@ -297,7 +214,8 @@ console.log("propietario natural  ____",$scope.propietario);
     menu:{
       titulo: 'Gestión de Certificado Sanitario',
       items:[
-      {nombre:'Establecimientos solicitantes', enlace:'#/lista-solicitantes', estilo:'active'},
+      // {nombre:'Establecimientos solicitantes', enlace:'#/lista-solicitantes', estilo:'active'},
+      {nombre:'Establecimientos validados', enlace:'#/lista-validacion', estilo:''},
       {nombre:'Establecimientos validados', enlace:'#/lista-validacion', estilo:''},
       {nombre:'Establecimientos inspeccionados', enlace:'#/lista-inspeccionados', estilo:''}
       ]
@@ -366,10 +284,7 @@ console.log("propietario natural  ____",$scope.propietario);
     }); 
   
 
-
-
 }])
-
 
 
 .controller('ListaValidadosCtrl', ['$scope', '$http', 'moment', 'ListaInspector', 'EmpresaTramite', '$route', '$resource','$routeParams', 'toastr', '$location', '$timeout','CONFIG', function ($scope, $http, moment, ListaInspector, EmpresaTramite, $route, $resource,$routeParams, toastr, $location, $timeout,CONFIG) {
@@ -478,7 +393,7 @@ console.log("propietario natural  ____",$scope.propietario);
   }else if ($scope.user.rol_id == 15) {
     $scope.ajustes = {
     menu:{
-      titulo: 'Establecimientos',
+      titulo: 'Gestión de Certificado Sanitario',
       items:[
       {nombre:'Establecimientos solicitantes', enlace:'#/lista-solicitantes', estilo:''},
       {nombre:'Establecimientos validados', enlace:'#/lista-validacion', estilo:''},
@@ -1078,6 +993,59 @@ console.log("propietario natural  ____",$scope.propietario);
 
 
 
+.controller('ListaEstablecimientoPersonaCtrl', ['Establecimientos_x_Persona','$scope', '$route', 'EmpresaTramite','$resource','$routeParams', 'toastr', '$location', '$timeout','CONFIG',
+  function (Establecimientos_x_Persona,$scope, $route,EmpresaTramite, $resource,$routeParams, toastr, $location, $timeout,CONFIG) {
+   
+    var FunG = localStorage.getItem("Funcionario");
+
+    var FunG = JSON.parse(FunG);
+    var fun_id = FunG.fun_id;
+
+    $scope.ver_establecimientos=false;
+    var per_ci=0;
+    $scope.ver_est=function(a,per_ci){
+      if(a){
+        $scope.ver_establecimientos=false;
+      }else{
+        $scope.ver_establecimientos=true;
+      }
+    };
+    var essid;
+    $scope.get_id=function(ess_id,ess_nombre){
+      essid=ess_id;
+      $scope.ess_razon_social=ess_nombre;
+    };
+
+    $scope.crear_renovacion=function(){
+      $scope.renovacion={
+        ess_id:essid,
+        fun_id:fun_id,
+        tra_id:2,
+        et_tipo_tramite:"RENOVACIÓN"
+      };
+
+      EmpresaTramite.save($scope.renovacion).$promise.then(function(data){
+        if(data.status){
+          toastr.success('Tramite Generado Correctamente');
+        }
+      });
+    };
+    
+
+    Establecimientos_x_Persona.get({per_ci:$scope.parametro}, function (data) {
+      $scope.establecimientos_x_persona = data.establecimentos_x_persona;
+      console.log('establecimientos', data);
+    }); 
+
+}])
+
+
+
+
+
+
+
+
 
 
 
@@ -1098,15 +1066,9 @@ console.log("propietario natural  ____",$scope.propietario);
     menu:{
       titulo: 'Gestión de tramites de Certificado Sanitario',
       items:[
-<<<<<<< HEAD
         {nombre:'Esablecimientos que cancelaron naturales', enlace:'#/tramites_certi', estilo:'active'},
         {nombre:'Esablecimientos que cancelaron Juridicos', enlace:'#/tramites_certiJ', estilo:''},
         {nombre:'Busqueda de personas registradas', enlace:'#/buscar-propietario', estilo:''}]
-=======
-        {nombre:'Solicitudes de Propietarios Naturales', enlace:'#/tramites_certi', estilo:'active'},
-        {nombre:'Solicitudes de Propietarios Juridicos', enlace:'#/tramites_certiJ', estilo:''},
-        {nombre:'Búsqueda de personas registradas', enlace:'#/buscar-propietario', estilo:''}]
->>>>>>> a354e6c9b2fb30b8eef3d8d152fc9db34b17322e
     },
     pagina:{
       titulo:'Tramites de Certificado Sanitario'
