@@ -433,6 +433,7 @@ console.log("propietario natural  ____",$scope.propietario);
   var FunG = localStorage.getItem("Funcionario");
   var FunG = JSON.parse(FunG);
   var fun_id = FunG.fun_id;
+  //LISTA DE INSPECTORES
   ListaInspector.get({fun_id:fun_id}, function (argument) {
       $scope.establecimientos = argument.empresa_tramite;
 
