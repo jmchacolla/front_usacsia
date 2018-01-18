@@ -201,6 +201,23 @@ angular.module("adminApp")
     update: {method: "PUT", params: {}}
   })
 }])
+//------------------------CREAR FICHA 3----------------------------
+.factory('Ficha3', ['$resource', 'CONFIG', function ($resource, CONFIG) {
+  return $resource(CONFIG.DOMINIO_SERVICIOS+"/ficha3", {}, {
+    update: {method: "PUT", params: {}}
+  })
+}])
+//------------------------CREAR FICHA 6----------------------------
+.factory('Ficha6', ['$resource', 'CONFIG', function ($resource, CONFIG) {
+  return $resource(CONFIG.DOMINIO_SERVICIOS+"/ficha6", {}, {
+    update: {method: "PUT", params: {}}
+  })
+}])
+.factory('VerFicha6', ['$resource', 'CONFIG', function ($resource, CONFIG) {
+  return $resource(CONFIG.DOMINIO_SERVICIOS+"/ficha_inspeccion_f6/:fi_id", {fi_id:"@_fi_id"}, {
+    update: {method: "PUT", params: {fi_id:"@fi_id"}}
+  })
+}])
 //------------------------VER EMPRESA TRAMITE----------------------------
 .factory('EmpTra', ['$resource', 'CONFIG', function ($resource, CONFIG) {
   return $resource(CONFIG.DOMINIO_SERVICIOS+"/empresa_tramite/:et_id", {et_id:"@_et_id"}, {
@@ -232,33 +249,39 @@ angular.module("adminApp")
   })
 }])
 //------------------------           EMPRESA TRAMITE               ----------------------------
-.factory('ListN', ['$resource', 'CONFIG', function ($resource, CONFIG) {
+//18-1-2018
+/*.factory('ListN', ['$resource', 'CONFIG', function ($resource, CONFIG) {
   return $resource(CONFIG.DOMINIO_SERVICIOS+"/list_cert_nat", {}, {
     update: {method: "PUT", params: {}}
   })
-}])
-.factory('ListJ', ['$resource', 'CONFIG', function ($resource, CONFIG) {
+}])*/
+/*.factory('ListJ', ['$resource', 'CONFIG', function ($resource, CONFIG) {
   return $resource(CONFIG.DOMINIO_SERVICIOS+"/list_cert_ju", {}, {
     update: {method: "PUT", params: {}}
   })
-}])
+}])*/
 //listar empresa tramite segun inspector
 /*.factory('NatI', ['$resource', 'CONFIG', function ($resource, CONFIG) {
   return $resource(CONFIG.DOMINIO_SERVICIOS+"/list_insN/:fun_id", {fun_id:"@_fun_id"}, {
     update: {method: "PUT", params: {fun_id:"@fun_id"}}
   })
 }])*/
-.factory('NatI', ['$resource', 'CONFIG', function ($resource, CONFIG) {
+/*.factory('NatI', ['$resource', 'CONFIG', function ($resource, CONFIG) {
   return $resource(CONFIG.DOMINIO_SERVICIOS+"/inspN/:fun_id", {fun_id:"@_fun_id"}, {
     update: {method: "PUT", params: {fun_id:"@fun_id"}}
   })
-}])
+}])*/
 //listar empresa tramite segun inspector
-.factory('JurI', ['$resource', 'CONFIG', function ($resource, CONFIG) {
-  return $resource(CONFIG.DOMINIO_SERVICIOS+"/list_insJ/:fun_id", {fun_id:"@_fun_id"}, {
+.factory('ListaInspector', ['$resource', 'CONFIG', function ($resource, CONFIG) {
+  return $resource(CONFIG.DOMINIO_SERVICIOS+"/empresatramite_validos/:fun_id", {fun_id:"@_fun_id"}, {
     update: {method: "PUT", params: {fun_id:"@fun_id"}}
   })
 }])
+/*.factory('JurI', ['$resource', 'CONFIG', function ($resource, CONFIG) {
+  return $resource(CONFIG.DOMINIO_SERVICIOS+"/list_insJ/:fun_id", {fun_id:"@_fun_id"}, {
+    update: {method: "PUT", params: {fun_id:"@fun_id"}}
+  })
+}])*/
 //Ver rubro
 .factory('Rubro', ['$resource', 'CONFIG', function ($resource, CONFIG) {
   return $resource(CONFIG.DOMINIO_SERVICIOS+"/rubro/:emp_id", {emp_id:"@_emp_id"}, {
@@ -343,7 +366,7 @@ angular.module("adminApp")
     update: {method: "PUT", params: {et_id: "@et_id"}}
   })
 }])
-.factory('Firm2', ['$resource', 'CONFIG', function ($resource, CONFIG) {
+/*.factory('Firm2', ['$resource', 'CONFIG', function ($resource, CONFIG) {
   return $resource(CONFIG.DOMINIO_SERVICIOS+"/aprob2/:ces_id", {ces_id:"@_ces_id"}, {
     update: {method: "PUT", params: {ces_id: "@ces_id"}}
   })
@@ -352,7 +375,7 @@ angular.module("adminApp")
   return $resource(CONFIG.DOMINIO_SERVICIOS+"/aprob3/:ces_id", {ces_id:"@_ces_id"}, {
     update: {method: "PUT", params: {ces_id: "@ces_id"}}
   })
-}])
+}])*/
 //buscar certificado sanitario segun et_id
 .factory('BusCert', ['$resource', 'CONFIG', function ($resource, CONFIG) {
   return $resource(CONFIG.DOMINIO_SERVICIOS+"/busca_cert/:et_id", {et_id:"@_et_id"}, {
@@ -737,7 +760,7 @@ angular.module("adminApp")
 
 
 
-//============================P R E R E G I S T R O==========================================//
+//==================P R E R E G I S T R O==========================================//
 //Nuevo
 .factory('PersonasTemporal', ['$resource', 'CONFIG', function ($resource, CONFIG){
   return $resource(CONFIG.DOMINIO_SERVICIOS+"/personas_temporales/:per_id", {per_id:"@_per_id"}, {

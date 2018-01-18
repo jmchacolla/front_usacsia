@@ -161,7 +161,7 @@
       <div class="row">
         <div class="col-md-4">
           <label class="control-label">Email: <span class="text-danger">*</span></label>
-          <input type="email" class="form-control" name="email" placeholder="ejemplo@hotmail.com" ng-model="persona.persona.per_email" ng-model-options="{ updateOn: 'blur' }" required >
+          <input type="email" class="form-control" name="email" placeholder="ejemplo@hotmail.com" ng-model="persona.persona.per_email" ng-model-options="{ updateOn: 'blur' }"  >
           <span class="messages" ng-show="addPersona.$submitted || addPersona.email.$touched">
             <span ng-show="addPersona.email.$error.required">El campo es obligatorio.</span>
             <span ng-show="addPersona.email.$error.email">Formato de email incorrecto.</span>
