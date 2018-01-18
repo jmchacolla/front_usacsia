@@ -15,8 +15,10 @@ function ($scope, $http,CONFIG,PersonasEstablecimiento2,PersonasEstablecimiento,
     }
   }
   
-
-	var ess_id=12;//con inicio de sesion de empresa
+  	var EstG = localStorage.getItem("DatosEstablecimiento");
+    var EstG = JSON.parse(EstG);
+    var ess_id= EstG.est_sol.ess_id;
+	
 	PersonasEstablecimiento.get({ess_id:ess_id},function(data)
 	{
     $scope.personas_x_establecimiento = data.personas_x_establecimiento;

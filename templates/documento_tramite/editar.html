@@ -73,12 +73,13 @@
 														</div>
 													</div>
 												</div>
-												<div class="col-md-6 col-md-offset-3 text-center">
+												
+												<p ng-show="docForm.$invalid && docForm.$submitted" class="alert alert-danger">Asegúrese de llenar correctamente todos los campos</p>
+											</div>
+											<div class="col-md-6 col-md-offset-3 text-center">
 													<button ng-if="docForm.$invalid" type="submit" class="btn btn-primary" title="Debe llenar todos los campos obligatorios de manera correcta"><span class="glyphicon glyphicon-save"></span> GUARDAR</button>
 													<button ng-if="docForm.$valid" type="submit" class="btn btn-primary" ng-click="update_lista()" title="Guardar"><span class="glyphicon glyphicon-save"></span> GUARDAR</button>
 												</div>
-												<p ng-show="docForm.$invalid && docForm.$submitted" class="alert alert-danger">Asegúrese de llenar correctamente todos los campos</p>
-											</div>
 										</form>
 									</div>
 								</div>	
@@ -111,8 +112,8 @@
 													<td class="text-center">{{a}}</td>
 													<td class="text-center">{{t}}</td>
 												</tr>
-												<tr>
-													<td class="text-center warning"  colspan="3">{{'ÚLTIMA REVISIÓN:'+' '+te.updated}}</td>
+												<tr ng-if="llega_obs">
+													<td class="text-center warning"  colspan="3" >{{'ÚLTIMA REVISIÓN:'+' '+te.updated}}</td>
 													<td class="text-center warning"  colspan="3">{{llega_obs}}</td>
 												</tr>
 											</tbody>
