@@ -1,7 +1,7 @@
 'use strict';
 angular.module("adminApp")
 
-.controller('BoletaCesCtrl', ['$scope', '$http', 'EmpTra', 'Tramite','PagoPendienteTramite', 'PagoPendiente', 'EmpresaTramite', 'CrearEstados', '$route', '$resource', '$routeParams', 'toastr', '$location', '$timeout', 'CONFIG','Usuarios','UsuariosB', function ($scope, $http,EmpTra, Tramite, PagoPendienteTramite, PagoPendiente, EmpresaTramite, CrearEstados, $route, $resource,$routeParams, toastr, $location, $timeout,CONFIG,Usuarios,UsuariosB) {
+.controller('BoletaCesCtrl', ['$scope', '$http', 'EmpTra', 'Tramite','PagoPendienteTramite', 'PagoPendiente', 'EmpresaTramite', 'CrearEstados', '$route', '$resource', '$routeParams', 'toastr', '$location', '$timeout', 'CONFIG','Usuarios', function ($scope, $http,EmpTra, Tramite, PagoPendienteTramite, PagoPendiente, EmpresaTramite, CrearEstados, $route, $resource,$routeParams, toastr, $location, $timeout,CONFIG,Usuarios) {
   var et_id=$routeParams.et_id;
   var FunG = localStorage.getItem("Funcionario");
   var FunG = JSON.parse(FunG);
@@ -57,44 +57,28 @@ angular.module("adminApp")
         console.log('los estados++++++++', data);
       })
 
-
-<<<<<<< HEAD
-      //$http.post(CONFIG.DOMINIO_SERVICIOS+'/crearestados/'+et_id).success(function(respuesta){
-        //console.log("_respuesta__",respuesta);
-      //});
-=======
      /* $http.post(CONFIG.DOMINIO_SERVICIOS+'/crearestados/'+et_id).success(function(respuesta){
         console.log("_respuesta__",respuesta);
       });*/
->>>>>>> 75f9585d978bd9b4a5c0daeef9075139718a0938
-
 
       EmpTra.update({et_id:et_id},pago, function (argument) {
           toastr.success('Pago registrado exitosamente');
 
           if (argument.mensaje) {
 
-             UsuariosB.get({usu_identificador:argument.empt.ess_id}, function(data){
-                $scope.usuario = data.usuario;
-                if ($scope.usuario == null) {
-                      $scope.usuario={
-                        usu_identificador:argument.empt.ess_id,
-                        usu_tipo:"E",
-                        rol_id:6
-                      };
 
-                      Usuarios.save($scope.usuario).$promise.then(function(data){
-                        if(data.msg){
-                          angular.copy({}, $scope.usuario);
+              $scope.usuario={
+                usu_identificador:argument.empt.ess_id,
+                usu_tipo:"E",
+                rol_id:6
+              };
 
-                        }
-                      });
+              Usuarios.save($scope.usuario).$promise.then(function(data){
+                if(data.msg){
+                  angular.copy({}, $scope.usuario);
 
-                } else {
-                  toastr.error("La empresa ya tiene cuenta de usuario");
                 }
-       
-              })
+              });
 
             $timeout(function() {
                 $location.path('/boleta-ces-f1/'+et_id);
@@ -148,6 +132,8 @@ angular.module("adminApp")
     })
     var nombre="";
     var monto=null;
+    var identificador="";
+    var textoqr="";
     var fecha_pago=moment($scope.establecimiento.empresa_tramite.et_fecha_ini, "YYYY-MM-DD") .format("DD-MM-YYYY");
     // var horaC=fecha_cont[1];
     // var fechaCONT = moment(fecha_cont,"DD-MM-YYYY").format("DD-MM-YYYY");
@@ -155,7 +141,15 @@ angular.module("adminApp")
     var bolivia="";
     var gober="";
     var sedes="";
-
+    if( $scope.establecimiento.propietario.per_id){
+      nombre=$scope.establecimiento.propietario.per_nombres+' '+$scope.establecimiento.propietario.per_apellido_primero+' '+$scope.establecimiento.propietario.per_apellido_segundo;
+    identificador=$scope.establecimiento.propietario.per_ci+'  '+$scope.establecimiento.propietario.per_ci_expedido;
+    }
+    if( $scope.establecimiento.propietario.pjur_id){
+      nombre=$scope.establecimiento.propietario.pjur_razon_social;
+      identificador= $scope.establecimiento.propietario.pjur_nit;
+    }
+    textoqr='CERTIFICADO SANITARIO-'+identificador+'-'+nombre+' '+ $scope.establecimiento.empresa_tramite.et_monto+'-FORMULARIO DE INICIO DE TRÁMITE CERTIFICADO SANITARIO'+fecha_pago;
     var img2 =convertImgToDataURLviaCanvas("./scripts/escudo-gober.png", function(base64Img) {
       gober =base64Img;
       var img3 =convertImgToDataURLviaCanvas("./scripts/logoSEDES.png", function(base64Img) {
@@ -165,104 +159,46 @@ angular.module("adminApp")
                 
                 pageOrientation: 'landscape',
                 pageSize: 'A5',
-                pageMargins: [ 30, 10, 30, 10 ],
+                pageMargins: [ 40,40,40,40 ],
 
                 content: [
 
-                //   {
-                //   table: {
-                //   widths: [110, 310, 100],
-                //   body: [
-                //       [
-                //         {
-                //           image: gober,
-                //           width: 68,
-                //           height: 73
-                //         },
-                //         {
-                //           /*image: gober,
-                //           width: 64,
-                //           height: 62*/
-                //           text: "\n \n \n GOBIERNO AUTONOMO DEPARTAMENTAL DE LA PAZ \n SERVICIO DEPARTAMENTAL DE SALUD \n UNIDAD DE SALUD AMBIENTAL \n CONTROL SANITARIO E INOCUIDAD ALIMENTARIA \n \n CAJA RECAUDADORA DE USACSIA",
-                //           alignment: 'center',
-                //           style: 'header' 
-                //         },
-                //         {
-                //           image: sedes,
-                //           width: 35,
-                //           height: 55,
-                //           alignment:'right'
-                //         }
-                //       ],
-                //   ],
-
-                //   },
-                //   layout: 'noBorders',
-                //   style: 'cuerpo',
-                //   border: [false, false, false, false]
-
-                // },
-                // header(tituloqr),
-                //     {
-                //       qr: textoqr,
-                //       fit:50,
-                //       alignment: 'right'
-                //     },
-                {
-                   text: "C.I./NIT:  "+'identificador', fontSize: 12, alignment: 'right'
-                },
-                {
-                  text: " \nBOLETA DE PAGOS\n\n",
-                  alignment: 'center',
-                  style: 'header'  
-                },
-                {
-                    table: {
-                    widths: [530],
-
-                      body: [
-                        [
-                          {
+                        {
+                          image: gober,
+                          width: 68,
+                          height: 73
+                        },
+                        {
+                          image: sedes, width: 35, height: 55, alignment:'right', absolutePosition:{x:450, y:40}
+                        },
+                        {
+                          text: "GOBIERNO AUTONOMO DEPARTAMENTAL DE LA PAZ\nSERVICIO DEPARTAMENTAL DE SALUD\nUNIDAD DE SALUD AMBIENTAL CONTROL SANITARIO E INOCUIDAD ALIMENTARIA\nCAJA RECAUDADORA DE USACSIA",
+                          alignment: 'center', fontSize:8, absolutePosition:{x:80, y:40}
+                        },
+                        {text: 'REVISADO', bold: true, fontSize:10 , absolutePosition:{x:110, y:350}},
+                        {text: 'FIRMA USUARIO', bold: true, fontSize:10 , absolutePosition:{x:400, y:350}},
+                        {
+                          text: " BOLETA DE PAGO FORMULARIO DE INICIO DE TRÁMITE CERTIFICADO SANITARIO\n\n\n\n\n",
+                          alignment: 'center', bold: true
+                        },
+                        {
                             table: {
-                              headerRows: 1,
+                              widths: [400, 100],
                               body: [
-                                 [{text: 'UNIDAD DE:', bold: true},'$scope.pagop.tramite.tra_nombre',{text: 'FECHA: ', bold: true},'fechaCONT',{text: 'HORA: ', bold: true},'horaC'],
-                                  [{text: 'HEMOS RECIBIDO DEL SR:', bold: true}, 'nombre', {text: ''},'',{text: ' '},''],
-                                   [{text: 'LA SUMA DE:', bold: true},'$scope.pagop.pagop.pp_monto_total'+" BOLIVIANOS",{text: ''},'',{text: ' '},''],
-                                   [{text: 'POR CONCEPTO DE:', bold: true},'$scope.pagop.pagop.pp_descripcion',{text: ''},'',{text: ' '},''],
-                             
-                                
-                                ]
-                              },
+                                      [{text: 'UNIDAD DE:  CERTIFICADO SANITARIO'}, { rowSpan:6, qr: textoqr, fit:100, alignment: 'right'},],
+                                      [{text: "C.I./NIT:  "+ identificador}],
+                                      [{text: 'HEMOS RECIBIDO DEL SR:  '+ nombre}],
+                                      [{text: 'LA SUMA DE:  '+ $scope.establecimiento.empresa_tramite.et_monto+" BOLIVIANOS"}],
+                                      [{text: 'POR CONCEPTO DE:  FORMULARIO DE INICIO DE TRÁMITE CERTIFICADO SANITARIO'}],
+                                      [{text: 'FECHA:  '+fecha_pago}]
+                              ],
+                              style: 'cuerpo' 
+                            } ,
                               layout: 'noBorders',
                               style: 'cuerpo',
-                              border: [true, true, true, false]
-                          }
-                        ],
-                       
-                   
-                        [
-                          {
-
-                            table: {
-                            widths: [130, 130, 130,130],
-                            body: [
-                                  ['\n \n',''/*,'',''*/],
-                                  ['\n \n',''/*,'\n\n',''*/],
-                                  ['',''/*,'\n\n',''*/],                                  
-                                  [{text: 'REVISADO', bold: true, alignment: 'center'},
-                                  {text: 'FIRMA USUARIO', bold: true,alignment: 'center'}/*,{text: '', bold: true,alignment: 'center'},{text: '', bold: true, alignment: 'center' }*/]
-                              ]
-                            },
-                            layout: 'noBorders',
-                            style: 'cuerpo1',
-                            border: [true, false, true, true]
-                          }
-                        ],
-                      ],
-                      style: 'cuerpo' 
-                    }     
-                },
+                              border: [false, false, false, false]
+                               
+                        },
 
 
 
@@ -698,6 +634,7 @@ angular.module("adminApp")
             nombre=$scope.pagop.propietario.per_nombres+' '+$scope.pagop.propietario.per_apellido_primero+' '+$scope.pagop.propietario.per_apellido_segundo;
             identificador=$scope.pagop.propietario.per_ci+'  '+$scope.pagop.propietario.per_ci_expedido;
       }
+      // if()
       var fechapago= $scope.pagop.et.pt_fecha_ini;
       var fecha_cont=moment($scope.pagop.pagop.pp_fecha_pagado, "YYYY-MM-DD") .format("DD-MM-YYYY");
       var horaC=fecha_cont[1];
@@ -786,7 +723,7 @@ angular.module("adminApp")
                             table: {
                               headerRows: 1,
                               body: [
-                                 [{text: 'UNIDAD DE:', bold: true},$scope.pagop.tramite.tra_nombre,{text: 'FECHA: ', bold: true},fechaCONT,{text: 'HORA: ', bold: true},horaC],
+                                 [{text: 'UNIDAD DE: CERTIFICADO SANITARIO', bold: true},{text: 'FECHA: ', bold: true},fecha_cont],
                                   [{text: 'HEMOS RECIBIDO DEL SR:', bold: true}, nombre, {text: ''},'',{text: ' '},''],
                                    [{text: 'LA SUMA DE:', bold: true},$scope.pagop.pagop.pp_monto_total+" BOLIVIANOS",{text: ''},'',{text: ' '},''],
                                    [{text: 'POR CONCEPTO DE:', bold: true},$scope.pagop.pagop.pp_descripcion,{text: ''},'',{text: ' '},''],
