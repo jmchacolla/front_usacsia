@@ -373,36 +373,41 @@ angular.module("adminApp", ["authService", "ngRoute", "ngResource", "satellizer"
   //*****************************   INSPECCIONES   *************************************
   //*****************************   LISTA DE PROPIETARIOS NATURALES JURIDICOS   **************
    //lista para inspectores prop naturales
-  .when('/tramites_nat',{
+/*  .when('/tramites_nat',{
    templateUrl:'templates/empresatramite/listaNat.html',
    controller: 'NatInsCtrl',
     data: {
-      authorized: [/*ROLES.ADMIN_USACSIA.ROL,*/ROLES.INSPECTOR.ROL]
+      authorized: [ROLES.INSPECTOR.ROL]
     }
   })
-      //lista para inspectores prop juridicos
+//lista para inspectores prop juridicos
   .when('/tramites_jur',{
    templateUrl:'templates/empresatramite/listaJur.html',
    controller: 'JurInsCtrl',
     data: {
-      authorized: [/*ROLES.ADMIN_USACSIA.ROL,*/ROLES.INSPECTOR.ROL]
+      authorized: [ROLES.INSPECTOR.ROL]
     }
-  })
+  })*/
 //=========================         FICHAS DE INSPECCION     =============================
 //LISTA DE 6 FICHAS//no esta en rutas privadas
-  .when('/inspeccion/fichas',{
+/*  .when('/inspeccion/fichas',{
    templateUrl:'templates/ficha_inspeccion/fichas_inspeccion.html',
-  /* controller: 'FichaICtrl',
-    data: {
-      authorized: [ROLES.ADMIN_SEDES.ROL]
-    }*/
-  })
+
+  })*/
   .when('/inspeccion/fichas/crear/:et_id',{
    templateUrl:'templates/ficha_inspeccion/crear.html',
    controller: 'CrearFichaInsCtrl',
     data: {
       authorized: [ROLES.ADMIN_USACSIA.ROL,ROLES.INSPECTOR.ROL]
     }
+  })
+      //creacion de las fichas correspondientes
+  .when('/inspeccion_fichas/:et_id',{
+   templateUrl:'templates/ficha_inspeccion/crearfichas.html',
+   controller: 'CreaCtrl'/*,
+    data: {
+      authorized: [ROLES.ADMIN_SEDES.ROL]
+    }*/
   })
   //ASIGNAR CATEGORIA
   .when('/inspeccion/categoria/crear/:fi_id/:et_id',{
@@ -412,7 +417,7 @@ angular.module("adminApp", ["authService", "ngRoute", "ngResource", "satellizer"
       authorized: [ROLES.ADMIN_USACSIA.ROL,ROLES.INSPECTOR.ROL]
     }
   })
-    //ASIGNAR SANCION ----falta revisar 9-1-2018
+    //ASIGNAR SANCION
   .when('/inspeccion/sancion/crear/:fi_id/:et_id',{
    templateUrl:'templates/ficha_inspeccion/crear_sancion.html',
    controller: 'CrearSancionCtrl',
@@ -428,7 +433,8 @@ angular.module("adminApp", ["authService", "ngRoute", "ngResource", "satellizer"
       authorized: [ROLES.ADMIN_USACSIA.ROL,ROLES.INSPECTOR.ROL]
     }
   })
-  //CREAR FICHA 1 --no esta rutas privadas
+
+  //CREAR FICHA 1 --no esta rutas privadas, snack tiendas dicotecas
   .when('/inspeccion/fichas/crear1',{
    templateUrl:'templates/ficha_inspeccion1/crear.html',
    controller: 'CrearFicha1Ctrl'/*,
@@ -444,7 +450,16 @@ angular.module("adminApp", ["authService", "ngRoute", "ngResource", "satellizer"
       authorized: [ROLES.ADMIN_SEDES.ROL]
     }*/
   })
-      //LISTA DE EMPRESAS QUE YA FUERON INSPECCIONADOS
+    //CREAR FICHA 3--no esta rutas privadas
+/*  .when('/inspeccion/fichas/crear3/:et_id',{
+   templateUrl:'templates/ficha_inspeccion3/crear.html',
+   controller: 'CrearFicha3Ctrl'
+  })
+    .when('/inspeccion/fichas/crear4/:et_id',{
+   templateUrl:'templates/ficha_inspeccion4/crear.html',
+   controller: 'CrearFicha6Ctrl'
+  })*/
+//LISTA DE EMPRESAS QUE YA FUERON INSPECCIONADOS
   .when('/inspecciones/:et_id',{
    templateUrl:'templates/ficha_inspeccion/inspeccionesN.html',
    controller: 'InspeccionesCtrl',
@@ -605,7 +620,7 @@ angular.module("adminApp", ["authService", "ngRoute", "ngResource", "satellizer"
     templateUrl: 'templates/empresafuncionario/verificar_persona.html',
     controller:'VerificarPersonaCtrl',
     data: {
-      authorized: [ROLES.ADMIN_USACSIA.ROL]
+      authorized: [ROLES.EMPRESA.ROL]
     }
   })
 

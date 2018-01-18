@@ -372,7 +372,7 @@ console.log("propietario natural  ____",$scope.propietario);
 
 
 
-.controller('ListaValidadosCtrl', ['$scope', '$http', 'moment', 'ListaEmpTraEtapaEstado', 'EmpresaTramite', '$route', '$resource','$routeParams', 'toastr', '$location', '$timeout','CONFIG', function ($scope, $http, moment, ListaEmpTraEtapaEstado, EmpresaTramite, $route, $resource,$routeParams, toastr, $location, $timeout,CONFIG) {
+.controller('ListaValidadosCtrl', ['$scope', '$http', 'moment', 'ListaInspector', 'EmpresaTramite', '$route', '$resource','$routeParams', 'toastr', '$location', '$timeout','CONFIG', function ($scope, $http, moment, ListaInspector, EmpresaTramite, $route, $resource,$routeParams, toastr, $location, $timeout,CONFIG) {
  $scope.user = {
     rol_id: CONFIG.ROL_CURRENT_USER
   }
@@ -430,14 +430,12 @@ console.log("propietario natural  ____",$scope.propietario);
     $scope.sortType = 'te_fecha'; // ESTABLECIENDO EL TIPO DE ORDENAMIENTO
     $scope.sortReverse  = true;  // PARA ORDENAR ASCENDENTEMENTO O DESCENDENTEMENTE
     $scope.loading=true;//PARA HACER UN LOADING EN EL TEMPLATE
-    var condiciones={
-      eta_id:1,
-      te_estado:'APROBADO'
-
-    }
-  ListaEmpTraEtapaEstado.get(condiciones, function (argument) {
+  var FunG = localStorage.getItem("Funcionario");
+  var FunG = JSON.parse(FunG);
+  var fun_id = FunG.fun_id;
+  ListaInspector.get({fun_id:fun_id}, function (argument) {
       $scope.establecimientos = argument.empresa_tramite;
-      console.log('establecimientos', $scope.establecimientos);
+
 
       angular.forEach($scope.establecimientos, function(value, key){
             console.log( 'fecha:',value.te_fecha);

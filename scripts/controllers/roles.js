@@ -13,7 +13,7 @@ angular.module('adminApp')
 // DOMINIO_SERVICIOS: "http://localhost:8000"//---------------------jhon
 
 
-DOMINIO_SERVICIOS: "http://192.168.6.221:90/api_usacsia_v1_0/public"
+//DOMINIO_SERVICIOS: "http://192.168.6.221:90/api_usacsia_v1_0/public"
 
 
 // DOMINIO_SERVICIOS: "http://localhost/api_usacsia_v1_0/public"
@@ -22,7 +22,7 @@ DOMINIO_SERVICIOS: "http://192.168.6.221:90/api_usacsia_v1_0/public"
  //wendy
 
 
- // DOMINIO_SERVICIOS: "http://localhost:8080/api_usacsia_v1_0/public"
+  DOMINIO_SERVICIOS: "http://localhost:8080/api_usacsia_v1_0/public"
 
 
 
@@ -38,7 +38,7 @@ DOMINIO_SERVICIOS: "http://192.168.6.221:90/api_usacsia_v1_0/public"
 
 // DOMINIO_SERVICIOS: "http://192.168.6.223/usacsia_php_5.6/solo_api_dorys_git/api_usacsia_v1_0/public"
 
-// DOMINIO_SERVICIOS: "http://localhost/usacsia_php_5.6/solo_api_dorys_git/api_usacsia_v1_0/public"
+
 
 
 })
@@ -148,7 +148,7 @@ DOMINIO_SERVICIOS: "http://192.168.6.221:90/api_usacsia_v1_0/public"
           $location.path(ROLES.PACIENTE.PATH);
         }
         else if (CONFIG.ROL_CURRENT_USER == 6) {
-          $location.path(ROLES.ESMPRESA.PATH);
+          $location.path(ROLES.EMPRESA.PATH);
         }
         else if (CONFIG.ROL_CURRENT_USER == 7) {
           $location.path(ROLES.ADMIN_CARNET.PATH);
