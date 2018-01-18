@@ -21,18 +21,26 @@ angular.module("adminApp")
           titulo:'Boleta de pago'
         }
       }
-EmpTra.get({et_id:et_id}, function (argument) {
+
+      $http.get(CONFIG.DOMINIO_SERVICIOS+'/verestados/'+et_id+'/'+3).success(function(respuesta){
+        $scope.tramitecerestado=respuesta.tramitecerestado;
+        console.log("_respuesta__",$scope.tramitecerestado);
+      });
+
+    EmpTra.get({et_id:et_id}, function (argument) {
       console.log('argument-------', argument);
       $scope.establecimiento=argument.establecimiento;
-    })
-    Tramite.get(function(data){
-    $scope.tramite = data.tramites;
-    console.log("tramite del get",$scope.tramite);
-      $scope.monto = function(costo){
-        console.log("tramite del get",costo);
-          $scope.establecimiento.et_monto=costo;  
-          // $scope.pagop=costo;
-      }
+        
+        console.log('$scope.establecimiento.empresa_tramite.tra_id', $scope.establecimiento.empresa_tramite.tra_id);
+        Tramite.get({tra_id:$scope.establecimiento.empresa_tramite.tra_id}, function(data){
+        $scope.tramite = data.tramite;
+        console.log("tramite del get------",$scope.tramite);
+          $scope.monto = function(costo){
+            console.log("tramite del get",costo);
+              $scope.establecimiento.et_monto=costo;  
+              // $scope.pagop=costo;
+          }
+        })
     })
 
     $scope.save=function (et_id, tra_costo) {
@@ -43,7 +51,9 @@ EmpTra.get({et_id:et_id}, function (argument) {
               et_estado_tramite:'INICIADO',
               et_monto:tra_costo
           };
-      CrearEstados.save({et_id:et_id}).$promise.then(function (data) {
+          console.log('+++++++++pago', pago);
+          var tramite={et_id:et_id};
+      CrearEstados.save(tramite).$promise.then(function (data) {
         console.log('los estados++++++++', data);
       })
 
@@ -51,7 +61,6 @@ EmpTra.get({et_id:et_id}, function (argument) {
       $http.post(CONFIG.DOMINIO_SERVICIOS+'/crearestados/'+et_id).success(function(respuesta){
         console.log("_respuesta__",respuesta);
       });
-
 
 
       EmpTra.update({et_id:et_id},pago, function (argument) {
@@ -139,15 +148,114 @@ EmpTra.get({et_id:et_id}, function (argument) {
         sedes =base64Img;
 
         var docDefinition = {
-            
-            pageOrientation: 'landscape',
-            pageSize: 'A6',
-            pageMargins: [ 30, 10, 30, 10 ],
+                
+                pageOrientation: 'landscape',
+                pageSize: 'A5',
+                pageMargins: [ 30, 10, 30, 10 ],
 
-              watermark:{text:'EN DESARROLLO', color: 'blue', opacity: 0.3, bold: true, italics: false},
-            content: [
-            ]
-          }
+                content: [
+
+                //   {
+                //   table: {
+                //   widths: [110, 310, 100],
+                //   body: [
+                //       [
+                //         {
+                //           image: gober,
+                //           width: 68,
+                //           height: 73
+                //         },
+                //         {
+                //           /*image: gober,
+                //           width: 64,
+                //           height: 62*/
+                //           text: "\n \n \n GOBIERNO AUTONOMO DEPARTAMENTAL DE LA PAZ \n SERVICIO DEPARTAMENTAL DE SALUD \n UNIDAD DE SALUD AMBIENTAL \n CONTROL SANITARIO E INOCUIDAD ALIMENTARIA \n \n CAJA RECAUDADORA DE USACSIA",
+                //           alignment: 'center',
+                //           style: 'header' 
+                //         },
+                //         {
+                //           image: sedes,
+                //           width: 35,
+                //           height: 55,
+                //           alignment:'right'
+                //         }
+                //       ],
+                //   ],
+
+                //   },
+                //   layout: 'noBorders',
+                //   style: 'cuerpo',
+                //   border: [false, false, false, false]
+
+                // },
+                // header(tituloqr),
+                //     {
+                //       qr: textoqr,
+                //       fit:50,
+                //       alignment: 'right'
+                //     },
+                {
+                   text: "C.I./NIT:  "+'identificador', fontSize: 12, alignment: 'right'
+                },
+                {
+                  text: " \nBOLETA DE PAGOS\n\n",
+                  alignment: 'center',
+                  style: 'header'  
+                },
+                {
+                    table: {
+                    widths: [530],
+
+                      body: [
+                        [
+                          {
+                            table: {
+                              headerRows: 1,
+                              body: [
+                                 [{text: 'UNIDAD DE:', bold: true},'$scope.pagop.tramite.tra_nombre',{text: 'FECHA: ', bold: true},'fechaCONT',{text: 'HORA: ', bold: true},'horaC'],
+                                  [{text: 'HEMOS RECIBIDO DEL SR:', bold: true}, 'nombre', {text: ''},'',{text: ' '},''],
+                                   [{text: 'LA SUMA DE:', bold: true},'$scope.pagop.pagop.pp_monto_total'+" BOLIVIANOS",{text: ''},'',{text: ' '},''],
+                                   [{text: 'POR CONCEPTO DE:', bold: true},'$scope.pagop.pagop.pp_descripcion',{text: ''},'',{text: ' '},''],
+                             
+                                
+                                ]
+                              },
+                              layout: 'noBorders',
+                              style: 'cuerpo',
+                              border: [true, true, true, false]
+                          }
+                        ],
+                       
+                   
+                        [
+                          {
+
+                            table: {
+                            widths: [130, 130, 130,130],
+                            body: [
+                                  ['\n \n',''/*,'',''*/],
+                                  ['\n \n',''/*,'\n\n',''*/],
+                                  ['',''/*,'\n\n',''*/],                                  
+                                  [{text: 'REVISADO', bold: true, alignment: 'center'},
+                                  {text: 'FIRMA USUARIO', bold: true,alignment: 'center'}/*,{text: '', bold: true,alignment: 'center'},{text: '', bold: true, alignment: 'center' }*/]
+                              ]
+                            },
+                            layout: 'noBorders',
+                            style: 'cuerpo1',
+                            border: [true, false, true, true]
+                          }
+                        ],
+                      ],
+                      style: 'cuerpo' 
+                    }     
+                },
+
+
+
+                  
+                ]
+             };       
+
 
 
         $scope.openPdfF1 = function() {
@@ -248,6 +356,7 @@ EmpTra.get({et_id:et_id}, function (argument) {
           })
           FichaCatSancion.get({fi_id:$scope.fichas.fi_id}, function (argument) {
             $scope.fichasancion=argument.fichasancion;
+            $scope.cantsancion=$scope.fichasancion.length;
             console.log('$scope.fichasancion++++',  $scope.fichasancion);
               angular.forEach($scope.fichasancion, function (value, key) {
                   $scope.parciales.sancion=$scope.parciales.sancion+Number(value.fcs_total);
@@ -337,11 +446,15 @@ EmpTra.get({et_id:et_id}, function (argument) {
 
 }])
 
-.controller('PagoOrdenPagoCtrl', ['$scope', '$routeParams', '$location', 'CONFIG', 'EmpresaTramite', 'OrdenPago', 'OrdenPagoEstado', function ($scope, $routeParams, $location, CONFIG, EmpresaTramite, OrdenPago, OrdenPagoEstado) {
+.controller('PagoOrdenPagoCtrl', ['$scope', '$http', '$routeParams', '$location', 'CONFIG', 'EmpresaTramite', 'OrdenPago', 'OrdenPagoEstado', function ($scope, $http, $routeParams, $location, CONFIG, EmpresaTramite, OrdenPago, OrdenPagoEstado) {
     var et_id=$routeParams.et_id;
     var FunG = localStorage.getItem("Funcionario");
     var FunG = JSON.parse(FunG);
     var fun_id = FunG.fun_id;
+    $http.get(CONFIG.DOMINIO_SERVICIOS+'/verestados/'+et_id+'/'+3).success(function(respuesta){
+      console.log("_respuesta__",respuesta);
+      $scope.tramitecerestado=respuesta.tramitecerestado;
+    });
     EmpresaTramite.get({et_id:et_id},function (argument) {
       $scope.establecimiento=argument.establecimiento;
       console.log('$scope.establecimiento+++++++',$scope.establecimiento);
@@ -398,6 +511,7 @@ EmpTra.get({et_id:et_id}, function (argument) {
         $scope.pagoa=data.pagoa;
         console.log('$scope.pagoa',$scope.pagoa);
         $scope.pagos=data.pagos;
+        $scope.cantsancion=$scope.pagos.length;
         console.log('$scope.pagos',$scope.pagos);
         EstabSols.get({ess_id:$scope.emptra.ess_id}, function (argument) {
           $scope.establecimiento=argument.establecimiento;
@@ -425,9 +539,128 @@ EmpTra.get({et_id:et_id}, function (argument) {
           });
         }
     });
+    
     $scope.openOrdenPDF=function (data) {
-      // body...
-    }
+      console.log('llego maricas');
+      pdfMake.createPdf(docDefinition).open();
+    };
+    $scope.downloadOrdenPDF = function() {
+      console.log('llego maricas');
+      pdfMake.createPdf(docDefinition).download();
+    };
+
+
+
+
+    var docDefinition = {
+                
+                pageOrientation: 'landscape',
+                pageSize: 'A5',
+                pageMargins: [ 30, 10, 30, 10 ],
+
+                content: [
+
+                //   {
+                //   table: {
+                //   widths: [110, 310, 100],
+                //   body: [
+                //       [
+                //         {
+                //           image: gober,
+                //           width: 68,
+                //           height: 73
+                //         },
+                //         {
+                //           /*image: gober,
+                //           width: 64,
+                //           height: 62*/
+                //           text: "\n \n \n GOBIERNO AUTONOMO DEPARTAMENTAL DE LA PAZ \n SERVICIO DEPARTAMENTAL DE SALUD \n UNIDAD DE SALUD AMBIENTAL \n CONTROL SANITARIO E INOCUIDAD ALIMENTARIA \n \n CAJA RECAUDADORA DE USACSIA",
+                //           alignment: 'center',
+                //           style: 'header' 
+                //         },
+                //         {
+                //           image: sedes,
+                //           width: 35,
+                //           height: 55,
+                //           alignment:'right'
+                //         }
+                //       ],
+                //   ],
+
+                //   },
+                //   layout: 'noBorders',
+                //   style: 'cuerpo',
+                //   border: [false, false, false, false]
+
+                // },
+                // header(tituloqr),
+                //     {
+                //       qr: textoqr,
+                //       fit:50,
+                //       alignment: 'right'
+                //     },
+                {
+                   text: "C.I./NIT:  "+'identificador', fontSize: 12, alignment: 'right'
+                },
+                {
+                  text: " \nBOLETA DE PAGOS\n\n",
+                  alignment: 'center',
+                  style: 'header'  
+                },
+                {
+                    table: {
+                    widths: [530],
+
+                      body: [
+                        [
+                          {
+                            table: {
+                              headerRows: 1,
+                              body: [
+                                 [{text: 'UNIDAD DE:', bold: true},'$scope.pagop.tramite.tra_nombre',{text: 'FECHA: ', bold: true},'fechaCONT',{text: 'HORA: ', bold: true},'horaC'],
+                                  [{text: 'HEMOS RECIBIDO DEL SR:', bold: true}, 'nombre', {text: ''},'',{text: ' '},''],
+                                   [{text: 'LA SUMA DE:', bold: true},'$scope.pagop.pagop.pp_monto_total'+" BOLIVIANOS",{text: ''},'',{text: ' '},''],
+                                   [{text: 'POR CONCEPTO DE:', bold: true},'$scope.pagop.pagop.pp_descripcion',{text: ''},'',{text: ' '},''],
+                             
+                                
+                                ]
+                              },
+                              layout: 'noBorders',
+                              style: 'cuerpo',
+                              border: [true, true, true, false]
+                          }
+                        ],
+                       
+                   
+                        [
+                          {
+
+                            table: {
+                            widths: [130, 130, 130,130],
+                            body: [
+                                  ['\n \n',''/*,'',''*/],
+                                  ['\n \n',''/*,'\n\n',''*/],
+                                  ['',''/*,'\n\n',''*/],                                  
+                                  [{text: 'REVISADO', bold: true, alignment: 'center'},
+                                  {text: 'FIRMA USUARIO', bold: true,alignment: 'center'}/*,{text: '', bold: true,alignment: 'center'},{text: '', bold: true, alignment: 'center' }*/]
+                              ]
+                            },
+                            layout: 'noBorders',
+                            style: 'cuerpo1',
+                            border: [true, false, true, true]
+                          }
+                        ],
+                      ],
+                      style: 'cuerpo' 
+                    }     
+                },
+
+
+
+                  
+                ]
+             };       
+
 
 
 }])
@@ -529,9 +762,7 @@ EmpTra.get({et_id:et_id}, function (argument) {
                   alignment: 'center',
                   style: 'header'  
                 },
-
-  {
-
+                {
                     table: {
                     widths: [530],
 

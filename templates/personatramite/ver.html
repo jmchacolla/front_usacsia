@@ -32,11 +32,24 @@
 	              		</div>
 	              		<div class="col-md-4 col-sm-4">
 	                		<label class="text-primary">Estado Medico:</label><br>
-	                		{{pertramite.prueba_medica.pm_estado}}
+	                		<!-- {{pertramite.prueba_medica.pm_estado}} -->	
+	                		<p ng-if="pertramite.prueba_medica.pm_estado == 'OK' ">
+	                		CLINICAMENTE SANO	
+	                		</p>
+	                		<p ng-if="pertramite.prueba_medica.pm_estado =='OBSERVADO'">
+	                		{{pertramite.prueba_medica.pm_estado}}	
+	                		</p>
+	                		
 	              		</div>
 	              		<div class="col-md-4 col-sm-4">
 	                		<label class="text-primary">Estado Muestra:</label><br>
-	                		{{pertramite.prueba_laboratorio.pl_estado}}
+	                		<p ng-if="pertramite.prueba_laboratorio.pl_estado =='NO OBSERVADO'">
+	                		SIN OBSERVACIÓN	
+	                		</p>
+	                		<p ng-if="pertramite.prueba_laboratorio.pl_estado =='OBSERVADO'">
+	                		{{pertramite.prueba_laboratorio.pl_estado}}	
+	                		</p>
+	                		
 	              		</div>
 	              		
 	            	</div>

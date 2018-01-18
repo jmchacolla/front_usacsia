@@ -19,7 +19,7 @@ angular.module('adminApp')
 if (SesionG.rol_id !=6) {
   PersonaporCI.get({per_ci:SesionG.usu_nick}, function(data)
     {
-      $scope.persona = data.persona;
+      $scope.persona = data.persona.persona;
 
       if($scope.persona.per_genero=='F' || $scope.persona.per_genero=='f'){
         $scope.ajustes.menu.titulo = "Bienvenida";

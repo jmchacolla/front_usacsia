@@ -18,7 +18,13 @@ function ($scope, DocumentoNoRegistrado,DocumentoRegistrado,DocumentoTramite, $r
   $scope.sortType = 'per_id'; // set the default sort type
   $scope.sortReverse  = true;  // set the default sort order
   $scope.Personas = [];
-  var et_id=2; //se debe obtener el ultimo tramite del establecimiento
+
+
+  var EstG = localStorage.getItem("DatosEstablecimiento");
+  var EstG = JSON.parse(EstG);
+  var et_id=EstG.empresatramite.et_id;
+  console.log('ultimo',et_id);
+  // var et_id=2; //se debe obtener el ultimo tramite del establecimiento
   
   $scope.documento_select={
     doc_id:null,
@@ -185,7 +191,7 @@ function ($http,CONFIG,$scope, DocumentoTramite2,DocumentoTramiteL,PersonasEstab
             et_id:et_id,
             fun_id:fun_id
           };
-          console.log("::::::::::a",a)
+       
           $scope.vector={
             observaciones:$scope.observaciones,
             todo:$scope.todo

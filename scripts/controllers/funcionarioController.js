@@ -862,11 +862,11 @@ function controladorPrincipal_Pre($http, $scope, CONFIG, toastr){
       $http.get(CONFIG.DOMINIO_SERVICIOS+'/personasb/'+vm.per_ci).success(function(respuesta){
           if(respuesta.personas.length != 0){
               $scope.pre_reg=true;
-              console.log("__pre_reg true__",$scope.pre_reg);
+              console.log("__pre_reg true__",$scope.pre_reg,vm.per_ci);
               toastr.warning('EL CI INTRODUCIDO YA EXISTE');
           } else if (respuesta.personas.length == 0){
               $scope.pre_reg=false;
-              console.log("__pre_reg__",$scope.pre_reg);
+              console.log("__pre_reg__",$scope.pre_reg,vm.per_ci);
           }  
       });
   }

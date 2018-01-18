@@ -180,18 +180,25 @@ $scope.zon_selec="";
           $scope.response = null;
       };
      /*FIN CAPTCHA*/
-    $scope.submit = function(b, fechaNac, ci, zona)
+    $scope.submit = function(b, fechaNac, ci, suf)
     {
         $scope.persona.per_fecha_nacimiento=fechaNac;
-        $scope.persona.per_ci=ci;
-        $scope.persona.per_zona_comunidad=zona;
+        
+        /*$scope.persona.per_zona_comunidad=zona;*/
         //$scope.pacientes.per_ci=per_ci;
-
+        
         if($scope.persona.per_tipo_documento=="CI"){
           $scope.persona.per_nacion="BOLIVIA";
+          if (suf!="NO TIENE") {
+            $scope.persona.per_ci=ci+'-'+suf;
+          }
+          if (suf=="NO TIENE") {
+            $scope.persona.per_ci=ci;
+          }
         }
         if($scope.persona.per_tipo_documento=="PASAPORTE"){
           $scope.persona.per_ci_expedido="EXTRANJERO";
+          $scope.persona.per_ci="E-"+ci;
         }
         PersonasC.save($scope.persona).$promise.then(function(data)
         {

@@ -78,7 +78,7 @@ angular.module('authService', [])
 						//console.log("GUARDANDO DATOS DE PERSONA EN LOCALSTORAGE",persona)
 						persona = JSON.stringify(persona);
 						localStorage.setItem("DatosEstablecimiento", persona);
-						
+						console.log("sessss___",persona);
 					});
 					}
 					
