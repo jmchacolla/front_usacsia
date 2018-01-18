@@ -697,6 +697,8 @@ if (SesionG.rol_id !=6) {
   Personas.get({per_id:per_id1}, function(data)
   {
     $scope.persona = data.persona;
+    $scope.src=$scope.persona.imagen.ima_enlace+'/'+$scope.persona.imagen.ima_nombre;
+   
   });
   
   $scope.usuario = SesionG.usu_nick;

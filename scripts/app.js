@@ -13,25 +13,28 @@ angular.module("adminApp", ["authService", "ngRoute", "ngResource", "satellizer"
   templateUrl: 'templates/personatramite/atencion.html',
   controller: 'AtencionCtrl',
   data: {
-    authorized: [ROLES.ADMIN_USACSIA.ROL, ROLES.MEDICO.ROL]
+    authorized: [ ROLES.MEDICO.ROL, ROLES.ENFERMERA.ROL]
   }
 })
 //persona_tramite lista para atender pacientes para medico
 .when('/atencion-consulta', {
   templateUrl: 'templates/personatramite/atencionconsulta.html',
-  controller: 'AtencionConsultaCtrl'
+  controller: 'AtencionConsultaCtrl',
+  data: {
+    authorized: [ ROLES.MEDICO.ROL]
+  }
 })
 //---ver carne sanitario ver por pt_id
-.when('/carne-sanitario/:pt_id', {
+/*.when('/carne-sanitario/:pt_id', {
   templateUrl: 'templates/carne/ver.html',
   controller: 'CarneSanitarioCtrl'
-})
+})*/
 // crear prueba medica form registro de signos vitales
 .when('/prueba-medica/:pt_id', {
   templateUrl: 'templates/pruebamedica/create.html',
   controller: 'PruebaMedicaCtrl',
   data: {
-    authorized: [ROLES.ADMIN_USACSIA.ROL, ROLES.MEDICO.ROL]
+    authorized: [ROLES.ENFERMERA.ROL, ROLES.MEDICO.ROL]
   }
 })
 // realizar los examenes prueba enfermedad
@@ -39,7 +42,7 @@ angular.module("adminApp", ["authService", "ngRoute", "ngResource", "satellizer"
   templateUrl: 'templates/pruebamedica/prueba.html',
   controller: 'PruebaEnfermedadCtrl',
   data: {
-    authorized: [ROLES.ADMIN_USACSIA.ROL, ROLES.MEDICO.ROL]
+    authorized: [ ROLES.MEDICO.ROL]
   }
 })
 //ver prueba medica por pm_id
@@ -47,7 +50,7 @@ angular.module("adminApp", ["authService", "ngRoute", "ngResource", "satellizer"
   templateUrl: 'templates/pruebamedica/ver.html',
   controller: 'PruebaMedicaVerCtrl',
   data: {
-    authorized: [ROLES.ADMIN_USACSIA.ROL, ROLES.MEDICO.ROL]
+    authorized: [ROLES.ENFERMERA.ROL, ROLES.MEDICO.ROL]
   }
 })
 //historial clinico por ci
@@ -55,7 +58,7 @@ angular.module("adminApp", ["authService", "ngRoute", "ngResource", "satellizer"
   templateUrl: 'templates/pruebamedica/ficha-clinica.html',
   controller: 'FichaClinicaCtrl',
   data: {
-    authorized: [ROLES.ADMIN_USACSIA.ROL, ROLES.MEDICO.ROL]
+    authorized: [ROLES.ENFERMERA.ROL, ROLES.MEDICO.ROL]
   }
 })
 .when('/plantillaPDF', {
@@ -350,7 +353,7 @@ angular.module("adminApp", ["authService", "ngRoute", "ngResource", "satellizer"
    templateUrl:'templates/zonas/crear.html',
    controller: 'CrearZonaCtrl',
     data: {
-      authorized: [ROLES.ADMIN_USACSIA.ROL]
+      authorized: [ROLES.ADMIN_USACSIA.ROL,ROLES.ADMIN_CERTIFICADO.ROL]
     }
   })
   .when('/zonas',{
