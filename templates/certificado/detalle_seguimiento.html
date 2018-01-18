@@ -74,27 +74,26 @@
            II. Detalle del trámite por etapa
           <hr class="bg-red">
         </h3>
-
-        <div class="btn-group btn-group-justified" role="group" aria-label="..." ng-repeat="tce in tramitecerestado">
-  <button type="button" class="btn btn-danger">{{tce.eta_nombre}}</button>
-</div>
+        <!-- con botones -->
+        <div class="btn-group " style="" role="group" aria-label="...">
+            <button type="button" class="btn btn-default col-md-6 text-center" ng-repeat="tce in tramitecerestado"><label>{{tce.eta_nombre}}</label></button>
+        </div>
 
 
           <div class="table-responsive">
               <table class="table table-hovertable table-bordered table-striped table-hover"  >
-                  <thead>
-                        <th class="text-primary">Etapa</th>
-                        <th class="text-primary">Estado</th>   
-                  </thead>
+                <thead>
+                      <th class="text-primary">Etapa</th>
+                      <th class="text-primary">Estado</th>   
+                </thead>
                   <tbody ng-repeat="tce in tramitecerestado | orderBy:sortType:sortReverse">
                       <tr>
-                          <td>{{tce.eta_nombre}}</td>
-                          <td>{{tce.te_estado}}</td>
-                         
-                        </tr>
-                      </tbody>
-                  </table>
-        </div>
+                        <td>{{tce.eta_nombre}}</td>
+                        <td>{{tce.te_estado}}</td>
+                      </tr>
+                  </tbody>
+                </table>
+          </div>
         
         <!-- <div class="col-md-12"> -->
           
