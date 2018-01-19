@@ -275,8 +275,8 @@ var FunG = localStorage.getItem("Funcionario");
 
 }])
 
-.controller('CrearCateCtrl', ['$scope','$routeParams','EmpTra','Categoria','FichaCat','Zonas',  '$location', '$timeout', 'toastr','Rubro','Cle','BusSub','BusCat','VerFicha6',
- function ($scope,$routeParams, EmpTra,Categoria,FichaCat,Zonas,  $location, $timeout, toastr,Rubro,Cle,BusSub,BusCat,VerFicha6){
+.controller('CrearCateCtrl', ['EstadoIns','$scope','$routeParams','EmpTra','Categoria','FichaCat','Zonas',  '$location', '$timeout', 'toastr','Rubro','Cle','BusSub','BusCat','VerFicha6',
+ function (EstadoIns,$scope,$routeParams, EmpTra,Categoria,FichaCat,Zonas,  $location, $timeout, toastr,Rubro,Cle,BusSub,BusCat,VerFicha6){
 
  $scope.ajustes = {
     //Configuraciones del menu:
@@ -453,7 +453,7 @@ $scope.checkedI=false;
             }
           }
           console.log('TRAMITE_CER ESTADO____', $scope.datos);
-      /*EstadoIns.update({et_id:et_id}, $scope.datos).$promise.then(function(data)
+      EstadoIns.update({et_id:et_id}, $scope.datos).$promise.then(function(data)
       {
         console.log("__datos tramitecer__",$scope.datos);
           if(data.status) {
@@ -461,9 +461,9 @@ $scope.checkedI=false;
           }
          
 
-      })*/
+      })
     console.log('categorias_______', $scope.todo1);
-    /*FichaCat.save($scope.todo1).$promise.then(function(data){
+    FichaCat.save($scope.todo1).$promise.then(function(data){
       if(data.status) {
         
           
@@ -474,7 +474,7 @@ $scope.checkedI=false;
             $location.path('/tramites_certi');
           },10);
       }
-    });*/
+    });
   };
 
     $scope.submitS = function(){
