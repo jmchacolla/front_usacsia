@@ -65,22 +65,8 @@
                                   <input disabled class="form-control" id="red" type="Text" ng-model="rubro.re_nombre" >          
                                 </div> 
                             </div> 
-                            <div class="row">
-                                <div class="col-md-4">
-                                  <div class="formulario">
-                                     <div class="checkbox">
-                                            <input class="checkbox" type="checkbox" name="acomp" id="M" value="M" ng-model="checkedI" ng-init="checked=false" ng-click="reset_acomp(checkedI)">
-                                            <label for="M">Tiene Observación</label>
-                                      </div>
-                                  </div>
-                                </div>
-                                <div ng-if="checkedI" class=" col-md-8">
-                                    <label for="acomp" class="control-label ">Observación:</label>
-                                    <br>
-                                     <textarea name="equi" ng-model-options="{ updateOn: 'blur' }" rows="6" cols="40" style="resize: vertical;min-height:70px;max-height: 150px;" placeholder="Observación" ng-model="datos.te_observacion"></textarea>
-                                    
-                               </div>
-                            </div>
+                            
+                           
                             <div class="row">
                                 <div class="col-md-4">
                                      <label for="sc" class="control-label">Clacificación: <strong class="fg_red">*</strong></label>
@@ -145,6 +131,26 @@
                             </div>
                         </div><!-- fin panel -->
                <br>
+            
+                  
+                        <label class="control-label"> EL TRÁMITE :<strong class="fg_red">*</strong></label>
+                        <div class="formulario">
+                            <div class="radio">
+                                <div class="col-md-4">
+                                <input type="radio" name="foco_insalubridad" id="true1" value="true" ng-model="pregunta">
+                                <label for="true1">PROCEDE</label>
+                                </div>
+                                <div class="col-md-4">
+                                <input type="radio" name="foco_insalubridad" id="false1" value="false" ng-model="pregunta">
+                                <label for="false1">NO PROCEDE</label>
+                                </div>
+                                <span class="messages" ng-show="addPersona.$submitted || addPersona.foco_insalubridad.$touched">
+                                <span ng-show="addPersona.foco_insalubridad.$error.required">El campo es obligatorio.</span>
+                                </span>
+                            </div>
+                        </div>
+                 
+              <br>
                 <div class="row">
                     <div class="col-md-6 col-md-offset-3 text-center">
                         <div class="well well-sm">
@@ -160,8 +166,8 @@
                                 </label>
                             </div>
                             <br>
-                            <button ng-show = "para_enviar && ver" type="submit" class="btn btn-primary" ng-click="submit(); reset()"title="Debe llenar todos los campos obligatorios de manera correcta"><span class="glyphicon glyphicon-save"></span> GUARDAR</button>
-                            <button ng-show = "para_enviar && sancion" type="submit" class="btn btn-primary" ng-click="submitS(); reset()"title="Debe llenar todos los campos obligatorios de manera correcta"><span class="glyphicon glyphicon-save"></span> GUARDAR SANCION</button>
+                            <button ng-show = "para_enviar && ver" type="submit" class="btn btn-primary" ng-click="submit(); reset()" title="Debe llenar todos los campos obligatorios de manera correcta"><span class="glyphicon glyphicon-save"></span> GUARDAR</button>
+                            <button ng-show = "para_enviar && sancion" type="submit" class="btn btn-primary"  title="Debe llenar todos los campos obligatorios de manera correcta"><span class="glyphicon glyphicon-save"></span> NO PUEDE GUARDAR SANCIONES</button>
                         </div>
                     </div>    
                 </div>      

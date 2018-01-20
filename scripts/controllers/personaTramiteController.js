@@ -421,7 +421,7 @@ function ($scope, ListarTramitesService, $route, toastr,$location)
     PersonaTramite.get({pt_id:id}, function(data)
     {
       $scope.persona = data.pertramite;
-      console.log('persona', $scope.persona);
+      console.log('persona++++', $scope.persona);
       var fechapago= $scope.persona.persona_tramite.pt_fecha_ini;
       var fecha_cont=moment(new Date(), "YYYY-MM-DD") .format("DD-MM-YYYY");
       var horaC=fecha_cont[1];
@@ -440,7 +440,7 @@ function ($scope, ListarTramitesService, $route, toastr,$location)
             console.log("entro al controlador pdf",$scope.persona)
 
             var tituloqr= 'Nro. Trámite: '+$scope.persona.persona_tramite.pt_numero_tramite;
-            var textoqr= 'USACSIA-CARNÉ-SANITARIO-'+$scope.persona.persona_tramite.pt_numero_tramite;
+            var textoqr= 'USACSIA-CARNÉ-SANITARIO-'+$scope.persona.tramite.tra_nombre+'-'+$scope.persona.persona_tramite.pt_numero_tramite+/*'-'$scope.persona.persona.per_nombres+"-"+$scope.persona.persona.per_apellido_primero+"-"+$scope.persona.persona.per_apellido_segundo+*/'-'+$scope.persona.persona.per_ci+'-'+$scope.persona.tramite.tra_costo;
             //estilo, encabezado de QR
             function header(text) {
               return {text: text, margins: [0, 0, 0, 8],alignment: 'right'};
@@ -451,6 +451,14 @@ function ($scope, ListarTramitesService, $route, toastr,$location)
                 // pageSize: {width:100, height:100},
                 pageSize: 'A6',
                 pageMargins: [ 30, 20, 30, 20 ],
+                info: {/*Metadatos*/
+                  title: 'Boleta de pago',
+                  author: 'USACSIA-SEDES LA PAZ',
+                  subject: 'Boleta de Pago',
+                  keywords: 'carne sanitario',
+                  creator: 'USACSIA',
+                  producer: 'USACSIA',
+                  },
 
                 content: [
 
@@ -466,7 +474,7 @@ function ($scope, ListarTramitesService, $route, toastr,$location)
                     },
                     {text: 'REVISADO', bold: true, fontSize:10 , absolutePosition:{x:90, y:250}},
                     {text: 'FIRMA USUARIO', bold: true, fontSize:10 , absolutePosition:{x:210, y:250}},
-                    {text: "CI:  N°"+$scope.persona.persona.per_ci, fontSize: 12, alignment: 'right', absolutePosition:{x:210, y:200} },
+                    
                     
                 
                 {
@@ -483,10 +491,13 @@ function ($scope, ListarTramitesService, $route, toastr,$location)
                       body: [
                                 [
                                   { text: 'UNIDAD DE: '+$scope.persona.tramite.tra_nombre, text: 'FECHA: '+fechaCONT},
-                                  { rowSpan:4, qr: textoqr, fit:100, alignment: 'right'},
+                                  { rowSpan:6, qr: textoqr, fit:100, alignment: 'right'},
                                 ],
                                 [
                                   {text: 'HEMOS RECIBIDO DEL SR:  '+$scope.persona.persona.per_nombres+" "+$scope.persona.persona.per_apellido_primero+" "+$scope.persona.persona.per_apellido_segundo}
+                                ],
+                                [
+                                  {text: "C.I. N°: "+$scope.persona.persona.per_ci+'  '+$scope.persona.persona.per_ci_expedido}
                                 ],
                                 [
                                   {text: 'LA SUMA DE:  '+$scope.persona.tramite.tra_costo+" BOLIVIANOS"}
@@ -494,6 +505,9 @@ function ($scope, ListarTramitesService, $route, toastr,$location)
                                 [
                                   {text: 'POR CONCEPTO DE: '+$scope.persona.tramite.tra_nombre}
                                 ],
+                                [
+                                  {text: 'TRÁMITE N°: '+ $scope.persona.persona_tramite.pt_numero_tramite}
+                                ]
                             ],
                     },
                     margin:[20, 30, 10, 0],

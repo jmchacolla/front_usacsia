@@ -216,6 +216,7 @@ console.log("propietario natural  ____",$scope.propietario);
       items:[
       // {nombre:'Establecimientos solicitantes', enlace:'#/lista-solicitantes', estilo:'active'},
       {nombre:'Establecimientos validados', enlace:'#/lista-validacion', estilo:''},
+      {nombre:'Establecimientos validados', enlace:'#/lista-validacion', estilo:''},
       {nombre:'Establecimientos inspeccionados', enlace:'#/lista-inspeccionados', estilo:''}
       ]
     },
@@ -984,15 +985,9 @@ console.log("propietario natural  ____",$scope.propietario);
     menu:{
       titulo: 'Gestión de tramites de Certificado Sanitario',
       items:[
-<<<<<<< HEAD
         {nombre:'Esablecimientos que cancelaron naturales', enlace:'#/tramites_certi', estilo:'active'},
         {nombre:'Esablecimientos que cancelaron Juridicos', enlace:'#/tramites_certiJ', estilo:''},
         {nombre:'Busqueda de personas registradas', enlace:'#/buscar-propietario', estilo:''}]
-=======
-        {nombre:'Solicitudes de Propietarios Naturales', enlace:'#/tramites_certi', estilo:'active'},
-        {nombre:'Solicitudes de Propietarios Juridicos', enlace:'#/tramites_certiJ', estilo:''},
-        {nombre:'Búsqueda de personas registradas', enlace:'#/buscar-propietario', estilo:''}]
->>>>>>> a354e6c9b2fb30b8eef3d8d152fc9db34b17322e
     },
     pagina:{
       titulo:'Tramites de Certificado Sanitario'

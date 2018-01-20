@@ -20,10 +20,10 @@
 					<span class="glyphicon glyphicon-home" aria-hidden="true"></span>
 					Inicio</a>
 				</li>
-				<li class="dropdown">
+				<li class="dropdown" ng-show="menu.CONFIG.ROL_CURRENT_USER == 1 || menu.CONFIG.ROL_CURRENT_USER == 2|| menu.CONFIG.ROL_CURRENT_USER == 3 || menu.CONFIG.ROL_CURRENT_USER == 7 || menu.CONFIG.ROL_CURRENT_USER == 8 || menu.CONFIG.ROL_CURRENT_USER == 9 || menu.CONFIG.ROL_CURRENT_USER == 10 || menu.CONFIG.ROL_CURRENT_USER == 11 || menu.CONFIG.ROL_CURRENT_USER == 12 || menu.CONFIG.ROL_CURRENT_USER == 13">
 				  	<a href="" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">
 					<span class="glyphicon glyphicon-th" aria-hidden="true"></span>
-					Gestionar recursos<span class="caret"></span></a>
+					Carné Sanitario<span class="caret"></span></a>
 				  	<ul class="dropdown-menu">
 				  		<li ng-show="menu.CONFIG.ROL_CURRENT_USER == 1 || menu.CONFIG.ROL_CURRENT_USER == 3">	 <a href="#/tramite/crear">
 							<span class="glyphicon glyphicon-asterisk" aria-hidden="true"></span>
@@ -112,66 +112,7 @@
 							<span class="glyphicon glyphicon-asterisk" aria-hidden="true"></span>
 								Reporte Control diario</a>
 						</li>
-						<li ng-show="menu.CONFIG.ROL_CURRENT_USER == 1 || menu.CONFIG.ROL_CURRENT_USER == 7 || menu.CONFIG.ROL_CURRENT_USER == 15">
-							<a href="#/establecimientossol">
-							<span class="glyphicon glyphicon-asterisk" aria-hidden="true"></span>
-							Establecimientos Solicitantes</a>
-						</li>
-						<li ng-show="menu.CONFIG.ROL_CURRENT_USER == 1 || menu.CONFIG.ROL_CURRENT_USER == 3" >
-			            	<a href="#/buscar-propietario">
-			            	<span class="glyphicon glyphicon-asterisk" aria-hidden="true"></span>
-			           		Registrar pago certificado</a>
-			            </li>
-						<li ng-show="menu.CONFIG.ROL_CURRENT_USER == 1 || menu.CONFIG.ROL_CURRENT_USER == 14">
-							<a href="#/asignacion_zonas/crear" >
-							<span class="glyphicon glyphicon-asterisk" aria-hidden="true"></span>
-							Asignación de zonas a inspectores</a>
-						</li>
-						<li ng-show="menu.CONFIG.ROL_CURRENT_USER == 6">
-							<a href="#/documento-tramite/crear" >
-							<span class="glyphicon glyphicon-asterisk" aria-hidden="true"></span>
-								Subir documentos</a>
-						</li>
-						<li ng-show="menu.CONFIG.ROL_CURRENT_USER == 6">
-							<a href="#/empresa/verificar-persona" >
-							<span class="glyphicon glyphicon-asterisk" aria-hidden="true"></span>
-								Registrar empleados</a>
-						</li>
-						<!-- <li ng-show="menu.CONFIG.ROL_CURRENT_USER == 1 || menu.CONFIG.ROL_CURRENT_USER == 3" >
-			            	<a href="#/tramites_certi">
-			            	<span class="glyphicon glyphicon-asterisk" aria-hidden="true"></span>
-			           		Trámites certificado propietarios naturales</a>
-			            </li>
-			             <li ng-show="menu.CONFIG.ROL_CURRENT_USER == 1 || menu.CONFIG.ROL_CURRENT_USER == 3" >
-			            	<a href="#/tramites_certiJ">
-			            	<span class="glyphicon glyphicon-asterisk" aria-hidden="true"></span>
-			           		Trámites certificado propietarios juridicos</a>
-			            </li> -->
-			            <li ng-show="menu.CONFIG.ROL_CURRENT_USER == 1 || menu.CONFIG.ROL_CURRENT_USER == 15 || menu.CONFIG.ROL_CURRENT_USER == 3" >
-			            	<a href="#/lista-solicitantes">
-			            	<span class="glyphicon glyphicon-asterisk" aria-hidden="true"></span>
-			           		Empresas Habilitados</a>
-			            </li>
-			            <li ng-show="menu.CONFIG.ROL_CURRENT_USER == 1 || menu.CONFIG.ROL_CURRENT_USER == 15 || menu.CONFIG.ROL_CURRENT_USER == 16" >
-			            	<a href="#/lista-validacion">
-			            	<span class="glyphicon glyphicon-asterisk" aria-hidden="true"></span>
-			           		Empresas con Requisitos Validos</a>
-			            </li>
-			            <li ng-show="menu.CONFIG.ROL_CURRENT_USER == 1 || menu.CONFIG.ROL_CURRENT_USER == 15 || menu.CONFIG.ROL_CURRENT_USER == 16 || menu.CONFIG.ROL_CURRENT_USER == 14 || menu.CONFIG.ROL_CURRENT_USER == 2 || menu.CONFIG.ROL_CURRENT_USER == 17 || menu.CONFIG.ROL_CURRENT_USER == 18" >
-			            	<a href="#/lista-validacion">
-			            	<span class="glyphicon glyphicon-asterisk" aria-hidden="true"></span>
-			           		Inspectores e Inspecciones</a>
-			            </li>
-			            <li ng-show="menu.CONFIG.ROL_CURRENT_USER == 1  || menu.CONFIG.ROL_CURRENT_USER == 14 || menu.CONFIG.ROL_CURRENT_USER == 2 || menu.CONFIG.ROL_CURRENT_USER == 17 || menu.CONFIG.ROL_CURRENT_USER == 18" >
-			            	<a href="#/lista-cancelaron">
-			            	<span class="glyphicon glyphicon-asterisk" aria-hidden="true"></span>
-			           		Empresas que pagaron arancel</a>
-			            </li>
-			            <li ng-show="menu.CONFIG.ROL_CURRENT_USER == 1 || menu.CONFIG.ROL_CURRENT_USER == 14 " >
-			            	<a href="#/lista-concluidos">
-			            	<span class="glyphicon glyphicon-asterisk" aria-hidden="true"></span>
-			           		Empresas con Trámites concluidos</a>
-			            </li>
+						
 			            <!-- <li ng-show="menu.CONFIG.ROL_CURRENT_USER == 16" >
 			            	<a href="#/tramites_nat">
 			            	<span class="glyphicon glyphicon-asterisk" aria-hidden="true"></span>
@@ -199,6 +140,83 @@
 			            
 			    	</ul>
 				</li>
+				 <li class="dropdown" ng-show="menu.CONFIG.ROL_CURRENT_USER == 1 || menu.CONFIG.ROL_CURRENT_USER == 2 || menu.CONFIG.ROL_CURRENT_USER == 3">
+				  	<a href="" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">
+					<span class="glyphicon glyphicon-th" aria-hidden="true"></span>
+					Certificado Sanitario<span class="caret"></span></a>
+				  	<ul class="dropdown-menu">
+				 		<li ng-show="menu.CONFIG.ROL_CURRENT_USER == 1 || menu.CONFIG.ROL_CURRENT_USER == 7 || menu.CONFIG.ROL_CURRENT_USER == 15">
+							<a href="#/establecimientossol">
+							<span class="glyphicon glyphicon-asterisk" aria-hidden="true"></span>
+							Establecimientos Solicitantes</a>
+						</li>
+						<li ng-show="menu.CONFIG.ROL_CURRENT_USER == 1 || menu.CONFIG.ROL_CURRENT_USER == 3" >
+			            	<a href="#/buscar-propietario">
+			            	<span class="glyphicon glyphicon-asterisk" aria-hidden="true"></span>
+			           		Registrar pago certificado</a>
+			            </li>
+						<li ng-show="menu.CONFIG.ROL_CURRENT_USER == 1 || menu.CONFIG.ROL_CURRENT_USER == 14">
+							<a href="#/asignacion_zonas/crear" >
+							<span class="glyphicon glyphicon-asterisk" aria-hidden="true"></span>
+							Asignación de zonas a inspectores</a>
+						</li>
+						<li ng-show="menu.CONFIG.ROL_CURRENT_USER == 1 || menu.CONFIG.ROL_CURRENT_USER == 14">
+							<a href="#/lista-pendientes" >
+							<span class="glyphicon glyphicon-asterisk" aria-hidden="true"></span>
+							Empresas Pendientes en pago</a>
+						</li>
+						<li ng-show="menu.CONFIG.ROL_CURRENT_USER == 6">
+							<a href="#/documento-tramite/crear" >
+							<span class="glyphicon glyphicon-asterisk" aria-hidden="true"></span>
+								Subir documentos</a>
+						</li>
+						<li ng-show="menu.CONFIG.ROL_CURRENT_USER == 6">
+							<a href="#/empresa/verificar-persona" >
+							<span class="glyphicon glyphicon-asterisk" aria-hidden="true"></span>
+								Registrar empleados</a>
+						</li>
+						<!-- <li ng-show="menu.CONFIG.ROL_CURRENT_USER == 1 || menu.CONFIG.ROL_CURRENT_USER == 3" >
+			            	<a href="#/tramites_certi">
+			            	<span class="glyphicon glyphicon-asterisk" aria-hidden="true"></span>
+			           		Trámites certificado propietarios naturales</a>
+			            </li>
+			             <li ng-show="menu.CONFIG.ROL_CURRENT_USER == 1 || menu.CONFIG.ROL_CURRENT_USER == 3" >
+			            	<a href="#/tramites_certiJ">
+			            	<span class="glyphicon glyphicon-asterisk" aria-hidden="true"></span>
+			           		Trámites certificado propietarios juridicos</a>
+			            </li> -->
+			           <!--  <li ng-show="menu.CONFIG.ROL_CURRENT_USER == 1 || menu.CONFIG.ROL_CURRENT_USER == 15 || menu.CONFIG.ROL_CURRENT_USER == 3" >
+			            	<a href="#/lista-solicitantes">
+			            	<span class="glyphicon glyphicon-asterisk" aria-hidden="true"></span>
+			           		Empresas Habilitados</a>
+			            </li> -->
+			             <li ng-show="menu.CONFIG.ROL_CURRENT_USER == 1 || menu.CONFIG.ROL_CURRENT_USER == 15 || menu.CONFIG.ROL_CURRENT_USER == 3" >
+			            	<a href="#/tramite-establecimientosol">
+			            	<span class="glyphicon glyphicon-asterisk" aria-hidden="true"></span>
+			           		Empresas Habilitados</a>
+			            </li>
+			            <li ng-show="menu.CONFIG.ROL_CURRENT_USER == 1 || menu.CONFIG.ROL_CURRENT_USER == 15 || menu.CONFIG.ROL_CURRENT_USER == 16" >
+			            	<a href="#/lista-validacion">
+			            	<span class="glyphicon glyphicon-asterisk" aria-hidden="true"></span>
+			           		Empresas con Requisitos Validos</a>
+			            </li>
+			            <li ng-show="menu.CONFIG.ROL_CURRENT_USER == 1 || menu.CONFIG.ROL_CURRENT_USER == 15 || menu.CONFIG.ROL_CURRENT_USER == 16 || menu.CONFIG.ROL_CURRENT_USER == 14 || menu.CONFIG.ROL_CURRENT_USER == 2 || menu.CONFIG.ROL_CURRENT_USER == 17 || menu.CONFIG.ROL_CURRENT_USER == 18" >
+			            	<a href="#/lista-validacion">
+			            	<span class="glyphicon glyphicon-asterisk" aria-hidden="true"></span>
+			           		Inspectores e Inspecciones</a>
+			            </li>
+			            <li ng-show="menu.CONFIG.ROL_CURRENT_USER == 1  || menu.CONFIG.ROL_CURRENT_USER == 14 || menu.CONFIG.ROL_CURRENT_USER == 2 || menu.CONFIG.ROL_CURRENT_USER == 17 || menu.CONFIG.ROL_CURRENT_USER == 18" >
+			            	<a href="#/lista-cancelaron">
+			            	<span class="glyphicon glyphicon-asterisk" aria-hidden="true"></span>
+			           		Empresas que pagaron arancel</a>
+			            </li>
+			            <li ng-show="menu.CONFIG.ROL_CURRENT_USER == 1 || menu.CONFIG.ROL_CURRENT_USER == 14 " >
+			            	<a href="#/lista-concluidos">
+			            	<span class="glyphicon glyphicon-asterisk" aria-hidden="true"></span>
+			           		Empresas con Trámites concluidos</a>
+			            </li>
+				  	</ul>
+				</li> 
 				<!-- <li class="dropdown">
 				  	<a href="" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">
 					<span class="glyphicon glyphicon-th" aria-hidden="true"></span>
