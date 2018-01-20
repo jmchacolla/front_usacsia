@@ -138,7 +138,7 @@ DOMINIO_SERVICIOS: "http://localhost/usacsia_php_5.6/solo_api_dorys_git/api_usac
           $location.path(ROLES.PACIENTE.PATH);
         }
         else if (CONFIG.ROL_CURRENT_USER == 6) {
-          $location.path(ROLES.ESMPRESA.PATH);
+          $location.path(ROLES.EMPRESA.PATH);
         }
         else if (CONFIG.ROL_CURRENT_USER == 7) {
           $location.path(ROLES.ADMIN_CARNET.PATH);

@@ -214,7 +214,7 @@ console.log("propietario natural  ____",$scope.propietario);
     menu:{
       titulo: 'Gestión de Certificado Sanitario',
       items:[
-      {nombre:'Establecimientos solicitantes', enlace:'#/lista-solicitantes', estilo:'active'},
+      // {nombre:'Establecimientos solicitantes', enlace:'#/lista-solicitantes', estilo:'active'},
       {nombre:'Establecimientos validados', enlace:'#/lista-validacion', estilo:''},
       {nombre:'Establecimientos inspeccionados', enlace:'#/lista-inspeccionados', estilo:''}
       ]
@@ -283,94 +283,9 @@ console.log("propietario natural  ____",$scope.propietario);
     }); 
   
 
-
-
 }])
 
 
-
-.controller('ListaValidadosCtrl', ['$scope', '$http', 'moment', 'ListaEmpTraEtapaEstado', 'EmpresaTramite', '$route', '$resource','$routeParams', 'toastr', '$location', '$timeout','CONFIG', function ($scope, $http, moment, ListaEmpTraEtapaEstado, EmpresaTramite, $route, $resource,$routeParams, toastr, $location, $timeout,CONFIG) {
- $scope.user = {
-    rol_id: CONFIG.ROL_CURRENT_USER
-  }
-  if ($scope.user.rol_id == 16) {
-    $scope.ajustes = {
-    menu:{
-      titulo: 'Gestión de Certificado Sanitario',
-      items:[
-      {nombre:'Establecimientos validados', enlace:'#/lista-validacion', estilo:'active'},
-        {nombre:'Establecimientos inspeccionados', enlace:'#/lista-inspeccionados', estilo:''}
-       /*{nombre:'Propietarios Naturales', enlace:'#/tramites_nat', estilo:''},
-        {nombre:'Propietarios Juridicos', enlace:'#/tramites_jur', estilo:''},*/
-      ]
-    },
-    pagina:{
-      titulo:'Establecimientos Validados'
-    }
-  }
-  }else if ($scope.user.rol_id == 15) {
-    $scope.ajustes = {
-    menu:{
-      titulo: 'Gestión de Certificado Sanitario',
-      items:[
-      {nombre:'Establecimientos solicitantes', enlace:'#/lista-solicitantes', estilo:''},
-      {nombre:'Establecimientos validados', enlace:'#/lista-validacion', estilo:'active'},
-      {nombre:'Establecimientos inspeccionados', enlace:'#/lista-inspeccionados', estilo:''}
-      ]
-    },
-    pagina:{
-      titulo:'Establecimientos Validados'
-    }
-  }
-  }
-   else {
-        $scope.ajustes = {
-        menu:{
-          titulo: 'Gestión de Certificado Sanitario',
-          items:[
-          {nombre:'Establecimientos solicitantes', enlace:'#/lista-solicitantes', estilo:''},
-           {nombre:'Establecimientos validados', enlace:'#/lista-validacion', estilo:'active'},
-            {nombre:'Establecimientos inspeccionados', enlace:'#/lista-inspeccionados', estilo:''},
-            {nombre:'Establecimientos que cancelaron', enlace:'#/lista-cancelaron', estilo:''}
-            /*,
-            {nombre:'Esablecimientos que cancelaron naturales', enlace:'#/tramites_certi', estilo:''},
-            {nombre:'Esablecimientos que cancelaron Juridicos', enlace:'#/tramites_certiJ', estilo:''}*/]
-        },
-        pagina:{
-          titulo:'Establecimientos Validados'
-        }
-      }
-  }
-
-
-
-    $scope.sortType = 'te_fecha'; // ESTABLECIENDO EL TIPO DE ORDENAMIENTO
-    $scope.sortReverse  = true;  // PARA ORDENAR ASCENDENTEMENTO O DESCENDENTEMENTE
-    $scope.loading=true;//PARA HACER UN LOADING EN EL TEMPLATE
-    var condiciones={
-      eta_id:1,
-      te_estado:'APROBADO'
-
-    }
-  ListaEmpTraEtapaEstado.get(condiciones, function (argument) {
-      $scope.establecimientos = argument.empresa_tramite;
-      console.log('establecimientos', $scope.establecimientos);
-
-      angular.forEach($scope.establecimientos, function(value, key){
-            console.log( 'fecha:',value.te_fecha);
-            value.te_fecha=moment(value.te_fecha,"YYYY-MM-DD").format("DD-MM-YYYY");
-         });
-    //PARA HACER UN LOADING EN EL TEMPLATE  
-    if(argument.status){
-        $scope.loading = false;
-        $scope.msg = argument.status;
-      }
-    }); 
-  
-
-
-
-}])
 
 
 
@@ -396,7 +311,7 @@ console.log("propietario natural  ____",$scope.propietario);
   }else if ($scope.user.rol_id == 15) {
     $scope.ajustes = {
     menu:{
-      titulo: 'Establecimientos',
+      titulo: 'Gestión de Certificado Sanitario',
       items:[
       {nombre:'Establecimientos solicitantes', enlace:'#/lista-solicitantes', estilo:''},
       {nombre:'Establecimientos validados', enlace:'#/lista-validacion', estilo:''},
@@ -992,6 +907,59 @@ console.log("propietario natural  ____",$scope.propietario);
 
 
 }])
+
+
+
+
+.controller('ListaEstablecimientoPersonaCtrl', ['Establecimientos_x_Persona','$scope', '$route', 'EmpresaTramite','$resource','$routeParams', 'toastr', '$location', '$timeout','CONFIG',
+  function (Establecimientos_x_Persona,$scope, $route,EmpresaTramite, $resource,$routeParams, toastr, $location, $timeout,CONFIG) {
+   
+    var FunG = localStorage.getItem("Funcionario");
+
+    var FunG = JSON.parse(FunG);
+    var fun_id = FunG.fun_id;
+
+    $scope.ver_establecimientos=false;
+    var per_ci=0;
+    $scope.ver_est=function(a,per_ci){
+      if(a){
+        $scope.ver_establecimientos=false;
+      }else{
+        $scope.ver_establecimientos=true;
+      }
+    };
+    var essid;
+    $scope.get_id=function(ess_id,ess_nombre){
+      essid=ess_id;
+      $scope.ess_razon_social=ess_nombre;
+    };
+
+    $scope.crear_renovacion=function(){
+      $scope.renovacion={
+        ess_id:essid,
+        fun_id:fun_id,
+        tra_id:2,
+        et_tipo_tramite:"RENOVACIÓN"
+      };
+
+      EmpresaTramite.save($scope.renovacion).$promise.then(function(data){
+        if(data.status){
+          toastr.success('Tramite Generado Correctamente');
+        }
+      });
+    };
+    
+
+    Establecimientos_x_Persona.get({per_ci:$scope.parametro}, function (data) {
+      $scope.establecimientos_x_persona = data.establecimentos_x_persona;
+      console.log('establecimientos', data);
+    }); 
+
+}])
+
+
+
+
 
 
 
