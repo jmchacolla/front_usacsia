@@ -521,7 +521,7 @@ angular.module("adminApp", ["authService", "ngRoute", "ngResource", "satellizer"
     templateUrl: 'templates/empresatramite/lista-validacion.html',
     controller: 'ListaValidadosCtrl',
     data: {
-      authorized: [ROLES.ADMIN_USACSIA.ROL, ROLES.ADMIN_CERTIFICADO.ROL, ROLES.REVISOR.ROL]
+      authorized: [ROLES.ADMIN_USACSIA.ROL, ROLES.ADMIN_CERTIFICADO.ROL, ROLES.REVISOR.ROL,  ROLES.INSPECTOR.ROL]
     }
   })
   //etapa 2 =APROBADO

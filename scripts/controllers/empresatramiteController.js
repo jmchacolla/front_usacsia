@@ -287,6 +287,87 @@ console.log("propietario natural  ____",$scope.propietario);
 }])
 
 
+.controller('ListaValidadosCtrl', ['$scope', '$http', 'moment', 'ListaInspector', 'EmpresaTramite', '$route', '$resource','$routeParams', 'toastr', '$location', '$timeout','CONFIG', function ($scope, $http, moment, ListaInspector, EmpresaTramite, $route, $resource,$routeParams, toastr, $location, $timeout,CONFIG) {
+ $scope.user = {
+    rol_id: CONFIG.ROL_CURRENT_USER
+  }
+  if ($scope.user.rol_id == 16) {
+    $scope.ajustes = {
+    menu:{
+      titulo: 'Gestión de Certificado Sanitario',
+      items:[
+      {nombre:'Establecimientos validados', enlace:'#/lista-validacion', estilo:'active'},
+        {nombre:'Establecimientos inspeccionados', enlace:'#/lista-inspeccionados', estilo:''}
+       /*{nombre:'Propietarios Naturales', enlace:'#/tramites_nat', estilo:''},
+        {nombre:'Propietarios Juridicos', enlace:'#/tramites_jur', estilo:''},*/
+      ]
+    },
+    pagina:{
+      titulo:'Establecimientos Validados'
+    }
+  }
+  }else if ($scope.user.rol_id == 15) {
+    $scope.ajustes = {
+    menu:{
+      titulo: 'Gestión de Certificado Sanitario',
+      items:[
+      {nombre:'Establecimientos solicitantes', enlace:'#/lista-solicitantes', estilo:''},
+      {nombre:'Establecimientos validados', enlace:'#/lista-validacion', estilo:'active'},
+      {nombre:'Establecimientos inspeccionados', enlace:'#/lista-inspeccionados', estilo:''}
+      ]
+    },
+    pagina:{
+      titulo:'Establecimientos Validados'
+    }
+  }
+  }
+   else {
+        $scope.ajustes = {
+        menu:{
+          titulo: 'Gestión de Certificado Sanitario',
+          items:[
+          {nombre:'Establecimientos solicitantes', enlace:'#/lista-solicitantes', estilo:''},
+           {nombre:'Establecimientos validados', enlace:'#/lista-validacion', estilo:'active'},
+            {nombre:'Establecimientos inspeccionados', enlace:'#/lista-inspeccionados', estilo:''},
+            {nombre:'Establecimientos que cancelaron', enlace:'#/lista-cancelaron', estilo:''}
+            /*,
+            {nombre:'Esablecimientos que cancelaron naturales', enlace:'#/tramites_certi', estilo:''},
+            {nombre:'Esablecimientos que cancelaron Juridicos', enlace:'#/tramites_certiJ', estilo:''}*/]
+        },
+        pagina:{
+          titulo:'Establecimientos Validados'
+        }
+      }
+  }
+
+
+
+    $scope.sortType = 'te_fecha'; // ESTABLECIENDO EL TIPO DE ORDENAMIENTO
+    $scope.sortReverse  = true;  // PARA ORDENAR ASCENDENTEMENTO O DESCENDENTEMENTE
+    $scope.loading=true;//PARA HACER UN LOADING EN EL TEMPLATE
+  var FunG = localStorage.getItem("Funcionario");
+  var FunG = JSON.parse(FunG);
+  var fun_id = FunG.fun_id;
+  //LISTA DE INSPECTORES
+  ListaInspector.get({fun_id:fun_id}, function (argument) {
+      $scope.establecimientos = argument.empresa_tramite;
+
+
+      angular.forEach($scope.establecimientos, function(value, key){
+            console.log( 'fecha:',value.te_fecha);
+            value.te_fecha=moment(value.te_fecha,"YYYY-MM-DD").format("DD-MM-YYYY");
+         });
+    //PARA HACER UN LOADING EN EL TEMPLATE  
+    if(argument.status){
+        $scope.loading = false;
+        $scope.msg = argument.status;
+      }
+    }); 
+  
+
+
+
+}])
 
 
 
