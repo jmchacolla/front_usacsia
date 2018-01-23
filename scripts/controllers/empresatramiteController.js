@@ -4,11 +4,10 @@ angular.module("adminApp")
 .controller('BuscarPropietarioCtrl', ['$scope', '$http', 'moment', 'BuscarPropietario', 'EmpresaTramite', '$route', '$resource', '$routeParams', 'toastr', '$location', '$timeout', 'CONFIG','Usuarios', function ($scope, $http, moment, BuscarPropietario, EmpresaTramite, $route, $resource,$routeParams, toastr, $location, $timeout,CONFIG,Usuarios) {
     $scope.ajustes = {
       menu:{
-        titulo: 'Búsqueda de Establecimiento',
+        titulo: 'Gestión de pagos de certificado',
         items:[
            {nombre:'Buscar empresa solicitante', enlace:'#/buscar-propietario', estilo:'active'},
-           {nombre:'Establecimientos solicitantes', enlace:'#/lista-solicitantes', estilo:''}
-          // {nombre:'Registrar pago', enlace:'#/boleta-ces/'+et_id, estilo:''},
+            {nombre:'Trámites pagados', enlace:'#/tramite-establecimientosol', estilo:''}
         ]
       },
       pagina:{
@@ -179,8 +178,9 @@ angular.module("adminApp")
     var et_id=$routeParams.et_id;
     EmpTra.get({et_id:et_id},function(data){
       $scope.establecimiento=data.establecimiento;
+
       console.log("ver est____",$scope.establecimiento);
-console.log("length   ____",Object.keys($scope.establecimiento.propietario).length);
+      console.log("length   ____",Object.keys($scope.establecimiento.propietario).length);
       if (Object.keys($scope.establecimiento.propietario).length==7) {
         $scope.propietario=$scope.establecimiento.propietario.pjur_razon_social;
         console.log("propietario juridico  ____",$scope.propietario);
@@ -205,7 +205,8 @@ console.log("propietario natural  ____",$scope.propietario);
     $location.path('/inicio');
   }*/
 }])
- .controller('ListaSolicitantesCtrl', ['$scope', '$http', 'moment', 'ListaEmpTraEtapaEstado', 'EmpresaTramite', '$route', '$resource','$routeParams', 'toastr', '$location', '$timeout','CONFIG', function ($scope, $http, moment, ListaEmpTraEtapaEstado, EmpresaTramite, $route, $resource,$routeParams, toastr, $location, $timeout,CONFIG) {
+
+.controller('ListaSolicitantesCtrl', ['$scope', '$http', 'moment', 'ListaEmpTraEtapaEstado', 'EmpresaTramite', '$route', '$resource','$routeParams', 'toastr', '$location', '$timeout','CONFIG', function ($scope, $http, moment, ListaEmpTraEtapaEstado, EmpresaTramite, $route, $resource,$routeParams, toastr, $location, $timeout,CONFIG) {
  $scope.user = {
     rol_id: CONFIG.ROL_CURRENT_USER
   }
@@ -242,15 +243,14 @@ console.log("propietario natural  ____",$scope.propietario);
   else {
         $scope.ajustes = {
         menu:{
-          titulo: 'Gestión de Certificado Sanitario',
+          titulo: 'Gestión de Establecimientos Solicitantes',
           items:[
           {nombre:'Establecimientos solicitantes', enlace:'#/lista-solicitantes', estilo:'active'},
            {nombre:'Establecimientos validados', enlace:'#/lista-validacion', estilo:''},
             {nombre:'Establecimientos inspeccionados', enlace:'#/lista-inspeccionados', estilo:''},
             {nombre:'Establecimientos que cancelaron', enlace:'#/lista-cancelaron', estilo:''}
-            /*,
-            {nombre:'Esablecimientos que cancelaron naturales', enlace:'#/tramites_certi', estilo:''},
-            {nombre:'Esablecimientos que cancelaron Juridicos', enlace:'#/tramites_certiJ', estilo:''}*/]
+            ,
+            {nombre:'Establecimientos concluidos', enlace:'#/lista-concluidos', estilo:''}]
         },
         pagina:{
           titulo:'Establecimientos Solicitantes'
@@ -294,12 +294,10 @@ console.log("propietario natural  ____",$scope.propietario);
   if ($scope.user.rol_id == 16) {
     $scope.ajustes = {
     menu:{
-      titulo: 'Gestión de Certificado Sanitario',
+      titulo: 'Gestión de Establecimientos Solicitantes',
       items:[
       {nombre:'Establecimientos validados', enlace:'#/lista-validacion', estilo:'active'},
         {nombre:'Establecimientos inspeccionados', enlace:'#/lista-inspeccionados', estilo:''}
-       /*{nombre:'Propietarios Naturales', enlace:'#/tramites_nat', estilo:''},
-        {nombre:'Propietarios Juridicos', enlace:'#/tramites_jur', estilo:''},*/
       ]
     },
     pagina:{
@@ -309,9 +307,9 @@ console.log("propietario natural  ____",$scope.propietario);
   }else if ($scope.user.rol_id == 15) {
     $scope.ajustes = {
     menu:{
-      titulo: 'Gestión de Certificado Sanitario',
+      titulo: 'Gestión de Establecimientos Solicitantes',
       items:[
-      {nombre:'Establecimientos solicitantes', enlace:'#/lista-solicitantes', estilo:''},
+      {nombre:'Revisar Requisitos', enlace:'#/tramite-establecimientosol', estilo:''},
       {nombre:'Establecimientos validados', enlace:'#/lista-validacion', estilo:'active'},
       {nombre:'Establecimientos inspeccionados', enlace:'#/lista-inspeccionados', estilo:''}
       ]
@@ -324,15 +322,13 @@ console.log("propietario natural  ____",$scope.propietario);
    else {
         $scope.ajustes = {
         menu:{
-          titulo: 'Gestión de Certificado Sanitario',
+          titulo: 'Gestión de Establecimientos Solicitantes',
           items:[
-          {nombre:'Establecimientos solicitantes', enlace:'#/lista-solicitantes', estilo:''},
+          {nombre:'Trámites pagados', enlace:'#/tramite-establecimientosol', estilo:''},
            {nombre:'Establecimientos validados', enlace:'#/lista-validacion', estilo:'active'},
             {nombre:'Establecimientos inspeccionados', enlace:'#/lista-inspeccionados', estilo:''},
-            {nombre:'Establecimientos que cancelaron', enlace:'#/lista-cancelaron', estilo:''}
-            /*,
-            {nombre:'Esablecimientos que cancelaron naturales', enlace:'#/tramites_certi', estilo:''},
-            {nombre:'Esablecimientos que cancelaron Juridicos', enlace:'#/tramites_certiJ', estilo:''}*/]
+            {nombre:'Establecimientos que cancelaron', enlace:'#/lista-cancelaron', estilo:''},
+            {nombre:'Establecimientos concluidos', enlace:'#/lista-concluidos', estilo:''}]
         },
         pagina:{
           titulo:'Establecimientos Validados'
@@ -378,12 +374,11 @@ console.log("propietario natural  ____",$scope.propietario);
   if ($scope.user.rol_id == 16) {
     $scope.ajustes = {
     menu:{
-      titulo: 'Lista de establecimientos inspeccionados',
+      titulo: 'Gestión de Establecimientos Solicitantes',
       items:[
       {nombre:'Establecimientos validados', enlace:'#/lista-validacion', estilo:''},
         {nombre:'Establecimientos inspeccionados', enlace:'#/lista-inspeccionados', estilo:'active'}
-      /* {nombre:'Propietarios Naturales', enlace:'#/tramites_nat', estilo:''},
-        {nombre:'Propietarios Juridicos', enlace:'#/tramites_jur', estilo:''},*/
+
      ]
     },
     pagina:{
@@ -393,9 +388,9 @@ console.log("propietario natural  ____",$scope.propietario);
   }else if ($scope.user.rol_id == 15) {
     $scope.ajustes = {
     menu:{
-      titulo: 'Gestión de Certificado Sanitario',
+      titulo: 'Gestión de Establecimientos Solicitantes',
       items:[
-      {nombre:'Establecimientos solicitantes', enlace:'#/lista-solicitantes', estilo:''},
+      {nombre:'Revisar Requisitos', enlace:'#/tramite-establecimientosol', estilo:''},
       {nombre:'Establecimientos validados', enlace:'#/lista-validacion', estilo:''},
       {nombre:'Establecimientos inspeccionados', enlace:'#/lista-inspeccionados', estilo:'active'}
       ]
@@ -408,14 +403,13 @@ console.log("propietario natural  ____",$scope.propietario);
    else {
     $scope.ajustes = {
     menu:{
-      titulo: 'Gestión de Certificado Sanitario',
+      titulo: 'Gestión de Establecimientos Solicitantes',
       items:[
-      {nombre:'Establecimientos solicitantes', enlace:'#/lista-solicitantes', estilo:''},
-       {nombre:'Establecimientos validados', enlace:'#/lista-validacion', estilo:''},
-        {nombre:'Establecimientos inspeccionados', enlace:'#/lista-inspeccionados', estilo:'active'},
-        {nombre:'Establecimientos que cancelaron', enlace:'#/lista-cancelaron', estilo:''}/*,
-        {nombre:'Esablecimientos que cancelaron naturales', enlace:'#/tramites_certi', estilo:''},
-        {nombre:'Esablecimientos que cancelaron Juridicos', enlace:'#/tramites_certiJ', estilo:''}*/]
+          {nombre:'Trámites pagados', enlace:'#/tramite-establecimientosol', estilo:''},
+          {nombre:'Establecimientos validados', enlace:'#/lista-validacion', estilo:''},
+          {nombre:'Establecimientos inspeccionados', enlace:'#/lista-inspeccionados', estilo:'active'},
+          {nombre:'Establecimientos que cancelaron', enlace:'#/lista-cancelaron', estilo:''},
+          {nombre:'Establecimientos concluidos', enlace:'#/lista-concluidos', estilo:''}]
     },
     pagina:{
       titulo:'Establecimientos inspeccionados'
@@ -472,34 +466,33 @@ console.log("propietario natural  ____",$scope.propietario);
 }])
 
 
-.controller('ListaCancelaronCtrl', ['$scope', '$http', 'moment', 'ListaEmpTraEtapaEstado', 'EmpresaTramite', '$route', '$resource','$routeParams', 'toastr', '$location', '$timeout','CONFIG','Verpropietario','VerEs','Prueba','CertificadoSanitario','EmpTra', function ($scope, $http, moment, ListaEmpTraEtapaEstado, EmpresaTramite, $route, $resource,$routeParams, toastr, $location, $timeout,CONFIG,Verpropietario,VerEs,Prueba,CertificadoSanitario,EmpTra) {
+.controller('ListaCancelaronCtrl', ['$scope', '$http', 'moment', 'ListaEmpTraEtapaEstado', 'EmpresaTramite', '$route', '$resource','$routeParams', 'toastr', '$location', '$timeout','CONFIG','Verpropietario','VerEs','Prueba','CertificadoSanitario','EmpTra','EmpresaTramiteEstado', function ($scope, $http, moment, ListaEmpTraEtapaEstado, EmpresaTramite, $route, $resource,$routeParams, toastr, $location, $timeout,CONFIG,Verpropietario,VerEs,Prueba,CertificadoSanitario,EmpTra,EmpresaTramiteEstado) {
  $scope.user = {
     rol_id: CONFIG.ROL_CURRENT_USER
   }
   if ($scope.user.rol_id == 16) {
     $scope.ajustes = {
     menu:{
-      titulo: 'Gestión de Certificado Sanitario',
+      titulo: 'Gestión de Establecimientos Solicitantes',
       items:[
       {nombre:'Establecimientos validados', enlace:'#/lista-validacion', estilo:''},
-        {nombre:'Establecimientos inspeccionados', enlace:'#/lista-inspeccionados', estilo:''},
-        {nombre:'Establecimientos que cancelaron', enlace:'#/lista-cancelaron', estilo:'active'}
+        {nombre:'Establecimientos inspeccionados', enlace:'#/lista-inspeccionados', estilo:''}
      ]
     },
     pagina:{
       titulo:'Establecimientos que pagaron arancel'
     }
   }
-  } else if ($scope.user.rol_id == 14 || $scope.user.rol_id == 2 || $scope.user.rol_id == 1) {
+  } else if ($scope.user.rol_id == 14 ||$scope.user.rol_id == 1) {
     $scope.ajustes = {
       menu:{
         titulo: 'Gestión de Certificado Sanitario',
         items:[ 
-
-          {nombre:'Establecimientos solicitantes', enlace:'#/lista-solicitantes', estilo:''},
-           {nombre:'Establecimientos validados', enlace:'#/lista-validacion', estilo:''},
+            {nombre:'Trámites pagados', enlace:'#/tramite-establecimientosol', estilo:''},
+            {nombre:'Establecimientos validados', enlace:'#/lista-validacion', estilo:''},
             {nombre:'Establecimientos inspeccionados', enlace:'#/lista-inspeccionados', estilo:''},
-            {nombre:'Establecimientos que cancelaron', enlace:'#/lista-cancelaron', estilo:'active'}
+            {nombre:'Establecimientos para aprobación', enlace:'#/lista-cancelaron', estilo:'active'},
+            {nombre:'Establecimientos concluidos', enlace:'#/lista-concluidos', estilo:''}
           
           ]
       },
@@ -507,20 +500,33 @@ console.log("propietario natural  ____",$scope.propietario);
         titulo:'Establecimientos que pagaron arancel'
       }
     }
-  }
-   else {
+  }else if ($scope.user.rol_id == 2 || $scope.user.rol_id == 17 || $scope.user.rol_id == 18) {
     $scope.ajustes = {
-    menu:{
-      titulo: 'Lista de establecimientos que pagaron arancel',
-      items:[
-       {nombre:'Establecimientos validados', enlace:'#/lista-validacion', estilo:''},
-        {nombre:'Establecimientos inspeccionados', enlace:'#/lista-inspeccionados', estilo:''},
-        {nombre:'Establecimientos que cancelaron', enlace:'#/lista-cancelaron', estilo:'active'}]
-    },
-    pagina:{
-      titulo:'Establecimientos que pagaron arancel'
+      menu:{
+        titulo: 'Gestión de Establecimientos Solicitantes',
+        items:[ 
+           
+            {nombre:'Establecimientos para aprobación', enlace:'#/lista-cancelaron', estilo:'active'}
+          
+          ]
+      },
+      pagina:{
+        titulo:'Establecimientos para aprobación'
+      }
     }
-  }
+  } else {
+      $scope.ajustes = {
+      menu:{
+        titulo: 'Gestión de Establecimientos Solicitantes',
+        items:[
+         {nombre:'Establecimientos validados', enlace:'#/lista-validacion', estilo:''},
+          {nombre:'Establecimientos inspeccionados', enlace:'#/lista-inspeccionados', estilo:''},
+          {nombre:'Establecimientos para aprobación', enlace:'#/lista-cancelaron', estilo:'active'}]
+      },
+      pagina:{
+        titulo:'Establecimientos que pagaron arancel'
+      }
+    }
   }
 
 
@@ -599,6 +605,8 @@ console.log("propietario natural  ____",$scope.propietario);
     };
     
   }; //fin rec
+
+
   $scope.recepcionar1=function(obs){
     VerEs.get({et_id:id,eta_id:3}, function(data){
       $scope.estado3 =data.tramitecerestado;
@@ -843,6 +851,17 @@ console.log("propietario natural  ____",$scope.propietario);
                 Prueba.update({et_id:id,eta_id:7}, $scope.datos3).$promise.then(function(data){
                   if(data.status){
                     toastr.success('Aprobacion correcta');
+                    $scope.estado={
+                      et_estado_tramite:'APROBADO'
+                    };
+                    EmpresaTramiteEstado.update({et_id:id}, $scope.estado).$promise.then(function(data)
+                    {
+                        if(data.status)
+                        {
+                            console.log("lo logro...",data);
+                            toastr.success('Guardado correctamente');
+                        }
+                    });//FIN estado
                       /*$scope.certificado3={
                           ces_fir_url3:$scope.firmas.firma.fir_url,
                           ces_fir_nombre3:$scope.firmas.firma.fir_name
@@ -883,32 +902,18 @@ console.log("propietario natural  ____",$scope.propietario);
    $scope.user = {
       rol_id: CONFIG.ROL_CURRENT_USER
     }
-    if ($scope.user.rol_id == 16) {
-        $scope.ajustes = {
+    if ($scope.user.rol_id == 14) {
+       $scope.ajustes = {
         menu:{
-          titulo: 'Lista de establecimientos inspeccionados',
+          titulo: 'Gestión de Establecimientos Solicitantes',
           items:[
-          {nombre:'Establecimientos validados', enlace:'#/lista-validacion', estilo:''},
-            {nombre:'Establecimientos inspeccionados', enlace:'#/lista-inspeccionados', estilo:'active'}
-          /* {nombre:'Propietarios Naturales', enlace:'#/tramites_nat', estilo:''},
-            {nombre:'Propietarios Juridicos', enlace:'#/tramites_jur', estilo:''},*/
-           ]
-          },
-          pagina:{
-            titulo:'Establecimientos inspeccionados'
-          }
-        }
-    }else{
-      $scope.ajustes = {
-        menu:{
-          titulo: 'Lista de establecimientos inspeccionados',
-          items:[
-          {nombre:'Establecimientos solicitantes', enlace:'#/lista-solicitantes', estilo:''},
+          {nombre:'Trámites pagados', enlace:'#/tramite-establecimientosol', estilo:''},
            {nombre:'Establecimientos validados', enlace:'#/lista-validacion', estilo:''},
-            {nombre:'Establecimientos inspeccionados', enlace:'#/lista-inspeccionados', estilo:'active'},
-            {nombre:'Establecimientos que cancelaron', enlace:'#/lista-cancelaron', estilo:''},
-            {nombre:'Esablecimientos que cancelaron naturales', enlace:'#/tramites_certi', estilo:''},
-            {nombre:'Esablecimientos que cancelaron Juridicos', enlace:'#/tramites_certiJ', estilo:''}]
+            {nombre:'Establecimientos inspeccionados', enlace:'#/lista-inspeccionados', estilo:''},
+            {nombre:'Establecimientos que cancelaron', enlace:'#/lista-cancelaron', estilo:''}
+            ,
+            {nombre:'Establecimientos concluidos', enlace:'#/lista-concluidos', estilo:'active'}
+          ]
         },
         pagina:{
           titulo:'Establecimientos inspeccionados'
@@ -1040,7 +1045,56 @@ console.log("propietario natural  ____",$scope.propietario);
 }])
 
 
+.controller('ListaPendCtrl', ['$scope', '$http', 'moment', 'EmpresaPendiente', 'Inspectores', '$route', '$resource','$routeParams', 'toastr', '$location', '$timeout','CONFIG', function ($scope, $http, moment, EmpresaPendiente, Inspectores, $route, $resource,$routeParams, toastr, $location, $timeout,CONFIG) {
+ $scope.user = {
+    rol_id: CONFIG.ROL_CURRENT_USER
+  }
+  if ($scope.user.rol_id == 14) {
+    $scope.ajustes = {
+    menu:{
+      titulo: 'Gestión de Establecimientos que no cancelaron',
+      items:[
+        {nombre:'Establecimientos validados', enlace:'#//lista-pendientes', estilo:'active'}
+      ]
+    },
+    pagina:{
+      titulo:'Establecimientos que no cancelaron'
+    }
+  }
+  } 
 
+
+
+    $scope.sortType = 'te_fecha'; // ESTABLECIENDO EL TIPO DE ORDENAMIENTO
+    $scope.sortReverse  = true;  // PARA ORDENAR ASCENDENTEMENTO O DESCENDENTEMENTE
+    $scope.loading=true;//PARA HACER UN LOADING EN EL TEMPLATE
+    var condiciones={
+      eta_id:1,
+      te_estado:'PENDIENTE'
+
+    }
+  Inspectores.get(condiciones, function (argument) {
+      $scope.funcionarios = argument.funcionario;
+      console.log('establecimientos', $scope.funcionarios);
+ 
+  
+    }); 
+  $scope.zon=false;
+  $scope.ver_zonas=function(mun_id){
+      console.log(mun_id+"<<< MUN_ID");
+     
+      EmpresaPendiente.get({fun_id:mun_id}, function(data){
+          $scope.zona_inspeccion=data.zona_inspeccion;
+          console.log("ZOnasss",$scope.zonas);
+          //Agregando 26/10/17
+          /*if($scope.zonas.length == 0){*/
+                $scope.zon=true;
+         /* }*/
+          
+      })
+  };
+
+}])
 
 
 
