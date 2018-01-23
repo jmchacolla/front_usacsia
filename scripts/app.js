@@ -16,6 +16,27 @@ angular.module("adminApp", ["authService", "ngRoute", "ngResource", "satellizer"
     authorized: [ ROLES.MEDICO.ROL, ROLES.ENFERMERA.ROL]
   }
 })
+
+/*estbas 18 y 19*/
+
+.when('/ejemplo_paginacion', {//--------medico
+  templateUrl: 'templates/persona/borrar.html',
+  controller: 'BorrarCtrl',
+  
+})
+
+
+
+
+
+
+
+
+
+
+
+
+
 //persona_tramite lista para atender pacientes para medico
 .when('/atencion-consulta', {
   templateUrl: 'templates/personatramite/atencionconsulta.html',
@@ -148,8 +169,8 @@ angular.module("adminApp", ["authService", "ngRoute", "ngResource", "satellizer"
       authorized: [ROLES.ADMIN_USACSIA.ROL]
     }
   })
-/******************************************funcionario**********************************/
-    .when('/funcionarios', {  //lista a los funcionarios de USACSIA
+/******************************************       funcionario          **********************************/
+  .when('/funcionarios', {  //lista a los funcionarios de USACSIA
     templateUrl: 'templates/funcionario/funcionarios.html',
     controller: 'FuncionarioCtrl',
     data: {
@@ -172,7 +193,7 @@ angular.module("adminApp", ["authService", "ngRoute", "ngResource", "satellizer"
     }
   })
   //crar funcionario cuando ya existe la persona
-    .when('/funcionarios/createfo', {
+  .when('/funcionarios/createfo', {
     templateUrl: 'templates/funcionario/create.html',
     controller: 'CreateFunCtrl',
     data: {
@@ -180,7 +201,7 @@ angular.module("adminApp", ["authService", "ngRoute", "ngResource", "satellizer"
     }
   })
     //añadido 20-12-2017 -- CREAR FUNCIONARIO CUNDO EXISTE LA PERSONA
-    .when('/funcionarios/create_fun/:per_id', {
+  .when('/funcionarios/create_fun/:per_id', {
     templateUrl: 'templates/funcionario/create_fun.html',
     controller: 'CreateFuCtrl',
     data: {
@@ -287,7 +308,7 @@ angular.module("adminApp", ["authService", "ngRoute", "ngResource", "satellizer"
     templateUrl: 'templates/establecimiento_solicitante/establecimientos.html',
     controller: 'ListaEstabSolCtrl'  ,
   data: {
-      authorized: [ROLES.ADMIN_USACSIA.ROL,ROLES.REVISOR.ROL]
+      authorized: [ROLES.ADMIN_USACSIA.ROL,ROLES.ADMIN_CERTIFICADO.ROL]
     }
   }) 
 
@@ -296,7 +317,7 @@ angular.module("adminApp", ["authService", "ngRoute", "ngResource", "satellizer"
     templateUrl: 'templates/establecimiento_solicitante/tramite_establecimientos.html',
     controller: 'ListaEstabSolTramitePagadoCtrl'  ,
   data: {
-      authorized: [ROLES.ADMIN_USACSIA.ROL,ROLES.REVISOR.ROL]
+      authorized: [ROLES.ADMIN_USACSIA.ROL,ROLES.REVISOR.ROL,ROLES.CAJERO.ROL]
     }
   })
 
@@ -310,7 +331,7 @@ angular.module("adminApp", ["authService", "ngRoute", "ngResource", "satellizer"
 //no existe 14-1-2018
     .when('/establecimientosol/ver/:et_id', { 
     templateUrl: 'templates/establecimiento_solicitante/crear2.html',
-    controller: 'CrearEstablecimientoSolicitanteCtrl',
+    controller: 'VerEstablecimientoSolicitanteCtrl',
       data: {
       authorized: [ROLES.ADMIN_USACSIA.ROL]
     }
@@ -483,13 +504,10 @@ angular.module("adminApp", ["authService", "ngRoute", "ngResource", "satellizer"
       authorized: [ROLES.ADMIN_USACSIA.ROL,ROLES.ADMIN_CERTIFICADO.ROL,ROLES.INSPECTOR.ROL]
     }
   })
-  .when('/sancion/ver/:fc_id/:nom',{
+/*  .when('/sancion/ver/:fc_id/:nom',{
    templateUrl:'templates/ficha_inspeccion/sanciones.html',
-   controller: 'SancionesCtrl'/*,
-    data: {
-      authorized: [ROLES.ADMIN_SEDES.ROL]
-    }*/
-  })
+   controller: 'SancionesCtrl'
+  })*/
   //=========================         ASIGNACION DE ZONAS     ==============================
 
   .when('/asignacion_zonas/crear',{
@@ -504,8 +522,16 @@ angular.module("adminApp", ["authService", "ngRoute", "ngResource", "satellizer"
    templateUrl:'templates/empresatramite/ver.html',
    controller: 'VerEmpresaCtrl',
     data: {
-      authorized: [ROLES.ADMIN_USACSIA.ROL,ROLES.ADMIN_CARNET.ROL]
+      authorized: [ROLES.ADMIN_USACSIA.ROL,ROLES.ADMIN_CERTIFICADO.ROL]
     }
+  })
+  //ver establecimiento solicitante
+  .when('/estasblecimiento_solicitante/ver/:ess_id',{
+   templateUrl:'templates/establecimiento_solicitante/ver.html',
+   controller: 'VerEssCtrl',
+    /*data: {
+      authorized: [ROLES.ADMIN_USACSIA.ROL,ROLES.ADMIN_CARNET.ROL]
+    }*/
   })
 //=========================         EMPRESA TRAMITE     =======================================
    //etapa 1 =PENDIENTE
@@ -521,7 +547,11 @@ angular.module("adminApp", ["authService", "ngRoute", "ngResource", "satellizer"
     templateUrl: 'templates/empresatramite/lista-validacion.html',
     controller: 'ListaValidadosCtrl',
     data: {
+
+      authorized: [ROLES.ADMIN_USACSIA.ROL, ROLES.ADMIN_CERTIFICADO.ROL,ROLES.REVISOR.ROL, ROLES.INSPECTOR.ROL]
+/*=======
       authorized: [ROLES.ADMIN_USACSIA.ROL, ROLES.ADMIN_CERTIFICADO.ROL, ROLES.REVISOR.ROL,  ROLES.INSPECTOR.ROL]
+>>>>>>> da1c91b4eda4034c187eba0d5cb0b5c7fb1b1000*/
     }
   })
   //etapa 2 =APROBADO

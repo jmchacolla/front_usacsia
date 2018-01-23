@@ -94,7 +94,7 @@
 
                                                 <div class="row">
                                                     <div class="col-md-6">
-                                                        <label for="nrs" class="control-label text-primary">Horario de atenciósadfn: <strong class="fg_red">*</strong></label>
+                                                        <label for="nrs" class="control-label text-primary">Horario de atención: <strong class="fg_red">*</strong></label>
                                                         <div class="form-group">
                                                             <label for="ehih" class="col-lg-2 control-label">De: </label>
                                                             <div class="col-lg-10">
@@ -155,7 +155,6 @@
                                         <label class="control-label text-primary" for="tipo">Teléfono:</label>
                                             <input type="number" class="form-control" name="telefono" placeholder="Ej: 2262626" ng-model="establecimiento.ess_telefono" ng-model-options="{ updateOn: 'blur' }" min="2000000" max="79999999">
                                             <span class="messages" ng-show="estForm.telefono.$touched">
-                                                <span ng-show="estForm.telefono.$error.required">El campo es obligatorio.</span>
                                                 <span ng-show="estForm.telefono.$error.min">Número de teléfono incorrecto, el número no puede ser menor a 2000000.</span>
                                                 <span ng-show="estForm.telefono.$error.max">Número de teléfono incorrecto, el número no puede ser mayor a 79999999.</span>
                                             </span>

@@ -207,6 +207,12 @@ angular.module("adminApp")
     update: {method: "PUT", params: {}}
   })
 }])
+//------------------------CREAR FICHA 4----------------------------
+.factory('Ficha4', ['$resource', 'CONFIG', function ($resource, CONFIG) {
+  return $resource(CONFIG.DOMINIO_SERVICIOS+"/ficha4", {}, {
+    update: {method: "PUT", params: {}}
+  })
+}])
 //------------------------CREAR FICHA 6----------------------------
 .factory('Ficha6', ['$resource', 'CONFIG', function ($resource, CONFIG) {
   return $resource(CONFIG.DOMINIO_SERVICIOS+"/ficha6", {}, {
@@ -347,7 +353,7 @@ angular.module("adminApp")
 //cambiar de estado tramitecer **********PRUEBA
 
 .factory('Prueba', ['$resource', 'CONFIG', function ($resource, CONFIG){
-  return $resource(CONFIG.DOMINIO_SERVICIOS+"/wen2/:et_id/:eta_id", {et_id:"@_et_id",eta_id:"@_eta_id"}, {update: {method: "PUT", params: {et_id: "@et_id",eta_id:"@eta_id"}}
+  return $resource(CONFIG.DOMINIO_SERVICIOS+"/tramitecer_estado_busca/:et_id/:eta_id", {et_id:"@_et_id",eta_id:"@_eta_id"}, {update: {method: "PUT", params: {et_id: "@et_id",eta_id:"@eta_id"}}
   })
 }])
 /*.factory('wen', ['$resource', 'CONFIG', function ($resource, CONFIG){
@@ -431,7 +437,7 @@ angular.module("adminApp")
   })
 }])
 
-//ver sanciones de una ficha
+//BUSCAR SI EXISTE UN FUNCIONARIO
 .factory('UsuariosB', ['$resource', 'CONFIG', function ($resource, CONFIG) {
   return $resource(CONFIG.DOMINIO_SERVICIOS+"/user_buscar/:usu_identificador", {usu_identificador:"@_usu_identificador"}, {
     update: {method: "PUT", params: {usu_identificador: "@usu_identificador"}}
@@ -442,6 +448,12 @@ angular.module("adminApp")
 .factory('EmpresaPendiente', ['$resource', 'CONFIG', function ($resource, CONFIG) {
   return $resource(CONFIG.DOMINIO_SERVICIOS+"/zonains_funcionario/:fun_id", {fun_id:"@_fun_id"}, {
     update: {method: "PUT", params: {fun_id: "@fun_id"}}
+  })
+}])
+//CAMBIAR ESTADO TRAMITE A APROBADO
+.factory('EmpresaTramiteEstado', ['$resource', 'CONFIG', function ($resource, CONFIG) {
+  return $resource(CONFIG.DOMINIO_SERVICIOS+"/empresatramite_estado/:et_id", {et_id:"@_et_id"}, {
+    update: {method: "PUT", params: {et_id: "@et_id"}}
   })
 }])
 

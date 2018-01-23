@@ -7,7 +7,7 @@ angular.module("adminApp")
     menu:{
       titulo: 'Gestión de Establecimientos Solicitantes',
       items:[
-        {nombre:'Revisar Requisitos', enlace:'#/tramite-establecimientosol', estilo:''},
+      
         {nombre:'Establecimientos Registrados', enlace:'#/establecimientossol', estilo:'active'},
         {nombre:'Registrar establecimiento', enlace:'#/establecimientosol/persona', estilo:''}]
     },
@@ -102,21 +102,82 @@ angular.module("adminApp")
 
 
 
-.controller('ListaEstabSolTramitePagadoCtrl', ['$scope','TramiteCerPagado', '$route', 'toastr', 'Establecimientos',  function ($scope, TramiteCerPagado, $route, toastr, Establecimientos){
-  $scope.ajustes = {
-    //Configuraciones del menu:
-    menu:{
-      titulo: 'Gestión de Establecimientos Solicitantes',
-      items:[
-        {nombre:'Revisar Requisitos', enlace:'#/tramite-establecimientosol', estilo:'active'},
-        {nombre:'Establecimientos Registrados', enlace:'#/establecimientossol', estilo:''},
-        {nombre:'Registrar establecimiento', enlace:'#/establecimientosol/persona', estilo:''}]
-    },
-    //Configuraciones de la página
-    pagina:{
-      titulo:'Revisar Requisitos'
-    }
+.controller('ListaEstabSolTramitePagadoCtrl', ['$scope','TramiteCerPagado', '$route', 'toastr', 'Establecimientos','CONFIG',  function ($scope, TramiteCerPagado, $route, toastr, Establecimientos,CONFIG){
+ $scope.user = {
+    rol_id: CONFIG.ROL_CURRENT_USER
   }
+  if ($scope.user.rol_id==3) {
+    $scope.ajustes = {
+        //Configuraciones del menu:
+        menu:{
+          titulo: 'Gestión de Establecimientos Solicitantes',
+          items:[
+          
+            {nombre:'Buscar empresa solicitante', enlace:'#/buscar-propietario', estilo:''},
+            {nombre:'Trámites pagados', enlace:'#/tramite-establecimientosol', estilo:'active'}
+            ]
+        },
+        //Configuraciones de la página
+        pagina:{
+          titulo:'Trámites de certificado sanitario'
+        }
+      }
+  } else if ($scope.user.rol_id==14) {
+        
+        $scope.ajustes = {
+        menu:{
+          titulo: 'Gestión de Establecimientos Solicitantes',
+          items:[
+          {nombre:'Trámites pagados', enlace:'#/tramite-establecimientosol', estilo:'active'},
+           {nombre:'Establecimientos validados', enlace:'#/lista-validacion', estilo:''},
+            {nombre:'Establecimientos inspeccionados', enlace:'#/lista-inspeccionados', estilo:''},
+            {nombre:'Establecimientos que cancelaron', enlace:'#/lista-cancelaron', estilo:''}
+            ,
+            {nombre:'Establecimientos concluidos', enlace:'#/lista-concluidos', estilo:''}]
+        },
+        pagina:{
+          titulo:'Establecimientos Solicitantes'
+        }
+      }
+
+  } else if ($scope.user.rol_id==1) {
+        
+        $scope.ajustes = {
+        menu:{
+          titulo: 'Gestión de Establecimientos Solicitantes',
+          items:[
+          {nombre:'Trámites pagados', enlace:'#/tramite-establecimientosol', estilo:'active'},
+           {nombre:'Establecimientos validados', enlace:'#/lista-validacion', estilo:''},
+            {nombre:'Establecimientos inspeccionados', enlace:'#/lista-inspeccionados', estilo:''},
+            {nombre:'Establecimientos que cancelaron', enlace:'#/lista-cancelaron', estilo:''}
+            /*,
+            {nombre:'Establecimientos concluidos', enlace:'#/lista-concluidos', estilo:''}*/]
+        },
+        pagina:{
+          titulo:'Trámites pagados'
+        }
+      }
+
+  }
+   else {
+      $scope.ajustes = {
+        //Configuraciones del menu:
+        menu:{
+          titulo: 'Gestión de Establecimientos Solicitantes',
+          items:[
+            {nombre:'Revisar Requisitos', enlace:'#/tramite-establecimientosol', estilo:'active'},
+            {nombre:'Establecimientos validados', enlace:'#/lista-validacion', estilo:''},
+            {nombre:'Establecimientos inspeccionados', enlace:'#/lista-inspeccionados', estilo:''}]
+        },
+        //Configuraciones de la página
+        pagina:{
+          titulo:'Revisar Requisitos'
+        }
+      }
+  }
+
+
+  
 
   $scope.sortType = 'ess_id'; // set the default sort type
   $scope.sortReverse  = false;  // set the default sort order
@@ -433,20 +494,42 @@ $scope.initMap = function(){
 
 .controller('BuscarCrearPersonaCtrl', ['$http','CONFIG','$scope','EstabSols', '$route', 'toastr','$location',
   function ($http,CONFIG,$scope, EstabSols, $route, toastr,$location){
-  $scope.ajustes = {
-    //Configuraciones del menu:
-    menu:{
-      titulo: 'Gestión de Establecimientos Solicitantes',
-      items:[
-        {nombre:'Revisar Requisitos', enlace:'#/tramite-establecimientosol', estilo:''},
-        {nombre:'Establecimientos Registrados', enlace:'#/establecimientossol', estilo:''},
-        {nombre:'Registrar establecimiento', enlace:'#/establecimientosol/persona', estilo:'active'}]
-    },
-    //Configuraciones de la página
-    pagina:{
-      titulo:'Buscar propietario registrado'
-    }
+     $scope.user = {
+    rol_id: CONFIG.ROL_CURRENT_USER
   }
+    if ($scope.user.rol_id == 1 || $scope.user.rol_id == 14) {
+      $scope.ajustes = {
+        //Configuraciones del menu:
+        menu:{
+          titulo: 'Gestión de Establecimientos',
+          items:[
+            {nombre:'Establecimientos Registrados', enlace:'#/establecimientossol', estilo:''},
+            {nombre:'Registrar establecimiento', enlace:'#/establecimientosol/persona', estilo:'active'}]
+        },
+        //Configuraciones de la página
+        pagina:{
+          titulo:'Buscar propietario registrado'
+        }
+      }
+
+    }/* else if ($scope.user.rol_id == 1)  {
+       $scope.ajustes = {
+        //Configuraciones del menu:
+        menu:{
+          titulo: 'Gestión de Establecimientos Solicitantes',
+          items:[
+            {nombre:'Revisar Requisitos', enlace:'#/tramite-establecimientosol', estilo:''},
+            {nombre:'Establecimientos Registrados', enlace:'#/establecimientossol', estilo:''},
+            {nombre:'Registrar establecimiento', enlace:'#/establecimientosol/persona', estilo:'active'}]
+        },
+        //Configuraciones de la página
+        pagina:{
+          titulo:'Buscar propietario registrado'
+        }
+      }
+
+    }*/
+  
     
   $scope.crear_pnatural=function(per_id){
     $scope.data={
@@ -506,6 +589,58 @@ $scope.initMap = function(){
 }])
 
 
+.controller('VerEssCtrl', ['CONFIG', 'authUser','$scope','EstabSols','Funcionario', '$routeParams', '$location', '$timeout','Rubro',
+  function (CONFIG, authUser,$scope, EstabSols, Funcionario, $routeParams, $location, $timeout,Rubro){
+  /*if(authUser.isLoggedIn()){*/
+
+    if(CONFIG.ROL_CURRENT_USER == 1 || CONFIG.ROL_CURRENT_USER == 14 || CONFIG.ROL_CURRENT_USER == 15)
+    {
+      $scope.ajustes = {
+        menu:{
+          titulo: 'Gestión de Establecimientos',
+          items:[
+        {nombre:'Establecimientos Registrados', enlace:'#/establecimientossol', estilo:''},
+        {nombre:'Registrar establecimiento', enlace:'#/establecimientosol/persona', estilo:''}
+          ]
+        },
+        pagina:{
+          titulo:'Información General del Establecimiento'
+        }
+      }
+    }
+
+    $scope.propietario="";
+    var ess_id=$routeParams.ess_id;
+    EstabSols.get({ess_id:ess_id},function(data){
+      $scope.establecimiento=data.establecimiento;
+      
+      console.log("ver est____",$scope.establecimiento);
+      console.log("length   ____",Object.keys($scope.establecimiento.propietario).length);
+      if (Object.keys($scope.establecimiento.propietario).length==7) {
+        $scope.propietario=$scope.establecimiento.propietario.pjur_razon_social;
+        console.log("propietario juridico  ____",$scope.propietario);
+      }
+      if (Object.keys($scope.establecimiento.propietario).length==22) {
+        $scope.propietario=$scope.establecimiento.propietario.per_nombres+' '+$scope.establecimiento.propietario.per_apellido_primero+' '+$scope.establecimiento.propietario.per_apellido_segundo;
+        console.log("propietario natural  ____",$scope.propietario);
+      }
+
+      $scope.direccion=$scope.establecimiento.est_sol.ess_avenida_calle+' #'+$scope.establecimiento.est_sol.ess_numero+' '+$scope.establecimiento.est_sol.ess_stand
+      Rubro.get({emp_id:$scope.establecimiento.empresa.emp_id},function(data){
+          $scope.rubro=data.rubro;
+      });
+    });
+
+    function toTime(timeString){
+      var timeTokens = timeString.split(':');
+      return new Date(1970,0,1, timeTokens[0], timeTokens[1], timeTokens[2]);
+    }
+
+ /* } else {
+    $location.path('/inicio');
+  }*/
+}])
+
 /*BUSCA PERSONA POR CI*/
 .controller('BuscaPersonaRegistradaCtrl', ['$http', '$scope', 'CONFIG', buscaPersonaRegistradaController])
 .controller('BuscaPJuridicaRegistradaCtrl', ['$http', '$scope', 'CONFIG', buscaPJuridicaRegistradaController])
@@ -523,6 +658,7 @@ function buscaPersonaRegistradaController($http, $scope, CONFIG){
               $scope.ver=true;
               $scope.resultado='';
               $scope.persona = respuesta.persona.persona;
+              $scope.imagen = respuesta.persona.imagen;
               $scope.zona = respuesta.persona.zona;
               $scope.municipio = respuesta.persona.municipio;
               $scope.provincia = respuesta.persona.provincia;

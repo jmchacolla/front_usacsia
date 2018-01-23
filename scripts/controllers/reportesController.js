@@ -129,6 +129,13 @@ angular.module("adminApp")
     fecha2 : null
   }
   $scope.show = false;
+   var FunG = localStorage.getItem("Funcionario");
+  var FunG = JSON.parse(FunG);
+  var fun_id = FunG.fun_id;
+
+  var FunG=localStorage.getItem('Funcionario');
+  var FunG=JSON.parse(FunG);
+  var fun_id=FunG.fun_id;
 
   $scope.get_rep=function(fecha1, fecha2){
       var fecha1 = moment(fecha1,"DD-MM-YYYY").format("YYYY-MM-DD");
@@ -136,7 +143,7 @@ angular.module("adminApp")
       $scope.fecha={
         fecha1: fecha1,
         fecha2: fecha2,
-        fun_id: 1  ///ARREGLAR
+        fun_id: fun_id
       }
 
     Reportes.save($scope.fecha).$promise.then(function(data)

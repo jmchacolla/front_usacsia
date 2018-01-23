@@ -133,9 +133,9 @@
                     <td>{{persona.ess_razon_social}}</td>
                     <td>{{persona.emp_nit}}</td>
                     <td>{{persona.emp_licencia}}</td>
-                    <td ng-show="persona.et_estado_pago=='PENDIENTE'"><a href="" class="btn btn-success btn-xs" ng-click="boleta(persona)"><span class="glyphicon glyphicon-ok"></span> Realizar pago</a>
+                    <td ><a href="" class="btn btn-success btn-xs" ng-click="boleta(persona)"><span class="glyphicon glyphicon-ok"></span> Realizar pago</a>
                     </td>
-                    <td ng-show="persona.et_estado_pago=='PAGADO'">{{persona.et_estado_pago}}</td>
+                    <td ng-show="persona.et_estado_pago!='PAGADO'">{{persona.et_estado_pago}}</td>
                   </tr>
                 </tbody>
               </table>
