@@ -849,3 +849,11 @@ angular.module("adminApp")
   })
 }])
 
+
+/*jhon--------------clasificacion general*/
+.factory('ClasificacionGeneral', ['$resource', 'CONFIG', function ($resource, CONFIG) {
+  return $resource(CONFIG.DOMINIO_SERVICIOS+"/clasificacion_general/:cg_id", {cg_id:"@_cg_id"},{ 
+    update:{method:"PUT", params: {cg_id:"@cg_id"}}
+  })
+}])
+

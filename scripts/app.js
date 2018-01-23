@@ -867,6 +867,21 @@ angular.module("adminApp", ["authService", "ngRoute", "ngResource", "satellizer"
     templateUrl: 'templates/arancel/categoria-lista.html',
     controller: 'CategoriaCtrl'
   })
+  /*jhon crear categoria clasificacion general*/
+  .when('/clasificacion-general', {
+    templateUrl: 'templates/arancel/clasi-gral.html',
+    controller: 'ClaGralCrearCtrl'
+  })
+  /*jhon crear categoria clasificacion especialidad*/
+  .when('/clasificacion-especialidad', {
+    templateUrl: 'templates/arancel/clasi-esp.html',
+    controller: 'ClaEspCrearCtrl'
+  })
+    /*jhon crear categoria subclasificacion*/
+  .when('/subclasificacion', {
+    templateUrl: 'templates/arancel/subclasificacion.html',
+    controller: 'SubclasificacionCtrl'
+  })
 //falta colocar en el menu inicio
   .when('/firma/crear', {
     templateUrl: 'templates/firma/crear.html',
