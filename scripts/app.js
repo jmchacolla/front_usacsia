@@ -16,6 +16,27 @@ angular.module("adminApp", ["authService", "ngRoute", "ngResource", "satellizer"
     authorized: [ ROLES.MEDICO.ROL, ROLES.ENFERMERA.ROL]
   }
 })
+
+/*estbas 18 y 19*/
+
+.when('/ejemplo_paginacion', {//--------medico
+  templateUrl: 'templates/persona/borrar.html',
+  controller: 'BorrarCtrl',
+  
+})
+
+
+
+
+
+
+
+
+
+
+
+
+
 //persona_tramite lista para atender pacientes para medico
 .when('/atencion-consulta', {
   templateUrl: 'templates/personatramite/atencionconsulta.html',

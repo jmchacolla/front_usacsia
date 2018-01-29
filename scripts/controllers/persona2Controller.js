@@ -148,7 +148,8 @@ $scope.zon=false;
 }])
 
 
-.controller('ListaPersonasCtrl', ['$scope', 'Personas', '$route', 'toastr', function ($scope, Personas, $route, toastr){
+.controller('ListaPersonasCtrl', ['$http','CONFIG','$scope', 'Personas', '$route', 'toastr',
+  function ($http,CONFIG,$scope, Personas, $route, toastr){
   $scope.ajustes = {
     menu:{
       titulo: 'Gestión de Personas',
@@ -165,10 +166,31 @@ $scope.zon=false;
   $scope.sortReverse  = true;  // set the default sort order
   $scope.Personas = [];
 
+  
   $scope.loading=true;//para hacer un loading
+  $scope.datos_paginacion="";
+  $scope.filas=25;
+  $scope.indices=[];
+  
+  
   Personas.get(function(data){
-    $scope.personas = data.persona;
-    if(data.persona.length>0){
+    $scope.datos_paginacion=data.persona;
+    $scope.paginas=[];
+    for (var i = 0; i<$scope.datos_paginacion.last_page; i++) {
+       $scope.paginas[i]=i+1;
+    }
+    data.persona;
+    $scope.personas = data.persona.data;
+    if(data.persona.data.length>0){
+      $scope.personas=data.persona.data;
+      
+      for (var i= 0; i<$scope.personas.length; i++){
+        if($scope.datos_paginacion.from<=$scope.datos_paginacion.to){
+          $scope.personas[i].per_indice=$scope.datos_paginacion.from;
+          $scope.datos_paginacion.from++;
+        }
+      }
+      
       $scope.loading = false;
       $scope.msg = true;
     }
@@ -181,6 +203,43 @@ $scope.zon=false;
       $scope.loading = false;
       $scope.msg = false;
     }); 
+
+
+
+/*PAGINACION*/
+$scope.paginar= function(url,filas,pagina,operador) {
+    $scope.url={
+      url:url
+    };
+    if(url==''){
+      console.log('pagina seleccionad',pagina);
+       $scope.url.url= CONFIG.DOMINIO_SERVICIOS+'/persona'+'?page='+pagina;
+    }
+    $http({
+        url: $scope.url.url,
+        method: "GET",
+        params: {nro:filas}
+    }).success(function(data) {
+      console.log('primera datos_paginacion esta lista', data);
+       $scope.personas=data.persona.data;
+       $scope.datos_paginacion=data.persona;
+       /*indice fila*/
+          for (var i= 0; i<$scope.personas.length; i++){
+            if($scope.datos_paginacion.from<=$scope.datos_paginacion.to){
+              $scope.personas[i].per_indice=$scope.datos_paginacion.from;
+              $scope.datos_paginacion.from++;
+            }
+          }
+        /*select pagina*/
+      $scope.paginas=[];
+      for (var i = 0; i<$scope.datos_paginacion.last_page; i++) {
+         $scope.paginas[i]=i+1;
+      }
+    });
+};
+/*PAGINACION*/
+
+
 
   var id=0;
   $scope.nombre_completo = "";
@@ -610,4 +669,150 @@ $scope.zon=false;
     }
 }
 })
-;
+
+
+
+
+
+
+
+
+/*borrar controlador de prueba para paginacion*/
+
+//Lista las reservas y citas médicas de un paciente
+.controller('BorrarCtrl', ['$scope', '$routeParams', '$timeout','$location','Personas', 'toastr', '$http',
+  function ($scope,$routeParams,$timeout,$location,Personas,toastr,$http) {
+  $scope.ajustes = {
+    menu:{
+      titulo: 'Servicios al ciudadano',
+      items:[{nombre:'Reservar cita medica', enlace:'#/servicios_ciudadanos/realizar_reserva',estilo:''},
+           {nombre:'Cita previa para familiares', enlace:'#/servicios_ciudadanos/realizar_reserva_familiar',estilo:''},
+         {nombre:'Citas realizadas', enlace:'#/servicios_ciudadanos/listar_reservas',estilo:'active'}]
+    },
+    pagina:{
+      titulo:'Reservas'
+    }
+  }
+
+  $scope.sortType = 'cit_fecha_consulta'; // ESTABLECIENDO EL TIPO DE ORDENAMIENTO
+  $scope.sortReverse  = true;  // PARA ORDENAR ASCENDENTEMENTO O DESCENDENTEMENTE
+  $scope.loading=true;//PARA HACER UN LOADING EN EL TEMPLATE
+  $scope.erroor=true;
+  //obteniendo el pac_id
+  var pac_id = 0;
+  if($routeParams.pac_id != null){
+    pac_id = $routeParams.pac_id;
+    $scope.pac_id_fam = pac_id;
+    console.log($scope.pac_id_fam);
+    $scope.ajustes.menu.items[2].estilo = "";
+  } else {
+    pac_id = parseInt(localStorage.getItem("PacId"), 10);
+  }
+  
+  //REEMPLAZAR
+  $scope.nro_filas = 10;
+  $scope.filas = [];
+  Personas.get({pac_id:pac_id,nro:$scope.nro_filas},function(data) {
+    $scope.citas = data.persona;
+    $scope.last_page = $scope.citas.last_page;
+      if($scope.citas.data.length>0){
+        $scope.loading = false;
+        $scope.msg = data.status;
+      } else {
+        $scope.loading = false;
+        $scope.msg = false;
+      }
+      for (var i = 0; i < $scope.last_page; i++) {
+        $scope.filas[i] = i+1;
+      };
+  },function () {
+        toastr.error("ERROR INESPERADO, POR FAVOR ACTUALICE LA PÁGINA");
+        $scope.loading = false;
+        $scope.msg = false;
+        $scope.erroor = false;
+  }); 
+
+  $scope.numero_filas = function (nro) {
+    $scope.cargando = true;
+    if($scope.cargando) {
+        toastr.info('Cargando ...', {
+          positionClass: 'toast-top-center',
+          tapToDismiss: false
+        });
+      }
+    Personas.get({pac_id:pac_id,nro:nro},function(data) {
+    $scope.citas = data.cita;
+    $scope.last_page = $scope.citas.last_page;
+      if($scope.citas.data.length>0){
+        //$scope.last_page = $scope.citas.last_page;
+        for(var i in $scope.citas.data) {
+      $scope.citas.data[i].cit_hora_consulta = toTime($scope.citas.data[i].cit_hora_consulta);
+      $scope.citas.data[i].cit_fecha_consulta = moment($scope.citas.data[i].cit_fecha_consulta,"YYYY-MM-DD").format("DD-MM-YYYY");
+      }
+        $scope.loading = false;
+        $scope.msg = data.status;
+      } else {
+        $scope.loading = false;
+        $scope.msg = false;
+      }
+      for (var i = 0; i < $scope.last_page; i++) {
+        $scope.filas[i] = i+1;
+      };
+  },function () {
+        toastr.error("ERROR INESPERADO, POR FAVOR ACTUALICE LA PÁGINA");
+        $scope.loading = false;
+        $scope.msg = false;
+        $scope.erroor = false;
+  });
+  }
+
+  $scope.cambia_pagina = function (pag,nro) {
+    $scope.nro_filas = nro;
+    Personas.get({pac_id:pac_id,nro:nro,page:pag},function(data) {
+    $scope.citas = data.cita;
+    $scope.last_page = $scope.citas.last_page;
+      if($scope.citas.data.length>0){
+        //$scope.last_page = $scope.citas.last_page;
+        for(var i in $scope.citas.data) {
+      $scope.citas.data[i].cit_hora_consulta = toTime($scope.citas.data[i].cit_hora_consulta);
+      $scope.citas.data[i].cit_fecha_consulta = moment($scope.citas.data[i].cit_fecha_consulta,"YYYY-MM-DD").format("DD-MM-YYYY");
+      }
+        $scope.loading = false;
+        $scope.msg = data.status;
+      } else {
+        $scope.loading = false;
+        $scope.msg = false;
+      }
+  },function () {
+        toastr.error("ERROR INESPERADO, POR FAVOR ACTUALICE LA PÁGINA");
+        $scope.loading = false;
+        $scope.msg = false;
+        $scope.erroor = false;
+  });
+  }
+
+  $scope.paginar = function (url){
+    if (url != null){
+      $http.get(url+'&nro='+$scope.nro_filas).success(function(respuesta){
+        $scope.citas = respuesta.cita;
+    $scope.last_page = $scope.citas.last_page;
+      if($scope.citas.data.length>0){
+        //$scope.last_page = $scope.citas.last_page;
+        for(var i in $scope.citas.data) {
+      $scope.citas.data[i].cit_hora_consulta = toTime($scope.citas.data[i].cit_hora_consulta);
+      $scope.citas.data[i].cit_fecha_consulta = moment($scope.citas.data[i].cit_fecha_consulta,"YYYY-MM-DD").format("DD-MM-YYYY");
+      }
+        $scope.loading = false;
+        $scope.msg = respuesta.status;
+      } else {
+        $scope.loading = false;
+        $scope.msg = false;
+      }
+      });
+    }
+  }
+
+}])
+
+
+
