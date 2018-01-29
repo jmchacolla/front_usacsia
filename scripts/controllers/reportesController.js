@@ -129,6 +129,9 @@ angular.module("adminApp")
     fecha2 : null
   }
   $scope.show = false;
+   var FunG = localStorage.getItem("Funcionario");
+  var FunG = JSON.parse(FunG);
+  var fun_id = FunG.fun_id;
 
   var FunG=localStorage.getItem('Funcionario');
   var FunG=JSON.parse(FunG);

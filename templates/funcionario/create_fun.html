@@ -66,16 +66,30 @@
                         <span ng-show="addFuncionario.profesion.$error.required">El campo es obligatorio.</span>
                       </span>
                     </div> 
-                    <div class="col-md-6"><!--ng-controller="IndexCargoCtrl"  -->
-                      <div >
+                    <div class="col-md-6">
+                      
                         <label class="control-label">Cargo: <strong class="fg_red">*</strong></label>
-                         <input type="" class="form-control" name="cargo" placeholder="Ej. Tecnico" ng-model="funcionarios.fun_cargo" ng-model-options="{ updateOn: 'blur' }" required>
-                        <!-- <select class="form-control" name="cargo" ng-model="funcionarios.fe_cargo"  ng-options="cargo.car_tipo as cargo.car_tipo for cargo in cargos" >
-                        </select> -->
+                         <!-- <input type="" class="form-control" name="cargo" placeholder="Ej. Tecnico" ng-model="funcionarios.fun_cargo" ng-model-options="{ updateOn: 'blur' }" required> -->
+                        <select class="form-control" name="ci_expedido" ng-model="funcionarios.fun_cargo" ng-model-options="{ updateOn: 'blur' }" required>
+                            <option value="JEFE DE USACSIA">JEFE DE USACSIA</option>
+                            <option value="RECEPCIONISTA">RECEPCIÓNISTA</option>
+                            <option value="RECEPCION LABORATORIO">RECEPCION LABORATORIO</option>
+                            <option value="CAJERO">CAJERO</option>
+                            <option value="RESPONSABLE CARNET SANITARIO">RESPONSABLE CARNET SANITARIO</option>
+                            <option value="MEDICO">MEDICO</option>
+                            <option value="ENFERMERA/O">ENFERMERA/O</option>
+                            <option value="RESPONSABLE DE LABORATORIO">RESPONSABLE DE LABORATORIO</option>
+                            <option value="TECNICO LABORATORIO">TECNICO LABORATORIO</option>
+                            <option value="RESPONSABLE CERTIFICADO SANITARIO">RESPONSABLE CERTIFICADO SANITARIO</option>
+                            <option value="INSPECTOR">INSPECTOR</option>
+                            <option value="REVISOR">REVISOR</option>
+                            <option value="JEFE DE UNIDAD ADMINISTRATIVA FINANCIERA">JEFE DE UNIDAD ADMINISTRATIVA FINANCIERA</option>
+                            <option value="RESPONSABLE DE TESORERIA">RESPONSABLE DE TESORERIA</option>
+                      </select>
                         <span class="messages" ng-show="addFuncionario.cargo.$touched">
                           <span ng-show="addFuncionario.cargo.$error.required">El campo es obligatorio.</span>
                         </span>
-                      </div>  
+                     
                     </div> 
 <!--                     <div class="col-md-3">
                       <label class="control-label">Estado Laboral: <strong class="fg_red">*</strong></label>

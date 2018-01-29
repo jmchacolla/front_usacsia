@@ -107,7 +107,8 @@ if (SesionG.rol_id !=6) {
         menu:{
           titulo: 'Gestión de usuarios',
           items:[
-            {nombre:'Ver Datos del Establecimiento', enlace:'#/establecimientos/ver/'+es_id, estilo:''}]
+            {nombre:'Ver Datos del Establecimiento', enlace:'#/establecimientos/ver/'+es_id, estilo:''},
+            {nombre:'Asignar Roles', enlace:'#/usuario/create', estilo:'active'}]
         },
         pagina:{
           titulo:'Asignar Roles',
@@ -168,10 +169,10 @@ if (SesionG.rol_id !=6) {
     //})
      $scope.roles = [
           { rol_id: 2, rol_nombre: "JEFE USACSIA", rol_descripcion: "GENERA FIRMA, FIRMA DOCUMENTOS"},
-          { rol_id: 3, rol_nombre: "CAJERO", rol_descripcion: "Registra pago de trámites, genera reportes, asigna consultorio"},
+          { rol_id: 3, rol_nombre: "CAJERO", rol_descripcion: "Registra pago de trámites, genera reportes, asigna consultorio"}/*,
           { rol_id: 4, rol_nombre: "PERSONA", rol_descripcion: "CUANDO SE REGISTRA EN EL SISTEMA"},
           { rol_id: 5, rol_nombre: "PACIENTE", rol_descripcion: "Paga CaS, entrega muestra, consulta medica, imprime CaS, Seguimiento"},
-          { rol_id: 6, rol_nombre: "EMPRESA", rol_descripcion: "Registra empresa, carga lista empleados, solicita trámite CaS, CaS empleados, CeS, seguimiento a tramites, carga documentos, paga trámites"},
+          { rol_id: 6, rol_nombre: "EMPRESA", rol_descripcion: "Registra empresa, carga lista empleados, solicita trámite CaS, CaS empleados, CeS, seguimiento a tramites, carga documentos, paga trámites"}*/,
           { rol_id: 7, rol_nombre: "RESPONSABLE DE AREA CARNÉ SANITARIO", rol_descripcion: "Registra consultorio, laboratorio, asigna horarios, reprograma carnetización, especifica dias de antención, renera reportes"},
 
           { rol_id: 8, rol_nombre: "RECEPCIONISTA", rol_descripcion: "Asiste en registro de personas, toma fotografias, asigna consultorio"},

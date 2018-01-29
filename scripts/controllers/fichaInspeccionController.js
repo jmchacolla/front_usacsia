@@ -678,11 +678,10 @@ var fc_id=$routeParams.fc_id;
   if ($scope.user.rol_id == 16) {
   $scope.ajustes = {
     menu:{
-      titulo: 'Lista de Fichas de inspección',
+      titulo: 'Gestión de Fichas de inspección',
       items:[ 
-    {nombre:'Inspecciones', enlace:'#/inspecciones/'+et_id, estilo:'active'},
-       {nombre:'Establecimientos validados', enlace:'#/lista-validacion', estilo:''},
-{nombre:'Establecimientos inspeccionados', enlace:'#/lista-inspeccionados', estilo:''}
+          {nombre:'Inspecciones', enlace:'#/inspecciones/'+et_id, estilo:'active'},
+          {nombre:'Establecimientos inspeccionados', enlace:'#/lista-inspeccionados', estilo:''}
         
         ]
     },
